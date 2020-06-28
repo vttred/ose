@@ -1,0 +1,46 @@
+{
+    "OSE.Edit": "Edit",
+    "OSE.Delete": "Delete",
+
+    "OSE.Name": "Name",
+    "OSE.Class": "Class",
+    "OSE.Title": "Title",
+    "OSE.Alignment": "Alignment",
+    "OSE.Level": "Level",
+    "OSE.Experience": "Experience",
+
+    "OSE.scores.str.long": "Strength",
+    "OSE.scores.str.short": "STR",
+    "OSE.scores.wis.long": "Wisdom",
+    "OSE.scores.wis.short": "WIS",
+    "OSE.scores.int.long": "Intelligence",
+    "OSE.scores.int.short": "INT",
+    "OSE.scores.dex.long": "Dexterity",
+    "OSE.scores.dex.short": "DEX",
+    "OSE.scores.con.long": "Constitution",
+    "OSE.scores.con.short": "CON",
+    "OSE.scores.cha.long": "Charisma",
+    "OSE.scores.cha.short": "CHA",
+
+    "OSE.saves.death.short": "D",
+    "OSE.saves.wands.short": "W",
+    "OSE.saves.paralysis.short": "P",
+    "OSE.saves.breath.short": "B",
+    "OSE.saves.spells.short": "S",
+
+    "OSE.Health": "Hit Points",
+    "OSE.HitDice": "Hit Dice",
+    "OSE.Movement": "Movement",
+    "OSE.SpecialMovement": "Special Movement",
+    "OSE.ArmorClass": "Armor Class",
+    "OSE.SpellDC": "DC",
+    "OSE.Initiative": "Initiative",
+
+    
+    "OSE.category.attributes": "Attributes",
+    "OSE.category.inventory": "Inventory",
+    "OSE.category.spells": "Spells",
+    "OSE.category.notes": "Notes",
+    
+    "OSE.panel.abilities": "Abilities"
+}

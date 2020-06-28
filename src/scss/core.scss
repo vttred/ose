@@ -1,0 +1,36 @@
+.ose .window-content {
+  // Utils
+  .collapsed {
+    display: none;
+  }
+  .margin {
+    margin: 5px;
+  }
+  // Inputs
+  input {
+    text-align: center;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+  }
+  input:not([type="checkbox"]) {
+    background: none;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid $colorTan;
+    &:hover, &:focus {
+      box-shadow: none;
+      background: $inputBackground;
+    }
+  }
+  a:hover {
+    text-shadow: none;
+  }
+}

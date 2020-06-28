@@ -1,0 +1,137 @@
+@import "./variables.scss";
+
+.ose.sheet.actor {
+  $detailsHeight: 44px;
+
+  ul li {
+    list-style: none;
+    padding: 0;
+  }
+
+  /* Header Summary Details */
+  .header-details {
+    h1 {
+      input {
+        margin: 0 0 10px 0;
+      }
+    }
+  }
+  .profile-img {
+    border: 0;
+    flex: 0 0 145px;
+    height: 145px;
+  }
+
+  .summary {
+    flex: 0 0 100%;
+    height: $detailsHeight;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: none;
+
+    li {
+      height: calc(100% - 6px);
+      float: left;
+      margin: 2px 0;
+      padding: 0;
+      line-height: 30px;
+      color: $colorOlive;
+      position: relative;
+      label {
+        line-height: 10px;
+        position: absolute;
+        font-size: 10px;
+        color: $colorOlive;
+        bottom: 0;
+        left: 12px;
+      }
+    }
+  }
+  .sheet-tabs {
+    color: whitesmoke;
+    background: $colorDark;
+    margin: 4px 0 0;
+    border: 1px solid $colorDark;
+    .item {
+      padding: 2px;
+      &.active {
+        background: $colorTan;
+        text-shadow: none;
+      }
+    }
+  }
+  .sheet-body {
+    padding: 5px 0;
+    border: 1px solid $colorDark;
+    border-top: none;
+    height: calc(100% - 175px);
+    .attributes {
+      margin: 0;
+      padding: 0;
+      .attribute {
+        margin: 10px;
+        border: 1px solid $colorTan;
+        .attribute-name {
+          color: whitesmoke;
+          padding: 2px;
+          background: $colorDark;
+          text-align: center;
+        }
+        .attribute-value {
+          padding: 4px;
+          display: flex;
+          flex-direction: row;
+        }
+      }
+    }
+    .inventory {
+      .item-entry {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        .item {
+          .item-image {
+            flex: 0 0 24px;
+            background-size: cover;
+          }
+          .item-name {
+            line-height: 24px;
+            h4 {
+              text-indent: 4px;
+              margin: 0;
+              cursor: pointer;
+              &:hover {
+                color: whitesmoke;
+                background: linear-gradient(
+                  45deg,
+                  rgba(0, 0, 0, 0.5),
+                  transparent
+                );
+              }
+            }
+          }
+          .item-controls {
+            line-height: 24px;
+            flex: 0 0 32px;
+            margin: 0 3px;
+            .fas {
+              color: $colorTan;
+              font-size: 12px;
+              &:hover {
+                color: $colorDark;
+              }
+            }
+          }
+          &:nth-child(odd) {
+            background: rgba(0, 0, 0, 0.1);
+          }
+        }
+        .item-summary {
+          font-size: 12px;
+          padding: 4px;
+        }
+      }
+    }
+  }
+}

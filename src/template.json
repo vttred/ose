@@ -1,0 +1,149 @@
+{
+  "Actor": {
+    "types": ["character", "monster"],
+    "character": {
+      "details": {
+        "biography": "",
+        "class": "",
+        "title": "",
+        "alignment": "",
+        "literate": false,
+        "level": 1,
+        "xp": 0
+      },
+      "scores": {
+        "str": {
+          "value": 0,
+          "mod": 0
+        },
+        "int": {
+          "value": 0,
+          "mod": 0
+        },
+        "wis": {
+          "value": 0,
+          "mod": 0
+        },
+        "dex": {
+          "value": 0,
+          "mod": 0
+        },
+        "con": {
+          "value": 0,
+          "mod": 0
+        },
+        "cha": {
+          "value": 0,
+          "mod": 0
+        }
+      },
+      "currency": {
+        "gold": 0,
+        "silver": 0,
+        "copper": 0
+      },
+      "spells": {
+        "dc": 0,
+        "lvl1": {
+          "value": 0,
+          "max": 0
+        },
+        "lvl2": {
+          "value": 0,
+          "max": 0
+        },
+        "lvl3": {
+          "value": 0,
+          "max": 0
+        },
+        "lvl4": {
+          "value": 0,
+          "max": 0
+        },
+        "lvl5": {
+          "value": 0,
+          "max": 0
+        }
+      },
+      "hp": {
+        "hd": "",
+        "value": 20,
+        "max": 20
+      },
+      "ac": {
+        "value": 0,
+        "mod": 0
+      },
+      "thaco": {
+        "value": 19,
+        "mod": 0
+      },
+      "saves": {
+        "D": 10,
+        "W": 10,
+        "P": 10,
+        "B": 10,
+        "S": 10
+      },
+      "movement": {
+        "base": 0,
+        "encounter": 0
+      },
+      "initative": {
+        "value": 0,
+        "mod": 0
+      },
+      "languages": []
+    },
+    "monster": {
+      "details": {
+        "biography": "",
+        "alignment": "",
+        "xp": 0,
+        "treasure": "",
+        "morale": 0
+      },
+      "saves": {
+        "D": 10,
+        "W": 10,
+        "P": 10,
+        "B": 10,
+        "S": 10
+      },
+      "thaco": {
+        "value": 19,
+        "mod": 0
+      },
+      "hp": {
+        "hd": "",
+        "max": 0,
+        "value": 0
+      },
+      "ac": {
+        "value": 0,
+        "mod": 0
+      },
+      "movement": {
+        "base": 0,
+        "encounter": 0
+      }
+    }
+  },
+  "Item": {
+    "types": ["item", "spell", "ability"],
+    "item": {
+      "description": "",
+      "quantity": 1,
+      "weight": 0
+    },
+    "spell": {
+      "lvl": 1,
+      "class": "",
+      "description": ""
+    },
+    "ability": {
+      "requirements": "",
+      "description": ""
+    }
+  }
+}

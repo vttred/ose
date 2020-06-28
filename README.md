@@ -1,0 +1,1 @@
+### Old School Essentials System for Foundry VTT

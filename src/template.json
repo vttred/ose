@@ -74,7 +74,7 @@
         "value": 0,
         "mod": 0
       },
-      "thaco": {
+      "thac0": {
         "value": 19,
         "mod": 0
       },
@@ -101,6 +101,8 @@
         "alignment": "",
         "xp": 0,
         "treasure": "",
+        "size": "",
+        "appearing": "",
         "morale": 0
       },
       "saves": {
@@ -110,7 +112,7 @@
         "B": 10,
         "S": 10
       },
-      "thaco": {
+      "thac0": {
         "value": 19,
         "mod": 0
       },
@@ -123,9 +125,35 @@
         "value": 0,
         "mod": 0
       },
+      "attacks": {
+        "value": 1
+      },
       "movement": {
         "base": 0,
         "encounter": 0
+      },
+      "spells": {
+        "dc": 0,
+        "lvl1": {
+          "value": 0,
+          "max": 0
+        },
+        "lvl2": {
+          "value": 0,
+          "max": 0
+        },
+        "lvl3": {
+          "value": 0,
+          "max": 0
+        },
+        "lvl4": {
+          "value": 0,
+          "max": 0
+        },
+        "lvl5": {
+          "value": 0,
+          "max": 0
+        }
       }
     }
   },

@@ -8,6 +8,31 @@
     padding: 0;
   }
 
+  .panel {
+    border: 1px solid $colorDark;
+    .panel-title {
+      color: whitesmoke;
+      background: $colorDark;
+      line-height: 14px;
+      height: 20px;
+      text-align: center;
+      margin: 0;
+      padding: 4px;
+      display: flex;
+      h4 {
+        flex: 1;
+      }
+      .item-controls {
+        font-size: 12px;
+        flex: 0 0 18px;
+      }
+    }
+    .panel-content {
+      margin: 0;
+      padding: 0;
+    }
+  }
+  
   /* Header Summary Details */
   .header-details {
     h1 {
@@ -75,6 +100,7 @@
         .attribute-name {
           color: whitesmoke;
           padding: 2px;
+          margin: 0;
           background: $colorDark;
           text-align: center;
         }
@@ -85,6 +111,22 @@
         }
       }
     }
+    .attribute-group {
+      .attributes {
+        .attribute {
+          display: flex;
+          flex-direction: row;
+          .attribute-name {
+            width: 40px;
+            margin: 0;
+            line-height: 28px;
+          }
+        }
+      }
+    }
+    .editor {
+      height: 300px;
+    }
     .inventory {
       .item-entry {
         padding: 0;
@@ -93,10 +135,13 @@
         .item {
           .item-image {
             flex: 0 0 24px;
+            height: 24px;
             background-size: cover;
           }
           .item-name {
             line-height: 24px;
+            height: 24px;
+            overflow: hidden;
             h4 {
               text-indent: 4px;
               margin: 0;
@@ -123,13 +168,13 @@
               }
             }
           }
-          &:nth-child(odd) {
-            background: rgba(0, 0, 0, 0.1);
-          }
         }
         .item-summary {
           font-size: 12px;
-          padding: 4px;
+          padding: 0 4px;
+        }
+        &:nth-child(odd) {
+          background: rgba(0, 0, 0, 0.1);
         }
       }
     }

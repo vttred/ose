@@ -57,8 +57,13 @@
 <section class="panel inventory">
   <div class="panel-title">
     <h4>{{localize 'OSE.category.spells'}}</h4>
+      <div class="item-controls">
+          {{#if owner}}
+          <a class="item-control item-create" title='{{localize "OSE.Add"}}' data-type="spell"><i class="fas fa-plus"></i></a>
+          {{/if}}
+      </div>
   </div>
-  <div class="panel-content">
+  <div class="panel-content resizable" data-base-size="230">
     {{#each spells as |item|}}
     <li class="item-entry">
       <div class="item flexrow" data-item-id="{{item._id}}">

@@ -33,6 +33,20 @@ export class OseActorSheetCharacter extends ActorSheet {
 
   /* -------------------------------------------- */
 
+  // Override to set resizable initial size
+  async _renderInner(...args) {
+    const html = await super._renderInner(...args);
+    this.form = html[0];
+
+    // Resize resizable classes
+    let resizable = html.find('.resizable');
+    resizable.each((_, el) => {
+      let heightDelta = this.position.height - (this.options.height);
+      el.style.height = `${heightDelta + parseInt(el.dataset.baseSize)}px`;
+    });
+    return html;
+  }
+
   /**
    * Prepare data for rendering the Actor sheet
    * The prepared data object contains both the actor data as well as additional sheet options
@@ -94,12 +108,6 @@ export class OseActorSheetCharacter extends ActorSheet {
     li.toggleClass("expanded");
   }
 
-  _onRollAttribute(event) {
-    event.preventDefault();
-    let attribute = event.currentTarget.dataset.attribute;
-    this.actor.rollAttribute(attribute, { event: event });
-  }
-
   /**
    * Activate event listeners using the prepared sheet HTML
    * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
@@ -140,5 +148,15 @@ export class OseActorSheetCharacter extends ActorSheet {
 
     // Handle default listeners last so system listeners are triggered first
     super.activateListeners(html);
+  }
+
+  async _onResize(event) {
+    super._onResize(event);
+    let html = $(event.path);
+    let resizable = html.find('.resizable');
+    resizable.each((_, el) => {
+      let heightDelta = this.position.height - (this.options.height);
+      el.style.height = `${heightDelta + parseInt(el.dataset.baseSize)}px`;
+    });
   }
 }

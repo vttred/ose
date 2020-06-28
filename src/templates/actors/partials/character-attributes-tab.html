@@ -76,7 +76,7 @@
         </ul>
     </div>
     {{!-- Skills and abilities --}}
-    <div class="flex3 panel abilities">
+    <div class="flex3 panel abilities resizable" data-base-size="250">
         <div class="panel-title">
             <h4>{{localize 'OSE.panel.abilities'}}</h4>
             <div class="item-controls">
@@ -85,7 +85,7 @@
                 {{/if}}
             </div>
         </div>
-        <ul class="panel-content inventory">
+        <ul class="panel-content inventory resizable" data-base-size="225">
             <div class="">
                 {{#each abilities as |item|}}
                 <li class="item-entry">

@@ -135,10 +135,13 @@
         .item {
           .item-image {
             flex: 0 0 24px;
+            height: 24px;
             background-size: cover;
           }
           .item-name {
             line-height: 24px;
+            height: 24px;
+            overflow: hidden;
             h4 {
               text-indent: 4px;
               margin: 0;

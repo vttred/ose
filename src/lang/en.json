@@ -27,10 +27,15 @@
     "OSE.scores.cha.short": "CHA",
 
     "OSE.saves.death.short": "D",
+    "OSE.saves.death.long": "Death",
     "OSE.saves.wands.short": "W",
+    "OSE.saves.wands.long": "Wands",
     "OSE.saves.paralysis.short": "P",
+    "OSE.saves.paralysis.long": "Paralysis",
     "OSE.saves.breath.short": "B",
+    "OSE.saves.breath.long": "Breath",
     "OSE.saves.spells.short": "S",
+    "OSE.saves.spells.long": "Spells",
 
     "OSE.Health": "Hit Points",
     "OSE.HealthShort": "HP",

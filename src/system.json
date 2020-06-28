@@ -26,5 +26,5 @@
   "gridUnits": "ft",
   "url": "https://gitlab.com/mesfoliesludiques/foundryvtt-ose",
   "manifest": "https://gitlab.com/mesfoliesludiques/foundryvtt-ose/raw/master/src/system.json",
-  "download": "https://gitlab.com/mesfoliesludiques/foundryvtt-ose/-/raw/master/package/ose.zip"
+  "download": "https://gitlab.com/mesfoliesludiques/foundryvtt-ose/-/raw/master/package/ose-v0.1.zip"
 }

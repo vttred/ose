@@ -18,6 +18,14 @@
       text-align: center;
       margin: 0;
       padding: 4px;
+      display: flex;
+      h4 {
+        flex: 1;
+      }
+      .item-controls {
+        font-size: 12px;
+        flex: 0 0 18px;
+      }
     }
     .panel-content {
       margin: 0;
@@ -157,13 +165,13 @@
               }
             }
           }
-          &:nth-child(odd) {
-            background: rgba(0, 0, 0, 0.1);
-          }
         }
         .item-summary {
           font-size: 12px;
           padding: 4px;
+        }
+        &:nth-child(odd) {
+          background: rgba(0, 0, 0, 0.1);
         }
       }
     }

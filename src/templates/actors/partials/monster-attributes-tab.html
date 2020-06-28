@@ -41,7 +41,14 @@
 <section class="flexrow attribute-row">
     {{!-- Skills and abilities --}}
     <div class="flex3 panel abilities">
-        <h4 class="panel-title">{{localize 'OSE.panel.abilities'}}</h4>
+        <div class="panel-title">
+            <h4>{{localize 'OSE.panel.abilities'}}</h4>
+            <div class="item-controls">
+                {{#if owner}}
+                <a class="item-control item-create" title='{{localize "OSE.Add"}}' data-type="ability"><i class="fas fa-plus"></i></a>
+                {{/if}}
+            </div>
+        </div>
         <ul class="panel-content inventory">
             <div class="">
                 {{#each abilities as |item|}}
@@ -69,7 +76,14 @@
     </div>
     {{!-- Equipment --}}
     <div class="flex3 panel abilities">
-        <h4 class="panel-title">{{localize 'OSE.panel.equipment'}}</h4>
+        <div class="panel-title">
+            <h4>{{localize 'OSE.panel.equipment'}}</h4>
+            <div class="item-controls">
+                {{#if owner}}
+                <a class="item-control item-create" title='{{localize "OSE.Add"}}' data-type="item"><i class="fas fa-plus"></i></a>
+                {{/if}}
+            </div>
+        </div>
         <ul class="panel-content inventory">
             <div class="">
                 {{#each inventory as |item|}}

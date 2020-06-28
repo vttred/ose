@@ -108,12 +108,6 @@ export class OseActorSheetCharacter extends ActorSheet {
     li.toggleClass("expanded");
   }
 
-  _onRollAttribute(event) {
-    event.preventDefault();
-    let attribute = event.currentTarget.dataset.attribute;
-    this.actor.rollAttribute(attribute, { event: event });
-  }
-
   /**
    * Activate event listeners using the prepared sheet HTML
    * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM

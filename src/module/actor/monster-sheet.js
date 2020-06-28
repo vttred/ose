@@ -36,7 +36,6 @@ export class OseActorSheetMonster extends ActorSheet {
   // Override to set resizable initial size
   async _renderInner(...args) {
     const html = await super._renderInner(...args);
-    console.log(html);
     this.form = html[0];
 
     // Resize resizable classes

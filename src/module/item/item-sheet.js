@@ -45,21 +45,8 @@ export class OseItemSheet extends ItemSheet {
    */
   getData() {
     const data = super.getData();
-    data.config = CONFIG.MAJI;
+    data.config = CONFIG.OSE;
     return data;
-  }
-
-  _onDrop(event) {
-    event.preventDefault();
-    let data;
-    try {
-      data = JSON.parse(event.dataTransfer.getData("text/plain"));
-    } catch (err) {
-      return;
-    }
-    // Only handle Actor drops
-    if (data.type !== "Actor") return;
-    this.entity.update({ data: { monster: { id: data.id } } });
   }
 
   /* -------------------------------------------- */
@@ -69,30 +56,6 @@ export class OseItemSheet extends ItemSheet {
    * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
    */
   activateListeners(html) {
-    if (this.item.type == "drajule") {
-      const bar = html.find(".monster-drop");
-      bar[0].ondrop = this._onDrop.bind(this);
-    }
-
-    html.find(".entity").click(event => {
-      event.preventDefault();
-      const element = event.currentTarget;
-      const entityId = element.dataset.entityId;
-      const entity = game.actors.entities.find(f => f.id === entityId);
-      const sheet = entity.sheet;
-      if (sheet._minimized) return sheet.maximize();
-      else return sheet.render(true);
-    });
     super.activateListeners(html);
-  }
-  /* -------------------------------------------- */
-
-  /**
-   * Implement the _updateObject method as required by the parent class spec
-   * This defines how to update the subject of the form when the form is submitted
-   * @private
-   */
-  _updateObject(event, formData) {
-    return this.object.update(formData);
   }
 }

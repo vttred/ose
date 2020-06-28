@@ -1,5 +1,4 @@
 import { OseActor } from "./entity.js";
-import { ActorTraitSelector } from "../apps/trait-selector.js";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -40,7 +39,7 @@ export class OseActorSheetMonster extends ActorSheet {
    */
   getData() {
     const data = super.getData();
-    data.config = CONFIG.MAJI;
+    data.config = CONFIG.OSE;
 
     // Prepare owned items
     this._prepareItems(data);
@@ -52,18 +51,6 @@ export class OseActorSheetMonster extends ActorSheet {
    * @private
    */
   _prepareItems(data) {
-    let [traits, techniques] = data.items.reduce(
-      (arr, item) => {
-        // Classify items into types
-        if (item.type === "feature") arr[0].push(item);
-        else if (item.type === "technique") arr[1].push(item);
-        return arr;
-      },
-      [[], [], [], []]
-    );
-    // Assign and return
-    data.traits = traits;
-    data.techniques = techniques;
   }
 
   _onItemSummary(event) {
@@ -89,70 +76,6 @@ export class OseActorSheetMonster extends ActorSheet {
         icon.removeClass("fa-angle-down").addClass("fa-angle-up");
       });
     }
-  }
-
-  /**
-   * Handle spawning the ActorTraitSelector application which allows a checkbox of multiple trait options
-   * @param {Event} event   The click event which originated the selection
-   * @private
-   */
-  _onTraitSelector(event) {
-    event.preventDefault();
-    const a = event.currentTarget;
-    const options = {
-      name: `data.${a.dataset.target}`,
-      title: a.innerText,
-      choices: CONFIG.MAJI[a.dataset.options],
-    };
-    new ActorTraitSelector(this.actor, options).render(true);
-  }
-
-  _keyUpHandler(event) {
-    if (event.keyCode == 17) {
-      let icons = document.querySelectorAll(".monster .roll-empowerable");
-      for (let i = 0; i < icons.length; i++) {
-        let icon = icons[i].getElementsByTagName("img")[0];
-        if (icon.getAttribute("src") == "/systems/majimonsters/assets/icons/dice/d6s.png") {
-          icon.setAttribute("src", "/systems/majimonsters/assets/icons/dice/d8s.png");
-        } else if (icon.getAttribute("src") == "/systems/majimonsters/assets/icons/dice/d.png"){
-          icon.setAttribute("src", "/systems/majimonsters/assets/icons/dice/dp.png");
-        }
-      }
-    }
-  }
-
-  _keyDownHandler(event) {
-    if (event.keyCode == 17) {
-      let icons = document.querySelectorAll(".monster .roll-empowerable");
-      for (let i = 0; i < icons.length; i++) {
-        let icon = icons[i].getElementsByTagName("img")[0];
-        if (icon.getAttribute("src") == "/systems/majimonsters/assets/icons/dice/d8s.png") {
-          icon.setAttribute("src", "/systems/majimonsters/assets/icons/dice/d6s.png");
-        } else if (icon.getAttribute("src") == "/systems/majimonsters/assets/icons/dice/dp.png"){
-          icon.setAttribute("src", "/systems/majimonsters/assets/icons/dice/d.png");
-        }
-      }
-    }
-  }
-
-  _onRollTechnique(event) {
-    event.preventDefault();
-    let itemId = event.currentTarget.parentElement.previousElementSibling.dataset.itemId;
-    const technique = this.actor.getOwnedItem(itemId);
-    return technique.roll({empowered: event.ctrlKey, type: event.currentTarget.dataset.rollType});
-  }
-
-  _onRollStat(event) {
-    event.preventDefault();
-    let stat = event.currentTarget.parentElement.dataset.attribute;
-    this.actor.rollStat(stat, { event: event, empowered: event.ctrlKey });
-  }
-
-  _onShowCard(event) {
-    event.preventDefault();
-    let itemId = event.currentTarget.closest(".item").dataset.itemId;
-    const technique = this.actor.getOwnedItem(itemId);
-    return technique.roll({empowered: event.ctrlKey, type: event.currentTarget.dataset.rollType});
   }
 
   /* -------------------------------------------- */
@@ -196,60 +119,7 @@ export class OseActorSheetMonster extends ActorSheet {
       this._onItemSummary(event);
     });
 
-    // Switch Gender
-    html.find(".mm_gender").click((event) => {
-      event.preventDefault();
-      if (this.actor.data["data"].details.gender === "female") {
-        this.actor.data["data"].details.gender = "male";
-        this.render();
-        return;
-      }
-      this.actor.data["data"].details.gender = "female";
-      this.render();
-    });
-
-    // Config modifier
-    html.find(".mm_bullet").click((ev) => {
-      event.preventDefault();
-      let attribute = $(ev.currentTarget).siblings(".modifier");
-      if (attribute.hasClass("hidden")) {
-        attribute.removeClass("hidden");
-        return;
-      }
-      attribute.addClass("hidden");
-    });
-
-    // trait Selector
-    html.find(".trait-selector").click(this._onTraitSelector.bind(this));
-
-    // Listen to event preventing duplicate bindings
-    if (document.getElementsByClassName("monster").length == 1) {
-      document.addEventListener("keydown", this._keyUpHandler);
-      document.addEventListener("keyup", this._keyDownHandler);
-    }
-
-    html.find(".roll-icon").click((event) => {
-      if (event.currentTarget.classList.contains("roll-technique")) {
-        this._onRollTechnique(event);
-        return;
-      }
-      this._onRollStat(event);
-    });
-
-    html.find(".item-show").click((event) => {
-      this._onShowCard(event);
-    });
-
     // Handle default listeners last so system listeners are triggered first
     super.activateListeners(html);
-  }
-
-  /** @override */
-  async close(options) {
-    if (document.getElementsByClassName("monster").length == 1) {
-      document.removeEventListener("keydown", this._keyUpHandler);
-      document.removeEventListener("keyup", this._keyDownHandler);
-    }
-    return super.close(options);
   }
 }

@@ -25,7 +25,7 @@ export class OseActorSheetMonster extends ActorSheet {
         {
           navSelector: ".tabs",
           contentSelector: ".sheet-body",
-          initial: "notes",
+          initial: "attributes",
         },
       ],
     });
@@ -39,10 +39,13 @@ export class OseActorSheetMonster extends ActorSheet {
    */
   getData() {
     const data = super.getData();
+    
     data.config = CONFIG.OSE;
 
     // Prepare owned items
     this._prepareItems(data);
+
+    // DEBUG
     return data;
   }
 
@@ -51,31 +54,40 @@ export class OseActorSheetMonster extends ActorSheet {
    * @private
    */
   _prepareItems(data) {
+    // Partition items by category
+    let [inventory, abilities, spells] = data.items.reduce(
+      (arr, item) => {
+        // Classify items into types
+        if (item.type === "item") arr[0].push(item);
+        if (item.type === "ability") arr[1].push(item);
+        else if (item.type === "spell") arr[2].push(item);
+        return arr;
+      },
+      [[], [], [], []]
+    );
+
+    // Assign and return
+    data.inventory = inventory;
+    data.spells = spells;
+    data.abilities = abilities;
   }
+  
 
   _onItemSummary(event) {
     event.preventDefault();
-    let li = $(event.currentTarget).parents(".item-entry"),
-      expanded = !li.children(".collapsible").hasClass("collapsed");
-    li = $(li);
-    let ol = li.children(".collapsible");
-    let icon = li.find("i.fas");
-
-    // Collapse the Playlist
-    if (expanded) {
-      ol.slideUp(200, () => {
-        ol.addClass("collapsed");
-        icon.removeClass("fa-angle-up").addClass("fa-angle-down");
-      });
+    let li = $(event.currentTarget).parents(".item"),
+        item = this.actor.getOwnedItem(li.data("item-id")),
+        description = TextEditor.enrichHTML(item.data.data.description);
+    // Toggle summary
+    if ( li.hasClass("expanded") ) {
+      let summary = li.parents('.item-entry').children(".item-summary");
+      summary.slideUp(200, () => summary.remove());
+    } else {
+      let div = $(`<div class="item-summary">${description}</div>`);
+      li.parents('.item-entry').append(div.hide());
+      div.slideDown(200);
     }
-
-    // Expand the Playlist
-    else {
-      ol.slideDown(200, () => {
-        ol.removeClass("collapsed");
-        icon.removeClass("fa-angle-down").addClass("fa-angle-up");
-      });
-    }
+    li.toggleClass("expanded");
   }
 
   /* -------------------------------------------- */

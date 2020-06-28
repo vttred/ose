@@ -45,6 +45,8 @@
     "OSE.Thac0": "THAC0",
     "OSE.Initiative": "Initiative",
     "OSE.InitiativeShort": "INIT",
+    "OSE.Attacks": "Attacks Usable per Round",
+    "OSE.AttacksShort": "ATT",
 
     
     "OSE.category.attributes": "Attributes",
@@ -52,5 +54,6 @@
     "OSE.category.spells": "Spells",
     "OSE.category.notes": "Notes",
     
-    "OSE.panel.abilities": "Abilities"
+    "OSE.panel.abilities": "Abilities",
+    "OSE.panel.equipment": "Equipment"
 }

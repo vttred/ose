@@ -12,4 +12,10 @@
       overflow: auto;  
     }
   }
+  .attribute-row {
+      padding: 2px;
+      .abilities {
+          margin: 2px;
+      }
+  }
 }

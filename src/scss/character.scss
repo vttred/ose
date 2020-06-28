@@ -18,40 +18,8 @@
   /*  Sheet Body                               */
   /* ----------------------------------------- */
   .sheet-body {
-    .attribute-group {
-      .attributes {
-        .attribute {
-          display: flex;
-          flex-direction: row;
-          .attribute-name {
-            width: 40px;
-            margin: 0;
-            line-height: 28px;
-          }
-        }
-      }
-    }
-    .editor {
-      height: 300px;
-    }
   }
 
-  .panel {
-    border: 1px solid $colorDark;
-    .panel-title {
-      color: whitesmoke;
-      background: $colorDark;
-      line-height: 14px;
-      height: 20px;
-      text-align: center;
-      margin: 0;
-      padding: 4px;
-    }
-    .panel-content {
-      margin: 0;
-      padding: 0;
-    }
-  }
 
   .abilities {
     .panel-content {

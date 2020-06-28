@@ -1,0 +1,15 @@
+.ose.actor.monster {
+    min-height: 565px;
+    min-width: 460px;
+  .sheet-body {
+    .editor {
+      height: 300px;
+    }
+  }
+  .abilities {
+    .panel-content {
+      height: 230px;
+      overflow: auto;  
+    }
+  }
+}

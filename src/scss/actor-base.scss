@@ -8,6 +8,23 @@
     padding: 0;
   }
 
+  .panel {
+    border: 1px solid $colorDark;
+    .panel-title {
+      color: whitesmoke;
+      background: $colorDark;
+      line-height: 14px;
+      height: 20px;
+      text-align: center;
+      margin: 0;
+      padding: 4px;
+    }
+    .panel-content {
+      margin: 0;
+      padding: 0;
+    }
+  }
+  
   /* Header Summary Details */
   .header-details {
     h1 {
@@ -75,6 +92,7 @@
         .attribute-name {
           color: whitesmoke;
           padding: 2px;
+          margin: 0;
           background: $colorDark;
           text-align: center;
         }
@@ -84,6 +102,22 @@
           flex-direction: row;
         }
       }
+    }
+    .attribute-group {
+      .attributes {
+        .attribute {
+          display: flex;
+          flex-direction: row;
+          .attribute-name {
+            width: 40px;
+            margin: 0;
+            line-height: 28px;
+          }
+        }
+      }
+    }
+    .editor {
+      height: 300px;
     }
     .inventory {
       .item-entry {

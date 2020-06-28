@@ -18,9 +18,9 @@ export class OseActorSheetMonster extends ActorSheet {
     return mergeObject(super.defaultOptions, {
       classes: ["ose", "sheet", "monster", "actor"],
       template: "systems/ose/templates/actors/monster-sheet.html",
-      width: 520,
-      height: 580,
-      resizable: false,
+      width: 450,
+      height: 560,
+      resizable: true,
       tabs: [
         {
           navSelector: ".tabs",

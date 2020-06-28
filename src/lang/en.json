@@ -8,6 +8,10 @@
     "OSE.Alignment": "Alignment",
     "OSE.Level": "Level",
     "OSE.Experience": "Experience",
+    "OSE.Treasure": "Treasure type",
+    "OSE.Size": "Size",
+    "OSE.Morale": "Morale",
+    "OSE.Appearing": "NA",
 
     "OSE.scores.str.long": "Strength",
     "OSE.scores.str.short": "STR",
@@ -29,12 +33,18 @@
     "OSE.saves.spells.short": "S",
 
     "OSE.Health": "Hit Points",
+    "OSE.HealthShort": "HP",
     "OSE.HitDice": "Hit Dice",
+    "OSE.HitDiceShort": "HD",
     "OSE.Movement": "Movement",
+    "OSE.MovementShort": "MOV",
     "OSE.SpecialMovement": "Special Movement",
     "OSE.ArmorClass": "Armor Class",
+    "OSE.ArmorClassShort": "AC",
     "OSE.SpellDC": "DC",
+    "OSE.Thac0": "THAC0",
     "OSE.Initiative": "Initiative",
+    "OSE.InitiativeShort": "INIT",
 
     
     "OSE.category.attributes": "Attributes",

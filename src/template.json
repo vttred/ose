@@ -120,11 +120,11 @@
         "morale": 0
       },
       "saves": {
-        "D": 10,
-        "W": 10,
-        "P": 10,
-        "B": 10,
-        "S": 10
+        "death": 10,
+        "wand": 10,
+        "paralysis": 10,
+        "breath": 10,
+        "spell": 10
       },
       "thac0": {
         "value": 19,

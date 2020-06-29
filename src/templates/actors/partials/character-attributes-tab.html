@@ -129,34 +129,34 @@
     {{!-- Saving throws --}}
     <div class="attribute-group">
         <ul class="attributes">
-            <li class="attribute saving-throw">
+            <li class="attribute saving-throw" data-save="death">
                 <h4 class="attribute-name box-title" title="{{ localize 'OSE.saves.death.long' }}"><a>{{ localize "OSE.saves.death.short" }}</a></h4>
                 <div class="attribute-value">
-                    <input name="data.saves.d.value" type="text" value="{{data.saves.d.value}}" placeholder="0"
+                    <input name="data.saves.death.value" type="text" value="{{data.saves.death.value}}" placeholder="0"
                         data-dtype="Number" />
             </li>
-            <li class="attribute saving-throw">
-                <h4 class="attribute-name box-title" title="{{ localize 'OSE.saves.wands.long' }}"><a>{{ localize "OSE.saves.wands.short" }}</a></h4>
+            <li class="attribute saving-throw" data-save="wand">
+                <h4 class="attribute-name box-title" title="{{ localize 'OSE.saves.wand.long' }}"><a>{{ localize "OSE.saves.wand.short" }}</a></h4>
                 <div class="attribute-value">
-                    <input name="data.saves.w.value" type="text" value="{{data.saves.w.value}}" placeholder="0"
+                    <input name="data.saves.wand.value" type="text" value="{{data.saves.wand.value}}" placeholder="0"
                         data-dtype="Number" />
             </li>
-            <li class="attribute saving-throw">
-                <h4 class="attribute-name box-title" title="{{ localize 'OSE.saves.paralysis.long' }}"><a>{{ localize "OSE.saves.paralysis.short" }</a></h4>
+            <li class="attribute saving-throw" data-save="paralysis">
+                <h4 class="attribute-name box-title" title="{{ localize 'OSE.saves.paralysis.long' }}"><a>{{ localize "OSE.saves.paralysis.short" }}</a></h4>
                 <div class="attribute-value">
-                    <input name="data.saves.p.value" type="text" value="{{data.saves.p.value}}" placeholder="0"
+                    <input name="data.saves.paralysis.value" type="text" value="{{data.saves.paralysis.value}}" placeholder="0"
                         data-dtype="Number" />
             </li>
-            <li class="attribute saving-throw">
+            <li class="attribute saving-throw" data-save="breath">
                 <h4 class="attribute-name box-title" title="{{ localize 'OSE.saves.breath.long' }}"><a>{{ localize "OSE.saves.breath.short" }}</a></h4>
                 <div class="attribute-value">
-                    <input name="data.saves.b.value" type="text" value="{{data.saves.b.value}}" placeholder="0"
+                    <input name="data.saves.breath.value" type="text" value="{{data.saves.breath.value}}" placeholder="0"
                         data-dtype="Number" />
             </li>
-            <li class="attribute saving-throw">
-                <h4 class="attribute-name box-title" title="{{ localize 'OSE.saves.spells.long' }}"><a>{{ localize "OSE.saves.spells.short" }}</a></h4>
+            <li class="attribute saving-throw" data-save="spell">
+                <h4 class="attribute-name box-title" title="{{ localize 'OSE.saves.spell.long' }}"><a>{{ localize "OSE.saves.spell.short" }}</a></h4>
                 <div class="attribute-value">
-                    <input name="data.saves.s.value" type="text" value="{{data.saves.s.value}}" placeholder="0" />
+                    <input name="data.saves.spell.value" type="text" value="{{data.saves.spell.value}}" placeholder="0" />
             </li>
         </ul>
     </div>

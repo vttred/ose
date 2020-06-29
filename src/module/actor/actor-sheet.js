@@ -8,10 +8,14 @@ export class OseActorSheet extends ActorSheet {
     /* -------------------------------------------- */
   
     activateListeners(html) {
-      super.activateListeners(html);
-      html.find('.saving-throw .attribute-name').click(ev => {
-        console.log('hey');
+      html.find('.saving-throw .attribute-name a').click(ev => {
+        let actorObject = this.actor;
+        let element = event.currentTarget;
+        let save = element.parentElement.parentElement.dataset.save;
+        actorObject.rollSave(save, { event: event });
       })
+
+      super.activateListeners(html);
     }
 
     // Override to set resizable initial size

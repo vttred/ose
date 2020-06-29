@@ -34,5 +34,14 @@ export const registerSettings = function () {
       type: Boolean,
       config: true
     });
+
+    game.settings.register('ose', 'variableDamage', {
+      name: game.i18n.localize('OSE.Setting.VariableWeaponDamage'),
+      hint: game.i18n.localize('OSE.Setting.VariableWeaponDamageHint'),
+      default: false,
+      scope: 'world',
+      type: Boolean,
+      config: true
+    });
 }
   

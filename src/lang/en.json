@@ -57,6 +57,7 @@
     "OSE.InitiativeShort": "INIT",
     "OSE.Attacks": "Attacks Usable per Round",
     "OSE.AttacksShort": "ATT",
+    "OSE.Spellcaster": "Spellcaster",
 
     
     "OSE.category.attributes": "Attributes",
@@ -74,5 +75,7 @@
     "OSE.Setting.Morale": "Enable Monster Morale checks",
     "OSE.Setting.MoraleHint": "Morale Rating is shown on monster sheets",
     "OSE.Setting.THAC0Attacks": "Attacks with THAC0",
-    "OSE.Setting.THAC0AttacksHint": "Attacks are resolved using the THAC0 value"
+    "OSE.Setting.THAC0AttacksHint": "Attacks are resolved using the THAC0 value, not compatible with AAC",
+    "OSE.Setting.VariableWeaponDamage": "Variable Weapon Damage",
+    "OSE.Setting.VariableWeaponDamageHint": "Weapons have different damage dice"
 }

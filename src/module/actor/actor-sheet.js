@@ -1,4 +1,5 @@
 import { OseActor } from "./entity.js";
+import { OseEntityTweaks } from "../dialog/entity-tweaks.js";
 
 export class OseActorSheet extends ActorSheet {
     constructor(...args) {
@@ -6,6 +7,13 @@ export class OseActorSheet extends ActorSheet {
     }
     /* -------------------------------------------- */
   
+    activateListeners(html) {
+      super.activateListeners(html);
+      html.find('.saving-throw .attribute-name').click(ev => {
+        console.log('hey');
+      })
+    }
+
     // Override to set resizable initial size
     async _renderInner(...args) {
       const html = await super._renderInner(...args);
@@ -31,5 +39,36 @@ export class OseActorSheet extends ActorSheet {
         let heightDelta = this.position.height - (this.options.height);
         el.style.height = `${heightDelta + parseInt(el.dataset.baseSize)}px`;
       });
+    }
+
+    
+    _onConfigureActor(event) {
+      event.preventDefault();
+      new OseEntityTweaks(this.actor, {
+        top: this.position.top + 40,
+        left: this.position.left + (this.position.width - 400) / 2,
+      }).render(true);
+    }
+
+    /**
+     * Extend and override the sheet header buttons
+     * @override
+     */
+    _getHeaderButtons() {
+      let buttons = super._getHeaderButtons();
+  
+      // Token Configuration
+      const canConfigure = game.user.isGM || this.actor.owner;
+      if (this.options.editable && canConfigure) {
+        buttons = [
+          {
+            label: 'Tweaks',
+            class: 'configure-actor',
+            icon: 'fas fa-dice',
+            onclick: (ev) => this._onConfigureActor(ev),
+          },
+        ].concat(buttons);
+      }
+      return buttons;
     }
 }

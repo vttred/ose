@@ -12,9 +12,11 @@
     <a class="item" data-tab="inventory">
       {{localize "OSE.category.inventory"}}
     </a>
+    {{#if data.spells.enabled}}
     <a class="item" data-tab="spells">
       {{localize "OSE.category.spells"}}
     </a>
+    {{/if}}
     <a class="item" data-tab="notes">
       {{localize "OSE.category.notes"}}
     </a>
@@ -28,9 +30,11 @@
     <div class="tab" data-group="primary" data-tab="inventory">
       {{> "systems/ose/templates/actors/partials/character-inventory-tab.html"}}
     </div>
+    {{#if data.spells.enabled}}
     <div class="tab" data-group="primary" data-tab="spells">
       {{> "systems/ose/templates/actors/partials/character-spells-tab.html"}}
     </div>
+    {{/if}}
     <div class="tab" data-group="primary" data-tab="notes">
       {{editor content=data.details.biography target="data.details.biography"
       button=true owner=owner editable=editable}}

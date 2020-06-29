@@ -1,0 +1,20 @@
+<form autocomplete="off">
+    <div class="form-group">
+      <label for="spellcaster">{{localize "OSE.Spellcaster"}}</label>
+      <div class="form-fields">
+        <input
+          type="checkbox"
+          name="data.spells.enabled"
+          id="spellcaster"
+          {{checked
+          data.spells.enabled}}
+        />
+      </div>
+    </div>
+    <footer class="sheet-footer">
+      <button type="submit">
+        <i class="fas fa-save"></i>{{localize "Save Changes"}}
+      </button>
+    </footer>
+  </form>
+  

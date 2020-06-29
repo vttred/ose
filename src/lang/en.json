@@ -28,15 +28,15 @@
     "OSE.scores.cha.short": "CHA",
 
     "OSE.saves.death.short": "D",
-    "OSE.saves.death.long": "Death",
+    "OSE.saves.death.long": "Death, Poison",
     "OSE.saves.wands.short": "W",
-    "OSE.saves.wands.long": "Wands",
+    "OSE.saves.wands.long": "Wand",
     "OSE.saves.paralysis.short": "P",
-    "OSE.saves.paralysis.long": "Paralysis",
+    "OSE.saves.paralysis.long": "Paralysis, Petrify",
     "OSE.saves.breath.short": "B",
-    "OSE.saves.breath.long": "Breath",
+    "OSE.saves.breath.long": "Dragon Breath",
     "OSE.saves.spells.short": "S",
-    "OSE.saves.spells.long": "Spells",
+    "OSE.saves.spells.long": "Rod, Staff, Spell",
 
     "OSE.Health": "Hit Points",
     "OSE.HealthShort": "HP",
@@ -49,6 +49,10 @@
     "OSE.ArmorClassShort": "AC",
     "OSE.SpellDC": "DC",
     "OSE.Thac0": "THAC0",
+    "OSE.MeleeShort": "MEL",
+    "OSE.Melee": "Melee",
+    "OSE.MissileShort": "MIS",
+    "OSE.Missile": "Missile",
     "OSE.Initiative": "Initiative",
     "OSE.InitiativeShort": "INIT",
     "OSE.Attacks": "Attacks Usable per Round",
@@ -61,5 +65,14 @@
     "OSE.category.notes": "Notes",
     
     "OSE.panel.abilities": "Abilities",
-    "OSE.panel.equipment": "Equipment"
+    "OSE.panel.equipment": "Equipment",
+
+    "OSE.Setting.IndividualInit": "Individual Initiative",
+    "OSE.Setting.IndividualInitHint": "Initiative is rolled for each actor and modified by its DEX score",
+    "OSE.Setting.AscendingAC": "Ascending Armor Class",
+    "OSE.Setting.AscendingACHint": "The more the better",
+    "OSE.Setting.Morale": "Enable Monster Morale checks",
+    "OSE.Setting.MoraleHint": "Morale Rating is shown on monster sheets",
+    "OSE.Setting.THAC0Attacks": "Attacks with THAC0",
+    "OSE.Setting.THAC0AttacksHint": "Attacks are resolved using the THAC0 value"
 }

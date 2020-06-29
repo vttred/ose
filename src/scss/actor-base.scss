@@ -10,6 +10,9 @@
 
   .panel {
     border: 1px solid $colorDark;
+    &.spells {
+      border: 0;
+    }
     .panel-title {
       color: whitesmoke;
       background: $colorDark;
@@ -95,7 +98,7 @@
       margin: 0;
       padding: 0;
       .attribute {
-        margin: 10px;
+        margin: 10px 2px;
         border: 1px solid $colorTan;
         .attribute-name {
           color: whitesmoke;

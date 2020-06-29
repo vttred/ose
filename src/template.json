@@ -9,7 +9,8 @@
         "alignment": "",
         "literate": false,
         "level": 1,
-        "xp": 0
+        "xp": 0,
+        "xpmod": 0
       },
       "scores": {
         "str": {
@@ -63,6 +64,10 @@
         "lvl5": {
           "value": 0,
           "max": 0
+        },
+        "lvl6": {
+          "value": 0,
+          "max": 0
         }
       },
       "hp": {
@@ -76,7 +81,9 @@
       },
       "thac0": {
         "value": 19,
-        "mod": 0
+        "mod": 0,
+        "missile": 0,
+        "melee": 0
       },
       "saves": {
         "D": 10,
@@ -151,6 +158,10 @@
           "max": 0
         },
         "lvl5": {
+          "value": 0,
+          "max": 0
+        },
+        "lvl6": {
           "value": 0,
           "max": 0
         }

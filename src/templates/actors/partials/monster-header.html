@@ -31,10 +31,12 @@
         placeholder="{{ localize 'OSE.Experience' }}" />
       <label>{{localize 'OSE.Experience'}}</label>
     </li>
+    {{#if config.morale}}
     <li>
       <input type="text" name="data.details.morale" value="{{data.details.morale}}"
         placeholder="{{ localize 'OSE.Morale' }}" />
       <label>{{localize 'OSE.Morale'}}</label>
     </li>
+    {{/if}}
   </ul>
 </section>

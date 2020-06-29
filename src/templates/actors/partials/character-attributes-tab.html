@@ -1,7 +1,7 @@
 <section class="flexrow">
     <ul class="attributes flexrow">
         <li class="attribute health">
-            <h4 class="attribute-name box-title">{{ localize "OSE.HealthShort" }}</h4>
+            <h4 class="attribute-name box-title" title="{{ localize 'OSE.Health' }}">{{ localize "OSE.HealthShort" }}</h4>
             <div class="attribute-value multiple">
                 <input name="data.hp.value" type="text" value="{{data.hp.value}}" data-dtype="Number"
                     placeholder="10" />
@@ -10,26 +10,42 @@
             </div>
         </li>
         <li class="attribute">
-            <h4 class="attribute-name box-title">{{ localize "OSE.ArmorClassShort" }}</h4>
+            <h4 class="attribute-name box-title" title="{{ localize 'OSE.ArmorClass' }}">{{ localize "OSE.ArmorClassShort" }}</h4>
             <div class="attribute-value">
                 <input name="data.ac.value" type="text" value="{{data.ac.value}}" data-dtype="Number"
                     placeholder="10" data-dtype="Number" />
             </div>
         </li>
         <li class="attribute">
-            <h4 class="attribute-name box-title">{{ localize "OSE.Thac0" }}</h4>
+            <h4 class="attribute-name box-title" title="{{ localize 'OSE.Thac0' }}">{{ localize "OSE.Thac0" }}</h4>
             <div class="attribute-value">
                 <input name="data.thac0.value" type="text" value="{{data.thac0.value}}" placeholder="0"
                     data-dtype="Number" />
             </div>
         </li>
         <li class="attribute">
-            <h4 class="attribute-name box-title">{{ localize "OSE.InitiativeShort" }}</h4>
+            <h4 class="attribute-name box-title" title="{{ localize 'OSE.Melee' }}">{{ localize "OSE.MeleeShort" }}</h4>
+            <div class="attribute-value">
+                <input name="data.thac0.melee" type="text" value="{{data.thac0.melee}}" placeholder="0"
+                    data-dtype="Number" />
+            </div>
+        </li>
+        <li class="attribute">
+            <h4 class="attribute-name box-title" title="{{ localize 'OSE.Missile' }}">{{ localize "OSE.MissileShort" }}</h4>
+            <div class="attribute-value">
+                <input name="data.thac0.missile" type="text" value="{{data.thac0.missile}}" placeholder="0"
+                    data-dtype="Number" />
+            </div>
+        </li>
+        {{#if config.individualInit}}
+        <li class="attribute">
+            <h4 class="attribute-name box-title" title="{{ localize 'OSE.Initiative' }}">{{ localize "OSE.InitiativeShort" }}</h4>
             <div class="attribute-value">
                 <input name="data.initiative.value" type="text" value="{{data.initiative.value}}"
                     placeholder="0" data-dtype="Number" />
             </div>
         </li>
+        {{/if}}
         <li class="attribute">
             <h4 class="attribute-name box-title">{{ localize "OSE.MovementShort" }}</h4>
             <div class="attribute-value">

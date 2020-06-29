@@ -6,6 +6,7 @@ import { preloadHandlebarsTemplates } from "./module/preloadTemplates.js";
 import { OseActor } from "./module/actor/entity.js";
 import { OseItem } from "./module/item/entity.js";
 import { OSE } from "./module/config.js";
+import { registerSettings } from './module/settings.js';
 
 // Handlebars template helpers
 Handlebars.registerHelper("eq", function (a, b) {
@@ -35,6 +36,10 @@ Hooks.once("init", async function () {
   };
 
   CONFIG.OSE = OSE;
+
+  // Register custom system settings
+  registerSettings();
+  
   CONFIG.Actor.entityClass = OseActor;
   CONFIG.Item.entityClass = OseItem;
 

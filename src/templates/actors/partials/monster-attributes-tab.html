@@ -30,6 +30,15 @@
                     data-dtype="Number" />
             </div>
         </li>
+        {{#if data.retainer.enabled}}
+        <li class="attribute">
+            <h4 class="attribute-name box-title" title="{{ localize 'OSE.Loyalty' }}">{{ localize "OSE.LoyaltyShort" }}</h4>
+            <div class="attribute-value">
+                <input name="data.retainer.loyalty" type="text" value="{{data.retainer.loyalty}}"
+                    placeholder="0" data-dtype="Number" />
+            </div>
+        </li>
+        {{/if}}
         <li class="attribute">
             <h4 class="attribute-name box-title" title="{{localize 'OSE.Movement'}}">{{ localize "OSE.MovementShort" }}</h4>
             <div class="attribute-value">

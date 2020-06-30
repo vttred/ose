@@ -26,4 +26,19 @@ export class OseActor extends Actor {
       title: `${label} ${game.i18n.localize('OSE.SavingThrow')}`,
     });
   }
+
+  rollCheck(score, options = {}) {
+    const label = game.i18n.localize(`OSE.scores.${score}.long`);
+    const rollParts = ['1d20'];
+
+    // Roll and return
+    return OseDice.Roll({
+      event: options.event,
+      parts: rollParts,
+      data: this.data,
+      speaker: ChatMessage.getSpeaker({ actor: this }),
+      flavor: `${label} ${game.i18n.localize('OSE.AbilityCheck')}`,
+      title: `${label} ${game.i18n.localize('OSE.AbilityCheck')}`,
+    });
+  }
 }

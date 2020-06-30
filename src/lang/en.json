@@ -7,7 +7,7 @@
 
     "OSE.Formula": "Formula",
     "OSE.SitMod": "Situational Modifier",
-    "OSE.RollMod": "Roll Mode",
+    "OSE.RollMode": "Roll Mode",
     "OSE.RollExample": "Roll Example",
 
     "OSE.Name": "Name",
@@ -19,8 +19,13 @@
     "OSE.Treasure": "Treasure type",
     "OSE.Size": "Size",
     "OSE.Morale": "Morale",
+    "OSE.Retainer": "Retainer",
     "OSE.Appearing": "NA",
 
+    "OSE.Loyalty": "Loyalty Rating",
+    "OSE.LoyaltyShort": "LR",
+    
+    "OSE.AbilityCheck": "Ability Check",
     "OSE.scores.str.long": "Strength",
     "OSE.scores.str.short": "STR",
     "OSE.scores.wis.long": "Wisdom",
@@ -52,7 +57,6 @@
     "OSE.HitDiceShort": "HD",
     "OSE.Movement": "Movement",
     "OSE.MovementShort": "MOV",
-    "OSE.SpecialMovement": "Special Movement",
     "OSE.ArmorClass": "Armor Class",
     "OSE.ArmorClassShort": "AC",
     "OSE.SpellDC": "DC",

@@ -11,6 +11,18 @@
         />
       </div>
     </div>
+    <div class="form-group">
+      <label for="retainer">{{localize "OSE.Retainer"}}</label>
+      <div class="form-fields">
+        <input
+          type="checkbox"
+          name="data.retainer.enabled"
+          id="retainer"
+          {{checked
+          data.retainer.enabled}}
+        />
+      </div>
+    </div>
     <footer class="sheet-footer">
       <button type="submit">
         <i class="fas fa-save"></i>{{localize "Save Changes"}}

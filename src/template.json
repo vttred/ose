@@ -2,6 +2,36 @@
   "Actor": {
     "types": ["character", "monster"],
     "templates": {
+      "common": {
+        "retainer": {
+          "enabled": false,
+          "loyalty": 0
+        },
+        "hp": {
+          "hd": "",
+          "value": 20,
+          "max": 20
+        },
+        "ac": {
+          "value": 0,
+          "mod": 0
+        },
+        "thac0": {
+          "value": 19,
+          "mod": 0
+        },
+        "saves": {
+          "death": 10,
+          "wand": 10,
+          "paralysis": 10,
+          "breath": 10,
+          "spell": 10
+        },
+        "movement": {
+          "base": 0,
+          "encounter": 0
+        } 
+      },
       "spellcaster": {
         "spells": {
           "enabled": false,
@@ -34,7 +64,7 @@
       }
     },
     "character": {
-      "templates": ["spellcaster"],
+      "templates": ["common", "spellcaster"],
       "details": {
         "biography": "",
         "class": "",
@@ -76,32 +106,6 @@
         "silver": 0,
         "copper": 0
       },
-      "hp": {
-        "hd": "",
-        "value": 20,
-        "max": 20
-      },
-      "ac": {
-        "value": 0,
-        "mod": 0
-      },
-      "thac0": {
-        "value": 19,
-        "mod": 0,
-        "missile": 0,
-        "melee": 0
-      },
-      "saves": {
-        "D": 10,
-        "W": 10,
-        "P": 10,
-        "B": 10,
-        "S": 10
-      },
-      "movement": {
-        "base": 0,
-        "encounter": 0
-      },
       "initative": {
         "value": 0,
         "mod": 0
@@ -109,7 +113,7 @@
       "languages": []
     },
     "monster": {
-      "templates": ["spellcaster"],
+      "templates": ["common", "spellcaster"],
       "details": {
         "biography": "",
         "alignment": "",
@@ -119,45 +123,44 @@
         "appearing": "",
         "morale": 0
       },
-      "saves": {
-        "death": 10,
-        "wand": 10,
-        "paralysis": 10,
-        "breath": 10,
-        "spell": 10
-      },
-      "thac0": {
-        "value": 19,
-        "mod": 0
-      },
-      "hp": {
-        "hd": "",
-        "max": 0,
-        "value": 0
-      },
-      "ac": {
-        "value": 0,
-        "mod": 0
-      },
       "attacks": {
         "value": 1
-      },
-      "movement": {
-        "base": 0,
-        "encounter": 0
       }
     }
   },
   "Item": {
-    "types": ["item", "spell", "ability"],
+    "types": ["item", "weapon", "armor", "spell", "ability"],
     "item": {
       "description": "",
-      "quantity": 1,
+      "quantity": {
+        "value": 1,
+        "max": 0
+      },
+      "cost": 0,
+      "weight": 0
+    },
+    "weapon": {
+      "description": "",
+      "damage": "1d6",
+      "qualities": "",
+      "slow": false,
+      "melee": true,
+      "ranged": true,
+      "cost": 0,
+      "weight": 0
+    },
+    "armor": {
+      "description": "",
+      "ac": 9,
+      "aac": 10,
+      "cost": 0,
       "weight": 0
     },
     "spell": {
       "lvl": 1,
-      "class": "",
+      "class": "Magic-User",
+      "duration": "",
+      "range": "",
       "description": ""
     },
     "ability": {

@@ -133,6 +133,14 @@ export class OseActorSheetCharacter extends OseActorSheet {
     // Item summaries
     html.find('.item .item-name h4').click(event => this._onItemSummary(event));
 
+    
+    html.find('.ability-score .attribute-name a').click(ev => {
+      let actorObject = this.actor;
+      let element = event.currentTarget;
+      let score = element.parentElement.parentElement.dataset.score;
+      actorObject.rollCheck(score, { event: event });
+    })
+
     // Handle default listeners last so system listeners are triggered first
     super.activateListeners(html);
   }

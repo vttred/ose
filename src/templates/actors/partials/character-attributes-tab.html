@@ -23,25 +23,20 @@
                     data-dtype="Number" />
             </div>
         </li>
-        <li class="attribute">
-            <h4 class="attribute-name box-title" title="{{ localize 'OSE.Melee' }}">{{ localize "OSE.MeleeShort" }}</h4>
-            <div class="attribute-value">
-                <input name="data.thac0.melee" type="text" value="{{data.thac0.melee}}" placeholder="0"
-                    data-dtype="Number" />
-            </div>
-        </li>
-        <li class="attribute">
-            <h4 class="attribute-name box-title" title="{{ localize 'OSE.Missile' }}">{{ localize "OSE.MissileShort" }}</h4>
-            <div class="attribute-value">
-                <input name="data.thac0.missile" type="text" value="{{data.thac0.missile}}" placeholder="0"
-                    data-dtype="Number" />
-            </div>
-        </li>
         {{#if config.individualInit}}
         <li class="attribute">
             <h4 class="attribute-name box-title" title="{{ localize 'OSE.Initiative' }}">{{ localize "OSE.InitiativeShort" }}</h4>
             <div class="attribute-value">
                 <input name="data.initiative.value" type="text" value="{{data.initiative.value}}"
+                    placeholder="0" data-dtype="Number" />
+            </div>
+        </li>
+        {{/if}}
+        {{#if data.retainer.enabled}}
+        <li class="attribute">
+            <h4 class="attribute-name box-title" title="{{ localize 'OSE.Loyalty' }}">{{ localize "OSE.LoyaltyShort" }}</h4>
+            <div class="attribute-value">
+                <input name="data.retainer.loyalty" type="text" value="{{data.retainer.loyalty}}"
                     placeholder="0" data-dtype="Number" />
             </div>
         </li>
@@ -59,33 +54,33 @@
     {{!-- Scores --}}
     <div class="attribute-group">
         <ul class="attributes">
-            <li class="attribute">
-                <h4 class="attribute-name box-title" title="{{ localize 'OSE.scores.str.long' }}">{{ localize "OSE.scores.str.short" }}</h4>
+            <li class="attribute ability-score" data-score="str">
+                <h4 class="attribute-name box-title" title="{{ localize 'OSE.scores.str.long' }}"><a>{{ localize "OSE.scores.str.short" }}</a></h4>
                 <div class="attribute-value">
                     <input name="data.scores.str.value" type="text" value="{{data.scores.str.value}}" placeholder="0"  data-dtype="Number"/>
             </li>
-            <li class="attribute">
-                <h4 class="attribute-name box-title" title="{{ localize 'OSE.scores.int.long' }}">{{ localize "OSE.scores.int.short" }}</h4>
+            <li class="attribute ability-score" data-score="int">
+                <h4 class="attribute-name box-title" title="{{ localize 'OSE.scores.int.long' }}"><a>{{ localize "OSE.scores.int.short" }}</a></h4>
                 <div class="attribute-value">
                     <input name="data.scores.int.value" type="text" value="{{data.scores.int.value}}" placeholder="0"  data-dtype="Number"/>
             </li>
-            <li class="attribute">
-                <h4 class="attribute-name box-title" title="{{ localize 'OSE.scores.wis.long' }}">{{ localize "OSE.scores.wis.short" }}</h4>
+            <li class="attribute ability-score" data-score="wis">
+                <h4 class="attribute-name box-title" title="{{ localize 'OSE.scores.wis.long' }}"><a>{{ localize "OSE.scores.wis.short" }}</a></h4>
                 <div class="attribute-value">
                     <input name="data.scores.wis.value" type="text" value="{{data.scores.wis.value}}" placeholder="0"  data-dtype="Number"/>
             </li>
-            <li class="attribute">
-                <h4 class="attribute-name box-title" title="{{ localize 'OSE.scores.dex.long' }}">{{ localize "OSE.scores.dex.short" }}</h4>
+            <li class="attribute ability-score" data-score="dex">
+                <h4 class="attribute-name box-title" title="{{ localize 'OSE.scores.dex.long' }}"><a>{{ localize "OSE.scores.dex.short" }}</a></h4>
                 <div class="attribute-value">
                     <input name="data.scores.dex.value" type="text" value="{{data.scores.dex.value}}" placeholder="0"  data-dtype="Number"/>
             </li>
-            <li class="attribute">
-                <h4 class="attribute-name box-title" title="{{ localize 'OSE.scores.con.long' }}">{{ localize "OSE.scores.con.short" }}</h4>
+            <li class="attribute ability-score" data-score="con">
+                <h4 class="attribute-name box-title" title="{{ localize 'OSE.scores.con.long' }}"><a>{{ localize "OSE.scores.con.short" }}</a></h4>
                 <div class="attribute-value">
                     <input name="data.scores.con.value" type="text" value="{{data.scores.con.value}}" placeholder="0"  data-dtype="Number"/>
             </li>
-            <li class="attribute">
-                <h4 class="attribute-name box-title" title="{{ localize 'OSE.scores.cha.long' }}">{{ localize "OSE.scores.cha.short" }}</h4>
+            <li class="attribute ability-score" data-score="cha">
+                <h4 class="attribute-name box-title" title="{{ localize 'OSE.scores.cha.long' }}"><a>{{ localize "OSE.scores.cha.short" }}</a></h4>
                 <div class="attribute-value">
                     <input name="data.scores.cha.value" type="text" value="{{data.scores.cha.value}}" placeholder="0"  data-dtype="Number"/>
             </li>

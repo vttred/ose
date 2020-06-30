@@ -7,6 +7,16 @@ export class OseActorSheet extends ActorSheet {
     }
     /* -------------------------------------------- */
   
+    getData() {
+      const data = super.getData();
+
+      data.config = CONFIG.OSE;
+      // Settings
+      data.config.ascendingAC = game.settings.get('ose', 'ascendingAC');
+  
+      return data;
+    }
+
     activateListeners(html) {
       html.find('.saving-throw .attribute-name a').click(ev => {
         let actorObject = this.actor;

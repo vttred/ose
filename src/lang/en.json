@@ -59,6 +59,7 @@
     "OSE.MovementShort": "MOV",
     "OSE.ArmorClass": "Armor Class",
     "OSE.ArmorClassShort": "AC",
+    "OSE.AscArmorClassShort": "AAC",
     "OSE.SpellDC": "DC",
     "OSE.Thac0": "THAC0",
     "OSE.MeleeShort": "MEL",

@@ -39,8 +39,6 @@ export class OseActorSheetMonster extends OseActorSheet {
   getData() {
     const data = super.getData();
     
-    data.config = CONFIG.OSE;
-
     // Prepare owned items
     this._prepareItems(data);
 

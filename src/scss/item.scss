@@ -1,5 +1,17 @@
 .ose.sheet.item {
-    .editor {
-        height: 255px;
+    .profile-img {
+        border: none;
     }
+    .sheet-body {
+        .stats {
+            flex: 0 0 70px;
+            border-right: 1px groove rgba(0, 0, 0, 0.2);
+        }
+        .editor {
+            height: 255px;
+        }
+        .weapon-editor .editor {
+            height: 230px;
+        }
+     }
 }

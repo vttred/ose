@@ -89,5 +89,20 @@
     "OSE.Setting.THAC0Attacks": "Attacks with THAC0",
     "OSE.Setting.THAC0AttacksHint": "Attacks are resolved using the THAC0 value, not compatible with AAC",
     "OSE.Setting.VariableWeaponDamage": "Variable Weapon Damage",
-    "OSE.Setting.VariableWeaponDamageHint": "Weapons have different damage dice"
+    "OSE.Setting.VariableWeaponDamageHint": "Weapons have different damage dice",
+
+    "OSE.ItemWeight": "Weight",
+    "OSE.ItemCost": "Cost",
+    "OSE.ItemQuantity": "Quantity",
+    "OSE.ItemRoll": "Roll",
+    "OSE.WeaponDamage": "Damage",
+    "OSE.WeaponMelee": "Melee",
+    "OSE.WeaponMissile": "Missile",
+    "OSE.WeaponSlow": "Slow",
+    "OSE.SpellRange": "Range",
+    "OSE.SpellClass": "Class",
+    "OSE.SpellDuration": "Duration",
+    "OSE.SpellLevel": "Level",
+    "OSE.ArmorAC": "AC",
+    "OSE.ArmorAAC": "AAC"
 }

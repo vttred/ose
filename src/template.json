@@ -144,7 +144,7 @@
       "damage": "1d6",
       "qualities": "",
       "slow": false,
-      "melee": true,
+      "missile": true,
       "ranged": true,
       "cost": 0,
       "weight": 0
@@ -161,10 +161,12 @@
       "class": "Magic-User",
       "duration": "",
       "range": "",
+      "roll": "",
       "description": ""
     },
     "ability": {
       "requirements": "",
+      "roll": "",
       "description": ""
     }
   }

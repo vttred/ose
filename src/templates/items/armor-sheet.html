@@ -3,17 +3,42 @@
     <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
     <div class="header-col">
       <h1 class="charname">
-        <input
-          name="name"
-          type="text"
-          value="{{item.name}}"
-          placeholder="Name"
-        />
+        <input name="name" type="text" value="{{item.name}}" placeholder="Name" />
       </h1>
     </div>
   </header>
   <section class="sheet-body">
-    {{editor content=data.description target="data.description"
-    button=true owner=owner editable=editable}}
+    <div class="flexrow">
+      <div class="stats">
+        <div class="form-group">
+          <label>{{localize 'OSE.ArmorAC'}}</label>
+          <div class="form-fields">
+            <input type="text" name="data.level" value="{{data.ac}}" data-dtype="Number" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>{{localize 'OSE.ArmorAAC'}}</label>
+          <div class="form-fields">
+            <input type="text" name="data.class" value="{{data.aac}}" data-dtype="Number" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>{{localize 'OSE.ItemCost'}}</label>
+          <div class="form-fields">
+            <input type="text" name="data.cost" value="{{data.cost}}" data-dtype="Number" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>{{localize 'OSE.ItemWeight'}}</label>
+          <div class="form-fields">
+            <input type="text" name="data.weight" value="{{data.weight}}" data-dtype="Number" />
+          </div>
+        </div>
+      </div>
+      <div class="description">
+        {{editor content=data.description target="data.description" button=true
+        owner=owner editable=editable}}
+      </div>
+    </div>
   </section>
 </form>

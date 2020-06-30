@@ -3,17 +3,57 @@
     <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
     <div class="header-col">
       <h1 class="charname">
-        <input
-          name="name"
-          type="text"
-          value="{{item.name}}"
-          placeholder="Name"
-        />
+        <input name="name" type="text" value="{{item.name}}" placeholder="Name" />
       </h1>
     </div>
   </header>
   <section class="sheet-body">
-    {{editor content=data.description target="data.description"
-    button=true owner=owner editable=editable}}
+    <div class="flexrow">
+      <input name="data.qualities" type="text" value="{{data.qualities}}" placeholder="Qualities" />
+    </div>
+    <div class="flexrow">
+      <div class="stats">
+        <div class="form-group">
+          <label>{{localize 'OSE.ItemCost'}}</label>
+          <div class="form-fields">
+            <input type="text" name="data.cost" value="{{data.cost}}" data-dtype="Number" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>{{localize 'OSE.ItemWeight'}}</label>
+          <div class="form-fields">
+            <input type="text" name="data.weight" value="{{data.weight}}" data-dtype="Number" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>{{localize 'OSE.WeaponDamage'}}</label>
+          <div class="form-fields">
+            <input type="text" name="data.damage" value="{{data.damage}}" data-dtype="String" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>{{localize 'OSE.WeaponSlow'}}</label>
+          <div class="form-fields">
+            <input type="checkbox" name="data.slow" value="{{data.level}}" {{checked data.slow}} />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>{{localize 'OSE.WeaponMissile'}}</label>
+          <div class="form-fields">
+            <input type="checkbox" name="data.missile" {{checked data.missile}} />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>{{localize 'OSE.WeaponMelee'}}</label>
+          <div class="form-fields">
+            <input type="checkbox" name="data.melee" {{checked data.melee}} />
+          </div>
+        </div>
+      </div>
+      <div class="description weapon-editor">
+        {{editor content=data.description target="data.description" button=true
+        owner=owner editable=editable}}
+      </div>
+    </div>
   </section>
 </form>

@@ -28,7 +28,7 @@
             {{item.data.damage}}
           </div>
           {{/if}}
-          <div class="field-longer">
+          <div class="field-longer" title="{{item.data.qualities}}">
             {{item.data.qualities}}
           </div>
           <div class="field-short">
@@ -122,7 +122,7 @@
           </div>
           <div class="field-short quantity">
             <input value="{{item.data.quantity.value}}" type="text"
-              placeholder="0" />{{#if item.data.quantity.max}}<span> / {{item.data.quantity.max}}</span>{{/if}}
+              placeholder="0" />{{#if item.data.quantity.max}}<span>/{{item.data.quantity.max}}</span>{{/if}}
           </div>
           <div class="field-short">
             {{item.data.weight}}

@@ -55,6 +55,12 @@
           &:nth-child(even) {
             background: rgba(0, 0, 0, 0.1);
           }
+          &:hover {
+            .item-image {
+              background-image: url("/icons/svg/d20-grey.svg") !important;
+              cursor: pointer;
+            }
+          }
         }
         .item {
           line-height: 30px;
@@ -77,10 +83,6 @@
             flex-grow: 0;
             background-size: contain;
             background-repeat: no-repeat;
-            &:hover {
-              background-image: url("/icons/svg/d20-grey.svg") !important;
-              cursor: pointer;
-            }
           }
           h4 {
             margin: 0;
@@ -106,9 +108,9 @@
         flex-grow: 0;
         text-align: center;
         &.quantity {
-          margin: 4px 0;
           display: flex;
           input {
+            margin: 3px 0;
             border-bottom: none;
           }
         }

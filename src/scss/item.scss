@@ -4,8 +4,26 @@
     }
     .sheet-body {
         .stats {
-            flex: 0 0 70px;
+            flex: 0 0 90px;
             border-right: 1px groove rgba(0, 0, 0, 0.2);
+            padding-right: 2px;
+            .form-group {
+                margin: 2px;
+                border: 1px solid rgba(0, 0, 0, 0.15);
+                label {
+                    background: rgba(0, 0, 0, 0.1);
+                    padding: 0 4px;
+                }
+                input {
+                    border-bottom: none;
+                    margin: auto 0;
+                }
+            }
+            .block-input {
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+            }
         }
         .editor {
             height: 255px;

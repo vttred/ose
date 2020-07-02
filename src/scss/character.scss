@@ -12,6 +12,13 @@
   /* ----------------------------------------- */
 
   .sheet-header {
+    .xp-bonus {
+      top: -15px;
+      right: 3px;
+      color: $colorTan;
+      font-size: 10px;
+      position: absolute;
+    }
   }
 
   /* ----------------------------------------- */
@@ -20,7 +27,6 @@
   .sheet-body {
     .inventory {
       overflow: auto;
-      height: 520px;
       .header-spells {
         line-height: 30px;
       }
@@ -60,7 +66,9 @@
         }
         .item-entry {
           &:nth-child(even) {
-            background: rgba(0, 0, 0, 0.1);
+            .item {
+              background: rgba(0, 0, 0, 0.1);
+            }
           }
         }
         .item {

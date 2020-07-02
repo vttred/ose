@@ -78,8 +78,11 @@
         "alignment": "",
         "literate": false,
         "level": 1,
-        "xp": 0,
-        "xpmod": 0
+        "xp": {
+          "next": 0,
+          "value": 0,
+          "bonus": 0
+        }
       },
       "scores": {
         "str": {

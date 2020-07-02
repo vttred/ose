@@ -23,6 +23,19 @@
         />
       </div>
     </div>
+    {{#if (eq this.type 'character')}}
+    <div class="form-group">
+      <label>{{localize "OSE.ExperienceBonus"}} (%)</label>
+      <div class="form-fields">
+        <input
+          type="text"
+          name="data.details.xp.bonus"
+          id="experience"
+          value="{{data.details.xp.bonus}}"
+        />
+      </div>
+    </div>
+    {{/if}}
     <footer class="sheet-footer">
       <button type="submit">
         <i class="fas fa-save"></i>{{localize "Save Changes"}}

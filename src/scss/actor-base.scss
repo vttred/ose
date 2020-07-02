@@ -95,6 +95,7 @@
       margin: 0;
       padding: 0;
       .attribute {
+        position: relative;
         margin: 10px 2px;
         border: 1px solid $colorTan;
         .attribute-name {
@@ -108,6 +109,13 @@
           padding: 4px;
           display: flex;
           flex-direction: row;
+        }
+        .attribute-mod {
+          position: absolute;
+          color: $colorTan;
+          right: 5px;
+          top: 0;
+          font-size: 13px;
         }
       }
     }

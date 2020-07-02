@@ -9,9 +9,21 @@
   </header>
   <section class="sheet-body">
     <div class="flexrow">
-      <input name="data.requirements" type="text" value="{{data.requirements}}" placeholder="Requirements" />
-    </div>
-      <div class="description weapon-editor">
+      <div class="stats">
+        <div class="form-group block-input">
+          <label>{{localize 'OSE.abilities.Requirements'}}</label>
+          <div class="form-fields">
+            <input type="text" name="data.requirements" value="{{data.requirements}}" data-dtype="String" />
+          </div>
+        </div>
+        <div class="form-group block-input">
+          <label>{{localize 'OSE.items.Roll'}}</label>
+          <div class="form-fields">
+            <input type="text" name="data.roll" value="{{data.roll}}" data-dtype="String" />
+          </div>
+        </div>
+      </div>
+      <div class="description">
         {{editor content=data.description target="data.description" button=true
         owner=owner editable=editable}}
       </div>

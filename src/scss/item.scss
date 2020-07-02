@@ -1,6 +1,8 @@
 .ose.sheet.item {
     .profile-img {
         border: none;
+        flex: 0 0 84px;
+        height: 84px;
     }
     .sheet-body {
         .stats {
@@ -26,10 +28,10 @@
             }
         }
         .editor {
-            height: 255px;
+            height: 240px;
         }
         .weapon-editor .editor {
-            height: 230px;
+            height: 215px;
         }
      }
 }

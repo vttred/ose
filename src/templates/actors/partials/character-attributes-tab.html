@@ -1,5 +1,12 @@
 <section class="flexrow">
     <ul class="attributes flexrow">
+        <li class="attribute">
+            <h4 class="attribute-name box-title" title="{{ localize 'OSE.HitDice' }}">{{ localize "OSE.HitDiceShort" }}</h4>
+            <div class="attribute-value">
+                <input name="data.hp.hd" type="text" value="{{data.hp.hd}}" placeholder="0"
+                    data-dtype="String" />
+            </div>
+        </li>
         <li class="attribute health">
             <h4 class="attribute-name box-title" title="{{ localize 'OSE.Health' }}">{{ localize "OSE.HealthShort" }}
             </h4>
@@ -73,6 +80,7 @@
                 <div class="attribute-value">
                     <input name="data.scores.str.value" type="text" value="{{data.scores.str.value}}" placeholder="0"
                         data-dtype="Number" />
+                <span class="attribute-mod">{{mods.str}}</span>
             </li>
             <li class="attribute ability-score" data-score="int">
                 <h4 class="attribute-name box-title" title="{{ localize 'OSE.scores.int.long' }}">
@@ -80,6 +88,7 @@
                 <div class="attribute-value">
                     <input name="data.scores.int.value" type="text" value="{{data.scores.int.value}}" placeholder="0"
                         data-dtype="Number" />
+                <span class="attribute-mod">{{mods.int}}</span>
             </li>
             <li class="attribute ability-score" data-score="wis">
                 <h4 class="attribute-name box-title" title="{{ localize 'OSE.scores.wis.long' }}">
@@ -87,6 +96,7 @@
                 <div class="attribute-value">
                     <input name="data.scores.wis.value" type="text" value="{{data.scores.wis.value}}" placeholder="0"
                         data-dtype="Number" />
+                        <span class="attribute-mod">{{mods.wis}}</span>
             </li>
             <li class="attribute ability-score" data-score="dex">
                 <h4 class="attribute-name box-title" title="{{ localize 'OSE.scores.dex.long' }}">
@@ -94,6 +104,7 @@
                 <div class="attribute-value">
                     <input name="data.scores.dex.value" type="text" value="{{data.scores.dex.value}}" placeholder="0"
                         data-dtype="Number" />
+                        <span class="attribute-mod">{{mods.dex}}</span>
             </li>
             <li class="attribute ability-score" data-score="con">
                 <h4 class="attribute-name box-title" title="{{ localize 'OSE.scores.con.long' }}">
@@ -101,6 +112,7 @@
                 <div class="attribute-value">
                     <input name="data.scores.con.value" type="text" value="{{data.scores.con.value}}" placeholder="0"
                         data-dtype="Number" />
+                        <span class="attribute-mod">{{mods.con}}</span>
             </li>
             <li class="attribute ability-score" data-score="cha">
                 <h4 class="attribute-name box-title" title="{{ localize 'OSE.scores.cha.long' }}">
@@ -108,6 +120,7 @@
                 <div class="attribute-value">
                     <input name="data.scores.cha.value" type="text" value="{{data.scores.cha.value}}" placeholder="0"
                         data-dtype="Number" />
+                        <span class="attribute-mod">{{mods.cha}}</span>
             </li>
         </ul>
     </div>

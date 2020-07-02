@@ -51,6 +51,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
     data.config.ascendingAC = game.settings.get("ose", "ascendingAC");
     data.config.individualInit = game.settings.get("ose", "individualInit");
 
+    data.mods = this.actor.computeModifiers();
     return data;
   }
 

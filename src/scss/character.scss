@@ -25,6 +25,45 @@
   /*  Sheet Body                               */
   /* ----------------------------------------- */
   .sheet-body {
+    .health {
+      &.armor-class {
+        background: url('/systems/ose/assets/shield.png') no-repeat center;
+        background-size: 90px;
+      }
+        margin: 10px 0;
+        height: 90px;
+        position: relative;
+        input {
+          font-size: 16px;
+          font-weight: bolder;
+          text-shadow: 0 0 2px white, 0 1px 2px white, 1px 0 2px white, 1px 1px 2px white; 
+        }
+        .health-top {
+          border-bottom: none;
+          position: absolute;
+          font-size: 24px;
+          top: 28px;
+          width: 70px;
+          left: calc(50% - 35px);
+        }
+        .health-bottom {
+          border-bottom: none;
+          position: absolute;
+          bottom: 12px;
+          width: 40px;
+          right: calc(50% + -20px);
+        }
+        .health-empty {
+          background: url('/systems/ose/assets/heart_empty.png') no-repeat center;
+          background-size: 90px;
+          background-position: top;
+        }
+        .health-full {
+          background: url('/systems/ose/assets/heart_full.png') no-repeat center;
+          background-size: 90px;
+          background-position: bottom;
+        }
+    }
     .inventory {
       overflow: auto;
       .header-spells {

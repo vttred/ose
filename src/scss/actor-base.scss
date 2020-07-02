@@ -81,8 +81,7 @@
     .item {
       padding: 2px;
       &.active {
-        background: $colorTan;
-        text-shadow: none;
+        background: $colorCrimson;
       }
     }
   }
@@ -96,7 +95,7 @@
       padding: 0;
       .attribute {
         position: relative;
-        margin: 10px 2px;
+        margin: 10px;
         border: 1px solid $colorTan;
         .attribute-name {
           color: whitesmoke;
@@ -109,6 +108,9 @@
           padding: 4px;
           display: flex;
           flex-direction: row;
+          &.multiple input {
+            min-width: 28px;
+          }
         }
         .attribute-mod {
           position: absolute;
@@ -120,6 +122,7 @@
       }
     }
     .attribute-group {
+      flex: 0 0 105px;
       .attributes {
         .attribute {
           display: flex;
@@ -128,6 +131,17 @@
             width: 40px;
             margin: 0;
             line-height: 28px;
+            a {
+              margin: auto;
+            }
+          }
+          &.saving-throw .attribute-name {
+            line-height: 16px;
+            width: 80px;
+          }
+          .attribute-value {
+            width: 45px;
+            flex-grow: 0;
           }
         }
       }

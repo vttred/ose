@@ -53,6 +53,7 @@
     "OSE.saves.spell.long": "Rod, Staff, Spell",
 
     "OSE.Health": "Hit Points",
+    "OSE.HealthMax": "Maximum Hit Points",
     "OSE.HealthShort": "HP",
     "OSE.HitDice": "Hit Dice",
     "OSE.HitDiceShort": "HD",

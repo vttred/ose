@@ -129,57 +129,7 @@
     }
     .editor {
       height: 300px;
-    }
-    .inventory {
-      .item-entry {
-        padding: 0;
-        margin: 0;
-        list-style: none;
-        .item {
-          .item-image {
-            flex: 0 0 24px;
-            height: 24px;
-            background-size: cover;
-          }
-          .item-name {
-            line-height: 24px;
-            height: 24px;
-            overflow: hidden;
-            h4 {
-              text-indent: 4px;
-              margin: 0;
-              cursor: pointer;
-              &:hover {
-                color: whitesmoke;
-                background: linear-gradient(
-                  45deg,
-                  rgba(0, 0, 0, 0.5),
-                  transparent
-                );
-              }
-            }
-          }
-          .item-controls {
-            line-height: 24px;
-            flex: 0 0 32px;
-            margin: 0 3px;
-            .fas {
-              color: $colorTan;
-              font-size: 12px;
-              &:hover {
-                color: $colorDark;
-              }
-            }
-          }
-        }
-        .item-summary {
-          font-size: 12px;
-          padding: 0 4px;
-        }
-        &:nth-child(odd) {
-          background: rgba(0, 0, 0, 0.1);
-        }
-      }
+      padding: 4px;
     }
   }
 }

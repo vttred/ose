@@ -1,6 +1,6 @@
 .ose.actor.monster {
-    min-height: 565px;
-    min-width: 460px;
+  min-height: 565px;
+  min-width: 460px;
   .sheet-body {
     .editor {
       height: 300px;
@@ -9,13 +9,65 @@
   .abilities {
     .panel-content {
       height: 230px;
-      overflow: auto;  
+      overflow: auto;
     }
   }
   .attribute-row {
-      padding: 2px;
-      .abilities {
-          margin: 2px;
+    padding: 2px;
+    .abilities {
+      margin: 2px;
+    }
+  }
+
+  .inventory {
+    .item-entry {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      .item {
+        .item-image {
+          flex: 0 0 30px;
+          height: 30px;
+          background-size: cover;
+        }
+        .item-name {
+          line-height: 30px;
+          height: 30px;
+          overflow: hidden;
+          h4 {
+            text-indent: 4px;
+            margin: 0;
+            cursor: pointer;
+            &:hover {
+              color: whitesmoke;
+              background: linear-gradient(
+                45deg,
+                rgba(0, 0, 0, 0.5),
+                transparent
+              );
+            }
+          }
+        }
+        .item-controls {
+          line-height: 30px;
+          flex: 0 0 32px;
+          margin: 0 3px;
+          .fas {
+            color: $colorTan;
+            font-size: 12px;
+            &:hover {
+              color: $colorDark;
+            }
+          }
+        }
       }
+      .item-summary {
+        font-size: 13px;
+        padding: 0 4px;
+      }
+      &:nth-child(odd) {
+        background: rgba(0, 0, 0, 0.1);
+      }
+    }
   }
 }

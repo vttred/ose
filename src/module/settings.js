@@ -35,7 +35,7 @@ export const registerSettings = function () {
       config: true
     });
 
-    game.settings.register('ose', 'variableDamage', {
+    game.settings.register('ose', 'variableWeaponDamage', {
       name: game.i18n.localize('OSE.Setting.VariableWeaponDamage'),
       hint: game.i18n.localize('OSE.Setting.VariableWeaponDamageHint'),
       default: false,

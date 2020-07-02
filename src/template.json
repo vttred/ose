@@ -13,10 +13,12 @@
           "max": 20
         },
         "ac": {
+          "naked": 0,
           "value": 0,
           "mod": 0
         },
         "aac": {
+          "naked": 0,
           "value": 0,
           "mod": 0
         },
@@ -141,7 +143,7 @@
         "max": 0
       },
       "cost": 0,
-      "weight": 0
+      "weight": 80
     },
     "weapon": {
       "description": "",
@@ -151,6 +153,7 @@
       "missile": true,
       "ranged": true,
       "cost": 0,
+      "equipped": false,
       "weight": 0
     },
     "armor": {
@@ -158,6 +161,7 @@
       "ac": 9,
       "aac": 10,
       "cost": 0,
+      "equipped": false,
       "weight": 0
     },
     "spell": {

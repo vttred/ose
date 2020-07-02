@@ -39,38 +39,11 @@ export class OseActorSheetMonster extends OseActorSheet {
   getData() {
     const data = super.getData();
     
-    // Prepare owned items
-    this._prepareItems(data);
-
     // Settings
     data.config.morale = game.settings.get('ose', 'morale');
 
     return data;
   }
-
-  /**
-   * Organize and classify Owned Items for Character sheets
-   * @private
-   */
-  _prepareItems(data) {
-    // Partition items by category
-    let [inventory, abilities, spells] = data.items.reduce(
-      (arr, item) => {
-        // Classify items into types
-        if (item.type === "item") arr[0].push(item);
-        if (item.type === "ability") arr[1].push(item);
-        else if (item.type === "spell") arr[2].push(item);
-        return arr;
-      },
-      [[], [], [], []]
-    );
-
-    // Assign and return
-    data.inventory = inventory;
-    data.spells = spells;
-    data.abilities = abilities;
-  }
-  
 
   _onItemSummary(event) {
     event.preventDefault();

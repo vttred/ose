@@ -12,6 +12,9 @@
     <a class="item" data-tab="inventory">
       {{localize "OSE.category.inventory"}}
     </a>
+    <a class="item" data-tab="abilities">
+      {{localize "OSE.category.abilities"}}
+    </a>
     {{#if data.spells.enabled}}
     <a class="item" data-tab="spells">
       {{localize "OSE.category.spells"}}
@@ -29,6 +32,9 @@
     </div>
     <div class="tab" data-group="primary" data-tab="inventory">
       {{> "systems/ose/templates/actors/partials/character-inventory-tab.html"}}
+    </div>
+    <div class="tab" data-group="primary" data-tab="abilities">
+      {{> "systems/ose/templates/actors/partials/character-abilities-tab.html"}}
     </div>
     {{#if data.spells.enabled}}
     <div class="tab" data-group="primary" data-tab="spells">

@@ -109,7 +109,11 @@
     "OSE.items.Melee": "Melee",
     "OSE.items.Missile": "Missile",
     "OSE.items.Slow": "Slow",
+    
+    "OSE.spells.Memorized": "Memorized",
+    "OSE.spells.Cast": "Cast",
     "OSE.spells.Range": "Range",
+    "OSE.spells.Slots": "Slots",
     "OSE.spells.Class": "Class",
     "OSE.spells.Duration": "Duration",
     "OSE.spells.Level": "Level",

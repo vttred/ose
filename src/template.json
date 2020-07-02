@@ -42,27 +42,27 @@
         "spells": {
           "enabled": false,
           "dc": 0,
-          "lvl1": {
+          "1": {
             "value": 0,
             "max": 0
           },
-          "lvl2": {
+          "2": {
             "value": 0,
             "max": 0
           },
-          "lvl3": {
+          "3": {
             "value": 0,
             "max": 0
           },
-          "lvl4": {
+          "4": {
             "value": 0,
             "max": 0
           },
-          "lvl5": {
+          "5": {
             "value": 0,
             "max": 0
           },
-          "lvl6": {
+          "6": {
             "value": 0,
             "max": 0
           }
@@ -170,7 +170,9 @@
       "duration": "",
       "range": "",
       "roll": "",
-      "description": ""
+      "description": "",
+      "memorized": false,
+      "cast": false
     },
     "ability": {
       "requirements": "",

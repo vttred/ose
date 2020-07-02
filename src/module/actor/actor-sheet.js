@@ -39,11 +39,18 @@ export class OseActorSheet extends ActorSheet {
       [[], [], [], [], []]
     );
 
+    // Sort spells by level
+    var sortedSpells = {};
+    for (var i = 0; i < spells.length; i++) {
+      let lvl = spells[i].data.lvl
+      if (!sortedSpells[lvl]) sortedSpells[lvl] = [];
+      sortedSpells[lvl].push(spells[i]);
+    }
     // Assign and return
     data.inventory = inventory;
     data.weapons = weapons;
     data.armors = armors;
-    data.spells = spells;
+    data.spells = sortedSpells;
     data.abilities = abilities;
   }
 
@@ -53,6 +60,29 @@ export class OseActorSheet extends ActorSheet {
       let element = event.currentTarget;
       let save = element.parentElement.parentElement.dataset.save;
       actorObject.rollSave(save, { event: event });
+    });
+
+    //Toggle Spells
+    html.find(".item-cast").click(async (ev) => {
+      const li = $(ev.currentTarget).parents(".item");
+      const item = this.actor.getOwnedItem(li.data("itemId"));
+      await this.actor.updateOwnedItem({
+        _id: li.data("itemId"),
+        data: {
+          cast: !item.data.data.cast,
+        },
+      });
+    });
+    //Toggle Equipment
+    html.find(".item-memorize").click(async (ev) => {
+      const li = $(ev.currentTarget).parents(".item");
+      const item = this.actor.getOwnedItem(li.data("itemId"));
+      await this.actor.updateOwnedItem({
+        _id: li.data("itemId"),
+        data: {
+          memorized: !item.data.data.memorized,
+        },
+      });
     });
 
     super.activateListeners(html);

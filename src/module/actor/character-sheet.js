@@ -20,7 +20,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
       classes: ["ose", "sheet", "actor", "character"],
       template: "systems/ose/templates/actors/character-sheet.html",
       width: 450,
-      height: 560,
+      height: 530,
       resizable: true,
       tabs: [
         {

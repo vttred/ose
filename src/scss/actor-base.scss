@@ -77,28 +77,29 @@
     position: absolute;
     transform: rotate(90deg);
     top: 365px;
-    right: -166px;
+    right: -169px;
     width: 320px;
     z-index: -1;
     .item {
-      padding: 0 10px;
+      padding: 2px 10px 0;
       margin-left: -5px;
       text-indent: 4px;
       background: url('/ui/parchment.jpg');
       border-top-right-radius: 4px;
-      border-top-left-radius: 15px;
+      border-top-left-radius: 80px;
       box-shadow: 0 0 6px 1px $colorDark;
-      font-size: 13px;
+      font-size: 12px;
       &.active {
         z-index: 1;
         font-weight: bold;
         text-shadow: none;
+        margin-bottom: -1px;
       }
     }
   }
   .sheet-body {
     padding: 5px 0;
-    height: calc(100% - 175px);
+    height: calc(100% - 140px);
     .attributes {
       margin: 0;
       padding: 0;

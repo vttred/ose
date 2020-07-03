@@ -1,12 +1,4 @@
 <section class="inventory spells resizable" data-base-size="320">
-  <div>
-    <li class="flexrow header-spells">
-      <div class="item-name"></div>
-      <div class="field-short">{{localize 'OSE.SpellDC'}}</div>
-      <div class="field-short"><input type="text" value="{{data.spells.dc}}" name="data.spells.dc" data-dtype="Number"
-          placeholder="0"></div>
-    </li>
-  </div>
   {{#each spells as |spellGroup id|}}
   <ol class="item-list">
     <li class="item-titles flexrow">

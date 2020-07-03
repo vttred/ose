@@ -43,7 +43,6 @@
       "spellcaster": {
         "spells": {
           "enabled": false,
-          "dc": 0,
           "1": {
             "value": 0,
             "max": 0

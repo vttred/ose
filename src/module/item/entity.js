@@ -55,7 +55,6 @@ export class OseItem extends Item {
       item: this.data,
       data: this.getChatData(),
       labels: this.labels,
-      hasAttack: this.hasAttack,
       isHealing: this.isHealing,
       hasDamage: this.hasDamage,
       isSpell: this.data.type === "spell",

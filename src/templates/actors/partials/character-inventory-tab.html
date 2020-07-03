@@ -12,7 +12,7 @@
       </div>
     </li>
     <ol class="item-list">
-      {{#each weapons as |item|}}
+      {{#each owned.weapons as |item|}}
       <li class="item-entry">
         <div class="item flexrow" data-item-id="{{item._id}}">
           <div class="item-name flexrow">
@@ -63,7 +63,7 @@
       </div>
     </li>
     <ol class="item-list">
-      {{#each armors as |item|}}
+      {{#each owned.armors as |item|}}
       <li class="item-entry">
         <div class="item flexrow" data-item-id="{{item._id}}">
           <div class="item-name flexrow">
@@ -109,7 +109,7 @@
       </div>
     </li>
     <ol class="item-list">
-      {{#each inventory as |item|}}
+      {{#each owned.items as |item|}}
       <li class="item-entry">
         <div class="item flexrow" data-item-id="{{item._id}}">
           <div class="item-name flexrow">

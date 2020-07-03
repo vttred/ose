@@ -26,7 +26,7 @@ export class OseActorSheet extends ActorSheet {
    */
   _prepareItems(data) {
     // Partition items by category
-    let [inventory, weapons, armors, abilities, spells] = data.items.reduce(
+    let [items, weapons, armors, abilities, spells] = data.items.reduce(
       (arr, item) => {
         // Classify items into types
         if (item.type === "item") arr[0].push(item);
@@ -42,19 +42,44 @@ export class OseActorSheet extends ActorSheet {
     // Sort spells by level
     var sortedSpells = {};
     for (var i = 0; i < spells.length; i++) {
-      let lvl = spells[i].data.lvl
+      let lvl = spells[i].data.lvl;
       if (!sortedSpells[lvl]) sortedSpells[lvl] = [];
       sortedSpells[lvl].push(spells[i]);
     }
     // Assign and return
-    data.inventory = inventory;
-    data.weapons = weapons;
-    data.armors = armors;
-    data.spells = sortedSpells;
+    data.owned = {
+      items: items,
+      weapons: weapons,
+      armors: armors,
+    };
     data.abilities = abilities;
+    data.spells = sortedSpells;
   }
 
+  _onItemSummary(event) {
+    event.preventDefault();
+    let li = $(event.currentTarget).parents(".item"),
+      item = this.actor.getOwnedItem(li.data("item-id")),
+      description = TextEditor.enrichHTML(item.data.data.description);
+    // Toggle summary
+    if (li.hasClass("expanded")) {
+      let summary = li.parents(".item-entry").children(".item-summary");
+      summary.slideUp(200, () => summary.remove());
+    } else {
+      let div = $(`<div class="item-summary">${description}</div>`);
+      li.parents(".item-entry").append(div.hide());
+      div.slideDown(200);
+    }
+    li.toggleClass("expanded");
+  }
+
+  
   activateListeners(html) {
+    // Item summaries
+    html
+      .find(".item .item-name h4")
+      .click((event) => this._onItemSummary(event));
+
     html.find(".saving-throw .attribute-name a").click((ev) => {
       let actorObject = this.actor;
       let element = event.currentTarget;
@@ -90,7 +115,6 @@ export class OseActorSheet extends ActorSheet {
       const item = this.actor.getOwnedItem(li.data("itemId"));
       item.roll();
     });
-
 
     super.activateListeners(html);
   }

@@ -113,8 +113,8 @@
         </div>
         <div class="flexrow">
             <ul class="attributes flexrow">
-                <li class="attribute attribute-secondaries">
-                    <h4 class="attribute-name box-title" title="{{localize 'OSE.Melee'}}">{{localize 'OSE.MeleeShort'}}</h4>
+                <li class="attribute attribute-secondaries attack" data-attack="Melee">
+                    <h4 class="attribute-name box-title" title="{{localize 'OSE.Melee'}}"><a>{{localize 'OSE.MeleeShort'}}</a></h4>
                     <div class="flexrow">
                         <div class="attribute-value">
                             {{subtract data.thac0.mod.melee (subtract mods.str data.thac0.value)}}
@@ -131,8 +131,8 @@
                         </div>
                     </div>
                 </li>
-                <li class="attribute attribute-secondaries">
-                    <h4 class="attribute-name box-title" title="{{localize 'OSE.Missile'}}">{{localize 'OSE.MissileShort'}}</h4>
+                <li class="attribute attribute-secondaries attack" data-attack="Missile">
+                    <h4 class="attribute-name box-title" title="{{localize 'OSE.Missile'}}"><a>{{localize 'OSE.MissileShort'}}</a></h4>
                     <div class="flexrow">
                         <div class="attribute-value">
                             {{subtract data.thac0.mod.missile (subtract mods.dex data.thac0.value)}}

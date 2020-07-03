@@ -57,23 +57,6 @@ export class OseActorSheetCharacter extends OseActorSheet {
 
   /* -------------------------------------------- */
 
-  _onItemSummary(event) {
-    event.preventDefault();
-    let li = $(event.currentTarget).parents(".item"),
-      item = this.actor.getOwnedItem(li.data("item-id")),
-      description = TextEditor.enrichHTML(item.data.data.description);
-    // Toggle summary
-    if (li.hasClass("expanded")) {
-      let summary = li.parents(".item-entry").children(".item-summary");
-      summary.slideUp(200, () => summary.remove());
-    } else {
-      let div = $(`<div class="item-summary">${description}</div>`);
-      li.parents(".item-entry").append(div.hide());
-      div.slideDown(200);
-    }
-    li.toggleClass("expanded");
-  }
-
   async _onQtChange(event) {
     event.preventDefault();
     const itemId = event.currentTarget.closest(".item").dataset.itemId;
@@ -133,17 +116,19 @@ export class OseActorSheetCharacter extends OseActorSheet {
       .click((ev) => ev.target.select())
       .change(this._onQtChange.bind(this));
 
-    // Item summaries
-    html
-      .find(".item .item-name h4")
-      .click((event) => this._onItemSummary(event));
-
     html.find(".ability-score .attribute-name a").click((ev) => {
       let actorObject = this.actor;
       let element = event.currentTarget;
       let score = element.parentElement.parentElement.dataset.score;
       actorObject.rollCheck(score, { event: event });
     });
+
+    html.find(".attack a").click(ev => {
+      let actorObject = this.actor;
+      let element = event.currentTarget;
+      let attack = element.parentElement.parentElement.dataset.attack;
+      actorObject.rollAttack(attack, { event: event });
+    })
 
     // Handle default listeners last so system listeners are triggered first
     super.activateListeners(html);

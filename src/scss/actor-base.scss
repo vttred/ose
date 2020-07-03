@@ -12,7 +12,7 @@
     border: 1px solid $colorDark;
     .panel-title {
       color: whitesmoke;
-      background: $colorDark;
+      background: $darkBackground;
       line-height: 14px;
       height: 20px;
       text-align: center;
@@ -112,7 +112,8 @@
           color: whitesmoke;
           padding: 2px;
           margin: 0;
-          background: $colorDark;
+          border: 1px solid $colorDark;
+          background: $darkBackground;
           text-align: center;
         }
         &.attribute-secondaries {
@@ -147,7 +148,7 @@
           .attribute-name {
             width: 40px;
             margin: 0;
-            line-height: 38px;
+            line-height: 35px;
             a {
               margin: auto;
             }
@@ -170,14 +171,16 @@
       }
       .item-titles {
         text-align: center;
-        padding-top: 4px;
+        padding: 4px;
+        border: 1px solid $colorDark;
+        box-shadow: 0 0 5px $colorDark;
         .item-name {
           text-align: left;
           text-indent: 8px;
         }
         font-weight: 300;
         font-size: 12px;
-        background: $colorDark;
+        background: $darkBackground;
         color: white;
         input {
           color: white;

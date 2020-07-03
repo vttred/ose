@@ -74,21 +74,30 @@
     }
   }
   .sheet-tabs {
-    color: whitesmoke;
-    background: $colorDark;
-    margin: 4px 0 0;
-    border: 1px solid $colorDark;
+    position: absolute;
+    transform: rotate(90deg);
+    top: 365px;
+    right: -166px;
+    width: 320px;
+    z-index: -1;
     .item {
-      padding: 2px;
+      padding: 0 10px;
+      margin-left: -5px;
+      text-indent: 4px;
+      background: url('/ui/parchment.jpg');
+      border-top-right-radius: 4px;
+      border-top-left-radius: 15px;
+      box-shadow: 0 0 6px 1px $colorDark;
+      font-size: 13px;
       &.active {
-        background: $colorCrimson;
+        z-index: 1;
+        font-weight: bold;
+        text-shadow: none;
       }
     }
   }
   .sheet-body {
     padding: 5px 0;
-    border: 1px solid $colorDark;
-    border-top: none;
     height: calc(100% - 175px);
     .attributes {
       margin: 0;
@@ -97,6 +106,7 @@
         position: relative;
         margin: 8px;
         border: 1px solid $colorTan;
+        box-shadow: 0 0 2px $colorTan;
         .attribute-name {
           color: whitesmoke;
           padding: 2px;

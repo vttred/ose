@@ -1,0 +1,38 @@
+<div class="ose chat-card item-card" data-actor-id="{{actor._id}}" data-item-id="{{item._id}}"
+     {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
+    <header class="card-header flexrow">
+        <img src="{{item.img}}" title="{{item.name}}" width="36" height="36"/>
+        <h3 class="item-name">{{item.name}}</h3>
+    </header>
+
+    <div class="card-content">
+        {{{data.description}}}
+    </div>
+
+    <div class="card-buttons">
+        {{#if hasAttack}}<button data-action="attack">{{ localize "OSE.Attack" }}</button>{{/if}}
+
+        {{#if hasDamage}}
+        <button data-action="damage">
+            {{#if isHealing}}{{ localize "OSE.Healing" }}
+            {{else}}{{localize "OSE.Damage" }}{{/if}}
+        </button>
+        {{/if}}
+
+        {{#if hasSave}}
+        <button data-action="save" data-ability="{{data.save.ability}}" disabled>
+            {{ localize "OSE.SavingThrow" }} {{labels.save}}
+        </button>
+        {{/if}}
+
+        {{#if data.formula}}
+        <button data-action="formula">{{ localize "OSE.OtherFormula"}}</button>
+        {{/if}}
+    </div>
+
+    <footer class="card-footer">
+        {{#each data.properties}}
+        <span>{{this}}</span>
+        {{/each}}
+    </footer>
+</div>

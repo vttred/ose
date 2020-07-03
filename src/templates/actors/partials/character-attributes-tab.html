@@ -1,50 +1,4 @@
 <section class="flexrow">
-    <ul class="attributes flexrow">
-        <li class="attribute">
-            <h4 class="attribute-name box-title" title="{{ localize 'OSE.HitDice' }}">{{ localize "OSE.HitDiceShort" }}
-            </h4>
-            <div class="attribute-value">
-                <input name="data.hp.hd" type="text" value="{{data.hp.hd}}" placeholder="0" data-dtype="String" />
-            </div>
-        </li>
-        <li class="attribute">
-            <h4 class="attribute-name box-title" title="{{ localize 'OSE.Thac0' }}">{{ localize "OSE.Thac0" }}</h4>
-            <div class="attribute-value">
-                <input name="data.thac0.value" type="text" value="{{data.thac0.value}}" placeholder="0"
-                    data-dtype="Number" />
-            </div>
-        </li>
-        {{#if config.individualInit}}
-        <li class="attribute">
-            <h4 class="attribute-name box-title" title="{{ localize 'OSE.Initiative' }}">
-                {{ localize "OSE.InitiativeShort" }}</h4>
-            <div class="attribute-value">
-                <input name="data.initiative.value" type="text" value="{{data.initiative.value}}" placeholder="0"
-                    data-dtype="Number" />
-            </div>
-        </li>
-        {{/if}}
-        {{#if data.retainer.enabled}}
-        <li class="attribute">
-            <h4 class="attribute-name box-title" title="{{ localize 'OSE.Loyalty' }}">{{ localize "OSE.LoyaltyShort" }}
-            </h4>
-            <div class="attribute-value">
-                <input name="data.retainer.loyalty" type="text" value="{{data.retainer.loyalty}}" placeholder="0"
-                    data-dtype="Number" />
-            </div>
-        </li>
-        {{/if}}
-        <li class="attribute">
-            <h4 class="attribute-name box-title" title="{{ localize 'OSE.Movement' }}">
-                {{ localize "OSE.MovementShort" }}</h4>
-            <div class="attribute-value">
-                <input name="data.movement.value" type="text" value="{{data.movement.value}}" placeholder="0"
-                    data-dtype="Number" />
-            </div>
-        </li>
-    </ul>
-</section>
-<section class="flexrow">
     {{!-- Scores --}}
     <div class="attribute-group">
         <ul class="attributes">
@@ -96,28 +50,124 @@
                         data-dtype="Number" />
                     <span class="attribute-mod">{{mods.cha}}</span>
             </li>
+            {{#if data.retainer.enabled}}
+            <li class="attribute">
+                <h4 class="attribute-name box-title" title="{{ localize 'OSE.Loyalty' }}">
+                    {{ localize "OSE.LoyaltyShort" }}
+                </h4>
+                <div class="attribute-value">
+                    <input name="data.retainer.loyalty" type="text" value="{{data.retainer.loyalty}}" placeholder="0"
+                        data-dtype="Number" />
+                </div>
+            </li>
+            {{/if}}
         </ul>
     </div>
     {{!-- Resource Tracking --}}
     <div class="flex2">
-        <div class="health">
-            <input class="health-top" name="data.hp.value" type="text" value="{{data.hp.value}}" data-dtype="Number"
-                placeholder="0" title="{{localize 'OSE.Health'}}" />
-            <input class="health-bottom" name="data.hp.max" type="text" value="{{data.hp.max}}" data-dtype="Number"
-                placeholder="0" title="{{localize 'OSE.HealthMax'}}" />
-            <div class="health-empty" style="height:{{counter false data.hp.value data.hp.max}}%"></div>
-            <div class="health-full" style="height:{{counter true data.hp.value data.hp.max}}%"></div>
+        <div class="flexrow">
+            <div class="health">
+                <input class="health-top" name="data.hp.value" type="text" value="{{data.hp.value}}" data-dtype="Number"
+                    placeholder="0" title="{{localize 'OSE.Health'}}" />
+                <input class="health-bottom" name="data.hp.max" type="text" value="{{data.hp.max}}" data-dtype="Number"
+                    placeholder="0" title="{{localize 'OSE.HealthMax'}}" />
+                <div class="health-empty" style="height:{{counter false data.hp.value data.hp.max}}%"></div>
+                <div class="health-full" style="height:{{counter true data.hp.value data.hp.max}}%"></div>
+            </div>
+            <div class="health armor-class">
+                {{#if config.ascendingAC}}
+                <input class="health-top" name="data.aac.value" type="text" value="{{data.aac.value}}"
+                    data-dtype="Number" placeholder="0" title="{{localize 'OSE.ArmorClass'}}" />
+                <input class="health-bottom" type="text" value="{{add 10 mods.dex}}"
+                    title="{{localize 'OSE.ArmorClass'}}" disabled />
+                {{else}}
+                <input class="health-top" name="data.ac.value" type="text" value="{{data.ac.value}}" data-dtype="Number"
+                    placeholder="0" title="{{localize 'OSE.ArmorClass'}}" />
+                <input class="health-bottom" type="text" value="{{subtract mods.dex 9}}"
+                    title="{{localize 'OSE.ArmorClass'}}" disabled />
+                {{/if}}
+            </div>
         </div>
-        <div class="health armor-class">
-            {{#if config.ascendingAC}}
-            <input class="health-top" name="data.aac.value" type="text" value="{{data.aac.value}}" data-dtype="Number"
-                placeholder="0" title="{{localize 'OSE.ArmorClass'}}" />
-            <input class="health-bottom" type="text" value="{{add 10 mods.dex}}" title="{{localize 'OSE.ArmorClass'}}" disabled/>
-            {{else}}
-            <input class="health-top" name="data.ac.value" type="text" value="{{data.ac.value}}" data-dtype="Number"
-                placeholder="0" title="{{localize 'OSE.ArmorClass'}}" />
-            <input class="health-bottom" type="text" value="{{subtract 9 mods.dex}}" title="{{localize 'OSE.ArmorClass'}}" disabled/>
-            {{/if}}
+        <div class="flexrow">
+            <ul class="attributes flexrow">
+                <li class="attribute">
+                    <h4 class="attribute-name box-title" title="{{ localize 'OSE.HitDice' }}">
+                        {{ localize "OSE.HitDiceShort" }}
+                    </h4>
+                    <div class="attribute-value">
+                        <input name="data.hp.hd" type="text" value="{{data.hp.hd}}" placeholder="0"
+                            data-dtype="String" />
+                    </div>
+                </li>
+                {{#if config.individualInit}}
+                <li class="attribute">
+                    <h4 class="attribute-name box-title" title="{{ localize 'OSE.Initiative' }}">
+                        {{ localize "OSE.InitiativeShort" }}</h4>
+                    <div class="attribute-value">
+                        <input name="data.initiative.value" type="text" value="{{data.initiative.value}}"
+                            placeholder="0" data-dtype="Number" />
+                    </div>
+                </li>
+                {{/if}}
+            </ul>
+        </div>
+        <div class="flexrow">
+            <ul class="attributes flexrow">
+                <li class="attribute attribute-secondaries">
+                    <h4 class="attribute-name box-title" title="{{localize 'OSE.Melee'}}">{{localize 'OSE.MeleeShort'}}</h4>
+                    <div class="flexrow">
+                        <div class="attribute-value">
+                            {{subtract data.thac0.mod.melee (subtract mods.str data.thac0.value)}}
+                        </div>
+                    </div>
+                </li>
+                <li class="attribute">
+                    <h4 class="attribute-name box-title" title="{{ localize 'OSE.Thac0' }}">{{ localize "OSE.Thac0" }}
+                    </h4>
+                    <div class="flexrow">
+                        <div class="attribute-value">
+                            <input name="data.thac0.value" type="text" value="{{data.thac0.value}}" placeholder="0"
+                                data-dtype="Number" />
+                        </div>
+                    </div>
+                </li>
+                <li class="attribute attribute-secondaries">
+                    <h4 class="attribute-name box-title" title="{{localize 'OSE.Missile'}}">{{localize 'OSE.MissileShort'}}</h4>
+                    <div class="flexrow">
+                        <div class="attribute-value">
+                            {{subtract data.thac0.mod.missile (subtract mods.dex data.thac0.value)}}
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="flexrow">
+            <ul class="attributes flexrow">
+                <li class="attribute attribute-secondaries">
+                    <h4 class="attribute-name box-title" title="{{localize 'OSE.MovementEncounter'}}">{{localize 'OSE.MovementEncounterShort'}}</h4>
+                    <div class="flexrow">
+                        <div class="attribute-value">
+                            {{divide data.movement.base 3}}
+                        </div>
+                    </div>
+                </li>
+                <li class="attribute">
+                    <h4 class="attribute-name box-title" title="{{ localize 'OSE.Movement' }}">
+                        {{ localize "OSE.MovementShort" }}</h4>
+                    <div class="attribute-value flexrow">
+                        <input name="data.movement.base" type="text" value="{{data.movement.base}}" placeholder="0"
+                            data-dtype="Number" />
+                    </div>
+                </li>
+                <li class="attribute attribute-secondaries">
+                    <h4 class="attribute-name box-title" title="{{localize 'OSE.MovementOverland'}}">{{localize 'OSE.MovementOverlandShort'}}</h4>
+                    <div class="flexrow">
+                        <div class="attribute-value">
+                            {{divide data.movement.base 5}}
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
     {{!-- Saving throws --}}

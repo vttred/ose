@@ -85,6 +85,13 @@ export class OseActorSheet extends ActorSheet {
       });
     });
 
+    html.find(".item-image").click(async (ev) => {
+      const li = $(ev.currentTarget).parents(".item");
+      const item = this.actor.getOwnedItem(li.data("itemId"));
+      item.roll();
+    });
+
+
     super.activateListeners(html);
   }
 

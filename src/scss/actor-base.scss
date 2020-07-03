@@ -95,7 +95,7 @@
       padding: 0;
       .attribute {
         position: relative;
-        margin: 10px;
+        margin: 8px;
         border: 1px solid $colorTan;
         .attribute-name {
           color: whitesmoke;
@@ -104,25 +104,31 @@
           background: $colorDark;
           text-align: center;
         }
-        .attribute-value {
-          padding: 4px;
-          display: flex;
-          flex-direction: row;
-          &.multiple input {
-            min-width: 28px;
+        &.attribute-secondaries {
+          margin: 10px 5px;
+        }
+        &.ability-score {
+          height: 40px;
+          .attribute-value {
+            line-height: 36px;
           }
+        }
+        .attribute-value {
+          text-align: center;
+          padding: 4px;
         }
         .attribute-mod {
           position: absolute;
           color: $colorTan;
           right: 5px;
-          top: 0;
+          top: -5px;
           font-size: 13px;
         }
       }
     }
     .attribute-group {
       flex: 0 0 105px;
+      margin: auto 0;
       .attributes {
         .attribute {
           display: flex;
@@ -130,7 +136,7 @@
           .attribute-name {
             width: 40px;
             margin: 0;
-            line-height: 28px;
+            line-height: 38px;
             a {
               margin: auto;
             }

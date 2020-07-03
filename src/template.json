@@ -24,7 +24,10 @@
         },
         "thac0": {
           "value": 19,
-          "mod": 0
+          "mod": {
+            "missile": 0,
+            "melee": 0
+          }
         },
         "saves": {
           "death": 10,
@@ -34,8 +37,7 @@
           "spell": 10
         },
         "movement": {
-          "base": 0,
-          "encounter": 0
+          "base": 120
         } 
       },
       "spellcaster": {

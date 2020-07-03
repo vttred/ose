@@ -28,10 +28,10 @@
     .health {
       &.armor-class {
         background: url('/systems/ose/assets/shield.png') no-repeat center;
-        background-size: 90px;
+        background-size: 70px;
       }
         margin: 10px 0;
-        height: 90px;
+        height: 70px;
         position: relative;
         input {
           font-size: 16px;
@@ -42,25 +42,25 @@
           border-bottom: none;
           position: absolute;
           font-size: 24px;
-          top: 28px;
+          top: 10px;
           width: 70px;
           left: calc(50% - 35px);
         }
         .health-bottom {
           border-bottom: none;
           position: absolute;
-          bottom: 12px;
+          bottom: 8px;
           width: 40px;
           right: calc(50% + -20px);
         }
         .health-empty {
           background: url('/systems/ose/assets/heart_empty.png') no-repeat center;
-          background-size: 90px;
+          background-size: 70px;
           background-position: top;
         }
         .health-full {
           background: url('/systems/ose/assets/heart_full.png') no-repeat center;
-          background-size: 90px;
+          background-size: 70px;
           background-position: bottom;
         }
     }

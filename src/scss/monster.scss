@@ -5,5 +5,19 @@
     .editor {
       height: 300px;
     }
+    .attributes .attribute.health {
+      min-width: 75px;
+    }
+  }
+  .attribute-group {
+    .attacks-description {
+      margin: 2px;
+      padding: 0;
+      text-align: center;
+      label {
+        color: $colorTan;
+        font-size: 10px;
+      }
+    }
   }
 }

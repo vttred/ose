@@ -89,7 +89,9 @@
       border-top-left-radius: 80px;
       box-shadow: 0 0 6px 1px $colorDark;
       font-size: 12px;
+      filter: brightness(0.9);
       &.active {
+        filter: none;
         z-index: 1;
         font-weight: bold;
         text-shadow: none;
@@ -128,6 +130,10 @@
         .attribute-value {
           text-align: center;
           padding: 4px;
+          .sep {
+            flex: 0 0 5px;
+            line-height: 24px;
+          }
         }
         .attribute-mod {
           position: absolute;
@@ -160,6 +166,9 @@
           .attribute-value {
             width: 45px;
             flex-grow: 0;
+            input {
+              padding: 0;
+            }
           }
         }
       }

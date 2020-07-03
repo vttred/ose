@@ -10,6 +10,13 @@
             </div>
         </li>
         <li class="attribute">
+            <h4 class="attribute-name box-title" title="{{localize 'OSE.HitDice'}}">{{ localize "OSE.HitDiceShort" }}
+            </h4>
+            <div class="attribute-value">
+                <input name="data.hp.hd" type="text" value="{{data.hp.hd}}" placeholder="0" data-dtype="String" />
+            </div>
+        </li>
+        <li class="attribute">
             {{#if config.ascendingAC}}
             <h4 class="attribute-name box-title" title="{{ localize 'OSE.ArmorClass' }}">
                 {{ localize "OSE.AscArmorClassShort" }}</h4>
@@ -30,14 +37,6 @@
             <h4 class="attribute-name box-title" title="{{localize 'OSE.Thac0'}}">{{ localize "OSE.Thac0" }}</h4>
             <div class="attribute-value">
                 <input name="data.thac0.value" type="text" value="{{data.thac0.value}}" placeholder="0"
-                    data-dtype="Number" />
-            </div>
-        </li>
-        <li class="attribute">
-            <h4 class="attribute-name box-title" title="{{localize 'OSE.Attacks'}}">{{ localize "OSE.AttacksShort" }}
-            </h4>
-            <div class="attribute-value">
-                <input name="data.att.value" type="text" value="{{data.att.value}}" placeholder="0"
                     data-dtype="Number" />
             </div>
         </li>
@@ -65,13 +64,13 @@
     <div class="flex3 panel inventory abilities">
         <div>
             <li class="item-titles flexrow panel-title">
-              <div class="item-name">{{localize 'OSE.panel.abilities'}} & {{localize 'OSE.panel.equipment'}}</div>
-              <div class="item-controls">
-                {{#if owner}}
-                <a class="item-control item-create" title='{{localize "OSE.Add"}}' data-type="choice"
-                    data-choices="weapon,ability,armor,item"><i class="fas fa-plus"></i></a>
-                {{/if}}
-              </div>
+                <div class="item-name">{{localize 'OSE.panel.abilities'}} & {{localize 'OSE.panel.equipment'}}</div>
+                <div class="item-controls">
+                    {{#if owner}}
+                    <a class="item-control item-create" title='{{localize "OSE.Add"}}' data-type="choice"
+                        data-choices="weapon,ability,armor,item"><i class="fas fa-plus"></i></a>
+                    {{/if}}
+                </div>
             </li>
             <ol class="item-list resizable" data-base-size="240">
                 {{#each abilities as |item|}}
@@ -121,6 +120,10 @@
     </div>
     {{!-- Saving throws --}}
     <div class="attribute-group">
+        <div class="attacks-description">
+            <label>{{ localize "OSE.Attacks" }}</label>
+            <input name="data.att" type="text" value="{{data.att}}" placeholder="0" data-dtype="String" />
+        </div>
         <ul class="attributes">
             <li class="attribute saving-throw" data-save="death">
                 <h4 class="attribute-name box-title" title="{{ localize 'OSE.saves.death.long' }}">

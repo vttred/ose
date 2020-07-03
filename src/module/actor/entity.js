@@ -44,7 +44,24 @@ export class OseActor extends Actor {
 
   rollAttack(attack, options={}) {
     const label = game.i18n.localize(`OSE.${attack}`);
-    const rollParts = ['1d20'];
+    const rollParts = ['1d20',];
+
+    const mods = this.computeModifiers();
+    if (attack == 'Missile') {
+      rollParts.push(
+        '+',
+        mods.dex.toString(),
+        '+',
+        this.data.data.thac0.mod.missile.toString()
+      );
+    } else if (attack == 'Melee') {
+      rollParts.push(
+        '+',
+        mods.str.toString(),
+        '+',
+        this.data.data.thac0.mod.melee.toString()
+      );
+    }
 
     // Roll and return
     return OseDice.Roll({

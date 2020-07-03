@@ -2,6 +2,7 @@
     "OSE.Edit": "Edit",
     "OSE.Delete": "Delete",
     "OSE.Add": "Add",
+    "OSE.Ok": "Ok",
     "OSE.Cancel": "Cancel",
     "OSE.Roll": "Roll",
 
@@ -63,7 +64,7 @@
     "OSE.MovementEncounterShort": "ENC",
     "OSE.MovementOverland": "Overland Movement Rate",
     "OSE.MovementOverlandShort": "OVE",
-    "OSE.MovementShort": "MR",
+    "OSE.MovementShort": "MV",
     "OSE.ArmorClass": "Armor Class",
     "OSE.ArmorClassShort": "AC",
     "OSE.AscArmorClassShort": "AAC",

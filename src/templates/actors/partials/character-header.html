@@ -27,9 +27,12 @@
       <label>{{localize 'OSE.Level'}}</label>
     </li>
     <li class="flex2">
-      <input type="text" name="data.details.xp" value="{{data.details.xp}}"
+      <input type="text" name="data.details.xp.value" value="{{data.details.xp.value}}"
         placeholder="{{ localize 'OSE.Experience' }}" />
       <label>{{localize 'OSE.Experience'}}</label>
+      {{#if data.details.xp.bonus}}
+      <span class="xp-bonus">+{{data.details.xp.bonus}}%</span>
+      {{/if}}
     </li>
   </ul>
 </section>

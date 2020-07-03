@@ -1,9 +1,10 @@
 import { OseActor } from "./entity.js";
+import { OseActorSheet } from "./actor-sheet.js";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
  */
-export class OseActorSheetMonster extends ActorSheet {
+export class OseActorSheetMonster extends OseActorSheet {
   constructor(...args) {
     super(...args);
   }
@@ -31,25 +32,6 @@ export class OseActorSheetMonster extends ActorSheet {
     });
   }
 
-  /* -------------------------------------------- */
-
-  // Override to set resizable initial size
-  async _renderInner(...args) {
-    const html = await super._renderInner(...args);
-    this.form = html[0];
-
-    // Resize resizable classes
-    let resizable = html.find('.resizable');
-    if (resizable.length == 0) {
-      return;
-    }
-    resizable.each((_, el) => {
-      let heightDelta = this.position.height - (this.options.height);
-      el.style.height = `${heightDelta + parseInt(el.dataset.baseSize)}px`;
-    });
-    return html;
-  }
-
   /**
    * Prepare data for rendering the Actor sheet
    * The prepared data object contains both the actor data as well as additional sheet options
@@ -57,57 +39,47 @@ export class OseActorSheetMonster extends ActorSheet {
   getData() {
     const data = super.getData();
     
-    data.config = CONFIG.OSE;
+    // Settings
+    data.config.morale = game.settings.get('ose', 'morale');
 
-    // Prepare owned items
-    this._prepareItems(data);
-
-    // DEBUG
     return data;
   }
 
-  /**
-   * Organize and classify Owned Items for Character sheets
-   * @private
-   */
-  _prepareItems(data) {
-    // Partition items by category
-    let [inventory, abilities, spells] = data.items.reduce(
-      (arr, item) => {
-        // Classify items into types
-        if (item.type === "item") arr[0].push(item);
-        if (item.type === "ability") arr[1].push(item);
-        else if (item.type === "spell") arr[2].push(item);
-        return arr;
-      },
-      [[], [], [], []]
-    );
-
-    // Assign and return
-    data.inventory = inventory;
-    data.spells = spells;
-    data.abilities = abilities;
-  }
-  
-
-  _onItemSummary(event) {
-    event.preventDefault();
-    let li = $(event.currentTarget).parents(".item"),
-        item = this.actor.getOwnedItem(li.data("item-id")),
-        description = TextEditor.enrichHTML(item.data.data.description);
-    // Toggle summary
-    if ( li.hasClass("expanded") ) {
-      let summary = li.parents('.item-entry').children(".item-summary");
-      summary.slideUp(200, () => summary.remove());
-    } else {
-      let div = $(`<div class="item-summary">${description}</div>`);
-      li.parents('.item-entry').append(div.hide());
-      div.slideDown(200);
-    }
-    li.toggleClass("expanded");
-  }
-
   /* -------------------------------------------- */
+
+  async _chooseItemType(
+    choices = ['weapon', 'armor', 'shield', 'gear'],
+  ) {
+    let templateData = { upper: '', lower: '', types: choices },
+      dlg = await renderTemplate(
+        'templates/sidebar/entity-create.html',
+        templateData,
+      );
+    //Create Dialog window
+    return new Promise((resolve) => {
+      new Dialog({
+        title: '',
+        content: dlg,
+        buttons: {
+          ok: {
+            label: game.i18n.localize('OSE.Ok'),
+            icon: '<i class="fas fa-check"></i>',
+            callback: (html) => {
+              resolve({
+                type: html.find('select[name="type"]').val(),
+                name: html.find('input[name="name"]').val(),
+              });
+            },
+          },
+          cancel: {
+            icon: '<i class="fas fa-times"></i>',
+            label: game.i18n.localize('OSE.Cancel'),
+          },
+        },
+        default: 'ok',
+      }).render(true);
+    });
+  }
 
   /**
    * Activate event listeners using the prepared sheet HTML
@@ -135,30 +107,35 @@ export class OseActorSheetMonster extends ActorSheet {
       event.preventDefault();
       const header = event.currentTarget;
       const type = header.dataset.type;
-      const itemData = {
-        name: `New ${type.capitalize()}`,
-        type: type,
-        data: duplicate(header.dataset),
-      };
-      delete itemData.data["type"];
-      return this.actor.createOwnedItem(itemData);
-    });
 
-    html.find(".item-name").click((event) => {
-      this._onItemSummary(event);
+      // item creation helper func
+      let createItem = function (
+        type,
+        name = `New ${type.capitalize()}`,
+      ) {
+        const itemData = {
+          name: name ? name : `New ${type.capitalize()}`,
+          type: type,
+          data: duplicate(header.dataset),
+        };
+        delete itemData.data['type'];
+        return itemData;
+      };
+      
+      // Getting back to main logic
+      if (type == 'choice') {
+        const choices = header.dataset.choices.split(',');
+        this._chooseItemType(choices).then((dialogInput) => {
+          const itemData = createItem(dialogInput.type, dialogInput.name);
+          this.actor.createOwnedItem(itemData, {});
+        });
+        return;
+      }
+      const itemData = createItem(type);
+      return this.actor.createOwnedItem(itemData, {});
     });
 
     // Handle default listeners last so system listeners are triggered first
     super.activateListeners(html);
-  }
-
-  async _onResize(event) {
-    super._onResize(event);
-    let html = $(event.path);
-    let resizable = html.find('.resizable');
-    resizable.each((_, el) => {
-      let heightDelta = this.position.height - (this.options.height);
-      el.style.height = `${heightDelta + parseInt(el.dataset.baseSize)}px`;
-    });
   }
 }

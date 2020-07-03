@@ -1,7 +1,78 @@
 {
   "Actor": {
     "types": ["character", "monster"],
+    "templates": {
+      "common": {
+        "retainer": {
+          "enabled": false,
+          "loyalty": 0
+        },
+        "hp": {
+          "hd": "",
+          "value": 20,
+          "max": 20
+        },
+        "ac": {
+          "naked": 0,
+          "value": 0,
+          "mod": 0
+        },
+        "aac": {
+          "naked": 0,
+          "value": 0,
+          "mod": 0
+        },
+        "thac0": {
+          "value": 19,
+          "bba": 0,
+          "mod": {
+            "missile": 0,
+            "melee": 0
+          }
+        },
+        "saves": {
+          "death": 10,
+          "wand": 10,
+          "paralysis": 10,
+          "breath": 10,
+          "spell": 10
+        },
+        "movement": {
+          "base": 120
+        } 
+      },
+      "spellcaster": {
+        "spells": {
+          "enabled": false,
+          "1": {
+            "value": 0,
+            "max": 0
+          },
+          "2": {
+            "value": 0,
+            "max": 0
+          },
+          "3": {
+            "value": 0,
+            "max": 0
+          },
+          "4": {
+            "value": 0,
+            "max": 0
+          },
+          "5": {
+            "value": 0,
+            "max": 0
+          },
+          "6": {
+            "value": 0,
+            "max": 0
+          }
+        }
+      }
+    },
     "character": {
+      "templates": ["common", "spellcaster"],
       "details": {
         "biography": "",
         "class": "",
@@ -9,7 +80,11 @@
         "alignment": "",
         "literate": false,
         "level": 1,
-        "xp": 0
+        "xp": {
+          "next": 0,
+          "value": 0,
+          "bonus": 0
+        }
       },
       "scores": {
         "str": {
@@ -42,53 +117,6 @@
         "silver": 0,
         "copper": 0
       },
-      "spells": {
-        "dc": 0,
-        "lvl1": {
-          "value": 0,
-          "max": 0
-        },
-        "lvl2": {
-          "value": 0,
-          "max": 0
-        },
-        "lvl3": {
-          "value": 0,
-          "max": 0
-        },
-        "lvl4": {
-          "value": 0,
-          "max": 0
-        },
-        "lvl5": {
-          "value": 0,
-          "max": 0
-        }
-      },
-      "hp": {
-        "hd": "",
-        "value": 20,
-        "max": 20
-      },
-      "ac": {
-        "value": 0,
-        "mod": 0
-      },
-      "thac0": {
-        "value": 19,
-        "mod": 0
-      },
-      "saves": {
-        "D": 10,
-        "W": 10,
-        "P": 10,
-        "B": 10,
-        "S": 10
-      },
-      "movement": {
-        "base": 0,
-        "encounter": 0
-      },
       "initative": {
         "value": 0,
         "mod": 0
@@ -96,6 +124,7 @@
       "languages": []
     },
     "monster": {
+      "templates": ["common", "spellcaster"],
       "details": {
         "biography": "",
         "alignment": "",
@@ -105,72 +134,52 @@
         "appearing": "",
         "morale": 0
       },
-      "saves": {
-        "D": 10,
-        "W": 10,
-        "P": 10,
-        "B": 10,
-        "S": 10
-      },
-      "thac0": {
-        "value": 19,
-        "mod": 0
-      },
-      "hp": {
-        "hd": "",
-        "max": 0,
-        "value": 0
-      },
-      "ac": {
-        "value": 0,
-        "mod": 0
-      },
-      "attacks": {
-        "value": 1
-      },
-      "movement": {
-        "base": 0,
-        "encounter": 0
-      },
-      "spells": {
-        "dc": 0,
-        "lvl1": {
-          "value": 0,
-          "max": 0
-        },
-        "lvl2": {
-          "value": 0,
-          "max": 0
-        },
-        "lvl3": {
-          "value": 0,
-          "max": 0
-        },
-        "lvl4": {
-          "value": 0,
-          "max": 0
-        },
-        "lvl5": {
-          "value": 0,
-          "max": 0
-        }
-      }
+      "attacks": ""
     }
   },
   "Item": {
-    "types": ["item", "spell", "ability"],
+    "types": ["item", "weapon", "armor", "spell", "ability"],
     "item": {
       "description": "",
-      "quantity": 1,
+      "quantity": {
+        "value": 1,
+        "max": 0
+      },
+      "cost": 0,
+      "weight": 80
+    },
+    "weapon": {
+      "description": "",
+      "damage": "1d6",
+      "qualities": "",
+      "slow": false,
+      "missile": true,
+      "melee": true,
+      "cost": 0,
+      "equipped": false,
+      "weight": 0
+    },
+    "armor": {
+      "description": "",
+      "ac": 9,
+      "aac": 10,
+      "cost": 0,
+      "equipped": false,
       "weight": 0
     },
     "spell": {
       "lvl": 1,
-      "class": "",
-      "description": ""
+      "class": "Magic-User",
+      "duration": "",
+      "range": "",
+      "roll": "",
+      "description": "",
+      "memorized": false,
+      "cast": false
     },
     "ability": {
       "requirements": "",
+      "roll": "",
       "description": ""
     }
   }

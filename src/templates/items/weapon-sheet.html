@@ -9,11 +9,32 @@
   </header>
   <section class="sheet-body">
     <div class="flexrow">
+      <input name="data.qualities" type="text" value="{{data.qualities}}" placeholder="Qualities" />
+    </div>
+    <div class="flexrow">
       <div class="stats">
-        <div class="form-group">
-          <label>{{localize 'OSE.items.Quantity'}}</label>
+        <div class="form-group block-input">
+          <label>{{localize 'OSE.items.Damage'}}</label>
           <div class="form-fields">
-            <input type="text" name="data.quantity.value" value="{{data.quantity.value}}" data-dtype="Number" />/<input type="text" name="data.quantity.max" value="{{data.quantity.max}}" data-dtype="Number" />
+            <input type="text" name="data.damage" value="{{data.damage}}" data-dtype="String" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>{{localize 'OSE.items.Slow'}}</label>
+          <div class="form-fields">
+            <input type="checkbox" name="data.slow" value="{{data.level}}" {{checked data.slow}} />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>{{localize 'OSE.items.Missile'}}</label>
+          <div class="form-fields">
+            <input type="checkbox" name="data.missile" {{checked data.missile}} />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>{{localize 'OSE.items.Melee'}}</label>
+          <div class="form-fields">
+            <input type="checkbox" name="data.melee" {{checked data.melee}} />
           </div>
         </div>
         <div class="form-group">
@@ -25,7 +46,7 @@
         <div class="form-group">
           <label>{{localize 'OSE.items.Weight'}}</label>
           <div class="form-fields">
-            <input type="text" name="data.weight" value="{{data.weight}}" data-dtype="String" />
+            <input type="text" name="data.weight" value="{{data.weight}}" data-dtype="Number" />
           </div>
         </div>
       </div>

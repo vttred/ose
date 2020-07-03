@@ -6,19 +6,8 @@ import { preloadHandlebarsTemplates } from "./module/preloadTemplates.js";
 import { OseActor } from "./module/actor/entity.js";
 import { OseItem } from "./module/item/entity.js";
 import { OSE } from "./module/config.js";
-
-// Handlebars template helpers
-Handlebars.registerHelper("eq", function (a, b) {
-  return a == b;
-});
-
-Handlebars.registerHelper("add", function (lh, rh) {
-  return parseInt(lh) + parseInt(rh);
-});
-
-Handlebars.registerHelper("subtract", function (lh, rh) {
-  return parseInt(rh) - parseInt(lh);
-});
+import { registerSettings } from './module/settings.js';
+import { registerHelpers } from './module/helpers.js';
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -35,6 +24,13 @@ Hooks.once("init", async function () {
   };
 
   CONFIG.OSE = OSE;
+
+  // Custom Handlebars helpers
+  registerHelpers();
+  
+  // Register custom system settings
+  registerSettings();
+  
   CONFIG.Actor.entityClass = OseActor;
   CONFIG.Item.entityClass = OseItem;
 

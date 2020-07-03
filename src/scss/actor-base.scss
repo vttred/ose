@@ -12,7 +12,7 @@
     border: 1px solid $colorDark;
     .panel-title {
       color: whitesmoke;
-      background: $colorDark;
+      background: $darkBackground;
       line-height: 14px;
       height: 20px;
       text-align: center;
@@ -32,7 +32,7 @@
       padding: 0;
     }
   }
-  
+
   /* Header Summary Details */
   .header-details {
     h1 {
@@ -74,44 +74,79 @@
     }
   }
   .sheet-tabs {
-    color: whitesmoke;
-    background: $colorDark;
-    margin: 4px 0 0;
-    border: 1px solid $colorDark;
+    position: absolute;
+    transform: rotate(90deg);
+    top: 365px;
+    right: -169px;
+    width: 320px;
+    z-index: -1;
     .item {
-      padding: 2px;
+      padding: 2px 10px 0;
+      margin-left: -5px;
+      text-indent: 4px;
+      background: url("/ui/parchment.jpg");
+      border-top-right-radius: 4px;
+      border-top-left-radius: 80px;
+      box-shadow: 0 0 6px 1px $colorDark;
+      font-size: 12px;
+      filter: brightness(0.9);
       &.active {
-        background: $colorTan;
+        filter: none;
+        z-index: 1;
+        font-weight: bold;
         text-shadow: none;
+        margin-bottom: -1px;
       }
     }
   }
   .sheet-body {
     padding: 5px 0;
-    border: 1px solid $colorDark;
-    border-top: none;
-    height: calc(100% - 175px);
+    height: calc(100% - 140px);
     .attributes {
       margin: 0;
       padding: 0;
       .attribute {
-        margin: 10px;
+        position: relative;
+        margin: 8px;
         border: 1px solid $colorTan;
+        box-shadow: 0 0 2px $colorTan;
         .attribute-name {
           color: whitesmoke;
           padding: 2px;
           margin: 0;
-          background: $colorDark;
+          border: 1px solid $colorDark;
+          background: $darkBackground;
           text-align: center;
         }
+        &.attribute-secondaries {
+          margin: 10px 5px;
+        }
+        &.ability-score {
+          height: 40px;
+          .attribute-value {
+            line-height: 36px;
+          }
+        }
         .attribute-value {
+          text-align: center;
           padding: 4px;
-          display: flex;
-          flex-direction: row;
+          .sep {
+            flex: 0 0 5px;
+            line-height: 24px;
+          }
+        }
+        .attribute-mod {
+          position: absolute;
+          color: $colorTan;
+          right: 5px;
+          top: -5px;
+          font-size: 13px;
         }
       }
     }
     .attribute-group {
+      flex: 0 0 105px;
+      margin: auto 0;
       .attributes {
         .attribute {
           display: flex;
@@ -119,64 +154,151 @@
           .attribute-name {
             width: 40px;
             margin: 0;
-            line-height: 28px;
+            line-height: 35px;
+            a {
+              margin: auto;
+            }
           }
+          &.saving-throw .attribute-name {
+            line-height: 16px;
+            width: 80px;
+          }
+          .attribute-value {
+            width: 45px;
+            flex-grow: 0;
+            input {
+              padding: 0;
+            }
+          }
+        }
+      }
+    }
+    .inventory {
+      overflow: auto;
+      .header-spells {
+        line-height: 30px;
+      }
+      .item-titles {
+        text-align: center;
+        padding: 4px;
+        border: 1px solid $colorDark;
+        box-shadow: 0 0 5px $colorDark;
+        .item-name {
+          text-align: left;
+          text-indent: 8px;
+        }
+        font-weight: 300;
+        font-size: 13px;
+        background: $darkBackground;
+        color: white;
+        input {
+          color: white;
+          margin: auto;
+        }
+      }
+      .item-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        & > * {
+          line-height: 30px;
+        }
+        .item-summary {
+          font-size: 13px;
+          padding: 0 4px;
+          line-height: 20px;
+        }
+        .item-header {
+          @extend %header-field !optional;
+          padding: 0px;
+          margin-bottom: 0px;
+        }
+        .item-entry {
+          &:nth-child(even) {
+            .item {
+              background: rgba(0, 0, 0, 0.1);
+            }
+          }
+        }
+        .item {
+          line-height: 30px;
+          height: 30px;
+          overflow: hidden;
+        }
+        .item-equipped {
+          grid-area: item-equipped;
+          justify-self: center;
+        }
+        .item-name {
+          text-indent: 8px;
+          text-align: left;
+          overflow: hidden;
+          height: 30px;
+          margin: 0;
+          line-height: 30px;
+          &:hover .item-image {
+            background-image: url("/icons/svg/d20-grey.svg") !important;
+            cursor: pointer;
+          }
+          .item-image {
+            flex-basis: 30px;
+            flex-grow: 0;
+            background-size: contain;
+            background-repeat: no-repeat;
+            &:hover {
+              background-image: url("/icons/svg/d20-black.svg") !important;
+            }
+          }
+          h4 {
+            margin: 0;
+          }
+        }
+      }
+      .field-longer {
+        text-indent: 8px;
+        text-align: left;
+        flex-basis: 150px;
+        font-size: 12px;
+        flex-grow: 0;
+      }
+      .field-long {
+        flex-basis: 65px;
+        flex-grow: 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .field-short {
+        font-size: 12px;
+        flex-basis: 45px;
+        flex-grow: 0;
+        text-align: center;
+        &.quantity {
+          display: flex;
+          input {
+            margin: 3px 0;
+            border-bottom: none;
+          }
+        }
+      }
+      .item-controls {
+        font-size: 12px;
+        flex-basis: 60px;
+        flex-grow: 0;
+        text-align: right;
+        margin-right: 4px;
+        .item-unequipped {
+          color: rgba(0, 0, 0, 0.2);
+        }
+      }
+      &.spells {
+        .item-controls {
+          flex-basis: 30px;
         }
       }
     }
     .editor {
       height: 300px;
-    }
-    .inventory {
-      .item-entry {
-        padding: 0;
-        margin: 0;
-        list-style: none;
-        .item {
-          .item-image {
-            flex: 0 0 24px;
-            height: 24px;
-            background-size: cover;
-          }
-          .item-name {
-            line-height: 24px;
-            height: 24px;
-            overflow: hidden;
-            h4 {
-              text-indent: 4px;
-              margin: 0;
-              cursor: pointer;
-              &:hover {
-                color: whitesmoke;
-                background: linear-gradient(
-                  45deg,
-                  rgba(0, 0, 0, 0.5),
-                  transparent
-                );
-              }
-            }
-          }
-          .item-controls {
-            line-height: 24px;
-            flex: 0 0 32px;
-            margin: 0 3px;
-            .fas {
-              color: $colorTan;
-              font-size: 12px;
-              &:hover {
-                color: $colorDark;
-              }
-            }
-          }
-        }
-        .item-summary {
-          font-size: 12px;
-          padding: 0 4px;
-        }
-        &:nth-child(odd) {
-          background: rgba(0, 0, 0, 0.1);
-        }
-      }
+      padding: 4px;
     }
   }
 }

@@ -1,21 +1,23 @@
 .ose.actor.monster {
-    min-height: 565px;
-    min-width: 460px;
+  min-height: 565px;
+  min-width: 460px;
   .sheet-body {
     .editor {
       height: 300px;
     }
-  }
-  .abilities {
-    .panel-content {
-      height: 230px;
-      overflow: auto;  
+    .attributes .attribute.health {
+      min-width: 75px;
     }
   }
-  .attribute-row {
-      padding: 2px;
-      .abilities {
-          margin: 2px;
+  .attribute-group {
+    .attacks-description {
+      margin: 2px;
+      padding: 0;
+      text-align: center;
+      label {
+        color: $colorTan;
+        font-size: 10px;
       }
+    }
   }
 }

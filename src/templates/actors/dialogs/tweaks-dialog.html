@@ -1,0 +1,69 @@
+<form autocomplete="off">
+    <div class="form-group">
+      <label for="spellcaster">{{localize "OSE.Spellcaster"}}</label>
+      <div class="form-fields">
+        <input
+          type="checkbox"
+          name="data.spells.enabled"
+          id="spellcaster"
+          {{checked
+          data.spells.enabled}}
+        />
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="retainer">{{localize "OSE.Retainer"}}</label>
+      <div class="form-fields">
+        <input
+          type="checkbox"
+          name="data.retainer.enabled"
+          id="retainer"
+          {{checked
+          data.retainer.enabled}}
+        />
+      </div>
+    </div>
+    {{#if (eq this.type 'character')}}
+    <div class="form-group">
+      <label>{{localize "OSE.ExperienceBonus"}} (%)</label>
+      <div class="form-fields">
+        <input
+          type="text"
+          name="data.details.xp.bonus"
+          id="experience"
+          value="{{data.details.xp.bonus}}"
+        />
+      </div>
+    </div>
+    <div class="form-group">
+      <label>{{localize "OSE.MeleeBonus"}}</label>
+      <div class="form-fields">
+        <input
+          type="text"
+          name="data.thac0.mod.melee"
+          id="melee"
+          value="{{data.thac0.mod.melee}}"
+          data-dtype="Number"
+        />
+      </div>
+    </div>
+    <div class="form-group">
+      <label>{{localize "OSE.MissileBonus"}}</label>
+      <div class="form-fields">
+        <input
+          type="text"
+          name="data.thac0.mod.missile"
+          id="missile"
+          value="{{data.thac0.mod.missile}}"
+          data-dtype="Number"
+        />
+      </div>
+    </div>
+    {{/if}}
+    <footer class="sheet-footer">
+      <button type="submit">
+        <i class="fas fa-save"></i>{{localize "Save Changes"}}
+      </button>
+    </footer>
+  </form>
+  

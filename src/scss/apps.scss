@@ -1,0 +1,124 @@
+.ose.chat-block {
+  margin: 0;
+  .chat-title {
+    background: $darkBackground;
+    border: 1px solid black;
+    border-radius: 3px;
+    color: white;
+    padding: 2px;
+    box-shadow: 0 0 2px #FFF inset;
+    text-align: center;
+    margin: 4px 0;
+    font-size: 16px;
+  }
+  .chat-details {
+    padding: 4px;
+    font-size: 13px;
+    .roll-result {
+      text-align: center;
+      &.roll-success {
+        color: #18520b;
+      }
+      &.roll-fail {
+        color: #aa0200;
+      }
+    }
+  }
+}
+
+.ose.chat-card {
+  font-style: normal;
+  font-size: 12px;
+
+  .card-header {
+    padding: 3px 0;
+    border-top: 2px groove #fff;
+    border-bottom: 2px groove #fff;
+
+    img {
+      flex: 0 0 36px;
+      margin-right: 5px;
+    }
+
+    h3 {
+      flex: 1;
+      margin: 0;
+      line-height: 36px;
+      color: $colorOlive;
+      &:hover {
+        color: #111;
+        text-shadow: 0 0 10px red;
+      }
+    }
+  }
+
+  .card-content {
+    margin: 5px 0;
+
+    h3 {
+      font-size: 12px;
+      margin: 0;
+      font-weight: bold;
+    }
+
+    > * {
+      -webkit-user-select: text;
+      -moz-user-select: text;
+      -ms-user-select: text;
+      user-select: text;
+    }
+  }
+
+  .card-buttons {
+    margin: 5px 0;
+
+    span {
+      display: block;
+      line-height: 28px;
+      text-align: center;
+      border: 1px solid $colorTan;
+    }
+
+    button {
+      font-size: 12px;
+      height: 24px;
+      line-height: 20px;
+      margin: 2px 0;
+    }
+  }
+
+  .card-footer {
+    padding: 3px 0 0;
+    border-top: 2px groove #fff;
+
+    span {
+      border-right: 2px groove #fff;
+      padding: 0 5px 0 0;
+      font-size: 10px;
+
+      &:last-child {
+        border-right: none;
+        padding-right: 0;
+      }
+    }
+  }
+}
+
+.dice-roll .dice-total {
+  &.success {
+    color: inherit;
+    background: #c7d0c0;
+    border: 1px solid #006c00;
+  }
+  &.failure {
+    color: inherit;
+    background: #ffdddd;
+    border: 1px solid #6e0000;
+  }
+  &.critical {
+    color: green;
+  }
+  &.fumble {
+    color: red;
+  }
+}

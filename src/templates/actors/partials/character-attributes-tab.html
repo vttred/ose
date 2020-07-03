@@ -114,15 +114,32 @@
         <div class="flexrow">
             <ul class="attributes flexrow">
                 <li class="attribute attribute-secondaries attack" data-attack="Melee">
-                    <h4 class="attribute-name box-title" title="{{localize 'OSE.Melee'}}"><a>{{localize 'OSE.MeleeShort'}}</a></h4>
+                    <h4 class="attribute-name box-title" title="{{localize 'OSE.Melee'}}">
+                        <a>{{localize 'OSE.MeleeShort'}}</a></h4>
                     <div class="flexrow">
                         <div class="attribute-value">
+                            {{#if config.ascendingAC}}
+                            {{add data.thac0.mod.melee (add mods.str data.thac0.bba)}}
+                            {{else}}
                             {{subtract data.thac0.mod.melee (subtract mods.str data.thac0.value)}}
+                            {{/if}}
                         </div>
                     </div>
                 </li>
-                <li class="attribute attack" data-attack="Attack">
-                    <h4 class="attribute-name box-title" title="{{ localize 'OSE.Thac0' }}"><a>{{ localize "OSE.Thac0" }}</a>
+                {{#if config.ascendingAC}}
+                <li class="attribute">
+                    <h4 class="attribute-name box-title" title="{{ localize 'OSE.AB' }}">{{ localize "OSE.ABShort"}}
+                    </h4>
+                    <div class="flexrow">
+                        <div class="attribute-value">
+                            <input name="data.thac0.bba" type="text" value="{{data.thac0.bba}}" placeholder="0"
+                                data-dtype="Number" />
+                        </div>
+                    </div>
+                </li>
+                {{else}}
+                <li class="attribute">
+                    <h4 class="attribute-name box-title" title="{{ localize 'OSE.Thac0' }}">{{ localize "OSE.Thac0"}}
                     </h4>
                     <div class="flexrow">
                         <div class="attribute-value">
@@ -131,11 +148,17 @@
                         </div>
                     </div>
                 </li>
+                {{/if}}
                 <li class="attribute attribute-secondaries attack" data-attack="Missile">
-                    <h4 class="attribute-name box-title" title="{{localize 'OSE.Missile'}}"><a>{{localize 'OSE.MissileShort'}}</a></h4>
+                    <h4 class="attribute-name box-title" title="{{localize 'OSE.Missile'}}">
+                        <a>{{localize 'OSE.MissileShort'}}</a></h4>
                     <div class="flexrow">
                         <div class="attribute-value">
+                            {{#if config.ascendingAC}}
+                            {{add data.thac0.mod.missile (add mods.dex data.thac0.bba)}}
+                            {{else}}
                             {{subtract data.thac0.mod.missile (subtract mods.dex data.thac0.value)}}
+                            {{/if}}
                         </div>
                     </div>
                 </li>
@@ -144,7 +167,8 @@
         <div class="flexrow">
             <ul class="attributes flexrow">
                 <li class="attribute attribute-secondaries">
-                    <h4 class="attribute-name box-title" title="{{localize 'OSE.MovementEncounter'}}">{{localize 'OSE.MovementEncounterShort'}}</h4>
+                    <h4 class="attribute-name box-title" title="{{localize 'OSE.MovementEncounter'}}">
+                        {{localize 'OSE.MovementEncounterShort'}}</h4>
                     <div class="flexrow">
                         <div class="attribute-value">
                             {{divide data.movement.base 3}}
@@ -160,7 +184,8 @@
                     </div>
                 </li>
                 <li class="attribute attribute-secondaries">
-                    <h4 class="attribute-name box-title" title="{{localize 'OSE.MovementOverland'}}">{{localize 'OSE.MovementOverlandShort'}}</h4>
+                    <h4 class="attribute-name box-title" title="{{localize 'OSE.MovementOverland'}}">
+                        {{localize 'OSE.MovementOverlandShort'}}</h4>
                     <div class="flexrow">
                         <div class="attribute-value">
                             {{divide data.movement.base 5}}

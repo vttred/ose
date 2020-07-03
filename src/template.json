@@ -24,6 +24,7 @@
         },
         "thac0": {
           "value": 19,
+          "bba": 0,
           "mod": {
             "missile": 0,
             "melee": 0

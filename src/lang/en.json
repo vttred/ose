@@ -71,6 +71,8 @@
     "OSE.SpellDC": "Spell DC",
     "OSE.SpellDCShort": "DC",
     "OSE.Thac0": "THAC0",
+    "OSE.ABShort": "AB",
+    "OSE.AB": "Attack Bonus",
     "OSE.MeleeShort": "MEL",
     "OSE.Melee": "Melee",
     "OSE.MeleeBonus": "Melee Bonus",

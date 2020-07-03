@@ -16,11 +16,18 @@ export class OseActor extends Actor {
     const label = game.i18n.localize(`OSE.saves.${save}.long`);
     const rollParts = ['1d20'];
 
+    const data = {...this.data, ...{
+      rollData : {
+        type: 'Save',
+        stat: save
+      }
+    }};
+
     // Roll and return
     return OseDice.Roll({
       event: options.event,
       parts: rollParts,
-      data: this.data,
+      data: data,
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: `${label} ${game.i18n.localize('OSE.SavingThrow')}`,
       title: `${label} ${game.i18n.localize('OSE.SavingThrow')}`,
@@ -31,11 +38,18 @@ export class OseActor extends Actor {
     const label = game.i18n.localize(`OSE.scores.${score}.long`);
     const rollParts = ['1d20'];
 
+    const data = {...this.data, ...{
+      rollData : {
+        type: 'Check',
+        stat: score
+      }
+    }};
+
     // Roll and return
     return OseDice.Roll({
       event: options.event,
       parts: rollParts,
-      data: this.data,
+      data: data,
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: `${label} ${game.i18n.localize('OSE.AbilityCheck')}`,
       title: `${label} ${game.i18n.localize('OSE.AbilityCheck')}`,
@@ -62,12 +76,23 @@ export class OseActor extends Actor {
         this.data.data.thac0.mod.melee.toString()
       );
     }
+    if (game.settings.get('ose', 'ascendingAC')) {
+      rollParts.push('+', this.data.data.thac0.bba.toString());
+    }
+
+    const data = {...this.data, ...{
+      rollData : {
+        type: 'Attack',
+        stat: attack,
+        mods: mods
+      }
+    }};
 
     // Roll and return
     return OseDice.Roll({
       event: options.event,
       parts: rollParts,
-      data: this.data,
+      data: data,
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: `${label} ${game.i18n.localize('OSE.Attack')}`,
       title: `${label} ${game.i18n.localize('OSE.Attack')}`,

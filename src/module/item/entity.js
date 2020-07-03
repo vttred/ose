@@ -42,11 +42,26 @@ export class OseItem extends Item {
     return data;
   }
 
+  rollWeapon() {
+    if (this.data.data.missile) {
+      this.actor.rollAttack('Missile');
+      return true;
+    } else if (this.data.data.melee) {
+      this.actor.rollAttack('Melee');
+      return true;
+    }
+    return false;
+  }
+
   /**
    * Roll the item to Chat, creating a chat card which contains follow up attack or damage roll options
    * @return {Promise}
    */
   async roll({ configureDialog = true } = {}) {
+    console.log(this.data)
+    if (this.data.type == 'weapon') {
+      if (this.rollWeapon()) return;
+    }
     // Basic template rendering data
     const token = this.actor.token;
     const templateData = {

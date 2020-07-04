@@ -29,6 +29,7 @@ export class OseDice {
           return details;
         }
         details = `<div class='roll-result'><b>Hits AC ${Math.clamped(thac - roll.total,-3,9)}</b> (${thac})</div>`;
+        // ADD DAMAGE ROLL
       }
     } else if (data.rollData.type == "Save") {
       // SAVING THROWS
@@ -47,7 +48,7 @@ export class OseDice {
         details = `<div class='roll-result roll-fail'><b>Failure</b> (${sc})</div>`;
       }
     } else if (data.rollData.type == "Exploration") {
-      // Exploration Checks
+      // EXPLORATION CHECKS
       let sc = data.data.exploration[data.rollData.stat];
       if (roll.total <= sc) {
         details = `<div class='roll-result roll-success'><b>Success!</b> (${sc})</div>`;

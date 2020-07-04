@@ -63,3 +63,6 @@ Hooks.once("setup", function () {
     }, {});
   }
 });
+
+
+Hooks.on("renderChatLog", (app, html, data) => OseItem.chatListeners(html));

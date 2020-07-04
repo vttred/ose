@@ -1,11 +1,11 @@
 <div class="ose chat-card item-card" data-actor-id="{{actor._id}}" data-item-id="{{item._id}}"
-     {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
+    {{#if tokenId}}data-token-id="{{tokenId}}" {{/if}}>
     <header class="card-header flexrow">
-        <img src="{{item.img}}" title="{{item.name}}" width="36" height="36"/>
+        <img src="{{item.img}}" title="{{item.name}}" width="36" height="36" />
         <h3 class="item-name">{{item.name}}</h3>
     </header>
 
-    <div class="card-content">
+    <div class="card-content" style="display:none;">
         {{{data.description}}}
     </div>
 
@@ -14,8 +14,11 @@
 
         {{#if hasDamage}}
         <button data-action="damage">
-            {{#if isHealing}}{{ localize "OSE.Healing" }}
-            {{else}}{{localize "OSE.Damage" }}{{/if}}
+            {{#if isHealing}}
+            {{ localize "OSE.Healing" }}
+            {{else}}
+            {{localize "OSE.Damage" }}
+            {{/if}}
         </button>
         {{/if}}
 
@@ -25,8 +28,8 @@
         </button>
         {{/if}}
 
-        {{#if data.formula}}
-        <button data-action="formula">{{ localize "OSE.OtherFormula"}}</button>
+        {{#if data.roll}}
+        <button data-action="formula">{{ localize "OSE.Roll"}}</button>
         {{/if}}
     </div>
 

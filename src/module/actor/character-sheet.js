@@ -123,6 +123,13 @@ export class OseActorSheetCharacter extends OseActorSheet {
       actorObject.rollCheck(score, { event: event });
     });
 
+    html.find(".exploration .attribute-name a").click((ev) => {
+      let actorObject = this.actor;
+      let element = event.currentTarget;
+      let expl = element.parentElement.parentElement.dataset.exploration;
+      actorObject.rollExploration(expl, { event: event });
+    });
+
     html.find(".attack a").click(ev => {
       let actorObject = this.actor;
       let element = event.currentTarget;

@@ -54,7 +54,7 @@
     "OSE.saves.breath.long": "Dragon Breath",
     "OSE.saves.spell.short": "S",
     "OSE.saves.spell.long": "Rod, Staff, Spell",
-    "OSE.saves.magic.long": "vs Magic",
+    "OSE.saves.magic.long": "Bonus vs Magic",
 
     "OSE.Health": "Hit Points",
     "OSE.HealthMax": "Maximum Hit Points",
@@ -145,12 +145,13 @@
 
     "OSE.abilities.Requirements": "Requirements",
 
-    "OSE.exploration.ListenDoor.long": "Listen at Door",
-    "OSE.exploration.ListenDoor.short": "Listen Door",
-    "OSE.exploration.OpenDoor.long": "Open Stuck Door",
-    "OSE.exploration.OpenDoor.short": "Open Door",
-    "OSE.exploration.SecretDoor.long": "Find Secret Door",
-    "OSE.exploration.SecretDoor.short": "Secret Door",
-    "OSE.exploration.RoomTrap.long": "Find Room Trap",
-    "OSE.exploration.RoomTrap.short": "Find Trap"
+    "OSE.ExplorationCheck": "Check",
+    "OSE.exploration.ld.long": "Listen at Door",
+    "OSE.exploration.ld.short": "Listen Door",
+    "OSE.exploration.od.long": "Open Stuck Door",
+    "OSE.exploration.od.short": "Open Door",
+    "OSE.exploration.sd.long": "Find Secret Door",
+    "OSE.exploration.sd.short": "Secret Door",
+    "OSE.exploration.ft.long": "Find Room Trap",
+    "OSE.exploration.ft.short": "Find Trap"
 }

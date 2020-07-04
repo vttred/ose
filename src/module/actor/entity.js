@@ -56,6 +56,28 @@ export class OseActor extends Actor {
     });
   }
 
+  rollExploration(expl, options = {}) {
+    const label = game.i18n.localize(`OSE.exploration.${expl}.long`);
+    const rollParts = ['1d6'];
+
+    const data = {...this.data, ...{
+      rollData : {
+        type: 'Exploration',
+        stat: expl
+      }
+    }};
+
+    // Roll and return
+    return OseDice.Roll({
+      event: options.event,
+      parts: rollParts,
+      data: data,
+      speaker: ChatMessage.getSpeaker({ actor: this }),
+      flavor: `${label} ${game.i18n.localize('OSE.ExplorationCheck')}`,
+      title: `${label} ${game.i18n.localize('OSE.ExplorationCheck')}`,
+    });
+  }
+
   rollAttack(attack, options={}) {
     const label = game.i18n.localize(`OSE.${attack}`);
     const rollParts = ['1d20',];

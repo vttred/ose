@@ -46,6 +46,14 @@ export class OseDice {
       } else {
         details = `<div class='roll-result roll-fail'><b>Failure</b> (${sc})</div>`;
       }
+    } else if (data.rollData.type == "Exploration") {
+      // Exploration Checks
+      let sc = data.data.exploration[data.rollData.stat];
+      if (roll.total <= sc) {
+        details = `<div class='roll-result roll-success'><b>Success!</b> (${sc})</div>`;
+      } else {
+        details = `<div class='roll-result roll-fail'><b>Failure</b> (${sc})</div>`;
+      }
     }
     return details;
   }

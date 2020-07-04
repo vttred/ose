@@ -3,11 +3,6 @@
 .ose.sheet.actor {
   $detailsHeight: 44px;
 
-  ul li {
-    list-style: none;
-    padding: 0;
-  }
-
   .panel {
     border: 1px solid $colorDark;
     .panel-title {
@@ -77,7 +72,8 @@
     position: absolute;
     transform: rotate(90deg);
     top: 365px;
-    right: -169px;
+    right: -168px;
+    border-bottom: 1px solid black;
     width: 320px;
     z-index: -1;
     .item {
@@ -103,6 +99,7 @@
     padding: 5px 0;
     height: calc(100% - 140px);
     .attributes {
+      list-style: none;
       margin: 0;
       padding: 0;
       .attribute {

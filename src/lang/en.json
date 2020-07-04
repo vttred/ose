@@ -148,6 +148,7 @@
     "OSE.spells.Class": "Class",
     "OSE.spells.Duration": "Duration",
     "OSE.spells.Level": "Level",
+    "OSE.spells.Save": "Save",
 
     "OSE.abilities.Requirements": "Requirements",
 

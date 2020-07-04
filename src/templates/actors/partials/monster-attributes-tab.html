@@ -3,17 +3,16 @@
         <li class="attribute health">
             <h4 class="attribute-name box-title" title="{{localize 'OSE.Health'}}">{{ localize "OSE.HealthShort" }}</h4>
             <div class="attribute-value flexrow">
-                <input name="data.hp.value" type="text" value="{{data.hp.value}}" data-dtype="Number"
-                    placeholder="10" />
+                <input name="data.hp.value" type="text" value="{{data.hp.value}}" data-dtype="Number" placeholder="0" />
                 <span class="sep"> / </span>
-                <input name="data.hp.max" type="text" value="{{data.hp.max}}" data-dtype="Number" placeholder="10" />
+                <input name="data.hp.max" type="text" value="{{data.hp.max}}" data-dtype="Number" placeholder="0" />
             </div>
         </li>
         <li class="attribute">
             <h4 class="attribute-name box-title" title="{{localize 'OSE.HitDice'}}">{{ localize "OSE.HitDiceShort" }}
             </h4>
             <div class="attribute-value">
-                <input name="data.hp.hd" type="text" value="{{data.hp.hd}}" placeholder="0" data-dtype="String" />
+                <input name="data.hp.hd" type="text" value="{{data.hp.hd}}" data-dtype="String" />
             </div>
         </li>
         <li class="attribute">
@@ -33,12 +32,20 @@
             </div>
             {{/if}}
         </li>
-        <li class="attribute">
-            <h4 class="attribute-name box-title" title="{{localize 'OSE.Thac0'}}">{{ localize "OSE.Thac0" }}</h4>
+        <li class="attribute attack" data-attack="Melee">
+            {{#if config.ascendingAC}}
+            <h4 class="attribute-name box-title" title="{{localize 'OSE.AB'}}"><a>{{ localize "OSE.ABShort" }}</a></h4>
+            <div class="attribute-value">
+                <input name="data.thac0.bba" type="text" value="{{data.thac0.bba}}" placeholder="0"
+                    data-dtype="Number" />
+            </div>
+            {{else}}
+            <h4 class="attribute-name box-title" title="{{localize 'OSE.Thac0'}}"><a>{{ localize "OSE.Thac0" }}</a></h4>
             <div class="attribute-value">
                 <input name="data.thac0.value" type="text" value="{{data.thac0.value}}" placeholder="0"
                     data-dtype="Number" />
             </div>
+            {{/if}}
         </li>
         {{#if data.retainer.enabled}}
         <li class="attribute">

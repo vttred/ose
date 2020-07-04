@@ -5,38 +5,28 @@
   </h1>
   <ul class="summary flexrow">
     <li class="flex2">
-      <input type="text" name="data.details.alignment" value="{{data.details.alignment}}"
-        placeholder="{{ localize 'OSE.Alignment' }}" />
+      <input type="text" name="data.details.alignment" value="{{data.details.alignment}}" />
       <label>{{localize 'OSE.Alignment'}}</label>
     </li>
-    <li class="flex2">
-      <input type="text" name="data.details.treasure" value="{{data.details.treasure}}"
-        placeholder="{{ localize 'OSE.Treasure' }}" />
-      <label>{{localize 'OSE.Treasure'}}</label>
-    </li>
     <li>
-      <input type="text" name="data.details.appearing" value="{{data.details.appearing}}"
-        placeholder="{{ localize 'OSE.Appearing' }}" />
+      <input type="text" name="data.details.appearing" value="{{data.details.appearing}}" />
       <label>{{localize 'OSE.Appearing'}}</label>
-    </li>
-  </ul>
-  <ul class="summary flexrow">
-    <li class="flex2">
-      <input type="text" name="data.details.size" value="{{data.details.size}}"
-        placeholder="{{ localize 'OSE.Size' }}" />
-      <label>{{localize 'OSE.Size'}}</label>
-    </li>
-    <li class="flex2">
-      <input type="text" name="data.details.xp" value="{{data.details.xp}}"
-        placeholder="{{ localize 'OSE.Experience' }}" />
-      <label>{{localize 'OSE.Experience'}}</label>
     </li>
     {{#if config.morale}}
     <li>
-      <input type="text" name="data.details.morale" value="{{data.details.morale}}"
-        placeholder="{{ localize 'OSE.Morale' }}" />
+      <input type="text" name="data.details.morale" value="{{data.details.morale}}" />
       <label>{{localize 'OSE.Morale'}}</label>
     </li>
     {{/if}}
+  </ul>
+  <ul class="summary flexrow">
+    <li class="flex2">
+      <input type="text" name="data.details.xp" value="{{data.details.xp}}" />
+      <label>{{localize 'OSE.Experience'}}</label>
+    </li>
+    <li class="flex2">
+      <input type="text" name="data.details.treasure" value="{{data.details.treasure}}" />
+      <label>{{localize 'OSE.Treasure'}}</label>
+    </li>
   </ul>
 </section>

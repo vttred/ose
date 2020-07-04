@@ -117,6 +117,14 @@ export class OseActorSheet extends ActorSheet {
       item.roll();
     });
 
+
+    html.find(".attack a").click(ev => {
+      let actorObject = this.actor;
+      let element = event.currentTarget;
+      let attack = element.parentElement.parentElement.dataset.attack;
+      actorObject.rollAttack(attack, { event: event });
+    });
+    
     super.activateListeners(html);
   }
 
@@ -141,6 +149,9 @@ export class OseActorSheet extends ActorSheet {
     super._onResize(event);
     let html = $(event.path);
     let resizable = html.find(".resizable");
+    if (resizable.length == 0) {
+      return;
+    }
     resizable.each((_, el) => {
       let heightDelta = this.position.height - this.options.height;
       el.style.height = `${heightDelta + parseInt(el.dataset.baseSize)}px`;

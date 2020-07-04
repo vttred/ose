@@ -1,37 +1,47 @@
 .ose.sheet.item {
-    .profile-img {
-        border: none;
-        flex: 0 0 84px;
-        height: 84px;
+  .profile-img {
+    border: none;
+    flex: 0 0 84px;
+    height: 84px;
+  }
+  .sheet-body {
+    .stats {
+      flex: 0 0 90px;
+      border-right: 1px groove rgba(0, 0, 0, 0.2);
+      padding-right: 2px;
+      font-size: 13px;
+      .form-group {
+        margin: 2px;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        label {
+          background: rgba(0, 0, 0, 0.1);
+          padding: 0 4px;
+        }
+        input {
+          border-bottom: none;
+          margin: auto 0;
+        }
+      }
+      .block-input {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+      }
+      &.narrow {
+        .form-group {
+          label {
+          }
+          input {
+            height: 18px;
+          }
+        }
+      }
     }
-    .sheet-body {
-        .stats {
-            flex: 0 0 90px;
-            border-right: 1px groove rgba(0, 0, 0, 0.2);
-            padding-right: 2px;
-            .form-group {
-                margin: 2px;
-                border: 1px solid rgba(0, 0, 0, 0.15);
-                label {
-                    background: rgba(0, 0, 0, 0.1);
-                    padding: 0 4px;
-                }
-                input {
-                    border-bottom: none;
-                    margin: auto 0;
-                }
-            }
-            .block-input {
-                display: flex;
-                flex-direction: column;
-                text-align: center;
-            }
-        }
-        .editor {
-            height: 240px;
-        }
-        .weapon-editor .editor {
-            height: 215px;
-        }
-     }
+    .editor {
+      height: 240px;
+    }
+    .weapon-editor .editor {
+      height: 215px;
+    }
+  }
 }

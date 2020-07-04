@@ -38,7 +38,7 @@
         "movement": {
           "base": 120
         },
-        "initative": {
+        "initiative": {
           "value": 0,
           "mod": 0
         }
@@ -132,7 +132,6 @@
         "alignment": "",
         "xp": 0,
         "treasure": "",
-        "size": "",
         "appearing": "",
         "morale": 0
       },
@@ -178,7 +177,8 @@
       "roll": "",
       "description": "",
       "memorized": false,
-      "cast": false
+      "cast": false,
+      "save": ""
     },
     "ability": {
       "requirements": "",

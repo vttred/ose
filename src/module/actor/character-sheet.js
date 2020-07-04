@@ -159,13 +159,6 @@ export class OseActorSheetCharacter extends OseActorSheet {
       actorObject.rollExploration(expl, { event: event });
     });
 
-    html.find(".attack a").click(ev => {
-      let actorObject = this.actor;
-      let element = event.currentTarget;
-      let attack = element.parentElement.parentElement.dataset.attack;
-      actorObject.rollAttack(attack, { event: event });
-    });
-
     html.find(".ability-score .attribute-mod a").click(ev => {
       let box = $(event.currentTarget.parentElement.parentElement.parentElement);
       box.children('.attribute-bonuses').slideDown(200);

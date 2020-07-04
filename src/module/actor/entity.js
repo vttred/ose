@@ -1,4 +1,4 @@
-import { OseDice } from '../dice.js';
+import { OseDice } from "../dice.js";
 
 export class OseActor extends Actor {
   /**
@@ -8,11 +8,11 @@ export class OseActor extends Actor {
   prepareData() {
     super.prepareData();
     const data = this.data.data;
-    
+
     // Determine Initiative
-    if (game.settings.get('ose', 'individualInit')) {
-      data.initiative.value = data.initiative.mod ;
-      if (this.data.type == 'character') {
+    if (game.settings.get("ose", "individualInit")) {
+      data.initiative.value = data.initiative.mod;
+      if (this.data.type == "character") {
         const mods = this.computeModifiers();
         data.initiative.value += mods.dex;
       }
@@ -20,7 +20,7 @@ export class OseActor extends Actor {
       data.initiative.value = 0;
     }
   }
-   /* -------------------------------------------- */
+  /* -------------------------------------------- */
   /*  Socket Listeners and Handlers
     /* -------------------------------------------- */
 
@@ -29,14 +29,17 @@ export class OseActor extends Actor {
   /* -------------------------------------------- */
   rollSave(save, options = {}) {
     const label = game.i18n.localize(`OSE.saves.${save}.long`);
-    const rollParts = ['1d20'];
+    const rollParts = ["1d20"];
 
-    const data = {...this.data, ...{
-      rollData : {
-        type: 'Save',
-        stat: save
-      }
-    }};
+    const data = {
+      ...this.data,
+      ...{
+        rollData: {
+          type: "Save",
+          stat: save,
+        },
+      },
+    };
 
     // Roll and return
     return OseDice.Roll({
@@ -44,21 +47,24 @@ export class OseActor extends Actor {
       parts: rollParts,
       data: data,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: `${label} ${game.i18n.localize('OSE.SavingThrow')}`,
-      title: `${label} ${game.i18n.localize('OSE.SavingThrow')}`,
+      flavor: `${label} ${game.i18n.localize("OSE.SavingThrow")}`,
+      title: `${label} ${game.i18n.localize("OSE.SavingThrow")}`,
     });
   }
 
   rollCheck(score, options = {}) {
     const label = game.i18n.localize(`OSE.scores.${score}.long`);
-    const rollParts = ['1d20'];
+    const rollParts = ["1d20"];
 
-    const data = {...this.data, ...{
-      rollData : {
-        type: 'Check',
-        stat: score
-      }
-    }};
+    const data = {
+      ...this.data,
+      ...{
+        rollData: {
+          type: "Check",
+          stat: score,
+        },
+      },
+    };
 
     // Roll and return
     return OseDice.Roll({
@@ -66,21 +72,24 @@ export class OseActor extends Actor {
       parts: rollParts,
       data: data,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: `${label} ${game.i18n.localize('OSE.AbilityCheck')}`,
-      title: `${label} ${game.i18n.localize('OSE.AbilityCheck')}`,
+      flavor: `${label} ${game.i18n.localize("OSE.AbilityCheck")}`,
+      title: `${label} ${game.i18n.localize("OSE.AbilityCheck")}`,
     });
   }
 
   rollExploration(expl, options = {}) {
     const label = game.i18n.localize(`OSE.exploration.${expl}.long`);
-    const rollParts = ['1d6'];
+    const rollParts = ["1d6"];
 
-    const data = {...this.data, ...{
-      rollData : {
-        type: 'Exploration',
-        stat: expl
-      }
-    }};
+    const data = {
+      ...this.data,
+      ...{
+        rollData: {
+          type: "Exploration",
+          stat: expl,
+        },
+      },
+    };
 
     // Roll and return
     return OseDice.Roll({
@@ -88,42 +97,45 @@ export class OseActor extends Actor {
       parts: rollParts,
       data: data,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: `${label} ${game.i18n.localize('OSE.ExplorationCheck')}`,
-      title: `${label} ${game.i18n.localize('OSE.ExplorationCheck')}`,
+      flavor: `${label} ${game.i18n.localize("OSE.ExplorationCheck")}`,
+      title: `${label} ${game.i18n.localize("OSE.ExplorationCheck")}`,
     });
   }
 
-  rollAttack(attack, options={}) {
+  rollAttack(attack, options = {}) {
     const label = game.i18n.localize(`OSE.${attack}`);
-    const rollParts = ['1d20',];
+    const rollParts = ["1d20"];
 
     const mods = this.computeModifiers();
-    if (attack == 'Missile') {
+    if (attack == "Missile") {
       rollParts.push(
-        '+',
+        "+",
         mods.dex.toString(),
-        '+',
+        "+",
         this.data.data.thac0.mod.missile.toString()
       );
-    } else if (attack == 'Melee') {
+    } else if (attack == "Melee") {
       rollParts.push(
-        '+',
+        "+",
         mods.str.toString(),
-        '+',
+        "+",
         this.data.data.thac0.mod.melee.toString()
       );
     }
-    if (game.settings.get('ose', 'ascendingAC')) {
-      rollParts.push('+', this.data.data.thac0.bba.toString());
+    if (game.settings.get("ose", "ascendingAC")) {
+      rollParts.push("+", this.data.data.thac0.bba.toString());
     }
 
-    const data = {...this.data, ...{
-      rollData : {
-        type: 'Attack',
-        stat: attack,
-        mods: mods
-      }
-    }};
+    const data = {
+      ...this.data,
+      ...{
+        rollData: {
+          type: "Attack",
+          stat: attack,
+          mods: mods,
+        },
+      },
+    };
 
     // Roll and return
     return OseDice.Roll({
@@ -131,12 +143,24 @@ export class OseActor extends Actor {
       parts: rollParts,
       data: data,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: `${label} ${game.i18n.localize('OSE.Attack')}`,
-      title: `${label} ${game.i18n.localize('OSE.Attack')}`,
+      flavor: `${label} ${game.i18n.localize("OSE.Attack")}`,
+      title: `${label} ${game.i18n.localize("OSE.Attack")}`,
     });
   }
 
   computeModifiers() {
+    if (this.data.type != "character") {
+      return {
+        str: 0,
+        dex: 0,
+        int: 0,
+        con: 0,
+        wis: 0,
+        cha: 0,
+        npc: 0,
+        init: 0,
+      };
+    }
     let _valueToMod = (val) => {
       switch (val) {
         case 3:

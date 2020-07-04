@@ -8,6 +8,7 @@
 
     "OSE.Formula": "Formula",
     "OSE.SitMod": "Situational Modifier",
+    "OSE.Modifier": "Modifier",
     "OSE.RollMode": "Roll Mode",
     "OSE.RollExample": "Roll Example",
 
@@ -53,6 +54,7 @@
     "OSE.saves.breath.long": "Dragon Breath",
     "OSE.saves.spell.short": "S",
     "OSE.saves.spell.long": "Rod, Staff, Spell",
+    "OSE.saves.magic.long": "vs Magic",
 
     "OSE.Health": "Hit Points",
     "OSE.HealthMax": "Maximum Hit Points",
@@ -65,6 +67,7 @@
     "OSE.MovementOverland": "Overland Movement Rate",
     "OSE.MovementOverlandShort": "OVE",
     "OSE.MovementShort": "MV",
+    "OSE.ArmorClassNaked": "Naked Armor Class",
     "OSE.ArmorClass": "Armor Class",
     "OSE.ArmorClassShort": "AC",
     "OSE.AscArmorClassShort": "AAC",
@@ -80,11 +83,16 @@
     "OSE.Missile": "Missile",
     "OSE.MissileBonus": "Missile Bonus",
     "OSE.Initiative": "Initiative",
+    "OSE.InitiativeBonus": "Initiative Bonus",
     "OSE.InitiativeShort": "INIT",
     "OSE.Attacks": "Attacks Usable per Round",
     "OSE.AttacksShort": "ATT",
     "OSE.Spellcaster": "Spellcaster",
 
+    "OSE.SpokenLanguages": "Spoken Languages",
+    "OSE.Literacy": "Literacy",
+    "OSE.NPCReaction": "NPC Reaction",
+    "OSE.RetainersMax": "#Retainers",
     
     "OSE.category.attributes": "Attributes",
     "OSE.category.inventory": "Inventory",
@@ -99,7 +107,7 @@
     "OSE.Setting.IndividualInitHint": "Initiative is rolled for each actor and modified by its DEX score",
     "OSE.Setting.AscendingAC": "Ascending Armor Class",
     "OSE.Setting.AscendingACHint": "The more the better",
-    "OSE.Setting.Morale": "Enable Monster Morale checks",
+    "OSE.Setting.Morale": "Enable monsters Morale Rating",
     "OSE.Setting.MoraleHint": "Morale Rating is shown on monster sheets",
     "OSE.Setting.THAC0Attacks": "Attacks with THAC0",
     "OSE.Setting.THAC0AttacksHint": "Attacks are resolved using the THAC0 value, not compatible with AAC",
@@ -132,5 +140,7 @@
     "OSE.spells.Duration": "Duration",
     "OSE.spells.Level": "Level",
 
-    "OSE.abilities.Requirements": "Requirements"
+    "OSE.abilities.Requirements": "Requirements",
+
+    "OSE.exploration.OpenDoors": "Open Doors"
 }

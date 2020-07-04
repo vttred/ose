@@ -26,15 +26,6 @@ export const registerSettings = function () {
       config: true
     });
 
-    game.settings.register('ose', 'thac0Attacks', {
-      name: game.i18n.localize('OSE.Setting.THAC0Attacks'),
-      hint: game.i18n.localize('OSE.Setting.THAC0AttacksHint'),
-      default: false,
-      scope: 'world',
-      type: Boolean,
-      config: true
-    });
-
     game.settings.register('ose', 'variableWeaponDamage', {
       name: game.i18n.localize('OSE.Setting.VariableWeaponDamage'),
       hint: game.i18n.localize('OSE.Setting.VariableWeaponDamageHint'),

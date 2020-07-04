@@ -2,9 +2,6 @@
   <div>
     <li class="item-titles flexrow">
       <div class="item-name">{{localize "OSE.items.Weapons"}}</div>
-      {{#if config.variableWeaponDamage}}
-      <div class="field-short">{{localize "OSE.items.Damage"}}</div>
-      {{/if}}
       <div class="field-longer">{{localize "OSE.items.Qualities"}}</div>
       <div class="field-short">{{localize "OSE.items.Weight"}}</div>
       <div class="item-controls">
@@ -23,11 +20,6 @@
               </h4>
             </a>
           </div>
-          {{#if config.variableWeaponDamage}}
-          <div class="field-short">
-            {{item.data.damage}}
-          </div>
-          {{/if}}
           <div class="field-longer" title="{{item.data.qualities}}">
             {{item.data.qualities}}
           </div>

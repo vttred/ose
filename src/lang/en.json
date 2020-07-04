@@ -88,6 +88,7 @@
     "OSE.InitiativeShort": "INIT",
     "OSE.Attacks": "Attacks Usable per Round",
     "OSE.AttacksShort": "ATT",
+    "OSE.Damage": "Damage",
     "OSE.Spellcaster": "Spellcaster",
 
     "OSE.SpokenLanguages": "Spoken Languages",

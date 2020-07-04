@@ -49,9 +49,9 @@ export class OseItem extends Item {
 
   rollWeapon() {
     if (this.data.data.missile) {
-      this.actor.rollAttack({type: 'missile', label: this.name});
+      this.actor.rollAttack({type: 'missile', label: this.name, dmg: this.data.data.damage});
     } else if (this.data.data.melee) {
-      this.actor.rollAttack({type: 'melee', label: this.name});
+      this.actor.rollAttack({type: 'melee', label: this.name, dmg: this.data.data.damage});
     } else {
       this.actor.rollAttack({type: 'raw', label: this.name});
     }

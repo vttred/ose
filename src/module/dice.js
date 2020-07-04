@@ -29,7 +29,11 @@ export class OseDice {
         if (thac - roll.total > 9) {
           return details;
         }
-        details = `<div class='roll-result'><b>Hits AC ${Math.clamped(thac - roll.total,-3,9)}</b> (${thac})</div>`;
+        details = `<div class='roll-result'><b>Hits AC ${Math.clamped(
+          thac - roll.total,
+          -3,
+          9
+        )}</b> (${thac})</div>`;
         // ADD DAMAGE ROLL
       }
     } else if (data.rollData.type == "Save") {
@@ -60,14 +64,14 @@ export class OseDice {
     return details;
   }
 
-  static async sendRoll(
+  static async sendRoll({
     parts = [],
     data = {},
     title = null,
     flavor = null,
     speaker = null,
-    form = null
-  ) {
+    form = null,
+  } = {}) {
     const template = "systems/ose/templates/chat/roll-attack.html";
 
     let chatData = {
@@ -80,7 +84,7 @@ export class OseDice {
       flavor: flavor,
       data: data,
     };
-
+    
     // Optionally include a situational bonus
     if (form !== null) data["bonus"] = form.bonus.value;
     if (data["bonus"]) parts.push(data["bonus"]);
@@ -92,36 +96,42 @@ export class OseDice {
     rollMode = form ? form.rollMode.value : rollMode;
 
     templateData.details = OseDice.digestResult(data, roll);
-    roll.render().then((r) => {
-      templateData.rollOSE = r;
-      renderTemplate(template, templateData).then((content) => {
-        chatData.content = content;
-        chatData.sound = CONFIG.sounds.dice;
-        if (game.dice3d) {
-          game.dice3d
-            .showForRoll(
-              roll,
-              game.user,
-              true,
-              chatData.whisper,
-              chatData.blind
-            )
-            .then((displayed) => ChatMessage.create(chatData));
-        } else {
-          ChatMessage.create(chatData);
-        }
+
+    return new Promise((resolve) => {
+      roll.render().then((r) => {
+        templateData.rollOSE = r;
+        renderTemplate(template, templateData).then((content) => {
+          chatData.content = content;
+          // Dice So Nice
+          if (game.dice3d) {
+            game.dice3d
+              .showForRoll(
+                roll,
+                game.user,
+                true,
+                chatData.whisper,
+                chatData.blind
+              )
+              .then((displayed) => {
+                ChatMessage.create(chatData);
+                resolve();
+              });
+          } else {
+            chatData.sound = CONFIG.sounds.dice;
+            ChatMessage.create(chatData);
+            resolve();
+          }
+        });
       });
     });
-
-    return roll;
   }
 
-  // eslint-disable-next-line no-unused-vars
   static async Roll({
     parts = [],
     data = {},
     options = {},
     event = null,
+    skipDialog = false,
     speaker = null,
     flavor = null,
     title = null,
@@ -143,14 +153,14 @@ export class OseDice {
         label: game.i18n.localize("OSE.Roll"),
         icon: '<i class="fas fa-dice-d20"></i>',
         callback: (html) => {
-          roll = OseDice.sendRoll(
-            parts,
-            data,
-            title,
-            flavor,
-            speaker,
-            html[0].children[0]
-          );
+          roll = OseDice.sendRoll({
+            parts: parts,
+            data: data,
+            title: title,
+            flavor: flavor,
+            speaker: speaker,
+            form: html[0].children[0],
+          });
         },
       },
       cancel: {
@@ -159,7 +169,15 @@ export class OseDice {
       },
     };
 
-    if (!item) delete buttons.raise;
+    if (skipDialog) {
+      return OseDice.sendRoll({
+        parts,
+        data,
+        title,
+        flavor,
+        speaker,
+      });
+    }
 
     const html = await renderTemplate(template, dialogData);
     let roll;

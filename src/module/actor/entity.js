@@ -104,6 +104,44 @@ export class OseActor extends Actor {
     });
   }
 
+  rollDamage(attData, options = {}) {
+    const data = this.data.data;
+
+    const rollData = {
+      ...this.data,
+      ...{
+        rollData: {
+          type: "Damage",
+          stat: attData.type,
+          scores: data.scores
+        },
+      },
+    };
+
+    let dmgParts = [];
+    if (!attData.dmg || !game.settings.get('ose', 'variableWeaponDamage')) {
+      dmgParts.push("1d6");
+    } else {
+      dmgParts.push(attData.dmg);
+    }
+
+    // Add Str to damage
+    if (attData.type == 'melee') {
+      dmgParts.push("+", data.scores.str.mod);
+    }
+
+    // Damage roll
+    OseDice.Roll({
+      event: options.event,
+      parts: dmgParts,
+      data: rollData,
+      skipDialog: true,
+      speaker: ChatMessage.getSpeaker({ actor: this }),
+      flavor: `${attData.label} - ${game.i18n.localize("OSE.Damage")}`,
+      title: `${attData.label} - ${game.i18n.localize("OSE.Damage")}`,
+    })
+  }
+
   rollAttack(attData, options = {}) {
     const rollParts = ["1d20"];
     const data = this.data.data;
@@ -133,7 +171,7 @@ export class OseActor extends Actor {
         rollData: {
           type: "Attack",
           stat: attData.type,
-          scores: data.scores,
+          scores: data.scores
         },
       },
     };
@@ -145,6 +183,8 @@ export class OseActor extends Actor {
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: `${attData.label} - ${game.i18n.localize("OSE.Attack")}`,
       title: `${attData.label} - ${game.i18n.localize("OSE.Attack")}`,
+    }).then(() => {
+      this.rollDamage(attData, {});
     });
   }
 

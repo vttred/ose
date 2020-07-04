@@ -25,7 +25,7 @@
             {{item.data.qualities}}
           </div>
           <div class="field-short">
-            {{item.data.weight}}
+            {{#if @root.config.encumbranceBasic}}_{{else}}{{item.data.weight}}{{/if}}
           </div>
           <div class="item-controls">
             {{#if ../owner}}
@@ -45,7 +45,7 @@
   <div>
     <li class="item-titles flexrow">
       <div class="item-name">{{localize "OSE.items.Armors"}}</div>
-      {{#if config.ascendingAC}}
+      {{#if @root.config.ascendingAC}}
       <div class="field-short">{{localize "OSE.items.ArmorAAC"}}</div>
       {{else}}
       <div class="field-short">{{localize "OSE.items.ArmorAC"}}</div>
@@ -69,14 +69,14 @@
             </a>
           </div>
           <div class="field-short">
-            {{#if config.ascendingAC}}
+            {{#if @root.config.ascendingAC}}
             {{item.data.aac.value}}
             {{else}}
             {{item.data.ac.value}}
             {{/if}}
           </div>
           <div class="field-short">
-            {{item.data.weight}}
+            {{#if @root.config.encumbranceBasic}}_{{else}}{{item.data.weight}}{{/if}}
           </div>
           <div class="item-controls">
             {{#if ../owner}}
@@ -122,7 +122,7 @@
               placeholder="0" />{{#if item.data.quantity.max}}<span>/{{item.data.quantity.max}}</span>{{/if}}
           </div>
           <div class="field-short">
-            {{mult item.data.quantity.value item.data.weight}}
+            {{#if @root.config.encumbranceBasic}}_{{else}}{{mult item.data.quantity.value item.data.weight}}{{/if}}
           </div>
           <div class="item-controls">
             {{#if ../owner}}

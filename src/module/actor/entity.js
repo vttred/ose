@@ -104,19 +104,18 @@ export class OseActor extends Actor {
     });
   }
 
-  rollAttack(attack, options = {}) {
-    const label = game.i18n.localize(`OSE.${attack}`);
+  rollAttack(attData, options = {}) {
     const rollParts = ["1d20"];
     const data = this.data.data;
 
-    if (attack == "Missile") {
+    if (attData.type == "missile") {
       rollParts.push(
         "+",
         data.scores.dex.mod.toString(),
         "+",
         data.thac0.mod.missile.toString()
       );
-    } else if (attack == "Melee") {
+    } else if (attData.type == "melee") {
       rollParts.push(
         "+",
         data.scores.str.mod.toString(),
@@ -133,7 +132,7 @@ export class OseActor extends Actor {
       ...{
         rollData: {
           type: "Attack",
-          stat: attack,
+          stat: attData.type,
           scores: data.scores,
         },
       },
@@ -144,8 +143,8 @@ export class OseActor extends Actor {
       parts: rollParts,
       data: rollData,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: `${label} ${game.i18n.localize("OSE.Attack")}`,
-      title: `${label} ${game.i18n.localize("OSE.Attack")}`,
+      flavor: `${attData.label} - ${game.i18n.localize("OSE.Attack")}`,
+      title: `${attData.label} - ${game.i18n.localize("OSE.Attack")}`,
     });
   }
 

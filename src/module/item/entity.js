@@ -49,15 +49,13 @@ export class OseItem extends Item {
 
   rollWeapon() {
     if (this.data.data.missile) {
-      this.actor.rollAttack('Missile');
-      return true;
+      this.actor.rollAttack({type: 'missile', label: this.name});
     } else if (this.data.data.melee) {
-      this.actor.rollAttack('Melee');
-      return true;
+      this.actor.rollAttack({type: 'melee', label: this.name});
     } else {
-      this.actor.rollAttack();
+      this.actor.rollAttack({type: 'raw', label: this.name});
     }
-    return false;
+    return true;
   }
 
   async rollFormula(options={}) {
@@ -86,7 +84,6 @@ export class OseItem extends Item {
    * @return {Promise}
    */
   async roll({ configureDialog = true } = {}) {
-    console.log(this.data);
     if (this.data.type == 'weapon') {
       if (this.rollWeapon()) return;
     }

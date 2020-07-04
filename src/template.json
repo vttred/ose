@@ -97,27 +97,27 @@
       "scores": {
         "str": {
           "value": 0,
-          "mod": 0
+          "bonus": 0
         },
         "int": {
           "value": 0,
-          "mod": 0
+          "bonus": 0
         },
         "wis": {
           "value": 0,
-          "mod": 0
+          "bonus": 0
         },
         "dex": {
           "value": 0,
-          "mod": 0
+          "bonus": 0
         },
         "con": {
           "value": 0,
-          "mod": 0
+          "bonus": 0
         },
         "cha": {
           "value": 0,
-          "mod": 0
+          "bonus": 0
         }
       },
       "encumbrance": {

@@ -51,8 +51,6 @@ export class OseActorSheetCharacter extends OseActorSheet {
     data.config.ascendingAC = game.settings.get("ose", "ascendingAC");
     data.config.individualInit = game.settings.get("ose", "individualInit");
 
-    data.mods = this.actor.computeModifiers();
-
     // Compute treasure
     let total = 0;
     data.owned.items.forEach(item => {

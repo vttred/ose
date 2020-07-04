@@ -11,7 +11,7 @@
                 <span class="attribute-mod"><a><i class="fas fa-circle"></i></a></span>
                 </div>
                 <div class="attribute-bonuses">
-                    {{localize 'OSE.Melee'}} ({{mods.str}})<br/>
+                    {{localize 'OSE.Melee'}} ({{data.scores.str.mod}})<br/>
                     {{localize 'OSE.exploration.od.long'}}
                 <span class="attribute-mod"><a><i class="fas fa-circle"></i></a></span>
                 </div>
@@ -39,7 +39,7 @@
                 <span class="attribute-mod"><a><i class="fas fa-circle"></i></a></span>
                 </div>
                 <div class="attribute-bonuses">
-                    {{localize 'OSE.saves.magic.long'}}({{mods.wis}})
+                    {{localize 'OSE.saves.magic.long'}}({{data.scores.wis.mod}})
                 <span class="attribute-mod"><a><i class="fas fa-circle"></i></a></span>
                 </div>
             </li>
@@ -52,9 +52,9 @@
                 <span class="attribute-mod"><a><i class="fas fa-circle"></i></a></span>
                 </div>
                 <div class="attribute-bonuses">
-                    {{localize 'OSE.Missile'}} ({{mods.dex}})<br/>
-                    {{localize 'OSE.Initiative'}} ({{mods.init}})<br/>
-                    {{localize 'OSE.ArmorClass'}} ({{mods.dex}})
+                    {{localize 'OSE.Missile'}} ({{data.scores.dex.mod}})<br/>
+                    {{localize 'OSE.Initiative'}} ({{data.scores.dex.init}})<br/>
+                    {{localize 'OSE.ArmorClass'}} ({{data.scores.dex.mod}})
                 <span class="attribute-mod"><a><i class="fas fa-circle"></i></a></span>
                 </div>
             </li>
@@ -67,7 +67,7 @@
                 <span class="attribute-mod"><a><i class="fas fa-circle"></i></a></span>
                 </div>
                 <div class="attribute-bonuses">
-                    {{localize 'OSE.Health'}} ({{mods.con}})
+                    {{localize 'OSE.Health'}} ({{data.scores.con.mod}})
                 <span class="attribute-mod"><a><i class="fas fa-circle"></i></a></span>
                 </div>
             </li>
@@ -80,9 +80,9 @@
                 <span class="attribute-mod"><a><i class="fas fa-circle"></i></a></span>
                 </div>
                 <div class="attribute-bonuses">
-                    {{localize 'OSE.NPCReaction'}} ({{mods.npc}})<br/>
-                    {{localize 'OSE.RetainersMax'}} ({{add mods.cha 4}})<br/>
-                    {{localize 'OSE.Loyalty'}} ({{add mods.cha 7}})
+                    {{localize 'OSE.NPCReaction'}} ({{data.scores.cha.npc}})<br/>
+                    {{localize 'OSE.RetainersMax'}} ({{add data.scores.cha.mod 4}})<br/>
+                    {{localize 'OSE.Loyalty'}} ({{add data.scores.cha.mod 7}})
                 <span class="attribute-mod"><a><i class="fas fa-circle"></i></a></span>
                 </div>
             </li>
@@ -114,12 +114,12 @@
                 {{#if config.ascendingAC}}
                 <input class="health-top" name="data.aac.value" type="text" value="{{data.aac.value}}"
                     data-dtype="Number" placeholder="0" title="{{localize 'OSE.ArmorClass'}}" />
-                <input class="health-bottom" type="text" value="{{add 10 mods.dex}}"
+                <input class="health-bottom" type="text" value="{{add 10 data.scores.dex.mod}}"
                     title="{{localize 'OSE.ArmorClassNaked'}}" disabled />
                 {{else}}
                 <input class="health-top" name="data.ac.value" type="text" value="{{data.ac.value}}" data-dtype="Number"
                     placeholder="0" title="{{localize 'OSE.ArmorClass'}}" />
-                <input class="health-bottom" type="text" value="{{subtract mods.dex 9}}"
+                <input class="health-bottom" type="text" value="{{subtract data.scores.dex.mod 9}}"
                     title="{{localize 'OSE.ArmorClass'}}" disabled />
                 {{/if}}
             </div>
@@ -140,8 +140,8 @@
                     <h4 class="attribute-name box-title" title="{{ localize 'OSE.Initiative' }}">
                         {{ localize "OSE.InitiativeShort" }}</h4>
                     <div class="attribute-value"
-                        title="{{localize 'OSE.scores.dex.long'}}({{mods.init}}) + {{localize 'OSE.Modifier'}}({{data.initiative.mod}})">
-                        {{add mods.init data.initiative.mod}}
+                        title="{{localize 'OSE.scores.dex.long'}}({{data.scores.dex.init}}) + {{localize 'OSE.Modifier'}}({{data.initiative.mod}})">
+                        {{add data.scores.dex.init data.initiative.mod}}
                     </div>
                 </li>
                 {{/if}}
@@ -155,13 +155,13 @@
                     <div class="flexrow">
                         {{#if config.ascendingAC}}
                         <div class="attribute-value"
-                            title="{{localize 'OSE.AB'}}({{data.thac0.bba}}) + {{localize 'OSE.scores.str.long'}}({{mods.str}}) + {{localize 'OSE.Modifier'}}({{data.thac0.mod.melee}})">
-                            {{add data.thac0.mod.melee (add mods.str data.thac0.bba)}}
+                            title="{{localize 'OSE.AB'}}({{data.thac0.bba}}) + {{localize 'OSE.scores.str.long'}}({{data.scores.str.mod}}) + {{localize 'OSE.Modifier'}}({{data.thac0.mod.melee}})">
+                            {{add data.thac0.mod.melee (add data.scores.str.mod data.thac0.bba)}}
                         </div>
                         {{else}}
                         <div class="attribute-value"
-                            title="{{localize 'OSE.Thac0'}}({{data.thac0.value}}) - {{localize 'OSE.scores.str.long'}}({{mods.str}}) - {{localize 'OSE.Modifier'}}({{data.thac0.mod.melee}})">
-                            {{subtract data.thac0.mod.melee (subtract mods.str data.thac0.value)}}
+                            title="{{localize 'OSE.Thac0'}}({{data.thac0.value}}) - {{localize 'OSE.scores.str.long'}}({{data.scores.str.mod}}) - {{localize 'OSE.Modifier'}}({{data.thac0.mod.melee}})">
+                            {{subtract data.thac0.mod.melee (subtract data.scores.str.mod data.thac0.value)}}
                         </div>
                         {{/if}}
                     </div>
@@ -195,13 +195,13 @@
                     <div class="flexrow">
                         {{#if config.ascendingAC}}
                         <div class="attribute-value"
-                            title="{{localize 'OSE.AB'}}({{data.thac0.bba}}) + {{localize 'OSE.scores.dex.long'}}({{mods.dex}}) + {{localize 'OSE.Modifier'}}({{data.thac0.mod.missile}})">
-                            {{add data.thac0.mod.missile (add mods.dex data.thac0.bba)}}
+                            title="{{localize 'OSE.AB'}}({{data.thac0.bba}}) + {{localize 'OSE.scores.dex.long'}}({{data.scores.dex.mod}}) + {{localize 'OSE.Modifier'}}({{data.thac0.mod.missile}})">
+                            {{add data.thac0.mod.missile (add data.scores.dex.mod data.thac0.bba)}}
                         </div>
                         {{else}}
                         <div class="attribute-value"
-                            title="{{localize 'OSE.Thac0'}}({{data.thac0.value}}) - {{localize 'OSE.scores.dex.long'}}({{mods.dex}}) - {{localize 'OSE.Modifier'}}({{data.thac0.mod.missile}})">
-                            {{subtract data.thac0.mod.missile (subtract mods.dex data.thac0.value)}}
+                            title="{{localize 'OSE.Thac0'}}({{data.thac0.value}}) - {{localize 'OSE.scores.dex.long'}}({{data.scores.dex.mod}}) - {{localize 'OSE.Modifier'}}({{data.thac0.mod.missile}})">
+                            {{subtract data.thac0.mod.missile (subtract data.scores.dex.mod data.thac0.value)}}
                         </div>
                         {{/if}}
                     </div>
@@ -280,8 +280,8 @@
             <li class="attribute saving-throw">
                 <h4 class="attribute-name box-title" title="{{ localize 'OSE.saves.magic.long' }}">
                     {{ localize "OSE.saves.magic.long"}}</h4>
-                <div class="attribute-value flat" title="{{localize 'OSE.scores.wis.long'}}({{mods.wis}})">
-                    {{mods.wis}}
+                <div class="attribute-value flat" title="{{localize 'OSE.scores.wis.long'}}({{data.scores.wis.mod}})">
+                    {{data.scores.wis.mod}}
                 </div>
             </li>
         </ul>

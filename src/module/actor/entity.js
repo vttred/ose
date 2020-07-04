@@ -9,12 +9,14 @@ export class OseActor extends Actor {
     super.prepareData();
     const data = this.data.data;
 
+    // Compute modifiers from actor scores
+    this.computeModifiers();
+
     // Determine Initiative
     if (game.settings.get("ose", "individualInit")) {
       data.initiative.value = data.initiative.mod;
       if (this.data.type == "character") {
-        const mods = this.computeModifiers();
-        data.initiative.value += mods.dex;
+        data.initiative.value += data.scores.dex.mod;
       }
     } else {
       data.initiative.value = 0;
@@ -105,111 +107,101 @@ export class OseActor extends Actor {
   rollAttack(attack, options = {}) {
     const label = game.i18n.localize(`OSE.${attack}`);
     const rollParts = ["1d20"];
+    const data = this.data.data;
 
-    const mods = this.computeModifiers();
     if (attack == "Missile") {
       rollParts.push(
         "+",
-        mods.dex.toString(),
+        data.scores.dex.mod.toString(),
         "+",
-        this.data.data.thac0.mod.missile.toString()
+        data.thac0.mod.missile.toString()
       );
     } else if (attack == "Melee") {
       rollParts.push(
         "+",
-        mods.str.toString(),
+        data.scores.str.mod.toString(),
         "+",
-        this.data.data.thac0.mod.melee.toString()
+        data.thac0.mod.melee.toString()
       );
     }
     if (game.settings.get("ose", "ascendingAC")) {
       rollParts.push("+", this.data.data.thac0.bba.toString());
     }
 
-    const data = {
+    const rollData = {
       ...this.data,
       ...{
         rollData: {
           type: "Attack",
           stat: attack,
-          mods: mods,
+          scores: data.scores,
         },
       },
     };
-
     // Roll and return
     return OseDice.Roll({
       event: options.event,
       parts: rollParts,
-      data: data,
+      data: rollData,
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: `${label} ${game.i18n.localize("OSE.Attack")}`,
       title: `${label} ${game.i18n.localize("OSE.Attack")}`,
     });
   }
 
+  static _valueToMod(val) {
+    switch (val) {
+      case 3:
+        return -3;
+      case 4:
+      case 5:
+        return -2;
+      case 6:
+      case 7:
+      case 8:
+        return -1;
+      case 9:
+      case 10:
+      case 11:
+      case 12:
+        return 0;
+      case 13:
+      case 14:
+      case 15:
+        return 1;
+      case 16:
+      case 17:
+        return 2;
+      case 18:
+        return 3;
+      default:
+        return 0;
+    }
+  }
+
+  static _cappedMod(val) {
+    let mod = OseActor._valueToMod(val);
+    if (mod > 1) {
+      mod -= 1;
+    } else if (mod < -1) {
+      mod += 1;
+    }
+    return mod;
+  }
+
   computeModifiers() {
     if (this.data.type != "character") {
-      return {
-        str: 0,
-        dex: 0,
-        int: 0,
-        con: 0,
-        wis: 0,
-        cha: 0,
-        npc: 0,
-        init: 0,
-      };
+      return;
     }
-    let _valueToMod = (val) => {
-      switch (val) {
-        case 3:
-          return -3;
-        case 4:
-        case 5:
-          return -2;
-        case 6:
-        case 7:
-        case 8:
-          return -1;
-        case 9:
-        case 10:
-        case 11:
-        case 12:
-          return 0;
-        case 13:
-        case 14:
-        case 15:
-          return 1;
-        case 16:
-        case 17:
-          return 2;
-        case 18:
-          return 3;
-        default:
-          return 0;
-      }
-    };
-    let mods = {
-      str: _valueToMod(this.data.data.scores.str.value),
-      int: _valueToMod(this.data.data.scores.int.value),
-      dex: _valueToMod(this.data.data.scores.dex.value),
-      init: _valueToMod(this.data.data.scores.dex.value),
-      cha: _valueToMod(this.data.data.scores.cha.value),
-      npc: _valueToMod(this.data.data.scores.cha.value),
-      wis: _valueToMod(this.data.data.scores.wis.value),
-      con: _valueToMod(this.data.data.scores.con.value),
-    };
-    if (mods.init > 1) {
-      mods.init -= 1;
-    } else if (mods.init < -1) {
-      mods.init += 1;
-    }
-    if (mods.npc > 1) {
-      mods.npc -= 1;
-    } else if (mods.npc < -1) {
-      mods.npc += 1;
-    }
-    return mods;
+    const data = this.data.data;
+    data.scores.str.mod = OseActor._valueToMod(this.data.data.scores.str.value);
+    data.scores.int.mod = OseActor._valueToMod(this.data.data.scores.int.value);
+    data.scores.dex.mod = OseActor._valueToMod(this.data.data.scores.dex.value);
+    data.scores.cha.mod = OseActor._valueToMod(this.data.data.scores.cha.value);
+    data.scores.wis.mod = OseActor._valueToMod(this.data.data.scores.wis.value);
+    data.scores.con.mod = OseActor._valueToMod(this.data.data.scores.con.value);
+
+    data.scores.dex.init = OseActor._cappedMod(this.data.data.scores.dex.value);
+    data.scores.cha.npc = OseActor._cappedMod(this.data.data.scores.cha.value);
   }
 }

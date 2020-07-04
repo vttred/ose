@@ -32,7 +32,7 @@
             </div>
             {{/if}}
         </li>
-        <li class="attribute attack" data-attack="Melee">
+        <li class="attribute attack" data-attack="Attack">
             {{#if config.ascendingAC}}
             <h4 class="attribute-name box-title" title="{{localize 'OSE.AB'}}"><a>{{ localize "OSE.ABShort" }}</a></h4>
             <div class="attribute-value">
@@ -130,7 +130,7 @@
     <div class="attribute-group">
         <div class="attacks-description">
             <label>{{ localize "OSE.Attacks" }}</label>
-            <input name="data.att" type="text" value="{{data.att}}" placeholder="0" data-dtype="String" />
+            <input name="data.att" type="text" value="{{data.att}}" data-dtype="String" />
         </div>
         <ul class="attributes">
             <li class="attribute saving-throw" data-save="death">

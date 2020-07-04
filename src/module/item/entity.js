@@ -54,6 +54,8 @@ export class OseItem extends Item {
     } else if (this.data.data.melee) {
       this.actor.rollAttack('Melee');
       return true;
+    } else {
+      this.actor.rollAttack();
     }
     return false;
   }
@@ -84,6 +86,7 @@ export class OseItem extends Item {
    * @return {Promise}
    */
   async roll({ configureDialog = true } = {}) {
+    console.log(this.data);
     if (this.data.type == 'weapon') {
       if (this.rollWeapon()) return;
     }

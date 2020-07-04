@@ -1,16 +1,17 @@
 export class OseDice {
   static digestResult(data, roll) {
     let details = "";
-    
     // ATTACKS
     let die = roll.parts[0].total;
     if (data.rollData.type == "Attack") {
       if (game.settings.get("ose", "ascendingAC")) {
         let bba = data.data.thac0.bba;
-        bba +=
-          data.rollData.stat == "Melee"
-            ? data.data.thac0.mod.melee + data.rollData.mods.str
-            : data.data.thac0.mod.missile + data.rollData.mods.dex;
+        if (data.rollData.stat == "Melee") {
+          bba += data.data.thac0.mod.melee + data.rollData.scores.str.mod;
+        } else if (data.rollData.stat == "Missile") {
+          bba += data.data.thac0.mod.missile + data.rollData.scores.dex.mod;
+        }
+
         details = `<div class='roll-result roll-fail'><b>Failure</b> (${bba})</div>`;
         if (die == 1) {
           return details;
@@ -19,11 +20,11 @@ export class OseDice {
       } else {
         // B/X Historic THAC0 Calculation
         let thac = data.data.thac0.value;
-        thac -=
-          data.rollData.stat == "Melee"
-            ? data.data.thac0.mod.melee + data.rollData.mods.str
-            : data.data.thac0.mod.missile + data.rollData.mods.dex;
-
+        if (data.rollData.stat == "Melee") {
+          thac -= data.data.thac0.mod.melee + data.rollData.scores.str.mod;
+        } else if (data.rollData.stat == "Missile") {
+          thac -= data.data.thac0.mod.missile + data.rollData.scores.dex.mod;
+        }
         details = `<div class='roll-result roll-fail'><b>Failure</b> (${thac})</div>`;
         if (thac - roll.total > 9) {
           return details;

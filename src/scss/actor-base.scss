@@ -13,7 +13,7 @@
     .panel-title {
       color: whitesmoke;
       background: $darkBackground;
-      line-height: 14px;
+      line-height: 12px;
       height: 20px;
       text-align: center;
       margin: 0;
@@ -307,6 +307,9 @@
         }
       }
       &.spells {
+        .item-titles {
+          padding: 0;
+        }
         .item-controls {
           flex-basis: 30px;
         }

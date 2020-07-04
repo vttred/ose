@@ -91,6 +91,9 @@
 
     "OSE.SpokenLanguages": "Spoken Languages",
     "OSE.Literacy": "Literacy",
+    "OSE.Literate": "Literate",
+    "OSE.LiteracyBasic": "Basic",
+    "OSE.Illiterate": "Illiterate",
     "OSE.NPCReaction": "NPC Reaction",
     "OSE.RetainersMax": "#Retainers",
     
@@ -142,5 +145,12 @@
 
     "OSE.abilities.Requirements": "Requirements",
 
-    "OSE.exploration.OpenDoors": "Open Doors"
+    "OSE.exploration.ListenDoor.long": "Listen at Door",
+    "OSE.exploration.ListenDoor.short": "Listen Door",
+    "OSE.exploration.OpenDoor.long": "Open Stuck Door",
+    "OSE.exploration.OpenDoor.short": "Open Door",
+    "OSE.exploration.SecretDoor.long": "Find Secret Door",
+    "OSE.exploration.SecretDoor.short": "Secret Door",
+    "OSE.exploration.RoomTrap.long": "Find Room Trap",
+    "OSE.exploration.RoomTrap.short": "Find Trap"
 }

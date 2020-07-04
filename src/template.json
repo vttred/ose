@@ -86,6 +86,12 @@
           "bonus": 0
         }
       },
+      "exploration": {
+        "ld": 1,
+        "od": 1,
+        "sd": 1,
+        "ft": 1
+      },
       "scores": {
         "str": {
           "value": 0,

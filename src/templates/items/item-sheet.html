@@ -17,6 +17,12 @@
           </div>
         </div>
         <div class="form-group">
+          <label>{{localize 'OSE.items.Treasure'}}</label>
+          <div class="form-fields">
+            <input type="checkbox" name="data.treasure" value="{{data.treasure}}" {{checked data.treasure}}  data-dtype="Boolean"/>
+          </div>
+        </div>
+        <div class="form-group">
           <label>{{localize 'OSE.items.Cost'}}</label>
           <div class="form-fields">
             <input type="text" name="data.cost" value="{{data.cost}}" data-dtype="Number" />
@@ -25,7 +31,7 @@
         <div class="form-group">
           <label>{{localize 'OSE.items.Weight'}}</label>
           <div class="form-fields">
-            <input type="text" name="data.weight" value="{{data.weight}}" data-dtype="String" />
+            <input type="text" name="data.weight" value="{{data.weight}}" data-dtype="Number" />
           </div>
         </div>
       </div>

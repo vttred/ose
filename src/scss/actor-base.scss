@@ -137,11 +137,12 @@
         }
         .attribute-mod {
           position: absolute;
-          color: $colorTan;
+          color: $colorFaint;
+          text-shadow: 0 0 2px black;
           right: 1px;
           top: 1px;
           line-height: 10px;
-          font-size: 10px;
+          font-size: 8px;
         }
         .attribute-bonuses {
           display: none;
@@ -196,7 +197,7 @@
       }
       .item-titles {
         text-align: center;
-        padding: 4px;
+        padding: 4px 0;
         border: 1px solid $colorDark;
         box-shadow: 0 0 5px $colorDark;
         .item-name {
@@ -298,7 +299,7 @@
       }
       .item-controls {
         font-size: 12px;
-        flex-basis: 60px;
+        flex-basis: 50px;
         flex-grow: 0;
         text-align: right;
         margin-right: 4px;

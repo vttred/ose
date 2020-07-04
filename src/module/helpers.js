@@ -17,7 +17,7 @@ export const registerHelpers = async function () {
   });
 
   Handlebars.registerHelper("mult", function (lh, rh) {
-    return parseInt(lh) * parseInt(rh);
+    return parseFloat(lh) * parseFloat(rh);
   });
 
   Handlebars.registerHelper("counter", function (status, value, max) {

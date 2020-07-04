@@ -8,12 +8,12 @@
                 <div class="attribute-value">
                     <input name="data.scores.str.value" type="text" value="{{data.scores.str.value}}" placeholder="0"
                         data-dtype="Number" />
-                <span class="attribute-mod"><a><i class="fas fa-plus"></i></a></span>
+                <span class="attribute-mod"><a><i class="fas fa-circle"></i></a></span>
                 </div>
                 <div class="attribute-bonuses">
                     {{localize 'OSE.Melee'}} ({{mods.str}})<br/>
                     {{localize 'OSE.exploration.od.long'}}
-                <span class="attribute-mod"><a><i class="fas fa-minus"></i></a></span>
+                <span class="attribute-mod"><a><i class="fas fa-circle"></i></a></span>
                 </div>
             </li>
             <li class="attribute ability-score" data-score="int">
@@ -22,12 +22,12 @@
                 <div class="attribute-value">
                     <input name="data.scores.int.value" type="text" value="{{data.scores.int.value}}" placeholder="0"
                         data-dtype="Number" />
-                <span class="attribute-mod"><a><i class="fas fa-plus"></i></a></span>
+                <span class="attribute-mod"><a><i class="fas fa-circle"></i></a></span>
                 </div>
                 <div class="attribute-bonuses">
                     {{localize 'OSE.SpokenLanguages'}}<br/>
                     {{localize 'OSE.Literacy'}}
-                <span class="attribute-mod"><a><i class="fas fa-minus"></i></a></span>
+                <span class="attribute-mod"><a><i class="fas fa-circle"></i></a></span>
                 </div>
             </li>
             <li class="attribute ability-score" data-score="wis">
@@ -36,11 +36,11 @@
                 <div class="attribute-value">
                     <input name="data.scores.wis.value" type="text" value="{{data.scores.wis.value}}" placeholder="0"
                         data-dtype="Number" />
-                <span class="attribute-mod"><a><i class="fas fa-plus"></i></a></span>
+                <span class="attribute-mod"><a><i class="fas fa-circle"></i></a></span>
                 </div>
                 <div class="attribute-bonuses">
                     {{localize 'OSE.saves.magic.long'}}({{mods.wis}})
-                <span class="attribute-mod"><a><i class="fas fa-minus"></i></a></span>
+                <span class="attribute-mod"><a><i class="fas fa-circle"></i></a></span>
                 </div>
             </li>
             <li class="attribute ability-score" data-score="dex">
@@ -49,13 +49,13 @@
                 <div class="attribute-value">
                     <input name="data.scores.dex.value" type="text" value="{{data.scores.dex.value}}" placeholder="0"
                         data-dtype="Number" />
-                <span class="attribute-mod"><a><i class="fas fa-plus"></i></a></span>
+                <span class="attribute-mod"><a><i class="fas fa-circle"></i></a></span>
                 </div>
                 <div class="attribute-bonuses">
                     {{localize 'OSE.Missile'}} ({{mods.dex}})<br/>
                     {{localize 'OSE.Initiative'}} ({{mods.init}})<br/>
                     {{localize 'OSE.ArmorClass'}} ({{mods.dex}})
-                <span class="attribute-mod"><a><i class="fas fa-minus"></i></a></span>
+                <span class="attribute-mod"><a><i class="fas fa-circle"></i></a></span>
                 </div>
             </li>
             <li class="attribute ability-score" data-score="con">
@@ -64,11 +64,11 @@
                 <div class="attribute-value">
                     <input name="data.scores.con.value" type="text" value="{{data.scores.con.value}}" placeholder="0"
                         data-dtype="Number" />
-                <span class="attribute-mod"><a><i class="fas fa-plus"></i></a></span>
+                <span class="attribute-mod"><a><i class="fas fa-circle"></i></a></span>
                 </div>
                 <div class="attribute-bonuses">
                     {{localize 'OSE.Health'}} ({{mods.con}})
-                <span class="attribute-mod"><a><i class="fas fa-minus"></i></a></span>
+                <span class="attribute-mod"><a><i class="fas fa-circle"></i></a></span>
                 </div>
             </li>
             <li class="attribute ability-score" data-score="cha">
@@ -77,17 +77,17 @@
                 <div class="attribute-value">
                     <input name="data.scores.cha.value" type="text" value="{{data.scores.cha.value}}" placeholder="0"
                         data-dtype="Number" />
-                <span class="attribute-mod"><a><i class="fas fa-plus"></i></a></span>
+                <span class="attribute-mod"><a><i class="fas fa-circle"></i></a></span>
                 </div>
                 <div class="attribute-bonuses">
                     {{localize 'OSE.NPCReaction'}} ({{mods.npc}})<br/>
                     {{localize 'OSE.RetainersMax'}} ({{add mods.cha 4}})<br/>
                     {{localize 'OSE.Loyalty'}} ({{add mods.cha 7}})
-                <span class="attribute-mod"><a><i class="fas fa-minus"></i></a></span>
+                <span class="attribute-mod"><a><i class="fas fa-circle"></i></a></span>
                 </div>
             </li>
             {{#if data.retainer.enabled}}
-            <li class="attribute">
+            <li class="attribute ability-score">
                 <h4 class="attribute-name box-title" title="{{ localize 'OSE.Loyalty' }}">
                     {{ localize "OSE.LoyaltyShort" }}
                 </h4>

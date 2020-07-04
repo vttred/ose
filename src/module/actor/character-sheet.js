@@ -52,6 +52,35 @@ export class OseActorSheetCharacter extends OseActorSheet {
     data.config.individualInit = game.settings.get("ose", "individualInit");
 
     data.mods = this.actor.computeModifiers();
+
+    // Compute treasure
+    let total = 0;
+    data.owned.items.forEach(item => {
+      if (item.data.treasure) {
+        total += item.data.quantity.value * item.data.cost;
+      } 
+    });
+    data.treasure = total;
+
+    let basic = game.settings.get('ose', 'encumbranceOption') == 'basic';
+    // Compute encumbrance
+    let totalWeight = 0;
+    Object.values(data.owned).forEach(cat => {
+      cat.forEach(item => {
+        if (item.type == 'item' && (!basic || item.data.treasure)) {
+          totalWeight += item.data.quantity.value * item.data.weight;
+        }
+        else if (!basic) {
+          totalWeight += item.data.weight;
+        }
+      })
+    });
+    data.encumbrance = {
+      pct: Math.clamped(100 * parseFloat(totalWeight) / data.data.encumbrance.max, 0, 100),
+      max: data.data.encumbrance.max,
+      encumbered: totalWeight > data.data.encumbrance.max,
+      value: totalWeight
+    };
     return data;
   }
 

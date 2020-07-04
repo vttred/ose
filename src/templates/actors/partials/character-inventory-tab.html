@@ -3,9 +3,10 @@
     <li class="item-titles flexrow">
       <div class="item-name">{{localize "OSE.items.Weapons"}}</div>
       <div class="field-longer">{{localize "OSE.items.Qualities"}}</div>
-      <div class="field-short">{{localize "OSE.items.Weight"}}</div>
+      <div class="field-short"><i class="fas fa-weight-hanging"></i></div>
       <div class="item-controls">
-        <a class="item-control item-create" data-type="weapon" title="{{localize 'OSE.Add'}}"><i class="fa fa-plus"></i></a>
+        <a class="item-control item-create" data-type="weapon" title="{{localize 'OSE.Add'}}"><i
+            class="fa fa-plus"></i></a>
       </div>
     </li>
     <ol class="item-list">
@@ -49,9 +50,10 @@
       {{else}}
       <div class="field-short">{{localize "OSE.items.ArmorAC"}}</div>
       {{/if}}
-      <div class="field-short">{{localize "OSE.items.Weight"}}</div>
+      <div class="field-short"><i class="fas fa-weight-hanging"></i></div>
       <div class="item-controls">
-        <a class="item-control item-create" data-type="armor" title="{{localize 'OSE.Add'}}"><i class="fa fa-plus"></i></a>
+        <a class="item-control item-create" data-type="armor" title="{{localize 'OSE.Add'}}"><i
+            class="fa fa-plus"></i></a>
       </div>
     </li>
     <ol class="item-list">
@@ -68,9 +70,9 @@
           </div>
           <div class="field-short">
             {{#if config.ascendingAC}}
-            {{item.data.aac}}
+            {{item.data.aac.value}}
             {{else}}
-            {{item.data.ac}}
+            {{item.data.ac.value}}
             {{/if}}
           </div>
           <div class="field-short">
@@ -92,16 +94,19 @@
     </ol>
   </div>
   <div class="">
+    {{!-- Misc items --}}
     <li class="item-titles flexrow">
       <div class="item-name">{{localize "OSE.items.Misc"}}</div>
-      <div class="field-short">{{localize "OSE.items.Quantity"}}</div>
-      <div class="field-short">{{localize "OSE.items.Weight"}}</div>
+      <div class="field-short"><i class="fas fa-hashtag"></i></div>
+      <div class="field-short"><i class="fas fa-weight-hanging"></i></div>
       <div class="item-controls">
-        <a class="item-control item-create" data-type="item" title="{{localize 'OSE.Add'}}"><i class="fa fa-plus"></i></a>
+        <a class="item-control item-create" data-type="item" title="{{localize 'OSE.Add'}}"><i
+            class="fa fa-plus"></i></a>
       </div>
     </li>
     <ol class="item-list">
       {{#each owned.items as |item|}}
+      {{#unless item.data.treasure}}
       <li class="item-entry">
         <div class="item flexrow" data-item-id="{{item._id}}">
           <div class="item-name flexrow">
@@ -117,7 +122,7 @@
               placeholder="0" />{{#if item.data.quantity.max}}<span>/{{item.data.quantity.max}}</span>{{/if}}
           </div>
           <div class="field-short">
-            {{item.data.weight}}
+            {{mult item.data.quantity.value item.data.weight}}
           </div>
           <div class="item-controls">
             {{#if ../owner}}
@@ -127,7 +132,67 @@
           </div>
         </div>
       </li>
+      {{/unless}}
       {{/each}}
     </ol>
+  </div>
+  <div class="">
+    {{!-- Treasure items --}}
+    <li class="item-titles flexrow">
+      <div class="item-name">{{localize "OSE.items.Treasure"}}</div>
+      <div class="field-long">{{treasure}} <i class="fas fa-circle"></i></div>
+      <div class="field-short"><i class="fas fa-hashtag"></i></div>
+      <div class="field-short"><i class="fas fa-weight-hanging"></i></div>
+      <div class="item-controls">
+        <a class="item-control item-create" data-type="item" title="{{localize 'OSE.Add'}}"><i
+            class="fa fa-plus"></i></a>
+      </div>
+    </li>
+    <ol class="item-list">
+      {{#each owned.items as |item|}}
+      {{#if item.data.treasure}}
+      <li class="item-entry">
+        <div class="item flexrow" data-item-id="{{item._id}}">
+          <div class="item-name flexrow">
+            <div class="item-image" style="background-image: url({{item.img}})"></div>
+            <a>
+              <h4 title="{{item.name}}">
+                {{item.name~}}
+              </h4>
+            </a>
+          </div>
+          <div class="field-long">{{mult item.data.quantity.value item.data.cost}}</div>
+          <div class="field-short quantity">
+            <input value="{{item.data.quantity.value}}" type="text"
+              placeholder="0" />{{#if item.data.quantity.max}}<span>/{{item.data.quantity.max}}</span>{{/if}}
+          </div>
+          <div class="field-short">
+            {{mult item.data.quantity.value item.data.weight}}
+          </div>
+          <div class="item-controls">
+            {{#if ../owner}}
+            <a class="item-control item-edit" title='{{localize "OSE.Edit"}}'><i class="fas fa-edit"></i></a>
+            <a class="item-control item-delete" title='{{localize "OSE.Delete"}}'><i class="fas fa-trash"></i></a>
+            {{/if}}
+          </div>
+        </div>
+      </li>
+      {{/if}}
+      {{/each}}
+    </ol>
+  </div>
+</section>
+<section>
+  {{#with encumbrance}}
+  <div class="encumbrance {{#if encumbered}}encumbered{{/if}}">
+    <span class="encumbrance-bar" style="width:{{pct}}%"></span>
+    <span class="encumbrance-label">{{value}} / {{max}}</span>
+    <i class="encumbrance-breakpoint encumbrance-25 arrow-up"></i>
+    <i class="encumbrance-breakpoint encumbrance-25 arrow-down"></i>
+    <i class="encumbrance-breakpoint encumbrance-50 arrow-up"></i>
+    <i class="encumbrance-breakpoint encumbrance-50 arrow-down"></i>
+    <i class="encumbrance-breakpoint encumbrance-75 arrow-up"></i>
+    <i class="encumbrance-breakpoint encumbrance-75 arrow-down"></i>
+    {{/with}}
   </div>
 </section>

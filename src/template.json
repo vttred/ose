@@ -13,12 +13,10 @@
           "max": 20
         },
         "ac": {
-          "naked": 0,
           "value": 0,
           "mod": 0
         },
         "aac": {
-          "naked": 0,
           "value": 0,
           "mod": 0
         },
@@ -118,14 +116,12 @@
           "mod": 0
         }
       },
-      "currency": {
-        "gold": 0,
-        "silver": 0,
-        "copper": 0
-      },
       "initative": {
         "value": 0,
         "mod": 0
+      },
+      "encumbrance": {
+        "max": 1600
       },
       "languages": []
     },
@@ -151,6 +147,7 @@
         "value": 1,
         "max": 0
       },
+      "treasure": false,
       "cost": 0,
       "weight": 80
     },

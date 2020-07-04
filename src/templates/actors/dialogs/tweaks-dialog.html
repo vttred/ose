@@ -23,6 +23,18 @@
         />
       </div>
     </div>
+    <div class="form-group">
+      <label>{{localize "OSE.InitiativeBonus"}}</label>
+      <div class="form-fields">
+        <input
+          type="text"
+          name="data.initiative.mod"
+          id="initiative"
+          value="{{data.initiative.mod}}"
+          data-dtype="Number"
+        />
+      </div>
+    </div>
     {{#if (eq this.type 'character')}}
     <div class="form-group">
       <label>{{localize "OSE.ExperienceBonus"}} (%)</label>
@@ -55,18 +67,6 @@
           name="data.thac0.mod.missile"
           id="missile"
           value="{{data.thac0.mod.missile}}"
-          data-dtype="Number"
-        />
-      </div>
-    </div>
-    <div class="form-group">
-      <label>{{localize "OSE.InitiativeBonus"}}</label>
-      <div class="form-fields">
-        <input
-          type="text"
-          name="data.initiative.mod"
-          id="initiative"
-          value="{{data.initiative.mod}}"
           data-dtype="Number"
         />
       </div>

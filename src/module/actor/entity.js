@@ -5,6 +5,21 @@ export class OseActor extends Actor {
    * Extends data from base Actor class
    */
 
+  prepareData() {
+    super.prepareData();
+    const data = this.data.data;
+    
+    // Determine Initiative
+    if (game.settings.get('ose', 'individualInit')) {
+      data.initiative.value = data.initiative.mod ;
+      if (this.data.type == 'character') {
+        const mods = this.computeModifiers();
+        data.initiative.value += mods.dex;
+      }
+    } else {
+      data.initiative.value = 0;
+    }
+  }
    /* -------------------------------------------- */
   /*  Socket Listeners and Handlers
     /* -------------------------------------------- */

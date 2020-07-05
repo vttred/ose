@@ -8,6 +8,7 @@ import { OseItem } from "./module/item/entity.js";
 import { OSE } from "./module/config.js";
 import { registerSettings } from './module/settings.js';
 import { registerHelpers } from './module/helpers.js';
+import * as chat from "./module/chat.js";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -64,5 +65,5 @@ Hooks.once("setup", function () {
   }
 });
 
-
 Hooks.on("renderChatLog", (app, html, data) => OseItem.chatListeners(html));
+Hooks.on("getChatLogEntryContext", chat.addChatMessageContextOptions);

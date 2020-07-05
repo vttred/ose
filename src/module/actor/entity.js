@@ -298,6 +298,19 @@ export class OseActor extends Actor {
     });
   }
 
+  async applyDamage(amount=0, multiplier=1) {
+    amount = Math.floor(parseInt(amount) * multiplier);
+    const hp = this.data.data.hp;
+
+    // Remaining goes to health
+    const dh = Math.clamped(hp.value - amount, 0, hp.max);
+
+    // Update the Actor
+    return this.update({
+      "data.hp.value": dh
+    });
+  }
+
   static _valueToMod(val) {
     switch (val) {
       case 3:

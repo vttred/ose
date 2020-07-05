@@ -1,9 +1,15 @@
 <section class="ose chat-message">
     <div class="ose chat-block">
         <h2 class="chat-title">{{title}}</h2>
-        {{#if result.details}}<div class="chat-details">{{{result.details}}}</div>{{/if}}
-        {{#if result.isFailure}}<div class='roll-result roll-fail'><b>{{localize 'OSE.Failure'}}</b> ({{result.target}})</div>{{/if}}
-        {{#if result.isSuccess}}<div class='roll-result roll-success'><b>{{localize 'OSE.Success'}}</b> ({{result.target}})</div>{{/if}}
+        <div class="chat-details">
+            <div class="roll-result">{{{result.details}}}</div>
+        </div>
         {{#if rollOSE}}<div>{{{rollOSE}}}</div>{{/if}}
+        {{#if result.isSuccess}}
+        <div class="chat-details">
+            <div class="roll-result"><b>{{localize 'OSE.messages.InflictsDamage'}}</b></div>
+        </div>
+        <div>{{{rollDamage}}}</div>
+        {{/if}}
     </div>
 </section>

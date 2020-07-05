@@ -11,6 +11,7 @@ export class OseActor extends Actor {
 
     // Compute modifiers from actor scores
     this.computeModifiers();
+    this.computeAttack();
 
     // Determine Initiative
     if (game.settings.get("ose", "individualInit")) {
@@ -37,7 +38,7 @@ export class OseActor extends Actor {
     }).then(() => {
       const speaker = ChatMessage.getSpeaker({ actor: this });
       ChatMessage.create({
-        content: game.i18n.format("OSE.messages.getExperience", {
+        content: game.i18n.format("OSE.messages.GetExperience", {
           name: this.name,
           value: modified,
         }),
@@ -51,7 +52,6 @@ export class OseActor extends Actor {
 
   rollHP(options = {}) {
     let roll = new Roll(this.data.data.hp.hd).roll();
-    console.log(roll);
     return this.update({
       data: {
         hp: {
@@ -177,8 +177,8 @@ export class OseActor extends Actor {
       ...this.data,
       ...{
         rollData: {
-          type: "Exploration",
-          stat: expl,
+          type: "Below",
+          target: this.data.data.exploration[expl],
         },
       },
     };
@@ -236,22 +236,40 @@ export class OseActor extends Actor {
   }
 
   rollAttack(attData, options = {}) {
-    const rollParts = ["1d20"];
     const data = this.data.data;
 
-    if (attData.type == "missile") {
-      rollParts.push(
-        data.scores.dex.mod.toString(),
-        data.thac0.mod.missile.toString()
-      );
-    } else if (attData.type == "melee") {
-      rollParts.push(
-        data.scores.str.mod.toString(),
-        data.thac0.mod.melee.toString()
-      );
+    const rollParts = ["1d20"];
+    const dmgParts = [];
+
+    if (!attData.dmg || !game.settings.get("ose", "variableWeaponDamage")) {
+      dmgParts.push("1d6");
+    } else {
+      dmgParts.push(attData.dmg);
     }
-    if (game.settings.get("ose", "ascendingAC")) {
-      rollParts.push(this.data.data.thac0.bba.toString());
+
+
+    let ascending = game.settings.get("ose", "ascendingAC");
+    if (ascending) {
+      rollParts.push(data.thac0.bba.toString());
+      if (attData.type == "missile") {
+        rollParts.push(
+          data.scores.dex.mod.toString(),
+          data.thac0.mod.missile.toString()
+        );
+      } else if (attData.type == "melee") {
+        rollParts.push(
+          data.scores.str.mod.toString(),
+          data.thac0.mod.melee.toString()
+        );
+      }
+    }
+
+    let thac0 = 0;
+    if (attData.type == "melee") {
+      dmgParts.push(data.scores.str.mod);
+      thac0 = data.thac0.melee;
+    } else if (attData.type == "missile") {
+      thac0 = data.thac0.missile;
     }
 
     const rollData = {
@@ -259,12 +277,15 @@ export class OseActor extends Actor {
       ...{
         rollData: {
           type: "Attack",
-          stat: attData.type,
-          scores: data.scores,
+          thac0: thac0,
+          weapon: {
+            parts: dmgParts,
+          },
         },
       },
     };
     let skip = options.event && options.event.ctrlKey;
+
     // Roll and return
     return OseDice.Roll({
       event: options.event,
@@ -274,8 +295,6 @@ export class OseActor extends Actor {
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: `${attData.label} - ${game.i18n.localize("OSE.Attack")}`,
       title: `${attData.label} - ${game.i18n.localize("OSE.Attack")}`,
-    }).then(() => {
-      this.rollDamage(attData, {});
     });
   }
 
@@ -333,5 +352,22 @@ export class OseActor extends Actor {
 
     data.scores.dex.init = OseActor._cappedMod(this.data.data.scores.dex.value);
     data.scores.cha.npc = OseActor._cappedMod(this.data.data.scores.cha.value);
+  }
+
+  computeAttack() {
+    const data = this.data.data;
+    let ascending = game.settings.get("ose", "ascendingAC");
+    data.thac0.missile = ascending ? data.thac0.bba : data.thac0.value;
+    data.thac0.melee = ascending ? data.thac0.bba : data.thac0.value;
+    if (this.data.type != "character") {
+      return;
+    }
+    if (ascending) {
+      data.thac0.missile += data.scores.dex.mod + data.thac0.mod.missile;
+      data.thac0.melee += data.scores.str.mod + data.thac0.mod.melee;
+    } else {
+      data.thac0.missile -= data.scores.dex.mod - data.thac0.mod.missile;
+      data.thac0.melee -= data.scores.str.mod - data.thac0.mod.melee;
+    }
   }
 }

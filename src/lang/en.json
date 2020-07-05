@@ -167,5 +167,8 @@
     "OSE.exploration.ft.long": "Find Room Trap",
     "OSE.exploration.ft.short": "Find Trap",
 
-    "OSE.messages.getExperience": "{name} gained {value} experience points!"
+    "OSE.messages.GetExperience": "{name} gained {value} experience points!",
+    "OSE.messages.AttackSuccess": "<b>Hits AC {result}!</b> ({bonus})",
+    "OSE.messages.AttackFailure": "<b>Attack fails</b> ({bonus})",
+    "OSE.messages.InflictsDamage": "Inflicts damage!"
 }

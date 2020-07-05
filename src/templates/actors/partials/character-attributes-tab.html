@@ -156,12 +156,12 @@
                         {{#if config.ascendingAC}}
                         <div class="attribute-value"
                             title="{{localize 'OSE.AB'}}({{data.thac0.bba}}) + {{localize 'OSE.scores.str.long'}}({{data.scores.str.mod}}) + {{localize 'OSE.Modifier'}}({{data.thac0.mod.melee}})">
-                            {{add data.thac0.mod.melee (add data.scores.str.mod data.thac0.bba)}}
+                            {{data.thac0.melee}}
                         </div>
                         {{else}}
                         <div class="attribute-value"
                             title="{{localize 'OSE.Thac0'}}({{data.thac0.value}}) - {{localize 'OSE.scores.str.long'}}({{data.scores.str.mod}}) - {{localize 'OSE.Modifier'}}({{data.thac0.mod.melee}})">
-                            {{subtract data.thac0.mod.melee (subtract data.scores.str.mod data.thac0.value)}}
+                            {{data.thac0.melee}}
                         </div>
                         {{/if}}
                     </div>
@@ -196,12 +196,12 @@
                         {{#if config.ascendingAC}}
                         <div class="attribute-value"
                             title="{{localize 'OSE.AB'}}({{data.thac0.bba}}) + {{localize 'OSE.scores.dex.long'}}({{data.scores.dex.mod}}) + {{localize 'OSE.Modifier'}}({{data.thac0.mod.missile}})">
-                            {{add data.thac0.mod.missile (add data.scores.dex.mod data.thac0.bba)}}
+                            {{data.thac0.missile}}
                         </div>
                         {{else}}
                         <div class="attribute-value"
                             title="{{localize 'OSE.Thac0'}}({{data.thac0.value}}) - {{localize 'OSE.scores.dex.long'}}({{data.scores.dex.mod}}) - {{localize 'OSE.Modifier'}}({{data.thac0.mod.missile}})">
-                            {{subtract data.thac0.mod.missile (subtract data.scores.dex.mod data.thac0.value)}}
+                            {{data.thac0.missile}}
                         </div>
                         {{/if}}
                     </div>

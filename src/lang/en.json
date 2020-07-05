@@ -170,5 +170,7 @@
     "OSE.messages.GetExperience": "{name} gained {value} experience points!",
     "OSE.messages.AttackSuccess": "<b>Hits AC {result}!</b> ({bonus})",
     "OSE.messages.AttackFailure": "<b>Attack fails</b> ({bonus})",
-    "OSE.messages.InflictsDamage": "Inflicts damage!"
+    "OSE.messages.InflictsDamage": "Inflicts damage!",
+    "OSE.ChatContextDamage": "Apply Damage",
+    "OSE.ChatContextHealing": "Apply Healing"
 }

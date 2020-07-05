@@ -48,6 +48,7 @@ export class OseItem extends Item {
   }
 
   rollWeapon() {
+    console.log("WEAPON");
     if (this.data.data.missile) {
       this.actor.rollAttack({type: 'missile', label: this.name, dmg: this.data.data.damage});
     } else if (this.data.data.melee) {
@@ -59,6 +60,7 @@ export class OseItem extends Item {
   }
 
   async rollFormula(options={}) {
+    console.log("FORMULA");
     if ( !this.data.data.roll ) {
       throw new Error("This Item does not have a formula to roll!");
     }
@@ -99,6 +101,7 @@ export class OseItem extends Item {
       hasDamage: this.hasDamage,
       isSpell: this.data.type === "spell",
       hasSave: this.hasSave,
+      config: CONFIG.OSE
     };
 
     // Render the chat card template
@@ -137,7 +140,11 @@ export class OseItem extends Item {
     const header = event.currentTarget;
     const card = header.closest(".chat-card");
     const content = card.querySelector(".card-content");
-    content.style.display = content.style.display === "none" ? "block" : "none";
+    if (content.style.display == "none") {
+      $(content).slideDown(200);
+    } else {
+      $(content).slideUp(200);  
+    }
   }
 
 
@@ -170,20 +177,20 @@ export class OseItem extends Item {
     let targets = [];
     if ( isTargetted ) {
       targets = this._getChatCardTargets(card);
+    }
+
+    // Attack and Damage Rolls
+    if ( action === "damage" ) await item.rollDamage({event});
+    else if ( action === "formula" ) await item.rollFormula({event});
+
+    // Saving Throws for card targets
+    else if ( action == "save" ) {
       if ( !targets.length ) {
         ui.notifications.warn(`You must have one or more controlled Tokens in order to use this option.`);
         return button.disabled = false;
       }
-    }
-
-    // Attack and Damage Rolls
-    else if ( action === "damage" ) await item.rollDamage({event});
-    else if ( action === "formula" ) await item.rollFormula({event});
-
-    // Saving Throws for card targets
-    else if ( action === "save" ) {
       for ( let t of targets ) {
-        await t.rollAbilitySave(button.dataset.ability, {event});
+        await t.rollSave(button.dataset.save, {event});
       }
     }
 

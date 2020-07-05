@@ -2,7 +2,7 @@
     {{#if tokenId}}data-token-id="{{tokenId}}" {{/if}}>
     <header class="card-header flexrow">
         <img src="{{item.img}}" title="{{item.name}}" width="36" height="36" />
-        <h3 class="item-name">{{item.name}}</h3>
+        <h3 class="item-name"><a>{{item.name}}</a></h3>
     </header>
 
     <div class="card-content" style="display:none;">
@@ -23,8 +23,8 @@
         {{/if}}
 
         {{#if data.save}}
-        <button data-action="save" data-ability="{{data.save}}" disabled>
-            {{ localize "OSE.SavingThrow" }} {{data.save}}
+        <button data-action="save" data-save="{{data.save}}" disabled>
+            {{lookup config.saves_long data.save}} {{ localize "OSE.SavingThrow" }} 
         </button>
         {{/if}}
 

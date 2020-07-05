@@ -55,9 +55,9 @@ Hooks.once("init", async function () {
  */
 Hooks.once("setup", function () {
   // Localize CONFIG objects once up-front
-  const toLocalize = [];
+  const toLocalize = ["saves_short", "saves_long", "scores"];
   for (let o of toLocalize) {
-    CONFIG.MAJI[o] = Object.entries(CONFIG.OSE[o]).reduce((obj, e) => {
+    CONFIG.OSE[o] = Object.entries(CONFIG.OSE[o]).reduce((obj, e) => {
       obj[e[0]] = game.i18n.localize(e[1]);
       return obj;
     }, {});

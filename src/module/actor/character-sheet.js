@@ -39,10 +39,6 @@ export class OseActorSheetCharacter extends OseActorSheet {
   getData() {
     const data = super.getData();
 
-    for (let [a, score] of Object.entries(data.data.scores)) {
-      data.data.scores[a].label = game.i18n.localize(`OSE.scores.${a}`);
-    }
-
     // Settings
     data.config.variableWeaponDamage = game.settings.get(
       "ose",

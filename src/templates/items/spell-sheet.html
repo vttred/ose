@@ -40,8 +40,8 @@
             <select name="data.save">
               {{#select data.save}}
               <option value=""></option>
-              {{#each config.saves as |save a|}}
-              <option value="{{a}}">{{localize save}}</option>
+              {{#each config.saves_short as |save a|}}
+              <option value="{{a}}">{{save}}</option>
               {{/each}}
               {{/select}}
             </select>

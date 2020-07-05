@@ -37,8 +37,8 @@ export class OseActor extends Actor {
       ...this.data,
       ...{
         rollData: {
-          type: "Save",
-          stat: save,
+          type: "Above",
+          target: this.data.data.saves[save].value,
         },
       },
     };
@@ -51,6 +51,32 @@ export class OseActor extends Actor {
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: `${label} ${game.i18n.localize("OSE.SavingThrow")}`,
       title: `${label} ${game.i18n.localize("OSE.SavingThrow")}`,
+    });
+  }
+
+  rollMorale(options = {}) {
+    const label = game.i18n.localize(`OSE.Morale`);
+    const rollParts = ["2d6"];
+
+    const data = {
+      ...this.data,
+      ...{
+        rollData: {
+          type: "Below",
+          target: this.data.data.details.morale,
+        },
+      },
+    };
+
+    // Roll and return
+    return OseDice.Roll({
+      event: options.event,
+      parts: rollParts,
+      data: data,
+      skipDialog: true,
+      speaker: ChatMessage.getSpeaker({ actor: this }),
+      flavor: `${label} ${game.i18n.localize("OSE.Roll")}`,
+      title: `${label} ${game.i18n.localize("OSE.Roll")}`,
     });
   }
 
@@ -76,6 +102,31 @@ export class OseActor extends Actor {
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: `${label} ${game.i18n.localize("OSE.AbilityCheck")}`,
       title: `${label} ${game.i18n.localize("OSE.AbilityCheck")}`,
+    });
+  }
+
+  rollHitDice(options = {}) {
+    const label = game.i18n.localize(`OSE.HitDice`);
+    const rollParts = [this.data.data.hp.hd];
+
+    const data = {
+      ...this.data,
+      ...{
+        rollData: {
+          type: "Hit Dice"
+        },
+      },
+    };
+
+    // Roll and return
+    return OseDice.Roll({
+      event: options.event,
+      parts: rollParts,
+      data: data,
+      skipDialog: true,
+      speaker: ChatMessage.getSpeaker({ actor: this }),
+      flavor: `${label} ${game.i18n.localize("OSE.Roll")}`,
+      title: `${label} ${game.i18n.localize("OSE.Roll")}`,
     });
   }
 

@@ -29,11 +29,21 @@
           }
         },
         "saves": {
-          "death": 10,
-          "wand": 10,
-          "paralysis": 10,
-          "breath": 10,
-          "spell": 10
+          "death": {
+            "value": 10
+          },
+          "wand": {
+            "value": 10
+          },
+          "paralysis": {
+            "value": 10
+          },
+          "breath": {
+            "value": 10
+          },
+          "spell": {
+            "value": 10
+          }
         },
         "movement": {
           "base": 120

@@ -1,3 +1,5 @@
+import { OseDice } from "../dice.js";
+
 /**
  * Override and extend the basic :class:`Item` implementation
  */
@@ -48,7 +50,6 @@ export class OseItem extends Item {
   }
 
   rollWeapon() {
-    console.log("WEAPON");
     if (this.data.data.missile) {
       this.actor.rollAttack({type: 'missile', label: this.name, dmg: this.data.data.damage});
     } else if (this.data.data.melee) {
@@ -60,25 +61,32 @@ export class OseItem extends Item {
   }
 
   async rollFormula(options={}) {
-    console.log("FORMULA");
     if ( !this.data.data.roll ) {
       throw new Error("This Item does not have a formula to roll!");
     }
 
-    // Define Roll Data
-    const rollData = {
-      item: this.data.data
-    };
-    const title = `${this.name} - Roll`;
+    const label = `${this.name}`;
+    const rollParts = [this.data.data.roll];
 
-    // Invoke the roll and submit it to chat
-    const roll = new Roll(rollData.item.roll, rollData).roll();
-    roll.toMessage({
-      speaker: ChatMessage.getSpeaker({actor: this.actor}),
-      flavor: this.data.data.chatFlavor || title,
-      rollMode: game.settings.get("core", "rollMode")
+    const data = {
+      ...this.data,
+      ...{
+        rollData: {
+          type: "Formula"
+        },
+      },
+    };
+
+    // Roll and return
+    return OseDice.Roll({
+      event: options.event,
+      parts: rollParts,
+      data: data,
+      skipDialog: true,
+      speaker: ChatMessage.getSpeaker({ actor: this }),
+      flavor: `${label} ${game.i18n.localize("OSE.Roll")}`,
+      title: `${label} ${game.i18n.localize("OSE.Roll")}`,
     });
-    return roll;
   }
 
   /**

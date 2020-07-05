@@ -135,6 +135,11 @@ export class OseActorSheetMonster extends OseActorSheet {
       return this.actor.createOwnedItem(itemData, {});
     });
 
+    html.find(".morale-check a").click((ev) => {
+      let actorObject = this.actor;
+      actorObject.rollMorale({ event: event });
+    });
+
     // Handle default listeners last so system listeners are triggered first
     super.activateListeners(html);
   }

@@ -13,9 +13,12 @@
       <label>{{localize 'OSE.Appearing'}}</label>
     </li>
     {{#if config.morale}}
-    <li>
-      <input type="text" name="data.details.morale" value="{{data.details.morale}}" />
-      <label>{{localize 'OSE.Morale'}}</label>
+    <li class="flexrow">
+      <div>
+        <input type="text" name="data.details.morale" value="{{data.details.morale}}" />
+        <label>{{localize 'OSE.Morale'}}</label>  
+      </div>
+      <div class="morale-check"><a><i class="fas fa-dice"></i></a></div>
     </li>
     {{/if}}
   </ul>

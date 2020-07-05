@@ -34,15 +34,22 @@ export class OseDice {
           -3,
           9
         )}</b> (${thac})</div>`;
-        // ADD DAMAGE ROLL
       }
-    } else if (data.rollData.type == "Save") {
+    } else if (data.rollData.type == "Above") {
       // SAVING THROWS
-      let sv = data.data.saves[data.rollData.stat].value;
+      let sv = data.rollData.target;
       if (roll.total >= sv) {
         details = `<div class='roll-result roll-success'><b>Success!</b> (${sv})</div>`;
       } else {
         details = `<div class='roll-result roll-fail'><b>Failure</b> (${sv})</div>`;
+      }
+    } else if (data.rollData.type == "Below") {
+      // Morale
+      let m = data.rollData.target;
+      if (roll.total <= m) {
+        details = `<div class='roll-result roll-success'><b>Success!</b> (${m})</div>`;
+      } else {
+        details = `<div class='roll-result roll-fail'><b>Failure</b> (${m})</div>`;
       }
     } else if (data.rollData.type == "Check") {
       // SCORE CHECKS

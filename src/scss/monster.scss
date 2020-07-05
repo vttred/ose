@@ -1,6 +1,17 @@
 .ose.actor.monster {
   min-height: 565px;
   min-width: 460px;
+  .header-details {
+    .summary {
+      .morale-check {
+        line-height: 35px;
+        flex: 0 0 20px;
+        &:hover {
+          color: $colorDark;
+        }
+      }
+    }
+  }
   .sheet-body {
     .editor {
       height: 300px;

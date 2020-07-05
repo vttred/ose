@@ -140,6 +140,11 @@ export class OseActorSheetMonster extends OseActorSheet {
       actorObject.rollMorale({ event: event });
     });
 
+    html.find(".hp-roll").click((ev) => {
+      let actorObject = this.actor;
+      actorObject.rollHP({ event: event });
+    });
+
     // Handle default listeners last so system listeners are triggered first
     super.activateListeners(html);
   }

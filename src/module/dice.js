@@ -1,6 +1,10 @@
 export class OseDice {
   static digestResult(data, roll) {
-    let details = "";
+    let result = {
+      isSuccess: false,
+      isFailure: false,
+      target: "",
+    };
     // ATTACKS
     let die = roll.parts[0].total;
     if (data.rollData.type == "Attack") {
@@ -11,12 +15,12 @@ export class OseDice {
         } else if (data.rollData.stat == "missile") {
           bba += data.data.thac0.mod.missile + data.rollData.scores.dex.mod;
         }
-
-        details = `<div class='roll-result roll-fail'><b>Failure</b> (${bba})</div>`;
+        result.target = bba;
         if (die == 1) {
-          return details;
+          result.isFailure = true;
+          return result;
         }
-        details = `<div class='roll-result'><b>Hits AC ${roll.total}</b> (${bba})</div>`;
+        result.isSuccess = true;
       } else {
         // B/X Historic THAC0 Calculation
         let thac = data.data.thac0.value;
@@ -25,11 +29,12 @@ export class OseDice {
         } else if (data.rollData.stat == "missile") {
           thac -= data.data.thac0.mod.missile + data.rollData.scores.dex.mod;
         }
-        details = `<div class='roll-result roll-fail'><b>Failure</b> (${thac})</div>`;
+        result.target = thac;
         if (thac - roll.total > 9) {
-          return details;
+          result.isFailure = true;
+          return result;
         }
-        details = `<div class='roll-result'><b>Hits AC ${Math.clamped(
+        result.details = `<div class='roll-result'><b>Hits AC ${Math.clamped(
           thac - roll.total,
           -3,
           9
@@ -38,37 +43,41 @@ export class OseDice {
     } else if (data.rollData.type == "Above") {
       // SAVING THROWS
       let sv = data.rollData.target;
+      result.target = sv;
       if (roll.total >= sv) {
-        details = `<div class='roll-result roll-success'><b>Success!</b> (${sv})</div>`;
+        result.isSuccess = true;
       } else {
-        details = `<div class='roll-result roll-fail'><b>Failure</b> (${sv})</div>`;
+        result.isFailure = true;
       }
     } else if (data.rollData.type == "Below") {
       // Morale
       let m = data.rollData.target;
+      result.target = m;
       if (roll.total <= m) {
-        details = `<div class='roll-result roll-success'><b>Success!</b> (${m})</div>`;
+        result.isSuccess = true;
       } else {
-        details = `<div class='roll-result roll-fail'><b>Failure</b> (${m})</div>`;
+        result.isFailure = true;
       }
     } else if (data.rollData.type == "Check") {
       // SCORE CHECKS
       let sc = data.rollData.target;
+      result.target = sc;
       if (die == 1 || (roll.total <= sc && die < 20)) {
-        details = `<div class='roll-result roll-success'><b>Success!</b> (${sc})</div>`;
+        result.isSuccess = true;
       } else {
-        details = `<div class='roll-result roll-fail'><b>Failure</b> (${sc})</div>`;
+        result.isFailure = true;
       }
     } else if (data.rollData.type == "Exploration") {
       // EXPLORATION CHECKS
       let sc = data.data.exploration[data.rollData.stat];
+      result.target = sc;
       if (roll.total <= sc) {
-        details = `<div class='roll-result roll-success'><b>Success!</b> (${sc})</div>`;
+        result.isSuccess = true;
       } else {
-        details = `<div class='roll-result roll-fail'><b>Failure</b> (${sc})</div>`;
+        result.isFailure = true;
       }
     }
-    return details;
+    return result;
   }
 
   static async sendRoll({
@@ -91,18 +100,18 @@ export class OseDice {
       flavor: flavor,
       data: data,
     };
-    
+
     // Optionally include a situational bonus
     if (form !== null) data["bonus"] = form.bonus.value;
     if (data["bonus"]) parts.push(data["bonus"]);
- 
+
     const roll = new Roll(parts.join("+"), data).roll();
 
     // Convert the roll to a chat message and return the roll
     let rollMode = game.settings.get("core", "rollMode");
     rollMode = form ? form.rollMode.value : rollMode;
 
-    templateData.details = OseDice.digestResult(data, roll);
+    templateData.result = OseDice.digestResult(data, roll);
 
     return new Promise((resolve) => {
       roll.render().then((r) => {

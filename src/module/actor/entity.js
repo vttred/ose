@@ -26,22 +26,42 @@ export class OseActor extends Actor {
   /*  Socket Listeners and Handlers
     /* -------------------------------------------- */
   getExperience(value, options = {}) {
-    console.log(this.data);
-    if (this.data.type != 'character') {
+    if (this.data.type != "character") {
       return;
     }
-    let modified = value + (this.data.data.details.xp.bonus * value) / 100;
-    console.log(modified);
+    let modified = Math.floor(
+      value + (this.data.data.details.xp.bonus * value) / 100
+    );
     return this.update({
-      "data.details.xp.value": modified + this.data.data.details.xp.value
+      "data.details.xp.value": modified + this.data.data.details.xp.value,
     }).then(() => {
-      const speaker = ChatMessage.getSpeaker({actor: this});
-      ChatMessage.create({content: game.i18n.format("OSE.messages.getExperience", {name: this.name, value: modified}), speaker});
+      const speaker = ChatMessage.getSpeaker({ actor: this });
+      ChatMessage.create({
+        content: game.i18n.format("OSE.messages.getExperience", {
+          name: this.name,
+          value: modified,
+        }),
+        speaker,
+      });
     });
   }
   /* -------------------------------------------- */
   /*  Rolls                                       */
   /* -------------------------------------------- */
+
+  rollHP(options = {}) {
+    let roll = new Roll(this.data.data.hp.hd).roll();
+    console.log(roll);
+    return this.update({
+      data: {
+        hp: {
+          max: roll.total,
+          value: roll.total,
+        },
+      },
+    });
+  }
+
   rollSave(save, options = {}) {
     const label = game.i18n.localize(`OSE.saves.${save}.long`);
     const rollParts = ["1d20"];
@@ -57,7 +77,7 @@ export class OseActor extends Actor {
     };
 
     let skip = options.event && options.event.ctrlKey;
-  
+
     // Roll and return
     return OseDice.Roll({
       event: options.event,
@@ -132,7 +152,7 @@ export class OseActor extends Actor {
       ...this.data,
       ...{
         rollData: {
-          type: "Hit Dice"
+          type: "Hit Dice",
         },
       },
     };
@@ -186,20 +206,20 @@ export class OseActor extends Actor {
         rollData: {
           type: "Damage",
           stat: attData.type,
-          scores: data.scores
+          scores: data.scores,
         },
       },
     };
 
     let dmgParts = [];
-    if (!attData.dmg || !game.settings.get('ose', 'variableWeaponDamage')) {
+    if (!attData.dmg || !game.settings.get("ose", "variableWeaponDamage")) {
       dmgParts.push("1d6");
     } else {
       dmgParts.push(attData.dmg);
     }
 
     // Add Str to damage
-    if (attData.type == 'melee') {
+    if (attData.type == "melee") {
       dmgParts.push(data.scores.str.mod);
     }
 
@@ -212,7 +232,7 @@ export class OseActor extends Actor {
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: `${attData.label} - ${game.i18n.localize("OSE.Damage")}`,
       title: `${attData.label} - ${game.i18n.localize("OSE.Damage")}`,
-    })
+    });
   }
 
   rollAttack(attData, options = {}) {
@@ -240,7 +260,7 @@ export class OseActor extends Actor {
         rollData: {
           type: "Attack",
           stat: attData.type,
-          scores: data.scores
+          scores: data.scores,
         },
       },
     };

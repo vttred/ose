@@ -141,7 +141,10 @@
         "biography": "",
         "alignment": "",
         "xp": 0,
-        "treasure": "",
+        "treasure": {
+          "table": "",
+          "type": ""
+        },
         "appearing": "",
         "morale": 0
       },

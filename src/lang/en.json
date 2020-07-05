@@ -5,6 +5,8 @@
     "OSE.Ok": "Ok",
     "OSE.Cancel": "Cancel",
     "OSE.Roll": "Roll",
+    "OSE.Success": "Success",
+    "OSE.Failure": "Failure",
 
     "OSE.Formula": "Formula",
     "OSE.SitMod": "Situational Modifier",
@@ -20,6 +22,8 @@
     "OSE.Experience": "Experience",
     "OSE.ExperienceBonus": "Bonus Experience",
     "OSE.Treasure": "Treasure type",
+    "OSE.TreasureTable": "Table",
+    "OSE.TreasureTableHint": "Drop a rollable table here to roll the monster treasure",
     "OSE.Size": "Size",
     "OSE.Morale": "Morale",
     "OSE.Retainer": "Retainer",

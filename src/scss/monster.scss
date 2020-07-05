@@ -20,6 +20,21 @@
       min-width: 75px;
     }
   }
+  .attributes {
+    .attribute.health {
+      position: relative;
+      .attribute-name .hp-roll {
+        font-size: 12px;
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        color: $colorFaint;
+        &:hover {
+          color: white;
+        }
+      }
+    }
+  }
   .attribute-group {
     .attacks-description {
       margin: 2px;

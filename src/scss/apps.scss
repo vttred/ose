@@ -14,14 +14,15 @@
   .chat-details {
     padding: 4px;
     font-size: 13px;
-    .roll-result {
-      text-align: center;
-      &.roll-success {
-        color: #18520b;
-      }
-      &.roll-fail {
-        color: #aa0200;
-      }
+  }
+  .roll-result {
+    font-size: 13px;
+    text-align: center;
+    &.roll-success {
+      color: #18520b;
+    }
+    &.roll-fail {
+      color: #aa0200;
     }
   }
 }

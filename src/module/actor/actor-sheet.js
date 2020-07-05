@@ -125,6 +125,11 @@ export class OseActorSheet extends ActorSheet {
       actorObject.rollAttack({label: this.actor.name, type: attack}, { event: event });
     });
     
+    html.find(".hit-dice .attribute-name a").click((ev) => {
+      let actorObject = this.actor;
+      actorObject.rollHitDice({ event: event });
+    });
+
     super.activateListeners(html);
   }
 

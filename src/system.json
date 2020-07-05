@@ -9,7 +9,15 @@
   "author": "U~man",
   "esmodules": ["ose.js"],
   "styles": ["ose.css"],
-  "packs": [],
+  "packs": [
+    {
+      "name": "OSEMacros",
+      "label": "Old School Essentials Macros",
+      "system": "ose",
+      "path": "./packs/macros.db",
+      "entity": "Macro"
+    }
+  ],
   "languages": [
     {
       "lang": "en",

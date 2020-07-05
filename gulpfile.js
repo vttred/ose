@@ -222,6 +222,7 @@ async function clean() {
       "lang",
       "templates",
       "assets",
+      "packs",
       "module",
       `${name}.js`,
       "module.json",

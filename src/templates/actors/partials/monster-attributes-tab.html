@@ -1,15 +1,15 @@
 <section class="flexrow">
     <ul class="attributes flexrow">
         <li class="attribute health">
-            <h4 class="attribute-name box-title" title="{{localize 'OSE.Health'}}">{{ localize "OSE.HealthShort" }}</h4>
+            <h4 class="attribute-name box-title" title="{{localize 'OSE.Health'}}">{{ localize "OSE.HealthShort" }} <a class="hp-roll"><i class="fas fa-dice"></i></a></h4>
             <div class="attribute-value flexrow">
                 <input name="data.hp.value" type="text" value="{{data.hp.value}}" data-dtype="Number" placeholder="0" />
                 <span class="sep"> / </span>
                 <input name="data.hp.max" type="text" value="{{data.hp.max}}" data-dtype="Number" placeholder="0" />
             </div>
         </li>
-        <li class="attribute">
-            <h4 class="attribute-name box-title" title="{{localize 'OSE.HitDice'}}">{{ localize "OSE.HitDiceShort" }}
+        <li class="attribute hit-dice">
+            <h4 class="attribute-name box-title" title="{{localize 'OSE.HitDice'}}"><a>{{ localize "OSE.HitDiceShort" }}</a>
             </h4>
             <div class="attribute-value">
                 <input name="data.hp.hd" type="text" value="{{data.hp.hd}}" data-dtype="String" />

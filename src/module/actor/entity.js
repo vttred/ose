@@ -56,11 +56,14 @@ export class OseActor extends Actor {
       },
     };
 
+    let skip = options.event && options.event.ctrlKey;
+  
     // Roll and return
     return OseDice.Roll({
       event: options.event,
       parts: rollParts,
       data: data,
+      skipDialog: skip,
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: `${label} ${game.i18n.localize("OSE.SavingThrow")}`,
       title: `${label} ${game.i18n.localize("OSE.SavingThrow")}`,
@@ -107,11 +110,14 @@ export class OseActor extends Actor {
       },
     };
 
+    let skip = options.event && options.event.ctrlKey;
+
     // Roll and return
     return OseDice.Roll({
       event: options.event,
       parts: rollParts,
       data: data,
+      skipDialog: skip,
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: `${label} ${game.i18n.localize("OSE.AbilityCheck")}`,
       title: `${label} ${game.i18n.localize("OSE.AbilityCheck")}`,
@@ -157,11 +163,14 @@ export class OseActor extends Actor {
       },
     };
 
+    let skip = options.event && options.event.ctrlKey;
+
     // Roll and return
     return OseDice.Roll({
       event: options.event,
       parts: rollParts,
       data: data,
+      skipDialog: skip,
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: `${label} ${game.i18n.localize("OSE.ExplorationCheck")}`,
       title: `${label} ${game.i18n.localize("OSE.ExplorationCheck")}`,
@@ -235,11 +244,13 @@ export class OseActor extends Actor {
         },
       },
     };
+    let skip = options.event && options.event.ctrlKey;
     // Roll and return
     return OseDice.Roll({
       event: options.event,
       parts: rollParts,
       data: rollData,
+      skipDialog: skip,
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: `${attData.label} - ${game.i18n.localize("OSE.Attack")}`,
       title: `${attData.label} - ${game.i18n.localize("OSE.Attack")}`,

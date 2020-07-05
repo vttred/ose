@@ -25,7 +25,20 @@ export class OseActor extends Actor {
   /* -------------------------------------------- */
   /*  Socket Listeners and Handlers
     /* -------------------------------------------- */
-
+  getExperience(value, options = {}) {
+    console.log(this.data);
+    if (this.data.type != 'character') {
+      return;
+    }
+    let modified = value + (this.data.data.details.xp.bonus * value) / 100;
+    console.log(modified);
+    return this.update({
+      "data.details.xp.value": modified + this.data.data.details.xp.value
+    }).then(() => {
+      const speaker = ChatMessage.getSpeaker({actor: this});
+      ChatMessage.create({content: game.i18n.format("OSE.messages.getExperience", {name: this.name, value: modified}), speaker});
+    });
+  }
   /* -------------------------------------------- */
   /*  Rolls                                       */
   /* -------------------------------------------- */
@@ -89,7 +102,7 @@ export class OseActor extends Actor {
       ...{
         rollData: {
           type: "Check",
-          stat: score,
+          target: this.data.data.scores[score].value,
         },
       },
     };
@@ -178,7 +191,7 @@ export class OseActor extends Actor {
 
     // Add Str to damage
     if (attData.type == 'melee') {
-      dmgParts.push("+", data.scores.str.mod);
+      dmgParts.push(data.scores.str.mod);
     }
 
     // Damage roll
@@ -199,21 +212,17 @@ export class OseActor extends Actor {
 
     if (attData.type == "missile") {
       rollParts.push(
-        "+",
         data.scores.dex.mod.toString(),
-        "+",
         data.thac0.mod.missile.toString()
       );
     } else if (attData.type == "melee") {
       rollParts.push(
-        "+",
         data.scores.str.mod.toString(),
-        "+",
         data.thac0.mod.melee.toString()
       );
     }
     if (game.settings.get("ose", "ascendingAC")) {
-      rollParts.push("+", this.data.data.thac0.bba.toString());
+      rollParts.push(this.data.data.thac0.bba.toString());
     }
 
     const rollData = {

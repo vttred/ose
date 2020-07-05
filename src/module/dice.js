@@ -53,7 +53,7 @@ export class OseDice {
       }
     } else if (data.rollData.type == "Check") {
       // SCORE CHECKS
-      let sc = data.data.scores[data.rollData.stat].value;
+      let sc = data.rollData.target;
       if (die == 1 || (roll.total <= sc && die < 20)) {
         details = `<div class='roll-result roll-success'><b>Success!</b> (${sc})</div>`;
       } else {
@@ -95,8 +95,8 @@ export class OseDice {
     // Optionally include a situational bonus
     if (form !== null) data["bonus"] = form.bonus.value;
     if (data["bonus"]) parts.push(data["bonus"]);
-
-    const roll = new Roll(parts.join(""), data).roll();
+ 
+    const roll = new Roll(parts.join("+"), data).roll();
 
     // Convert the roll to a chat message and return the roll
     let rollMode = game.settings.get("core", "rollMode");

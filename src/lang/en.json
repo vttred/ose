@@ -10,7 +10,7 @@
     "OSE.SitMod": "Situational Modifier",
     "OSE.Modifier": "Modifier",
     "OSE.RollMode": "Roll Mode",
-    "OSE.RollExample": "Roll Example",
+    "OSE.RollExample": "e.g. +1d4",
 
     "OSE.Name": "Name",
     "OSE.Class": "Class",
@@ -161,5 +161,7 @@
     "OSE.exploration.sd.long": "Find Secret Door",
     "OSE.exploration.sd.short": "Secret Door",
     "OSE.exploration.ft.long": "Find Room Trap",
-    "OSE.exploration.ft.short": "Find Trap"
+    "OSE.exploration.ft.short": "Find Trap",
+
+    "OSE.messages.getExperience": "{name} gained {value} experience points!"
 }

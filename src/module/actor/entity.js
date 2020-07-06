@@ -101,7 +101,6 @@ export class OseActor extends Actor {
         rollData: {
           type: "Below",
           target: this.data.data.details.morale,
-          details: game.i18n.format("OSE.MoraleCheckDetails"),
         },
       },
     };
@@ -274,6 +273,8 @@ export class OseActor extends Actor {
       thac0 = data.thac0.melee;
     } else if (attData.type == "missile") {
       thac0 = data.thac0.missile;
+    } else {
+      thac0 = data.thac0.value;
     }
 
     const rollData = {

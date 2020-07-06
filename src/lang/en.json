@@ -27,7 +27,6 @@
     "OSE.TreasureTableHint": "Drop a rollable table here to roll the monster treasure",
     "OSE.Size": "Size",
     "OSE.Morale": "Morale",
-    "OSE.MoraleCheckDetails": "Roll 2d6 <= Morale for success",
     "OSE.Retainer": "Retainer",
     "OSE.Appearing": "NA",
     "OSE.Attack": "Attack",

@@ -57,7 +57,7 @@ export class OseItem extends Item {
     } else if (this.data.data.melee && !isNPC) {
       this.actor.rollAttack({type: 'melee', label: this.name, dmg: this.data.data.damage});
     } else {
-      this.actor.rollAttack({type: 'raw', label: this.name});
+      this.actor.rollAttack({type: 'raw', label: this.name, dmg: this.data.data.damage});
     }
     return true;
   }

@@ -157,8 +157,18 @@ export class OseActorSheetCharacter extends OseActorSheet {
       let box = $(event.currentTarget.parentElement.parentElement.parentElement);
       box.children('.attribute-bonuses').slideDown(200);
     })
+
     html.find(".ability-score .attribute-bonuses a").click(ev => {
       $(event.currentTarget.parentElement.parentElement).slideUp(200);
+    })
+
+    html.find(".inventory .item-titles").click(ev => {
+      let items = $(event.currentTarget.parentElement).children('.item-list');
+      if (items.css('display') == "none") {
+        items.slideDown(200);
+      } else {
+        items.slideUp(200);
+      }
     })
 
     // Handle default listeners last so system listeners are triggered first

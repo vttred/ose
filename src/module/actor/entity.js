@@ -72,6 +72,7 @@ export class OseActor extends Actor {
         rollData: {
           type: "Above",
           target: this.data.data.saves[save].value,
+          details: game.i18n.format("OSE.SavingThrowDetails", {save: label}),
         },
       },
     };
@@ -100,6 +101,7 @@ export class OseActor extends Actor {
         rollData: {
           type: "Below",
           target: this.data.data.details.morale,
+          details: game.i18n.format("OSE.MoraleCheckDetails"),
         },
       },
     };
@@ -126,6 +128,7 @@ export class OseActor extends Actor {
         rollData: {
           type: "Check",
           target: this.data.data.scores[score].value,
+          details: game.i18n.format("OSE.AttributeCheckDetails", {score: label}),
         },
       },
     };
@@ -139,8 +142,8 @@ export class OseActor extends Actor {
       data: data,
       skipDialog: skip,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: `${label} ${game.i18n.localize("OSE.AbilityCheck")}`,
-      title: `${label} ${game.i18n.localize("OSE.AbilityCheck")}`,
+      flavor: `${label} ${game.i18n.localize("OSE.AttributeCheck")}`,
+      title: `${label} ${game.i18n.localize("OSE.AttributeCheck")}`,
     });
   }
 
@@ -179,6 +182,7 @@ export class OseActor extends Actor {
         rollData: {
           type: "Below",
           target: this.data.data.exploration[expl],
+          details: game.i18n.format("OSE.ExplorationCheckDetails", {expl: label}),
         },
       },
     };

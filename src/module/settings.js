@@ -15,6 +15,7 @@ export const registerSettings = function () {
     scope: "world",
     type: Boolean,
     config: true,
+    onChange: _ => window.location.reload()
   });
 
   game.settings.register("ose", "morale", {
@@ -38,11 +39,10 @@ export const registerSettings = function () {
   game.settings.register("ose", "encumbranceOption", {
     name: game.i18n.localize("OSE.Setting.Encumbrance"),
     hint: game.i18n.localize("OSE.Setting.EncumbranceHint"),
-    default: false,
+    default: "detailed",
     scope: "world",
     type: String,
     config: true,
-    default: "detailed",
     choices: {
       basic: "OSE.Setting.EncumbranceBasic",
       detailed: "OSE.Setting.EncumbranceDetailed",

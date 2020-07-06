@@ -1,4 +1,9 @@
-<form>
+<form class="ose roll-dialog">
+    {{#if data.rollData.details}}
+    <div class="roll-details">
+        {{data.rollData.details}}
+    </div>
+    {{/if}}
     <div class="form-group">
         <label>{{localize "OSE.Formula"}}</label>
         <input type="text" name="formula" value="{{formula}}" disabled />

@@ -29,7 +29,7 @@
         {{/if}}
 
         {{#if data.roll}}
-        <button data-action="formula">{{ localize "OSE.Roll"}} {{data.roll}}</button>
+        <button data-action="formula">{{ localize "OSE.Roll"}} {{data.roll}} {{#if data.blindroll}}({{localize 'OSE.items.BlindRoll'}}){{/if}}</button>
         {{/if}}
     </div>
 

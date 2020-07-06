@@ -47,6 +47,7 @@ export class OseDice {
       speaker: speaker,
     };
 
+
     let templateData = {
       title: title,
       flavor: flavor,
@@ -62,6 +63,15 @@ export class OseDice {
     // Convert the roll to a chat message and return the roll
     let rollMode = game.settings.get("core", "rollMode");
     rollMode = form ? form.rollMode.value : rollMode;
+    
+    // Force blind roll (ability formulas)
+    if (data.rollData.blindroll) {
+      rollMode = "blindroll";
+    }
+
+    if (["gmroll", "blindroll"].includes(rollMode)) chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
+    if (rollMode === "selfroll") chatData["whisper"] = [game.user._id];
+    if (rollMode === "blindroll") chatData["blind"] = true;
 
     templateData.result = OseDice.digestResult(data, roll);
 
@@ -148,6 +158,10 @@ export class OseDice {
     // Convert the roll to a chat message and return the roll
     let rollMode = game.settings.get("core", "rollMode");
     rollMode = form ? form.rollMode.value : rollMode;
+    
+    if (["gmroll", "blindroll"].includes(rollMode)) chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
+    if (rollMode === "selfroll") chatData["whisper"] = [game.user._id];
+    if (rollMode === "blindroll") chatData["blind"] = true;
 
     templateData.result = OseDice.digestAttackResult(data, roll);
 
@@ -209,14 +223,13 @@ export class OseDice {
     title = null,
     item = false,
   } = {}) {
-    let rollMode = game.settings.get("core", "rollMode");
     let rolled = false;
 
     const template = "systems/ose/templates/chat/roll-dialog.html";
     let dialogData = {
       formula: parts.join(" "),
       data: data,
-      rollMode: rollMode,
+      rollMode: game.settings.get('core', 'rollMode'),
       rollModes: CONFIG.Dice.rollModes,
     };
 
@@ -225,7 +238,7 @@ export class OseDice {
       data: data,
       title: title,
       flavor: flavor,
-      speaker: speaker,
+      speaker: speaker
     };
 
     if (skipDialog) {

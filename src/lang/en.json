@@ -143,12 +143,18 @@
     "OSE.items.Cost": "Cost",
     "OSE.items.Quantity": "Qt.",
     "OSE.items.Roll": "Roll",
+    "OSE.items.BlindRoll": "Blind",
     "OSE.items.Damage": "Damage",
     "OSE.items.Melee": "Melee",
     "OSE.items.Missile": "Missile",
     "OSE.items.Slow": "Slow",
     "OSE.items.ArmorAC": "AC",
     "OSE.items.ArmorAAC": "AAC",
+
+    "OSE.armor.type": "Armor Type",
+    "OSE.armor.unarmored": "Unarmored",
+    "OSE.armor.light": "Light",
+    "OSE.armor.heavy": "Heavy",
     
     "OSE.spells.Memorized": "Memorized",
     "OSE.spells.Cast": "Cast",

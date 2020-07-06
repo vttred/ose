@@ -9,6 +9,7 @@ import { OSE } from "./module/config.js";
 import { registerSettings } from './module/settings.js';
 import { registerHelpers } from './module/helpers.js';
 import * as chat from "./module/chat.js";
+import * as macros from "./module/macros.js";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -56,13 +57,17 @@ Hooks.once("init", async function () {
  */
 Hooks.once("setup", function () {
   // Localize CONFIG objects once up-front
-  const toLocalize = ["saves_short", "saves_long", "scores"];
+  const toLocalize = ["saves_short", "saves_long", "scores", "armor"];
   for (let o of toLocalize) {
     CONFIG.OSE[o] = Object.entries(CONFIG.OSE[o]).reduce((obj, e) => {
       obj[e[0]] = game.i18n.localize(e[1]);
       return obj;
     }, {});
   }
+});
+
+Hooks.once("ready", () => {
+  Hooks.on("hotbarDrop", (bar, data, slot) => macros.createOseMacro(data, slot));
 });
 
 Hooks.on("renderChatLog", (app, html, data) => OseItem.chatListeners(html));

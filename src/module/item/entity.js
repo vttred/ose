@@ -72,7 +72,8 @@ export class OseItem extends Item {
       ...this.data,
       ...{
         rollData: {
-          type: "Formula"
+          type: "Formula",
+          blindroll: this.data.data.blindroll
         },
       },
     };

@@ -178,6 +178,7 @@
       "description": "",
       "ac": 9,
       "aac": 10,
+      "type": "light",
       "cost": 0,
       "equipped": false,
       "weight": 0
@@ -196,6 +197,7 @@
     "ability": {
       "requirements": "",
       "roll": "",
+      "blindroll": false,
       "description": ""
     }
   }

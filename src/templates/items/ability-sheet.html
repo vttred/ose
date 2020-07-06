@@ -22,6 +22,12 @@
             <input type="text" name="data.roll" value="{{data.roll}}" data-dtype="String" />
           </div>
         </div>
+        <div class="form-group">
+          <label>{{localize 'OSE.items.BlindRoll'}}</label>
+          <div class="form-fields">
+            <input type="checkbox" name="data.blindroll" value="{{data.blindroll}}" {{checked data.blindroll}}  data-dtype="Number"/>
+          </div>
+        </div>
       </div>
       <div class="description">
         {{editor content=data.description target="data.description" button=true

@@ -21,4 +21,9 @@ export const OSE = {
     breath: "OSE.saves.breath.long",
     spell: "OSE.saves.spell.long",
   },
+  armor : {
+    unarmored: "OSE.armor.unarmored",
+    light: "OSE.armor.light",
+    heavy: "OSE.armor.heavy",
+  }
 };

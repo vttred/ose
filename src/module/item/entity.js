@@ -16,13 +16,13 @@ export class OseItem extends Item {
   }
 
   static chatListeners(html) {
-    html.on('click', '.card-buttons button', this._onChatCardAction.bind(this));
-    html.on('click', '.item-name', this._onChatCardToggleContent.bind(this));
+    html.on("click", ".card-buttons button", this._onChatCardAction.bind(this));
+    html.on("click", ".item-name", this._onChatCardToggleContent.bind(this));
   }
 
   getChatData(htmlOptions) {
     const data = duplicate(this.data.data);
-    
+
     // Rich text description
     data.description = TextEditor.enrichHTML(data.description, htmlOptions);
 
@@ -34,11 +34,7 @@ export class OseItem extends Item {
       props.push(data.qualities);
     }
     if (this.data.type == "spell") {
-      props.push(
-        `${data.class} ${data.lvl}`,
-        data.range,
-        data.duration
-      );
+      props.push(`${data.class} ${data.lvl}`, data.range, data.duration);
     }
     if (data.hasOwnProperty("equipped")) {
       props.push(data.equipped ? "Equipped" : "Not Equipped");
@@ -50,19 +46,58 @@ export class OseItem extends Item {
   }
 
   rollWeapon(skipDialog) {
-    let isNPC = this.actor.data.type != 'character';
-    if (this.data.data.missile && !isNPC) {
-      this.actor.rollAttack({type: 'missile', label: this.name, dmg: this.data.data.damage}, {event: {ctrlKey: skipDialog}});
-    } else if (this.data.data.melee && !isNPC) {
-      this.actor.rollAttack({type: 'melee', label: this.name, dmg: this.data.data.damage}, {event: {ctrlKey: skipDialog}});
-    } else {
-      this.actor.rollAttack({type: 'raw', label: this.name, dmg: this.data.data.damage}, {event: {ctrlKey: skipDialog}});
+    let isNPC = this.actor.data.type != "character";
+    const data = this.data.data;
+    let type = "raw";
+    if (data.missile && data.melee && !isNPC) {
+      // Dialog
+      new Dialog({
+        title: "Choose Attack Range",
+        content: '',
+        buttons: {
+          melee: {
+            icon: '<i class="fas fa-fist-raised"></i>',
+            label: "Melee",
+            callback: () => {
+              this.actor.rollAttack(
+                { type: "melee", label: this.name, dmg: this.data.data.damage },
+                { event: { ctrlKey: skipDialog } }
+              );
+            },
+          },
+          missile: {
+            icon: '<i class="fas fa-bullseye"></i>',
+            label: "Missile",
+            callback: () => {
+              this.actor.rollAttack(
+                {
+                  type: "missile",
+                  label: this.name,
+                  dmg: this.data.data.damage,
+                },
+                { event: { ctrlKey: skipDialog } }
+              );
+            },
+          },
+        },
+        default: "melee",
+      }).render(true);
+      return true;
+    } else if (data.missile && !isNPC) {
+      type = "missile";
+    } else if (data.melee && !isNPC) {
+      type = "melee";
     }
+    this.actor.rollAttack(
+      { type: type, label: this.name, dmg: this.data.data.damage },
+      { event: { ctrlKey: skipDialog } }
+    );
+
     return true;
   }
 
-  async rollFormula(options={}) {
-    if ( !this.data.data.roll ) {
+  async rollFormula(options = {}) {
+    if (!this.data.data.roll) {
       throw new Error("This Item does not have a formula to roll!");
     }
 
@@ -74,7 +109,7 @@ export class OseItem extends Item {
       ...{
         rollData: {
           type: "Formula",
-          blindroll: this.data.data.blindroll
+          blindroll: this.data.data.blindroll,
         },
       },
     };
@@ -96,7 +131,7 @@ export class OseItem extends Item {
    * @return {Promise}
    */
   async roll({ skipDialog = false } = {}) {
-    if (this.data.type == 'weapon') {
+    if (this.data.type == "weapon") {
       if (this.rollWeapon(skipDialog)) return;
     }
     // Basic template rendering data
@@ -111,7 +146,7 @@ export class OseItem extends Item {
       hasDamage: this.hasDamage,
       isSpell: this.data.type === "spell",
       hasSave: this.hasSave,
-      config: CONFIG.OSE
+      config: CONFIG.OSE,
     };
 
     // Render the chat card template
@@ -153,10 +188,9 @@ export class OseItem extends Item {
     if (content.style.display == "none") {
       $(content).slideDown(200);
     } else {
-      $(content).slideUp(200);  
+      $(content).slideUp(200);
     }
   }
-
 
   static async _onChatCardAction(event) {
     event.preventDefault();
@@ -166,41 +200,44 @@ export class OseItem extends Item {
     button.disabled = true;
     const card = button.closest(".chat-card");
     const messageId = card.closest(".message").dataset.messageId;
-    const message =  game.messages.get(messageId);
+    const message = game.messages.get(messageId);
     const action = button.dataset.action;
 
     // Validate permission to proceed with the roll
     const isTargetted = action === "save";
-    if ( !( isTargetted || game.user.isGM || message.isAuthor ) ) return;
+    if (!(isTargetted || game.user.isGM || message.isAuthor)) return;
 
     // Get the Actor from a synthetic Token
     const actor = this._getChatCardActor(card);
-    if ( !actor ) return;
+    if (!actor) return;
 
     // Get the Item
     const item = actor.getOwnedItem(card.dataset.itemId);
-    if ( !item ) {
-      return ui.notifications.error(`The requested item ${card.dataset.itemId} no longer exists on Actor ${actor.name}`)
+    if (!item) {
+      return ui.notifications.error(
+        `The requested item ${card.dataset.itemId} no longer exists on Actor ${actor.name}`
+      );
     }
 
     // Get card targets
     let targets = [];
-    if ( isTargetted ) {
+    if (isTargetted) {
       targets = this._getChatCardTargets(card);
     }
 
     // Attack and Damage Rolls
-    if ( action === "damage" ) await item.rollDamage({event});
-    else if ( action === "formula" ) await item.rollFormula({event});
-
+    if (action === "damage") await item.rollDamage({ event });
+    else if (action === "formula") await item.rollFormula({ event });
     // Saving Throws for card targets
-    else if ( action == "save" ) {
-      if ( !targets.length ) {
-        ui.notifications.warn(`You must have one or more controlled Tokens in order to use this option.`);
-        return button.disabled = false;
+    else if (action == "save") {
+      if (!targets.length) {
+        ui.notifications.warn(
+          `You must have one or more controlled Tokens in order to use this option.`
+        );
+        return (button.disabled = false);
       }
-      for ( let t of targets ) {
-        await t.rollSave(button.dataset.save, {event});
+      for (let t of targets) {
+        await t.rollSave(button.dataset.save, { event });
       }
     }
 
@@ -209,7 +246,6 @@ export class OseItem extends Item {
   }
 
   static _getChatCardActor(card) {
-
     // Case 1 - a synthetic actor from a Token
     const tokenKey = card.dataset.tokenId;
     if (tokenKey) {
@@ -230,8 +266,11 @@ export class OseItem extends Item {
   static _getChatCardTargets(card) {
     const character = game.user.character;
     const controlled = canvas.tokens.controlled;
-    const targets = controlled.reduce((arr, t) => t.actor ? arr.concat([t.actor]) : arr, []);
-    if ( character && (controlled.length === 0) ) targets.push(character);
+    const targets = controlled.reduce(
+      (arr, t) => (t.actor ? arr.concat([t.actor]) : arr),
+      []
+    );
+    if (character && controlled.length === 0) targets.push(character);
     return targets;
   }
 }

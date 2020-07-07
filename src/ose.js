@@ -26,6 +26,10 @@ Hooks.once("init", async function () {
   };
 
   CONFIG.OSE = OSE;
+  
+  game.ose = {
+    rollItemMacro: macros.rollItemMacro
+  }
 
   // Custom Handlebars helpers
   registerHelpers();

@@ -16,7 +16,7 @@ export async function createOseMacro(data, slot) {
     const item = data.data;
   
     // Create the macro command
-    const command = `game.dnd5e.rollItemMacro("${item.name}");`;
+    const command = `game.ose.rollItemMacro("${item.name}");`;
     let macro = game.macros.entities.find(m => (m.name === item.name) && (m.command === command));
     if ( !macro ) {
       macro = await Macro.create({
@@ -24,7 +24,7 @@ export async function createOseMacro(data, slot) {
         type: "script",
         img: item.img,
         command: command,
-        flags: {"dnd5e.itemMacro": true}
+        flags: {"ose.itemMacro": true}
       });
     }
     game.user.assignHotbarMacro(macro, slot);
@@ -55,7 +55,6 @@ export async function createOseMacro(data, slot) {
     const item = items[0];
   
     // Trigger the item roll
-    if ( item.data.type === "spell" ) return actor.useSpell(item);
     return item.roll();
   }
   

@@ -49,15 +49,14 @@ export class OseItem extends Item {
     return data;
   }
 
-  rollWeapon() {
-    console.log(this);
+  rollWeapon(skipDialog) {
     let isNPC = this.actor.data.type != 'character';
     if (this.data.data.missile && !isNPC) {
-      this.actor.rollAttack({type: 'missile', label: this.name, dmg: this.data.data.damage});
+      this.actor.rollAttack({type: 'missile', label: this.name, dmg: this.data.data.damage}, {event: {ctrlKey: skipDialog}});
     } else if (this.data.data.melee && !isNPC) {
-      this.actor.rollAttack({type: 'melee', label: this.name, dmg: this.data.data.damage});
+      this.actor.rollAttack({type: 'melee', label: this.name, dmg: this.data.data.damage}, {event: {ctrlKey: skipDialog}});
     } else {
-      this.actor.rollAttack({type: 'raw', label: this.name, dmg: this.data.data.damage});
+      this.actor.rollAttack({type: 'raw', label: this.name, dmg: this.data.data.damage}, {event: {ctrlKey: skipDialog}});
     }
     return true;
   }
@@ -96,9 +95,9 @@ export class OseItem extends Item {
    * Roll the item to Chat, creating a chat card which contains follow up attack or damage roll options
    * @return {Promise}
    */
-  async roll({ configureDialog = true } = {}) {
+  async roll({ skipDialog = false } = {}) {
     if (this.data.type == 'weapon') {
-      if (this.rollWeapon()) return;
+      if (this.rollWeapon(skipDialog)) return;
     }
     // Basic template rendering data
     const token = this.actor.token;

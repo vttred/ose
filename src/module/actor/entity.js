@@ -11,7 +11,6 @@ export class OseActor extends Actor {
 
     // Compute modifiers from actor scores
     this.computeModifiers();
-    this.computeAttack();
 
     // Determine Initiative
     if (game.settings.get("ose", "individualInit")) {
@@ -374,22 +373,5 @@ export class OseActor extends Actor {
 
     data.scores.dex.init = OseActor._cappedMod(this.data.data.scores.dex.value);
     data.scores.cha.npc = OseActor._cappedMod(this.data.data.scores.cha.value);
-  }
-
-  computeAttack() {
-    const data = this.data.data;
-    let ascending = game.settings.get("ose", "ascendingAC");
-    data.thac0.missile = ascending ? data.thac0.bba : data.thac0.value;
-    data.thac0.melee = ascending ? data.thac0.bba : data.thac0.value;
-    if (this.data.type != "character") {
-      return;
-    }
-    if (ascending) {
-      data.thac0.missile += data.scores.dex.mod + data.thac0.mod.missile;
-      data.thac0.melee += data.scores.str.mod + data.thac0.mod.melee;
-    } else {
-      data.thac0.missile -= data.scores.dex.mod - data.thac0.mod.missile;
-      data.thac0.melee -= data.scores.str.mod - data.thac0.mod.melee;
-    }
   }
 }

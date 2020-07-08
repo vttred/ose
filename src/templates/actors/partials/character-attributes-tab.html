@@ -113,12 +113,12 @@
             <div class="health armor-class">
                 {{#if config.ascendingAC}}
                 <input class="health-top" name="data.aac.value" type="text" value="{{data.aac.value}}"
-                    data-dtype="Number" placeholder="0" title="{{localize 'OSE.ArmorClass'}}" />
+                    data-dtype="Number" placeholder="0" title="{{localize 'OSE.ArmorClass'}}" disabled/>
                 <input class="health-bottom" type="text" value="{{add 10 data.scores.dex.mod}}"
                     title="{{localize 'OSE.ArmorClassNaked'}}" disabled />
                 {{else}}
                 <input class="health-top" name="data.ac.value" type="text" value="{{data.ac.value}}" data-dtype="Number"
-                    placeholder="0" title="{{localize 'OSE.ArmorClass'}}" />
+                    placeholder="0" title="{{localize 'OSE.ArmorClass'}}" disabled/>
                 <input class="health-bottom" type="text" value="{{subtract data.scores.dex.mod 9}}"
                     title="{{localize 'OSE.ArmorClass'}}" disabled />
                 {{/if}}
@@ -153,17 +153,10 @@
                     <h4 class="attribute-name box-title" title="{{localize 'OSE.Melee'}}">
                         <a>{{localize 'OSE.MeleeShort'}}</a></h4>
                     <div class="flexrow">
-                        {{#if config.ascendingAC}}
-                        <div class="attribute-value"
-                            title="{{localize 'OSE.AB'}}({{data.thac0.bba}}) + {{localize 'OSE.scores.str.long'}}({{data.scores.str.mod}}) + {{localize 'OSE.Modifier'}}({{data.thac0.mod.melee}})">
-                            {{data.thac0.melee}}
-                        </div>
-                        {{else}}
                         <div class="attribute-value"
                             title="{{localize 'OSE.scores.str.long'}}({{data.scores.str.mod}}) + {{localize 'OSE.Modifier'}}({{data.thac0.mod.melee}})">
                             {{add data.scores.str.mod data.thac0.mod.melee}}
                         </div>
-                        {{/if}}
                     </div>
                 </li>
                 {{#if config.ascendingAC}}
@@ -193,17 +186,10 @@
                     <h4 class="attribute-name box-title" title="{{localize 'OSE.Missile'}}">
                         <a>{{localize 'OSE.MissileShort'}}</a></h4>
                     <div class="flexrow">
-                        {{#if config.ascendingAC}}
-                        <div class="attribute-value"
-                            title="{{localize 'OSE.AB'}}({{data.thac0.bba}}) + {{localize 'OSE.scores.dex.long'}}({{data.scores.dex.mod}}) + {{localize 'OSE.Modifier'}}({{data.thac0.mod.missile}})">
-                            {{data.thac0.missile}}
-                        </div>
-                        {{else}}
                         <div class="attribute-value"
                             title="{{localize 'OSE.scores.dex.long'}}({{data.scores.dex.mod}}) + {{localize 'OSE.Modifier'}}({{data.thac0.mod.missile}})">
                             {{add data.scores.dex.mod data.thac0.mod.missile}}
                         </div>
-                        {{/if}}
                     </div>
                 </li>
             </ul>

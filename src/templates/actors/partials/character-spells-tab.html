@@ -1,7 +1,8 @@
 <section class="inventory spells resizable" data-base-size="320">
   {{#each spells as |spellGroup id|}}
-  <ol class="item-list">
+  <div>
     <li class="item-titles flexrow">
+      <div class="item-caret"><i class="fas fa-caret-down"></i> </div>
       <div class="item-name">{{localize "OSE.spells.Level"}} {{id}}</div>
       <div class="field-short">{{localize 'OSE.spells.Slots'}}</div>
       <div class="field-long flexrow"><input type="text" value="{{lookup (lookup ../actor.data.spells @key) 'value'}}" name="data.spells.{{id}}.value" data-dtype="Number"
@@ -12,6 +13,7 @@
             class="fa fa-plus"></i></a>
       </div>
     </li>
+    <ol class="item-list">
     {{#each spellGroup as |item|}}
     <li class="item-entry">
       <div class="item flexrow" data-item-id="{{item._id}}">
@@ -37,6 +39,7 @@
       </div>
     </li>
     {{/each}}
-  </ol>
+    </ol>
+  </div>
   {{/each}}
 </section>

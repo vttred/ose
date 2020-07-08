@@ -162,11 +162,17 @@ export class OseActorSheetCharacter extends OseActorSheet {
       $(event.currentTarget.parentElement.parentElement).slideUp(200);
     })
 
-    html.find(".inventory .item-titles").click(ev => {
-      let items = $(event.currentTarget.parentElement).children('.item-list');
+    html.find(".inventory .item-titles .item-caret").click(ev => {
+      let items = $(event.currentTarget.parentElement.parentElement).children('.item-list');
       if (items.css('display') == "none") {
+        let el = $(event.currentTarget).find('.fas.fa-caret-right');
+        el.removeClass('fa-caret-right');
+        el.addClass('fa-caret-down');
         items.slideDown(200);
       } else {
+        let el = $(event.currentTarget).find('.fas.fa-caret-down');
+        el.removeClass('fa-caret-down');
+        el.addClass('fa-caret-right');
         items.slideUp(200);
       }
     })

@@ -192,7 +192,6 @@
         line-height: 30px;
       }
       .item-titles {
-        cursor: pointer;
         text-align: center;
         padding: 4px 0;
         border: 1px solid $colorDark;
@@ -294,6 +293,11 @@
           }
         }
       }
+      .item-caret {
+        flex: 0 0 10px;
+        margin: 0 4px;
+        cursor: pointer;
+      }
       .item-controls {
         font-size: 12px;
         flex-basis: 50px;
@@ -306,7 +310,7 @@
       }
       &.spells {
         .item-titles {
-          padding: 0;
+          line-height: 24px;
         }
         .item-controls {
           flex-basis: 30px;

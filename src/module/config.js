@@ -25,5 +25,6 @@ export const OSE = {
     unarmored: "OSE.armor.unarmored",
     light: "OSE.armor.light",
     heavy: "OSE.armor.heavy",
+    shield: "OSE.armor.shield",
   }
 };

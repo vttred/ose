@@ -1,6 +1,7 @@
 <section class="inventory resizable" data-base-size="310">
   <div>
     <li class="item-titles flexrow">
+      <div class="item-caret"><i class="fas fa-caret-down"></i></div>
       <div class="item-name">{{localize "OSE.items.Weapons"}}</div>
       <div class="field-longer">{{localize "OSE.items.Qualities"}}</div>
       <div class="field-short"><i class="fas fa-weight-hanging"></i></div>
@@ -44,6 +45,7 @@
   </div>
   <div>
     <li class="item-titles flexrow">
+      <div class="item-caret"><i class="fas fa-caret-down"></i></div>
       <div class="item-name">{{localize "OSE.items.Armors"}}</div>
       {{#if @root.config.ascendingAC}}
       <div class="field-short">{{localize "OSE.items.ArmorAAC"}}</div>
@@ -96,6 +98,7 @@
   <div class="">
     {{!-- Misc items --}}
     <li class="item-titles flexrow">
+      <div class="item-caret"><i class="fas fa-caret-down"></i></div>
       <div class="item-name">{{localize "OSE.items.Misc"}}</div>
       <div class="field-short"><i class="fas fa-hashtag"></i></div>
       <div class="field-short"><i class="fas fa-weight-hanging"></i></div>
@@ -139,6 +142,7 @@
   <div class="">
     {{!-- Treasure items --}}
     <li class="item-titles flexrow">
+      <div class="item-caret"><i class="fas fa-caret-down"></i></div>
       <div class="item-name">{{localize "OSE.items.Treasure"}}</div>
       <div class="field-long">{{treasure}} <i class="fas fa-circle"></i></div>
       <div class="field-short"><i class="fas fa-hashtag"></i></div>

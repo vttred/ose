@@ -155,6 +155,7 @@
     "OSE.armor.unarmored": "Unarmored",
     "OSE.armor.light": "Light",
     "OSE.armor.heavy": "Heavy",
+    "OSE.armor.shield": "Shield",
     
     "OSE.spells.Memorized": "Memorized",
     "OSE.spells.Cast": "Cast",

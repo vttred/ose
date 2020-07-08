@@ -244,7 +244,7 @@ export class OseActor extends Actor {
     const rollParts = ["1d20"];
     const dmgParts = [];
     
-    if ((!attData.dmg || !game.settings.get("ose", "variableWeaponDamage")) && this.type == "character") {
+    if ((!attData.dmg || !game.settings.get("ose", "variableWeaponDamage")) && this.data.type == "character") {
       dmgParts.push("1d6");
     } else {
       dmgParts.push(attData.dmg);

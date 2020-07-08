@@ -160,8 +160,8 @@
                         </div>
                         {{else}}
                         <div class="attribute-value"
-                            title="{{localize 'OSE.Thac0'}}({{data.thac0.value}}) - {{localize 'OSE.scores.str.long'}}({{data.scores.str.mod}}) - {{localize 'OSE.Modifier'}}({{data.thac0.mod.melee}})">
-                            {{data.thac0.melee}}
+                            title="{{localize 'OSE.scores.str.long'}}({{data.scores.str.mod}}) + {{localize 'OSE.Modifier'}}({{data.thac0.mod.melee}})">
+                            {{add data.scores.str.mod data.thac0.mod.melee}}
                         </div>
                         {{/if}}
                     </div>
@@ -200,8 +200,8 @@
                         </div>
                         {{else}}
                         <div class="attribute-value"
-                            title="{{localize 'OSE.Thac0'}}({{data.thac0.value}}) - {{localize 'OSE.scores.dex.long'}}({{data.scores.dex.mod}}) - {{localize 'OSE.Modifier'}}({{data.thac0.mod.missile}})">
-                            {{data.thac0.missile}}
+                            title="{{localize 'OSE.scores.dex.long'}}({{data.scores.dex.mod}}) + {{localize 'OSE.Modifier'}}({{data.thac0.mod.missile}})">
+                            {{add data.scores.dex.mod data.thac0.mod.missile}}
                         </div>
                         {{/if}}
                     </div>

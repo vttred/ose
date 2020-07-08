@@ -166,6 +166,7 @@
     "weapon": {
       "description": "",
       "damage": "1d6",
+      "bonus": 0,
       "qualities": "",
       "slow": false,
       "missile": true,

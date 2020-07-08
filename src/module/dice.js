@@ -112,7 +112,7 @@ export class OseDice {
     };
     result.target = data.rollData.thac0;
     if (game.settings.get("ose", "ascendingAC")) {
-      result.details = game.i18n.format('OSE.messages.AttackSuccess', {result: roll.total, bonus: result.target});
+      result.details = game.i18n.format('OSE.messages.AttackAscendingSuccess', {result: roll.total});
       result.isSuccess = true;
     } else {
       // B/X Historic THAC0 Calculation

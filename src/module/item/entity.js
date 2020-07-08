@@ -53,14 +53,19 @@ export class OseItem extends Item {
       // Dialog
       new Dialog({
         title: "Choose Attack Range",
-        content: '',
+        content: "",
         buttons: {
           melee: {
             icon: '<i class="fas fa-fist-raised"></i>',
             label: "Melee",
             callback: () => {
               this.actor.rollAttack(
-                { type: "melee", label: this.name, dmg: this.data.data.damage },
+                {
+                  type: "melee",
+                  label: this.name,
+                  dmg: this.data.data.damage,
+                  bonus: data.bonus,
+                },
                 { event: { ctrlKey: skipDialog } }
               );
             },
@@ -89,7 +94,7 @@ export class OseItem extends Item {
       type = "melee";
     }
     this.actor.rollAttack(
-      { type: type, label: this.name, dmg: this.data.data.damage },
+      { type: type, label: this.name, dmg: data.damage, bonus: data.bonus },
       { event: { ctrlKey: skipDialog } }
     );
 

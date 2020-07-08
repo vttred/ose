@@ -1,6 +1,7 @@
 {
     "OSE.Edit": "Edit",
     "OSE.Delete": "Delete",
+    "OSE.Show": "Show",
     "OSE.Add": "Add",
     "OSE.Ok": "Ok",
     "OSE.Cancel": "Cancel",
@@ -150,6 +151,7 @@
     "OSE.items.Slow": "Slow",
     "OSE.items.ArmorAC": "AC",
     "OSE.items.ArmorAAC": "AAC",
+    "OSE.items.Bonus": "Bonus",
 
     "OSE.armor.type": "Armor Type",
     "OSE.armor.unarmored": "Unarmored",
@@ -185,6 +187,7 @@
 
     "OSE.messages.GetExperience": "{name} gained {value} experience points!",
     "OSE.messages.AttackSuccess": "<b>Hits AC {result}!</b> ({bonus})",
+    "OSE.messages.AttackAscendingSuccess": "<b>Hits AC {result}!</b>",
     "OSE.messages.AttackFailure": "<b>Attack fails</b> ({bonus})",
     "OSE.messages.InflictsDamage": "Inflicts damage!",
     "OSE.ChatContextDamage": "Apply Damage",

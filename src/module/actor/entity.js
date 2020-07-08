@@ -72,7 +72,7 @@ export class OseActor extends Actor {
         rollData: {
           type: "Above",
           target: this.data.data.saves[save].value,
-          details: game.i18n.format("OSE.SavingThrowDetails", {save: label}),
+          details: game.i18n.format("OSE.SavingThrowDetails", { save: label }),
         },
       },
     };
@@ -127,7 +127,9 @@ export class OseActor extends Actor {
         rollData: {
           type: "Check",
           target: this.data.data.scores[score].value,
-          details: game.i18n.format("OSE.AttributeCheckDetails", {score: label}),
+          details: game.i18n.format("OSE.AttributeCheckDetails", {
+            score: label,
+          }),
         },
       },
     };
@@ -181,7 +183,9 @@ export class OseActor extends Actor {
         rollData: {
           type: "Below",
           target: this.data.data.exploration[expl],
-          details: game.i18n.format("OSE.ExplorationCheckDetails", {expl: label}),
+          details: game.i18n.format("OSE.ExplorationCheckDetails", {
+            expl: label,
+          }),
         },
       },
     };
@@ -215,7 +219,10 @@ export class OseActor extends Actor {
     };
 
     let dmgParts = [];
-    if ((!attData.dmg || !game.settings.get("ose", "variableWeaponDamage")) && this.type == "character") {
+    if (
+      (!attData.dmg || !game.settings.get("ose", "variableWeaponDamage")) &&
+      this.type == "character"
+    ) {
       dmgParts.push("1d6");
     } else {
       dmgParts.push(attData.dmg);
@@ -243,38 +250,35 @@ export class OseActor extends Actor {
 
     const rollParts = ["1d20"];
     const dmgParts = [];
-    
-    if ((!attData.dmg || !game.settings.get("ose", "variableWeaponDamage")) && this.data.type == "character") {
+
+    if ((!attData.dmg || !game.settings.get("ose", "variableWeaponDamage")) &&
+      this.data.type == "character") {
       dmgParts.push("1d6");
     } else {
       dmgParts.push(attData.dmg);
     }
 
-
     let ascending = game.settings.get("ose", "ascendingAC");
     if (ascending) {
       rollParts.push(data.thac0.bba.toString());
-      if (attData.type == "missile") {
-        rollParts.push(
-          data.scores.dex.mod.toString(),
-          data.thac0.mod.missile.toString()
-        );
-      } else if (attData.type == "melee") {
-        rollParts.push(
-          data.scores.str.mod.toString(),
-          data.thac0.mod.melee.toString()
-        );
-      }
     }
-
-    let thac0 = 0;
+    if (attData.type == "missile") {
+      rollParts.push(
+        data.scores.dex.mod.toString(),
+        data.thac0.mod.missile.toString()
+      );
+    } else if (attData.type == "melee") {
+      rollParts.push(
+        data.scores.str.mod.toString(),
+        data.thac0.mod.melee.toString()
+      );
+    }
+    if (attData.bonus) {
+      rollParts.push(attData.bonus);
+    }
+    let thac0 = data.thac0.value;
     if (attData.type == "melee") {
       dmgParts.push(data.scores.str.mod);
-      thac0 = data.thac0.melee;
-    } else if (attData.type == "missile") {
-      thac0 = data.thac0.missile;
-    } else {
-      thac0 = data.thac0.value;
     }
 
     const rollData = {
@@ -290,7 +294,7 @@ export class OseActor extends Actor {
       },
     };
     let skip = options.event && options.event.ctrlKey;
-    
+
     // Roll and return
     return OseDice.Roll({
       event: options.event,
@@ -303,7 +307,7 @@ export class OseActor extends Actor {
     });
   }
 
-  async applyDamage(amount=0, multiplier=1) {
+  async applyDamage(amount = 0, multiplier = 1) {
     amount = Math.floor(parseInt(amount) * multiplier);
     const hp = this.data.data.hp;
 
@@ -312,7 +316,7 @@ export class OseActor extends Actor {
 
     // Update the Actor
     return this.update({
-      "data.hp.value": dh
+      "data.hp.value": dh,
     });
   }
 

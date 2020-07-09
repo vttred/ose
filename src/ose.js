@@ -82,9 +82,7 @@ Hooks.on(
     if (!updateData.round) {
       return;
     }
-    console.log("SETTING UP INITIATIVE");
     if (game.settings.get('ose', 'individualInit')) {
-      console.log("PLOP");
     }
   }
 );

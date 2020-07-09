@@ -79,6 +79,9 @@
     },
     "character": {
       "templates": ["common", "spellcaster"],
+      "config": {
+        "movementAuto": true
+      },
       "details": {
         "biography": "",
         "class": "",

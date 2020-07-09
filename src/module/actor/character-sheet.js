@@ -49,56 +49,102 @@ export class OseActorSheetCharacter extends OseActorSheet {
 
     // Compute treasure
     let total = 0;
-    data.owned.items.forEach(item => {
+    data.owned.items.forEach((item) => {
       if (item.data.treasure) {
         total += item.data.quantity.value * item.data.cost;
-      } 
+      }
     });
     data.treasure = total;
 
-    let basic = game.settings.get('ose', 'encumbranceOption') == 'basic';
+    data.config.encumbrance = game.settings.get("ose", "encumbranceOption");
+    let basic = data.config.encumbrance == "basic";
     // Compute encumbrance
     let totalWeight = 0;
-    Object.values(data.owned).forEach(cat => {
-      cat.forEach(item => {
-        if (item.type == 'item' && (!basic || item.data.treasure)) {
+    Object.values(data.owned).forEach((cat) => {
+      cat.forEach((item) => {
+        if (item.type == "item" && (!basic || item.data.treasure)) {
           totalWeight += item.data.quantity.value * item.data.weight;
-        }
-        else if (!basic) {
+        } else if (!basic) {
           totalWeight += item.data.weight;
         }
-      })
+      });
     });
     data.encumbrance = {
-      pct: Math.clamped(100 * parseFloat(totalWeight) / data.data.encumbrance.max, 0, 100),
+      pct: Math.clamped(
+        (100 * parseFloat(totalWeight)) / data.data.encumbrance.max,
+        0,
+        100
+      ),
       max: data.data.encumbrance.max,
       encumbered: totalWeight > data.data.encumbrance.max,
-      value: totalWeight
+      value: totalWeight,
     };
+
+    if (data.data.config.movementAuto) {
+      this._calculateMovement(data, totalWeight);
+    }
 
     // Compute AC
     if (data.config.ascendingAC) {
       let baseAc = 10;
-      data.owned.armors.forEach(a => {
+      data.owned.armors.forEach((a) => {
         if (a.data.equipped) {
-          baseAc += a.data.aac.value; 
+          baseAc += a.data.aac.value;
         }
-      })
+      });
       data.data.aac.value = baseAc + data.data.scores.dex.mod;
-
     } else {
       let baseAc = 9;
       let shield = 0;
-      data.owned.armors.forEach(a => {
-        if (a.data.equipped && a.data.type != 'shield') {
+      data.owned.armors.forEach((a) => {
+        if (a.data.equipped && a.data.type != "shield") {
           baseAc = a.data.ac.value;
-        } else if (a.data.equipped && a.data.type == 'shield') {
-          shield = a.data.ac.value; 
+        } else if (a.data.equipped && a.data.type == "shield") {
+          shield = a.data.ac.value;
         }
-      })
+      });
       data.data.ac.value = baseAc - data.data.scores.dex.mod - shield;
     }
     return data;
+  }
+
+  _calculateMovement(data, weight) {
+    if (data.config.encumbrance == "detailed") {
+      if (weight > 800) {
+        data.data.movement.base = 30;
+      } else if (weight > 600) {
+        data.data.movement.base = 60;
+      } else if (weight > 400) {
+        data.data.movement.base = 90;
+      } else {
+        data.data.movement.base = 120;
+      }
+    } else if (data.config.encumbrance == "basic") {
+      let heaviest = 0;
+      data.owned.armors.forEach((a) => {
+        if (a.data.equipped) {
+          if (a.data.type == "light" && heaviest == 0) {
+            heaviest = 1;
+          } else if (a.data.type == "heavy") {
+            heaviest = 2;
+          }
+        }
+      });
+      switch (heaviest) {
+        case 0:
+          data.data.movement.base = 120;
+          break;
+        case 1:
+          data.data.movement.base = 90;
+          break;
+        case 2:
+          data.data.movement.base = 60;
+          break;
+      }
+      if (weight > game.settings.get("ose", "significantTreasure")) {
+        data.data.movement.base -= 30;
+      }
+    }
   }
 
   /* -------------------------------------------- */
@@ -176,29 +222,33 @@ export class OseActorSheetCharacter extends OseActorSheet {
       actorObject.rollExploration(expl, { event: event });
     });
 
-    html.find(".ability-score .attribute-mod a").click(ev => {
-      let box = $(event.currentTarget.parentElement.parentElement.parentElement);
-      box.children('.attribute-bonuses').slideDown(200);
-    })
+    html.find(".ability-score .attribute-mod a").click((ev) => {
+      let box = $(
+        event.currentTarget.parentElement.parentElement.parentElement
+      );
+      box.children(".attribute-bonuses").slideDown(200);
+    });
 
-    html.find(".ability-score .attribute-bonuses a").click(ev => {
+    html.find(".ability-score .attribute-bonuses a").click((ev) => {
       $(event.currentTarget.parentElement.parentElement).slideUp(200);
-    })
+    });
 
-    html.find(".inventory .item-titles .item-caret").click(ev => {
-      let items = $(event.currentTarget.parentElement.parentElement).children('.item-list');
-      if (items.css('display') == "none") {
-        let el = $(event.currentTarget).find('.fas.fa-caret-right');
-        el.removeClass('fa-caret-right');
-        el.addClass('fa-caret-down');
+    html.find(".inventory .item-titles .item-caret").click((ev) => {
+      let items = $(event.currentTarget.parentElement.parentElement).children(
+        ".item-list"
+      );
+      if (items.css("display") == "none") {
+        let el = $(event.currentTarget).find(".fas.fa-caret-right");
+        el.removeClass("fa-caret-right");
+        el.addClass("fa-caret-down");
         items.slideDown(200);
       } else {
-        let el = $(event.currentTarget).find('.fas.fa-caret-down');
-        el.removeClass('fa-caret-down');
-        el.addClass('fa-caret-right');
+        let el = $(event.currentTarget).find(".fas.fa-caret-down");
+        el.removeClass("fa-caret-down");
+        el.addClass("fa-caret-right");
         items.slideUp(200);
       }
-    })
+    });
 
     // Handle default listeners last so system listeners are triggered first
     super.activateListeners(html);

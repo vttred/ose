@@ -48,4 +48,13 @@ export const registerSettings = function () {
       detailed: "OSE.Setting.EncumbranceDetailed",
     },
   });
+
+  game.settings.register("ose", "significantTreasure", {
+    name: game.i18n.localize("OSE.Setting.SignificantTreasure"),
+    hint: game.i18n.localize("OSE.Setting.SignificantTreasureHint"),
+    default: 800,
+    scope: "world",
+    type: Number,
+    config: true,
+  });
 };

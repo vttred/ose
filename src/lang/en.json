@@ -131,6 +131,9 @@
     "OSE.Setting.EncumbranceHint": "Choose the way encumbrance is calculated",
     "OSE.Setting.EncumbranceBasic": "Basic",
     "OSE.Setting.EncumbranceDetailed": "Detailed",
+    "OSE.Setting.MovementAuto": "Calculate Movement",
+    "OSE.Setting.SignificantTreasure": "Significant Treasure Weight",
+    "OSE.Setting.SignificantTreasureHint": "Weight at which treasure will reduce the movement, only useful for basic encumbrance",
 
     "OSE.items.Equip": "Equip",
     "OSE.items.Unequip": "Unequip",

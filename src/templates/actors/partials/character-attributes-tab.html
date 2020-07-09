@@ -210,7 +210,7 @@
                         {{ localize "OSE.MovementExplorationShort" }}</h4>
                     <div class="attribute-value flexrow">
                         <input name="data.movement.base" type="text" value="{{data.movement.base}}" placeholder="0"
-                            data-dtype="Number" />
+                            data-dtype="Number" {{#if data.config.movementAuto}}disabled{{/if}}/>
                     </div>
                 </li>
                 <li class="attribute attribute-secondaries">

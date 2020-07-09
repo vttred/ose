@@ -4,6 +4,7 @@
     "OSE.Show": "Show",
     "OSE.Add": "Add",
     "OSE.Ok": "Ok",
+    "OSE.Reset": "Reset",
     "OSE.Cancel": "Cancel",
     "OSE.Roll": "Roll",
     "OSE.Success": "Success",
@@ -134,6 +135,8 @@
     "OSE.Setting.MovementAuto": "Calculate Movement",
     "OSE.Setting.SignificantTreasure": "Significant Treasure Weight",
     "OSE.Setting.SignificantTreasureHint": "Weight at which treasure will reduce the movement, only useful for basic encumbrance",
+    "OSE.Setting.Welcome": "Display Welcome message",
+    "OSE.Setting.WelcomeHint": "Display this annoying welcome message",
 
     "OSE.items.Equip": "Equip",
     "OSE.items.Unequip": "Unequip",

@@ -74,10 +74,9 @@ Hooks.once("ready", async () => {
   Hooks.on("hotbarDrop", (bar, data, slot) =>
     macros.createOseMacro(data, slot)
   );
-
-  const template = 'systems/ose/templates/chat/welcome.html';
+  const template = 'systems/ose/templates/chat/license.html';
   const html = await renderTemplate(template);
-  $('#chat-log').append(html);
+  $('#settings .game-system').append(html);
 });
 
 Hooks.on(

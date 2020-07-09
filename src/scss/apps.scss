@@ -5,15 +5,14 @@
   }
 }
 
-.ose.welcome {
+#settings .ose.game-license {
+  font-size: 12px;
   .button {
     text-align: center;
     margin: 4px;
   }
   .footer {
-    font-size: 12px;
     text-align: right;
-    color: $colorTan;
   }
 }
 

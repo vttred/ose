@@ -170,7 +170,11 @@
       "melee": true,
       "cost": 0,
       "equipped": false,
-      "weight": 0
+      "weight": 0,
+      "counter": {
+        "value": 0,
+        "max": 0
+      }
     },
     "armor": {
       "description": "",

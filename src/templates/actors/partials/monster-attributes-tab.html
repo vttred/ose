@@ -113,6 +113,12 @@
                                 {{item.name~}}
                             </h4>
                         </div>
+                        {{#if (eq item.type 'weapon')}}
+                        <div class="field-long counter flexrow">
+                          <input type="text" value="{{item.data.counter.value}}" data-dtype="Number" placeholder="0" data-field="value">
+                          /
+                          <input type="text" value="{{item.data.counter.max}}" data-field="max" data-dtype="Number" placeholder="0"></div>
+                        {{/if}}
                         <div class="item-controls">
                             {{#if ../../owner}}
                             <a class="item-control item-edit" title='{{localize "OSE.Edit"}}'><i

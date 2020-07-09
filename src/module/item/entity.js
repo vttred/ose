@@ -45,7 +45,7 @@ export class OseItem extends Item {
     return data;
   }
 
-  rollWeapon(skipDialog) {
+  rollWeapon(options = {}) {
     let isNPC = this.actor.data.type != "character";
     const data = this.data.data;
     let type = "raw";
@@ -66,7 +66,7 @@ export class OseItem extends Item {
                   dmg: this.data.data.damage,
                   bonus: data.bonus,
                 },
-                { event: { ctrlKey: skipDialog } }
+                options
               );
             },
           },
@@ -80,7 +80,7 @@ export class OseItem extends Item {
                   label: this.name,
                   dmg: this.data.data.damage,
                 },
-                { event: { ctrlKey: skipDialog } }
+                options
               );
             },
           },
@@ -95,7 +95,7 @@ export class OseItem extends Item {
     }
     this.actor.rollAttack(
       { type: type, label: this.name, dmg: data.damage, bonus: data.bonus },
-      { event: { ctrlKey: skipDialog } }
+      options
     );
 
     return true;

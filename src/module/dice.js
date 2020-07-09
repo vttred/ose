@@ -240,7 +240,6 @@ export class OseDice {
       flavor: flavor,
       speaker: speaker
     };
-
     if (skipDialog) {
       return data.rollData.type === "Attack"
         ? OseDice.sendAttackRoll(rollData)

@@ -246,7 +246,6 @@ export class OseActor extends Actor {
 
   rollAttack(attData, options = {}) {
     const data = this.data.data;
-
     const rollParts = ["1d20"];
     const dmgParts = [];
 

@@ -107,29 +107,6 @@ export class OseActorSheet extends ActorSheet {
       actorObject.rollSave(save, { event: event });
     });
 
-    //Toggle Spells
-    html.find(".item-cast").click(async (ev) => {
-      const li = $(ev.currentTarget).parents(".item");
-      const item = this.actor.getOwnedItem(li.data("itemId"));
-      await this.actor.updateOwnedItem({
-        _id: li.data("itemId"),
-        data: {
-          cast: !item.data.data.cast,
-        },
-      });
-    });
-    //Toggle Equipment
-    html.find(".item-memorize").click(async (ev) => {
-      const li = $(ev.currentTarget).parents(".item");
-      const item = this.actor.getOwnedItem(li.data("itemId"));
-      await this.actor.updateOwnedItem({
-        _id: li.data("itemId"),
-        data: {
-          memorized: !item.data.data.memorized,
-        },
-      });
-    });
-
     html.find(".item .item-controls .item-show").click(async (ev) => {
       const li = $(ev.currentTarget).parents(".item");
       const item = this.actor.getOwnedItem(li.data("itemId"));
@@ -140,9 +117,12 @@ export class OseActorSheet extends ActorSheet {
       const li = $(ev.currentTarget).parents(".item");
       const item = this.actor.getOwnedItem(li.data("itemId"));
       if (item.type == "weapon") {
-        item.rollWeapon();
+        item.rollWeapon({event: ev});
+        if (this.actor.data.type === 'monster') {
+          item.update({data: {counter: {value: item.data.data.counter.value - 1}}})
+        }
       } else {
-        item.rollFormula();
+        item.rollFormula({event: ev});
       }
     });
 
@@ -157,7 +137,7 @@ export class OseActorSheet extends ActorSheet {
       let attack = element.parentElement.parentElement.dataset.attack;
       actorObject.rollAttack(
         { label: this.actor.name, type: attack },
-        { event: event }
+        ev
       );
     });
 

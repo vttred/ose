@@ -10,6 +10,7 @@ import { registerSettings } from "./module/settings.js";
 import { registerHelpers } from "./module/helpers.js";
 import * as chat from "./module/chat.js";
 import * as macros from "./module/macros.js";
+import { OseCombat } from "./module/combat.js";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -61,7 +62,7 @@ Hooks.once("init", async function () {
  */
 Hooks.once("setup", function () {
   // Localize CONFIG objects once up-front
-  const toLocalize = ["saves_short", "saves_long", "scores", "armor"];
+  const toLocalize = ["saves_short", "saves_long", "scores", "armor", "colors"];
   for (let o of toLocalize) {
     CONFIG.OSE[o] = Object.entries(CONFIG.OSE[o]).reduce((obj, e) => {
       obj[e[0]] = game.i18n.localize(e[1]);
@@ -74,21 +75,37 @@ Hooks.once("ready", async () => {
   Hooks.on("hotbarDrop", (bar, data, slot) =>
     macros.createOseMacro(data, slot)
   );
-  const template = 'systems/ose/templates/chat/license.html';
+  const template = "systems/ose/templates/chat/license.html";
   const html = await renderTemplate(template);
-  $('#settings .game-system').append(html);
+  $("#settings .game-system").append(html);
 });
 
-Hooks.on(
-  "preUpdateCombat",
-  async (combat, updateData, options, userId) => {
-    if (!updateData.round) {
-      return;
-    }
-    if (game.settings.get('ose', 'individualInit')) {
-    }
+Hooks.on("preCreateCombatant", (combat, data, options, id) => {
+  OseCombat.addCombatant(combat, data, options, id);
+});
+
+Hooks.on("preUpdateCombatant", (combat, combatant, data, diff, id) => {
+  if (data.initiative) {
+    let groupInit = data.initiative;
+    combat.combatants.forEach((ct) => {
+      if (ct.initiative && ct._id != data._id && ct.flags.ose.group == combatant.flags.ose.group) {
+        groupInit = ct.initiative;
+        data.initiative = parseInt(groupInit);
+      }
+    });
   }
-);
+});
+
+Hooks.on("renderCombatTracker", (object, html, data) => {
+  OseCombat.format(object, html, data);
+});
+
+Hooks.on("preUpdateCombat", async (combat, data, diff, id) => {
+  if (!data.round) {
+    return;
+  }
+  OseCombat.rollInitiative(combat, data, diff, id);
+});
 
 Hooks.on("renderChatLog", (app, html, data) => OseItem.chatListeners(html));
 Hooks.on("getChatLogEntryContext", chat.addChatMessageContextOptions);

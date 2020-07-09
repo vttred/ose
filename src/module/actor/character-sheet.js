@@ -110,7 +110,9 @@ export class OseActorSheetCharacter extends OseActorSheet {
 
   _calculateMovement(data, weight) {
     if (data.config.encumbrance == "detailed") {
-      if (weight > 800) {
+      if (weight > data.encumbrance.max) {
+        data.data.movement.base = 0;
+      } else if (weight > 800) {
         data.data.movement.base = 30;
       } else if (weight > 600) {
         data.data.movement.base = 60;

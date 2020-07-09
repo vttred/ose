@@ -46,7 +46,8 @@
           }
         },
         "movement": {
-          "base": 120
+          "base": 120,
+          "value": ""
         },
         "initiative": {
           "value": 0,

@@ -61,7 +61,7 @@
             <h4 class="attribute-name box-title" title="{{localize 'OSE.Movement'}}">{{ localize "OSE.MovementShort" }}
             </h4>
             <div class="attribute-value">
-                <input name="data.movement.value" type="text" value="{{data.movement.value}}" placeholder="0"
+                <input name="data.movement.base" type="text" value="{{data.movement.base}}" placeholder="0"
                     data-dtype="Number" />
             </div>
         </li>
@@ -138,8 +138,8 @@
     {{!-- Saving throws --}}
     <div class="attribute-group">
         <div class="attacks-description">
-            <label>{{ localize "OSE.Attacks" }}</label>
-            <input name="data.att" type="text" value="{{data.att}}" data-dtype="String" />
+            <label>{{ localize "OSE.MovementDetails" }}</label>
+            <input name="data.movement.value" type="text" value="{{data.movement.value}}" data-dtype="String" />
         </div>
         <ul class="attributes">
             <li class="attribute saving-throw" data-save="death">

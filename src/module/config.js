@@ -26,5 +26,14 @@ export const OSE = {
     light: "OSE.armor.light",
     heavy: "OSE.armor.heavy",
     shield: "OSE.armor.shield",
+  },
+  colors: {
+    green: "OSE.colors.green",
+    red: "OSE.colors.red",
+    yellow: "OSE.colors.yellow",
+    purple: "OSE.colors.purple",
+    blue: "OSE.colors.blue",
+    orange: "OSE.colors.orange",
+    white: "OSE.colors.white"
   }
 };

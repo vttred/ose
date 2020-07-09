@@ -72,6 +72,7 @@
     "OSE.HitDice": "Hit Dice",
     "OSE.HitDiceShort": "HD",
     "OSE.Movement": "Movement Rate",
+    "OSE.MovementDetails": "Movement Details",
     "OSE.MovementEncounter": "Encounter Movement Rate",
     "OSE.MovementEncounterShort": "En",
     "OSE.MovementOverland": "Overland Movement Rate",
@@ -197,5 +198,13 @@
     "OSE.messages.AttackFailure": "<b>Attack fails</b> ({bonus})",
     "OSE.messages.InflictsDamage": "Inflicts damage!",
     "OSE.ChatContextDamage": "Apply Damage",
-    "OSE.ChatContextHealing": "Apply Healing"
+    "OSE.ChatContextHealing": "Apply Healing",
+
+    "OSE.colors.green": "Green",
+    "OSE.colors.red": "Red",
+    "OSE.colors.yellow": "Yellow",
+    "OSE.colors.purple": "Purple",
+    "OSE.colors.blue": "Blue",
+    "OSE.colors.orange": "Orange",
+    "OSE.colors.white": "White"
 }

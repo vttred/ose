@@ -80,7 +80,6 @@ export class OseActorSheetMonster extends OseActorSheet {
   }
 
   async _onCountChange(event) {
-    console.log("CHANGE", event);
     event.preventDefault();
     const itemId = event.currentTarget.closest(".item").dataset.itemId;
     const item = this.actor.getOwnedItem(itemId);

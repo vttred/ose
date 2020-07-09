@@ -13,7 +13,8 @@ export class OseActorSheet extends ActorSheet {
     data.config = CONFIG.OSE;
     // Settings
     data.config.ascendingAC = game.settings.get("ose", "ascendingAC");
-    data.config.encumbranceBasic = game.settings.get("ose", "encumbranceOption") == 'basic';
+    data.config.encumbranceBasic =
+      game.settings.get("ose", "encumbranceOption") == "basic";
 
     // Prepare owned items
     this._prepareItems(data);
@@ -42,11 +43,17 @@ export class OseActorSheet extends ActorSheet {
 
     // Sort spells by level
     var sortedSpells = {};
+    var slots = {};
     for (var i = 0; i < spells.length; i++) {
       let lvl = spells[i].data.lvl;
       if (!sortedSpells[lvl]) sortedSpells[lvl] = [];
+      if (!slots[lvl]) slots[lvl] = 0;
+      slots[lvl] += spells[i].data.memorized;
       sortedSpells[lvl].push(spells[i]);
     }
+    data.slots = {
+      used: slots
+    };
     // Assign and return
     data.owned = {
       items: items,
@@ -74,7 +81,19 @@ export class OseActorSheet extends ActorSheet {
     li.toggleClass("expanded");
   }
 
-  
+  async _onSpellChange(event) {
+    event.preventDefault();
+    const itemId = event.currentTarget.closest(".item").dataset.itemId;
+    const item = this.actor.getOwnedItem(itemId);
+    if (event.target.dataset.field == "cast") {
+      return item.update({ "data.cast": parseInt(event.target.value) });
+    } else if (event.target.dataset.field == "memorize") {
+      return item.update({
+        "data.memorized": parseInt(event.target.value),
+      });
+    }
+  }
+
   activateListeners(html) {
     // Item summaries
     html
@@ -114,26 +133,34 @@ export class OseActorSheet extends ActorSheet {
     html.find(".item .item-controls .item-show").click(async (ev) => {
       const li = $(ev.currentTarget).parents(".item");
       const item = this.actor.getOwnedItem(li.data("itemId"));
-      item.roll({skipDialog: event.ctrlKey});
+      item.roll({ skipDialog: event.ctrlKey });
     });
 
-    html.find(".item .item-rollable .item-image").click(async ev =>  {
+    html.find(".item .item-rollable .item-image").click(async (ev) => {
       const li = $(ev.currentTarget).parents(".item");
       const item = this.actor.getOwnedItem(li.data("itemId"));
-      if (item.type == 'weapon') {
+      if (item.type == "weapon") {
         item.rollWeapon();
       } else {
         item.rollFormula();
       }
     });
 
-    html.find(".attack a").click(ev => {
+    html
+      .find(".memorize input")
+      .click((ev) => ev.target.select())
+      .change(this._onSpellChange.bind(this));
+
+    html.find(".attack a").click((ev) => {
       let actorObject = this.actor;
       let element = event.currentTarget;
       let attack = element.parentElement.parentElement.dataset.attack;
-      actorObject.rollAttack({label: this.actor.name, type: attack}, { event: event });
+      actorObject.rollAttack(
+        { label: this.actor.name, type: attack },
+        { event: event }
+      );
     });
-    
+
     html.find(".hit-dice .attribute-name a").click((ev) => {
       let actorObject = this.actor;
       actorObject.rollHitDice({ event: event });

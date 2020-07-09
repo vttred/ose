@@ -7,26 +7,28 @@
 
 .ose.chat-block {
   margin: 0;
-  .chat-title {
+  .chat-header {
+    height: 46px;
+    margin: 4px 0;
     background: $darkBackground;
     border: 1px solid black;
     border-radius: 3px;
     color: white;
     padding: 2px;
-    box-shadow: 0 0 2px #FFF inset;
-    margin: 4px 0;
-    display: flex;
-    h2 {
-      border: none;
-      line-height: 30px;
-      margin: 0;
-      text-indent: 10px;
-      font-size: 16px;
+    box-shadow: 0 0 2px #fff inset;
+    .chat-title {
+      margin: 4px 0;
+      h2 {
+        border: none;
+        line-height: 34px;
+        margin: 0;
+        text-indent: 10px;
+        font-size: 16px;
+      }
     }
-    img {
-      border: none;
-      width: 30px;
-      height: 30px;
+    .chat-img {
+      flex: 0 0 42px;
+      background-size: cover;
     }
   }
   .chat-details {

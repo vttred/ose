@@ -57,27 +57,21 @@
         "spells": {
           "enabled": false,
           "1": {
-            "value": 0,
             "max": 0
           },
           "2": {
-            "value": 0,
             "max": 0
           },
           "3": {
-            "value": 0,
             "max": 0
           },
           "4": {
-            "value": 0,
             "max": 0
           },
           "5": {
-            "value": 0,
             "max": 0
           },
           "6": {
-            "value": 0,
             "max": 0
           }
         }
@@ -191,8 +185,8 @@
       "range": "",
       "roll": "",
       "description": "",
-      "memorized": false,
-      "cast": false,
+      "memorized": 0,
+      "cast": 0,
       "save": ""
     },
     "ability": {

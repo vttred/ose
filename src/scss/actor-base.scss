@@ -281,6 +281,10 @@
         flex-grow: 0;
         text-align: center;
         font-size: 12px;
+        &.memorize input {
+          border-bottom: none;
+          margin: 3px 0;
+        }
       }
       .field-short {
         font-size: 12px;

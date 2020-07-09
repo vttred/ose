@@ -80,6 +80,7 @@ export class OseActorSheetMonster extends OseActorSheet {
   }
 
   async _onCountChange(event) {
+    console.log("CHANGE", event);
     event.preventDefault();
     const itemId = event.currentTarget.closest(".item").dataset.itemId;
     const item = this.actor.getOwnedItem(itemId);
@@ -93,6 +94,17 @@ export class OseActorSheetMonster extends OseActorSheet {
       });
     }
   }
+
+  async _resetCounters(event) {
+    $(event.currentTarget).closest('.abilities').find(".item").each(async (_, el) => {
+      let itemId = el.dataset.itemId;
+      const item = this.actor.getOwnedItem(itemId);
+      if (item.data.type == 'weapon') {
+        await item.update({"data.counter.value": parseInt(item.data.data.counter.max)});
+      }
+    })
+  }
+
   /**
    * Activate event listeners using the prepared sheet HTML
    * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
@@ -143,6 +155,10 @@ export class OseActorSheetMonster extends OseActorSheet {
       const itemData = createItem(type);
       return this.actor.createOwnedItem(itemData, {});
     });
+
+    html.find('.item-reset').click(ev => {
+      this._resetCounters(ev);
+    })
 
     html.find(".morale-check a").click((ev) => {
       let actorObject = this.actor;

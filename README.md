@@ -7,7 +7,7 @@ You can now find this Foundry VTT game system within Foundry VTT in the system b
 This Foundry VTT system requires Old-School Essentials Core Rules that you can find here [here](https://necroticgnome.com).
 
 This third party product is not affiliated with or approved by Necrotic Gnome.
-Old-School Essentials is a trademark of Necrotic Gnome.The trademark and Old-School Essentials logo are used with permission of Necrotic Gnome, under license
+Old-School Essentials is a trademark of Necrotic Gnome.The trademark and Old-School Essentials logo are used with permission of Necrotic Gnome, under license.
 
 ## Contributions
 This system is currently in Beta.

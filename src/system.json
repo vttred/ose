@@ -2,7 +2,7 @@
   "name": "ose",
   "title": "Old-School Essentials",
   "description": "Play B/X OSR modules with Old-School Essentials on Foundry VTT",
-  "version": 0.5,
+  "version": 0.6,
   "minimumCoreVersion": "0.6.2",
   "compatibleCoreVersion": "0.6.5",
   "templateVersion": 2,

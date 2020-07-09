@@ -6,8 +6,8 @@ import { preloadHandlebarsTemplates } from "./module/preloadTemplates.js";
 import { OseActor } from "./module/actor/entity.js";
 import { OseItem } from "./module/item/entity.js";
 import { OSE } from "./module/config.js";
-import { registerSettings } from './module/settings.js';
-import { registerHelpers } from './module/helpers.js';
+import { registerSettings } from "./module/settings.js";
+import { registerHelpers } from "./module/helpers.js";
 import * as chat from "./module/chat.js";
 import * as macros from "./module/macros.js";
 
@@ -26,17 +26,17 @@ Hooks.once("init", async function () {
   };
 
   CONFIG.OSE = OSE;
-  
+
   game.ose = {
-    rollItemMacro: macros.rollItemMacro
-  }
+    rollItemMacro: macros.rollItemMacro,
+  };
 
   // Custom Handlebars helpers
   registerHelpers();
-  
+
   // Register custom system settings
   registerSettings();
-  
+
   CONFIG.Actor.entityClass = OseActor;
   CONFIG.Item.entityClass = OseItem;
 
@@ -71,8 +71,23 @@ Hooks.once("setup", function () {
 });
 
 Hooks.once("ready", () => {
-  Hooks.on("hotbarDrop", (bar, data, slot) => macros.createOseMacro(data, slot));
+  Hooks.on("hotbarDrop", (bar, data, slot) =>
+    macros.createOseMacro(data, slot)
+  );
 });
+
+Hooks.on(
+  "preUpdateCombat",
+  async (combat, updateData, options, userId) => {
+    if (!updateData.round) {
+      return;
+    }
+    console.log("SETTING UP INITIATIVE");
+    if (game.settings.get('ose', 'individualInit')) {
+      console.log("PLOP");
+    }
+  }
+);
 
 Hooks.on("renderChatLog", (app, html, data) => OseItem.chatListeners(html));
 Hooks.on("getChatLogEntryContext", chat.addChatMessageContextOptions);

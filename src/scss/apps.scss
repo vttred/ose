@@ -14,9 +14,20 @@
     color: white;
     padding: 2px;
     box-shadow: 0 0 2px #FFF inset;
-    text-align: center;
     margin: 4px 0;
-    font-size: 16px;
+    display: flex;
+    h2 {
+      border: none;
+      line-height: 30px;
+      margin: 0;
+      text-indent: 10px;
+      font-size: 16px;
+    }
+    img {
+      border: none;
+      width: 30px;
+      height: 30px;
+    }
   }
   .chat-details {
     padding: 4px;

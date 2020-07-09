@@ -111,12 +111,21 @@ export class OseActorSheet extends ActorSheet {
       });
     });
 
-    html.find(".item-image").click(async (ev) => {
+    html.find(".item .item-controls .item-show").click(async (ev) => {
       const li = $(ev.currentTarget).parents(".item");
       const item = this.actor.getOwnedItem(li.data("itemId"));
       item.roll({skipDialog: event.ctrlKey});
     });
 
+    html.find(".item .item-rollable .item-image").click(async ev =>  {
+      const li = $(ev.currentTarget).parents(".item");
+      const item = this.actor.getOwnedItem(li.data("itemId"));
+      if (item.type == 'weapon') {
+        item.rollWeapon();
+      } else {
+        item.rollFormula();
+      }
+    });
 
     html.find(".attack a").click(ev => {
       let actorObject = this.actor;

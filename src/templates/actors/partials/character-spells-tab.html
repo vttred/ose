@@ -22,7 +22,7 @@
           <a class="item-control item-memorize {{#unless item.data.memorized}}item-unequipped{{/unless}}" title="{{localize 'OSE.spells.Memorized'}}"><i
               class="fas fa-book-open"></i></a>
         </div>
-        <div class="item-name flexrow">
+        <div class="item-name  {{#if item.data.roll}}item-rollable{{/if}} flexrow">
           <div class="item-image" style="background-image: url({{item.img}})"></div>
           <a>
             <h4 title="{{item.name}}">
@@ -32,6 +32,7 @@
         </div>
         <div class="item-controls">
           {{#if ../../owner}}
+          <a class="item-control item-show" title='{{localize "OSE.Show"}}'><i class="fas fa-eye"></i></a>
           <a class="item-control item-edit" title='{{localize "OSE.Edit"}}'><i class="fas fa-edit"></i></a>
           <a class="item-control item-delete" title='{{localize "OSE.Delete"}}'><i class="fas fa-trash"></i></a>
           {{/if}}

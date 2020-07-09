@@ -242,6 +242,15 @@
           grid-area: item-equipped;
           justify-self: center;
         }
+        .item-rollable {
+          &:hover .item-image {
+            background-image: url("/icons/svg/d20-grey.svg") !important;
+            cursor: pointer;
+          }
+          .item-image:hover {
+            background-image: url("/icons/svg/d20-black.svg") !important;
+          }
+        }
         .item-name {
           text-indent: 8px;
           text-align: left;
@@ -249,18 +258,11 @@
           height: 30px;
           margin: 0;
           line-height: 30px;
-          &:hover .item-image {
-            background-image: url("/icons/svg/d20-grey.svg") !important;
-            cursor: pointer;
-          }
           .item-image {
             flex-basis: 30px;
             flex-grow: 0;
             background-size: contain;
             background-repeat: no-repeat;
-            &:hover {
-              background-image: url("/icons/svg/d20-black.svg") !important;
-            }
           }
           h4 {
             margin: 0;
@@ -307,13 +309,17 @@
         .item-unequipped {
           color: rgba(0, 0, 0, 0.2);
         }
+        a:hover {
+          color: $colorCrimson;
+          text-shadow: 0 0 5px $colorFaint, 1px 0 5px $colorFaint, 0 1px 5px $colorFaint, 1px 1px 5px $colorFaint;
+        }
       }
       &.spells {
         .item-titles {
           line-height: 24px;
         }
         .item-controls {
-          flex-basis: 30px;
+          flex-basis: 45px;
         }
       }
     }

@@ -75,10 +75,15 @@ Hooks.once("ready", async () => {
   Hooks.on("hotbarDrop", (bar, data, slot) =>
     macros.createOseMacro(data, slot)
   );
-  const template = "systems/ose/templates/chat/license.html";
-  const html = await renderTemplate(template);
-  $("#settings .game-system").append(html);
 });
+
+Hooks.on("renderSidebarTab", async (object, html) => {
+  if (object instanceof Settings) {
+    const template = "systems/ose/templates/chat/license.html";
+    const rendered = await renderTemplate(template);
+    html.find(".game-system").append(rendered);
+  }
+})
 
 Hooks.on("preCreateCombatant", (combat, data, options, id) => {
   let init = game.settings.get("ose", "individualInit");

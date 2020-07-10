@@ -18,7 +18,7 @@ export class OseCombat {
     // Set init
     for (let i = 0; i < data.combatants.length; ++i) {
         if (data.combatants[i].actor.data.data.isSlow) {
-          data.combatants[i].initiative = -1;
+          data.combatants[i].initiative = -789;
         } else {
           data.combatants[i].initiative = groups[data.combatants[i].flags.ose.group].initiative;
         }

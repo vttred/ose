@@ -109,12 +109,15 @@ Hooks.on("preUpdateCombatant", (combat, combatant, data, diff, id) => {
     });
   } else if (data.initiative && init) {
     if (combatant.actor.data.data.isSlow) {
-      data.initiative = -1;
+      data.initiative = -789;
     }
   }
 });
 
 Hooks.on("renderCombatTracker", (object, html, data) => {
+  html.find('.initiative').each((_, span) => {
+    span.innerHTML = span.innerHTML == '-789.00' ? '<i class="fas fa-weight-hanging"></i>' : span.innerHTML;
+  })
   let init = game.settings.get("ose", "individualInit");
   if (!init) {
     OseCombat.format(object, html, data);

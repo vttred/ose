@@ -1,5 +1,3 @@
-import { OseDice } from "./dice.js";
-
 export class OseCombat {
   static rollInitiative(combat, data) {
     // Check groups
@@ -25,6 +23,14 @@ export class OseCombat {
           data.combatants[i].initiative = groups[data.combatants[i].flags.ose.group].initiative;
         }
     }
+  }
+
+  static individualInitiative(combat, data) {
+    let ids = [];
+    combat.data.combatants.forEach(cbt => {
+      ids.push(cbt._id);
+    })
+    combat.rollInitiative(ids);
   }
 
   static format(object, html, user) {

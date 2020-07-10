@@ -77,6 +77,7 @@ Hooks.once("ready", async () => {
   );
 });
 
+// License and KOFI infos
 Hooks.on("renderSidebarTab", async (object, html) => {
   if (object instanceof Settings) {
     const template = "systems/ose/templates/chat/license.html";
@@ -106,6 +107,10 @@ Hooks.on("preUpdateCombatant", (combat, combatant, data, diff, id) => {
         data.initiative = parseInt(groupInit);
       }
     });
+  } else if (data.initiative && init) {
+    if (combatant.actor.data.data.isSlow) {
+      data.initiative = -1;
+    }
   }
 });
 
@@ -118,10 +123,14 @@ Hooks.on("renderCombatTracker", (object, html, data) => {
 
 Hooks.on("preUpdateCombat", async (combat, data, diff, id) => {
   let init = game.settings.get("ose", "individualInit");
-  if (!data.round || init) {
+  if (!data.round) {
     return;
   }
-  OseCombat.rollInitiative(combat, data, diff, id);
+  if (!init) {
+    OseCombat.rollInitiative(combat, data, diff, id);
+  } else {
+    OseCombat.individualInitiative(combat, data, diff, id);
+  }
 });
 
 Hooks.on("renderChatLog", (app, html, data) => OseItem.chatListeners(html));

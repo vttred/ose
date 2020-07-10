@@ -85,26 +85,19 @@ export class OseActorSheetCharacter extends OseActorSheet {
     }
 
     // Compute AC
-    if (data.config.ascendingAC) {
-      let baseAc = 10;
-      data.owned.armors.forEach((a) => {
-        if (a.data.equipped) {
-          baseAc += a.data.aac.value;
-        }
-      });
-      data.data.aac.value = baseAc + data.data.scores.dex.mod;
-    } else {
-      let baseAc = 9;
-      let shield = 0;
-      data.owned.armors.forEach((a) => {
-        if (a.data.equipped && a.data.type != "shield") {
-          baseAc = a.data.ac.value;
-        } else if (a.data.equipped && a.data.type == "shield") {
-          shield = a.data.ac.value;
-        }
-      });
-      data.data.ac.value = baseAc - data.data.scores.dex.mod - shield;
-    }
+    let baseAc = 9;
+    let baseAac = 10;
+    let shield = 0;
+    data.owned.armors.forEach((a) => {
+      if (a.data.equipped && a.data.type != "shield") {
+        baseAc = a.data.ac.value;
+        baseAac = a.data.aac.value;
+      } else if (a.data.equipped && a.data.type == "shield") {
+        shield = a.data.ac.value;
+      }
+    });
+    data.data.aac.value = baseAac + data.data.scores.dex.mod + shield;
+    data.data.ac.value = baseAc - data.data.scores.dex.mod - shield;
     return data;
   }
 

@@ -19,7 +19,12 @@ export class OseCombat {
     
     // Set init
     for (let i = 0; i < data.combatants.length; ++i) {
-        data.combatants[i].initiative = groups[data.combatants[i].flags.ose.group].initiative;
+        console.log(data.combatants[i]);
+        if (data.combatants[i].actor.data.data.isSlow) {
+          data.combatants[i].initiative = -1;
+        } else {
+          data.combatants[i].initiative = groups[data.combatants[i].flags.ose.group].initiative;
+        }
     }
   }
 

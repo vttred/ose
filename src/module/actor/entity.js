@@ -11,6 +11,7 @@ export class OseActor extends Actor {
 
     // Compute modifiers from actor scores
     this.computeModifiers();
+    this._isSlow();
 
     // Determine Initiative
     if (game.settings.get("ose", "individualInit")) {
@@ -360,6 +361,19 @@ export class OseActor extends Actor {
       mod += 1;
     }
     return mod;
+  }
+
+  _isSlow() {
+    this.data.data.isSlow = false;
+    if (this.data.type != 'character') {
+      return;
+    }
+    this.data.items.forEach(item => {
+      if (item.type == 'weapon' && item.data.slow && item.data.equipped) {
+        this.data.data.isSlow = true;
+        return;
+      }
+    })
   }
 
   computeModifiers() {

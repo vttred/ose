@@ -131,6 +131,14 @@ export class OseItem extends Item {
     });
   }
 
+  spendSpell() {
+    this.update({data: {
+      cast: this.data.data.cast - 1
+    }}).then(() => {
+      this.roll({skipDialog: true})
+    })
+  }
+
   /**
    * Roll the item to Chat, creating a chat card which contains follow up attack or damage roll options
    * @return {Promise}

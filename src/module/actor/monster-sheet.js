@@ -95,13 +95,23 @@ export class OseActorSheetMonster extends OseActorSheet {
   }
 
   async _resetCounters(event) {
-    $(event.currentTarget).closest('.abilities').find(".item").each(async (_, el) => {
-      let itemId = el.dataset.itemId;
-      const item = this.actor.getOwnedItem(itemId);
-      if (item.data.type == 'weapon') {
-        await item.update({"data.counter.value": parseInt(item.data.data.counter.max)});
-      }
-    })
+    $(event.currentTarget)
+      .closest(".abilities")
+      .find(".item")
+      .each(async (_, el) => {
+        let itemId = el.dataset.itemId;
+        const item = this.actor.getOwnedItem(itemId);
+        if (item.data.type == "weapon") {
+          await item.update({
+            _id: item.id,
+            data: {
+              counter: {
+                value: parseInt(item.data.data.counter.max),
+              },
+            },
+          });
+        }
+      });
   }
 
   /**
@@ -155,9 +165,9 @@ export class OseActorSheetMonster extends OseActorSheet {
       return this.actor.createOwnedItem(itemData, {});
     });
 
-    html.find('.item-reset').click(ev => {
+    html.find(".item-reset").click((ev) => {
       this._resetCounters(ev);
-    })
+    });
 
     html.find(".morale-check a").click((ev) => {
       let actorObject = this.actor;

@@ -4,6 +4,9 @@
     <li class="item-titles flexrow">
       <div class="item-caret"><i class="fas fa-caret-down"></i> </div>
       <div class="item-name">{{localize "OSE.spells.Level"}} {{id}}</div>
+      <div class="field-short">
+        <a class="item-control item-reset" title='{{localize "OSE.spells.ResetSlots"}}'><i class="fas fa-sync"></i></a>
+      </div>
       <div class="field-short">{{localize 'OSE.spells.Slots'}}</div>
       <div class="field-long flexrow">
         <input type="text" value="{{lookup @root.slots.used @key}}"
@@ -12,14 +15,14 @@
           placeholder="0"></div>
       <div class="item-controls">
         <a class="item-control item-create" data-type="spell" data-lvl="{{id}}" title="{{localize 'OSE.Add'}}"><i
-            class="fa fa-plus"></i></a>
+          class="fa fa-plus"></i></a>
       </div>
     </li>
     <ol class="item-list">
       {{#each spellGroup as |item|}}
       <li class="item-entry">
         <div class="item flexrow" data-item-id="{{item._id}}">
-          <div class="item-name  {{#if item.data.roll}}item-rollable{{/if}} flexrow">
+          <div class="item-name item-rollable flexrow">
             <div class="item-image" style="background-image: url({{item.img}})"></div>
             <a>
               <h4 title="{{item.name}}">

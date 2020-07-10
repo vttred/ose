@@ -52,7 +52,7 @@ export class OseActorSheet extends ActorSheet {
       sortedSpells[lvl].push(spells[i]);
     }
     data.slots = {
-      used: slots
+      used: slots,
     };
     // Assign and return
     data.owned = {
@@ -94,6 +94,18 @@ export class OseActorSheet extends ActorSheet {
     }
   }
 
+  async _resetSpells(event) {
+    let spells = $(event.currentTarget).closest(".inventory.spells").find(".item");
+    spells.each((_, el) => {
+      let itemId = el.dataset.itemId;
+      const item = this.actor.getOwnedItem(itemId);
+      item.update({
+        _id: item.id,
+        "data.cast": item.data.data.memorized,  
+      });
+    });
+  }
+
   activateListeners(html) {
     // Item summaries
     html
@@ -117,12 +129,16 @@ export class OseActorSheet extends ActorSheet {
       const li = $(ev.currentTarget).parents(".item");
       const item = this.actor.getOwnedItem(li.data("itemId"));
       if (item.type == "weapon") {
-        if (this.actor.data.type === 'monster') {
-          item.update({data: {counter: {value: item.data.data.counter.value - 1}}})
+        if (this.actor.data.type === "monster") {
+          item.update({
+            data: { counter: { value: item.data.data.counter.value - 1 } },
+          });
         }
-        item.rollWeapon({event: ev});
+        item.rollWeapon({ event: ev });
+      } else if (item.type == "spell") {
+        item.spendSpell();
       } else {
-        item.rollFormula({event: ev});
+        item.rollFormula({ event: ev });
       }
     });
 
@@ -135,10 +151,11 @@ export class OseActorSheet extends ActorSheet {
       let actorObject = this.actor;
       let element = event.currentTarget;
       let attack = element.parentElement.parentElement.dataset.attack;
-      actorObject.rollAttack(
-        { label: this.actor.name, type: attack },
-        ev
-      );
+      actorObject.rollAttack({ label: this.actor.name, type: attack }, ev);
+    });
+
+    html.find(".spells .item-reset").click((ev) => {
+      this._resetSpells(ev);
     });
 
     html.find(".hit-dice .attribute-name a").click((ev) => {

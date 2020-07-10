@@ -81,14 +81,22 @@ Hooks.once("ready", async () => {
 });
 
 Hooks.on("preCreateCombatant", (combat, data, options, id) => {
-  OseCombat.addCombatant(combat, data, options, id);
+  let init = game.settings.get("ose", "individualInit");
+  if (!init) {
+    OseCombat.addCombatant(combat, data, options, id);
+  }
 });
 
 Hooks.on("preUpdateCombatant", (combat, combatant, data, diff, id) => {
-  if (data.initiative) {
+  let init = game.settings.get("ose", "individualInit");
+  if (data.initiative && !init) {
     let groupInit = data.initiative;
     combat.combatants.forEach((ct) => {
-      if (ct.initiative && ct._id != data._id && ct.flags.ose.group == combatant.flags.ose.group) {
+      if (
+        ct.initiative &&
+        ct._id != data._id &&
+        ct.flags.ose.group == combatant.flags.ose.group
+      ) {
         groupInit = ct.initiative;
         data.initiative = parseInt(groupInit);
       }
@@ -97,11 +105,15 @@ Hooks.on("preUpdateCombatant", (combat, combatant, data, diff, id) => {
 });
 
 Hooks.on("renderCombatTracker", (object, html, data) => {
-  OseCombat.format(object, html, data);
+  let init = game.settings.get("ose", "individualInit");
+  if (!init) {
+    OseCombat.format(object, html, data);
+  }
 });
 
 Hooks.on("preUpdateCombat", async (combat, data, diff, id) => {
-  if (!data.round) {
+  let init = game.settings.get("ose", "individualInit");
+  if (!data.round || init) {
     return;
   }
   OseCombat.rollInitiative(combat, data, diff, id);

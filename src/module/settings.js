@@ -6,6 +6,7 @@ export const registerSettings = function () {
     scope: "world",
     type: Boolean,
     config: true,
+    onChange: _ => window.location.reload()
   });
 
   game.settings.register("ose", "ascendingAC", {

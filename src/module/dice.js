@@ -28,6 +28,16 @@ export class OseDice {
       } else {
         result.isFailure = true;
       }
+    } else if (data.rollData.type == "Table") {
+      // Reaction
+      let table = data.rollData.table;
+      let output = "";
+      for (let i = 0; i <= roll.total; i++) {
+        if (table[i]) {
+          output = table[i];
+        }
+      }
+      result.details = output;
     }
     return result;
   }

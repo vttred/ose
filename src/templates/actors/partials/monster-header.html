@@ -4,10 +4,11 @@
     <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'OSE.Name'}}" />
   </h1>
   <ul class="summary flexrow">
-    <li class="flex2">
+    <li class="flex">
       <input type="text" name="data.details.alignment" value="{{data.details.alignment}}" />
       <label>{{localize 'OSE.Alignment'}}</label>
     </li>
+    <li class="reaction-check" title="{{localize 'OSE.ReactionCheck'}}"><a><i class="fas fa-dice"></i></a></li>
     <li>
       <input type="text" name="data.details.appearing" value="{{data.details.appearing}}" />
       <label>{{localize 'OSE.Appearing'}}</label>
@@ -18,7 +19,7 @@
         <input type="text" name="data.details.morale" value="{{data.details.morale}}" />
         <label>{{localize 'OSE.Morale'}}</label>  
       </div>
-      <div class="morale-check"><a><i class="fas fa-dice"></i></a></div>
+      <div class="morale-check" title="{{localize 'OSE.MoraleCheck'}}"><a><i class="fas fa-dice"></i></a></div>
     </li>
     {{/if}}
   </ul>

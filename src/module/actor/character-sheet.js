@@ -98,6 +98,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
     });
     data.data.aac.value = baseAac + data.data.scores.dex.mod + shield;
     data.data.ac.value = baseAc - data.data.scores.dex.mod - shield;
+    data.data.shield = shield;
     return data;
   }
 

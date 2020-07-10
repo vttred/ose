@@ -103,25 +103,22 @@
     <div class="flex2">
         <div class="flexrow">
             <div class="health">
-                <input class="health-top" name="data.hp.value" type="text" value="{{data.hp.value}}" data-dtype="Number"
+                <input class="health-value health-top" name="data.hp.value" type="text" value="{{data.hp.value}}" data-dtype="Number"
                     placeholder="0" title="{{localize 'OSE.Health'}}" />
-                <input class="health-bottom" name="data.hp.max" type="text" value="{{data.hp.max}}" data-dtype="Number"
+                <input class="health-value health-bottom" name="data.hp.max" type="text" value="{{data.hp.max}}" data-dtype="Number"
                     placeholder="0" title="{{localize 'OSE.HealthMax'}}" />
                 <div class="health-empty" style="height:{{counter false data.hp.value data.hp.max}}%"></div>
                 <div class="health-full" style="height:{{counter true data.hp.value data.hp.max}}%"></div>
             </div>
             <div class="health armor-class">
                 {{#if config.ascendingAC}}
-                <input class="health-top" name="data.aac.value" type="text" value="{{data.aac.value}}"
-                    data-dtype="Number" placeholder="0" title="{{localize 'OSE.ArmorClass'}}" disabled/>
-                <input class="health-bottom" type="text" value="{{add 10 data.scores.dex.mod}}"
-                    title="{{localize 'OSE.ArmorClassNaked'}}" disabled />
+                    <div class="health-value health-top" title="{{localize 'OSE.ArmorClass'}}">{{data.aac.value}}</div>
+                    <div class="health-value health-bottom" title="{{localize 'OSE.ArmorClassNaked'}}">{{add 10 data.scores.dex.mod}}</div>
                 {{else}}
-                <input class="health-top" name="data.ac.value" type="text" value="{{data.ac.value}}" data-dtype="Number"
-                    placeholder="0" title="{{localize 'OSE.ArmorClass'}}" disabled/>
-                <input class="health-bottom" type="text" value="{{subtract data.scores.dex.mod 9}}"
-                    title="{{localize 'OSE.ArmorClass'}}" disabled />
+                <div class="health-value health-top" title="{{localize 'OSE.ArmorClass'}}">{{data.ac.value}}</div>
+                <div class="health-value health-bottom" title="{{localize 'OSE.ArmorClassNaked'}}">{{subtract data.scores.dex.mod 9}}</div>
                 {{/if}}
+                {{#if data.shield}}<div class="shield" title="{{localize 'OSE.items.hasShield'}} ({{data.shield}})"><i class="fas fa-shield-alt"></i></div>{{/if}}
             </div>
         </div>
         <div class="flexrow">

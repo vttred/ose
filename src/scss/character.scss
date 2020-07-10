@@ -29,12 +29,18 @@
       &.armor-class {
         background: url('/systems/ose/assets/shield.png') no-repeat center;
         background-size: 70px;
+        .shield {
+          text-align: right;
+          padding: 0 14px;
+          font-size: 18px;
+        }
       }
         margin: 10px 0;
         height: 70px;
         position: relative;
-        input {
+        .health-value {
           font-size: 16px;
+          text-align: center;
           font-weight: bolder;
           text-shadow: 0 0 2px white, 0 1px 2px white, 1px 0 2px white, 1px 1px 2px white; 
         }

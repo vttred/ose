@@ -29,6 +29,9 @@
     "OSE.TreasureTableHint": "Drop a rollable table here to roll the monster treasure",
     "OSE.Size": "Size",
     "OSE.Morale": "Morale",
+    "OSE.MoraleCheck": "Morale Check",
+    "OSE.Reaction": "Reaction",
+    "OSE.ReactionCheck": "Reaction Check",
     "OSE.Retainer": "Retainer",
     "OSE.Appearing": "NA",
     "OSE.Attack": "Attack",
@@ -162,6 +165,7 @@
     "OSE.items.roundAttacks": "Attacks Spent this Round",
     "OSE.items.roundAttacksMax": "Maximum Attacks per Round",
     "OSE.items.resetAttacks": "Reset all Attacks per Round",
+    "OSE.items.hasShield": "Has a Shield bonus",
 
     "OSE.armor.type": "Armor Type",
     "OSE.armor.unarmored": "Unarmored",
@@ -211,5 +215,11 @@
     "OSE.colors.purple": "Purple",
     "OSE.colors.blue": "Blue",
     "OSE.colors.orange": "Orange",
-    "OSE.colors.white": "White"
+    "OSE.colors.white": "White",
+
+    "OSE.reaction.Hostile": "{name} is Hostile",
+    "OSE.reaction.Unfriendly": "{name} is Unfriendly",
+    "OSE.reaction.Neutral": "{name} is Neutral",
+    "OSE.reaction.Indifferent": "{name} is Indifferent",
+    "OSE.reaction.Friendly": "{name} is Friendly"
 }

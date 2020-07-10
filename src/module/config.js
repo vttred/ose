@@ -35,5 +35,5 @@ export const OSE = {
     blue: "OSE.colors.blue",
     orange: "OSE.colors.orange",
     white: "OSE.colors.white"
-  }
+  },
 };

@@ -118,6 +118,40 @@ export class OseActor extends Actor {
     });
   }
 
+  rollReaction(options = {}) {
+    const label = game.i18n.localize(`OSE.Reaction`);
+    const rollParts = ["2d6"];
+
+    const data = {
+      ...this.data,
+      ...{
+        rollData: {
+          type: "Table",
+          table: {
+            2: game.i18n.format("OSE.reaction.Hostile", {name: this.data.name}),
+            3: game.i18n.format("OSE.reaction.Unfriendly", {name: this.data.name}),
+            6: game.i18n.format("OSE.reaction.Neutral", {name: this.data.name}),
+            9: game.i18n.format("OSE.reaction.Indifferent", {name: this.data.name}),
+            12: game.i18n.format("OSE.reaction.Friendly", {name: this.data.name})
+          }
+        },
+      },
+    };
+
+    let skip = options.event && options.event.ctrlKey;
+
+    // Roll and return
+    return OseDice.Roll({
+      event: options.event,
+      parts: rollParts,
+      data: data,
+      skipDialog: skip,
+      speaker: ChatMessage.getSpeaker({ actor: this }),
+      flavor: `${label} ${game.i18n.localize("OSE.Roll")}`,
+      title: `${label} ${game.i18n.localize("OSE.Roll")}`,
+    });
+  }
+
   rollCheck(score, options = {}) {
     const label = game.i18n.localize(`OSE.scores.${score}.long`);
     const rollParts = ["1d20"];

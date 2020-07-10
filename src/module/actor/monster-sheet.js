@@ -174,6 +174,11 @@ export class OseActorSheetMonster extends OseActorSheet {
       actorObject.rollMorale({ event: event });
     });
 
+    html.find(".reaction-check a").click((ev) => {
+      let actorObject = this.actor;
+      actorObject.rollReaction({ event: event });
+    });
+
     html
       .find(".counter input")
       .click((ev) => ev.target.select())

@@ -159,6 +159,9 @@
     "OSE.items.ArmorAC": "AC",
     "OSE.items.ArmorAAC": "AAC",
     "OSE.items.Bonus": "Bonus",
+    "OSE.items.roundAttacks": "Attacks Spent this Round",
+    "OSE.items.roundAttacksMax": "Maximum Attacks per Round",
+    "OSE.items.resetAttacks": "Reset all Attacks per Round",
 
     "OSE.armor.type": "Armor Type",
     "OSE.armor.unarmored": "Unarmored",

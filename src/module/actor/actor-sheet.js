@@ -117,10 +117,10 @@ export class OseActorSheet extends ActorSheet {
       const li = $(ev.currentTarget).parents(".item");
       const item = this.actor.getOwnedItem(li.data("itemId"));
       if (item.type == "weapon") {
-        item.rollWeapon({event: ev});
         if (this.actor.data.type === 'monster') {
           item.update({data: {counter: {value: item.data.data.counter.value - 1}}})
         }
+        item.rollWeapon({event: ev});
       } else {
         item.rollFormula({event: ev});
       }

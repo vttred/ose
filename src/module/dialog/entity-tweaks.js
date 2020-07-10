@@ -32,6 +32,7 @@ export class OseEntityTweaks extends FormApplication {
     if (this.object.data.type === 'character') {
       data.isCharacter = true;
     }
+    data.user = game.user;
     return data;
   }
 

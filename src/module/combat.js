@@ -1,7 +1,7 @@
 import { OseDice } from "./dice.js";
 
 export class OseCombat {
-  static rollInitiative(combat, data, diff, id) {
+  static rollInitiative(combat, data) {
     // Check groups
     data.combatants = [];
     let groups = {};
@@ -19,7 +19,6 @@ export class OseCombat {
     
     // Set init
     for (let i = 0; i < data.combatants.length; ++i) {
-        console.log(data.combatants[i]);
         if (data.combatants[i].actor.data.data.isSlow) {
           data.combatants[i].initiative = -1;
         } else {
@@ -31,6 +30,9 @@ export class OseCombat {
   static format(object, html, user) {
     html.find('.combat-control[data-control="rollNPC"]').remove();
     html.find('.combat-control[data-control="rollAll"]').remove();
+    let trash = html.find('.encounters .combat-control[data-control="endCombat"]');
+    $('<a class="combat-control" data-control="reroll"><i class="fas fa-dice"></i></a>').insertBefore(trash);
+
     html.find(".combatant").each((_, ct) => {
       // Can't roll individual inits
       $(ct).find(".roll").remove();
@@ -64,6 +66,12 @@ export class OseCombat {
         _id: id,
         flags: { ose: { group: colors[index] } },
       });
+    });
+
+    html.find('.combat-control[data-control="reroll"]').click(ev => {
+      let data = {};
+      OseCombat.rollInitiative(game.combat, data);
+      game.combat.update({data: data});
     });
   }
 

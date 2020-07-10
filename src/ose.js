@@ -84,7 +84,7 @@ Hooks.on("renderSidebarTab", async (object, html) => {
     const rendered = await renderTemplate(template);
     html.find(".game-system").append(rendered);
   }
-})
+});
 
 Hooks.on("preCreateCombatant", (combat, data, options, id) => {
   let init = game.settings.get("ose", "individualInit");
@@ -93,35 +93,12 @@ Hooks.on("preCreateCombatant", (combat, data, options, id) => {
   }
 });
 
-Hooks.on("preUpdateCombatant", (combat, combatant, data, diff, id) => {
-  let init = game.settings.get("ose", "individualInit");
-  if (data.initiative && !init) {
-    let groupInit = data.initiative;
-    combat.combatants.forEach((ct) => {
-      if (
-        ct.initiative &&
-        ct._id != data._id &&
-        ct.flags.ose.group == combatant.flags.ose.group
-      ) {
-        groupInit = ct.initiative;
-        data.initiative = parseInt(groupInit);
-      }
-    });
-  } else if (data.initiative && init) {
-    if (combatant.actor.data.data.isSlow) {
-      data.initiative = -789;
-    }
-  }
+Hooks.on("preUpdateCombatant", (combat, combatant, data) => {
+  OseCombat.updateCombatant(combat, combatant, data);
 });
 
 Hooks.on("renderCombatTracker", (object, html, data) => {
-  html.find('.initiative').each((_, span) => {
-    span.innerHTML = span.innerHTML == '-789.00' ? '<i class="fas fa-weight-hanging"></i>' : span.innerHTML;
-  })
-  let init = game.settings.get("ose", "individualInit");
-  if (!init) {
-    OseCombat.format(object, html, data);
-  }
+  OseCombat.format(object, html, data);
 });
 
 Hooks.on("preUpdateCombat", async (combat, data, diff, id) => {

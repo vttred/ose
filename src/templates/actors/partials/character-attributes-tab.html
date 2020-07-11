@@ -1,6 +1,9 @@
 <section class="attributes-tab flexrow">
     {{!-- Scores --}}
     <div class="attribute-group">
+        <div class="modifiers-btn">
+            <a data-action="modifiers" title="{{localize 'OSE.Modifiers'}}"><i class="fas fa-book"></i></a>
+        </div>
         <ul class="attributes">
             <li class="attribute ability-score" data-score="str">
                 <h4 class="attribute-name box-title" title="{{ localize 'OSE.scores.str.long' }}">
@@ -65,9 +68,6 @@
     </div>
     {{!-- Resource Tracking --}}
     <div class="resources">
-        <div class="modifiers-btn">
-            <a data-action="modifiers" title="{{localize 'OSE.Modifiers'}}"><i class="fas fa-book"></i></a>
-        </div>
         <div class="flexrow">
             <div class="health">
                 <input class="health-value health-top" name="data.hp.value" type="text" value="{{data.hp.value}}"

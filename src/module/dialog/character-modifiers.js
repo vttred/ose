@@ -8,7 +8,7 @@ export class OseCharacterModifiers extends FormApplication {
     options.id = 'sheet-modifiers';
     options.template =
       'systems/ose/templates/actors/dialogs/modifiers-dialog.html';
-    options.width = 380;
+    options.width = 220;
     return options;
   }
 

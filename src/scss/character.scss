@@ -31,15 +31,20 @@
     .attributes-tab{
       justify-content: space-between;
       height: 100%;
+      .attribute-group {
+        position: relative;
+        .modifiers-btn {
+          position: absolute;
+          left: 0;
+          top: -5px;
+        }
+      }
     }
     .resources {
       margin: 20px;
       display: flex;
       justify-content: space-around;
       flex-direction: column;
-      .modifiers-btn {
-        width: 30px;
-      }
       .attribute {
         flex: 0 0 55px;
         &.attribute-secondaries {

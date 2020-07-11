@@ -51,9 +51,9 @@
                 </div>
             </li>
             {{#if data.retainer.enabled}}
-            <li class="attribute ability-score">
+            <li class="attribute ability-score" data-stat="lr">
                 <h4 class="attribute-name box-title" title="{{ localize 'OSE.Loyalty' }}">
-                    {{ localize "OSE.LoyaltyShort" }}
+                    <a>{{ localize "OSE.LoyaltyShort" }}</a>
                 </h4>
                 <div class="attribute-value">
                     <input name="data.retainer.loyalty" type="text" value="{{data.retainer.loyalty}}" placeholder="0"

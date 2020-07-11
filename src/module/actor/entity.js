@@ -118,6 +118,32 @@ export class OseActor extends Actor {
     });
   }
 
+  rollLoyalty(options = {}) {
+    const label = game.i18n.localize(`OSE.Loyalty`);
+    const rollParts = ["2d6"];
+
+    const data = {
+      ...this.data,
+      ...{
+        rollData: {
+          type: "Below",
+          target: this.data.data.retainer.loyalty,
+        },
+      },
+    };
+
+    // Roll and return
+    return OseDice.Roll({
+      event: options.event,
+      parts: rollParts,
+      data: data,
+      skipDialog: true,
+      speaker: ChatMessage.getSpeaker({ actor: this }),
+      flavor: `${label} ${game.i18n.localize("OSE.Roll")}`,
+      title: `${label} ${game.i18n.localize("OSE.Roll")}`,
+    });
+  }
+
   rollReaction(options = {}) {
     const label = game.i18n.localize(`OSE.Reaction`);
     const rollParts = ["2d6"];
@@ -128,12 +154,22 @@ export class OseActor extends Actor {
         rollData: {
           type: "Table",
           table: {
-            2: game.i18n.format("OSE.reaction.Hostile", {name: this.data.name}),
-            3: game.i18n.format("OSE.reaction.Unfriendly", {name: this.data.name}),
-            6: game.i18n.format("OSE.reaction.Neutral", {name: this.data.name}),
-            9: game.i18n.format("OSE.reaction.Indifferent", {name: this.data.name}),
-            12: game.i18n.format("OSE.reaction.Friendly", {name: this.data.name})
-          }
+            2: game.i18n.format("OSE.reaction.Hostile", {
+              name: this.data.name,
+            }),
+            3: game.i18n.format("OSE.reaction.Unfriendly", {
+              name: this.data.name,
+            }),
+            6: game.i18n.format("OSE.reaction.Neutral", {
+              name: this.data.name,
+            }),
+            9: game.i18n.format("OSE.reaction.Indifferent", {
+              name: this.data.name,
+            }),
+            12: game.i18n.format("OSE.reaction.Friendly", {
+              name: this.data.name,
+            }),
+          },
         },
       },
     };
@@ -369,15 +405,15 @@ export class OseActor extends Actor {
 
   _isSlow() {
     this.data.data.isSlow = false;
-    if (this.data.type != 'character') {
+    if (this.data.type != "character") {
       return;
     }
-    this.data.items.forEach(item => {
-      if (item.type == 'weapon' && item.data.slow && item.data.equipped) {
+    this.data.items.forEach((item) => {
+      if (item.type == "weapon" && item.data.slow && item.data.equipped) {
         this.data.data.isSlow = true;
         return;
       }
-    })
+    });
   }
 
   computeModifiers() {
@@ -393,14 +429,32 @@ export class OseActor extends Actor {
       9: 0,
       13: 1,
       16: 2,
-      18: 3
-    }
-    data.scores.str.mod = OseActor._valueFromTable(standard, data.scores.str.value);
-    data.scores.int.mod = OseActor._valueFromTable(standard, data.scores.int.value);
-    data.scores.dex.mod = OseActor._valueFromTable(standard, data.scores.dex.value);
-    data.scores.cha.mod = OseActor._valueFromTable(standard, data.scores.cha.value);
-    data.scores.wis.mod = OseActor._valueFromTable(standard, data.scores.wis.value);
-    data.scores.con.mod = OseActor._valueFromTable(standard, data.scores.con.value);
+      18: 3,
+    };
+    data.scores.str.mod = OseActor._valueFromTable(
+      standard,
+      data.scores.str.value
+    );
+    data.scores.int.mod = OseActor._valueFromTable(
+      standard,
+      data.scores.int.value
+    );
+    data.scores.dex.mod = OseActor._valueFromTable(
+      standard,
+      data.scores.dex.value
+    );
+    data.scores.cha.mod = OseActor._valueFromTable(
+      standard,
+      data.scores.cha.value
+    );
+    data.scores.wis.mod = OseActor._valueFromTable(
+      standard,
+      data.scores.wis.value
+    );
+    data.scores.con.mod = OseActor._valueFromTable(
+      standard,
+      data.scores.con.value
+    );
 
     const capped = {
       3: -2,
@@ -409,10 +463,16 @@ export class OseActor extends Actor {
       9: 0,
       13: 1,
       16: 1,
-      18: 2
-    }
-    data.scores.dex.init = OseActor._valueFromTable(capped, data.scores.dex.value);
-    data.scores.cha.npc = OseActor._valueFromTable(capped, data.scores.cha.value);
+      18: 2,
+    };
+    data.scores.dex.init = OseActor._valueFromTable(
+      capped,
+      data.scores.dex.value
+    );
+    data.scores.cha.npc = OseActor._valueFromTable(
+      capped,
+      data.scores.cha.value
+    );
     data.scores.cha.retain = data.scores.cha.mod + 4;
     data.scores.cha.loyalty = data.scores.cha.mod + 7;
 
@@ -421,23 +481,32 @@ export class OseActor extends Actor {
       9: 2,
       13: 3,
       16: 4,
-      18: 5
-    }
-    data.exploration.odMod = OseActor._valueFromTable(od, data.scores.str.value);
-    
+      18: 5,
+    };
+    data.exploration.odMod = OseActor._valueFromTable(
+      od,
+      data.scores.str.value
+    );
+
     const literacy = {
       3: "OSE.Illiterate",
       6: "OSE.LiteracyBasic",
-      9: "OSE.Literate"
-    }
-    data.languages.literacy = OseActor._valueFromTable(literacy, data.scores.int.value)
+      9: "OSE.Literate",
+    };
+    data.languages.literacy = OseActor._valueFromTable(
+      literacy,
+      data.scores.int.value
+    );
 
     const spoken = {
       3: 0,
       13: 2,
       16: 3,
-      18: 4
-    }
-    data.languages.count = OseActor._valueFromTable(spoken, data.scores.int.value)
+      18: 4,
+    };
+    data.languages.count = OseActor._valueFromTable(
+      spoken,
+      data.scores.int.value
+    );
   }
 }

@@ -202,7 +202,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
     let update = data[table].value.filter((el) => el != lang);
     console.log(update);
     let newData = {};
-    newData[table] = {value: update};
+    newData[table] = { value: update };
     return this.actor.update({ data: newData }).then(() => {
       this.render(true);
     });
@@ -298,7 +298,14 @@ export class OseActorSheetCharacter extends OseActorSheet {
       let actorObject = this.actor;
       let element = event.currentTarget;
       let score = element.parentElement.parentElement.dataset.score;
-      actorObject.rollCheck(score, { event: event });
+      let stat = element.parentElement.parentElement.dataset.stat;
+      if (!score) {
+        if (stat == "lr") {
+          actorObject.rollLoyalty(score, { event: event });
+        }
+      } else {
+        actorObject.rollCheck(score, { event: event });
+      }
     });
 
     html.find(".exploration .attribute-name a").click((ev) => {
@@ -306,17 +313,6 @@ export class OseActorSheetCharacter extends OseActorSheet {
       let element = event.currentTarget;
       let expl = element.parentElement.parentElement.dataset.exploration;
       actorObject.rollExploration(expl, { event: event });
-    });
-
-    html.find(".ability-score .attribute-mod a").click((ev) => {
-      let box = $(
-        event.currentTarget.parentElement.parentElement.parentElement
-      );
-      box.children(".attribute-bonuses").slideDown(200);
-    });
-
-    html.find(".ability-score .attribute-bonuses a").click((ev) => {
-      $(event.currentTarget.parentElement.parentElement).slideUp(200);
     });
 
     html.find(".inventory .item-titles .item-caret").click((ev) => {

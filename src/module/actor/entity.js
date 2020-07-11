@@ -73,7 +73,7 @@ export class OseActor extends Actor {
         rollData: {
           type: "Above",
           target: this.data.data.saves[save].value,
-          details: game.i18n.format("OSE.SavingThrowDetails", { save: label }),
+          details: game.i18n.format("OSE.saves.details", { save: label }),
         },
       },
     };
@@ -87,13 +87,13 @@ export class OseActor extends Actor {
       data: data,
       skipDialog: skip,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: `${label} ${game.i18n.localize("OSE.SavingThrow")}`,
-      title: `${label} ${game.i18n.localize("OSE.SavingThrow")}`,
+      flavor: `${label} ${game.i18n.localize("OSE.saves.check")}`,
+      title: `${label} ${game.i18n.localize("OSE.saves.check")}`,
     });
   }
 
   rollMorale(options = {}) {
-    const label = game.i18n.localize(`OSE.Morale`);
+    const label = game.i18n.localize(`OSE.details.morale`);
     const rollParts = ["2d6"];
 
     const data = {
@@ -113,8 +113,8 @@ export class OseActor extends Actor {
       data: data,
       skipDialog: true,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: `${label} ${game.i18n.localize("OSE.Roll")}`,
-      title: `${label} ${game.i18n.localize("OSE.Roll")}`,
+      flavor: game.i18n.localize("OSE.morale.check"),
+      title: game.i18n.localize("OSE.morale.check"),
     });
   }
 
@@ -145,7 +145,7 @@ export class OseActor extends Actor {
   }
 
   rollReaction(options = {}) {
-    const label = game.i18n.localize(`OSE.Reaction`);
+    const label = game.i18n.localize(`OSE.details.reaction`);
     const rollParts = ["2d6"];
 
     const data = {
@@ -183,8 +183,8 @@ export class OseActor extends Actor {
       data: data,
       skipDialog: skip,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: `${label} ${game.i18n.localize("OSE.Roll")}`,
-      title: `${label} ${game.i18n.localize("OSE.Roll")}`,
+      flavor: game.i18n.localize("OSE.reaction.check"),
+      title: game.i18n.localize("OSE.reaction.check"),
     });
   }
 
@@ -198,7 +198,7 @@ export class OseActor extends Actor {
         rollData: {
           type: "Check",
           target: this.data.data.scores[score].value,
-          details: game.i18n.format("OSE.AttributeCheckDetails", {
+          details: game.i18n.format("OSE.scores.details", {
             score: label,
           }),
         },
@@ -214,8 +214,8 @@ export class OseActor extends Actor {
       data: data,
       skipDialog: skip,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: `${label} ${game.i18n.localize("OSE.AttributeCheck")}`,
-      title: `${label} ${game.i18n.localize("OSE.AttributeCheck")}`,
+      flavor: `${label} ${game.i18n.localize("OSE.scores.check")}`,
+      title: `${label} ${game.i18n.localize("OSE.scores.check")}`,
     });
   }
 
@@ -270,8 +270,8 @@ export class OseActor extends Actor {
       data: data,
       skipDialog: true,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: `${game.i18n.localize('OSE.AppearingCheck')} ${label}`,
-      title: `${game.i18n.localize('OSE.AppearingCheck')} ${label}`,
+      flavor: `${game.i18n.localize('OSE.appearing.check')} ${label}`,
+      title: `${game.i18n.localize('OSE.appearing.check')} ${label}`,
     });
   }
 
@@ -285,7 +285,7 @@ export class OseActor extends Actor {
         rollData: {
           type: "Below",
           target: this.data.data.exploration[expl],
-          details: game.i18n.format("OSE.ExplorationCheckDetails", {
+          details: game.i18n.format("OSE.exploration.details", {
             expl: label,
           }),
         },
@@ -301,8 +301,8 @@ export class OseActor extends Actor {
       data: data,
       skipDialog: skip,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: `${label} ${game.i18n.localize("OSE.ExplorationCheck")}`,
-      title: `${label} ${game.i18n.localize("OSE.ExplorationCheck")}`,
+      flavor: `${label} ${game.i18n.localize("OSE.exploration.check")}`,
+      title: `${label} ${game.i18n.localize("OSE.exploration.check")}`,
     });
   }
 

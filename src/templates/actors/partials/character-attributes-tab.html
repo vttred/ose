@@ -164,8 +164,8 @@
         <div class="flexrow">
             <ul class="attributes flexrow">
                 <li class="attribute attribute-secondaries">
-                    <h4 class="attribute-name box-title" title="{{localize 'OSE.MovementOverland'}}">
-                        {{localize 'OSE.MovementOverlandShort'}}</h4>
+                    <h4 class="attribute-name box-title" title="{{localize 'OSE.movement.overland.long'}}">
+                        {{localize 'OSE.movement.overland.short'}}</h4>
                     <div class="flexrow">
                         <div class="attribute-value">
                             {{divide data.movement.base 5}}
@@ -173,16 +173,16 @@
                     </div>
                 </li>
                 <li class="attribute">
-                    <h4 class="attribute-name box-title" title="{{ localize 'OSE.Movement' }}">
-                        {{ localize "OSE.MovementExplorationShort" }}</h4>
+                    <h4 class="attribute-name box-title" title="{{ localize 'OSE.movement.exploration.long' }}">
+                        {{ localize "OSE.movement.exploration.short" }}</h4>
                     <div class="attribute-value flexrow">
                         <input name="data.movement.base" type="text" value="{{data.movement.base}}" placeholder="0"
                             data-dtype="Number" {{#if data.config.movementAuto}}disabled{{/if}} />
                     </div>
                 </li>
                 <li class="attribute attribute-secondaries">
-                    <h4 class="attribute-name box-title" title="{{localize 'OSE.MovementEncounter'}}">
-                        {{localize 'OSE.MovementEncounterShort'}}</h4>
+                    <h4 class="attribute-name box-title" title="{{localize 'OSE.movement.encounter.long'}}">
+                        {{localize 'OSE.movement.encounter.short'}}</h4>
                     <div class="flexrow">
                         <div class="attribute-value">
                             {{divide data.movement.base 3}}

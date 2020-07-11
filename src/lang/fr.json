@@ -27,7 +27,6 @@
     "OSE.Treasure": "Butin",
     "OSE.TreasureTable": "Table",
     "OSE.TreasureTableHint": "Drop a rollable table here to roll the monster treasure",
-    "OSE.Size": "Taille",
     "OSE.Morale": "Moral",
     "OSE.Retainer": "Sbire",
     "OSE.Appearing": "NA",
@@ -115,9 +114,7 @@
     "OSE.category.abilities": "Aptitudes",
     "OSE.category.spells": "Sorts",
     "OSE.category.notes": "Notes",
-    
-    "OSE.panel.abilities": "Aptitudes",
-    "OSE.panel.equipment": "Équipement",
+    "OSE.category.equipment": "Équipement",
 
     "OSE.Setting.IndividualInit": "Initiative Individuelle",
     "OSE.Setting.IndividualInitHint": "L'Initiative est lancée pour chaque acteur, modifié par son score de DEX",
@@ -178,8 +175,8 @@
 
     "OSE.abilities.Requirements": "Prérequis",
 
-    "OSE.ExplorationCheck": "Test",
-    "OSE.ExplorationCheckDetails": "Lancer 1d6 <= {expl} pour réussir",
+    "OSE.exploration.check": "Test",
+    "OSE.exploration.details": "Lancer 1d6 <= {expl} pour réussir",
     "OSE.exploration.ld.long": "Listen at Door",
     "OSE.exploration.ld.short": "Listen Door",
     "OSE.exploration.ld.abrev": "LD",

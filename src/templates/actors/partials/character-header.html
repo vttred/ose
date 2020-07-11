@@ -1,7 +1,7 @@
 <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
 <section class="header-details flexrow">
   <h1 class="charname">
-    <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'OSE.Name'}}" data-dtype="String" />
+    <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'OSE.details.name'}}" data-dtype="String" />
   </h1>
   <ul class="summary flexrow">
     {{#if data.retainer.enabled}}
@@ -19,30 +19,30 @@
     <li>
       <input type="text" name="data.details.title" value="{{data.details.title}}" data-dtype="String"
          />
-      <label>{{localize 'OSE.Title'}}</label>
+      <label>{{localize 'OSE.details.title'}}</label>
     </li>
     {{/if}}
     <li>
       <input type="text" name="data.details.alignment" value="{{data.details.alignment}}" data-dtype="String"
          />
-      <label>{{localize 'OSE.Alignment'}}</label>
+      <label>{{localize 'OSE.details.alignment'}}</label>
     </li>
   </ul>
   <ul class="summary flexrow">
     <li class="flex3">
       <input type="text" name="data.details.class" value="{{data.details.class}}" data-dtype="String"
         />
-      <label>{{localize 'OSE.Class'}}</label>
+      <label>{{localize 'OSE.details.class'}}</label>
     </li>
     <li class="{{#if (gt data.details.xp.value data.details.xp.next)}}notify{{/if}}">
       <input type="text" name="data.details.level" value="{{data.details.level}}" data-dtype="Number"
          />
-      <label>{{localize 'OSE.Level'}}</label>
+      <label>{{localize 'OSE.details.level'}}</label>
     </li>
     <li class="flex2">
       <input type="text" name="data.details.xp.value" value="{{data.details.xp.value}}" data-dtype="Number"
          />
-      <label>{{localize 'OSE.Experience'}}</label>
+      <label>{{localize 'OSE.experience.base'}}</label>
       {{#if data.details.xp.bonus}}
       <span class="xp-bonus">+{{data.details.xp.bonus}}%</span>
       {{/if}}

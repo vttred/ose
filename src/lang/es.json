@@ -115,9 +115,7 @@
     "OSE.category.abilities": "Habilidades",
     "OSE.category.spells": "Conjuros",
     "OSE.category.notes": "Notas",
-    
-    "OSE.panel.abilities": "Habilidades",
-    "OSE.panel.equipment": "Equipo",
+    "OSE.category.equipment": "Equipo",
 
     "OSE.Setting.IndividualInit": "Iniciativa Individual",
     "OSE.Setting.IndividualInitHint": "La iniciativa se lanza por cada actor y se modifica por su puntuación de DES",
@@ -182,8 +180,8 @@
 
     "OSE.abilities.Requirements": "Requisitos",
 
-    "OSE.ExplorationCheck": "Check",
-    "OSE.ExplorationCheckDetails": "Tirar 1d6 <= {expl} para éxito",
+    "OSE.exploration.check": "Check",
+    "OSE.exploration.details": "Tirar 1d6 <= {expl} para éxito",
     "OSE.exploration.ld.long": "Escuchar Ruidos",
     "OSE.exploration.ld.short": "Escuchar Ruidos",
     "OSE.exploration.ld.abrev": "ER",

@@ -65,8 +65,8 @@
             </li>
             {{/if}}
             <li class="attribute">
-                <h4 class="attribute-name box-title" title="{{localize 'OSE.Movement'}}">
-                    {{ localize "OSE.MovementShort" }}
+                <h4 class="attribute-name box-title" title="{{localize 'OSE.movement.base'}}">
+                    {{ localize "OSE.movement.short" }}
                 </h4>
                 <div class="attribute-value">
                     <input name="data.movement.base" type="text" value="{{data.movement.base}}" placeholder="0"
@@ -80,7 +80,7 @@
         <div class="flex3 panel inventory abilities">
             <div>
                 <li class="item-titles flexrow panel-title">
-                    <div class="item-name">{{localize 'OSE.panel.abilities'}} & {{localize 'OSE.panel.equipment'}}</div>
+                    <div class="item-name">{{localize 'OSE.category.abilities'}} & {{localize 'OSE.category.equipment'}}</div>
                     <div class="item-controls">
                         {{#if owner}}
                         <a class="item-control item-reset" title='{{localize "OSE.items.resetAttacks"}}'><i
@@ -151,7 +151,7 @@
         <div class="attribute-group">
             <ul class="attributes">
                 <li class="attacks-description">
-                    <label>{{ localize "OSE.MovementDetails" }}</label>
+                    <label>{{ localize "OSE.movement.details" }}</label>
                     <input name="data.movement.value" type="text" value="{{data.movement.value}}" data-dtype="String" />
                 </li>
                 <li class="attribute saving-throw" data-save="death">

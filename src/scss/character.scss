@@ -41,9 +41,8 @@
       }
     }
     .resources {
-      margin: 20px;
       display: flex;
-      justify-content: space-around;
+      justify-content: space-evenly;
       flex-direction: column;
       .attribute {
         flex: 0 0 55px;
@@ -86,7 +85,7 @@
             .tox .tox-tbtn {
               height: 24px;
             }
-            height: 100px;
+            height: 110px;
           }
         }
         &.notes {

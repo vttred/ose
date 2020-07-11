@@ -1,8 +1,31 @@
 .ose.sheet.item {
-  .profile-img {
-    border: none;
-    flex: 0 0 84px;
-    height: 84px;
+  .sheet-header {
+    .profile-img {
+      border: none;
+      flex: 0 0 84px;
+      height: 84px;
+    }
+    .tag-list {
+      margin: 0;
+      height: 20px;
+      overflow: auto;
+      list-style: none;
+      padding: 0;
+      display: flex;
+      .tag {
+        background: $colorFaint;
+        border-radius: 10px;
+        color: $colorDark;
+        padding: 2px 5px;
+        box-shadow: 0 0 1px $colorDark;
+        margin: 0 2px;
+        i {
+          font-size: 8px;
+          vertical-align: top;
+          color: $colorOlive;
+        }
+      }
+    }
   }
   .sheet-body {
     .stats {
@@ -29,8 +52,6 @@
       }
       &.narrow {
         .form-group {
-          label {
-          }
           input {
             height: 18px;
           }
@@ -40,8 +61,10 @@
     .editor {
       height: 240px;
     }
-    .weapon-editor .editor {
-      height: 215px;
+    .weapon-editor {
+      .editor {
+        height: 215px;
+      }
     }
   }
 }

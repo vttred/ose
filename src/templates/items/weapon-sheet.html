@@ -1,58 +1,121 @@
 <form class="{{cssClass}}" autocomplete="off">
   <header class="sheet-header">
-    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+    <img
+      class="profile-img"
+      src="{{item.img}}"
+      data-edit="img"
+      title="{{item.name}}"
+    />
     <div class="header-col">
       <h1 class="charname">
-        <input name="name" type="text" value="{{item.name}}" placeholder="Name" />
+        <input
+          name="name"
+          type="text"
+          value="{{item.name}}"
+          placeholder="Name"
+        />
       </h1>
+      <ol class="tag-list">
+        {{#each data.tags as |tag|}}
+        <li class="tag" title="{{tag.title}}" data-tag="{{tag.value}}">
+            <span>{{tag.value}}</span>
+            <a class="tag-delete"><i class="fas fa-times"></i></a>
+        </li>
+        {{/each}}
+      </ol>
     </div>
   </header>
   <section class="sheet-body">
     <div class="flexrow">
-      <input name="data.qualities" type="text" value="{{data.qualities}}" placeholder="Qualities" data-dtype="String"/>
-    </div>
-    <div class="flexrow">
       <div class="stats">
+        <div class="form-group">
+          <div class="form-fields">
+            <input
+              type="text"
+              data-action="add-tag"
+              title="{{localize 'OSE.items.typeTag'}}"
+            />
+          </div>
+        </div>
         <div class="form-group block-input">
           <label>{{localize 'OSE.items.Damage'}}</label>
           <div class="form-fields">
-            <input type="text" name="data.damage" value="{{data.damage}}" data-dtype="String" />
+            <input
+              type="text"
+              name="data.damage"
+              value="{{data.damage}}"
+              data-dtype="String"
+            />
           </div>
         </div>
         <div class="form-group">
           <label>{{localize 'OSE.items.Bonus'}}</label>
           <div class="form-fields">
-            <input type="text" name="data.bonus" value="{{data.bonus}}" data-dtype="Number" />
+            <input
+              type="text"
+              name="data.bonus"
+              value="{{data.bonus}}"
+              data-dtype="Number"
+            />
           </div>
         </div>
         <div class="form-group">
           <label>{{localize 'OSE.items.Slow'}}</label>
           <div class="form-fields">
-            <input type="checkbox" name="data.slow" value="{{data.slow}}" {{checked data.slow}}  data-dtype="Number"/>
+            <input
+              type="checkbox"
+              name="data.slow"
+              value="{{data.slow}}"
+              {{checked
+              data.slow}}
+              data-dtype="Number"
+            />
           </div>
         </div>
         <div class="form-group">
           <label>{{localize 'OSE.items.Missile'}}</label>
           <div class="form-fields">
-            <input type="checkbox" name="data.missile" {{checked data.missile}}  data-dtype="Number"/>
+            <input
+              type="checkbox"
+              name="data.missile"
+              {{checked
+              data.missile}}
+              data-dtype="Number"
+            />
           </div>
         </div>
         <div class="form-group">
           <label>{{localize 'OSE.items.Melee'}}</label>
           <div class="form-fields">
-            <input type="checkbox" name="data.melee" {{checked data.melee}}  data-dtype="Boolean"/>
+            <input
+              type="checkbox"
+              name="data.melee"
+              {{checked
+              data.melee}}
+              data-dtype="Boolean"
+            />
           </div>
         </div>
         <div class="form-group">
           <label>{{localize 'OSE.items.Cost'}}</label>
           <div class="form-fields">
-            <input type="text" name="data.cost" value="{{data.cost}}" data-dtype="Number" />
+            <input
+              type="text"
+              name="data.cost"
+              value="{{data.cost}}"
+              data-dtype="Number"
+            />
           </div>
         </div>
         <div class="form-group">
           <label>{{localize 'OSE.items.Weight'}}</label>
           <div class="form-fields">
-            <input type="text" name="data.weight" value="{{data.weight}}" data-dtype="Number" />
+            <input
+              type="text"
+              name="data.weight"
+              value="{{data.weight}}"
+              data-dtype="Number"
+            />
           </div>
         </div>
       </div>

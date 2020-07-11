@@ -171,6 +171,7 @@
       "description": "",
       "damage": "1d6",
       "bonus": 0,
+      "tags": [],
       "qualities": "",
       "slow": false,
       "missile": true,

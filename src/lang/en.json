@@ -173,6 +173,7 @@
     "OSE.items.roundAttacksMax": "Maximum Attacks per Round",
     "OSE.items.resetAttacks": "Reset all Attacks per Round",
     "OSE.items.hasShield": "Has a Shield bonus",
+    "OSE.items.typeTag": "Type a comma separated list of tag e.g 'Melee,Missile (5’–10’ / 11’–20’ / 21’–30’)'",
 
     "OSE.armor.type": "Armor Type",
     "OSE.armor.unarmored": "Unarmored",

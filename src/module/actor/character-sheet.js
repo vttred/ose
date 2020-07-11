@@ -183,7 +183,6 @@ export class OseActorSheetCharacter extends OseActorSheet {
     let update = duplicate(data[table]);
     this._chooseLang().then((dialogInput) => {
       const name = CONFIG.OSE.languages[dialogInput.choice];
-      console.log(name);
       if (update.value) {
         update.value.push(name);
       } else {
@@ -200,7 +199,6 @@ export class OseActorSheetCharacter extends OseActorSheet {
   _popLang(table, lang) {
     const data = this.actor.data.data;
     let update = data[table].value.filter((el) => el != lang);
-    console.log(update);
     let newData = {};
     newData[table] = { value: update };
     return this.actor.update({ data: newData }).then(() => {

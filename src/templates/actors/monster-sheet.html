@@ -32,8 +32,10 @@
     <div class="tab" data-group="primary" data-tab="notes">
       <div class="inventory">
         <div class="item-titles">{{localize "OSE.category.notes"}}</div>
-        {{editor content=data.details.biography target="data.details.biography"
-        button=true owner=owner editable=editable}}
+        <div class="resizable-editor" data-editor-size="320">
+          {{editor content=data.details.biography target="data.details.biography"
+          button=true owner=owner editable=editable}}
+        </div>
       </div>
     </div>
   </section>

@@ -16,8 +16,25 @@
     .editor {
       height: 300px;
     }
-    .attributes .attribute.health {
-      min-width: 75px;
+    .attributes-tab {
+      display: flex;
+      justify-content: space-around;
+      flex-direction: column;
+      height: 100%;
+      .attribute-row {
+        .attribute-group {
+          margin: 5px;
+        }
+      }
+      .attributes .attribute {
+        flex: 0 0 60px;
+        &.health {
+          flex: 0 0 85px;
+        }
+        &.saving-throw {
+          flex: 1;
+        }
+      }
     }
   }
   .attributes {

@@ -1,4 +1,4 @@
-<section class="flexrow">
+<section class="attributes-tab flexrow">
     {{!-- Scores --}}
     <div class="attribute-group">
         <ul class="attributes">
@@ -61,13 +61,13 @@
                 </div>
             </li>
             {{/if}}
-            <li>
-                <button type="button" data-action="modifiers" title="{{localize 'OSE.Modifiers'}}"><i class="fas fa-book"></i></button>
-            </li>
         </ul>
     </div>
     {{!-- Resource Tracking --}}
-    <div class="flex2">
+    <div class="resources">
+        <div class="modifiers-btn">
+            <a data-action="modifiers" title="{{localize 'OSE.Modifiers'}}"><i class="fas fa-book"></i></a>
+        </div>
         <div class="flexrow">
             <div class="health">
                 <input class="health-value health-top" name="data.hp.value" type="text" value="{{data.hp.value}}"

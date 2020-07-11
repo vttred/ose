@@ -336,7 +336,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
       }
     });
 
-    html.find("button[data-action='modifiers']").click((ev) => {
+    html.find("a[data-action='modifiers']").click((ev) => {
       this._onShowModifiers(ev);
     });
 

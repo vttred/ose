@@ -13,6 +13,7 @@
     "OSE.Formula": "Formula",
     "OSE.SitMod": "Situational Modifier",
     "OSE.Modifier": "Modifier",
+    "OSE.Modifiers": "Modifiers",
     "OSE.RollMode": "Roll Mode",
     "OSE.RollExample": "e.g. +1d4",
 

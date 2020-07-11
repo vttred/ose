@@ -111,13 +111,16 @@
   .sheet-body {
     padding: 5px 0;
     height: calc(100% - 140px);
+    .tab {
+      height: 100%;
+    }
     .attributes {
       list-style: none;
       margin: 0;
       padding: 0;
+      justify-content: space-evenly;
       .attribute {
         position: relative;
-        margin: 8px;
         border: 1px solid $colorTan;
         box-shadow: 0 0 2px $colorTan;
         .attribute-name {
@@ -127,9 +130,6 @@
           border: 1px solid $colorDark;
           background: $darkBackground;
           text-align: center;
-        }
-        &.attribute-secondaries {
-          margin: 10px 5px;
         }
         &.ability-score {
           height: 40px;
@@ -145,31 +145,15 @@
             line-height: 24px;
           }
         }
-        .attribute-mod {
-          position: absolute;
-          color: $colorFaint;
-          text-shadow: 0 0 2px black;
-          right: 1px;
-          top: 1px;
-          line-height: 10px;
-          font-size: 8px;
-        }
-        .attribute-bonuses {
-          display: none;
-          position: absolute;
-          background: #222;
-          padding: 2px;
-          font-size: 10px;
-          color: whitesmoke;
-          width: 100%;
-          height: 100%;
-        }
       }
     }
     .attribute-group {
-      flex: 0 0 105px;
-      margin: auto 0;
+      flex: 0 0 88px;
       .attributes {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        height: 100%;
         .attribute {
           display: flex;
           flex-direction: row;

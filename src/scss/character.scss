@@ -25,6 +25,29 @@
   /*  Sheet Body                               */
   /* ----------------------------------------- */
   .sheet-body {
+    .tab {
+      height: 100%;
+    }
+    .attributes-tab{
+      justify-content: space-between;
+      height: 100%;
+    }
+    .resources {
+      margin: 20px;
+      display: flex;
+      justify-content: space-around;
+      flex-direction: column;
+      .modifiers-btn {
+        width: 30px;
+      }
+      .attribute {
+        flex: 0 0 55px;
+        &.attribute-secondaries {
+          flex: 0 0 40px;
+          margin-bottom: 5px
+        }
+      }
+    }
     .notes-tab {
       .inventory {
         .languages {
@@ -79,7 +102,6 @@
           font-size: 18px;
         }
       }
-        margin: 10px 0;
         height: 70px;
         position: relative;
         .health-value {

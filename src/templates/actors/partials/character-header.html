@@ -4,11 +4,24 @@
     <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'OSE.Name'}}" data-dtype="String" />
   </h1>
   <ul class="summary flexrow">
+    {{#if data.retainer.enabled}}
+    <li>
+      <input type="text" name="data.retainer.wage" value="{{data.retainer.wage}}" data-dtype="Number"
+         />
+      <label>{{localize 'OSE.RetainerWage'}}</label>
+    </li>
+    <li>
+      <input type="text" name="data.retainer.upkeep" value="{{data.retainer.upkeep}}" data-dtype="Number"
+         />
+      <label>{{localize 'OSE.RetainerUpkeep'}}</label>
+    </li>
+    {{else}}
     <li>
       <input type="text" name="data.details.title" value="{{data.details.title}}" data-dtype="String"
          />
       <label>{{localize 'OSE.Title'}}</label>
     </li>
+    {{/if}}
     <li>
       <input type="text" name="data.details.alignment" value="{{data.details.alignment}}" data-dtype="String"
          />

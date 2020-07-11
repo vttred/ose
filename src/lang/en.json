@@ -35,6 +35,8 @@
     "OSE.Reaction": "Reaction",
     "OSE.ReactionCheck": "Reaction Check",
     "OSE.Retainer": "Retainer",
+    "OSE.RetainerWage": "Wage",
+    "OSE.RetainerUpkeep": "Upkeep",
     "OSE.Appearing": "NA",
     "OSE.Attack": "Attack",
     "OSE.Encumbrance": "Encumbrance",

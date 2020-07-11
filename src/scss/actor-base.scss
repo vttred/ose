@@ -66,6 +66,20 @@
         bottom: 0;
         left: 12px;
       }
+      @keyframes notify {
+        from {
+          text-shadow: none;
+        }
+        to {
+          text-shadow: -1px -1px 4px $colorOlive,  1px -1px 4px $colorOlive, -1px 1px 4px $colorOlive, 1px 1px 4px $colorOlive;
+        }
+      }
+      &.notify {
+        input {
+          font-weight: bold;
+          animation: 0.8s ease-in 1s infinite alternate notify;
+        }
+      }
     }
   }
   .sheet-tabs {

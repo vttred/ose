@@ -5,6 +5,17 @@
   }
 }
 
+.ose.dialog.modifiers {
+  .attribute-bonuses {
+    label {
+      font-weight: bold;
+    }
+    ol {
+      list-style: outside;
+    }
+  }
+}
+
 #settings .ose.game-license {
   font-size: 12px;
   .button {

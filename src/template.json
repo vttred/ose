@@ -131,7 +131,11 @@
       "encumbrance": {
         "max": 1600
       },
-      "languages": []
+      "languages": {
+        "values": [],
+        "literacy": "literate",
+        "count": 1
+      }
     },
     "monster": {
       "templates": ["common", "spellcaster"],

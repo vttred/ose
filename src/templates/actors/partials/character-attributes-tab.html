@@ -8,12 +8,6 @@
                 <div class="attribute-value">
                     <input name="data.scores.str.value" type="text" value="{{data.scores.str.value}}" placeholder="0"
                         data-dtype="Number" />
-                <span class="attribute-mod"><a><i class="fas fa-circle"></i></a></span>
-                </div>
-                <div class="attribute-bonuses">
-                    {{localize 'OSE.Melee'}} ({{data.scores.str.mod}})<br/>
-                    {{localize 'OSE.exploration.od.long'}}
-                <span class="attribute-mod"><a><i class="fas fa-circle"></i></a></span>
                 </div>
             </li>
             <li class="attribute ability-score" data-score="int">
@@ -22,12 +16,6 @@
                 <div class="attribute-value">
                     <input name="data.scores.int.value" type="text" value="{{data.scores.int.value}}" placeholder="0"
                         data-dtype="Number" />
-                <span class="attribute-mod"><a><i class="fas fa-circle"></i></a></span>
-                </div>
-                <div class="attribute-bonuses">
-                    {{localize 'OSE.SpokenLanguages'}}<br/>
-                    {{localize 'OSE.Literacy'}}
-                <span class="attribute-mod"><a><i class="fas fa-circle"></i></a></span>
                 </div>
             </li>
             <li class="attribute ability-score" data-score="wis">
@@ -36,11 +24,6 @@
                 <div class="attribute-value">
                     <input name="data.scores.wis.value" type="text" value="{{data.scores.wis.value}}" placeholder="0"
                         data-dtype="Number" />
-                <span class="attribute-mod"><a><i class="fas fa-circle"></i></a></span>
-                </div>
-                <div class="attribute-bonuses">
-                    {{localize 'OSE.saves.magic.long'}}({{data.scores.wis.mod}})
-                <span class="attribute-mod"><a><i class="fas fa-circle"></i></a></span>
                 </div>
             </li>
             <li class="attribute ability-score" data-score="dex">
@@ -49,13 +32,6 @@
                 <div class="attribute-value">
                     <input name="data.scores.dex.value" type="text" value="{{data.scores.dex.value}}" placeholder="0"
                         data-dtype="Number" />
-                <span class="attribute-mod"><a><i class="fas fa-circle"></i></a></span>
-                </div>
-                <div class="attribute-bonuses">
-                    {{localize 'OSE.Missile'}} ({{data.scores.dex.mod}})<br/>
-                    {{localize 'OSE.Initiative'}} ({{data.scores.dex.init}})<br/>
-                    {{localize 'OSE.ArmorClass'}} ({{data.scores.dex.mod}})
-                <span class="attribute-mod"><a><i class="fas fa-circle"></i></a></span>
                 </div>
             </li>
             <li class="attribute ability-score" data-score="con">
@@ -64,11 +40,6 @@
                 <div class="attribute-value">
                     <input name="data.scores.con.value" type="text" value="{{data.scores.con.value}}" placeholder="0"
                         data-dtype="Number" />
-                <span class="attribute-mod"><a><i class="fas fa-circle"></i></a></span>
-                </div>
-                <div class="attribute-bonuses">
-                    {{localize 'OSE.Health'}} ({{data.scores.con.mod}})
-                <span class="attribute-mod"><a><i class="fas fa-circle"></i></a></span>
                 </div>
             </li>
             <li class="attribute ability-score" data-score="cha">
@@ -77,13 +48,6 @@
                 <div class="attribute-value">
                     <input name="data.scores.cha.value" type="text" value="{{data.scores.cha.value}}" placeholder="0"
                         data-dtype="Number" />
-                <span class="attribute-mod"><a><i class="fas fa-circle"></i></a></span>
-                </div>
-                <div class="attribute-bonuses">
-                    {{localize 'OSE.NPCReaction'}} ({{data.scores.cha.npc}})<br/>
-                    {{localize 'OSE.RetainersMax'}} ({{add data.scores.cha.mod 4}})<br/>
-                    {{localize 'OSE.Loyalty'}} ({{add data.scores.cha.mod 7}})
-                <span class="attribute-mod"><a><i class="fas fa-circle"></i></a></span>
                 </div>
             </li>
             {{#if data.retainer.enabled}}
@@ -97,28 +61,34 @@
                 </div>
             </li>
             {{/if}}
+            <li>
+                <button type="button" data-action="modifiers" title="{{localize 'OSE.Modifiers'}}"><i class="fas fa-book"></i></button>
+            </li>
         </ul>
     </div>
     {{!-- Resource Tracking --}}
     <div class="flex2">
         <div class="flexrow">
             <div class="health">
-                <input class="health-value health-top" name="data.hp.value" type="text" value="{{data.hp.value}}" data-dtype="Number"
-                    placeholder="0" title="{{localize 'OSE.Health'}}" />
-                <input class="health-value health-bottom" name="data.hp.max" type="text" value="{{data.hp.max}}" data-dtype="Number"
-                    placeholder="0" title="{{localize 'OSE.HealthMax'}}" />
+                <input class="health-value health-top" name="data.hp.value" type="text" value="{{data.hp.value}}"
+                    data-dtype="Number" placeholder="0" title="{{localize 'OSE.Health'}}" />
+                <input class="health-value health-bottom" name="data.hp.max" type="text" value="{{data.hp.max}}"
+                    data-dtype="Number" placeholder="0" title="{{localize 'OSE.HealthMax'}}" />
                 <div class="health-empty" style="height:{{counter false data.hp.value data.hp.max}}%"></div>
                 <div class="health-full" style="height:{{counter true data.hp.value data.hp.max}}%"></div>
             </div>
             <div class="health armor-class">
                 {{#if config.ascendingAC}}
-                    <div class="health-value health-top" title="{{localize 'OSE.ArmorClass'}}">{{data.aac.value}}</div>
-                    <div class="health-value health-bottom" title="{{localize 'OSE.ArmorClassNaked'}}">{{add 10 data.scores.dex.mod}}</div>
+                <div class="health-value health-top" title="{{localize 'OSE.ArmorClass'}}">{{data.aac.value}}</div>
+                <div class="health-value health-bottom" title="{{localize 'OSE.ArmorClassNaked'}}">
+                    {{add 10 data.scores.dex.mod}}</div>
                 {{else}}
                 <div class="health-value health-top" title="{{localize 'OSE.ArmorClass'}}">{{data.ac.value}}</div>
-                <div class="health-value health-bottom" title="{{localize 'OSE.ArmorClassNaked'}}">{{subtract data.scores.dex.mod 9}}</div>
+                <div class="health-value health-bottom" title="{{localize 'OSE.ArmorClassNaked'}}">
+                    {{subtract data.scores.dex.mod 9}}</div>
                 {{/if}}
-                {{#if data.shield}}<div class="shield" title="{{localize 'OSE.items.hasShield'}} ({{data.shield}})"><i class="fas fa-shield-alt"></i></div>{{/if}}
+                {{#if data.shield}}<div class="shield" title="{{localize 'OSE.items.hasShield'}} ({{data.shield}})"><i
+                        class="fas fa-shield-alt"></i></div>{{/if}}
             </div>
         </div>
         <div class="flexrow">
@@ -207,7 +177,7 @@
                         {{ localize "OSE.MovementExplorationShort" }}</h4>
                     <div class="attribute-value flexrow">
                         <input name="data.movement.base" type="text" value="{{data.movement.base}}" placeholder="0"
-                            data-dtype="Number" {{#if data.config.movementAuto}}disabled{{/if}}/>
+                            data-dtype="Number" {{#if data.config.movementAuto}}disabled{{/if}} />
                     </div>
                 </li>
                 <li class="attribute attribute-secondaries">

@@ -1,5 +1,6 @@
 import { OseActor } from "./entity.js";
 import { OseActorSheet } from "./actor-sheet.js";
+import { OseCharacterModifiers } from "../dialog/character-modifiers.js";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -103,14 +104,15 @@ export class OseActorSheetCharacter extends OseActorSheet {
   }
 
   _calculateMovement(data, weight) {
+    let delta = data.encumbrance.max - 1600;
     if (data.config.encumbrance == "detailed") {
       if (weight > data.encumbrance.max) {
         data.data.movement.base = 0;
-      } else if (weight > 800) {
+      } else if (weight > (800 + delta)) {
         data.data.movement.base = 30;
-      } else if (weight > 600) {
+      } else if (weight > (600 + delta)) {
         data.data.movement.base = 60;
-      } else if (weight > 400) {
+      } else if (weight > (400 + delta)) {
         data.data.movement.base = 90;
       } else {
         data.data.movement.base = 120;
@@ -150,6 +152,14 @@ export class OseActorSheetCharacter extends OseActorSheet {
     const itemId = event.currentTarget.closest(".item").dataset.itemId;
     const item = this.actor.getOwnedItem(itemId);
     return item.update({ "data.quantity.value": parseInt(event.target.value) });
+  }
+
+  _onShowModifiers(event) {
+    event.preventDefault();
+    new OseCharacterModifiers(this.actor, {
+      top: this.position.top + 40,
+      left: this.position.left + (this.position.width - 400) / 2,
+    }).render(true);
   }
 
   /**
@@ -244,6 +254,10 @@ export class OseActorSheetCharacter extends OseActorSheet {
         el.addClass("fa-caret-right");
         items.slideUp(200);
       }
+    });
+
+    html.find("button[data-action='modifiers']").click(ev => {
+      this._onShowModifiers(ev);
     });
 
     // Handle default listeners last so system listeners are triggered first

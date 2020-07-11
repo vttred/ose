@@ -357,44 +357,14 @@ export class OseActor extends Actor {
     });
   }
 
-  static _valueToMod(val) {
-    switch (val) {
-      case 3:
-        return -3;
-      case 4:
-      case 5:
-        return -2;
-      case 6:
-      case 7:
-      case 8:
-        return -1;
-      case 9:
-      case 10:
-      case 11:
-      case 12:
-        return 0;
-      case 13:
-      case 14:
-      case 15:
-        return 1;
-      case 16:
-      case 17:
-        return 2;
-      case 18:
-        return 3;
-      default:
-        return 0;
+  static _valueFromTable(table, val) {
+    let output;
+    for (let i = 0; i <= val; i++) {
+      if (table[i]) {
+        output = table[i];
+      }
     }
-  }
-
-  static _cappedMod(val) {
-    let mod = OseActor._valueToMod(val);
-    if (mod > 1) {
-      mod -= 1;
-    } else if (mod < -1) {
-      mod += 1;
-    }
-    return mod;
+    return output;
   }
 
   _isSlow() {
@@ -415,14 +385,59 @@ export class OseActor extends Actor {
       return;
     }
     const data = this.data.data;
-    data.scores.str.mod = OseActor._valueToMod(this.data.data.scores.str.value);
-    data.scores.int.mod = OseActor._valueToMod(this.data.data.scores.int.value);
-    data.scores.dex.mod = OseActor._valueToMod(this.data.data.scores.dex.value);
-    data.scores.cha.mod = OseActor._valueToMod(this.data.data.scores.cha.value);
-    data.scores.wis.mod = OseActor._valueToMod(this.data.data.scores.wis.value);
-    data.scores.con.mod = OseActor._valueToMod(this.data.data.scores.con.value);
 
-    data.scores.dex.init = OseActor._cappedMod(this.data.data.scores.dex.value);
-    data.scores.cha.npc = OseActor._cappedMod(this.data.data.scores.cha.value);
+    const standard = {
+      3: -3,
+      4: -2,
+      6: -1,
+      9: 0,
+      13: 1,
+      16: 2,
+      18: 3
+    }
+    data.scores.str.mod = OseActor._valueFromTable(standard, data.scores.str.value);
+    data.scores.int.mod = OseActor._valueFromTable(standard, data.scores.int.value);
+    data.scores.dex.mod = OseActor._valueFromTable(standard, data.scores.dex.value);
+    data.scores.cha.mod = OseActor._valueFromTable(standard, data.scores.cha.value);
+    data.scores.wis.mod = OseActor._valueFromTable(standard, data.scores.wis.value);
+    data.scores.con.mod = OseActor._valueFromTable(standard, data.scores.con.value);
+
+    const capped = {
+      3: -2,
+      4: -1,
+      6: -1,
+      9: 0,
+      13: 1,
+      16: 1,
+      18: 2
+    }
+    data.scores.dex.init = OseActor._valueFromTable(capped, data.scores.dex.value);
+    data.scores.cha.npc = OseActor._valueFromTable(capped, data.scores.cha.value);
+    data.scores.cha.retain = data.scores.cha.mod + 4;
+    data.scores.cha.loyalty = data.scores.cha.mod + 7;
+
+    const od = {
+      3: 1,
+      9: 2,
+      13: 3,
+      16: 4,
+      18: 5
+    }
+    data.exploration.odMod = OseActor._valueFromTable(od, data.scores.str.value);
+    
+    const literacy = {
+      3: "OSE.Illiterate",
+      6: "OSE.LiteracyBasic",
+      9: "OSE.Literate"
+    }
+    data.languages.literacy = OseActor._valueFromTable(literacy, data.scores.int.value)
+
+    const spoken = {
+      3: 0,
+      13: 2,
+      16: 3,
+      18: 4
+    }
+    data.languages.count = OseActor._valueFromTable(spoken, data.scores.int.value)
   }
 }

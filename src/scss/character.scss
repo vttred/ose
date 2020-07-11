@@ -42,6 +42,13 @@
             padding: 5px;
             li {
               margin: 0;
+              &:hover .item-controls {
+                display: flex;
+              }
+              .item-controls {
+                flex: 0 0 20px;
+                display:none;
+              }
             }
           }
         }

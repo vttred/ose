@@ -13,8 +13,14 @@
                 </div>
                 <ol>
                     {{#each data.languages.value as |lang|}}
-                    <li>
-                        {{lang}}
+                    <li class="item flexrow" data-lang="{{lang}}">
+                        <div class="item-name">
+                            {{lang}}
+                        </div>
+                        <div class="item-controls">
+                            <a class="item-control item-pop" data-array="languages" title="{{localize 'OSE.Del'}}"><i
+                                class="fa fa-trash"></i></a>
+                        </div>
                     </li>
                     {{/each}}
                 </ol>

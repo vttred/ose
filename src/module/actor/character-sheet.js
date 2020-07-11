@@ -108,11 +108,11 @@ export class OseActorSheetCharacter extends OseActorSheet {
     if (data.config.encumbrance == "detailed") {
       if (weight > data.encumbrance.max) {
         data.data.movement.base = 0;
-      } else if (weight > (800 + delta)) {
+      } else if (weight > 800 + delta) {
         data.data.movement.base = 30;
-      } else if (weight > (600 + delta)) {
+      } else if (weight > 600 + delta) {
         data.data.movement.base = 60;
-      } else if (weight > (400 + delta)) {
+      } else if (weight > 400 + delta) {
         data.data.movement.base = 90;
       } else {
         data.data.movement.base = 120;
@@ -145,10 +145,9 @@ export class OseActorSheetCharacter extends OseActorSheet {
     }
   }
 
-  
   async _chooseLang() {
     let choices = CONFIG.OSE.languages;
-    
+
     let templateData = { choices: choices },
       dlg = await renderTemplate(
         "/systems/ose/templates/actors/dialogs/lang-create.html",
@@ -165,7 +164,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
             icon: '<i class="fas fa-check"></i>',
             callback: (html) => {
               resolve({
-                choice: html.find('select[name="choice"]').val()
+                choice: html.find('select[name="choice"]').val(),
               });
             },
           },
@@ -182,19 +181,30 @@ export class OseActorSheetCharacter extends OseActorSheet {
   _pushLang(table) {
     const data = this.actor.data.data;
     let update = duplicate(data[table]);
-    this._chooseLang().then(dialogInput => {
+    this._chooseLang().then((dialogInput) => {
       const name = CONFIG.OSE.languages[dialogInput.choice];
       console.log(name);
       if (update.value) {
         update.value.push(name);
       } else {
-        update = {value: [name]};
+        update = { value: [name] };
       }
       let newData = {};
       newData[table] = update;
-      return this.actor.update({data: newData}).then(() => {
+      return this.actor.update({ data: newData }).then(() => {
         this.render(true);
       });
+    });
+  }
+
+  _popLang(table, lang) {
+    const data = this.actor.data.data;
+    let update = data[table].value.filter((el) => el != lang);
+    console.log(update);
+    let newData = {};
+    newData[table] = {value: update};
+    return this.actor.update({ data: newData }).then(() => {
+      this.render(true);
     });
   }
 
@@ -236,13 +246,22 @@ export class OseActorSheetCharacter extends OseActorSheet {
       this.actor.deleteOwnedItem(li.data("itemId"));
       li.slideUp(200, () => this.render(false));
     });
-    
-    // Delete Inventory Item
+
     html.find(".item-push").click((ev) => {
       event.preventDefault();
       const header = event.currentTarget;
       const table = header.dataset.array;
       this._pushLang(table);
+    });
+
+    html.find(".item-pop").click((ev) => {
+      event.preventDefault();
+      const header = event.currentTarget;
+      const table = header.dataset.array;
+      this._popLang(
+        table,
+        $(event.currentTarget).closest(".item").data("lang")
+      );
     });
 
     html.find(".item-create").click((event) => {
@@ -317,7 +336,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
       }
     });
 
-    html.find("button[data-action='modifiers']").click(ev => {
+    html.find("button[data-action='modifiers']").click((ev) => {
       this._onShowModifiers(ev);
     });
 

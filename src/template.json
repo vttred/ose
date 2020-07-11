@@ -85,10 +85,10 @@
       },
       "details": {
         "biography": "",
+        "notes": "",
         "class": "",
         "title": "",
         "alignment": "",
-        "literate": false,
         "level": 1,
         "xp": {
           "next": 0,
@@ -132,7 +132,7 @@
         "max": 1600
       },
       "languages": {
-        "values": [],
+        "value": [],
         "literacy": "literate",
         "count": 1
       }

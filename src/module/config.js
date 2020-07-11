@@ -36,4 +36,29 @@ export const OSE = {
     orange: "OSE.colors.orange",
     white: "OSE.colors.white"
   },
+  languages: [
+    "Common",
+    "Lawful",
+    "Chaotic",
+    "Neutral",
+    "Bugbear",
+    "Doppelgänger",
+    "Dragon",
+    "Dwarvish",
+    "Elvish",
+    "Gargoyle",
+    "Gnoll",
+    "Gnomish",
+    "Goblin",
+    "Halfling",
+    "Harpy",
+    "Hobgoblin",
+    "Kobold",
+    "Lizard Man",
+    "Medusa",
+    "Minotaur",
+    "Ogre",
+    "Orcish",
+    "Pixie"
+  ]
 };

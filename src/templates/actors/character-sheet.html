@@ -42,11 +42,7 @@
       {{> "systems/ose/templates/actors/partials/character-inventory-tab.html"}}
     </div>
     <div class="tab" data-group="primary" data-tab="notes">
-      <div class="inventory">
-        <div class="item-titles">{{localize "OSE.category.notes"}}</div>
-        {{editor content=data.details.biography target="data.details.biography"
-        button=true owner=owner editable=editable}}
-      </div>
+      {{> "systems/ose/templates/actors/partials/character-notes-tab.html"}}
     </div>
   </section>
 </form>

@@ -145,6 +145,59 @@ export class OseActorSheetCharacter extends OseActorSheet {
     }
   }
 
+  
+  async _chooseLang() {
+    let choices = CONFIG.OSE.languages;
+    
+    let templateData = { choices: choices },
+      dlg = await renderTemplate(
+        "/systems/ose/templates/actors/dialogs/lang-create.html",
+        templateData
+      );
+    //Create Dialog window
+    return new Promise((resolve) => {
+      new Dialog({
+        title: "",
+        content: dlg,
+        buttons: {
+          ok: {
+            label: game.i18n.localize("OSE.Ok"),
+            icon: '<i class="fas fa-check"></i>',
+            callback: (html) => {
+              resolve({
+                choice: html.find('select[name="choice"]').val()
+              });
+            },
+          },
+          cancel: {
+            icon: '<i class="fas fa-times"></i>',
+            label: game.i18n.localize("OSE.Cancel"),
+          },
+        },
+        default: "ok",
+      }).render(true);
+    });
+  }
+
+  _pushLang(table) {
+    const data = this.actor.data.data;
+    let update = duplicate(data[table]);
+    this._chooseLang().then(dialogInput => {
+      const name = CONFIG.OSE.languages[dialogInput.choice];
+      console.log(name);
+      if (update.value) {
+        update.value.push(name);
+      } else {
+        update = {value: [name]};
+      }
+      let newData = {};
+      newData[table] = update;
+      return this.actor.update({data: newData}).then(() => {
+        this.render(true);
+      });
+    });
+  }
+
   /* -------------------------------------------- */
 
   async _onQtChange(event) {
@@ -182,6 +235,14 @@ export class OseActorSheetCharacter extends OseActorSheet {
       const li = $(ev.currentTarget).parents(".item");
       this.actor.deleteOwnedItem(li.data("itemId"));
       li.slideUp(200, () => this.render(false));
+    });
+    
+    // Delete Inventory Item
+    html.find(".item-push").click((ev) => {
+      event.preventDefault();
+      const header = event.currentTarget;
+      const table = header.dataset.array;
+      this._pushLang(table);
     });
 
     html.find(".item-create").click((event) => {

@@ -25,6 +25,43 @@
   /*  Sheet Body                               */
   /* ----------------------------------------- */
   .sheet-body {
+    .notes-tab {
+      .inventory {
+        .languages {
+          margin: 2px;
+          flex: 0 0 130px;
+          .item-titles {
+            .item-controls {
+              flex: 0 0 20px;
+            }
+          }
+          ol {
+            height: 100px;
+            overflow: auto;
+            list-style: none;
+            padding: 5px;
+            li {
+              margin: 0;
+            }
+          }
+        }
+        .description {
+          margin: 2px;
+          .editor {
+            .tox .tox-tbtn {
+              height: 24px;
+            }
+            height: 100px;
+          }
+        }
+        &.notes {
+          margin : 2px;
+          .editor {
+            height: 150px;
+          }
+        }
+      }
+    }
     .health {
       &.armor-class {
         background: url('/systems/ose/assets/shield.png') no-repeat center;

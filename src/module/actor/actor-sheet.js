@@ -22,6 +22,14 @@ export class OseActorSheet extends ActorSheet {
     return data;
   }
 
+  _createEditor(target, editorOptions, initialContent) {
+    // remove some controls to the editor as the space is lacking
+    if (target == 'data.details.description') {
+      editorOptions.toolbar = 'styleselect bullist hr table removeFormat save';
+    }
+    super._createEditor(target, editorOptions, initialContent);
+  }
+
   /**
    * Organize and classify Owned Items for Character sheets
    * @private
@@ -190,10 +198,21 @@ export class OseActorSheet extends ActorSheet {
     if (resizable.length == 0) {
       return;
     }
+    // Resize divs
     resizable.each((_, el) => {
       let heightDelta = this.position.height - this.options.height;
       el.style.height = `${heightDelta + parseInt(el.dataset.baseSize)}px`;
     });
+    // Resize editors
+    let editors = html.find(".editor");
+    editors.each((id, editor) => {
+      let container = editor.closest('.resizable-editor');
+      if (container) {
+        let heightDelta = this.position.height - this.options.height;
+        editor.style.height =  `${heightDelta + parseInt(container.dataset.editorSize)}px`;
+      }
+    })
+    // editors.css("height", this.position.height - 340);
   }
 
   _onConfigureActor(event) {
@@ -218,7 +237,7 @@ export class OseActorSheet extends ActorSheet {
         {
           label: "Tweaks",
           class: "configure-actor",
-          icon: "fas fa-dice",
+          icon: "fas fa-code",
           onclick: (ev) => this._onConfigureActor(ev),
         },
       ].concat(buttons);

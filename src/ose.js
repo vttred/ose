@@ -69,6 +69,9 @@ Hooks.once("setup", function () {
       return obj;
     }, {});
   }
+  for (let l of CONFIG.OSE.languages) {
+    CONFIG.OSE.languages[l] = game.i18n.localize(CONFIG.OSE.languages[l]);
+  }
 });
 
 Hooks.once("ready", async () => {

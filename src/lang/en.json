@@ -106,6 +106,7 @@
     "OSE.Damage": "Damage",
     "OSE.Spellcaster": "Spellcaster",
 
+    "OSE.Language": "Language",
     "OSE.SpokenLanguages": "Spoken Languages",
     "OSE.Literacy": "Literacy",
     "OSE.Literate": "Literate",
@@ -119,6 +120,8 @@
     "OSE.category.abilities": "Abilities",
     "OSE.category.spells": "Spells",
     "OSE.category.notes": "Notes",
+    "OSE.category.languages": "Languages",
+    "OSE.category.description": "Description",
     
     "OSE.panel.abilities": "Abilities",
     "OSE.panel.equipment": "Equipment",

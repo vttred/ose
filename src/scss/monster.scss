@@ -3,11 +3,21 @@
   min-width: 460px;
   .header-details {
     .summary {
-      .morale-check,.reaction-check {
-        line-height: 35px;
-        flex: 0 0 20px;
+      .check-field {
         &:hover {
-          color: $colorDark;
+          .check {
+            display: block;
+          }
+        }
+        .check {
+          display: none;
+          line-height: 35px;
+          flex: 0 0 20px;
+          position: absolute;
+          font-size: 12px;
+          &:hover {
+            color: $colorDark;
+          }
         }
       }
     }
@@ -22,6 +32,11 @@
       flex-direction: column;
       height: 100%;
       .attribute-row {
+        .attributes {
+          justify-content: space-between;
+        }
+      }
+      .attribute-row {
         .attribute-group {
           margin: 5px;
         }
@@ -32,7 +47,7 @@
           flex: 0 0 85px;
         }
         &.saving-throw {
-          flex: 1;
+          flex: 0 0 40px;
         }
       }
     }

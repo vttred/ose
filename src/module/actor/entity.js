@@ -244,6 +244,37 @@ export class OseActor extends Actor {
     });
   }
 
+  rollAppearing(options = {}) {
+    const rollParts = [];
+    let label = "";
+    if (options.check == "wilderness") {
+      rollParts.push(this.data.data.details.appearing.w);
+      label = "(2)";
+    } else {
+      rollParts.push(this.data.data.details.appearing.d);
+      label = "(1)";
+    }
+    const data = {
+      ...this.data,
+      ...{
+        rollData: {
+          type: "Appearing",
+        },
+      },
+    };
+
+    // Roll and return
+    return OseDice.Roll({
+      event: options.event,
+      parts: rollParts,
+      data: data,
+      skipDialog: true,
+      speaker: ChatMessage.getSpeaker({ actor: this }),
+      flavor: `${game.i18n.localize('OSE.AppearingCheck')} ${label}`,
+      title: `${game.i18n.localize('OSE.AppearingCheck')} ${label}`,
+    });
+  }
+
   rollExploration(expl, options = {}) {
     const label = game.i18n.localize(`OSE.exploration.${expl}.long`);
     const rollParts = ["1d6"];

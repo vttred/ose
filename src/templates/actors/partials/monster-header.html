@@ -4,22 +4,34 @@
     <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'OSE.Name'}}" />
   </h1>
   <ul class="summary flexrow">
-    <li class="flex">
-      <input type="text" name="data.details.alignment" value="{{data.details.alignment}}" />
-      <label>{{localize 'OSE.Alignment'}}</label>
+    <li class="flex2 flexrow check-field">
+      <div>
+        <input type="text" name="data.details.alignment" value="{{data.details.alignment}}" />
+        <label>{{localize 'OSE.Alignment'}}</label>
+      </div>
+      <div class="check reaction-check" title="{{localize 'OSE.ReactionCheck'}}"><a><i class="fas fa-dice"></i></a></div>
     </li>
-    <li class="reaction-check" title="{{localize 'OSE.ReactionCheck'}}"><a><i class="fas fa-dice"></i></a></li>
-    <li>
-      <input type="text" name="data.details.appearing" value="{{data.details.appearing}}" />
-      <label>{{localize 'OSE.Appearing'}}</label>
+    <li class="flexrow check-field" data-check="dungeon">
+      <div>
+        <input type="text" name="data.details.appearing.d" value="{{data.details.appearing.d}}" />
+        <label>{{localize 'OSE.Appearing'}}</label>
+      </div>
+      <div class="check appearing-check" title="{{localize 'OSE.AppearingCheck'}}"><a><i class="fas fa-dice"></i></a></div>
+    </li>
+    <li class="flexrow check-field" data-check="wilderness">
+      <div>
+        (<input type="text" name="data.details.appearing.w" value="{{data.details.appearing.w}}" />)
+        <label>{{localize 'OSE.Appearing'}}</label>
+      </div>
+      <div class="check appearing-check" title="{{localize 'OSE.AppearingCheck'}}"><a><i class="fas fa-dice"></i></a></div>
     </li>
     {{#if config.morale}}
-    <li class="flexrow">
+    <li class="flexrow check-field">
       <div>
         <input type="text" name="data.details.morale" value="{{data.details.morale}}" />
         <label>{{localize 'OSE.Morale'}}</label>  
       </div>
-      <div class="morale-check" title="{{localize 'OSE.MoraleCheck'}}"><a><i class="fas fa-dice"></i></a></div>
+      <div class="check morale-check" title="{{localize 'OSE.MoraleCheck'}}"><a><i class="fas fa-dice"></i></a></div>
     </li>
     {{/if}}
   </ul>

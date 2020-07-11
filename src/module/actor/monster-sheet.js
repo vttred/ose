@@ -179,6 +179,12 @@ export class OseActorSheetMonster extends OseActorSheet {
       actorObject.rollReaction({ event: event });
     });
 
+    html.find(".appearing-check a").click((ev) => {
+      let actorObject = this.actor;
+      let check = $(ev.currentTarget).closest('.check-field').data('check');
+      actorObject.rollAppearing({ event: event, check: check });
+    });
+
     html
       .find(".counter input")
       .click((ev) => ev.target.select())

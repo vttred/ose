@@ -9,12 +9,12 @@ export const registerHelpers = async function () {
   });
 
   Handlebars.registerHelper("mod", function (val) {
-    if (val == 0) {
-      return "0";
-    } else if (val > 0) {
+    if (val > 0) {
       return `+${val}`;
     } else if (val < 0) {
       return `${val}`;
+    } else {
+      return "0";
     }
   });
 

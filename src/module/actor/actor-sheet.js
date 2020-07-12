@@ -235,7 +235,7 @@ export class OseActorSheet extends ActorSheet {
     if (this.options.editable && canConfigure) {
       buttons = [
         {
-          label: "Tweaks",
+          label: game.i18n.localize("OSE.dialog.tweaks"),
           class: "configure-actor",
           icon: "fas fa-code",
           onclick: (ev) => this._onConfigureActor(ev),

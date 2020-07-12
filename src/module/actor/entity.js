@@ -87,13 +87,12 @@ export class OseActor extends Actor {
       data: data,
       skipDialog: skip,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: `${label} ${game.i18n.localize("OSE.saves.check")}`,
-      title: `${label} ${game.i18n.localize("OSE.saves.check")}`,
+      flavor: `${label} ${game.i18n.localize("OSE.roll.save")}`,
+      title: `${label} ${game.i18n.localize("OSE.roll.save")}`,
     });
   }
 
   rollMorale(options = {}) {
-    const label = game.i18n.localize(`OSE.details.morale`);
     const rollParts = ["2d6"];
 
     const data = {
@@ -113,13 +112,13 @@ export class OseActor extends Actor {
       data: data,
       skipDialog: true,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: game.i18n.localize("OSE.morale.check"),
-      title: game.i18n.localize("OSE.morale.check"),
+      flavor: game.i18n.localize("OSE.roll.morale"),
+      title: game.i18n.localize("OSE.roll.morale"),
     });
   }
 
   rollLoyalty(options = {}) {
-    const label = game.i18n.localize(`OSE.Loyalty`);
+    const label = game.i18n.localize(`OSE.roll.loyalty`);
     const rollParts = ["2d6"];
 
     const data = {
@@ -139,8 +138,8 @@ export class OseActor extends Actor {
       data: data,
       skipDialog: true,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: `${label} ${game.i18n.localize("OSE.Roll")}`,
-      title: `${label} ${game.i18n.localize("OSE.Roll")}`,
+      flavor: label,
+      title: label,
     });
   }
 
@@ -214,13 +213,13 @@ export class OseActor extends Actor {
       data: data,
       skipDialog: skip,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: `${label} ${game.i18n.localize("OSE.scores.check")}`,
-      title: `${label} ${game.i18n.localize("OSE.scores.check")}`,
+      flavor: `${label} ${game.i18n.localize("OSE.roll.attribute")}`,
+      title: `${label} ${game.i18n.localize("OSE.roll.attribute")}`,
     });
   }
 
   rollHitDice(options = {}) {
-    const label = game.i18n.localize(`OSE.HitDice`);
+    const label = game.i18n.localize(`OSE.roll.hd`);
     const rollParts = [this.data.data.hp.hd];
 
     const data = {
@@ -239,8 +238,8 @@ export class OseActor extends Actor {
       data: data,
       skipDialog: true,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: `${label} ${game.i18n.localize("OSE.Roll")}`,
-      title: `${label} ${game.i18n.localize("OSE.Roll")}`,
+      flavor: label,
+      title: label,
     });
   }
 
@@ -301,8 +300,8 @@ export class OseActor extends Actor {
       data: data,
       skipDialog: skip,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: `${label} ${game.i18n.localize("OSE.exploration.check")}`,
-      title: `${label} ${game.i18n.localize("OSE.exploration.check")}`,
+      flavor: `${label} ${game.i18n.localize("OSE.roll.exploration")}`,
+      title: `${label} ${game.i18n.localize("OSE.roll.exploration")}`,
     });
   }
 

@@ -19,7 +19,7 @@ export class OseItemSheet extends ItemSheet {
     return mergeObject(super.defaultOptions, {
       classes: ["ose", "sheet", "item"],
       width: 520,
-      height: 380,
+      height: 390,
       resizable: false,
       tabs: [
         {

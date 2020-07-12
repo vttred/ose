@@ -7,46 +7,45 @@
     <li class="flex2 flexrow check-field">
       <div>
         <input type="text" name="data.details.alignment" value="{{data.details.alignment}}" />
-        <label>{{localize 'OSE.Alignment'}}</label>
+        <label>{{localize 'OSE.details.alignment'}}</label>
       </div>
-      <div class="check reaction-check" title="{{localize 'OSE.ReactionCheck'}}"><a><i class="fas fa-dice"></i></a></div>
+      <div class="check reaction-check" title="{{localize 'OSE.roll.reaction'}}"><a><i class="fas fa-dice"></i></a></div>
     </li>
     <li class="flexrow check-field" data-check="dungeon">
       <div>
         <input type="text" name="data.details.appearing.d" value="{{data.details.appearing.d}}" />
-        <label>{{localize 'OSE.Appearing'}}</label>
+        <label>{{localize 'OSE.details.appearing'}}</label>
       </div>
-      <div class="check appearing-check" title="{{localize 'OSE.AppearingCheck'}}"><a><i class="fas fa-dice"></i></a></div>
+      <div class="check appearing-check" title="{{localize 'OSE.roll.appearing'}}"><a><i class="fas fa-dice"></i></a></div>
     </li>
     <li class="flexrow check-field" data-check="wilderness">
       <div>
         (<input type="text" name="data.details.appearing.w" value="{{data.details.appearing.w}}" />)
-        <label>{{localize 'OSE.Appearing'}}</label>
       </div>
-      <div class="check appearing-check" title="{{localize 'OSE.AppearingCheck'}}"><a><i class="fas fa-dice"></i></a></div>
+      <div class="check appearing-check" title="{{localize 'OSE.roll.appearing'}}"><a><i class="fas fa-dice"></i></a></div>
     </li>
     {{#if config.morale}}
     <li class="flexrow check-field">
       <div>
         <input type="text" name="data.details.morale" value="{{data.details.morale}}" />
-        <label>{{localize 'OSE.Morale'}}</label>  
+        <label>{{localize 'OSE.details.morale'}}</label>  
       </div>
-      <div class="check morale-check" title="{{localize 'OSE.MoraleCheck'}}"><a><i class="fas fa-dice"></i></a></div>
+      <div class="check morale-check" title="{{localize 'OSE.roll.morale'}}"><a><i class="fas fa-dice"></i></a></div>
     </li>
     {{/if}}
   </ul>
   <ul class="summary flexrow">
     <li class="flex3">
       <input type="text" name="data.details.xp" value="{{data.details.xp}}" />
-      <label>{{localize 'OSE.ExperienceAward'}}</label>
+      <label>{{localize 'OSE.details.experience.award'}}</label>
     </li>
     <li class="flex3">
       <input type="text" name="data.details.treasure.type" value="{{data.details.treasure.type}}" />
-      <label>{{localize 'OSE.Treasure'}}</label>
+      <label>{{localize 'OSE.details.treasure'}}</label>
     </li>
-    <li title="{{localize 'OSE.TreasureTableHint'}}">
+    <li title="{{localize 'OSE.details.treasureTableHint'}}">
       <div>{{data.details.treasure.table}}</div>
-      <label>{{localize 'OSE.TreasureTable'}}</label>
+      <label>{{localize 'OSE.details.treasureTable'}}</label>
     </li>
   </ul>
 </section>

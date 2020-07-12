@@ -18,7 +18,7 @@ export class OseEntityTweaks extends FormApplication {
    * @type {String}
    */
   get title() {
-    return `${this.object.name}: OSE Tweaks`;
+    return `${this.object.name}: ${game.i18n.localize('OSE.dialog.tweaks')}`;
   }
 
   /* -------------------------------------------- */

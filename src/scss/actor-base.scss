@@ -218,6 +218,24 @@
           font-size: 13px;
           padding: 0 4px;
           line-height: 20px;
+          box-shadow: 0 0 3px $colorDark;
+          .tag-list {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            display: flex;
+            .tag {
+              margin: 1px 2px;
+              border: 1px solid $colorFaint;
+              font-size: 11px;
+              line-height: 14px;
+              background: $colorOlive;
+              padding: 1px 4px;
+              color: whitesmoke;
+              border-radius: 3px;
+              box-shadow: 0 0 1px $colorFaint;
+            }
+          }
         }
         .item-header {
           @extend %header-field !optional;

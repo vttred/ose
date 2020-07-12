@@ -126,17 +126,41 @@ export class OseItem extends Item {
       data: data,
       skipDialog: true,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: game.i18n.format("OSE.roll.formula", {label: label}),
-      title: game.i18n.format("OSE.roll.formula", {label: label}),
+      flavor: game.i18n.format("OSE.roll.formula", { label: label }),
+      title: game.i18n.format("OSE.roll.formula", { label: label }),
     });
   }
 
   spendSpell() {
-    this.update({data: {
-      cast: this.data.data.cast - 1
-    }}).then(() => {
-      this.roll({skipDialog: true})
-    })
+    this.update({
+      data: {
+        cast: this.data.data.cast - 1,
+      },
+    }).then(() => {
+      this.roll({ skipDialog: true });
+    });
+  }
+
+  getTags() {
+    let formatTag = (tag) => {
+      if (!tag) return "";
+      return `<li class='tag'>${tag}</li>`
+    }
+
+    const data = this.data.data;
+    switch (this.data.type) {
+      case "weapon":
+        return `${formatTag(data.damage)}`;
+      case "armor":
+        return `${formatTag(CONFIG.OSE.armor[data.type])}`;
+      case "item":
+        return "";
+      case "spell":
+        return `${formatTag(data.class)}${formatTag(data.range)}${formatTag(data.duration)}${formatTag(CONFIG.OSE.saves_long[data.save])}${formatTag(data.roll)}`;
+      case "ability":
+        return `${formatTag(data.requirements)}${formatTag(data.roll)}`;
+    }
+    return "TEST";
   }
 
   /**

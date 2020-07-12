@@ -190,9 +190,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
       }
       let newData = {};
       newData[table] = update;
-      return this.actor.update({ data: newData }).then(() => {
-        this.render(true);
-      });
+      return this.actor.update({ data: newData });
     });
   }
 
@@ -201,9 +199,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
     let update = data[table].value.filter((el) => el != lang);
     let newData = {};
     newData[table] = { value: update };
-    return this.actor.update({ data: newData }).then(() => {
-      this.render(true);
-    });
+    return this.actor.update({ data: newData });
   }
 
   /* -------------------------------------------- */

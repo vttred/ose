@@ -12,6 +12,11 @@ export const OSE = {
     above: "OSE.roll.type.above",
     below: "OSE.roll.type.below"
   },
+  roll_type_sign: {
+    result: "",
+    above: ">=",
+    below: "<="
+  },
   saves_short: {
     death: "OSE.saves.death.short",
     wand: "OSE.saves.wand.short",

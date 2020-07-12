@@ -151,6 +151,7 @@
   "OSE.Setting.VariableWeaponDamageHint": "Las armas tienen diferente dado de daño",
   "OSE.Setting.Encumbrance": "Carga",
   "OSE.Setting.EncumbranceHint": "Elige como se calcula la Carga",
+  "OSE.Setting.EncumbranceDisabled": "Disabled",
   "OSE.Setting.EncumbranceBasic": "Básica",
   "OSE.Setting.EncumbranceDetailed": "Detallada",
   "OSE.Setting.MovementAuto": "Calcular Movimiento",

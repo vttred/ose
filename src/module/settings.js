@@ -45,6 +45,7 @@ export const registerSettings = function () {
     type: String,
     config: true,
     choices: {
+      disabled: "OSE.Setting.EncumbranceDisabled",
       basic: "OSE.Setting.EncumbranceBasic",
       detailed: "OSE.Setting.EncumbranceDetailed",
     },

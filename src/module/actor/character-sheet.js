@@ -104,6 +104,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
   }
 
   _calculateMovement(data, weight) {
+    if (data.config.encumbrance == "disabled") return;
     let delta = data.encumbrance.max - 1600;
     if (data.config.encumbrance == "detailed") {
       if (weight > data.encumbrance.max) {

@@ -153,6 +153,7 @@
   "OSE.Setting.VariableWeaponDamageHint": "Weapons have different damage dice",
   "OSE.Setting.Encumbrance": "Encumbrance",
   "OSE.Setting.EncumbranceHint": "Choose the way encumbrance is calculated",
+  "OSE.Setting.EncumbranceDisabled": "Disabled",
   "OSE.Setting.EncumbranceBasic": "Basic",
   "OSE.Setting.EncumbranceDetailed": "Detailed",
   "OSE.Setting.MovementAuto": "Calculate Movement",

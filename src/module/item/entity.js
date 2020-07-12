@@ -166,7 +166,11 @@ export class OseItem extends Item {
           data.roll
         )}`;
       case "ability":
-        return `${formatTag(data.requirements)}${formatTag(data.roll)}`;
+        let roll = "";
+        roll += data.roll ? data.roll : "";
+        roll += data.rollType ? CONFIG.OSE.roll_type_sign[data.rollType] : "";
+        roll += data.rollTarget ? data.rollTarget : "";
+        return `${formatTag(data.requirements)}${formatTag(roll)}`;
     }
     return "";
   }

@@ -151,6 +151,7 @@
   "OSE.Setting.VariableWeaponDamageHint": "Les Armes peuvent avoir des dégâts d'arme différents",
   "OSE.Setting.Encumbrance": "Encombrement",
   "OSE.Setting.EncumbranceHint": "Choisissez comment l'encombrement est calculé",
+  "OSE.Setting.EncumbranceDisabled": "Désactivé",
   "OSE.Setting.EncumbranceBasic": "Basique",
   "OSE.Setting.EncumbranceDetailed": "Detaillé",
   "OSE.Setting.MovementAuto": "Calculer Déplacement",

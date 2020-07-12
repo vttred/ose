@@ -427,7 +427,7 @@ export class OseActor extends Actor {
   static _valueFromTable(table, val) {
     let output;
     for (let i = 0; i <= val; i++) {
-      if (table[i]) {
+      if (table[i] != undefined) {
         output = table[i];
       }
     }

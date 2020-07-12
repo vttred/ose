@@ -102,19 +102,23 @@ export class OseItem extends Item {
   }
 
   async rollFormula(options = {}) {
-    if (!this.data.data.roll) {
+    const data = this.data.data;
+    if (!data.roll) {
       throw new Error("This Item does not have a formula to roll!");
     }
 
     const label = `${this.name}`;
-    const rollParts = [this.data.data.roll];
+    const rollParts = [data.roll];
 
-    const data = {
+    let type = data.rollType;
+
+    const newData = {
       ...this.data,
       ...{
         rollData: {
-          type: "Formula",
-          blindroll: this.data.data.blindroll,
+          type: type,
+          target: data.rollTarget,
+          blindroll: data.blindroll,
         },
       },
     };
@@ -123,7 +127,7 @@ export class OseItem extends Item {
     return OseDice.Roll({
       event: options.event,
       parts: rollParts,
-      data: data,
+      data: newData,
       skipDialog: true,
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: game.i18n.format("OSE.roll.formula", { label: label }),
@@ -144,8 +148,8 @@ export class OseItem extends Item {
   getTags() {
     let formatTag = (tag) => {
       if (!tag) return "";
-      return `<li class='tag'>${tag}</li>`
-    }
+      return `<li class='tag'>${tag}</li>`;
+    };
 
     const data = this.data.data;
     switch (this.data.type) {
@@ -156,11 +160,63 @@ export class OseItem extends Item {
       case "item":
         return "";
       case "spell":
-        return `${formatTag(data.class)}${formatTag(data.range)}${formatTag(data.duration)}${formatTag(CONFIG.OSE.saves_long[data.save])}${formatTag(data.roll)}`;
+        return `${formatTag(data.class)}${formatTag(data.range)}${formatTag(
+          data.duration
+        )}${formatTag(CONFIG.OSE.saves_long[data.save])}${formatTag(
+          data.roll
+        )}`;
       case "ability":
         return `${formatTag(data.requirements)}${formatTag(data.roll)}`;
     }
-    return "TEST";
+    return "";
+  }
+
+  pushTag(values) {
+    const data = this.data.data;
+    let update = [];
+    if (data.tags) {
+      update = duplicate(data.tags);
+    }
+    let newData = {};
+    var regExp = /\(([^)]+)\)/;
+    if (update) {
+      values.forEach((val) => {
+        // Catch infos in brackets
+        var matches = regExp.exec(val);
+        let title = "";
+        if (matches) {
+          title = matches[1];
+          val = val.substring(0, matches.index);
+        }
+        // Auto fill checkboxes
+        switch (val) {
+          case CONFIG.OSE.tags.melee:
+            newData.melee = true;
+            break;
+          case CONFIG.OSE.tags.slow:
+            newData.slow = true;
+            break;
+          case CONFIG.OSE.tags.missile:
+            newData.missile = true;
+            break;
+        }
+        update.push({ title: title, value: val });
+      });
+    } else {
+      update = values;
+    }
+    newData.tags = update;
+    console.log(newData);
+    return this.update({ data: newData });
+  }
+
+  popTag(value) {
+    const data = this.data.data;
+    let update = data.tags.filter((el) => el.value != value);
+    let newData = {
+      tags: update,
+    };
+    return this.update({ data: newData });
   }
 
   /**

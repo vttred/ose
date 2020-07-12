@@ -22,6 +22,24 @@
             <input type="text" name="data.roll" value="{{data.roll}}" data-dtype="String" />
           </div>
         </div>
+        <div class="form-group block-input">
+          <label>{{localize 'OSE.items.RollType'}}</label>
+          <div class="form-fields">
+            <select name="data.rollType">
+              {{#select data.rollType}}
+              {{#each config.roll_type as |t a|}}
+              <option value="{{a}}">{{t}}</option>
+              {{/each}}
+              {{/select}}
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>{{localize 'OSE.items.RollTarget'}}</label>
+          <div class="form-fields">
+            <input type="text" name="data.rollTarget" value="{{data.rollTarget}}" data-dtype="Number" />
+          </div>
+        </div>
         <div class="form-group">
           <label>{{localize 'OSE.items.BlindRoll'}}</label>
           <div class="form-fields">

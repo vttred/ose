@@ -32,6 +32,9 @@
   "OSE.roll.exploration": "{exploration} test",
   "OSE.roll.details.exploration": "Roll 1d6 <= {expl} for success",
   "OSE.roll.reaction": "Reaction roll",
+  "OSE.roll.type.result": "Result",
+  "OSE.roll.type.above": "Above",
+  "OSE.roll.type.below": "Below",
 
   "OSE.details.name": "Name",
   "OSE.details.class": "Class",
@@ -169,6 +172,8 @@
   "OSE.items.Quantity": "Qt.",
   "OSE.items.Roll": "Roll",
   "OSE.items.BlindRoll": "Blind",
+  "OSE.items.RollTarget": "Target",
+  "OSE.items.RollType": "Type",
   "OSE.items.Damage": "Damage",
   "OSE.items.Melee": "Melee",
   "OSE.items.Missile": "Missile",

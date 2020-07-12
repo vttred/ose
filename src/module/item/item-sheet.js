@@ -51,41 +51,6 @@ export class OseItemSheet extends ItemSheet {
 
   /* -------------------------------------------- */
 
-  _pushTag(values) {
-    const data = this.object.data.data;
-    let update = [];
-    if (data.tags) {
-      update = duplicate(data.tags);
-    }
-    var regExp = /\(([^)]+)\)/;
-    if (update) {
-      values.forEach(val => {
-        // Catch infos in brackets
-        var matches = regExp.exec(val);
-        let title = "";
-        if (matches) {
-          title = matches[1];
-          val = val.substring(0, matches.index);
-        }
-        update.push({title: title, value: val});
-      })
-    } else {
-      update = values;
-    }
-    let newData = {
-      tags: update
-    };
-    return this.object.update({ data: newData });
-  }
-
-  _popTag(value) {
-    const data = this.object.data.data;
-    let update = data.tags.filter((el) => el.value != value);
-    let newData = {
-      tags: update
-    };
-    return this.object.update({ data: newData });
-  }
   /**
    * Activate event listeners using the prepared sheet HTML
    * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
@@ -95,12 +60,12 @@ export class OseItemSheet extends ItemSheet {
       if (event.which == 13) {
         let value = $(ev.currentTarget).val();
         let values = value.split(',');
-        this._pushTag(values);
+        this.object.pushTag(values);
       }
     });
     html.find('.tag-delete').click((ev) => {
       let value = ev.currentTarget.parentElement.dataset.tag;
-      this._popTag(value);
+      this.object.popTag(value);
     });
     super.activateListeners(html);
   }

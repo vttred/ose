@@ -71,7 +71,7 @@ export class OseActor extends Actor {
       ...this.data,
       ...{
         rollData: {
-          type: "Above",
+          type: "above",
           target: this.data.data.saves[save].value,
           details: game.i18n.format("OSE.roll.details.save", { save: label }),
         },
@@ -99,7 +99,7 @@ export class OseActor extends Actor {
       ...this.data,
       ...{
         rollData: {
-          type: "Below",
+          type: "below",
           target: this.data.data.details.morale,
         },
       },
@@ -125,7 +125,7 @@ export class OseActor extends Actor {
       ...this.data,
       ...{
         rollData: {
-          type: "Below",
+          type: "below",
           target: this.data.data.retainer.loyalty,
         },
       },
@@ -151,7 +151,7 @@ export class OseActor extends Actor {
       ...this.data,
       ...{
         rollData: {
-          type: "Table",
+          type: "table",
           table: {
             2: game.i18n.format("OSE.reaction.Hostile", {
               name: this.data.name,
@@ -195,7 +195,7 @@ export class OseActor extends Actor {
       ...this.data,
       ...{
         rollData: {
-          type: "Check",
+          type: "check",
           target: this.data.data.scores[score].value,
           details: game.i18n.format("OSE.roll.details.attribute", {
             score: label,
@@ -226,7 +226,7 @@ export class OseActor extends Actor {
       ...this.data,
       ...{
         rollData: {
-          type: "Hit Dice",
+          type: "hit dice",
         },
       },
     };
@@ -257,7 +257,7 @@ export class OseActor extends Actor {
       ...this.data,
       ...{
         rollData: {
-          type: "Appearing",
+          type: "appearing",
         },
       },
     };
@@ -282,7 +282,7 @@ export class OseActor extends Actor {
       ...this.data,
       ...{
         rollData: {
-          type: "Below",
+          type: "below",
           target: this.data.data.exploration[expl],
           details: game.i18n.format("OSE.roll.details.exploration", {
             expl: label,
@@ -312,7 +312,7 @@ export class OseActor extends Actor {
       ...this.data,
       ...{
         rollData: {
-          type: "Damage",
+          type: "damage",
           stat: attData.type,
           scores: data.scores,
         },
@@ -389,7 +389,7 @@ export class OseActor extends Actor {
       ...this.data,
       ...{
         rollData: {
-          type: "Attack",
+          type: "attack",
           thac0: thac0,
           weapon: {
             parts: dmgParts,

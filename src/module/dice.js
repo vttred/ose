@@ -7,28 +7,28 @@ export class OseDice {
     };
 
     let die = roll.parts[0].total;
-    if (data.rollData.type == "Above") {
+    if (data.rollData.type == "above") {
       // SAVING THROWS
       if (roll.total >= result.target) {
         result.isSuccess = true;
       } else {
         result.isFailure = true;
       }
-    } else if (data.rollData.type == "Below") {
+    } else if (data.rollData.type == "below") {
       // MORALE, EXPLORATION
       if (roll.total <= result.target) {
         result.isSuccess = true;
       } else {
         result.isFailure = true;
       }
-    } else if (data.rollData.type == "Check") {
+    } else if (data.rollData.type == "check") {
       // SCORE CHECKS (1s and 20s)
       if (die == 1 || (roll.total <= result.target && die < 20)) {
         result.isSuccess = true;
       } else {
         result.isFailure = true;
       }
-    } else if (data.rollData.type == "Table") {
+    } else if (data.rollData.type == "table") {
       // Reaction
       let table = data.rollData.table;
       let output = "";
@@ -251,7 +251,7 @@ export class OseDice {
       speaker: speaker
     };
     if (skipDialog) {
-      return data.rollData.type === "Attack"
+      return data.rollData.type === "attack"
         ? OseDice.sendAttackRoll(rollData)
         : OseDice.sendRoll(rollData);
     }
@@ -264,7 +264,7 @@ export class OseDice {
           rolled = true;
           rollData.form = html[0].children[0];
           roll =
-            data.rollData.type === "Attack"
+            data.rollData.type === "attack"
               ? OseDice.sendAttackRoll(rollData)
               : OseDice.sendRoll(rollData);
         },

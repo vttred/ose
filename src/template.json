@@ -210,6 +210,8 @@
     "ability": {
       "requirements": "",
       "roll": "",
+      "rollType": "result",
+      "rollTarget": 0,
       "blindroll": false,
       "description": ""
     }

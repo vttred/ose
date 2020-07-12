@@ -7,6 +7,11 @@ export const OSE = {
     con: "OSE.scores.con.long",
     cha: "OSE.scores.cha.long",
   },
+  roll_type: {
+    result: "OSE.roll.type.result",
+    above: "OSE.roll.type.above",
+    below: "OSE.roll.type.below"
+  },
   saves_short: {
     death: "OSE.saves.death.short",
     wand: "OSE.saves.wand.short",
@@ -60,5 +65,10 @@ export const OSE = {
     "Ogre",
     "Orcish",
     "Pixie"
-  ]
+  ],
+  tags: {
+    melee: "OSE.items.Melee",
+    missile: "OSE.items.Missile",
+    slow: "OSE.items.Slow",
+  }
 };

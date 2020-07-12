@@ -73,7 +73,7 @@ export class OseActor extends Actor {
         rollData: {
           type: "Above",
           target: this.data.data.saves[save].value,
-          details: game.i18n.format("OSE.saves.details", { save: label }),
+          details: game.i18n.format("OSE.roll.details.save", { save: label }),
         },
       },
     };
@@ -87,8 +87,8 @@ export class OseActor extends Actor {
       data: data,
       skipDialog: skip,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: `${label} ${game.i18n.localize("OSE.roll.save")}`,
-      title: `${label} ${game.i18n.localize("OSE.roll.save")}`,
+      flavor: game.i18n.format("OSE.roll.save", { save: label }),
+      title: game.i18n.format("OSE.roll.save", { save: label }),
     });
   }
 
@@ -197,7 +197,7 @@ export class OseActor extends Actor {
         rollData: {
           type: "Check",
           target: this.data.data.scores[score].value,
-          details: game.i18n.format("OSE.scores.details", {
+          details: game.i18n.format("OSE.roll.details.attribute", {
             score: label,
           }),
         },
@@ -213,8 +213,8 @@ export class OseActor extends Actor {
       data: data,
       skipDialog: skip,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: `${label} ${game.i18n.localize("OSE.roll.attribute")}`,
-      title: `${label} ${game.i18n.localize("OSE.roll.attribute")}`,
+      flavor: game.i18n.format("OSE.roll.attribute", {attribute: label}),
+      title: game.i18n.format("OSE.roll.attribute", {attribute: label}),
     });
   }
 
@@ -269,8 +269,8 @@ export class OseActor extends Actor {
       data: data,
       skipDialog: true,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: `${game.i18n.localize('OSE.appearing.check')} ${label}`,
-      title: `${game.i18n.localize('OSE.appearing.check')} ${label}`,
+      flavor: game.i18n.localize('OSE.roll.appearing'),
+      title: game.i18n.localize('OSE.roll.appearing'),
     });
   }
 
@@ -284,7 +284,7 @@ export class OseActor extends Actor {
         rollData: {
           type: "Below",
           target: this.data.data.exploration[expl],
-          details: game.i18n.format("OSE.exploration.details", {
+          details: game.i18n.format("OSE.roll.details.exploration", {
             expl: label,
           }),
         },
@@ -300,8 +300,8 @@ export class OseActor extends Actor {
       data: data,
       skipDialog: skip,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: `${label} ${game.i18n.localize("OSE.roll.exploration")}`,
-      title: `${label} ${game.i18n.localize("OSE.roll.exploration")}`,
+      flavor: game.i18n.format("OSE.roll.exploration", {exploration: label}),
+      title: game.i18n.format("OSE.roll.exploration", {exploration: label}),
     });
   }
 
@@ -350,7 +350,7 @@ export class OseActor extends Actor {
     const data = this.data.data;
     const rollParts = ["1d20"];
     const dmgParts = [];
-
+    let label = game.i18n.format('OSE.roll.attacks', {name: this.data.name})
     if (
       !attData.dmg ||
       (!game.settings.get("ose", "variableWeaponDamage") &&
@@ -358,6 +358,7 @@ export class OseActor extends Actor {
     ) {
       dmgParts.push("1d6");
     } else {
+      label = game.i18n.format('OSE.roll.attacksWith', {name: attData.label})
       dmgParts.push(attData.dmg);
     }
 
@@ -405,8 +406,8 @@ export class OseActor extends Actor {
       data: rollData,
       skipDialog: skip,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: `${attData.label} - ${game.i18n.localize("OSE.Attack")}`,
-      title: `${attData.label} - ${game.i18n.localize("OSE.Attack")}`,
+      flavor: label,
+      title: label,
     });
   }
 

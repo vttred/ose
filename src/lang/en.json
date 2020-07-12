@@ -18,17 +18,19 @@
   "OSE.Modifiers": "Modifiers",
   "OSE.RollMode": "Roll Mode",
   "OSE.RollExample": "e.g. +1d4",
-  "OSE.RollFormula": "{label} roll",
 
+  "OSE.roll.formula": "{label} roll",
   "OSE.roll.appearing": "Appearing roll",
   "OSE.roll.morale": "Morale check",
   "OSE.roll.hd": "Hit Dice roll",
-  "OSE.roll.attackWith": "Attacks with {name}",
+  "OSE.roll.attacksWith": "Attacks with {name}",
   "OSE.roll.attacks": "{name} attacks!",
-  "OSE.roll.save": "Save",
-  "OSE.roll.attribute": "Attribute check",
+  "OSE.roll.save": "{save} Save",
+  "OSE.roll.details.save": "Roll 1d20 >= {save} for success",
+  "OSE.roll.attribute": "{attribute} check",
   "OSE.roll.details.attribute": "Roll 1d20 <= {score} for success",
-  "OSE.roll.exploration": "Test",
+  "OSE.roll.exploration": "{exploration} test",
+  "OSE.roll.details.exploration": "Roll 1d6 <= {expl} for success",
   "OSE.roll.reaction": "Reaction roll",
 
   "OSE.details.name": "Name",
@@ -56,7 +58,6 @@
   "OSE.Loyalty": "Loyalty Rating",
   "OSE.LoyaltyShort": "LR",
 
-  "OSE.scores.details": "Roll 1d20 <= {score} for success",
   "OSE.scores.str.long": "Strength",
   "OSE.scores.str.short": "STR",
   "OSE.scores.wis.long": "Wisdom",
@@ -70,7 +71,6 @@
   "OSE.scores.cha.long": "Charisma",
   "OSE.scores.cha.short": "CHA",
 
-  "OSE.saves.details": "Roll 1d20 >= {save} for success",
   "OSE.saves.death.short": "D",
   "OSE.saves.death.long": "Death Poison",
   "OSE.saves.wand.short": "W",
@@ -201,8 +201,6 @@
 
   "OSE.abilities.Requirements": "Requirements",
 
-  "OSE.exploration.check": "Check",
-  "OSE.exploration.details": "Roll 1d6 <= {expl} for success",
   "OSE.exploration.ld.long": "Listen at Door",
   "OSE.exploration.ld.short": "Listen Door",
   "OSE.exploration.ld.abrev": "LD",

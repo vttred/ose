@@ -10,24 +10,26 @@
   "OSE.Success": "Succès",
   "OSE.Failure": "Échec",
 
-  "OSE.dialog.tweaks": "Ajustements",
+  "OSE.dialog.tweaks": "Ajuster",
 
   "OSE.Formula": "Formule",
   "OSE.SitMod": "Mod. de situation",
   "OSE.Modifier": "Modificateur",
   "OSE.RollMode": "Mode de Jet",
   "OSE.RollExample": "ex. +1d4",
-  "OSE.RollFormula": "Lancer de {label}",
 
+  "OSE.roll.formula": "Jet de {label}",
   "OSE.roll.appearing": "Nombre Apparaissant",
   "OSE.roll.morale": "Jet de Moral",
   "OSE.roll.hd": "Lancer de Dé de Vie",
-  "OSE.roll.attackWith": "Attacks with {name}",
-  "OSE.roll.attacks": "{name} attacks!",
-  "OSE.roll.save": "Sauvegarde",
-  "OSE.roll.attribute": "Jet de Caractéristique",
+  "OSE.roll.attacksWith": "Attaque avec {name}",
+  "OSE.roll.attacks": "{name} attaque !",
+  "OSE.roll.save": "Sauv. de {save}",
+  "OSE.roll.details.save": "Lancez 1d20 >= {save} pour réussir",
+  "OSE.roll.attribute": "Jet de {attribute}",
   "OSE.roll.details.attribute": "Lancez 1d20 <= {score} pour réussir",
-  "OSE.roll.exploration": "Test",
+  "OSE.roll.exploration": "Test de {exploration}",
+  "OSE.roll.details.exploration": "Lancez 1d6 <= {expl} pour réussir",
   "OSE.roll.reaction": "Jet de Réaction",
 
   "OSE.details.name": "Nom",
@@ -68,7 +70,6 @@
   "OSE.scores.cha.long": "Charisme",
   "OSE.scores.cha.short": "CHA",
 
-  "OSE.saves.details": "Lancez 1d20 >= {save} pour réussir",
   "OSE.saves.death.short": "MP",
   "OSE.saves.death.long": "Mort Poison",
   "OSE.saves.wand.short": "B",
@@ -107,7 +108,7 @@
   "OSE.MeleeShort": "MEL",
   "OSE.Melee": "Mêlée",
   "OSE.MeleeBonus": "Bonus de Mêlée",
-  "OSE.MissileShort": "PROJ",
+  "OSE.MissileShort": "PRO",
   "OSE.Missile": "Projectiles",
   "OSE.MissileBonus": "Bonus de Projectile",
   "OSE.Initiative": "Initiative",
@@ -197,7 +198,6 @@
 
   "OSE.abilities.Requirements": "Prérequis",
 
-  "OSE.exploration.details": "Lancer 1d6 <= {expl} pour réussir",
   "OSE.exploration.ld.long": "Ecoute aux Portes",
   "OSE.exploration.ld.short": "Eco. Porte",
   "OSE.exploration.ld.abrev": "EP",

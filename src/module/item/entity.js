@@ -126,8 +126,8 @@ export class OseItem extends Item {
       data: data,
       skipDialog: true,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: game.i18n.format("OSE.RollFormula", {label: label}),
-      title: game.i18n.format("OSE.RollFormula", {label: label}),
+      flavor: game.i18n.format("OSE.roll.formula", {label: label}),
+      title: game.i18n.format("OSE.roll.formula", {label: label}),
     });
   }
 

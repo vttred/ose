@@ -15,6 +15,7 @@
   "OSE.Formula": "Formule",
   "OSE.SitMod": "Mod. de situation",
   "OSE.Modifier": "Modificateur",
+  "OSE.Modifiers": "Modificateurs",
   "OSE.RollMode": "Mode de Jet",
   "OSE.RollExample": "ex. +1d4",
 
@@ -89,7 +90,7 @@
   "OSE.HitDiceShort": "DV",
 
   "OSE.movement.base": "Déplacement",
-  "OSE.movement.short": "Dp",
+  "OSE.movement.short": "DP",
   "OSE.movement.details": "Détail du Déplacement",
   "OSE.movement.encounter.long": "Déplacement de Rencontre",
   "OSE.movement.encounter.short": "Ren",

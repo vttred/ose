@@ -210,7 +210,6 @@ export class OseItem extends Item {
       update = values;
     }
     newData.tags = update;
-    console.log(newData);
     return this.update({ data: newData });
   }
 

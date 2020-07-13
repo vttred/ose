@@ -4,6 +4,7 @@ export class OseDice {
       isSuccess: false,
       isFailure: false,
       target: data.rollData.target,
+      total: roll.total
     };
 
     let die = roll.parts[0].total;
@@ -119,6 +120,7 @@ export class OseDice {
       isSuccess: false,
       isFailure: false,
       target: "",
+      total: roll.total
     };
     result.target = data.rollData.thac0;
     if (game.settings.get("ose", "ascendingAC")) {
@@ -194,6 +196,7 @@ export class OseDice {
                 )
                 .then(() => {
                   if (templateData.result.isSuccess) {
+                    templateData.result.dmg = dmgRoll.total;
                     game.dice3d
                     .showForRoll(
                       dmgRoll,

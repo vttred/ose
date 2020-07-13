@@ -28,6 +28,19 @@ export const addChatMessageContextOptions = function(html, options) {
 
 /* -------------------------------------------- */
 
+export const addChatMessageButtons = function(msg, html, data) {
+  let roll = html.find('.damage-roll');
+  if (roll.length > 0) {
+    let total = roll.find('.dice-total');
+    let value = total.text();
+    roll.append($(`<div class="dice-damage"><button type="button" data-action="apply-damage"><i class="fas fa-tint"></i></button></div>`))
+    roll.find('button[data-action="apply-damage"]').click((ev) => {
+      ev.preventDefault();
+      applyChatCardDamage(roll, 1);
+    })
+  }
+}
+
 /**
  * Apply rolled dice damage to the token or tokens which are currently controlled.
  * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance

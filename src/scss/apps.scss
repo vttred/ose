@@ -67,6 +67,32 @@
       color: #aa0200;
     }
   }
+  .damage-roll {
+    position: relative;
+    .dice-damage {
+      display: none;
+      position: absolute;
+      line-height: 24px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 3px;
+      box-shadow: 0 0 2px #fff inset;
+      bottom: 1px;
+      right: 10px;
+      button {
+        padding: 2px 5px;
+        width: 22px;
+        line-height: 14px;
+        height: 22px;
+        cursor: pointer;
+      }
+    }
+    &:hover {
+      .dice-damage {
+        display: block;
+      }
+    }
+  }
 }
 
 .ose.chat-card {

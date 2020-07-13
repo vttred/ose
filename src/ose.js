@@ -118,3 +118,4 @@ Hooks.on("preUpdateCombat", async (combat, data, diff, id) => {
 
 Hooks.on("renderChatLog", (app, html, data) => OseItem.chatListeners(html));
 Hooks.on("getChatLogEntryContext", chat.addChatMessageContextOptions);
+Hooks.on("renderChatMessage", chat.addChatMessageButtons);

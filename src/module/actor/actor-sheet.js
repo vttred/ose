@@ -193,7 +193,8 @@ export class OseActorSheet extends ActorSheet {
 
   async _onResize(event) {
     super._onResize(event);
-    let html = $(event.path);
+
+    let html = $(this.form);
     let resizable = html.find(".resizable");
     if (resizable.length == 0) {
       return;
@@ -212,7 +213,6 @@ export class OseActorSheet extends ActorSheet {
         editor.style.height =  `${heightDelta + parseInt(container.dataset.editorSize)}px`;
       }
     })
-    // editors.css("height", this.position.height - 340);
   }
 
   _onConfigureActor(event) {

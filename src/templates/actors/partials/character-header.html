@@ -6,14 +6,9 @@
   <ul class="summary flexrow">
     {{#if data.retainer.enabled}}
     <li>
-      <input type="text" name="data.retainer.wage" value="{{data.retainer.wage}}" data-dtype="Number"
+      <input type="text" name="data.retainer.wage" value="{{data.retainer.wage}}" data-dtype="String"
          />
       <label>{{localize 'OSE.RetainerWage'}}</label>
-    </li>
-    <li>
-      <input type="text" name="data.retainer.upkeep" value="{{data.retainer.upkeep}}" data-dtype="Number"
-         />
-      <label>{{localize 'OSE.RetainerUpkeep'}}</label>
     </li>
     {{else}}
     <li>

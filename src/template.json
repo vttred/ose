@@ -6,8 +6,7 @@
         "retainer": {
           "enabled": false,
           "loyalty": 0,
-          "wage": 0,
-          "upkeep": 0
+          "wage": ""
         },
         "hp": {
           "hd": "1d8",

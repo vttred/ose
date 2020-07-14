@@ -35,14 +35,17 @@
       <div class="field-name">
         {{e.name}}
       </div>
+      <div class="item-controls field-long">
+        <div class="item-control reaction-roll" title="Reaction Roll"><a><i class="fas fa-user"></i></a></div>
+      </div>
       <div class="field-long">
         {{e.data.data.hp.value}}/{{e.data.data.hp.max}}
       </div>
       <div class="field-short">
-        {{e.data.data.ac.value}}
+        <strong>{{e.data.data.ac.value}}</strong> <sub>{{e.data.data.ac.naked}}</sub>
       </div>
       <div class="field-short">
-        {{e.data.data.thac0.value}}
+        <sub>{{e.data.data.thac0.mod.melee}}</sub> <strong>{{e.data.data.thac0.value}}</strong> <sub>{{e.data.data.thac0.mod.missile}}</sub>
       </div>
       <div class="field-short">
         {{e.data.data.movement.encounter}}

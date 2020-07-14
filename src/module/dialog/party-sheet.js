@@ -104,7 +104,7 @@ export class OsePartySheet extends FormApplication {
           },
         },
       },
-    }).render(true);
+    }, {height: "auto"}).render(true);
   }
 
   /** @override */

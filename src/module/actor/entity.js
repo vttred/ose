@@ -12,6 +12,7 @@ export class OseActor extends Actor {
     // Compute modifiers from actor scores
     this.computeModifiers();
     this._isSlow();
+    this.computeAC();
 
     // Determine Initiative
     if (game.settings.get("ose", "individualInit")) {
@@ -23,6 +24,7 @@ export class OseActor extends Actor {
       data.initiative.value = 0;
     }
     data.movement.encounter = data.movement.base / 3;
+
   }
   /* -------------------------------------------- */
   /*  Socket Listeners and Handlers
@@ -448,6 +450,31 @@ export class OseActor extends Actor {
     });
   }
 
+  computeAC() {
+    if (this.data.type != "character") {
+      return;
+    }
+    // Compute AC
+    let baseAc = 9;
+    let baseAac = 10;
+    let shield = 0;
+    const data = this.data.data;
+    data.aac.naked = baseAc + data.scores.dex.mod;
+    data.ac.naked = baseAc - data.scores.dex.mod;
+    const armors = this.data.items.filter(i => i.type == 'armor');
+    armors.forEach((a) => {
+      if (a.data.equipped && a.data.type != "shield") {
+        baseAc = a.data.ac.value;
+        baseAac = a.data.aac.value;
+      } else if (a.data.equipped && a.data.type == "shield") {
+        shield = a.data.ac.value;
+      }
+    });
+    data.aac.value = baseAac + data.scores.dex.mod + shield;
+    data.ac.value = baseAc - data.scores.dex.mod - shield;
+    data.shield = shield;
+  }
+
   computeModifiers() {
     if (this.data.type != "character") {
       return;
@@ -488,6 +515,9 @@ export class OseActor extends Actor {
       standard,
       data.scores.con.value
     );
+
+    data.ac.naked = 9 + data.scores.dex.mod;
+    data.aac.naked = 10 - data.scores.dex.mod;
 
     const capped = {
       0: -2,

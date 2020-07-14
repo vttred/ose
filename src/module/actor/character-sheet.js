@@ -85,21 +85,6 @@ export class OseActorSheetCharacter extends OseActorSheet {
       this._calculateMovement(data, totalWeight);
     }
 
-    // Compute AC
-    let baseAc = 9;
-    let baseAac = 10;
-    let shield = 0;
-    data.owned.armors.forEach((a) => {
-      if (a.data.equipped && a.data.type != "shield") {
-        baseAc = a.data.ac.value;
-        baseAac = a.data.aac.value;
-      } else if (a.data.equipped && a.data.type == "shield") {
-        shield = a.data.ac.value;
-      }
-    });
-    data.data.aac.value = baseAac + data.data.scores.dex.mod + shield;
-    data.data.ac.value = baseAc - data.data.scores.dex.mod - shield;
-    data.data.shield = shield;
     return data;
   }
 

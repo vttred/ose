@@ -3,8 +3,8 @@ export const augmentTable = (table, html, data) => {
   let head = html.find(".sheet-header");
   const flag = table.object.getFlag("ose", "treasure");
   const treasure = flag
-    ? "<div class='toggle-treasure'><a><i class='fas fa-gem'></i></a></div>"
-    : "<div class='toggle-treasure'><a><i class='far fa-gem'></i></a></div>";
+    ? "<div class='toggle-treasure active'></div>"
+    : "<div class='toggle-treasure'></div>";
   head.append(treasure);
 
   html.find(".toggle-treasure").click((ev) => {
@@ -79,5 +79,5 @@ async function rollTreasure(table, options = {}) {
     "systems/ose/templates/chat/roll-treasure.html",
     templateData
   );
-  ChatMessage.create({ content: html });
+  ChatMessage.create({ content: html, sound: "/systems/ose/assets/coins.mp3" });
 }

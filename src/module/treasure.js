@@ -21,7 +21,7 @@ export const augmentTable = (table, html, data) => {
     html.find(".result-weight").first().text("Chance");
 
     // Replace Roll button
-    const roll = `<button class="roll-treasure" type="button"><i class="fas fa-gem"></i> Roll Treasure</button>`;
+    const roll = `<button class="roll-treasure" type="button"><i class="fas fa-gem"></i> ${game.i18n.localize('OSE.table.treasure.roll')}</button>`;
     html.find(".sheet-footer .roll").replaceWith(roll);
   }
 
@@ -85,6 +85,7 @@ async function rollTreasure(table, options = {}) {
     sound: "/systems/ose/assets/coins.mp3"
   }
 
+  let rollMode = game.settings.get("core", "rollMode");
   if (["gmroll", "blindroll"].includes(rollMode)) chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
   if (rollMode === "selfroll") chatData["whisper"] = [game.user._id];
   if (rollMode === "blindroll") chatData["blind"] = true;

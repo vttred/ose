@@ -36,6 +36,8 @@
   "OSE.roll.type.above": "Encima",
   "OSE.roll.type.below": "Debajo",
 
+  "OSE.table.treasure.roll": "Roll Treasure",
+  
   "OSE.details.name": "Nombre",
   "OSE.details.class": "Clase",
   "OSE.details.title": "Titulo",

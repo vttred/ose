@@ -36,6 +36,8 @@
   "OSE.roll.type.above": "Au-Dessus",
   "OSE.roll.type.below": "En-Dessous",
 
+  "OSE.table.treasure.roll": "Trésor Aléatoire",
+
   "OSE.details.name": "Nom",
   "OSE.details.class": "Classe",
   "OSE.details.title": "Titre",

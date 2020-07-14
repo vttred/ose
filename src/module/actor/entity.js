@@ -148,7 +148,6 @@ export class OseActor extends Actor {
   }
 
   rollReaction(options = {}) {
-    const label = game.i18n.localize(`OSE.details.reaction`);
     const rollParts = ["2d6"];
 
     const data = {
@@ -566,8 +565,8 @@ export class OseActor extends Actor {
         shield = a.data.ac.value;
       }
     });
-    data.aac.value = baseAac + data.scores.dex.mod + shield;
-    data.ac.value = baseAc - data.scores.dex.mod - shield;
+    data.aac.value = baseAac + data.scores.dex.mod + shield + data.aac.mod;
+    data.ac.value = baseAc - data.scores.dex.mod - shield - data.ac.mod;
     data.shield = shield;
   }
 

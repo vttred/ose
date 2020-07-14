@@ -4,6 +4,7 @@
   "OSE.Show": "Montrer",
   "OSE.Add": "Ajouter",
   "OSE.Ok": "Ok",
+  "OSE.Update": "Mettre à jour",
   "OSE.Reset": "Réinitialiser",
   "OSE.Cancel": "Annuler",
   "OSE.Roll": "Lancer",
@@ -12,6 +13,8 @@
 
   "OSE.dialog.tweaks": "Ajuster",
   "OSE.dialog.partysheet": "Fiche de Groupe",
+  "OSE.dialog.selectActors": "Choisir PJs",
+  "OSE.dialog.dealXP": "Donner XP",
 
   "OSE.Formula": "Formule",
   "OSE.SitMod": "Mod. de situation",
@@ -106,6 +109,7 @@
   "OSE.ArmorClass": "Classe d'Armure",
   "OSE.ArmorClassShort": "CA",
   "OSE.AscArmorClassShort": "CAA",
+  "OSE.ArmorClassBonus": "Bonus d'Armure",
   "OSE.Thac0": "THAC0",
   "OSE.ABShort": "BBA",
   "OSE.AB": "Bonus d'Attaque",

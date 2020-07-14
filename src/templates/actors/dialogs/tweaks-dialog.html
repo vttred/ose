@@ -47,6 +47,18 @@
     </div>
   </div>
   <div class="form-group">
+    <label>{{localize "OSE.ArmorClassBonus"}}</label>
+    <div class="form-fields">
+      {{#if config.ascending}}
+      <input type="text" name="data.aac.mod" id="ac" value="{{data.aac.mod}}"
+        data-dtype="Number" />
+      {{else}}
+      <input type="text" name="data.ac.mod" id="ac" value="{{data.ac.mod}}"
+        data-dtype="Number" />
+        {{/if}}
+    </div>
+  </div>
+  <div class="form-group">
     <label>{{localize "OSE.Encumbrance"}}</label>
     <div class="form-fields">
       <input type="text" name="data.encumbrance.max" id="encumbrance" value="{{data.encumbrance.max}}"

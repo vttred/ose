@@ -33,6 +33,7 @@ export class OseEntityTweaks extends FormApplication {
       data.isCharacter = true;
     }
     data.user = game.user;
+    data.config = CONFIG.OSE;
     return data;
   }
 

@@ -14,10 +14,12 @@
           "max": 20
         },
         "ac": {
-          "value": 0
+          "value": 0,
+          "mod": 0
         },
         "aac": {
-          "value": 0
+          "value": 0,
+          "mod": 0
         },
         "thac0": {
           "value": 19,

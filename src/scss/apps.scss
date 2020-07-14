@@ -34,10 +34,36 @@
       text-align: center;
       .field-img {
         flex: 0 0 50px;
+        position: relative;
+        &:hover {
+          .img-btns button {
+            display: block;
+          }
+        }
         img {
           border: none;
           width: 50px;
           height: 50px;
+        }
+        .img-btns {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 50px;
+          height: 12px;
+          button {
+            display: none;
+            cursor: pointer;
+            font-size: 10px;
+            height: 18px;
+            width: 14px;
+            line-height: 13px;
+            margin: 0 1px;
+            border: 1px solid $colorOlive;
+            padding: 2px;
+            background: $colorFaint;
+            box-shadow: inset 0 0px 3px $colorTan;
+          }
         }
       }
     }

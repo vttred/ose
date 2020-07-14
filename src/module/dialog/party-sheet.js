@@ -39,8 +39,7 @@ export class OsePartySheet extends FormApplication {
 
   _onDrop(event) {
     event.preventDefault();
-
-    console.log("DROPPING");
+    // WIP Drop Items
     let data;
     try {
       data = JSON.parse(event.dataTransfer.getData("text/plain"));
@@ -48,7 +47,6 @@ export class OsePartySheet extends FormApplication {
     } catch (err) {
       return false;
     }
-    console.log(data);
   }
   /* -------------------------------------------- */
 
@@ -117,10 +115,13 @@ export class OsePartySheet extends FormApplication {
     html
       .find("button[data-action='select-actors']")
       .click(this._selectActors.bind(this));
-    html.find("button[data-action='deal-xp']").click(this._dealXP.bind(this));
+    
+      html.find("button[data-action='deal-xp']").click(this._dealXP.bind(this));
+    
     html.find("a.resync").click(() => this.render(true));
-    html.find(".field-img").click((ev) => {
-      let actorId = ev.currentTarget.parentElement.dataset.actorId;
+
+    html.find(".field-img button[data-action='open-sheet']").click((ev) => {
+      let actorId = ev.currentTarget.parentElement.parentElement.parentElement.dataset.actorId;
       game.actors.get(actorId).sheet.render(true);
     })
   }

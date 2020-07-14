@@ -535,13 +535,13 @@ export class OseActor extends Actor {
     );
 
     const spoken = {
-      0: 0,
-      3: 0,
-      13: 2,
-      16: 3,
-      18: 4,
+      0: "OSE.NativeBroken",
+      3: "OSE.Native",
+      13: "OSE.NativePlus1",
+      16: "OSE.NativePlus2",
+      18: "OSE.NativePlus3",
     };
-    data.languages.count = OseActor._valueFromTable(
+    data.languages.spoken = OseActor._valueFromTable(
       spoken,
       data.scores.int.value
     );

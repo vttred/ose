@@ -128,6 +128,12 @@
   "OSE.Literate": "Literate",
   "OSE.LiteracyBasic": "Basic",
   "OSE.Illiterate": "Illiterate",
+  "OSE.NativeBroken": "Native (Broken)",
+  "OSE.Native": "Native",
+  "OSE.NativePlus1": "Native + 1",
+  "OSE.NativePlus2": "Native + 2",
+  "OSE.NativePlus3": "Native + 3",
+
   "OSE.NPCReaction": "NPC Reaction",
   "OSE.RetainersMax": "#Retainers",
 

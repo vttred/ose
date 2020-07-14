@@ -128,6 +128,12 @@
   "OSE.Literate": "Oui",
   "OSE.LiteracyBasic": "Basique",
   "OSE.Illiterate": "Non",
+  "OSE.NativeBroken": "Natale (Primitif)",
+  "OSE.Native": "Natale",
+  "OSE.NativePlus1": "Natale + 1",
+  "OSE.NativePlus2": "Natale + 2",
+  "OSE.NativePlus3": "Natale + 3",
+
   "OSE.NPCReaction": "Réaction",
   "OSE.RetainersMax": "#Suivants",
 

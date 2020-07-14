@@ -131,9 +131,7 @@
         "max": 1600
       },
       "languages": {
-        "value": [],
-        "literacy": "literate",
-        "count": 1
+        "value": []
       }
     },
     "monster": {

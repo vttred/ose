@@ -32,9 +32,6 @@
   "OSE.roll.exploration": "Test de {exploration}",
   "OSE.roll.details.exploration": "Lancez 1d6 <= {expl} pour réussir",
   "OSE.roll.reaction": "Jet de Réaction",
-  "OSE.roll.type.result": "Resultat",
-  "OSE.roll.type.above": "Au-Dessus",
-  "OSE.roll.type.below": "En-Dessous",
 
   "OSE.table.treasure.roll": "Trésor Aléatoire",
 

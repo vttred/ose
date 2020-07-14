@@ -8,14 +8,9 @@ export const OSE = {
     cha: "OSE.scores.cha.long",
   },
   roll_type: {
-    result: "OSE.roll.type.result",
-    above: "OSE.roll.type.above",
-    below: "OSE.roll.type.below"
-  },
-  roll_type_sign: {
-    result: "",
-    above: ">=",
-    below: "<="
+    result: "=",
+    above: "≥",
+    below: "≤"
   },
   saves_short: {
     death: "OSE.saves.death.short",

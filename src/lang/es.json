@@ -32,9 +32,6 @@
   "OSE.roll.exploration": "Prueba de {exploration}",
   "OSE.roll.details.exploration": "Tirar 1d6 <= {expl} para éxito",
   "OSE.roll.reaction": "Tirada de Reacción",
-  "OSE.roll.type.result": "Resultado",
-  "OSE.roll.type.above": "Encima",
-  "OSE.roll.type.below": "Debajo",
 
   "OSE.table.treasure.roll": "Roll Treasure",
   

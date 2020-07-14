@@ -22,6 +22,7 @@ export class OseActor extends Actor {
     } else {
       data.initiative.value = 0;
     }
+    data.movement.encounter = data.movement.base / 3;
   }
   /* -------------------------------------------- */
   /*  Socket Listeners and Handlers
@@ -454,6 +455,7 @@ export class OseActor extends Actor {
     const data = this.data.data;
 
     const standard = {
+      0: -3,
       3: -3,
       4: -2,
       6: -1,
@@ -488,6 +490,7 @@ export class OseActor extends Actor {
     );
 
     const capped = {
+      0: -2,
       3: -2,
       4: -1,
       6: -1,
@@ -508,6 +511,7 @@ export class OseActor extends Actor {
     data.scores.cha.loyalty = data.scores.cha.mod + 7;
 
     const od = {
+      0: 0,
       3: 1,
       9: 2,
       13: 3,
@@ -520,6 +524,7 @@ export class OseActor extends Actor {
     );
 
     const literacy = {
+      0: "",
       3: "OSE.Illiterate",
       6: "OSE.LiteracyBasic",
       9: "OSE.Literate",
@@ -530,6 +535,7 @@ export class OseActor extends Actor {
     );
 
     const spoken = {
+      0: 0,
       3: 0,
       13: 2,
       16: 3,

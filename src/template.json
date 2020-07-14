@@ -15,12 +15,10 @@
           "max": 20
         },
         "ac": {
-          "value": 0,
-          "mod": 0
+          "value": 0
         },
         "aac": {
-          "value": 0,
-          "mod": 0
+          "value": 0
         },
         "thac0": {
           "value": 19,
@@ -48,8 +46,7 @@
           }
         },
         "movement": {
-          "base": 120,
-          "value": ""
+          "base": 120
         },
         "initiative": {
           "value": 0,
@@ -93,7 +90,7 @@
         "alignment": "",
         "level": 1,
         "xp": {
-          "next": 0,
+          "next": 2000,
           "value": 0,
           "bonus": 0
         }

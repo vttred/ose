@@ -41,7 +41,6 @@ export class OseActorSheetMonster extends OseActorSheet {
 
     // Settings
     data.config.morale = game.settings.get("ose", "morale");
-    console.log(data);
     data.data.details.treasure.link = TextEditor.enrichHTML(data.data.details.treasure.table);
     return data;
   }

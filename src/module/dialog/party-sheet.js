@@ -4,7 +4,7 @@ export class OsePartySheet extends FormApplication {
     (options.classes = ["ose", "dialog", "party-sheet"]),
       (options.id = "party-sheet");
     options.template = "systems/ose/templates/apps/party-sheet.html";
-    options.width = 700;
+    options.width = 280;
     return options;
   }
 
@@ -25,10 +25,14 @@ export class OsePartySheet extends FormApplication {
    * @return {Object}
    */
   getData() {
+    const settings = {
+      ascending: game.settings.get('ose', 'ascendingAC')
+    };
     let data = {
       data: this.object,
       config: CONFIG.OSE,
-      user: game.user
+      user: game.user,
+      settings: settings
     };
     return data;
   }
@@ -115,5 +119,9 @@ export class OsePartySheet extends FormApplication {
       .click(this._selectActors.bind(this));
     html.find("button[data-action='deal-xp']").click(this._dealXP.bind(this));
     html.find("a.resync").click(() => this.render(true));
+    html.find(".field-img").click((ev) => {
+      let actorId = ev.currentTarget.parentElement.dataset.actorId;
+      game.actors.get(actorId).sheet.render(true);
+    })
   }
 }

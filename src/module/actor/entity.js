@@ -13,6 +13,8 @@ export class OseActor extends Actor {
     this.computeModifiers();
     this._isSlow();
     this.computeAC();
+    this.computeEncumbrance();
+    this.computeTreasure();
 
     // Determine Initiative
     if (game.settings.get("ose", "individualInit")) {
@@ -24,7 +26,6 @@ export class OseActor extends Actor {
       data.initiative.value = 0;
     }
     data.movement.encounter = data.movement.base / 3;
-
   }
   /* -------------------------------------------- */
   /*  Socket Listeners and Handlers
@@ -216,8 +217,8 @@ export class OseActor extends Actor {
       data: data,
       skipDialog: skip,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: game.i18n.format("OSE.roll.attribute", {attribute: label}),
-      title: game.i18n.format("OSE.roll.attribute", {attribute: label}),
+      flavor: game.i18n.format("OSE.roll.attribute", { attribute: label }),
+      title: game.i18n.format("OSE.roll.attribute", { attribute: label }),
     });
   }
 
@@ -272,8 +273,8 @@ export class OseActor extends Actor {
       data: data,
       skipDialog: true,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: game.i18n.localize('OSE.roll.appearing'),
-      title: game.i18n.localize('OSE.roll.appearing'),
+      flavor: game.i18n.localize("OSE.roll.appearing"),
+      title: game.i18n.localize("OSE.roll.appearing"),
     });
   }
 
@@ -303,8 +304,8 @@ export class OseActor extends Actor {
       data: data,
       skipDialog: skip,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: game.i18n.format("OSE.roll.exploration", {exploration: label}),
-      title: game.i18n.format("OSE.roll.exploration", {exploration: label}),
+      flavor: game.i18n.format("OSE.roll.exploration", { exploration: label }),
+      title: game.i18n.format("OSE.roll.exploration", { exploration: label }),
     });
   }
 
@@ -353,7 +354,7 @@ export class OseActor extends Actor {
     const data = this.data.data;
     const rollParts = ["1d20"];
     const dmgParts = [];
-    let label = game.i18n.format('OSE.roll.attacks', {name: this.data.name})
+    let label = game.i18n.format("OSE.roll.attacks", { name: this.data.name });
     if (
       !attData.dmg ||
       (!game.settings.get("ose", "variableWeaponDamage") &&
@@ -361,7 +362,7 @@ export class OseActor extends Actor {
     ) {
       dmgParts.push("1d6");
     } else {
-      label = game.i18n.format('OSE.roll.attacksWith', {name: attData.label})
+      label = game.i18n.format("OSE.roll.attacksWith", { name: attData.label });
       dmgParts.push(attData.dmg);
     }
 
@@ -450,6 +451,101 @@ export class OseActor extends Actor {
     });
   }
 
+  computeEncumbrance() {
+    if (this.data.type != "character") {
+      return;
+    }
+    const data = this.data.data;
+    let option = game.settings.get("ose", "encumbranceOption");
+    let basic = option == "basic";
+
+    // Compute encumbrance
+    let owned = ["weapon", "armor", "item"];
+    let totalWeight = 0;
+    Object.values(this.data.items).forEach((item) => {
+      if (item.type == "item" && (!basic || item.data.treasure)) {
+        totalWeight += item.data.quantity.value * item.data.weight;
+      } else if (!basic && owned.includes(item.type)) {
+        totalWeight += item.data.weight;
+      }
+    });
+
+    data.encumbrance = {
+      pct: Math.clamped(
+        (100 * parseFloat(totalWeight)) / data.encumbrance.max,
+        0,
+        100
+      ),
+      max: data.encumbrance.max,
+      encumbered: totalWeight > data.encumbrance.max,
+      value: totalWeight,
+    };
+
+    if (data.config.movementAuto && option != 'disabled') {
+      this._calculateMovement();
+    }
+  }
+
+  _calculateMovement() {
+    const data = this.data.data;
+    let option = game.settings.get("ose", "encumbranceOption");
+    let weight = data.encumbrance.value;
+    let delta = data.encumbrance.max - 1600;
+    if (option == "detailed") {
+      if (weight > data.encumbrance.max) {
+        data.movement.base = 0;
+      } else if (weight > 800 + delta) {
+        data.movement.base = 30;
+      } else if (weight > 600 + delta) {
+        data.movement.base = 60;
+      } else if (weight > 400 + delta) {
+        data.movement.base = 90;
+      } else {
+        data.movement.base = 120;
+      }
+    } else if (option == "basic") {
+      const armors = this.data.items.filter(i => i.type == "armor");
+      let heaviest = 0;
+      armors.forEach((a) => {
+        if (a.data.equipped) {
+          if (a.data.type == "light" && heaviest == 0) {
+            heaviest = 1;
+          } else if (a.data.type == "heavy") {
+            heaviest = 2;
+          }
+        }
+      });
+      switch (heaviest) {
+        case 0:
+          data.movement.base = 120;
+          break;
+        case 1:
+          data.movement.base = 90;
+          break;
+        case 2:
+          data.movement.base = 60;
+          break;
+      }
+      if (weight > game.settings.get("ose", "significantTreasure")) {
+        data.movement.base -= 30;
+      }
+    }
+  }
+
+  computeTreasure() {
+    if (this.data.type != "character") {
+      return;
+    }
+    const data = this.data.data;
+    // Compute treasure
+    let total = 0;
+    let treasure = this.data.items.filter(i => (i.type == "item" && i.data.treasure))
+    treasure.forEach((item) => {
+       total += item.data.quantity.value * item.data.cost;
+    });
+    data.treasure = total;
+  }
+
   computeAC() {
     if (this.data.type != "character") {
       return;
@@ -461,7 +557,7 @@ export class OseActor extends Actor {
     const data = this.data.data;
     data.aac.naked = baseAc + data.scores.dex.mod;
     data.ac.naked = baseAc - data.scores.dex.mod;
-    const armors = this.data.items.filter(i => i.type == 'armor');
+    const armors = this.data.items.filter((i) => i.type == "armor");
     armors.forEach((a) => {
       if (a.data.equipped && a.data.type != "shield") {
         baseAc = a.data.ac.value;

@@ -49,6 +49,7 @@ export const registerSettings = function () {
       basic: "OSE.Setting.EncumbranceBasic",
       detailed: "OSE.Setting.EncumbranceDetailed",
     },
+    onChange: _ => window.location.reload()
   });
 
   game.settings.register("ose", "significantTreasure", {
@@ -58,5 +59,6 @@ export const registerSettings = function () {
     scope: "world",
     type: Number,
     config: true,
+    onChange: _ => window.location.reload()
   });
 };

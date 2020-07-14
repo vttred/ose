@@ -146,7 +146,7 @@
     <li class="item-titles flexrow">
       <div class="item-caret"><i class="fas fa-caret-down"></i></div>
       <div class="item-name">{{localize "OSE.items.Treasure"}}</div>
-      <div class="field-long">{{treasure}} <i class="fas fa-circle"></i></div>
+      <div class="field-long">{{data.treasure}} <i class="fas fa-circle"></i></div>
       <div class="field-short"><i class="fas fa-hashtag"></i></div>
       <div class="field-short"><i class="fas fa-weight-hanging"></i></div>
       <div class="item-controls">
@@ -189,7 +189,7 @@
   </div>
 </section>
 <section>
-  {{#with encumbrance}}
+  {{#with data.encumbrance}}
   <div class="encumbrance {{#if encumbered}}encumbered{{/if}}">
     <span class="encumbrance-bar" style="width:{{pct}}%"></span>
     <span class="encumbrance-label">{{value}} / {{max}}</span>

@@ -47,89 +47,11 @@ export class OseActorSheetCharacter extends OseActorSheet {
     );
     data.config.ascendingAC = game.settings.get("ose", "ascendingAC");
     data.config.individualInit = game.settings.get("ose", "individualInit");
-
-    // Compute treasure
-    let total = 0;
-    data.owned.items.forEach((item) => {
-      if (item.data.treasure) {
-        total += item.data.quantity.value * item.data.cost;
-      }
-    });
-    data.treasure = total;
-
     data.config.encumbrance = game.settings.get("ose", "encumbranceOption");
-    let basic = data.config.encumbrance == "basic";
-    // Compute encumbrance
-    let totalWeight = 0;
-    Object.values(data.owned).forEach((cat) => {
-      cat.forEach((item) => {
-        if (item.type == "item" && (!basic || item.data.treasure)) {
-          totalWeight += item.data.quantity.value * item.data.weight;
-        } else if (!basic) {
-          totalWeight += item.data.weight;
-        }
-      });
-    });
-    data.encumbrance = {
-      pct: Math.clamped(
-        (100 * parseFloat(totalWeight)) / data.data.encumbrance.max,
-        0,
-        100
-      ),
-      max: data.data.encumbrance.max,
-      encumbered: totalWeight > data.data.encumbrance.max,
-      value: totalWeight,
-    };
-
-    if (data.data.config.movementAuto) {
-      this._calculateMovement(data, totalWeight);
-    }
 
     return data;
   }
 
-  _calculateMovement(data, weight) {
-    if (data.config.encumbrance == "disabled") return;
-    let delta = data.encumbrance.max - 1600;
-    if (data.config.encumbrance == "detailed") {
-      if (weight > data.encumbrance.max) {
-        data.data.movement.base = 0;
-      } else if (weight > 800 + delta) {
-        data.data.movement.base = 30;
-      } else if (weight > 600 + delta) {
-        data.data.movement.base = 60;
-      } else if (weight > 400 + delta) {
-        data.data.movement.base = 90;
-      } else {
-        data.data.movement.base = 120;
-      }
-    } else if (data.config.encumbrance == "basic") {
-      let heaviest = 0;
-      data.owned.armors.forEach((a) => {
-        if (a.data.equipped) {
-          if (a.data.type == "light" && heaviest == 0) {
-            heaviest = 1;
-          } else if (a.data.type == "heavy") {
-            heaviest = 2;
-          }
-        }
-      });
-      switch (heaviest) {
-        case 0:
-          data.data.movement.base = 120;
-          break;
-        case 1:
-          data.data.movement.base = 90;
-          break;
-        case 2:
-          data.data.movement.base = 60;
-          break;
-      }
-      if (weight > game.settings.get("ose", "significantTreasure")) {
-        data.data.movement.base -= 30;
-      }
-    }
-  }
 
   async _chooseLang() {
     let choices = CONFIG.OSE.languages;

@@ -1,62 +1,71 @@
 <form autocomplete="off">
   <header class="flexrow">
     {{#if user.isGM}}
-    <button data-action="select-actors" type="button">{{localize  "OSE.dialog.selectActors"}}</button>
-    <button data-action="deal-xp" type="button">{{localize  "OSE.dialog.dealXP"}}</button>
+    <button data-action="select-actors" type="button">
+      {{localize "OSE.dialog.selectActors"}}
+    </button>
+    <button data-action="deal-xp" type="button">
+      {{localize "OSE.dialog.dealXP"}}
+    </button>
     {{/if}}
   </header>
   <div class="actor header flexrow">
     <div class="field-name">
-      <a class="resync"><i class="fas fa-sync"></i></a>  
-    </div>
-    <div class="field-long">
-      {{localize 'OSE.Health'}}
-    </div>
-    <div class="field-short">
-      {{localize 'OSE.ArmorClassShort'}}
-    </div>
-    <div class="field-short">
-      {{localize 'OSE.Thac0'}}
-    </div>
-    <div class="field-short">
-      {{localize 'OSE.movement.encounter.short'}}
-    </div>
-    <div class="field-longer">
-      {{localize 'OSE.category.saves'}}
+      <a class="resync"><i class="fas fa-sync"></i></a>
     </div>
   </div>
   <ol class="actor-list">
-    {{#each data.entities as |e|}}
-    {{#if e.data.flags.ose.party}}
+    {{#each data.entities as |e|}} {{#if e.data.flags.ose.party}}
     <li class="actor flexrow" data-actor-id="{{e.id}}">
       <div class="field-img">
-        <img src="{{e.img}}"/>
+        <a><img src="{{e.img}}" /></a>
       </div>
-      <div class="field-name">
-        {{e.name}}
-      </div>
-      <div class="item-controls field-long">
-        <div class="item-control reaction-roll" title="Reaction Roll"><a><i class="fas fa-user"></i></a></div>
-      </div>
-      <div class="field-long">
-        {{e.data.data.hp.value}}/{{e.data.data.hp.max}}
-      </div>
-      <div class="field-short">
-        <strong>{{e.data.data.ac.value}}</strong> <sub>{{e.data.data.ac.naked}}</sub>
-      </div>
-      <div class="field-short">
-        <sub>{{e.data.data.thac0.mod.melee}}</sub> <strong>{{e.data.data.thac0.value}}</strong> <sub>{{e.data.data.thac0.mod.missile}}</sub>
-      </div>
-      <div class="field-short">
-        {{e.data.data.movement.encounter}}
-      </div>
-      <div class="field-longer flexrow">
-        {{#each e.data.data.saves as |s i|}}
-        <span>{{lookup @root.config.saves_short i}} {{s.value}}</span>
-        {{/each}}
+      <div>
+        <div class="flexrow">
+          <div class="field-name flex2">
+            <strong>{{e.name}}</strong>
+          </div>
+          <div class="field-long">
+            <i class="fas fa-heart"></i>
+            {{e.data.data.hp.value}}/{{e.data.data.hp.max}}
+          </div>
+          <div class="field-short">
+            <i class="fas fa-shield-alt"></i>
+            {{#if @root.settings.ascending}}<strong>{{e.data.data.aac.value}}</strong> <sub>{{e.data.data.aac.naked}}</sub>
+            {{else}}<strong>{{e.data.data.ac.value}}</strong> <sub>{{e.data.data.ac.naked}}</sub>
+            {{/if}}
+          </div>
+        </div>
+        <div class="flexrow">
+          <div class="field-short">
+            <i class="fas fa-fist-raised"></i>
+            <sub>{{e.data.data.thac0.mod.melee}}</sub> <strong>{{e.data.data.thac0.value}}</strong> <sub>{{e.data.data.thac0.mod.missile}}</sub>
+          </div>
+          <div class="field-short">
+            <i class="fas fa-shoe-prints"></i>
+            {{e.data.data.movement.encounter}}
+          </div>
+          {{#if (eq e.data.type 'character')}}
+          <div class="field-short">
+            <i class="fas fa-weight-hanging"></i>
+            {{e.data.data.encumbrance.value}}
+          </div>
+          <div class="field-short">
+            <i class="fas fa-circle"></i>
+            {{e.data.data.treasure}}
+          </div>
+          {{/if}}
+        </div>
+        <div class="flexrow">
+          <div class="field-longer flexrow">
+            {{#each e.data.data.saves as |s i|}}
+            <span>{{lookup @root.config.saves_short i}} {{s.value}}</span>
+            {{/each}}
+            {{#if (eq e.data.type 'character')}}<i class="fas fa-magic"></i>{{mod e.data.data.scores.wis.mod}}{{/if}}
+          </div>
+        </div>
       </div>
     </li>
-    {{/if}}
-    {{/each}}
+    {{/if}} {{/each}}
   </ol>
 </form>

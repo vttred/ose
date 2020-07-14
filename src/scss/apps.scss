@@ -8,7 +8,7 @@
 .ose.dialog.party-sheet {
   .window-content {
     padding: 0;
-    height: 200px;
+    height: 400px;
   }
   .header {
     color: whitesmoke;
@@ -19,24 +19,25 @@
   .actor-list {
     margin: 0;
     overflow: auto;
-    height: 180px;
+    height: 350px;
     list-style: none;
     padding: 0;
     .actor {
       &:nth-child(even) {
         background-color: rgba(0, 0, 0, 0.1);
       }
-      padding: 2px;
+      .fas {
+        padding: 0 2px;
+      }
+      padding: 4px;
       font-size: 12px;
-      height: 35px;
       text-align: center;
-      line-height: 35px;
       .field-img {
-        flex: 0 0 32px;
+        flex: 0 0 50px;
         img {
           border: none;
-          width: 32px;
-          height: 32px;
+          width: 50px;
+          height: 50px;
         }
       }
     }
@@ -45,24 +46,16 @@
     text-align: left;
     text-indent: 10px;
   }
-  .field-short {
-    flex: 0 0 45px;
-  }
-  .field-long {
-    flex: 0 0 80px;
-  }
-  .field-longer {
-    flex: 0 0 180px;
-  }
 }
 
 #sidebar #actors .directory-header .header-search {
   .ose-party-sheet {
-    width: 30px;
+    width: 32px;
     text-align: center; 
+    line-height: 20px;
   }
   input {
-    width: calc(100% - 30px);
+    width: calc(100% - 45px);
   }
 }
 

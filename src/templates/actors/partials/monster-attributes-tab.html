@@ -94,6 +94,7 @@
                     {{#each abilities as |item|}}
                     <li class="item-entry">
                         <div class="item flexrow" data-item-id="{{item._id}}">
+                            <div class="item-pattern" title="{{localize 'OSE.items.pattern'}}" style="background:linear-gradient(0.25turn, {{item.data.pattern}}, transparent)"></div>
                             <div class="item-name {{#if item.data.roll}}item-rollable{{/if}} flexrow">
                                 <div class="item-image" style="background-image: url({{item.img}})"></div>
                                 <h4 title="{{item.name}}">
@@ -117,6 +118,9 @@
                     {{#each section as |item|}}
                     <li class="item-entry">
                         <div class="item flexrow" data-item-id="{{item._id}}">
+                            {{#if (eq item.type 'weapon')}}
+                            <div class="item-pattern" title="{{localize 'OSE.items.pattern'}}" style="background:linear-gradient(0.25turn, {{item.data.pattern}}, transparent)"></div>
+                            {{/if}}
                             <div class="item-name {{#if (eq item.type 'weapon')}}item-rollable{{/if}}  flexrow">
                                 <div class="item-image" style="background-image: url({{item.img}})"></div>
                                 <h4 title="{{item.name}}">

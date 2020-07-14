@@ -196,6 +196,7 @@
   "OSE.items.resetAttacks": "Réinitialiser les Attaques",
   "OSE.items.hasShield": "A un bonus de Bouclier",
   "OSE.items.typeTag": "Tapez une liste de tags descriptifs ex. 'Mêlée,Missile (5’–10’ / 11’–20’ / 21’–30’)'",
+  "OSE.items.pattern": "Marqueur de schéma d'attaque",
 
   "OSE.armor.type": "Type d'Armure",
   "OSE.armor.unarmored": "Sans Armure",

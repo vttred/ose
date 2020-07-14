@@ -81,4 +81,14 @@
       }
     }
   }
+  .panel.abilities {
+    .item-list {
+      .item-entry {
+        .item-pattern {
+          flex: 0 0 15px;
+          cursor: pointer;
+        }
+      }  
+    }
+  }
 }

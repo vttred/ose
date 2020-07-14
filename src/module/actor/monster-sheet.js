@@ -216,6 +216,22 @@ export class OseActorSheetMonster extends OseActorSheet {
       actorObject.rollHP({ event: event });
     });
 
+    html.find(".item-pattern").click(ev => {
+      const li = $(ev.currentTarget).parents(".item");
+      const item = this.actor.getOwnedItem(li.data("itemId"));
+      let currentColor = item.data.data.pattern;
+      let colors = Object.keys(CONFIG.OSE.colors);
+      let index = colors.indexOf(currentColor);
+      if (index + 1 == colors.length) {
+        index = 0;
+      } else {
+        index++;
+      }
+      item.update({
+        "data.pattern": colors[index]
+      })
+    });
+
     // Handle default listeners last so system listeners are triggered first
     super.activateListeners(html);
   }

@@ -9,6 +9,7 @@ import { OSE } from "./module/config.js";
 import { registerSettings } from "./module/settings.js";
 import { registerHelpers } from "./module/helpers.js";
 import * as chat from "./module/chat.js";
+import * as treasure from "./module/treasure.js";
 import * as macros from "./module/macros.js";
 import { OseCombat } from "./module/combat.js";
 
@@ -119,3 +120,5 @@ Hooks.on("preUpdateCombat", async (combat, data, diff, id) => {
 Hooks.on("renderChatLog", (app, html, data) => OseItem.chatListeners(html));
 Hooks.on("getChatLogEntryContext", chat.addChatMessageContextOptions);
 Hooks.on("renderChatMessage", chat.addChatMessageButtons);
+
+Hooks.on("renderRollTableConfig", treasure.augmentTable);

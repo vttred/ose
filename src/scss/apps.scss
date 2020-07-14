@@ -16,6 +16,30 @@
   }
 }
 
+.sheet.roll-table-config {
+  .sheet-header {
+    .toggle-treasure {
+      flex: 0 0 30px;
+      font-size: 30px;
+      line-height: 30px;
+      margin: 0 8px;
+    }
+  }
+  @keyframes notify {
+    from {
+      background: none;
+    }
+    to {
+      background: rgba(0, 0, 0, 0.12);
+    }
+  }
+  .results {
+    .table-result.active {
+      animation: 0.7s infinite alternate notify;
+    }
+  }
+}
+
 #settings .ose.game-license {
   font-size: 12px;
   .button {
@@ -107,6 +131,7 @@
     img {
       flex: 0 0 36px;
       margin-right: 5px;
+      border: none;
     }
 
     h3 {
@@ -122,7 +147,22 @@
 
   .card-content {
     margin: 5px 0;
-
+    .treasure-list {
+      padding: 0;
+      list-style: none;
+      .treasure {
+        img {
+          flex: 0 0 36px;
+          border: none;
+        }
+        div {
+          text-indent: 10px;
+          font-size: 14px;
+          font-weight: bold;
+        }
+        line-height: 36px;
+      }
+    }
     h3 {
       font-size: 12px;
       margin: 0;

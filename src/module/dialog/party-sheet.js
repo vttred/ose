@@ -1,11 +1,13 @@
 export class OsePartySheet extends FormApplication {
+  
   static get defaultOptions() {
-    const options = super.defaultOptions;
-    (options.classes = ["ose", "dialog", "party-sheet"]),
-      (options.id = "party-sheet");
-    options.template = "systems/ose/templates/apps/party-sheet.html";
-    options.width = 280;
-    return options;
+    return mergeObject(super.defaultOptions, {
+      classes: ["ose", "dialog", "party-sheet"],
+      template: "systems/ose/templates/apps/party-sheet.html",
+      width: 280,
+      height: 400,
+      resizable: true,
+    });
   }
 
   /* -------------------------------------------- */

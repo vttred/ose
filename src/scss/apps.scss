@@ -6,9 +6,10 @@
 }
 
 .ose.dialog.party-sheet {
+  min-width: 250px;
+  min-height: 250px;
   .window-content {
     padding: 0;
-    height: 400px;
   }
   .header {
     color: whitesmoke;
@@ -19,7 +20,6 @@
   .actor-list {
     margin: 0;
     overflow: auto;
-    height: 350px;
     list-style: none;
     padding: 0;
     .actor {

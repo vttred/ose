@@ -11,6 +11,7 @@
   "OSE.Failure": "Échec",
 
   "OSE.dialog.tweaks": "Ajuster",
+  "OSE.dialog.partysheet": "Fiche de Groupe",
 
   "OSE.Formula": "Formule",
   "OSE.SitMod": "Mod. de situation",
@@ -137,6 +138,7 @@
   "OSE.NPCReaction": "Réaction",
   "OSE.RetainersMax": "#Suivants",
 
+  "OSE.category.saves": "Sauvegardes",
   "OSE.category.attributes": "Stats",
   "OSE.category.inventory": "Inventaire",
   "OSE.category.abilities": "Aptitudes",

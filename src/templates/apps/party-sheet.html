@@ -1,0 +1,59 @@
+<form autocomplete="off">
+  <header class="flexrow">
+    {{#if user.isGM}}
+    <button data-action="select-actors" type="button">{{localize  "OSE.dialog.selectActors"}}</button>
+    <button data-action="deal-xp" type="button">{{localize  "OSE.dialog.dealXP"}}</button>
+    {{/if}}
+  </header>
+  <div class="actor header flexrow">
+    <div class="field-name">
+      <a class="resync"><i class="fas fa-sync"></i></a>  
+    </div>
+    <div class="field-long">
+      {{localize 'OSE.Health'}}
+    </div>
+    <div class="field-short">
+      {{localize 'OSE.ArmorClassShort'}}
+    </div>
+    <div class="field-short">
+      {{localize 'OSE.Thac0'}}
+    </div>
+    <div class="field-short">
+      {{localize 'OSE.movement.encounter.short'}}
+    </div>
+    <div class="field-longer">
+      {{localize 'OSE.category.saves'}}
+    </div>
+  </div>
+  <ol class="actor-list">
+    {{#each data.entities as |e|}}
+    {{#if e.data.flags.ose.party}}
+    <li class="actor flexrow" data-actor-id="{{e.id}}">
+      <div class="field-img">
+        <img src="{{e.img}}"/>
+      </div>
+      <div class="field-name">
+        {{e.name}}
+      </div>
+      <div class="field-long">
+        {{e.data.data.hp.value}}/{{e.data.data.hp.max}}
+      </div>
+      <div class="field-short">
+        {{e.data.data.ac.value}}
+      </div>
+      <div class="field-short">
+        {{e.data.data.thac0.value}}
+      </div>
+      <div class="field-short">
+        {{e.data.data.movement.encounter}}
+      </div>
+      <div class="field-longer flexrow">
+        {{#each e.data.data.saves as |s i|}}
+        <span>{{lookup @root.config.saves_short i}} {{s.value}}</span>
+        {{/each}}
+      </div>
+    </li>
+    {{/if}}
+    {{/each}}
+  </ol>
+</form>

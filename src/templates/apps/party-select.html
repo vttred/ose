@@ -1,0 +1,12 @@
+<form autocomplete="off" onsubmit="event.preventDefault();">
+    <ol class="actor-list">
+    {{#each actors as |actor key|}}
+        <li class="form-group actor" data-actor-id="{{actor.id}}">
+            <label>{{actor.name}}</label>
+            <div class="form-fields">
+                <input type="checkbox" data-action="select-actor" name="{{key}}" data-dtype="Boolean" {{checked actor.data.flags.ose.party}}/>
+            </div>
+        </li>
+    {{/each}}
+    </ol>
+</form>

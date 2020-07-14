@@ -19,6 +19,9 @@ export class OseCombat {
 
     // Set init
     for (let i = 0; i < data.combatants.length; ++i) {
+      if (!data.combatants[i].actor) {
+        return;
+      }
       if (data.combatants[i].actor.data.data.isSlow) {
         data.combatants[i].initiative = -789;
       } else {
@@ -118,6 +121,9 @@ export class OseCombat {
     });
 
     html.find('.combat-control[data-control="reroll"]').click((ev) => {
+      if (!game.combat) {
+        return;
+      }
       let data = {};
       OseCombat.rollInitiative(game.combat, data);
       game.combat.update({ data: data });

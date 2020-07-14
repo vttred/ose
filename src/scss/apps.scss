@@ -5,6 +5,67 @@
   }
 }
 
+.ose.dialog.party-sheet {
+  .window-content {
+    padding: 0;
+    height: 200px;
+  }
+  .header {
+    color: whitesmoke;
+    background: $darkBackground;
+    padding: 4px 0;
+    text-align: center;
+  }
+  .actor-list {
+    margin: 0;
+    overflow: auto;
+    height: 180px;
+    list-style: none;
+    padding: 0;
+    .actor {
+      &:nth-child(even) {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+      padding: 2px;
+      font-size: 12px;
+      height: 35px;
+      text-align: center;
+      line-height: 35px;
+      .field-img {
+        flex: 0 0 32px;
+        img {
+          border: none;
+          width: 32px;
+          height: 32px;
+        }
+      }
+    }
+  }
+  .field-name {
+    text-align: left;
+    text-indent: 10px;
+  }
+  .field-short {
+    flex: 0 0 45px;
+  }
+  .field-long {
+    flex: 0 0 80px;
+  }
+  .field-longer {
+    flex: 0 0 180px;
+  }
+}
+
+#sidebar #actors .directory-header .header-search {
+  .ose-party-sheet {
+    width: 30px;
+    text-align: center; 
+  }
+  input {
+    width: calc(100% - 30px);
+  }
+}
+
 .ose.dialog.modifiers {
   .attribute-bonuses {
     label {

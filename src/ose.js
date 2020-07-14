@@ -11,6 +11,7 @@ import { registerHelpers } from "./module/helpers.js";
 import * as chat from "./module/chat.js";
 import * as treasure from "./module/treasure.js";
 import * as macros from "./module/macros.js";
+import * as party from "./module/party.js";
 import { OseCombat } from "./module/combat.js";
 
 /* -------------------------------------------- */
@@ -83,6 +84,9 @@ Hooks.once("ready", async () => {
 
 // License and KOFI infos
 Hooks.on("renderSidebarTab", async (object, html) => {
+  if (object instanceof ActorDirectory) {
+    party.addControl(object, html);
+  }
   if (object instanceof Settings) {
     const template = "systems/ose/templates/chat/license.html";
     const rendered = await renderTemplate(template);

@@ -4,6 +4,7 @@
   "OSE.Show": "Show",
   "OSE.Add": "Add",
   "OSE.Ok": "Ok",
+  "OSE.Update": "Update",
   "OSE.Reset": "Reset",
   "OSE.Cancel": "Cancel",
   "OSE.Roll": "Roll",
@@ -11,6 +12,9 @@
   "OSE.Failure": "Failure",
 
   "OSE.dialog.tweaks": "Tweaks",
+  "OSE.dialog.partysheet": "Party Overview",
+  "OSE.dialog.selectActors": "Select PCs",
+  "OSE.dialog.dealXP": "Deal XP",
 
   "OSE.Formula": "Formula",
   "OSE.SitMod": "Situational Modifier",
@@ -137,6 +141,7 @@
   "OSE.NPCReaction": "NPC Reaction",
   "OSE.RetainersMax": "#Retainers",
 
+  "OSE.category.saves": "Saves",
   "OSE.category.attributes": "Attributes",
   "OSE.category.inventory": "Inventory",
   "OSE.category.abilities": "Abilities",

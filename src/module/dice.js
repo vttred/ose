@@ -4,7 +4,7 @@ export class OseDice {
       isSuccess: false,
       isFailure: false,
       target: data.rollData.target,
-      total: roll.total
+      total: roll.total,
     };
 
     let die = roll.parts[0].total;
@@ -58,7 +58,6 @@ export class OseDice {
       speaker: speaker,
     };
 
-
     let templateData = {
       title: title,
       flavor: flavor,
@@ -74,13 +73,14 @@ export class OseDice {
     // Convert the roll to a chat message and return the roll
     let rollMode = game.settings.get("core", "rollMode");
     rollMode = form ? form.rollMode.value : rollMode;
-    
+
     // Force blind roll (ability formulas)
     if (data.rollData.blindroll) {
       rollMode = "blindroll";
     }
 
-    if (["gmroll", "blindroll"].includes(rollMode)) chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
+    if (["gmroll", "blindroll"].includes(rollMode))
+      chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
     if (rollMode === "selfroll") chatData["whisper"] = [game.user._id];
     if (rollMode === "blindroll") chatData["blind"] = true;
 
@@ -120,21 +120,28 @@ export class OseDice {
       isSuccess: false,
       isFailure: false,
       target: "",
-      total: roll.total
+      total: roll.total,
     };
     result.target = data.rollData.thac0;
     if (game.settings.get("ose", "ascendingAC")) {
-      result.details = game.i18n.format('OSE.messages.AttackAscendingSuccess', {result: roll.total});
+      result.details = game.i18n.format("OSE.messages.AttackAscendingSuccess", {
+        result: roll.total,
+      });
       result.isSuccess = true;
     } else {
       // B/X Historic THAC0 Calculation
       if (result.target - roll.total > 9) {
-        result.details = game.i18n.format('OSE.messages.AttackFailure', {bonus: result.target});
+        result.details = game.i18n.format("OSE.messages.AttackFailure", {
+          bonus: result.target,
+        });
         return result;
       }
       result.isSuccess = true;
       let value = Math.clamped(result.target - roll.total, -3, 9);
-      result.details = game.i18n.format('OSE.messages.AttackSuccess', {result: value, bonus: result.target});
+      result.details = game.i18n.format("OSE.messages.AttackSuccess", {
+        result: value,
+        bonus: result.target,
+      });
     }
     return result;
   }
@@ -170,8 +177,9 @@ export class OseDice {
     // Convert the roll to a chat message and return the roll
     let rollMode = game.settings.get("core", "rollMode");
     rollMode = form ? form.rollMode.value : rollMode;
-    
-    if (["gmroll", "blindroll"].includes(rollMode)) chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
+
+    if (["gmroll", "blindroll"].includes(rollMode))
+      chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
     if (rollMode === "selfroll") chatData["whisper"] = [game.user._id];
     if (rollMode === "blindroll") chatData["blind"] = true;
 
@@ -198,17 +206,17 @@ export class OseDice {
                   if (templateData.result.isSuccess) {
                     templateData.result.dmg = dmgRoll.total;
                     game.dice3d
-                    .showForRoll(
-                      dmgRoll,
-                      game.user,
-                      true,
-                      chatData.whisper,
-                      chatData.blind
-                    )
-                    .then(() => {
-                      ChatMessage.create(chatData);
-                      resolve();
-                    });
+                      .showForRoll(
+                        dmgRoll,
+                        game.user,
+                        true,
+                        chatData.whisper,
+                        chatData.blind
+                      )
+                      .then(() => {
+                        ChatMessage.create(chatData);
+                        resolve();
+                      });
                   } else {
                     ChatMessage.create(chatData);
                     resolve();
@@ -242,7 +250,7 @@ export class OseDice {
     let dialogData = {
       formula: parts.join(" "),
       data: data,
-      rollMode: game.settings.get('core', 'rollMode'),
+      rollMode: game.settings.get("core", "rollMode"),
       rollModes: CONFIG.Dice.rollModes,
     };
 
@@ -251,7 +259,7 @@ export class OseDice {
       data: data,
       title: title,
       flavor: flavor,
-      speaker: speaker
+      speaker: speaker,
     };
     if (skipDialog) {
       return data.rollData.type === "attack"

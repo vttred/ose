@@ -79,5 +79,15 @@ async function rollTreasure(table, options = {}) {
     "systems/ose/templates/chat/roll-treasure.html",
     templateData
   );
-  ChatMessage.create({ content: html, sound: "/systems/ose/assets/coins.mp3" });
+
+  let chatData = {
+    content: html,
+    sound: "/systems/ose/assets/coins.mp3"
+  }
+
+  if (["gmroll", "blindroll"].includes(rollMode)) chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
+  if (rollMode === "selfroll") chatData["whisper"] = [game.user._id];
+  if (rollMode === "blindroll") chatData["blind"] = true;
+
+  ChatMessage.create(chatData);
 }

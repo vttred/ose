@@ -41,8 +41,30 @@ export class OseActorSheetMonster extends OseActorSheet {
 
     // Settings
     data.config.morale = game.settings.get("ose", "morale");
-
+    console.log(data);
+    data.data.details.treasure.link = TextEditor.enrichHTML(data.data.details.treasure.table);
     return data;
+  }
+
+  
+  async _onDrop(event) {
+    super._onDrop(event);
+    let data;
+    try {
+      data = JSON.parse(event.dataTransfer.getData('text/plain'));
+      if (data.type !== "RollTable") return;
+    } catch (err) {
+      return false;
+    }
+    
+    let link = "";
+    if (data.pack) {
+      let tableData = game.packs.get(data.pack).index.filter(el => el._id = "laDZWR1TIe0MVNZe");
+      link = `@Compendium[${data.pack}.${data.id}]{${tableData[0].name}}`;
+    } else {
+      link = `@RollTable[${data.id}]`;
+    }
+    this.actor.update({"data.details.treasure.table": link});
   }
 
   /* -------------------------------------------- */

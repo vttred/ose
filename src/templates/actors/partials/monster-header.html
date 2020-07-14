@@ -33,17 +33,13 @@
     {{/if}}
   </ul>
   <ul class="summary flexrow">
-    <li class="flex3">
+    <li>
       <input type="text" name="data.details.xp" value="{{data.details.xp}}" />
       <label>{{localize 'OSE.details.experience.award'}}</label>
     </li>
-    <li class="flex3">
-      <input type="text" name="data.details.treasure.type" value="{{data.details.treasure.type}}" />
+    <li class="treasure-table" title="{{localize 'OSE.details.treasureTableHint'}}">
+      <div>{{{data.details.treasure.link}}}</div>
       <label>{{localize 'OSE.details.treasure'}}</label>
     </li>
-    <!-- <li title="{{localize 'OSE.details.treasureTableHint'}}">
-      <div>{{data.details.treasure.table}}</div>
-      <label>{{localize 'OSE.details.treasureTable'}}</label>
-    </li> -->
   </ul>
 </section>

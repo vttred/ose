@@ -12,7 +12,7 @@ export class OseCombat {
     Object.keys(groups).forEach((group) => {
       let roll = new Roll("1d6").roll();
       roll.toMessage({
-        flavor: `${CONFIG.OSE.colors[group]} group rolls initiative`,
+        flavor: game.i18n.format('OSE.roll.initiative', {group: CONFIG[OSE].colors[group]}),
       });
       groups[group].initiative = roll.total;
     });
@@ -31,12 +31,40 @@ export class OseCombat {
     }
   }
 
-  static individualInitiative(combat, data) {
-    let ids = [];
-    combat.data.combatants.forEach((cbt) => {
-      ids.push(cbt._id);
+  static async individualInitiative(combat, data) {
+    let updates = [];
+    let messages = [];
+
+    combat.data.combatants.forEach((c, i) => {
+      // This comes from foundry.js, had to remove the update turns thing
+      // Roll initiative
+      const cf = combat._getInitiativeFormula(c);
+      const roll = combat._getInitiativeRoll(c, cf);
+      updates.push({_id: c._id, initiative: roll.total});
+
+      // Determine the roll mode
+      let rollMode = game.settings.get("core", "rollMode");
+      if (( c.token.hidden || c.hidden ) && (rollMode === "roll") ) rollMode = "gmroll";
+      
+      // Construct chat message data
+      let messageData = mergeObject({
+        speaker: {
+          scene: canvas.scene._id,
+          actor: c.actor ? c.actor._id : null,
+          token: c.token._id,
+          alias: c.token.name
+        },
+        flavor: game.i18n.format('OSE.roll.individualInit', {name: c.token.name})
+      }, {});
+      const chatData = roll.toMessage(messageData, {rollMode, create:false});
+
+      if ( i > 0 ) chatData.sound = null;   // Only play 1 sound for the whole set
+      messages.push(chatData);
     });
-    combat.rollInitiative(ids);
+    await combat.updateEmbeddedEntity("Combatant", updates);
+    await CONFIG.ChatMessage.entityClass.create(messages);
+    // Take the first combatant
+    data.turn = 0;
   }
 
   static format(object, html, user) {

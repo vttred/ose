@@ -36,6 +36,8 @@
   "OSE.roll.exploration": "Test de {exploration}",
   "OSE.roll.details.exploration": "Lancez 1d6 <= {expl} pour réussir",
   "OSE.roll.reaction": "Jet de Réaction",
+  "OSE.roll.initiative": "Le groupe {group} tire son Initiative !",
+  "OSE.roll.individualInit": "{name} tire son Initiative!",
 
   "OSE.table.treasure.roll": "Trésor Aléatoire",
 

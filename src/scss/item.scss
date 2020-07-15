@@ -1,5 +1,10 @@
 .ose.sheet.item {
   .sheet-header {
+    h1 {
+      input {
+        margin: 6px 2%;
+      }
+    }
     .profile-img {
       border: none;
       flex: 0 0 84px;
@@ -7,22 +12,24 @@
     }
     .tag-list {
       margin: 0;
-      height: 20px;
+      height: 24px;
       overflow: auto;
       list-style: none;
-      padding: 0;
+      padding: 1px;
       display: flex;
+      flex-wrap: wrap;
       .tag {
-        background: $colorFaint;
-        border-radius: 10px;
-        color: $colorDark;
-        padding: 2px 5px;
-        box-shadow: 0 0 1px $colorDark;
+        background: $colorOlive;
+        border-radius: 5px;
+        color: whitesmoke;
+        padding: 1px 5px;
+        height: 18px;
+        box-shadow: 0 0 3px $colorFaint;
         margin: 0 2px;
         i {
           font-size: 8px;
           vertical-align: top;
-          color: $colorOlive;
+          color: $colorFaint;
         }
       }
     }

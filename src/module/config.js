@@ -70,5 +70,17 @@ export const OSE = {
     melee: "OSE.items.Melee",
     missile: "OSE.items.Missile",
     slow: "OSE.items.Slow",
+    blunt: "OSE.items.Blunt",
+    reload: "OSE.items.Reload",
+    splash: "OSE.items.Splash",
+    brace: "OSE.items.Brace",
+    twohanded: "OSE.items.TwoHanded",
+  },
+  tag_images: {
+    melee: "/systems/ose/assets/melee.png",
+    missile: "/systems/ose/assets/missile.png",
+    slow: "<i class='fas fa-snail'></i>",
+    twohanded: "/systems/ose/assets/twohanded.png",
   }
 };
+// fa-sign-language

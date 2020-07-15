@@ -91,6 +91,7 @@
         "alignment": "",
         "level": 1,
         "xp": {
+          "share": 100,
           "next": 2000,
           "value": 0,
           "bonus": 0

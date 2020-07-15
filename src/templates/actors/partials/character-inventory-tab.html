@@ -22,9 +22,13 @@
               </h4>
             </a>
           </div>
-          <div class="field-longer">
+          <div class="icon-row field-longer">
             {{#each item.data.tags as |tag|}}
+              {{#if (lookup @root.config.tag_images tag.value)}}
+                <img title="{{tag.title}}" src="{{lookup @root.config.tag_images tag.value}}" width="24" height="24"/>
+              {{else}}
               <span title="{{tag.title}}">{{tag.value}}</span>
+              {{/if}}
             {{/each}}
           </div>
           <div class="field-short">

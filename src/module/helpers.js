@@ -34,6 +34,10 @@ export const registerHelpers = async function () {
     return parseFloat(lh) * parseFloat(rh);
   });
 
+  Handlebars.registerHelper("roundWeight", function (weight) {
+    return Math.round(parseFloat(weight) / 100) / 10;
+  });
+
   Handlebars.registerHelper("counter", function (status, value, max) {
     return status
       ? Math.clamped((100.0 * value) / max, 0, 100)

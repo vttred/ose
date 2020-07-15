@@ -115,10 +115,10 @@ export class OsePartySheet extends FormApplication {
   activateListeners(html) {
     super.activateListeners(html);
     html
-      .find("button[data-action='select-actors']")
+      .find(".item-controls .item-control .select-actors")
       .click(this._selectActors.bind(this));
     
-      html.find("button[data-action='deal-xp']").click(this._dealXP.bind(this));
+      html.find(".item-controls .item-control .deal-xp").click(this._dealXP.bind(this));
     
     html.find("a.resync").click(() => this.render(true));
 

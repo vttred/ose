@@ -191,6 +191,8 @@ export class OseItem extends Item {
         if (matches) {
           title = matches[1];
           val = val.substring(0, matches.index);
+        } else {
+          title = val;
         }
         // Auto fill checkboxes
         switch (val) {

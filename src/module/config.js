@@ -70,17 +70,22 @@ export const OSE = {
     melee: "OSE.items.Melee",
     missile: "OSE.items.Missile",
     slow: "OSE.items.Slow",
-    blunt: "OSE.items.Blunt",
-    reload: "OSE.items.Reload",
-    splash: "OSE.items.Splash",
-    brace: "OSE.items.Brace",
     twohanded: "OSE.items.TwoHanded",
+    blunt: "OSE.items.Blunt",
+    brace: "OSE.items.Brace",
+    splash: "OSE.items.Splash",
+    reload: "OSE.items.Reload",
+    charge: "OSE.items.Charge",
   },
   tag_images: {
     melee: "/systems/ose/assets/melee.png",
     missile: "/systems/ose/assets/missile.png",
-    slow: "<i class='fas fa-snail'></i>",
+    slow: "/systems/ose/assets/slow.png",
     twohanded: "/systems/ose/assets/twohanded.png",
+    blunt: "/systems/ose/assets/blunt.png",
+    brace: "/systems/ose/assets/brace.png",
+    splash: "/systems/ose/assets/splash.png",
+    reload: "/systems/ose/assets/reload.png",
+    charge: "/systems/ose/assets/charge.png",
   }
 };
-// fa-sign-language

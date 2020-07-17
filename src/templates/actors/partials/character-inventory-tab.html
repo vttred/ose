@@ -3,7 +3,7 @@
     <li class="item-titles flexrow">
       <div class="item-caret"><i class="fas fa-caret-down"></i></div>
       <div class="item-name">{{localize "OSE.items.Weapons"}}</div>
-      <div class="field-longer">{{localize "OSE.items.Qualities"}}</div>
+      <div class="icon-row">{{localize "OSE.items.Qualities"}}</div>
       <div class="field-short"><i class="fas fa-weight-hanging"></i></div>
       <div class="item-controls">
         <a class="item-control item-create" data-type="weapon" title="{{localize 'OSE.Add'}}"><i
@@ -22,13 +22,17 @@
               </h4>
             </a>
           </div>
-          <div class="icon-row field-longer">
+          <div class="icon-row flexrow">
             {{#each item.data.tags as |tag|}}
-              {{#if (lookup @root.config.tag_images tag.value)}}
-                <img title="{{tag.title}}" src="{{lookup @root.config.tag_images tag.value}}" width="24" height="24"/>
-              {{else}}
-              <span title="{{tag.title}}">{{tag.value}}</span>
+              {{#if (getTagIcon tag.value)}}
+                <img title="{{tag.title}}" src="{{getTagIcon tag.value}}" width="24" height="24"/>
               {{/if}}
+            {{/each}}
+            {{#each item.data.tags as |tag|}}
+            {{#unless (getTagIcon tag.value)}}
+              <span title="{{tag.title}}">{{tag.value}}{{#unless @last}},{{/unless}}</span>
+              
+            {{/unless}}
             {{/each}}
           </div>
           <div class="field-short">

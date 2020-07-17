@@ -290,6 +290,11 @@
         img {
           border: none;
           margin: 3px 1px;
+          flex: 0 0 24px;
+        }
+        span {
+          font-size: 12px;
+          flex-grow: 0;
         }
       }
       .field-flex {

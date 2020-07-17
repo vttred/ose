@@ -190,8 +190,9 @@ export class OseItem extends Item {
         let title = "";
         if (matches) {
           title = matches[1];
-          val = val.substring(0, matches.index);
+          val = val.substring(0, matches.index).trim();
         } else {
+          val = val.trim();
           title = val;
         }
         // Auto fill checkboxes

@@ -38,6 +38,11 @@ export const registerHelpers = async function () {
     return Math.round(parseFloat(weight) / 100) / 10;
   });
 
+  Handlebars.registerHelper("getTagIcon", function (tag) {
+    let idx = Object.keys(CONFIG.OSE.tags).find(k => (CONFIG.OSE.tags[k] == tag));
+    return CONFIG.OSE.tag_images[idx];
+  });
+
   Handlebars.registerHelper("counter", function (status, value, max) {
     return status
       ? Math.clamped((100.0 * value) / max, 0, 100)

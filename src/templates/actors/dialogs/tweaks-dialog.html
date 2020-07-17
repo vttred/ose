@@ -3,14 +3,14 @@
     <label for="spellcaster">{{localize "OSE.Spellcaster"}}</label>
     <div class="form-fields">
       <input type="checkbox" name="data.spells.enabled" id="spellcaster" {{checked
-          data.spells.enabled}} />
+          data.spells.enabled}} data-dtype="Boolean" />
     </div>
   </div>
   <div class="form-group">
     <label for="retainer">{{localize "OSE.Retainer"}}</label>
     <div class="form-fields">
       <input type="checkbox" name="data.retainer.enabled" id="retainer" {{checked
-          data.retainer.enabled}} />
+          data.retainer.enabled}}  data-dtype="Boolean"/>
     </div>
   </div>
   <div class="form-group">
@@ -24,19 +24,19 @@
   <div class="form-group">
     <label>{{localize "OSE.details.experience.next"}}</label>
     <div class="form-fields">
-      <input type="text" name="data.details.xp.next" id="experiencenext" value="{{data.details.xp.next}}" />
+      <input type="text" name="data.details.xp.next" id="experiencenext" value="{{data.details.xp.next}}" data-dtype="Number" />
     </div>
   </div>
   <div class="form-group">
     <label>{{localize "OSE.details.experience.bonus"}} (%)</label>
     <div class="form-fields">
-      <input type="text" name="data.details.xp.bonus" id="experience" value="{{data.details.xp.bonus}}" />
+      <input type="text" name="data.details.xp.bonus" id="experience" value="{{data.details.xp.bonus}}" data-dtype="Number"/>
     </div>
   </div>
   <div class="form-group">
     <label>{{localize "OSE.details.experience.share"}} (%)</label>
     <div class="form-fields">
-      <input type="text" name="data.details.xp.share" id="experience-share" value="{{data.details.xp.share}}" />
+      <input type="text" name="data.details.xp.share" id="experience-share" value="{{data.details.xp.share}}" data-dtype="Number"/>
     </div>
   </div>
   <div class="form-group">
@@ -75,7 +75,7 @@
     <label for="movementAuto">{{localize "OSE.Setting.MovementAuto"}}</label>
     <div class="form-fields">
       <input type="checkbox" name="data.config.movementAuto" id="movementAuto" {{checked
-          data.config.movementAuto}} {{#unless user.isGM}}disabled{{/unless}} />
+          data.config.movementAuto}}  data-dtype="Boolean" {{#unless user.isGM}}disabled{{/unless}} />
     </div>
   </div>
   {{/if}}

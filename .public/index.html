@@ -1,67 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-
-  <!-- Basic Page Needs
+  <head>
+    <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta charset="utf-8">
-  <title>Old School Essentials system for Foundry VTT (Unofficial)</title>
-  <meta name="description" content="">
-  <meta name="author" content="">
+    <meta charset="utf-8" />
+    <title>Old School Essentials system for Foundry VTT (Unofficial)</title>
+    <meta name="description" content="" />
+    <meta name="author" content="" />
 
-  <!-- Mobile Specific Metas
+    <!-- Mobile Specific Metas
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- FONT
+    <!-- FONT
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+    <link
+      href="//fonts.googleapis.com/css?family=Raleway:400,300,600"
+      rel="stylesheet"
+      type="text/css"
+    />
 
-  <!-- CSS
+    <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/skeleton.css">
-  <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/skeleton.css" />
+    <link rel="stylesheet" href="css/custom.css" />
 
-  <!-- Favicon
+    <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="images/favicon.png">
-
-</head>
-<body>
-
-  <!-- Primary Page Layout
+    <link rel="icon" type="image/png" href="images/favicon.png" />
+  </head>
+  <body>
+    <!-- Primary Page Layout
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <section class="header">
-    <h2>Old School Essentials for Foundry VTT</h2>
-  </section>
-  <div class="container">
-    <nav class="navbar">
-      <div class="container">
-        <ul class="navbar-list">
-          <li class="navbar-item"><a class="navbar-link" href="#intro">Home</a></li>
-          <li class="navbar-item"><a class="navbar-link" href="#setup">Setup</a></li>
-          <li class="navbar-item"><a class="navbar-link" href="#characters">Characters</a></li>
-          <li class="navbar-item"><a class="navbar-link" href="#monsters">Monsters</a></li>
-          <li class="navbar-item"><a class="navbar-link" href="#initiative">Initiative</a></li>
-          <li class="navbar-item"><a class="navbar-link" href="#further">Going further</a></li>
-        </ul>
+    <section class="header">
+      <h2>Old School Essentials</h2>
+      <p>Unofficial system for Foundry VTT</p>
+    </section>
+    <div class="container">
+      <nav class="navbar">
+        <div class="container">
+          <ul class="navbar-list">
+            <li class="navbar-item">
+              <a class="navbar-link" href="#intro">Intro</a>
+            </li>
+            <li class="navbar-item">
+              <a class="navbar-link" href="#setup">Setup</a>
+            </li>
+            <li class="navbar-item">
+              <a class="navbar-link" href="#characters">Characters</a>
+            </li>
+            <li class="navbar-item">
+              <a class="navbar-link" href="#monsters">Monsters</a>
+            </li>
+            <li class="navbar-item">
+              <a class="navbar-link" href="#initiative">Initiative</a>
+            </li>
+            <li class="navbar-item">
+              <a class="navbar-link" href="#further">Going further</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div id="intro" class="row">
+        <div class="column" style="margin-top: 10%;">
+          <p>
+            This fan-made system has all the features you need to play OSE or
+            the Basic/Expert edition of this good old TRPG.
+          </p>
+          <p>
+            This comprehensive user guide will show you the basics and reveal
+            some hidden features and hacks.
+          </p>
+          <p>
+            For further documentation on how to use Foundry VTT please go to Foundry VTT
+            <a href="https://foundryvtt.com/kb/" target="_blank">Knowledge base</a>.
+          </p>
+        </div>
       </div>
-    </nav>
-    <div class="row">
-      <div class="column" style="margin-top: 10%">
-        <p>All the features you need to play the Basic/Expert edition of this good old tabletop RPG.</p>
-        <ul>
-          <li>How to use the character sheet</li>
-          <li>Monsters</li>
-          <li>Handle initiative with the Combat Tracker</li>
-          <li>A party overview</li>
-        </ul>
+      <div id="setup" class="row">
+        <h4>Setup</h4>
+        <p>You can find System settings in the Configure Settings dialog you open from the sidebar</p>
+        <p style="text-align: center;">
+          <img src="./images/settings.png" />
+        </p>
+        <p>
+          These are several settings to customize your experience with Old School Essentials.
+          <ul>
+            <li>
+              Individual initiative
+              <p>The default behavior for initiative is to have only one roll per faction. This will come back to Foundry VTT
+                default behavior, and show the initiative field on character sheets, see the <a href="#attributes">Attributes</a> section.</p>  
+            </li>
+            <li>
+              Ascending Armor Class
+              <p>Old School Essentials default option is to use the original descending Armor Class and the 'To Hit AC 0' attack statistic alias THAC0.
+                If this input is checked, this will come back to the familiar Attack Bonus as well as an Ascending Armor Class.
+              </p>  
+            </li>
+            <li>
+              Morale Rating
+              <p>This will show a Morale Field in the Monster sheet so you can record and roll a Morale check to see wether your monster has a survival instinct or will fight till the end.</p>
+            </li>
+            <li>
+              Variable weapon damage
+              <p>By default, even if the damage field is shown in the weapons sheets, the rolled damage will always be a d6, except for monsters. With this enabled, the damage displayed will be effectively used for characters.</p>
+            </li>
+            <li>Encumbrance
+              <p>The weight a character is carrying is a significant part of the players treasure hunting adventures. You have three options here.
+              <ul>
+                <li><strong>Disabled</strong>: You can disable the effect of weight on movement, it will still be calculated.</li>
+                <li><strong>Basic</strong>: This will add only the weight of your treasure, and take into account the armor you're wearing to find your movement rate.</li>
+                <li><strong>Detailed</strong>: All the weight you carry will be counted, your movement value depends on the fraction of your max encumbrance you carry.</li>
+              </ul>
+            </p>
+            </li>
+            <li>
+              Significant treasure weight
+              <p>
+                If you have the Basic encumbrance option enabled, the movement rate will depend on a predefined weight at which you consider the treasure to be cumbersome. You can set the value here and it will be used to determine the movement rates of characters.
+              </p>
+            </li>
+          </ul>
+          </p>
       </div>
+      <hr />
+      <div id="characters" class="docs-section">
+        <h4>Characters</h4>
+        <h6 class="docs-header">Header</h6>
+          <p style="text-align: center;">
+            <img src="./images/header.png" />
+          </p>
+          <p>The Character sheet header contains text fields you can edit
+            directly. There is no automation done with those fields and you will
+            have to type them manually in most cases.</p>
+            <p>The greyed text on top of the experience field is the XP prime requisites bonus that can be
+            set in the Tweaks dialog (see below). It is used when experience is
+            dealt automatically via the party sheet.</p>
+            <p> If the character survives long enough, the Level field will
+            have a flash animation as soon when the character got enough
+            experience to level up. This experience threshold is set in the
+            Tweaks dialog.
+          </p>
+          <h6 class="docs-header">Tweaks</h6>
+            <div class="row">
+              <div class="six columns">
+                <p>You customize characters through this menu accessible from the header of the character sheet.</p>
+                <p>
+                  <ul>
+                    <li><strong>Spellcaster</strong>: Shows the Spells tab</li>
+                    <li><strong>Retainer</strong>: Adds the Loyalty rating attribute, replaces the Title field in the header by a Wage input.</li>
+                    <li><strong>Initiative Bonus</strong>: Will add this value to initiative in addition to the Dexterity modifier.</li>
+                    <li><strong>Next Level</strong>: The threshold at which the level field in the Header section of the character sheet will animate.</li>
+                  </div>
+              <div class="three columns">
+                <img src="./images/tweaks.png" width="320" height="300" />
+              </div>
+            </div>
+            <div class="row">
+              <ul>
+              <li><strong>Bonus experience</strong>: This will add to the experience dealt from the Party Sheet</li>
+              <li><strong>Experience share:</strong>: The share of the party XP you will get from the experience dealt.</li>
+              <li><strong>Melee Bonus</strong>: A bonus to the Attack roll only for melee weapons.</li>
+              <li><strong>Missile Bonus</strong>: A bonus to the Attack roll only for missile weapons.</li>
+              <li><strong>Armor Class</strong>: This value will be added (ascending) or subtracted (default) to the Armor class value that initially depends on the armor you wear and your Dexterity modifier.</li>
+              <li><strong>Encumbrance</strong>(GM Only): The maximum value at which you can't move anymore. If you have an encumbrance of 1800 it will delay any movement penalty by 200 (1800-1600).</li>
+              <li><strong>Calculate movement</strong>(GM Only): if you have a tricky case where movement should be manually set, you can uncheck this.</li>
+              </ul>
+            </div>
+          <h6 class="docs-header">Attributes</h6>
+          <p>
+            
+The Default tab is dedicated to the statistics of the actor. On the left you will find the attribute scores. You can edit those values directly.
+
+Rolls can be made by clicking on the attribute name. After clicking you will see a dialog where you can input modifiers. If you try to roll the attributes will holding the CTRL key, the dialog will be skipped.
+
+Above the attributes you can click on the book icon to see the influence of all the attributes on the other stats of your character. That will be really useful during character creation, but also to see other stats like your maximum number of retainers, or literacy
+
+In the middle you will find on the first row.
+- Editable HP values, the 'bucket' will empty as you lose HPs.
+
+- An Armor class within a shield shape. The value above is the AC and below will be the unarmored armor class. It's calculated depending on the armor you have equipped. You can add an armor bonus in the Tweaks dialog. 
+
+If there is a small shield icon on top of the Armor class value, it means you have a shield equipped that should not be taken into account when you are attacked from behind.
+
+Within the second row you will have an Hit Dice field you can roll for obscure reasons, and if the individual initiative is set in the Settings, you will see the initiative value. This value is calculated but you can add a modifier in the Tweaks dialog.
+
+The third row details the Attack statistics. It will change if you have the Ascending AC setting enabled.
+At the center you will find the THAC0, on the left the Melee attack modifier that is influenced by strength and on the right the Missile modifier influenced by Dexterity. you can hover both to have the details of the calculation, and add a bonus if needed in the Tweaks dialog.
+Both field names are clickable and will roll attacks that can be speedrolled by maintaining the CTRL key.
+
+The first shows the movement stats that are computed automatically by default, depending on the weight you are carrying (See the inventory section).
+
+          </p>
+        </div>
+      </div>
+      <div id="monsters" class="row"></div>
+      <div id="initiative" class="row"></div>
+      <div id="further" class="row"></div>
     </div>
-  </div>
 
-<!-- End Document
+    <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-</body>
+  </body>
 </html>

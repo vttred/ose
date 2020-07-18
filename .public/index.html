@@ -57,7 +57,10 @@
               <a class="navbar-link" href="#initiative">Initiative</a>
             </li>
             <li class="navbar-item">
-              <a class="navbar-link" href="#further">Going further</a>
+              <a class="navbar-link" href="#treasure">Treasure</a>
+            </li>
+            <li class="navbar-item">
+              <a class="navbar-link" href="#party">Party Sheet</a>
             </li>
           </ul>
         </div>
@@ -341,7 +344,8 @@
               available spells, the second is the number of this spell you
               memorized.
               The spell counter decreases as you roll them by clicking their
-              image. Spell slots that have been used can all be refilled by clicking the reset icon in the spells tab header.
+              image. Spell slots that have been used can all be refilled by
+              clicking the reset icon in the spells tab header.
             </p>
             <p style="text-align: center;">
               <img src="./images/spell.png" />
@@ -362,28 +366,173 @@
               <img src="./images/inventory.png" />
             </p>
             <p>
-              The inventory compiles every item you own from the weapon to the treasure. Weapons are in the first section. Clicking on the weapon icon will roll an attack with damage.
+              The inventory compiles every item you own from the weapon to the
+              treasure. Weapons are in the first section. Clicking on the weapon
+              icon will roll an attack with damage.
             </p>
             <p style="text-align: center;">
               <img src="./images/item-attack.png" />
             </p>
             <p>
-              Clicking on the name will expand the item description along with relevant tags. Here it's the damage.
+              Clicking on the name will expand the item description along with
+              relevant tags. Here it's the damage.
             </p>
             <p style="text-align: center;">
               <img src="./images/item-collapse.png" />
             </p>
             <p>
-              It is possible to equip an item. The only mechanical value it has for now is the influence of the Slow weapon tag on initiative. Tags that are recognized will be displayed as icons. If you don't have Foundry VTT set has english and you use a translation (French, Spanish), you will have to use the tags translation to have it matched.
+              It is possible to equip an item. The only mechanical value it has
+              for now is the influence of the Slow weapon tag on initiative.
+              Tags that are recognized will be displayed as icons. If you don't
+              have Foundry VTT set has english and you use a translation
+              (French, Spanish), you will have to use the tags translation to
+              have it matched.
               Other tags will be written as text.
+            </p>
+            <p>
+              Other items won't be clickable. Armors have configurable Armor
+              Class and an Armor type, Misc items can have a quantity directly
+              editable from the inventory list. If checked as Treasure, it is
+              counter in the total treasure displayed in the treasure header.
+            </p>
+            <p>
+              Below is the encumbrance bar. This is used for the auto mouvement
+              calculation. If you're encumbrance max value is 1600 as default,
+              each cursor passed are the threshold you will lose movement.
+            </p>
+            <h4 class="docs-header">Notes</h4>
+            <p style="text-align: center;">
+              <img src="./images/notes.png" />
+            </p>
+            <p>This tab is a free space you can record description and notes.
+              This is enriched so you can use inline rolls, entity links and
+              other fun things.</p>
+            <p>You can add known language by clicking on the plus next to the
+              language header. The number of language you can speak can be found
+              in the modifier dialog in the attribute tab.</p>
+            <p>The language list was made compatible with the Polyglot module
+              from Kakaroto, you can find it <a
+                href="https://github.com/kakaroto/fvtt-module-polyglot">here</a>
+              or in the module list within Foundry VTT.</p>
+            <p>We have finished with the character sheet. Feel free to post
+              issues on gitlab or contact me for more informations.</p>
+          </div>
+          <div id="monsters" class="docs-section">
+            <h4>Monsters</h4>
+            <h4 class="docs-header">Tweaks</h4>
+            <p style="text-align: center;">
+              <img src="./images/monster-tweaks.png" />
+            </p>
+            <p>
+              The tweaks menu for monsters is lighter. You can enable spells, add a value to initiative, set as retainer and that's pretty much it.
+            </p>
+            <h4 class="docs-header">Header</h4>
+            <p style="text-align: center;">
+              <img src="./images/monster-header.png" />
+            </p>
+            <p>There is a lot happening here. The first row below the name are all rollable fields. The alignment rolls a plain 2d6 on the reaction table. The two number appearing can be rolled and the morale as well. The XP award is just plain text though.</p>
+            <p>The Treasure type is a link to a rollable table. When you drop a rollable table on a monster sheet it will show up here so you can access the treasure table quickly and roll that loot.</p>
+            <h4 class="docs-header">Abilities</h4>
+            <p style="text-align: center;">
+              <img src="./images/monster-abilities.png" />
+            </p>
+            <p>
+              The Hit Points can be silently rolled as you click on the dice next to the header. That is why Hit dice must be a rollable string. AC is manually typed and there is no calculation involved. Clicking on THAC0 will launch a raw Attack with 1d6 damage.
+            </p>
+            <p>
+              The abilities and equipment panel will contain all the heart and soul of your monster. You can set clickable abilities like for characters. There is also a weapon counter so you know how many attacks you made each round with your monster. The counters are reset with the icon in the header.
+            </p>
+            <p>
+              On the left of the weapon icons, in the list, you can mark the item with a color so you can distinguish attack patterns. In the example here I have in red 2xClaws and Bite so here is my attack pattern. If I choose green I have a tail spike attack.
+            </p>
+            <p>You can record movement details for non-walking movement options your monster may have. Below are your monster's save that you can roll and speedroll with CTRL maintained.</p>
+            <p>
+              Monsters use the same content as characters for spells, weapons and items. The Note tab is only a large text editor where you can input the monster description or any other particularities that does not fit on the sheet itself.
+            </p>
+          </div>
+          <div id="initiative" class="docs-section">
+            <h4>Initiative</h4>
+            <h4 class="docs-header">Grouped initiative</h4>
+            <p style="text-align: center;">
+              <img src="./images/initiative-start.png" />
+            </p>
+            <p>
+              By default each character or creature is assigned to a group. If their disposition is hostile in the Token configuration they will be in group 'Red', Neutral is yellow, Friendly is green. But the GM can change the group you belong by clicking on the flag, there is a limited number of colors but it should be enough I hope.
+            </p>
+            <p style="text-align: center;">
+              <img src="./images/initiative-group.png" />
+            </p>
+            <p>
+              When you are happy about the groups, you can begin the combat by clicking below the combat tracker. You can reroll the initiative manually with the dice above the tracker. But if you go to the next round it will be rolled again. Characters equipped with a Slow weapon have a Weight displayed in place of the initiative value. If they unequip the weapon they can reset their initiative to the group value by right clicking and select 'reroll'.
+            </p>
+            <p style="text-align: center;">
+              <img src="./images/initiative-result.png" />
+            </p>
+            <h4 class="docs-header">Individual initiative</h4>
+            <p>For this part I invite you to read Foundry VTT documentation, you will find exactly the same behavior and features here, except that initiative will be automatically rerolled when you go to the next round.</p>
+          </div>
+          <div id="treasure" class="docs-section">
+            <h4>Treasure tables</h4>
+            <p style="text-align: center;">
+              <img src="./images/treasure-sidebar.png" />
+            </p>
+            <p>
+             You can find Foundry VTT rollable tables in the sidebar. The default rollable tables can't handle treasure like specified in the Old School Essentials books so I had to augment them.
+            </p>
+            <p style="text-align: center;">
+              <img src="./images/treasure-toggle.png" />
+            </p>
+            <p>
+              You can toggle between the default rollable tables and the treasure table.
+              The default tables are selecting an entry by rolling a dice and returning the matching result. Treasure tables however, have a different behavior. Each entry is rolled with 1d100 and the value is compared to the 'chance field'. So it can return multiple items.
+            </p>
+            <p>
+              You can select the table type you need by clicking on the chest at the right of the rollable table name. Once you do the fields will change.
+            </p>
+            <p style="text-align: center;">
+              <img src="./images/treasure-table.png" />
+            </p>
+            <p>
+              Foundry VTT allows rollable tables to be filled with enriched Text, Entities like journals and items and compendium objects. Here I use inline rolls from enriched text to tell how many coins I get.
+            </p>
+            <p>If you have only one item to be rolled you can change the result type.</p>
+            <p style="text-align: center;">
+              <img src="./images/treasure-item.png" />
+            </p>
+            <p>
+              Once you roll the treasure you have the result displayed in the chat.
+            </p>
+            <p style="text-align: center;">
+              <img src="./images/treasure-roll.png" />
+            </p>
+          </div>
+          <div id="party" class="docs-section">
+            <h4>Party Overview</h4>
+            <p style="text-align: center;">
+              <img src="./images/party-sidebar.png" />
+            </p>
+            <p>
+              When in the Actors sidebar, you will find a new icon next to the search filter. This will open the Party overview app we are detailing here.
+            </p>
+            <p style="text-align: center;">
+              <img src="./images/party-app.png" />
+            </p>
+            <p>
+              The party overview app will condense a lot of stats about your group. At first it will be empty so you will have to click on the group icon on top right to select which character/monster is part of the party.
+              Sometimes after selecting party members you may have to resync the display by clicking the resync icon on top left of the window.
+            </p>
+            <p>
+              Almost every info shown on this party sheet is hoverable to have the exact name of what you are seeing. If you hover on the actor image you will se a button that allows you to open the actor sheet.
+            </p>
+            <p>
+              The open hand icon in the window header allows you to deal experience to the characters in the party. This will take into account the experience Share set in the Characters <a href="#tweaks">Tweaks</a> dialog. After shares are calculated each actor will send a message to the chat telling how many experience points they get after applying their share and their experience bonus.
+            </p>
+            <p>
+              Don't forget to set the experience share to 50% for retainers!
             </p>
           </div>
         </div>
-        <div id="monsters" class="row"></div>
-        <div id="initiative" class="row"></div>
-        <div id="further" class="row"></div>
       </div>
-
       <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     </body>

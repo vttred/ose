@@ -12,7 +12,7 @@ export class OseCombat {
     Object.keys(groups).forEach((group) => {
       let roll = new Roll("1d6").roll();
       roll.toMessage({
-        flavor: game.i18n.format('OSE.roll.initiative', {group: CONFIG[OSE].colors[group]}),
+        flavor: game.i18n.format('OSE.roll.initiative', {group: CONFIG["OSE"].colors[group]}),
       });
       groups[group].initiative = roll.total;
     });
@@ -133,6 +133,9 @@ export class OseCombat {
   static addListeners(html) {
     // Cycle through colors
     html.find(".combatant-control.flag").click((ev) => {
+      if (!game.user.isGM) {
+        return;
+      }
       let currentColor = ev.currentTarget.style.color;
       let colors = Object.keys(CONFIG.OSE.colors);
       let index = colors.indexOf(currentColor);

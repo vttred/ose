@@ -91,6 +91,12 @@ Hooks.on("renderSidebarTab", async (object, html) => {
     const template = "systems/ose/templates/chat/license.html";
     const rendered = await renderTemplate(template);
     html.find(".game-system").append(rendered);
+    let docs = html.find("button[data-action='docs']");
+    $(`<button data-action="userguide">OSE User Guide</button>`).insertAfter(docs);
+    html.find('button[data-action="userguide"]').click(ev => {
+      var guide = new FrameViewer('./systems/ose/docs/index.html').render(true);
+      console.log("CLICK");
+    });    
   }
 });
 

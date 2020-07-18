@@ -94,7 +94,7 @@ Hooks.on("renderSidebarTab", async (object, html) => {
     let docs = html.find("button[data-action='docs']");
     $(`<button data-action="userguide">OSE User Guide</button>`).insertAfter(docs);
     html.find('button[data-action="userguide"]').click(ev => {
-      var guide = new FrameViewer('./systems/ose/docs/index.html').render(true);
+      var guide = new FrameViewer('https://mesfoliesludiques.gitlab.io/foundryvtt-ose').render(true);
       console.log("CLICK");
     });    
   }

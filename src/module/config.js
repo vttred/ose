@@ -87,5 +87,70 @@ export const OSE = {
     splash: "/systems/ose/assets/splash.png",
     reload: "/systems/ose/assets/reload.png",
     charge: "/systems/ose/assets/charge.png",
+  },
+  monster_saves: {
+    0: {
+      d: 14,
+      w: 15,
+      p: 16,
+      b: 17,
+      s: 18
+    },
+    1: {
+      d: 12,
+      w: 13,
+      p: 14,
+      b: 15,
+      s: 16
+    },
+    4: {
+      d: 10,
+      w: 11,
+      p: 12,
+      b: 13,
+      s: 14
+    },
+    7: {
+      d: 8,
+      w: 9,
+      p: 10,
+      b: 10,
+      s: 12
+    },
+    10: {
+      d: 6,
+      w: 7,
+      p: 8,
+      b: 8,
+      s: 10
+    },
+    13: {
+      d: 4,
+      w: 5,
+      p: 6,
+      b: 5,
+      s: 8
+    },
+    16: {
+      d: 2,
+      w: 3,
+      p: 4,
+      b: 3,
+      s: 6
+    },
+    19: {
+      d: 2,
+      w: 2,
+      p: 2,
+      b: 2,
+      s: 4
+    },
+    22: {
+      d: 2,
+      w: 2,
+      p: 2,
+      b: 2,
+      s: 2
+    },
   }
 };

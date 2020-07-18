@@ -1,0 +1,7 @@
+<form autocomplete="off" onsubmit="event.preventDefault();">
+    <ol class="attribute-list">
+        {{#each config.scores as |score id| }}
+        <li data-score="{{id}}">{{score}}</li>
+        {{/each}}
+    </ol>
+</form>

@@ -1,6 +1,7 @@
 import { OseActor } from "./entity.js";
 import { OseActorSheet } from "./actor-sheet.js";
 import { OseCharacterModifiers } from "../dialog/character-modifiers.js";
+import { OseCharacterCreator } from "../dialog/character-creation.js";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -33,6 +34,22 @@ export class OseActorSheetCharacter extends OseActorSheet {
     });
   }
 
+  /**
+   * Character creation helpers
+   * @param  {...any} args
+   */
+  async _render(...args) {
+    super._render(...args).then(() => {
+      if (this.actor.isNew()) {
+        event.preventDefault();
+        new OseCharacterCreator(this.actor, {
+          top: this.position.top + 40,
+          left: this.position.left + (this.position.width - 400) / 2,
+        }).render(true);
+      }
+    });
+  }
+  
   /**
    * Prepare data for rendering the Actor sheet
    * The prepared data object contains both the actor data as well as additional sheet options

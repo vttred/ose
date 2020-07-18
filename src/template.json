@@ -31,19 +31,19 @@
         },
         "saves": {
           "death": {
-            "value": 10
+            "value": 0
           },
           "wand": {
-            "value": 10
+            "value": 0
           },
           "paralysis": {
-            "value": 10
+            "value": 0
           },
           "breath": {
-            "value": 10
+            "value": 0
           },
           "spell": {
-            "value": 10
+            "value": 0
           }
         },
         "movement": {

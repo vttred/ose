@@ -33,6 +33,38 @@ export class OseActorSheetMonster extends OseActorSheet {
   }
 
   /**
+   * Monster creation helpers
+   * @param  {...any} args 
+   */
+  async _render(...args) {
+    super._render(...args).then(() => {
+      if (this.actor.isNew()) {
+        const template = `
+              <form>
+               <div class="form-group">
+                <label>Hit dice count</label> 
+                <input name="total" placeholder="Hit Dice" type="text"/>
+               </div>
+            </form>`;
+            new Dialog({
+              title: game.i18n.localize("OSE.dialog.generateSaves"),
+              content: template,
+              buttons: {
+                set: {
+                  icon: '<i class="fas fa-dice"></i>',
+                  label: game.i18n.localize("OSE.dialog.generateSaves"),
+                  callback: (html) => {
+                    let hd = html.find('input[name="total"]').val();
+                    this.actor.generateSave(hd);
+                  },
+                },
+              },
+            }).render(true);
+      }
+    });
+  }
+
+  /**
    * Prepare data for rendering the Actor sheet
    * The prepared data object contains both the actor data as well as additional sheet options
    */

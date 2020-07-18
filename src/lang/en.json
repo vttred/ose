@@ -15,6 +15,7 @@
   "OSE.dialog.partysheet": "Party Overview",
   "OSE.dialog.selectActors": "Select PCs",
   "OSE.dialog.dealXP": "Deal XP",
+  "OSE.dialog.generateSaves": "Generate Saves",
 
   "OSE.Formula": "Formula",
   "OSE.SitMod": "Situational Modifier",

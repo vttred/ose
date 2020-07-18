@@ -51,6 +51,56 @@ export class OseActor extends Actor {
     });
   }
 
+  isNew() {
+    const data = this.data.data;
+    if (this.data.type == 'character') {
+      let ct = 0;
+      Object.values(data.scores).forEach((el) => {
+        ct += el.value;
+      })
+      return ct == 0 ? true : false;
+    } else if (this.data.type == 'monster') {
+      let ct = 0;
+      Object.values(data.saves).forEach(el => {
+        ct += el.value;
+      });
+      return ct == 0 ? true : false;
+    }
+  }
+
+  generator() {
+    
+  }
+
+  generateSave(hd) {
+    let saves = {};
+    for (let i = 0; i <= hd; i++) {
+      let tmp = CONFIG.OSE.monster_saves[i];
+      if (tmp) {
+        saves = tmp;
+      }
+    }
+    this.update({
+      "data.saves": {
+        death: {
+          value: saves.d
+        },
+        wand: {
+          value: saves.w
+        },
+        paralysis: {
+          value: saves.p
+        },
+        breath: {
+          value: saves.b
+        },
+        spell: {
+          value: saves.s
+        }
+      }
+    });
+  }
+
   /* -------------------------------------------- */
   /*  Rolls                                       */
   /* -------------------------------------------- */
@@ -540,7 +590,7 @@ export class OseActor extends Actor {
     let total = 0;
     let treasure = this.data.items.filter(i => (i.type == "item" && i.data.treasure))
     treasure.forEach((item) => {
-       total += item.data.quantity.value * item.data.cost;
+      total += item.data.quantity.value * item.data.cost;
     });
     data.treasure = total;
   }

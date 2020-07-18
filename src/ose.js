@@ -88,9 +88,23 @@ Hooks.on("renderSidebarTab", async (object, html) => {
     party.addControl(object, html);
   }
   if (object instanceof Settings) {
+    let gamesystem = html.find(".game-system");
+    // SRD Link
+    let ose = gamesystem.find('h4').last();
+    ose.append(` <sub><a href="https://oldschoolessentials.necroticgnome.com/srd/index.php">SRD<a></sub>`);
+
+    // License text
     const template = "systems/ose/templates/chat/license.html";
     const rendered = await renderTemplate(template);
-    html.find(".game-system").append(rendered);
+    gamesystem.append(rendered);
+    
+    // User guide
+    let docs = html.find("button[data-action='docs']");
+    const styling = "border:none;margin-right:2px;vertical-align:middle;margin-bottom:5px";
+    $(`<button data-action="userguide"><img src='/systems/ose/assets/dragon.png' width='16' height='16' style='${styling}'/>Old School Guide</button>`).insertAfter(docs);
+    html.find('button[data-action="userguide"]').click(ev => {
+      new FrameViewer('https://mesfoliesludiques.gitlab.io/foundryvtt-ose', {resizable: true}).render(true);
+    });
   }
 });
 

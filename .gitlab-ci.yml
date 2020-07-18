@@ -1,5 +1,9 @@
-# This file is a template, and might need editing before it works on your project.
-# Full project: https://gitlab.com/pages/plain-html
+image: ruby:2.7
+
+workflow:
+  rules:
+    - if: "$CI_COMMIT_BRANCH"
+
 pages:
   stage: deploy
   script:
@@ -7,5 +11,5 @@ pages:
   artifacts:
     paths:
       - public
-  only:
-    - development
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "development"'

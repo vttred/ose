@@ -154,7 +154,11 @@ export class OseItem extends Item {
     const data = this.data.data;
     switch (this.data.type) {
       case "weapon":
-        return `${formatTag(data.damage)}`;
+        let wTags = formatTag(data.damage);
+        data.tags.forEach(t => {
+          wTags += formatTag(t.value);
+        })
+        return wTags;
       case "armor":
         return `${formatTag(CONFIG.OSE.armor[data.type])}`;
       case "item":

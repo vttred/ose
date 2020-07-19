@@ -28,15 +28,6 @@ export const registerSettings = function () {
     config: true,
   });
 
-  game.settings.register("ose", "variableWeaponDamage", {
-    name: game.i18n.localize("OSE.Setting.VariableWeaponDamage"),
-    hint: game.i18n.localize("OSE.Setting.VariableWeaponDamageHint"),
-    default: false,
-    scope: "world",
-    type: Boolean,
-    config: true,
-  });
-
   game.settings.register("ose", "encumbranceOption", {
     name: game.i18n.localize("OSE.Setting.Encumbrance"),
     hint: game.i18n.localize("OSE.Setting.EncumbranceHint"),

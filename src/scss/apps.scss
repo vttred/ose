@@ -5,6 +5,33 @@
   }
 }
 
+.ose.dialog.creator {
+  .attribute-list {
+    .form-fields {
+      flex: 0 0 50px;
+      input {
+        text-align: center;
+        font-weight: bold;
+      }
+    }
+  }
+  .roll-stats {
+    flex: 0 0 65px;
+    padding: 5px;
+    margin-left: 4px;
+    border-left: 1px solid $colorTan;
+    .form-group {
+      .form-fields {
+        span {
+          text-align: center;
+          line-height: 24px;
+          flex: 0;
+        }
+      }
+    }
+  }
+}
+
 .ose.dialog.party-sheet {
   min-width: 250px;
   min-height: 250px;
@@ -45,7 +72,7 @@
       margin-bottom: 2px;
       font-size: 12px;
       text-align: center;
-      .fields .field-row{
+      .fields .field-row {
         &:nth-child(odd) {
           background-color: rgba(0, 0, 0, 0.1);
         }
@@ -95,7 +122,7 @@
 #sidebar #actors .directory-header .header-search {
   .ose-party-sheet {
     width: 32px;
-    text-align: center; 
+    text-align: center;
     line-height: 20px;
   }
   input {
@@ -120,7 +147,7 @@
       flex: 0 0 30px;
       font-size: 26px;
       line-height: 25px;
-      color:white;
+      color: white;
       margin: 0 2px 5px 8px;
       border-radius: 8px;
       background: url("/systems/ose/assets/chest.png") no-repeat center;
@@ -128,7 +155,8 @@
       padding: 5px 8px;
       cursor: pointer;
       filter: grayscale(1) opacity(0.5);
-      &.active,&:hover {
+      &.active,
+      &:hover {
         filter: none;
       }
     }
@@ -172,12 +200,15 @@
     box-shadow: 0 0 2px #fff inset;
     .chat-title {
       margin: 4px 0;
+      height: 30px;
+      overflow: hidden;
       h2 {
         border: none;
         line-height: 34px;
         margin: 0;
         text-indent: 10px;
         font-size: 16px;
+        word-break: break-all;
       }
     }
     .chat-img {

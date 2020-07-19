@@ -69,7 +69,7 @@ export class OseActor extends Actor {
   }
 
   generator() {
-    
+
   }
 
   generateSave(hd) {
@@ -274,6 +274,9 @@ export class OseActor extends Actor {
   rollHitDice(options = {}) {
     const label = game.i18n.localize(`OSE.roll.hd`);
     const rollParts = [this.data.data.hp.hd];
+    if (this.data.type == 'character') {
+      rollParts.push(this.data.data.scores.con.mod);
+    }
 
     const data = {
       ...this.data,
@@ -373,10 +376,7 @@ export class OseActor extends Actor {
     };
 
     let dmgParts = [];
-    if (
-      (!attData.dmg || !game.settings.get("ose", "variableWeaponDamage")) &&
-      this.type == "character"
-    ) {
+    if (!attData.dmg) {
       dmgParts.push("1d6");
     } else {
       dmgParts.push(attData.dmg);
@@ -404,11 +404,7 @@ export class OseActor extends Actor {
     const rollParts = ["1d20"];
     const dmgParts = [];
     let label = game.i18n.format("OSE.roll.attacks", { name: this.data.name });
-    if (
-      !attData.dmg ||
-      (!game.settings.get("ose", "variableWeaponDamage") &&
-        this.data.type == "character")
-    ) {
+    if (!attData.dmg) {
       dmgParts.push("1d6");
     } else {
       label = game.i18n.format("OSE.roll.attacksWith", { name: attData.label });

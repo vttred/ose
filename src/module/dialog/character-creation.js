@@ -1,13 +1,14 @@
-// eslint-disable-next-line no-unused-vars
 import { OseActor } from '../actor/entity.js';
+import { OseDice } from "../dice.js";
 
 export class OseCharacterCreator extends FormApplication {
   static get defaultOptions() {
     const options = super.defaultOptions;
+    options.classes = ["ose", "dialog", "creator"],
     options.id = 'character-creator';
     options.template =
       'systems/ose/templates/actors/dialogs/character-creation.html';
-    options.width = 380;
+    options.width = 235;
     return options;
   }
 
@@ -18,7 +19,7 @@ export class OseCharacterCreator extends FormApplication {
    * @type {String}
    */
   get title() {
-    return `${this.object.name}: ${game.i18n.localize('OSE.dialog.tweaks')}`;
+    return `${this.object.name}: ${game.i18n.localize('OSE.dialog.generator')}`;
   }
 
   /* -------------------------------------------- */
@@ -36,9 +37,66 @@ export class OseCharacterCreator extends FormApplication {
 
   /* -------------------------------------------- */
 
+  doStats(ev) {
+    let list = $(ev.currentTarget).closest('.attribute-list');
+    let values = [];
+    list.find('.score-value').each((i, s) => {
+      if (s.value != 0) {
+        values.push(parseInt(s.value));
+      }
+    })
+
+    let n = values.length;
+    let sum = values.reduce((a,b) => a+b);
+    let mean = parseFloat(sum) / n;
+    let std = Math.sqrt(values.map(x => Math.pow(x-mean,2)).reduce((a,b) => a+b)/n);
+
+    let stats = list.siblings('.roll-stats');
+    stats.find('.sum').text(sum);
+    stats.find('.avg').text(Math.round(10 * sum / n) / 10);
+    stats.find('.std').text(Math.round(100 * std) / 100);
+    if (n >= 6) {
+      $(ev.currentTarget).closest('form').find('button[type="submit"]').removeAttr('disabled');
+    }
+  }
+
+  rollScore(score, options={}) {
+    const label = game.i18n.localize(`OSE.scores.${score}.long`);
+    const rollParts = ["3d6"];
+    const data = {
+      ...this.object.data,
+      ...{
+        rollData: {
+          type: "result"
+        },
+      },
+    };
+    // Roll and return
+    return OseDice.Roll({
+      event: options.event,
+      parts: rollParts,
+      data: data,
+      skipDialog: true,
+      speaker: ChatMessage.getSpeaker({ actor: this }),
+      flavor: game.i18n.format('OSE.dialog.generateScore', {score: label}),
+      title: game.i18n.format('OSE.dialog.generateScore', {score: label}),
+    });
+  }
+
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
+    html.find('a.score-roll').click((ev) => {
+      let el = ev.currentTarget.parentElement.parentElement;
+      let score = el.dataset.score;
+      this.rollScore(score, {event: ev}).then(r => {
+        $(el).find('input').val(r.total).trigger('change');
+      });
+    });
+
+    html.find('input.score-value').change(ev => {
+      this.doStats(ev);
+    })
   }
 
   /**

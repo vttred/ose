@@ -57,11 +57,6 @@ export class OseActorSheetCharacter extends OseActorSheet {
   getData() {
     const data = super.getData();
 
-    // Settings
-    data.config.variableWeaponDamage = game.settings.get(
-      "ose",
-      "variableWeaponDamage"
-    );
     data.config.ascendingAC = game.settings.get("ose", "ascendingAC");
     data.config.individualInit = game.settings.get("ose", "individualInit");
     data.config.encumbrance = game.settings.get("ose", "encumbranceOption");

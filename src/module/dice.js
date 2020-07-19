@@ -103,12 +103,12 @@ export class OseDice {
               )
               .then((displayed) => {
                 ChatMessage.create(chatData);
-                resolve();
+                resolve(roll);
               });
           } else {
             chatData.sound = CONFIG.sounds.dice;
             ChatMessage.create(chatData);
-            resolve();
+            resolve(roll);
           }
         });
       });
@@ -215,17 +215,17 @@ export class OseDice {
                       )
                       .then(() => {
                         ChatMessage.create(chatData);
-                        resolve();
+                        resolve(roll);
                       });
                   } else {
                     ChatMessage.create(chatData);
-                    resolve();
+                    resolve(roll);
                   }
                 });
             } else {
               chatData.sound = CONFIG.sounds.dice;
               ChatMessage.create(chatData);
-              resolve();
+              resolve(roll);
             }
           });
         });

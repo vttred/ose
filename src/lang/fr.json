@@ -161,8 +161,6 @@
   "OSE.Setting.AscendingACHint": "Le plus est le mieux",
   "OSE.Setting.Morale": "Activer le Score de Moral",
   "OSE.Setting.MoraleHint": "Le Score de Moral est affiché sur la fiche de Monstre",
-  "OSE.Setting.VariableWeaponDamage": "Dégâts d'Arme Variables",
-  "OSE.Setting.VariableWeaponDamageHint": "Les Armes peuvent avoir des dégâts d'arme différents",
   "OSE.Setting.Encumbrance": "Encombrement",
   "OSE.Setting.EncumbranceHint": "Choisissez comment l'encombrement est calculé",
   "OSE.Setting.EncumbranceDisabled": "Désactivé",

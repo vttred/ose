@@ -12,7 +12,7 @@ export class OseCombat {
     Object.keys(groups).forEach((group) => {
       let roll = new Roll("1d6").roll();
       roll.toMessage({
-        flavor: game.i18n.format('OSE.roll.initiative', {group: CONFIG["OSE"].colors[group]}),
+        flavor: game.i18n.format('OSE.roll.initiative', { group: CONFIG["OSE"].colors[group] }),
       });
       groups[group].initiative = roll.total;
     });
@@ -34,18 +34,21 @@ export class OseCombat {
   static async individualInitiative(combat, data) {
     let updates = [];
     let messages = [];
-
     combat.data.combatants.forEach((c, i) => {
       // This comes from foundry.js, had to remove the update turns thing
       // Roll initiative
       const cf = combat._getInitiativeFormula(c);
       const roll = combat._getInitiativeRoll(c, cf);
-      updates.push({_id: c._id, initiative: roll.total});
+      let value = roll.total;
+      if (combat.settings.skipDefeated && c.defeated) {
+        value = -790;
+      }
+      updates.push({ _id: c._id, initiative: value });
 
       // Determine the roll mode
       let rollMode = game.settings.get("core", "rollMode");
-      if (( c.token.hidden || c.hidden ) && (rollMode === "roll") ) rollMode = "gmroll";
-      
+      if ((c.token.hidden || c.hidden) && (rollMode === "roll")) rollMode = "gmroll";
+
       // Construct chat message data
       let messageData = mergeObject({
         speaker: {
@@ -54,16 +57,15 @@ export class OseCombat {
           token: c.token._id,
           alias: c.token.name
         },
-        flavor: game.i18n.format('OSE.roll.individualInit', {name: c.token.name})
+        flavor: game.i18n.format('OSE.roll.individualInit', { name: c.token.name })
       }, {});
-      const chatData = roll.toMessage(messageData, {rollMode, create:false});
+      const chatData = roll.toMessage(messageData, { rollMode, create: false });
 
-      if ( i > 0 ) chatData.sound = null;   // Only play 1 sound for the whole set
+      if (i > 0) chatData.sound = null;   // Only play 1 sound for the whole set
       messages.push(chatData);
     });
     await combat.updateEmbeddedEntity("Combatant", updates);
     await CONFIG.ChatMessage.entityClass.create(messages);
-    // Take the first combatant
     data.turn = 0;
   }
 
@@ -72,6 +74,10 @@ export class OseCombat {
       span.innerHTML =
         span.innerHTML == "-789.00"
           ? '<i class="fas fa-weight-hanging"></i>'
+          : span.innerHTML;
+      span.innerHTML =
+        span.innerHTML == "-790.00"
+          ? '<i class="fas fa-dizzy"></i>'
           : span.innerHTML;
     });
     let init = game.settings.get("ose", "individualInit");

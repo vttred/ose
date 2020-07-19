@@ -111,7 +111,7 @@ export class OseCharacterCreator extends FormApplication {
     // Generate gold
     let gold = event.target.elements.namedItem('gold').value;
     const itemData = {
-      name: "Gold pieces",
+      name: "GP",
       type: "item",
       img: "/systems/ose/assets/gold.png",
       data: {

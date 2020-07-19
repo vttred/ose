@@ -297,6 +297,8 @@
               is above 40.
               When the ability has a roll set you can click on the ability image
               on the character sheet to roll directly to the chat.
+              You can apply the roll result as damage or healing by right
+              clicking on the chat card, this is true for all rolls.
             </p>
             <p style="text-align: center;">
               <img src="./images/ability-chat.png" />
@@ -369,6 +371,12 @@
               <img src="./images/item-attack.png" />
             </p>
             <p>
+              Damage rolled during the attack can be applied to one or several
+              selected tokens if you click on the blood drop icon right to the
+              result. You can apply damage or healing by right clicking on the
+              chat card, this is true for all rolls.
+            </p>
+            <p>
               Clicking on the name will expand the item description along with
               relevant tags. Here it's the damage.
             </p>
@@ -385,14 +393,20 @@
               Other tags will be written as text.
             </p>
             <p>
-              When you open the weapon sheet by clicking on the pen icon, you can edit the stats and add new tags.
-              Slow, Melee, and Missile tags will check automatically the matching checkbox. But won't uncheck it.
+              When you open the weapon sheet by clicking on the pen icon, you
+              can edit the stats and add new tags.
+              Slow, Melee, and Missile tags will check automatically the
+              matching checkbox. But won't uncheck it.
             </p>
             <p style="text-align: center;">
               <img src="./images/weapon.png" />
             </p>
             <p>
-              Weapons can have attack bonuses. You can add new weapon tags if you type text in the field below the weapon icon and press ENTER. You can copy the whole qualities field from the book as the tag parser will split the commas, and set the text between brackets as a hover text.
+              Weapons can have attack bonuses. You can add new weapon tags if
+              you type text in the field below the weapon icon and press ENTER.
+              You can copy the whole qualities field from the book as the tag
+              parser will split the commas, and set the text between brackets as
+              a hover text.
             </p>
             <p>
               Other items won't be clickable. Armors have configurable Armor
@@ -429,30 +443,52 @@
               <img src="./images/monster-tweaks.png" />
             </p>
             <p>
-              The tweaks menu for monsters is lighter. You can enable spells, add a value to initiative, set as retainer and that's pretty much it.
+              The tweaks menu for monsters is lighter. You can enable spells,
+              add a value to initiative, set as retainer and that's pretty much
+              it.
             </p>
             <h4 class="docs-header">Header</h4>
             <p style="text-align: center;">
               <img src="./images/monster-header.png" />
             </p>
-            <p>There is a lot happening here. The first row below the name are all rollable fields. The alignment rolls a plain 2d6 on the reaction table. The two number appearing can be rolled and the morale as well. The XP award is just plain text though.</p>
-            <p>The Treasure type is a link to a rollable table. When you drop a rollable table on a monster sheet it will show up here so you can access the treasure table quickly and roll that loot.</p>
+            <p>There is a lot happening here. The first row below the name are
+              all rollable fields. The alignment rolls a plain 2d6 on the
+              reaction table. The two number appearing can be rolled and the
+              morale as well. The XP award is just plain text though.</p>
+            <p>The Treasure type is a link to a rollable table. When you drop a
+              rollable table on a monster sheet it will show up here so you can
+              access the treasure table quickly and roll that loot.</p>
             <h4 class="docs-header">Abilities</h4>
             <p style="text-align: center;">
               <img src="./images/monster-abilities.png" />
             </p>
             <p>
-              The Hit Points can be silently rolled as you click on the dice next to the header. That is why Hit dice must be a rollable string. AC is manually typed and there is no calculation involved. Clicking on THAC0 will launch a raw Attack with 1d6 damage.
+              The Hit Points can be silently rolled as you click on the dice
+              next to the header. That is why Hit dice must be a rollable
+              string. AC is manually typed and there is no calculation involved.
+              Clicking on THAC0 will launch a raw Attack with 1d6 damage.
             </p>
             <p>
-              The abilities and equipment panel will contain all the heart and soul of your monster. You can set clickable abilities like for characters. There is also a weapon counter so you know how many attacks you made each round with your monster. The counters are reset with the icon in the header.
+              The abilities and equipment panel will contain all the heart and
+              soul of your monster. You can set clickable abilities like for
+              characters. There is also a weapon counter so you know how many
+              attacks you made each round with your monster. The counters are
+              reset with the icon in the header.
             </p>
             <p>
-              On the left of the weapon icons, in the list, you can mark the item with a color so you can distinguish attack patterns. In the example here I have in red 2xClaws and Bite so here is my attack pattern. If I choose green I have a tail spike attack.
+              On the left of the weapon icons, in the list, you can mark the
+              item with a color so you can distinguish attack patterns. In the
+              example here I have in red 2xClaws and Bite so here is my attack
+              pattern. If I choose green I have a tail spike attack.
             </p>
-            <p>You can record movement details for non-walking movement options your monster may have. Below are your monster's save that you can roll and speedroll with CTRL maintained.</p>
+            <p>You can record movement details for non-walking movement options
+              your monster may have. Below are your monster's save that you can
+              roll and speedroll with CTRL maintained.</p>
             <p>
-              Monsters use the same content as characters for spells, weapons and items. The Note tab is only a large text editor where you can input the monster description or any other particularities that does not fit on the sheet itself.
+              Monsters use the same content as characters for spells, weapons
+              and items. The Note tab is only a large text editor where you can
+              input the monster description or any other particularities that
+              does not fit on the sheet itself.
             </p>
           </div>
           <div id="initiative" class="docs-section">
@@ -462,19 +498,32 @@
               <img src="./images/initiative-start.png" />
             </p>
             <p>
-              By default each character or creature is assigned to a group. If their disposition is hostile in the Token configuration they will be in group 'Red', Neutral is yellow, Friendly is green. But the GM can change the group you belong by clicking on the flag, there is a limited number of colors but it should be enough I hope.
+              By default each character or creature is assigned to a group. If
+              their disposition is hostile in the Token configuration they will
+              be in group 'Red', Neutral is yellow, Friendly is green. But the
+              GM can change the group you belong by clicking on the flag, there
+              is a limited number of colors but it should be enough I hope.
             </p>
             <p style="text-align: center;">
               <img src="./images/initiative-group.png" />
             </p>
             <p>
-              When you are happy about the groups, you can begin the combat by clicking below the combat tracker. You can reroll the initiative manually with the dice above the tracker. But if you go to the next round it will be rolled again. Characters equipped with a Slow weapon have a Weight displayed in place of the initiative value. If they unequip the weapon they can reset their initiative to the group value by right clicking and select 'reroll'.
+              When you are happy about the groups, you can begin the combat by
+              clicking below the combat tracker. You can reroll the initiative
+              manually with the dice above the tracker. But if you go to the
+              next round it will be rolled again. Characters equipped with a
+              Slow weapon have a Weight displayed in place of the initiative
+              value. If they unequip the weapon they can reset their initiative
+              to the group value by right clicking and select 'reroll'.
             </p>
             <p style="text-align: center;">
               <img src="./images/initiative-result.png" />
             </p>
             <h4 class="docs-header">Individual initiative</h4>
-            <p>For this part I invite you to read Foundry VTT documentation, you will find exactly the same behavior and features here, except that initiative will be automatically rerolled when you go to the next round.</p>
+            <p>For this part I invite you to read Foundry VTT documentation, you
+              will find exactly the same behavior and features here, except that
+              initiative will be automatically rerolled when you go to the next
+              round.</p>
           </div>
           <div id="treasure" class="docs-section">
             <h4>Treasure tables</h4>
@@ -482,30 +531,44 @@
               <img src="./images/treasure-sidebar.png" />
             </p>
             <p>
-             You can find Foundry VTT rollable tables in the sidebar. The default rollable tables can't handle treasure like specified in the Old School Essentials books so I had to augment them.
+              You can find Foundry VTT rollable tables in the sidebar. The
+              default rollable tables can't handle treasure like specified in
+              the Old School Essentials books so I had to augment them.
             </p>
             <p style="text-align: center;">
               <img src="./images/treasure-toggle.png" />
             </p>
             <p>
-              You can toggle between the default rollable tables and the treasure table with the Chest icon right next to the table name.
-              The default tables are selecting an entry by rolling a dice and returning the matching result. Treasure tables however, have a different behavior. Each entry is rolled with 1d100 and the value is compared to the 'chance field'. So it can return multiple items.
+              You can toggle between the default rollable tables and the
+              treasure table with the Chest icon right next to the table name.
+              The default tables are selecting an entry by rolling a dice and
+              returning the matching result. Treasure tables however, have a
+              different behavior. Each entry is rolled with 1d100 and the value
+              is compared to the 'chance field'. So it can return multiple
+              items.
             </p>
             <p>
-              You can select the table type you need by clicking on the chest at the right of the rollable table name. Once you do the fields will change.
+              You can select the table type you need by clicking on the chest at
+              the right of the rollable table name. Once you do the fields will
+              change.
             </p>
             <p style="text-align: center;">
               <img src="./images/treasure-table.png" />
             </p>
             <p>
-              Foundry VTT allows rollable tables to be filled with enriched Text, Entities like journals and items and compendium objects. Here I use inline rolls from enriched text to tell how many coins I get.
+              Foundry VTT allows rollable tables to be filled with enriched
+              Text, Entities like journals and items and compendium objects.
+              Here I use inline rolls from enriched text to tell how many coins
+              I get.
             </p>
-            <p>If you have only one item to be rolled you can change the result type.</p>
+            <p>If you have only one item to be rolled you can change the result
+              type.</p>
             <p style="text-align: center;">
               <img src="./images/treasure-item.png" />
             </p>
             <p>
-              Once you roll the treasure you have the result displayed in the chat.
+              Once you roll the treasure you have the result displayed in the
+              chat.
             </p>
             <p style="text-align: center;">
               <img src="./images/treasure-roll.png" />
@@ -517,20 +580,35 @@
               <img src="./images/party-sidebar.png" />
             </p>
             <p>
-              When in the Actors sidebar, you will find a new icon next to the search filter. This will open the Party overview app we are detailing here.
+              When in the Actors sidebar, you will find a new icon next to the
+              search filter. This will open the Party overview app we are
+              detailing here.
             </p>
             <p style="text-align: center;">
               <img src="./images/party-app.png" />
             </p>
             <p>
-              The party overview app will condense a lot of stats about your group. At first it will be empty so you will have to click on the group icon on top right to select which character/monster is part of the party.
-              Sometimes after selecting party members you may have to resync the display by clicking the resync icon on top left of the window.
+              The party overview app will condense a lot of stats about your
+              group. At first it will be empty so you will have to click on the
+              group icon on top right to select which character/monster is part
+              of the party.
+              Sometimes after selecting party members you may have to resync the
+              display by clicking the resync icon on top left of the window.
             </p>
             <p>
-              Almost every info shown on this party sheet is hoverable to have the exact name of what you are seeing. If you hover on the actor image you will se a button that allows you to open the actor sheet.
+              Almost every info shown on this party sheet is hoverable to have
+              the exact name of what you are seeing. If you hover on the actor
+              image you will se a button that allows you to open the actor
+              sheet.
             </p>
             <p>
-              The open hand icon in the window header allows you to deal experience to the characters in the party. This will take into account the experience Share set in the Characters <a href="#tweaks">Tweaks</a> dialog. After shares are calculated each actor will send a message to the chat telling how many experience points they get after applying their share and their experience bonus.
+              The open hand icon in the window header allows you to deal
+              experience to the characters in the party. This will take into
+              account the experience Share set in the Characters <a
+                href="#tweaks">Tweaks</a> dialog. After shares are calculated
+              each actor will send a message to the chat telling how many
+              experience points they get after applying their share and their
+              experience bonus.
             </p>
             <p>
               Don't forget to set the experience share to 50% for retainers!

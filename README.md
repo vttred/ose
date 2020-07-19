@@ -12,6 +12,9 @@ This third party product is not affiliated with or approved by Necrotic Gnome. \
 Old-School Essentials is a trademark of Necrotic Gnome.\
 The trademark and Old-School Essentials logo are used with permission of Necrotic Gnome, under license.
 
+## Artwork
+Weapon quality icons, and the Treasure chest are from [Rexxard](https://assetstore.unity.com/packages/2d/gui/icons/flat-skills-icons-82713).
+
 ## Contributions
 Any feedback is deeply appreciated. Please issue [tickets](https://gitlab.com/mesfoliesludiques/foundryvtt-ose/-/boards).\
 Feel free to grab a TO DO issue from the gitlab board. You can then do a merge request on the `development` branch.

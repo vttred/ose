@@ -82,6 +82,7 @@ export class OseActorSheet extends ActorSheet {
       let summary = li.parents(".item-entry").children(".item-summary");
       summary.slideUp(200, () => summary.remove());
     } else {
+      // Add item tags
       let div = $(`<div class="item-summary"><ol class="tag-list">${item.getTags()}</ol><div>${description}</div></div>`);
       li.parents(".item-entry").append(div.hide());
       div.slideDown(200);

@@ -41,7 +41,6 @@ export class OseActorSheetCharacter extends OseActorSheet {
   async _render(...args) {
     super._render(...args).then(() => {
       if (this.actor.isNew()) {
-        event.preventDefault();
         new OseCharacterCreator(this.actor, {
           top: this.position.top + 40,
           left: this.position.left + (this.position.width - 400) / 2,

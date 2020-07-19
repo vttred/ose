@@ -94,11 +94,37 @@ export class OseCharacterCreator extends FormApplication {
       });
     });
 
+    html.find('a.gold-roll').click((ev) => {
+      let el = ev.currentTarget.parentElement.parentElement.parentElement;
+      this.rollScore("Gold", {event: ev}).then(r => {
+        $(el).find('.gold-value').val(r.total * 10);
+      });
+    });
+
     html.find('input.score-value').change(ev => {
       this.doStats(ev);
     })
   }
 
+  async _onSubmit(event, {updateData=null, preventClose=false, preventRender=false}={}) {
+    super._onSubmit(event, {updateData: updateData, preventClose: preventClose, preventRender: preventRender});
+    // Generate gold
+    let gold = event.target.elements.namedItem('gold').value;
+    const itemData = {
+      name: "Gold pieces",
+      type: "item",
+      img: "/systems/ose/assets/gold.png",
+      data: {
+        treasure: true,
+        cost: 1,
+        weight: 1,
+        quantity: {
+          value: gold
+        }
+      }
+    };
+    this.object.createOwnedItem(itemData);
+  }
   /**
    * This method is called upon form submission after form data is validated
    * @param event {Event}       The initial triggering submission event

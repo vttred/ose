@@ -68,10 +68,6 @@ export class OseActor extends Actor {
     }
   }
 
-  generator() {
-
-  }
-
   generateSave(hd) {
     let saves = {};
     for (let i = 0; i <= hd; i++) {

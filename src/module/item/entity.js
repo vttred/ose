@@ -4,14 +4,34 @@ import { OseDice } from "../dice.js";
  * Override and extend the basic :class:`Item` implementation
  */
 export class OseItem extends Item {
+
   /* -------------------------------------------- */
   /*	Data Preparation														*/
   /* -------------------------------------------- */
-
   /**
    * Augment the basic Item data model with additional dynamic data.
    */
   prepareData() {
+    // Set default image
+    let img = CONST.DEFAULT_TOKEN;
+    switch (this.data.type) {
+      case "spell":
+        img = "/systems/ose/assets/default/spell.png";
+        break;
+      case "ability":
+        img = "/systems/ose/assets/default/ability.png";
+        break;
+      case "armor":
+        img = "/systems/ose/assets/default/armor.png";
+        break;
+      case "weapon":
+        img = "/systems/ose/assets/default/weapon.png";
+        break;
+      case "item":
+        img = "/systems/ose/assets/default/item.png";
+        break;
+    }
+    if (!this.data.img) this.data.img = img;
     super.prepareData();
   }
 

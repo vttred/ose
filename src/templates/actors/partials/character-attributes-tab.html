@@ -2,7 +2,11 @@
     {{!-- Scores --}}
     <div class="attribute-group">
         <div class="modifiers-btn">
+            {{#unless isNew}}
             <a data-action="modifiers" title="{{localize 'OSE.Modifiers'}}"><i class="fas fa-book"></i></a>
+            {{else}}
+            <a data-action="generate-scores" title="{{localize 'OSE.dialog.generateScores'}}"><i class="fas fa-dice blinking"></i></a>
+            {{/unless}}
         </div>
         <ul class="attributes">
             <li class="attribute ability-score" data-score="str">
@@ -82,13 +86,15 @@
                 <div class="health-value health-top" title="{{localize 'OSE.ArmorClass'}}">{{data.aac.value}}</div>
                 <div class="health-value health-bottom" title="{{localize 'OSE.ArmorClassNaked'}}">
                     {{data.aac.naked}}</div>
+                    {{#if data.aac.shield}}<div class="shield" title="{{localize 'OSE.items.hasShield'}} ({{data.aac.shield}})"><i
+                            class="fas fa-shield-alt"></i></div>{{/if}}
                 {{else}}
                 <div class="health-value health-top" title="{{localize 'OSE.ArmorClass'}}">{{data.ac.value}}</div>
                 <div class="health-value health-bottom" title="{{localize 'OSE.ArmorClassNaked'}}">
                     {{data.ac.naked}}</div>
+                    {{#if data.ac.shield}}<div class="shield" title="{{localize 'OSE.items.hasShield'}} ({{data.ac.shield}})"><i
+                            class="fas fa-shield-alt"></i></div>{{/if}}
                 {{/if}}
-                {{#if data.shield}}<div class="shield" title="{{localize 'OSE.items.hasShield'}} ({{data.shield}})"><i
-                        class="fas fa-shield-alt"></i></div>{{/if}}
             </div>
         </div>
         <div class="flexrow">
@@ -102,7 +108,7 @@
                             data-dtype="String" />
                     </div>
                 </li>
-                {{#if config.individualInit}}
+                {{#if config.initiative}}
                 <li class="attribute">
                     <h4 class="attribute-name box-title" title="{{ localize 'OSE.Initiative' }}">
                         {{ localize "OSE.InitiativeShort" }}</h4>

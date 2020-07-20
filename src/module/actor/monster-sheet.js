@@ -34,34 +34,37 @@ export class OseActorSheetMonster extends OseActorSheet {
 
   /**
    * Monster creation helpers
-   * @param  {...any} args 
    */
-  async _render(...args) {
-    super._render(...args).then(() => {
-      if (this.actor.isNew()) {
-        const template = `
-              <form>
-               <div class="form-group">
-                <label>Hit dice count</label> 
-                <input name="total" placeholder="Hit Dice" type="text"/>
-               </div>
-            </form>`;
-            new Dialog({
-              title: game.i18n.localize("OSE.dialog.generateSaves"),
-              content: template,
-              buttons: {
-                set: {
-                  icon: '<i class="fas fa-dice"></i>',
-                  label: game.i18n.localize("OSE.dialog.generateSaves"),
-                  callback: (html) => {
-                    let hd = html.find('input[name="total"]').val();
-                    this.actor.generateSave(hd);
-                  },
-                },
-              },
-            }).render(true);
-      }
-    });
+  async generateSave() {
+    let choices = CONFIG.OSE.monster_saves;
+
+    let templateData = { choices: choices },
+      dlg = await renderTemplate(
+        "/systems/ose/templates/actors/dialogs/monster-saves.html",
+        templateData
+      );
+    //Create Dialog window
+    new Dialog({
+      title: game.i18n.localize("OSE.dialog.generateSaves"),
+      content: dlg,
+      buttons: {
+        ok: {
+          label: game.i18n.localize("OSE.Ok"),
+          icon: '<i class="fas fa-check"></i>',
+          callback: (html) => {
+            let hd = html.find('select[name="choice"]').val();
+            this.actor.generateSave(hd);
+          },
+        },
+        cancel: {
+          icon: '<i class="fas fa-times"></i>',
+          label: game.i18n.localize("OSE.Cancel"),
+        },
+      },
+      default: "ok",
+    }, {
+      width: 250
+    }).render(true);
   }
 
   /**
@@ -74,10 +77,11 @@ export class OseActorSheetMonster extends OseActorSheet {
     // Settings
     data.config.morale = game.settings.get("ose", "morale");
     data.data.details.treasure.link = TextEditor.enrichHTML(data.data.details.treasure.table);
+    data.isNew = this.actor.isNew();
     return data;
   }
 
-  
+
   async _onDrop(event) {
     super._onDrop(event);
     let data;
@@ -87,7 +91,7 @@ export class OseActorSheetMonster extends OseActorSheet {
     } catch (err) {
       return false;
     }
-    
+
     let link = "";
     if (data.pack) {
       let tableData = game.packs.get(data.pack).index.filter(el => el._id = "laDZWR1TIe0MVNZe");
@@ -95,7 +99,7 @@ export class OseActorSheetMonster extends OseActorSheet {
     } else {
       link = `@RollTable[${data.id}]`;
     }
-    this.actor.update({"data.details.treasure.table": link});
+    this.actor.update({ "data.details.treasure.table": link });
   }
 
   /* -------------------------------------------- */
@@ -264,6 +268,7 @@ export class OseActorSheetMonster extends OseActorSheet {
       })
     });
 
+    html.find('button[data-action="generate-saves"]').click(() => this.generateSave());
     // Handle default listeners last so system listeners are triggered first
     super.activateListeners(html);
   }

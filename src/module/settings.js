@@ -1,11 +1,17 @@
 export const registerSettings = function () {
-  game.settings.register("ose", "individualInit", {
-    name: game.i18n.localize("OSE.Setting.IndividualInit"),
-    hint: game.i18n.localize("OSE.Setting.IndividualInitHint"),
-    default: false,
+
+  game.settings.register("ose", "initiative", {
+    name: game.i18n.localize("OSE.Setting.Initiative"),
+    hint: game.i18n.localize("OSE.Setting.InitiativeHint"),
+    default: "group",
     scope: "world",
-    type: Boolean,
+    type: String,
     config: true,
+    choices: {
+      disabled: "OSE.Setting.InitiativeOnce",
+      rerolled: "OSE.Setting.InitiativeReroll",
+      group: "OSE.Setting.InitiativeGroup",
+    },
     onChange: _ => window.location.reload()
   });
 

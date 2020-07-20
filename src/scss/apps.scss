@@ -161,7 +161,7 @@
       }
     }
   }
-  @keyframes notify {
+  @keyframes activated {
     from {
       background: none;
     }
@@ -171,7 +171,7 @@
   }
   .results {
     .table-result.active {
-      animation: 0.7s infinite alternate notify;
+      animation: 0.7s infinite alternate activated;
     }
   }
 }

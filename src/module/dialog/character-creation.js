@@ -32,6 +32,15 @@ export class OseCharacterCreator extends FormApplication {
     let data = this.object.data;
     data.user = game.user;
     data.config = CONFIG.OSE;
+    data.counters = {
+      str: 0,
+      wis: 0,
+      dex: 0,
+      int: 0,
+      cha: 0,
+      con: 0,
+      gold: 0
+    }
     return data;
   }
 
@@ -61,7 +70,10 @@ export class OseCharacterCreator extends FormApplication {
   }
 
   rollScore(score, options={}) {
-    const label = game.i18n.localize(`OSE.scores.${score}.long`);
+    // Increase counter
+    this.object.data.counters[score]++;
+
+    const label = score != "gold" ? game.i18n.localize(`OSE.scores.${score}.long`) : "Gold";
     const rollParts = ["3d6"];
     const data = {
       ...this.object.data,
@@ -78,8 +90,17 @@ export class OseCharacterCreator extends FormApplication {
       data: data,
       skipDialog: true,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: game.i18n.format('OSE.dialog.generateScore', {score: label}),
-      title: game.i18n.format('OSE.dialog.generateScore', {score: label}),
+      flavor: game.i18n.format('OSE.dialog.generateScore', {score: label, count: this.object.data.counters[score]}),
+      title: game.i18n.format('OSE.dialog.generateScore', {score: label, count: this.object.data.counters[score]}),
+    });
+  }
+
+  async close() {
+    super.close();
+    const speaker = ChatMessage.getSpeaker({ actor: this });
+    ChatMessage.create({
+      content: game.i18n.format("OSE.messages.creationFinished", {name: this.object.name}),
+      speaker,
     });
   }
 
@@ -96,7 +117,7 @@ export class OseCharacterCreator extends FormApplication {
 
     html.find('a.gold-roll').click((ev) => {
       let el = ev.currentTarget.parentElement.parentElement.parentElement;
-      this.rollScore("Gold", {event: ev}).then(r => {
+      this.rollScore("gold", {event: ev}).then(r => {
         $(el).find('.gold-value').val(r.total * 10);
       });
     });

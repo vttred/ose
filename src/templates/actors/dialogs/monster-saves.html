@@ -1,0 +1,14 @@
+<form class="ose dialog">
+    <div class="form-group">
+        <label>{{localize 'OSE.HitDice'}}</label>
+        <div class="form-fields">
+            <select name="choice">
+                {{#select choices}}
+                {{#each choices as |saves mode|}}
+                <option value="{{mode}}">{{saves.label}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
+    </div>
+</div>

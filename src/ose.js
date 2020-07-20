@@ -109,8 +109,8 @@ Hooks.on("renderSidebarTab", async (object, html) => {
 });
 
 Hooks.on("preCreateCombatant", (combat, data, options, id) => {
-  let init = game.settings.get("ose", "individualInit");
-  if (!init) {
+  let init = game.settings.get("ose", "initiative");
+  if (init == "group") {
     OseCombat.addCombatant(combat, data, options, id);
   }
 });
@@ -124,13 +124,13 @@ Hooks.on("renderCombatTracker", (object, html, data) => {
 });
 
 Hooks.on("preUpdateCombat", async (combat, data, diff, id) => {
-  let init = game.settings.get("ose", "individualInit");
+  let init = game.settings.get("ose", "initiative");
   if (!data.round) {
     return;
   }
-  if (!init) {
+  if (init == "group") {
     OseCombat.rollInitiative(combat, data, diff, id);
-  } else {
+  } else if (init == "rerolled") {
     OseCombat.individualInitiative(combat, data, diff, id);
   }
 });

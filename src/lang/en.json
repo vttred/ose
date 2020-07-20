@@ -17,7 +17,8 @@
   "OSE.dialog.dealXP": "Deal XP",
   "OSE.dialog.generator": "Character generator",
   "OSE.dialog.generateSaves": "Generate Saves",
-  "OSE.dialog.generateScore": "Rolling {score}",
+  "OSE.dialog.generateScores": "Generate Scores",
+  "OSE.dialog.generateScore": "Rolling {score} ({count})",
 
   "OSE.Formula": "Formula",
   "OSE.SitMod": "Situational Modifier",
@@ -158,8 +159,11 @@
   "OSE.category.description": "Description",
   "OSE.category.equipment": "Equipment",
 
-  "OSE.Setting.IndividualInit": "Individual Initiative",
-  "OSE.Setting.IndividualInitHint": "Initiative is rolled for each actor and modified by its DEX score",
+  "OSE.Setting.Initiative": "Initiative",
+  "OSE.Setting.InitiativeHint": "Grouped or individual initiative. Unique individual is only rolled at the start of the combat",
+  "OSE.Setting.InitiativeOnce": "Unique individual Initiative",
+  "OSE.Setting.InitiativeReroll": "Individual Initiative per Round",
+  "OSE.Setting.InitiativeGroup": "Grouped Initiative",
   "OSE.Setting.AscendingAC": "Ascending Armor Class",
   "OSE.Setting.AscendingACHint": "The more the better",
   "OSE.Setting.Morale": "Enable monsters Morale Rating",
@@ -248,6 +252,7 @@
   "OSE.messages.InflictsDamage": "Inflicts damage!",
   "OSE.messages.applyDamage": "Apply Damage",
   "OSE.messages.applyHealing": "Apply Healing",
+  "OSE.messages.creationFinished": "Character {name} creation finished",
 
   "OSE.colors.green": "Green",
   "OSE.colors.red": "Red",

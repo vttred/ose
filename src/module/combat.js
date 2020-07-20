@@ -80,8 +80,8 @@ export class OseCombat {
           ? '<i class="fas fa-dizzy"></i>'
           : span.innerHTML;
     });
-    let init = game.settings.get("ose", "individualInit");
-    if (init) {
+    let init = game.settings.get("ose", "initiative") == "group";
+    if (!init) {
       return;
     }
 
@@ -112,13 +112,13 @@ export class OseCombat {
   }
 
   static updateCombatant(combat, combatant, data) {
-    let init = game.settings.get("ose", "individualInit");
+    let init = game.settings.get("ose", "initiative");
     // Why do you reroll ?
     if (combatant.actor.data.data.isSlow) {
       data.initiative = -789;
       return;
     }
-    if (data.initiative && !init) {
+    if (data.initiative && init == "group") {
       let groupInit = data.initiative;
       // Check if there are any members of the group with init
       combat.combatants.forEach((ct) => {

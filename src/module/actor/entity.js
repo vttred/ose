@@ -17,7 +17,7 @@ export class OseActor extends Actor {
     this.computeTreasure();
 
     // Determine Initiative
-    if (game.settings.get("ose", "individualInit")) {
+    if (game.settings.get("ose", "initiative") != "group") {
       data.initiative.value = data.initiative.mod;
       if (this.data.type == "character") {
         data.initiative.value += data.scores.dex.mod;
@@ -594,7 +594,8 @@ export class OseActor extends Actor {
     // Compute AC
     let baseAc = 9;
     let baseAac = 10;
-    let shield = 0;
+    let AcShield = 0;
+    let AacShield = 0;
     const data = this.data.data;
     data.aac.naked = baseAc + data.scores.dex.mod;
     data.ac.naked = baseAc - data.scores.dex.mod;
@@ -604,12 +605,14 @@ export class OseActor extends Actor {
         baseAc = a.data.ac.value;
         baseAac = a.data.aac.value;
       } else if (a.data.equipped && a.data.type == "shield") {
-        shield = a.data.ac.value;
+        AcShield = a.data.ac.value;
+        AacShield = a.data.aac.value;
       }
     });
-    data.aac.value = baseAac + data.scores.dex.mod + shield + data.aac.mod;
-    data.ac.value = baseAc - data.scores.dex.mod - shield - data.ac.mod;
-    data.shield = shield;
+    data.aac.value = baseAac + data.scores.dex.mod + AacShield + data.aac.mod;
+    data.ac.value = baseAc - data.scores.dex.mod - AcShield - data.ac.mod;
+    data.ac.shield = AcShield;
+    data.aac.shield = AacShield;
   }
 
   computeModifiers() {

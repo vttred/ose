@@ -34,21 +34,13 @@ export class OseActorSheetCharacter extends OseActorSheet {
     });
   }
 
-  /**
-   * Character creation helpers
-   * @param  {...any} args
-   */
-  async _render(...args) {
-    super._render(...args).then(() => {
-      if (this.actor.isNew()) {
-        new OseCharacterCreator(this.actor, {
-          top: this.position.top + 40,
-          left: this.position.left + (this.position.width - 400) / 2,
-        }).render(true);
-      }
-    });
+  generateScores() {
+    new OseCharacterCreator(this.actor, {
+      top: this.position.top + 40,
+      left: this.position.left + (this.position.width - 400) / 2,
+    }).render(true);
   }
-  
+
   /**
    * Prepare data for rendering the Actor sheet
    * The prepared data object contains both the actor data as well as additional sheet options
@@ -57,9 +49,10 @@ export class OseActorSheetCharacter extends OseActorSheet {
     const data = super.getData();
 
     data.config.ascendingAC = game.settings.get("ose", "ascendingAC");
-    data.config.individualInit = game.settings.get("ose", "individualInit");
+    data.config.initiative = game.settings.get("ose", "initiative") != "group";
     data.config.encumbrance = game.settings.get("ose", "encumbranceOption");
 
+    data.isNew = this.actor.isNew();
     return data;
   }
 
@@ -249,6 +242,10 @@ export class OseActorSheetCharacter extends OseActorSheet {
       this._onShowModifiers(ev);
     });
 
+    html.find("a[data-action='generate-scores']").click((ev) => {
+      this.generateScores(ev);
+    });
+    
     // Handle default listeners last so system listeners are triggered first
     super.activateListeners(html);
   }

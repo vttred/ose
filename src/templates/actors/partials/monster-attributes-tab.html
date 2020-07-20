@@ -155,8 +155,12 @@
         <div class="attribute-group">
             <ul class="attributes">
                 <li class="attacks-description">
+                    {{#unless isNew}}
                     <label>{{ localize "OSE.movement.details" }}</label>
                     <input name="data.movement.value" type="text" value="{{data.movement.value}}" data-dtype="String" />
+                    {{else}}
+                    <button data-action="generate-saves">{{localize "OSE.dialog.generateSaves"}}</button>
+                    {{/unless}}
                 </li>
                 <li class="attribute saving-throw" data-save="death">
                     <h4 class="attribute-name box-title">

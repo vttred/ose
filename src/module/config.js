@@ -90,6 +90,7 @@ export const OSE = {
   },
   monster_saves: {
     0: {
+      label: "Normal Human",
       d: 14,
       w: 15,
       p: 16,
@@ -97,6 +98,7 @@ export const OSE = {
       s: 18
     },
     1: {
+      label: "1-3",
       d: 12,
       w: 13,
       p: 14,
@@ -104,6 +106,7 @@ export const OSE = {
       s: 16
     },
     4: {
+      label: "4-6",
       d: 10,
       w: 11,
       p: 12,
@@ -111,6 +114,7 @@ export const OSE = {
       s: 14
     },
     7: {
+      label: "7-9",
       d: 8,
       w: 9,
       p: 10,
@@ -118,6 +122,7 @@ export const OSE = {
       s: 12
     },
     10: {
+      label: "10-12",
       d: 6,
       w: 7,
       p: 8,
@@ -125,6 +130,7 @@ export const OSE = {
       s: 10
     },
     13: {
+      label: "13-15",
       d: 4,
       w: 5,
       p: 6,
@@ -132,6 +138,7 @@ export const OSE = {
       s: 8
     },
     16: {
+      label: "16-18",
       d: 2,
       w: 3,
       p: 4,
@@ -139,6 +146,7 @@ export const OSE = {
       s: 6
     },
     19: {
+      label: "19-21",
       d: 2,
       w: 2,
       p: 2,
@@ -146,6 +154,7 @@ export const OSE = {
       s: 4
     },
     22: {
+      label: "22+",
       d: 2,
       w: 2,
       p: 2,

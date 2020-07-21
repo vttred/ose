@@ -252,7 +252,6 @@
   "OSE.messages.InflictsDamage": "Inflicts damage!",
   "OSE.messages.applyDamage": "Apply Damage",
   "OSE.messages.applyHealing": "Apply Healing",
-  "OSE.messages.creationFinished": "Character {name} creation finished",
 
   "OSE.colors.green": "Green",
   "OSE.colors.red": "Red",

@@ -5,6 +5,12 @@
         margin: 6px 2%;
       }
     }
+    .details {
+      flex: 0 0 70px;
+      label {
+        flex: 0 0 20px;
+      }
+    }
     .profile-img {
       border: none;
       flex: 0 0 84px;
@@ -50,6 +56,26 @@
         input {
           border-bottom: none;
           margin: auto 0;
+        }
+        .form-fields {
+          &.range { 
+            .sep {
+              flex: 0 0 1px;
+              background: $colorTan;
+              margin: 4px 0;
+            }
+          }
+        }
+        &.attack-type {
+          text-align: center;
+          padding: 2px;
+          font-size: 15px;
+          a {
+            color: $colorInactive;
+            &.active,:hover {
+              color: $colorDark;
+            }
+          }
         }
       }
       .block-input {

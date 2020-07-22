@@ -67,6 +67,14 @@ export class OseItemSheet extends ItemSheet {
       let value = ev.currentTarget.parentElement.dataset.tag;
       this.object.popTag(value);
     });
+    html.find('a.melee-toggle').click(() => {
+      this.object.update({data: {melee: !this.object.data.data.melee}});
+    });
+
+    html.find('a.missile-toggle').click(() => {
+      this.object.update({data: {missile: !this.object.data.data.missile}});
+    });
+
     super.activateListeners(html);
   }
 }

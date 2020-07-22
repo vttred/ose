@@ -168,6 +168,12 @@
       "weight": 80
     },
     "weapon": {
+      "range": {
+        "short": 0,
+        "medium": 0,
+        "long": 0
+      },
+      "save": "",
       "pattern": "white",
       "description": "",
       "damage": "1d6",

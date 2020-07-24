@@ -4,7 +4,6 @@ import { OseDice } from "../dice.js";
  * Override and extend the basic :class:`Item` implementation
  */
 export class OseItem extends Item {
-
   /* -------------------------------------------- */
   /*	Data Preparation														*/
   /* -------------------------------------------- */
@@ -82,6 +81,7 @@ export class OseItem extends Item {
               this.actor.rollAttack(
                 {
                   type: "melee",
+                  save: this.data.data.save,
                   label: this.name,
                   dmg: this.data.data.damage,
                   bonus: data.bonus,
@@ -98,6 +98,7 @@ export class OseItem extends Item {
                 {
                   type: "missile",
                   label: this.name,
+                  save: this.data.data.save,
                   dmg: this.data.data.damage,
                 },
                 options
@@ -114,7 +115,13 @@ export class OseItem extends Item {
       type = "melee";
     }
     this.actor.rollAttack(
-      { type: type, label: this.name, dmg: data.damage, bonus: data.bonus },
+      {
+        type: type,
+        label: this.name,
+        save: data.save,
+        dmg: data.damage,
+        bonus: data.bonus,
+      },
       options
     );
 
@@ -166,29 +173,42 @@ export class OseItem extends Item {
   }
 
   getTags() {
-    let formatTag = (tag) => {
+    let formatTag = (tag, icon) => {
       if (!tag) return "";
-      return `<li class='tag'>${tag}</li>`;
+      let fa = "";
+      if (icon) {
+        fa = `<i class="fas ${icon}"></i> `;
+      }
+      return `<li class='tag'>${fa}${tag}</li>`;
     };
 
     const data = this.data.data;
     switch (this.data.type) {
       case "weapon":
-        let wTags = formatTag(data.damage);
-        data.tags.forEach(t => {
+        let wTags = formatTag(data.damage, "fa-tint");
+        data.tags.forEach((t) => {
           wTags += formatTag(t.value);
-        })
+        });
+        wTags += formatTag(CONFIG.OSE.saves_long[data.save], "fa-skull");
+        if (data.missile) {
+          wTags += formatTag(
+            data.range.short + "/" + data.range.medium + "/" + data.range.long,
+            "fa-bullseye"
+          );
+        }
         return wTags;
       case "armor":
-        return `${formatTag(CONFIG.OSE.armor[data.type])}`;
+        return `${formatTag(CONFIG.OSE.armor[data.type], "fa-tshirt")}`;
       case "item":
         return "";
       case "spell":
-        return `${formatTag(data.class)}${formatTag(data.range)}${formatTag(
-          data.duration
-        )}${formatTag(CONFIG.OSE.saves_long[data.save])}${formatTag(
-          data.roll
-        )}`;
+        let sTags = `${formatTag(data.class)}${formatTag(
+          data.range
+        )}${formatTag(data.duration)}${formatTag(data.roll)}`;
+        if (data.save) {
+          sTags += formatTag(CONFIG.OSE.saves_long[data.save], "fa-skull");
+        }
+        return sTags;
       case "ability":
         let roll = "";
         roll += data.roll ? data.roll : "";

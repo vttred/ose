@@ -1,7 +1,11 @@
-<section class="ose chat-message">
+{{log data}}
+<div class="ose chat-card item-card" data-actor-id="{{actor._id}}" data-item-id="{{item._id}}">
+    {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
     <div class="ose chat-block">
         <div class="flexrow chat-header">
-            <div class="chat-title"><h2>{{title}}</h2></div>
+            <div class="chat-title">
+                <h2>{{title}}</h2>
+            </div>
             <div class="chat-img" style="background-image:url('{{data.img}}')"></div>
         </div>
         <div class="chat-details">
@@ -13,6 +17,13 @@
             <div class="roll-result"><b>{{localize 'OSE.messages.InflictsDamage'}}</b></div>
         </div>
         <div class="damage-roll">{{{rollDamage}}}</div>
+        {{#if data.rollData.save}}
+        <div class="card-buttons">
+            <button data-action="save" data-save="{{data.rollData.save}}" disabled>
+                {{lookup config.saves_long data.rollData.save}} - {{localize "OSE.spells.Save"}}
+            </button>
+        </div>
+        {{/if}}
         {{/if}}
     </div>
-</section>
+</div>

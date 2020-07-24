@@ -165,6 +165,7 @@ export class OseDice {
       title: title,
       flavor: flavor,
       data: data,
+      config: CONFIG.OSE,
     };
 
     // Optionally include a situational bonus

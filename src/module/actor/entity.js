@@ -53,15 +53,15 @@ export class OseActor extends Actor {
 
   isNew() {
     const data = this.data.data;
-    if (this.data.type == 'character') {
+    if (this.data.type == "character") {
       let ct = 0;
       Object.values(data.scores).forEach((el) => {
         ct += el.value;
-      })
+      });
       return ct == 0 ? true : false;
-    } else if (this.data.type == 'monster') {
+    } else if (this.data.type == "monster") {
       let ct = 0;
-      Object.values(data.saves).forEach(el => {
+      Object.values(data.saves).forEach((el) => {
         ct += el.value;
       });
       return ct == 0 ? true : false;
@@ -79,21 +79,21 @@ export class OseActor extends Actor {
     this.update({
       "data.saves": {
         death: {
-          value: saves.d
+          value: saves.d,
         },
         wand: {
-          value: saves.w
+          value: saves.w,
         },
         paralysis: {
-          value: saves.p
+          value: saves.p,
         },
         breath: {
-          value: saves.b
+          value: saves.b,
         },
         spell: {
-          value: saves.s
-        }
-      }
+          value: saves.s,
+        },
+      },
     });
   }
 
@@ -270,7 +270,7 @@ export class OseActor extends Actor {
   rollHitDice(options = {}) {
     const label = game.i18n.localize(`OSE.roll.hd`);
     const rollParts = [this.data.data.hp.hd];
-    if (this.data.type == 'character') {
+    if (this.data.type == "character") {
       rollParts.push(this.data.data.scores.con.mod);
     }
 
@@ -436,6 +436,7 @@ export class OseActor extends Actor {
         rollData: {
           type: "attack",
           thac0: thac0,
+          save: attData.save,
           weapon: {
             parts: dmgParts,
           },
@@ -522,7 +523,7 @@ export class OseActor extends Actor {
       value: totalWeight,
     };
 
-    if (data.config.movementAuto && option != 'disabled') {
+    if (data.config.movementAuto && option != "disabled") {
       this._calculateMovement();
     }
   }
@@ -545,7 +546,7 @@ export class OseActor extends Actor {
         data.movement.base = 120;
       }
     } else if (option == "basic") {
-      const armors = this.data.items.filter(i => i.type == "armor");
+      const armors = this.data.items.filter((i) => i.type == "armor");
       let heaviest = 0;
       armors.forEach((a) => {
         if (a.data.equipped) {
@@ -580,7 +581,9 @@ export class OseActor extends Actor {
     const data = this.data.data;
     // Compute treasure
     let total = 0;
-    let treasure = this.data.items.filter(i => (i.type == "item" && i.data.treasure))
+    let treasure = this.data.items.filter(
+      (i) => i.type == "item" && i.data.treasure
+    );
     treasure.forEach((item) => {
       total += item.data.quantity.value * item.data.cost;
     });

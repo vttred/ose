@@ -65,9 +65,13 @@ export class OseDice {
     };
 
     // Optionally include a situational bonus
-    // if (form !== null) data["bonus"] = form.bonus.value;
-    if (data.item && data.item.data.bonus) parts.push(data.item.data.bonus);
-
+    if (form !== null && form.bonus.value) {
+      parts.push(form.bonus.value);
+    }
+    if (data.item && data.item.data.bonus) {
+      parts.push(data.item.data.bonus.toString());
+    }
+    console.log(parts);
     const roll = new Roll(parts.join("+"), data).roll();
 
     // Convert the roll to a chat message and return the roll
@@ -169,8 +173,9 @@ export class OseDice {
     };
 
     // Optionally include a situational bonus
-    if (form !== null) data["bonus"] = form.bonus.value;
-    if (data["bonus"]) parts.push(data["bonus"]);
+    if (form !== null && form.bonus.value) parts.push(form.bonus.value);
+
+    if (data.item && data.item.data.bonus) parts.push(data.item.data.bonus);
 
     const roll = new Roll(parts.join("+"), data).roll();
     const dmgRoll = new Roll(data.roll.dmg.join("+"), data).roll();
@@ -243,7 +248,7 @@ export class OseDice {
     title = null,
   } = {}) {
     let rolled = false;
-
+    console.log(data);
     const template = "systems/ose/templates/chat/roll-dialog.html";
     let dialogData = {
       formula: parts.join(" "),

@@ -393,12 +393,12 @@ export class OseActor extends Actor {
     if (ascending) {
       rollParts.push(data.thac0.bba.toString());
     }
-    if (attData.type == "missile") {
+    if (options.type == "missile") {
       rollParts.push(
         data.scores.dex.mod.toString(),
         data.thac0.mod.missile.toString()
       );
-    } else if (attData.type == "melee") {
+    } else if (options.type == "melee") {
       rollParts.push(
         data.scores.str.mod.toString(),
         data.thac0.mod.melee.toString()
@@ -408,14 +408,14 @@ export class OseActor extends Actor {
       rollParts.push(attData.item.data.bonus);
     }
     let thac0 = data.thac0.value;
-    if (attData.type == "melee") {
+    if (options.type == "melee") {
       dmgParts.push(data.scores.str.mod);
     }
     const rollData = {
       actor: this.data,
       item: attData.item,
       roll: {
-        type: attData.type,
+        type: options.type,
         thac0: thac0,
         dmg: dmgParts,
       },

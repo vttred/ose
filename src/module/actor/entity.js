@@ -421,14 +421,12 @@ export class OseActor extends Actor {
       },
     };
 
-    let skip = options.event && options.event.ctrlKey;
-
     // Roll and return
     return OseDice.Roll({
       event: options.event,
       parts: rollParts,
       data: rollData,
-      skipDialog: skip,
+      skipDialog: options.skipDialog,
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: label,
       title: label,

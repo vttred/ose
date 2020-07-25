@@ -67,7 +67,7 @@ export class OseItem extends Item {
   rollWeapon(options = {}) {
     let isNPC = this.actor.data.type != "character";
     const data = this.data.data;
-    let type = "melee";
+    let type = isNPC ? "attack" : "melee";
     if (data.missile && data.melee && !isNPC) {
       // Dialog
       new Dialog({
@@ -86,7 +86,7 @@ export class OseItem extends Item {
                     save: this.data.data.save,
                   },
                 },
-                { type: "melee" }
+                { type: "melee", skipDialog: options.skipDialog }
               );
             },
           },
@@ -102,7 +102,7 @@ export class OseItem extends Item {
                   actor: this.actor.data,
                   item: this.data,
                 },
-                { type: "missile" }
+                { type: "missile", skipDialog: options.skipDialog }
               );
             },
           },
@@ -121,7 +121,7 @@ export class OseItem extends Item {
           save: this.data.data.save,
         },
       },
-      { type: type }
+      { type: type, skipDialog: options.skipDialog }
     );
 
     return true;

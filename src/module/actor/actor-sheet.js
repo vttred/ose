@@ -147,7 +147,7 @@ export class OseActorSheet extends ActorSheet {
             data: { counter: { value: item.data.data.counter.value - 1 } },
           });
         }
-        item.rollWeapon({ skipDialog: ev.ctrlKey });
+          item.rollWeapon({ skipDialog: ev.ctrlKey });
       } else if (item.type == "spell") {
         item.spendSpell({ skipDialog: ev.ctrlKey });
       } else {

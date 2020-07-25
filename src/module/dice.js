@@ -259,7 +259,7 @@ export class OseDice {
       speaker: speaker,
     };
     if (skipDialog) {
-      return data.roll.type === "attack"
+      return ["melee", "missile", "attack"].includes(data.roll.type)
         ? OseDice.sendAttackRoll(rollData)
         : OseDice.sendRoll(rollData);
     }
@@ -271,7 +271,7 @@ export class OseDice {
         callback: (html) => {
           rolled = true;
           rollData.form = html[0].children[0];
-          roll = ["melee", "missile"].includes(data.roll.type)
+          roll = ["melee", "missile", "attack"].includes(data.roll.type)
             ? OseDice.sendAttackRoll(rollData)
             : OseDice.sendRoll(rollData);
         },

@@ -118,14 +118,12 @@ export class OseActor extends Actor {
     const rollParts = ["1d20"];
 
     const data = {
-      ...this.data,
-      ...{
-        rollData: {
-          type: "above",
-          target: this.data.data.saves[save].value,
-          details: game.i18n.format("OSE.roll.details.save", { save: label }),
-        },
+      actor: this.data,
+      roll: {
+        type: "above",
+        target: this.data.data.saves[save].value,
       },
+      details: game.i18n.format("OSE.roll.details.save", { save: label }),
     };
 
     let skip = options.event && options.event.ctrlKey;
@@ -146,12 +144,9 @@ export class OseActor extends Actor {
     const rollParts = ["2d6"];
 
     const data = {
-      ...this.data,
-      ...{
-        rollData: {
-          type: "below",
-          target: this.data.data.details.morale,
-        },
+      roll: {
+        type: "below",
+        target: this.data.data.details.morale,
       },
     };
 
@@ -172,12 +167,9 @@ export class OseActor extends Actor {
     const rollParts = ["2d6"];
 
     const data = {
-      ...this.data,
-      ...{
-        rollData: {
-          type: "below",
-          target: this.data.data.retainer.loyalty,
-        },
+      roll: {
+        type: "below",
+        target: this.data.data.retainer.loyalty,
       },
     };
 
@@ -197,27 +189,24 @@ export class OseActor extends Actor {
     const rollParts = ["2d6"];
 
     const data = {
-      ...this.data,
-      ...{
-        rollData: {
-          type: "table",
-          table: {
-            2: game.i18n.format("OSE.reaction.Hostile", {
-              name: this.data.name,
-            }),
-            3: game.i18n.format("OSE.reaction.Unfriendly", {
-              name: this.data.name,
-            }),
-            6: game.i18n.format("OSE.reaction.Neutral", {
-              name: this.data.name,
-            }),
-            9: game.i18n.format("OSE.reaction.Indifferent", {
-              name: this.data.name,
-            }),
-            12: game.i18n.format("OSE.reaction.Friendly", {
-              name: this.data.name,
-            }),
-          },
+      roll: {
+        type: "table",
+        table: {
+          2: game.i18n.format("OSE.reaction.Hostile", {
+            name: this.data.name,
+          }),
+          3: game.i18n.format("OSE.reaction.Unfriendly", {
+            name: this.data.name,
+          }),
+          6: game.i18n.format("OSE.reaction.Neutral", {
+            name: this.data.name,
+          }),
+          9: game.i18n.format("OSE.reaction.Indifferent", {
+            name: this.data.name,
+          }),
+          12: game.i18n.format("OSE.reaction.Friendly", {
+            name: this.data.name,
+          }),
         },
       },
     };
@@ -241,16 +230,14 @@ export class OseActor extends Actor {
     const rollParts = ["1d20"];
 
     const data = {
-      ...this.data,
-      ...{
-        rollData: {
-          type: "check",
-          target: this.data.data.scores[score].value,
-          details: game.i18n.format("OSE.roll.details.attribute", {
-            score: label,
-          }),
-        },
+      roll: {
+        type: "check",
+        target: this.data.data.scores[score].value,
       },
+
+      details: game.i18n.format("OSE.roll.details.attribute", {
+        score: label,
+      }),
     };
 
     let skip = options.event && options.event.ctrlKey;
@@ -275,11 +262,8 @@ export class OseActor extends Actor {
     }
 
     const data = {
-      ...this.data,
-      ...{
-        rollData: {
-          type: "hit dice",
-        },
+      roll: {
+        type: "hitdice",
       },
     };
 
@@ -306,9 +290,8 @@ export class OseActor extends Actor {
       label = "(1)";
     }
     const data = {
-      ...this.data,
-      ...{
-        rollData: {
+      roll: {
+        type: {
           type: "appearing",
         },
       },
@@ -321,8 +304,8 @@ export class OseActor extends Actor {
       data: data,
       skipDialog: true,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: game.i18n.localize("OSE.roll.appearing"),
-      title: game.i18n.localize("OSE.roll.appearing"),
+      flavor: game.i18n.format("OSE.roll.appearing", { type: label }),
+      title: game.i18n.format("OSE.roll.appearing", { type: label }),
     });
   }
 
@@ -331,16 +314,13 @@ export class OseActor extends Actor {
     const rollParts = ["1d6"];
 
     const data = {
-      ...this.data,
-      ...{
-        rollData: {
-          type: "below",
-          target: this.data.data.exploration[expl],
-          details: game.i18n.format("OSE.roll.details.exploration", {
-            expl: label,
-          }),
-        },
+      roll: {
+        type: "below",
+        target: this.data.data.exploration[expl],
       },
+      details: game.i18n.format("OSE.roll.details.exploration", {
+        expl: label,
+      }),
     };
 
     let skip = options.event && options.event.ctrlKey;
@@ -361,25 +341,22 @@ export class OseActor extends Actor {
     const data = this.data.data;
 
     const rollData = {
-      ...this.data,
-      ...{
-        rollData: {
-          type: "damage",
-          stat: attData.type,
-          scores: data.scores,
-        },
+      actor: this.data,
+      item: attData.item,
+      roll: {
+        type: "damage",
       },
     };
 
     let dmgParts = [];
-    if (!attData.dmg) {
+    if (!attData.roll.dmg) {
       dmgParts.push("1d6");
     } else {
-      dmgParts.push(attData.dmg);
+      dmgParts.push(attData.roll.dmg);
     }
 
     // Add Str to damage
-    if (attData.type == "melee") {
+    if (attData.roll.type == "melee") {
       dmgParts.push(data.scores.str.mod);
     }
 
@@ -396,15 +373,20 @@ export class OseActor extends Actor {
   }
 
   rollAttack(attData, options = {}) {
+    console.log("ACTOR", attData);
     const data = this.data.data;
     const rollParts = ["1d20"];
     const dmgParts = [];
-    let label = game.i18n.format("OSE.roll.attacks", { name: this.data.name });
-    if (!attData.dmg) {
+    let label = game.i18n.format("OSE.roll.attacks", {
+      name: this.data.name,
+    });
+    if (!attData.item) {
       dmgParts.push("1d6");
     } else {
-      label = game.i18n.format("OSE.roll.attacksWith", { name: attData.label });
-      dmgParts.push(attData.dmg);
+      label = game.i18n.format("OSE.roll.attacksWith", {
+        name: attData.item.name,
+      });
+      dmgParts.push(attData.item.data.damage);
     }
 
     let ascending = game.settings.get("ose", "ascendingAC");
@@ -422,27 +404,23 @@ export class OseActor extends Actor {
         data.thac0.mod.melee.toString()
       );
     }
-    if (attData.bonus) {
-      rollParts.push(attData.bonus);
+    if (attData.item && attData.item.data.bonus) {
+      rollParts.push(attData.item.data.bonus);
     }
     let thac0 = data.thac0.value;
     if (attData.type == "melee") {
       dmgParts.push(data.scores.str.mod);
     }
-
     const rollData = {
-      ...this.data,
-      ...{
-        rollData: {
-          type: "attack",
-          thac0: thac0,
-          save: attData.save,
-          weapon: {
-            parts: dmgParts,
-          },
-        },
+      actor: this.data,
+      item: attData.item,
+      roll: {
+        type: attData.type,
+        thac0: thac0,
+        dmg: dmgParts,
       },
     };
+
     let skip = options.event && options.event.ctrlKey;
 
     // Roll and return

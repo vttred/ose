@@ -67,7 +67,7 @@ export class OseItem extends Item {
   rollWeapon(options = {}) {
     let isNPC = this.actor.data.type != "character";
     const data = this.data.data;
-    let type = "raw";
+    let type = "melee";
     if (data.missile && data.melee && !isNPC) {
       // Dialog
       new Dialog({
@@ -80,11 +80,11 @@ export class OseItem extends Item {
             callback: () => {
               this.actor.rollAttack(
                 {
-                  type: "melee",
-                  save: this.data.data.save,
-                  label: this.name,
-                  dmg: this.data.data.damage,
-                  bonus: data.bonus,
+                  item: this.data,
+                  actor: this.actor.data,
+                  roll: {
+                    type: "melee",
+                  },
                 },
                 options
               );
@@ -96,10 +96,11 @@ export class OseItem extends Item {
             callback: () => {
               this.actor.rollAttack(
                 {
-                  type: "missile",
-                  label: this.name,
-                  save: this.data.data.save,
-                  dmg: this.data.data.damage,
+                  roll: {
+                    type: "missile",
+                  },
+                  actor: this.actor.data,
+                  item: this.data,
                 },
                 options
               );
@@ -111,16 +112,14 @@ export class OseItem extends Item {
       return true;
     } else if (data.missile && !isNPC) {
       type = "missile";
-    } else if (data.melee && !isNPC) {
-      type = "melee";
     }
     this.actor.rollAttack(
       {
-        type: type,
-        label: this.name,
-        save: data.save,
-        dmg: data.damage,
-        bonus: data.bonus,
+        roll: {
+          type: type,
+        },
+        actor: this.actor.data,
+        item: this.data,
       },
       options
     );
@@ -140,13 +139,12 @@ export class OseItem extends Item {
     let type = data.rollType;
 
     const newData = {
-      ...this.data,
-      ...{
-        rollData: {
-          type: type,
-          target: data.rollTarget,
-          blindroll: data.blindroll,
-        },
+      actor: this.actor.data,
+      item: this.data,
+      roll: {
+        type: type,
+        target: data.rollTarget,
+        blindroll: data.blindroll,
       },
     };
 
@@ -168,7 +166,7 @@ export class OseItem extends Item {
         cast: this.data.data.cast - 1,
       },
     }).then(() => {
-      this.roll({ skipDialog: true });
+      this.show({ skipDialog: true });
     });
   }
 
@@ -270,13 +268,10 @@ export class OseItem extends Item {
   }
 
   /**
-   * Roll the item to Chat, creating a chat card which contains follow up attack or damage roll options
+   * Show the item to Chat, creating a chat card which contains follow up attack or damage roll options
    * @return {Promise}
    */
-  async roll({ skipDialog = false } = {}) {
-    if (this.data.type == "weapon") {
-      if (this.rollWeapon(skipDialog)) return;
-    }
+  async show() {
     // Basic template rendering data
     const token = this.actor.token;
     const templateData = {

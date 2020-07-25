@@ -24,8 +24,8 @@ export class OseActorSheet extends ActorSheet {
 
   _createEditor(target, editorOptions, initialContent) {
     // remove some controls to the editor as the space is lacking
-    if (target == 'data.details.description') {
-      editorOptions.toolbar = 'styleselect bullist hr table removeFormat save';
+    if (target == "data.details.description") {
+      editorOptions.toolbar = "styleselect bullist hr table removeFormat save";
     }
     super._createEditor(target, editorOptions, initialContent);
   }
@@ -83,7 +83,9 @@ export class OseActorSheet extends ActorSheet {
       summary.slideUp(200, () => summary.remove());
     } else {
       // Add item tags
-      let div = $(`<div class="item-summary"><ol class="tag-list">${item.getTags()}</ol><div>${description}</div></div>`);
+      let div = $(
+        `<div class="item-summary"><ol class="tag-list">${item.getTags()}</ol><div>${description}</div></div>`
+      );
       li.parents(".item-entry").append(div.hide());
       div.slideDown(200);
     }
@@ -104,13 +106,15 @@ export class OseActorSheet extends ActorSheet {
   }
 
   async _resetSpells(event) {
-    let spells = $(event.currentTarget).closest(".inventory.spells").find(".item");
+    let spells = $(event.currentTarget)
+      .closest(".inventory.spells")
+      .find(".item");
     spells.each((_, el) => {
       let itemId = el.dataset.itemId;
       const item = this.actor.getOwnedItem(itemId);
       item.update({
         _id: item.id,
-        "data.cast": item.data.data.memorized,  
+        "data.cast": item.data.data.memorized,
       });
     });
   }
@@ -131,7 +135,7 @@ export class OseActorSheet extends ActorSheet {
     html.find(".item .item-controls .item-show").click(async (ev) => {
       const li = $(ev.currentTarget).parents(".item");
       const item = this.actor.getOwnedItem(li.data("itemId"));
-      item.roll({ skipDialog: event.ctrlKey });
+      item.show();
     });
 
     html.find(".item .item-rollable .item-image").click(async (ev) => {
@@ -143,11 +147,11 @@ export class OseActorSheet extends ActorSheet {
             data: { counter: { value: item.data.data.counter.value - 1 } },
           });
         }
-        item.rollWeapon({ event: ev });
+        item.rollWeapon({ skipDialog: ev.ctrlKey });
       } else if (item.type == "spell") {
-        item.spendSpell();
+        item.spendSpell({ skipDialog: ev.ctrlKey });
       } else {
-        item.rollFormula({ event: ev });
+        item.rollFormula({ skipDialog: ev.ctrlKey });
       }
     });
 
@@ -208,12 +212,14 @@ export class OseActorSheet extends ActorSheet {
     // Resize editors
     let editors = html.find(".editor");
     editors.each((id, editor) => {
-      let container = editor.closest('.resizable-editor');
+      let container = editor.closest(".resizable-editor");
       if (container) {
         let heightDelta = this.position.height - this.options.height;
-        editor.style.height =  `${heightDelta + parseInt(container.dataset.editorSize)}px`;
+        editor.style.height = `${
+          heightDelta + parseInt(container.dataset.editorSize)
+        }px`;
       }
-    })
+    });
   }
 
   _onConfigureActor(event) {

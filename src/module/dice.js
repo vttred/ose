@@ -3,35 +3,35 @@ export class OseDice {
     let result = {
       isSuccess: false,
       isFailure: false,
-      target: data.rollData.target,
+      target: data.roll.target,
       total: roll.total,
     };
 
     let die = roll.parts[0].total;
-    if (data.rollData.type == "above") {
+    if (data.roll.type == "above") {
       // SAVING THROWS
       if (roll.total >= result.target) {
         result.isSuccess = true;
       } else {
         result.isFailure = true;
       }
-    } else if (data.rollData.type == "below") {
+    } else if (data.roll.type == "below") {
       // MORALE, EXPLORATION
       if (roll.total <= result.target) {
         result.isSuccess = true;
       } else {
         result.isFailure = true;
       }
-    } else if (data.rollData.type == "check") {
+    } else if (data.roll.type == "check") {
       // SCORE CHECKS (1s and 20s)
       if (die == 1 || (roll.total <= result.target && die < 20)) {
         result.isSuccess = true;
       } else {
         result.isFailure = true;
       }
-    } else if (data.rollData.type == "table") {
+    } else if (data.roll.type == "table") {
       // Reaction
-      let table = data.rollData.table;
+      let table = data.roll.table;
       let output = "";
       for (let i = 0; i <= roll.total; i++) {
         if (table[i]) {
@@ -65,8 +65,8 @@ export class OseDice {
     };
 
     // Optionally include a situational bonus
-    if (form !== null) data["bonus"] = form.bonus.value;
-    if (data["bonus"]) parts.push(data["bonus"]);
+    // if (form !== null) data["bonus"] = form.bonus.value;
+    if (data.item && data.item.data.bonus) parts.push(data.item.data.bonus);
 
     const roll = new Roll(parts.join("+"), data).roll();
 
@@ -75,7 +75,7 @@ export class OseDice {
     rollMode = form ? form.rollMode.value : rollMode;
 
     // Force blind roll (ability formulas)
-    if (data.rollData.blindroll) {
+    if (data.blindroll) {
       rollMode = "blindroll";
     }
 
@@ -122,7 +122,7 @@ export class OseDice {
       target: "",
       total: roll.total,
     };
-    result.target = data.rollData.thac0;
+    result.target = data.roll.thac0;
     if (game.settings.get("ose", "ascendingAC")) {
       result.details = game.i18n.format("OSE.messages.AttackAscendingSuccess", {
         result: roll.total,
@@ -173,7 +173,7 @@ export class OseDice {
     if (data["bonus"]) parts.push(data["bonus"]);
 
     const roll = new Roll(parts.join("+"), data).roll();
-    const dmgRoll = new Roll(data.rollData.weapon.parts.join("+"), data).roll();
+    const dmgRoll = new Roll(data.roll.dmg.join("+"), data).roll();
 
     // Convert the roll to a chat message and return the roll
     let rollMode = game.settings.get("core", "rollMode");
@@ -237,13 +237,10 @@ export class OseDice {
   static async Roll({
     parts = [],
     data = {},
-    options = {},
-    event = null,
     skipDialog = false,
     speaker = null,
     flavor = null,
     title = null,
-    item = false,
   } = {}) {
     let rolled = false;
 
@@ -263,7 +260,7 @@ export class OseDice {
       speaker: speaker,
     };
     if (skipDialog) {
-      return data.rollData.type === "attack"
+      return data.roll.type === "attack"
         ? OseDice.sendAttackRoll(rollData)
         : OseDice.sendRoll(rollData);
     }
@@ -275,10 +272,10 @@ export class OseDice {
         callback: (html) => {
           rolled = true;
           rollData.form = html[0].children[0];
-          roll =
-            data.rollData.type === "attack"
-              ? OseDice.sendAttackRoll(rollData)
-              : OseDice.sendRoll(rollData);
+          console.log(data);
+          roll = ["melee", "missile"].includes(data.roll.type)
+            ? OseDice.sendAttackRoll(rollData)
+            : OseDice.sendRoll(rollData);
         },
       },
       cancel: {

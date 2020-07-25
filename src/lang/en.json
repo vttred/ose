@@ -28,7 +28,7 @@
   "OSE.RollExample": "e.g. +1d4",
 
   "OSE.roll.formula": "{label} roll",
-  "OSE.roll.appearing": "Appearing roll",
+  "OSE.roll.appearing": "Appearing roll ({type})",
   "OSE.roll.morale": "Morale check",
   "OSE.roll.hd": "Hit Dice roll",
   "OSE.roll.attacksWith": "Attacks with {name}",

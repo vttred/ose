@@ -47,7 +47,7 @@ export class OseCombat {
 
       // Determine the roll mode
       let rollMode = game.settings.get("core", "rollMode");
-      if ((c.token.hidden || c.hidden) && (rollMode === "roll")) rollMode = "gmroll";
+        if ((c.token.hidden || c.hidden) && (rollMode === "roll")) rollMode = "gmroll";
 
       // Construct chat message data
       let messageData = mergeObject({

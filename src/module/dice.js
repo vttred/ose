@@ -243,7 +243,6 @@ export class OseDice {
     title = null,
   } = {}) {
     let rolled = false;
-    console.log(data);
     const template = "systems/ose/templates/chat/roll-dialog.html";
     let dialogData = {
       formula: parts.join(" "),
@@ -272,7 +271,6 @@ export class OseDice {
         callback: (html) => {
           rolled = true;
           rollData.form = html[0].children[0];
-          console.log(data);
           roll = ["melee", "missile"].includes(data.roll.type)
             ? OseDice.sendAttackRoll(rollData)
             : OseDice.sendRoll(rollData);

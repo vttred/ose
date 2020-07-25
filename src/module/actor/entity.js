@@ -373,7 +373,6 @@ export class OseActor extends Actor {
   }
 
   rollAttack(attData, options = {}) {
-    console.log("ACTOR", attData);
     const data = this.data.data;
     const rollParts = ["1d20"];
     const dmgParts = [];
@@ -418,6 +417,7 @@ export class OseActor extends Actor {
         type: options.type,
         thac0: thac0,
         dmg: dmgParts,
+        save: attData.roll.save,
       },
     };
 

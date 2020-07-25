@@ -83,10 +83,10 @@ export class OseItem extends Item {
                   item: this.data,
                   actor: this.actor.data,
                   roll: {
-                    type: "melee",
+                    save: this.data.data.save,
                   },
                 },
-                options
+                { type: "melee" }
               );
             },
           },
@@ -97,12 +97,12 @@ export class OseItem extends Item {
               this.actor.rollAttack(
                 {
                   roll: {
-                    type: "missile",
+                    save: this.data.data.save,
                   },
                   actor: this.actor.data,
                   item: this.data,
                 },
-                options
+                { type: "missile" }
               );
             },
           },
@@ -117,8 +117,11 @@ export class OseItem extends Item {
       {
         actor: this.actor.data,
         item: this.data,
+        roll: {
+          save: this.data.data.save,
+        },
       },
-      {type: type}
+      { type: type }
     );
 
     return true;

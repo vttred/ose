@@ -115,13 +115,10 @@ export class OseItem extends Item {
     }
     this.actor.rollAttack(
       {
-        roll: {
-          type: type,
-        },
         actor: this.actor.data,
         item: this.data,
       },
-      options
+      {type: type}
     );
 
     return true;

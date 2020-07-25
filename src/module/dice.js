@@ -68,10 +68,7 @@ export class OseDice {
     if (form !== null && form.bonus.value) {
       parts.push(form.bonus.value);
     }
-    if (data.item && data.item.data.bonus) {
-      parts.push(data.item.data.bonus.toString());
-    }
-    console.log(parts);
+
     const roll = new Roll(parts.join("+"), data).roll();
 
     // Convert the roll to a chat message and return the roll
@@ -174,8 +171,6 @@ export class OseDice {
 
     // Optionally include a situational bonus
     if (form !== null && form.bonus.value) parts.push(form.bonus.value);
-
-    if (data.item && data.item.data.bonus) parts.push(data.item.data.bonus);
 
     const roll = new Roll(parts.join("+"), data).roll();
     const dmgRoll = new Roll(data.roll.dmg.join("+"), data).roll();

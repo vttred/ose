@@ -88,12 +88,9 @@ export class OseCharacterCreator extends FormApplication {
     const label = score != "gold" ? game.i18n.localize(`OSE.scores.${score}.long`) : "Gold";
     const rollParts = ["3d6"];
     const data = {
-      ...this.object.data,
-      ...{
-        rollData: {
-          type: "result"
-        },
-      },
+      roll: {
+        type: "result"
+      }
     };
     // Roll and return
     return OseDice.Roll({

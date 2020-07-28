@@ -7,6 +7,11 @@
             </div>
             <div class="chat-img" style="background-image:url('{{data.img}}')"></div>
         </div>
+        {{#if result.victim}}
+        <div class="chat-target">
+            targeting {{result.victim}}
+        </div>
+        {{/if}}
         <div class="chat-details">
             <div class="roll-result">{{{result.details}}}</div>
         </div>

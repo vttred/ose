@@ -46,6 +46,19 @@
             <input type="checkbox" name="data.blindroll" value="{{data.blindroll}}" {{checked data.blindroll}}  data-dtype="Number"/>
           </div>
         </div>
+        <div class="form-group">
+          <label>{{localize 'OSE.spells.Save'}}</label>
+          <div class="form-fields">
+            <select name="data.save">
+              {{#select data.save}}
+              <option value=""></option>
+              {{#each config.saves_short as |save a|}}
+              <option value="{{a}}">{{save}}</option>
+              {{/each}}
+              {{/select}}
+            </select>
+          </div>
+        </div>
       </div>
       <div class="description">
         {{editor content=data.description target="data.description" button=true

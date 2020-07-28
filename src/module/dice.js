@@ -124,14 +124,25 @@ export class OseDice {
       total: roll.total,
     };
     result.target = data.roll.thac0;
+
+    const targetAc = data.roll.target ? data.roll.target.actor.data.data.ac.value : 9;
+    const targetAac = data.roll.target ? data.roll.target.actor.data.data.aac.value : 0;
+    result.victim = data.roll.target ? data.roll.target.actor.name : null;
+
     if (game.settings.get("ose", "ascendingAC")) {
+      if (roll.total < targetAac) {
+        result.details = game.i18n.format("OSE.messages.AttackFailure", {
+          bonus: result.target,
+        });
+        return result;
+      }
       result.details = game.i18n.format("OSE.messages.AttackAscendingSuccess", {
         result: roll.total,
       });
       result.isSuccess = true;
     } else {
       // B/X Historic THAC0 Calculation
-      if (result.target - roll.total > 9) {
+      if (result.target - roll.total > targetAc) {
         result.details = game.i18n.format("OSE.messages.AttackFailure", {
           bonus: result.target,
         });

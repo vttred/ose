@@ -66,8 +66,31 @@ export class OseItem extends Item {
 
   rollWeapon(options = {}) {
     let isNPC = this.actor.data.type != "character";
+    const targets = 5;
     const data = this.data.data;
     let type = isNPC ? "attack" : "melee";
+    const rollData =
+    {
+      item: this.data,
+      actor: this.actor.data,
+      roll: {
+        save: this.data.data.save,
+        target: null
+      }
+    };
+
+    // rollAttack to target helper
+    const rollAttack = async (type) => {
+      if (game.user.targets.size > 0) {
+        for (let t of game.user.targets.values()) {
+          rollData.roll.target = t;
+          await this.actor.rollAttack(rollData, { type: type, skipDialog: options.skipDialog });
+        }
+      } else {
+        this.actor.rollAttack(rollData, { type: type, skipDialog: options.skipDialog });
+      }
+    };
+
     if (data.missile && data.melee && !isNPC) {
       // Dialog
       new Dialog({
@@ -78,32 +101,14 @@ export class OseItem extends Item {
             icon: '<i class="fas fa-fist-raised"></i>',
             label: "Melee",
             callback: () => {
-              this.actor.rollAttack(
-                {
-                  item: this.data,
-                  actor: this.actor.data,
-                  roll: {
-                    save: this.data.data.save,
-                  },
-                },
-                { type: "melee", skipDialog: options.skipDialog }
-              );
+              rollAttack("melee");
             },
           },
           missile: {
             icon: '<i class="fas fa-bullseye"></i>',
             label: "Missile",
             callback: () => {
-              this.actor.rollAttack(
-                {
-                  roll: {
-                    save: this.data.data.save,
-                  },
-                  actor: this.actor.data,
-                  item: this.data,
-                },
-                { type: "missile", skipDialog: options.skipDialog }
-              );
+              rollAttack("missile");
             },
           },
         },
@@ -113,17 +118,7 @@ export class OseItem extends Item {
     } else if (data.missile && !isNPC) {
       type = "missile";
     }
-    this.actor.rollAttack(
-      {
-        actor: this.actor.data,
-        item: this.data,
-        roll: {
-          save: this.data.data.save,
-        },
-      },
-      { type: type, skipDialog: options.skipDialog }
-    );
-
+    rollAttack(type);
     return true;
   }
 

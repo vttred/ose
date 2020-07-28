@@ -418,6 +418,7 @@ export class OseActor extends Actor {
         thac0: thac0,
         dmg: dmgParts,
         save: attData.roll.save,
+        target: attData.roll.target
       },
     };
 
@@ -576,7 +577,7 @@ export class OseActor extends Actor {
     let AcShield = 0;
     let AacShield = 0;
     const data = this.data.data;
-    data.aac.naked = baseAc + data.scores.dex.mod;
+    data.aac.naked = baseAac + data.scores.dex.mod;
     data.ac.naked = baseAc - data.scores.dex.mod;
     const armors = this.data.items.filter((i) => i.type == "armor");
     armors.forEach((a) => {
@@ -634,9 +635,6 @@ export class OseActor extends Actor {
       standard,
       data.scores.con.value
     );
-
-    data.ac.naked = 9 + data.scores.dex.mod;
-    data.aac.naked = 10 - data.scores.dex.mod;
 
     const capped = {
       0: -2,

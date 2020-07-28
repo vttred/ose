@@ -218,7 +218,8 @@
       "rollType": "result",
       "rollTarget": 0,
       "blindroll": false,
-      "description": ""
+      "description": "",
+      "save": ""
     }
   }
 }

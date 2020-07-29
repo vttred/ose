@@ -89,14 +89,14 @@ export class OseItem extends Item {
             icon: '<i class="fas fa-fist-raised"></i>',
             label: "Melee",
             callback: () => {
-              this.targetAttack(rollData, "melee", options);
+              this.actor.targetAttack(rollData, "melee", options);
             },
           },
           missile: {
             icon: '<i class="fas fa-bullseye"></i>',
             label: "Missile",
             callback: () => {
-              this.targetAttack(rollData, "missile", options);
+              this.actor.targetAttack(rollData, "missile", options);
             },
           },
         },
@@ -106,7 +106,7 @@ export class OseItem extends Item {
     } else if (data.missile && !isNPC) {
       type = "missile";
     }
-    this.targetAttack(rollData, type, options);
+    this.actor.targetAttack(rollData, type, options);
     return true;
   }
 

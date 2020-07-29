@@ -79,18 +79,6 @@ export class OseItem extends Item {
       }
     };
 
-    // rollAttack to target helper
-    const rollAttack = async (type) => {
-      if (game.user.targets.size > 0) {
-        for (let t of game.user.targets.values()) {
-          rollData.roll.target = t;
-          await this.actor.rollAttack(rollData, { type: type, skipDialog: options.skipDialog });
-        }
-      } else {
-        this.actor.rollAttack(rollData, { type: type, skipDialog: options.skipDialog });
-      }
-    };
-
     if (data.missile && data.melee && !isNPC) {
       // Dialog
       new Dialog({
@@ -101,14 +89,14 @@ export class OseItem extends Item {
             icon: '<i class="fas fa-fist-raised"></i>',
             label: "Melee",
             callback: () => {
-              rollAttack("melee");
+              this.targetAttack(rollData, "melee", options);
             },
           },
           missile: {
             icon: '<i class="fas fa-bullseye"></i>',
             label: "Missile",
             callback: () => {
-              rollAttack("missile");
+              this.targetAttack(rollData, "missile", options);
             },
           },
         },
@@ -118,7 +106,7 @@ export class OseItem extends Item {
     } else if (data.missile && !isNPC) {
       type = "missile";
     }
-    rollAttack(type);
+    this.targetAttack(rollData, type, options);
     return true;
   }
 

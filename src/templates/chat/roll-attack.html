@@ -5,7 +5,11 @@
             <div class="chat-title">
                 <h2>{{title}}</h2>
             </div>
-            <div class="chat-img" style="background-image:url('{{data.img}}')"></div>
+            {{#if data.item}}
+            <div class="chat-img" style="background-image:url('{{data.item.img}}')"></div>
+            {{else}}
+            <div class="chat-img" style="background-image:url('{{data.actor.img}}')"></div>
+            {{/if}}
         </div>
         {{#if result.victim}}
         <div class="chat-target">

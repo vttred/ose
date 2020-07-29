@@ -2,7 +2,11 @@
     <div class="ose chat-block">
         <div class="flexrow chat-header">
             <div class="chat-title"><h2>{{title}}</h2></div>
-            <div class="chat-img" style="background-image:url('{{data.img}}')"></div>
+            {{#if data.item}}
+            <div class="chat-img" style="background-image:url('{{data.item.img}}')"></div>
+            {{else}}
+            <div class="chat-img" style="background-image:url('{{data.actor.img}}')"></div>
+            {{/if}}
         </div>
         {{#if result.details}}<div class="chat-details">{{{result.details}}}</div>{{/if}}
         {{#if result.isFailure}}<div class='roll-result roll-fail'><b>{{localize 'OSE.Failure'}}</b> ({{result.target}})

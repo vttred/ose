@@ -105,6 +105,7 @@ export class OseActor extends Actor {
     let roll = new Roll(this.data.data.hp.hd).roll();
     return this.update({
       data: {
+        actor: this.data,
         hp: {
           max: roll.total,
           value: roll.total,
@@ -144,6 +145,7 @@ export class OseActor extends Actor {
     const rollParts = ["2d6"];
 
     const data = {
+      actor: this.data,
       roll: {
         type: "below",
         target: this.data.data.details.morale,
@@ -167,6 +169,7 @@ export class OseActor extends Actor {
     const rollParts = ["2d6"];
 
     const data = {
+      actor: this.data,
       roll: {
         type: "below",
         target: this.data.data.retainer.loyalty,
@@ -189,6 +192,7 @@ export class OseActor extends Actor {
     const rollParts = ["2d6"];
 
     const data = {
+      actor: this.data,
       roll: {
         type: "table",
         table: {
@@ -230,6 +234,7 @@ export class OseActor extends Actor {
     const rollParts = ["1d20"];
 
     const data = {
+      actor: this.data,
       roll: {
         type: "check",
         target: this.data.data.scores[score].value,
@@ -262,6 +267,7 @@ export class OseActor extends Actor {
     }
 
     const data = {
+      actor: this.data,
       roll: {
         type: "hitdice",
       },
@@ -290,6 +296,7 @@ export class OseActor extends Actor {
       label = "(1)";
     }
     const data = {
+      actor: this.data,
       roll: {
         type: {
           type: "appearing",
@@ -314,6 +321,7 @@ export class OseActor extends Actor {
     const rollParts = ["1d6"];
 
     const data = {
+      actor: this.data,
       roll: {
         type: "below",
         target: this.data.data.exploration[expl],
@@ -370,6 +378,17 @@ export class OseActor extends Actor {
       flavor: `${attData.label} - ${game.i18n.localize("OSE.Damage")}`,
       title: `${attData.label} - ${game.i18n.localize("OSE.Damage")}`,
     });
+  }
+
+  async targetAttack(data, type, options) {
+    if (game.user.targets.size > 0) {
+      for (let t of game.user.targets.values()) {
+        data.roll.target = t;
+        await this.rollAttack(data, { type: type, skipDialog: options.skipDialog });
+      }
+    } else {
+      this.rollAttack(data, { type: type, skipDialog: options.skipDialog });
+    }
   }
 
   rollAttack(attData, options = {}) {

@@ -164,7 +164,11 @@ export class OseActorSheet extends ActorSheet {
       let actorObject = this.actor;
       let element = event.currentTarget;
       let attack = element.parentElement.parentElement.dataset.attack;
-      actorObject.rollAttack({roll: {}}, { type: attack, skipDialog: ev.ctrlKey });
+      const rollData = {
+        actor: this.data,
+        roll: {}
+      }
+      actorObject.targetAttack(rollData, attack, {type: attack, skipDialog: ev.ctrlKey});
     });
 
     html.find(".spells .item-reset").click((ev) => {

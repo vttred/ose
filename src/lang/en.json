@@ -252,6 +252,7 @@
   "OSE.messages.AttackSuccess": "<b>Hits AC {result}!</b> ({bonus})",
   "OSE.messages.AttackAscendingSuccess": "<b>Hits AC {result}!</b>",
   "OSE.messages.AttackFailure": "<b>Attack fails</b> ({bonus})",
+  "OSE.messages.AttackAscendingFailure": "<b>Attack fails</b>",
   "OSE.messages.InflictsDamage": "Inflicts damage!",
   "OSE.messages.applyDamage": "Apply Damage",
   "OSE.messages.applyHealing": "Apply Healing",

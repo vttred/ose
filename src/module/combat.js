@@ -31,6 +31,14 @@ export class OseCombat {
     }
   }
 
+  static async resetInitiative(combat, data) {
+    let updates = [];
+    combat.data.combatants.forEach((c, i) => {
+      updates.push({_id: c._id, initiative: ""});
+    });
+    await combat.updateEmbeddedEntity("Combatant", updates);
+  }
+
   static async individualInitiative(combat, data) {
     let updates = [];
     let messages = [];
@@ -43,7 +51,7 @@ export class OseCombat {
       if (combat.settings.skipDefeated && c.defeated) {
         value = -790;
       }
-      updates.push({ _id: c._id, initiative: value });
+      updates.push({ _id: c._id, initiative: "value" });
 
       // Determine the roll mode
       let rollMode = game.settings.get("core", "rollMode");

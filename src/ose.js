@@ -128,10 +128,12 @@ Hooks.on("preUpdateCombat", async (combat, data, diff, id) => {
   if (!data.round) {
     return;
   }
-  if (init == "group") {
+  if (init === "group") {
     OseCombat.rollInitiative(combat, data, diff, id);
-  } else if (init == "rerolled") {
+  } else if (init === "rerolled") {
     OseCombat.individualInitiative(combat, data, diff, id);
+  } else if (init === "reset") {
+    OseCombat.resetInitiative(combat, data, diff, id);
   }
 });
 

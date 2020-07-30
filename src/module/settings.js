@@ -10,6 +10,7 @@ export const registerSettings = function () {
     choices: {
       disabled: "OSE.Setting.InitiativeOnce",
       rerolled: "OSE.Setting.InitiativeReroll",
+      reset: "OSE.Setting.InitiativeReset",
       group: "OSE.Setting.InitiativeGroup",
     },
     onChange: _ => window.location.reload()

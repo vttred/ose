@@ -250,6 +250,27 @@ export class OseItem extends Item {
     return this.update({ data: newData });
   }
 
+  roll() {
+    switch (this.type) {
+      case "weapon":
+        this.rollWeapon();
+        break;
+      case "spell":
+        this.spendSpell();
+        break;
+      case "ability":
+        if (this.data.data.roll) {
+          this.rollFormula();
+        } else {
+          this.show();
+        }
+        break;
+      case "item":
+      case "armor":
+        this.show();
+    }
+  }
+
   /**
    * Show the item to Chat, creating a chat card which contains follow up attack or damage roll options
    * @return {Promise}

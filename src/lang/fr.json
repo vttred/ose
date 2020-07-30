@@ -173,6 +173,7 @@
   "OSE.Setting.EncumbranceDisabled": "Désactivé",
   "OSE.Setting.EncumbranceBasic": "Basique",
   "OSE.Setting.EncumbranceDetailed": "Detaillé",
+  "OSE.Setting.EncumbranceComplete": "Complet",
   "OSE.Setting.MovementAuto": "Calculer Déplacement",
   "OSE.Setting.SignificantTreasure": "Poids d'un Trésor Significatif",
   "OSE.Setting.SignificantTreasureHint": "Poids auquel le Trésor réduit le déplacement. Utilisé pour l'encombrement Basique",

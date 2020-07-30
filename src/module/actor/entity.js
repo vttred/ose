@@ -495,18 +495,19 @@ export class OseActor extends Actor {
     }
     const data = this.data.data;
     let option = game.settings.get("ose", "encumbranceOption");
-    let basic = option == "basic";
 
     // Compute encumbrance
-    let owned = ["weapon", "armor", "item"];
     let totalWeight = 0;
+    let hasItems = false;
     Object.values(this.data.items).forEach((item) => {
-      if (item.type == "item" && (!basic || item.data.treasure)) {
+      if (item.type == "item" && (['complete', 'disabled'].includes(option) || item.data.treasure)) {
         totalWeight += item.data.quantity.value * item.data.weight;
-      } else if (!basic && owned.includes(item.type)) {
+        hasItems = true;
+      } else if (option != 'basic' && ['weapon', 'armor'].includes(item.type)) {
         totalWeight += item.data.weight;
       }
     });
+    if (option === 'detailed' && hasItems) totalWeight += 80;
 
     data.encumbrance = {
       pct: Math.clamped(

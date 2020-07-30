@@ -173,6 +173,7 @@
   "OSE.Setting.EncumbranceDisabled": "Disabled",
   "OSE.Setting.EncumbranceBasic": "Basic",
   "OSE.Setting.EncumbranceDetailed": "Detailed",
+  "OSE.Setting.EncumbranceComplete": "Complete",
   "OSE.Setting.MovementAuto": "Calculate Movement",
   "OSE.Setting.SignificantTreasure": "Significant Treasure Weight",
   "OSE.Setting.SignificantTreasureHint": "Weight at which treasure will reduce the movement, only useful for basic encumbrance",

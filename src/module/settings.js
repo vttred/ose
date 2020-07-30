@@ -45,6 +45,7 @@ export const registerSettings = function () {
       disabled: "OSE.Setting.EncumbranceDisabled",
       basic: "OSE.Setting.EncumbranceBasic",
       detailed: "OSE.Setting.EncumbranceDetailed",
+      complete: "OSE.Setting.EncumbranceComplete",
     },
     onChange: _ => window.location.reload()
   });

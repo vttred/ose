@@ -91,8 +91,13 @@
         }
       }
     }
-    .editor {
-      height: 250px;
+    .description {
+      .editor {
+        height: 250px;
+        .editor-content {
+          padding: 0 5px;
+        }
+      }
     }
   }
 }

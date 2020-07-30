@@ -1,6 +1,6 @@
 {
-  "dataPath": "/home/oreo/.local/share/FoundryVTT",
+  "dataPath": "C:\\Users\\oreo\\AppData\\Local\\FoundryVTT",
   "manifest": "src",
-  "repository": "https://gitlab.com/mesfoliesludiques/foundryvtt-ose",
-  "rawURL": "https://gitlab.com/mesfoliesludiques/foundryvtt-ose/-/raw"
+  "repository": "https://gitlab.com/florad-foundry/swade",
+  "rawURL": "https://gitlab.com/florad-foundry/swade/-/raw"
 }

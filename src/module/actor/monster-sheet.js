@@ -136,39 +136,18 @@ export class OseActorSheetMonster extends OseActorSheet {
     });
   }
 
-  async _onCountChange(event) {
-    event.preventDefault();
-    const itemId = event.currentTarget.closest(".item").dataset.itemId;
-    const item = this.actor.getOwnedItem(itemId);
-    if (event.target.dataset.field == "value") {
-      return item.update({
-        "data.counter.value": parseInt(event.target.value),
-      });
-    } else if (event.target.dataset.field == "max") {
-      return item.update({
-        "data.counter.max": parseInt(event.target.value),
+  async _resetCounters(event) {
+    const weapons = this.actor.data.items.filter(i => i.type === 'weapon');
+    for (let wp of weapons) {
+      const item = this.actor.getOwnedItem(wp._id);
+      await item.update({
+        data: {
+          counter: {
+            value: parseInt(wp.data.counter.max),
+          },
+        },
       });
     }
-  }
-
-  async _resetCounters(event) {
-    $(event.currentTarget)
-      .closest(".abilities")
-      .find(".item")
-      .each(async (_, el) => {
-        let itemId = el.dataset.itemId;
-        const item = this.actor.getOwnedItem(itemId);
-        if (item.data.type == "weapon") {
-          await item.update({
-            _id: item.id,
-            data: {
-              counter: {
-                value: parseInt(item.data.data.counter.max),
-              },
-            },
-          });
-        }
-      });
   }
 
   /**
@@ -242,10 +221,10 @@ export class OseActorSheetMonster extends OseActorSheet {
       actorObject.rollAppearing({ event: event, check: check });
     });
 
-    html
-      .find(".counter input")
-      .click((ev) => ev.target.select())
-      .change(this._onCountChange.bind(this));
+    // html
+    //   .find(".counter input")
+    //   .click((ev) => ev.target.select())
+    //   .change(this._onCountChange.bind(this));
 
     html.find(".hp-roll").click((ev) => {
       let actorObject = this.actor;

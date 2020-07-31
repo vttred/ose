@@ -530,7 +530,7 @@ export class OseActor extends Actor {
     let option = game.settings.get("ose", "encumbranceOption");
     let weight = data.encumbrance.value;
     let delta = data.encumbrance.max - 1600;
-    if (option == "detailed") {
+    if (["detailed", "complete"].includes(option)) {
       if (weight > data.encumbrance.max) {
         data.movement.base = 0;
       } else if (weight > 800 + delta) {

@@ -83,7 +83,10 @@ export class OseDice {
     if (["gmroll", "blindroll"].includes(rollMode))
       chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
     if (rollMode === "selfroll") chatData["whisper"] = [game.user._id];
-    if (rollMode === "blindroll") chatData["blind"] = true;
+    if (rollMode === "blindroll") {
+      chatData["blind"] = true;
+      data.roll.blindroll = true;
+    }
 
     templateData.result = OseDice.digestResult(data, roll);
 
@@ -190,10 +193,18 @@ export class OseDice {
     let rollMode = game.settings.get("core", "rollMode");
     rollMode = form ? form.rollMode.value : rollMode;
 
+    // Force blind roll (ability formulas)
+    if (data.roll.blindroll) {
+      rollMode = game.user.isGM ? "selfroll" : "blindroll";
+    }
+
     if (["gmroll", "blindroll"].includes(rollMode))
       chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
     if (rollMode === "selfroll") chatData["whisper"] = [game.user._id];
-    if (rollMode === "blindroll") chatData["blind"] = true;
+    if (rollMode === "blindroll") {
+      chatData["blind"] = true;
+      data.roll.blindroll = true;
+    }
 
     templateData.result = OseDice.digestAttackResult(data, roll);
 

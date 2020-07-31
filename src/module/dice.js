@@ -76,8 +76,8 @@ export class OseDice {
     rollMode = form ? form.rollMode.value : rollMode;
 
     // Force blind roll (ability formulas)
-    if (data.blindroll) {
-      rollMode = "blindroll";
+    if (data.roll.blindroll) {
+      rollMode = game.user.isGM ? "selfroll" : "blindroll";
     }
 
     if (["gmroll", "blindroll"].includes(rollMode))

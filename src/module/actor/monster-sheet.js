@@ -150,6 +150,21 @@ export class OseActorSheetMonster extends OseActorSheet {
     }
   }
 
+  async _onCountChange(event) {
+    event.preventDefault();
+    const itemId = event.currentTarget.closest(".item").dataset.itemId;
+    const item = this.actor.getOwnedItem(itemId);
+    if (event.target.dataset.field == "value") {
+      return item.update({
+        "data.counter.value": parseInt(event.target.value),
+      });
+    } else if (event.target.dataset.field == "max") {
+      return item.update({
+        "data.counter.max": parseInt(event.target.value),
+      });
+    }
+  }
+
   /**
    * Activate event listeners using the prepared sheet HTML
    * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
@@ -221,10 +236,10 @@ export class OseActorSheetMonster extends OseActorSheet {
       actorObject.rollAppearing({ event: event, check: check });
     });
 
-    // html
-    //   .find(".counter input")
-    //   .click((ev) => ev.target.select())
-    //   .change(this._onCountChange.bind(this));
+    html
+      .find(".counter input")
+      .click((ev) => ev.target.select())
+      .change(this._onCountChange.bind(this));
 
     html.find(".hp-roll").click((ev) => {
       let actorObject = this.actor;

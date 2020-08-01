@@ -50,7 +50,7 @@ export class OseItem extends Item {
     const labels = this.labels;
 
     if (this.data.type == "weapon") {
-      props.push(data.qualities);
+      data.tags.forEach(t => props.push(t.value));
     }
     if (this.data.type == "spell") {
       props.push(`${data.class} ${data.lvl}`, data.range, data.duration);

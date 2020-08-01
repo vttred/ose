@@ -165,7 +165,7 @@
       },
       "treasure": false,
       "cost": 0,
-      "weight": 80
+      "weight": 0
     },
     "weapon": {
       "range": {
@@ -174,14 +174,13 @@
         "long": 0
       },
       "save": "",
-      "pattern": "white",
+      "pattern": "transparent",
       "description": "",
       "damage": "1d6",
       "bonus": 0,
       "tags": [],
-      "qualities": "",
       "slow": false,
-      "missile": true,
+      "missile": false,
       "melee": true,
       "cost": 0,
       "equipped": false,

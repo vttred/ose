@@ -13,8 +13,7 @@ export class OseActorSheet extends ActorSheet {
     data.config = CONFIG.OSE;
     // Settings
     data.config.ascendingAC = game.settings.get("ose", "ascendingAC");
-    data.config.encumbranceBasic =
-      game.settings.get("ose", "encumbranceOption") == "basic";
+    data.config.encumbrance = game.settings.get("ose", "encumbranceOption");
 
     // Prepare owned items
     this._prepareItems(data);
@@ -147,7 +146,7 @@ export class OseActorSheet extends ActorSheet {
             data: { counter: { value: item.data.data.counter.value - 1 } },
           });
         }
-          item.rollWeapon({ skipDialog: ev.ctrlKey });
+        item.rollWeapon({ skipDialog: ev.ctrlKey });
       } else if (item.type == "spell") {
         item.spendSpell({ skipDialog: ev.ctrlKey });
       } else {
@@ -166,9 +165,12 @@ export class OseActorSheet extends ActorSheet {
       let attack = element.parentElement.parentElement.dataset.attack;
       const rollData = {
         actor: this.data,
-        roll: {}
-      }
-      actorObject.targetAttack(rollData, attack, {type: attack, skipDialog: ev.ctrlKey});
+        roll: {},
+      };
+      actorObject.targetAttack(rollData, attack, {
+        type: attack,
+        skipDialog: ev.ctrlKey,
+      });
     });
 
     html.find(".spells .item-reset").click((ev) => {

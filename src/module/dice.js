@@ -128,15 +128,22 @@ export class OseDice {
     };
     result.target = data.roll.thac0;
 
-    const targetAc = data.roll.target ? data.roll.target.actor.data.data.ac.value : 9;
-    const targetAac = data.roll.target ? data.roll.target.actor.data.data.aac.value : 0;
-    result.victim = data.roll.target ? data.roll.target.actor.name : null;
+    const targetAc = data.roll.target
+      ? data.roll.target.actor.data.data.ac.value
+      : 9;
+    const targetAac = data.roll.target
+      ? data.roll.target.actor.data.data.aac.value
+      : 0;
+    result.victim = data.roll.target ? data.roll.target.data.name : null;
 
     if (game.settings.get("ose", "ascendingAC")) {
       if (roll.total < targetAac) {
-        result.details = game.i18n.format("OSE.messages.AttackAscendingFailure", {
-          bonus: result.target,
-        });
+        result.details = game.i18n.format(
+          "OSE.messages.AttackAscendingFailure",
+          {
+            bonus: result.target,
+          }
+        );
         return result;
       }
       result.details = game.i18n.format("OSE.messages.AttackAscendingSuccess", {

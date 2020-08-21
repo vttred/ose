@@ -29,6 +29,7 @@ export class OseCombat {
           groups[data.combatants[i].flags.ose.group].initiative;
       }
     }
+    combat.setupTurns();
   }
 
   static async resetInitiative(combat, data) {
@@ -36,11 +37,7 @@ export class OseCombat {
     if (!["reset", "reroll"].includes(reroll)) {
       return;
     }
-    let updates = [];
-    combat.data.combatants.forEach((c, i) => {
-      updates.push({_id: c._id, initiative: ""});
-    });
-    await combat.updateEmbeddedEntity("Combatant", updates);
+    combat.resetAll();
   }
 
   static async individualInitiative(combat, data) {
@@ -175,7 +172,9 @@ export class OseCombat {
       }
       let data = {};
       OseCombat.rollInitiative(game.combat, data);
-      game.combat.update({ data: data });
+      game.combat.update({ data: data }).then(() => {
+        game.combat.setupTurns();
+      });
     });
   }
 

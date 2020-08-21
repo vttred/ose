@@ -8,12 +8,24 @@ export const registerSettings = function () {
     type: String,
     config: true,
     choices: {
-      disabled: "OSE.Setting.InitiativeOnce",
-      rerolled: "OSE.Setting.InitiativeReroll",
-      reset: "OSE.Setting.InitiativeReset",
+      individual: "OSE.Setting.InitiativeIndividual",
       group: "OSE.Setting.InitiativeGroup",
     },
     onChange: _ => window.location.reload()
+  });
+
+  game.settings.register("ose", "rerollInitiative", {
+    name: game.i18n.localize("OSE.Setting.RerollInitiative"),
+    hint: game.i18n.localize("OSE.Setting.RerollInitiativeHint"),
+    default: "reset",
+    scope: "world",
+    type: String,
+    config: true,
+    choices: {
+      keep: "OSE.Setting.InitiativeKeep",
+      reset: "OSE.Setting.InitiativeReset",
+      reroll: "OSE.Setting.InitiativeReroll",
+    }
   });
 
   game.settings.register("ose", "ascendingAC", {

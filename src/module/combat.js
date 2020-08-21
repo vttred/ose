@@ -32,6 +32,10 @@ export class OseCombat {
   }
 
   static async resetInitiative(combat, data) {
+    let reroll = game.settings.get("ose", "rerollInitiative");
+    if (!["reset", "reroll"].includes(reroll)) {
+      return;
+    }
     let updates = [];
     combat.data.combatants.forEach((c, i) => {
       updates.push({_id: c._id, initiative: ""});

@@ -88,7 +88,7 @@ Hooks.on("renderSidebarTab", async (object, html) => {
     party.addControl(object, html);
   }
   if (object instanceof Settings) {
-    let gamesystem = html.find(".game-system");
+    let gamesystem = html.find("#game-details");
     // SRD Link
     let ose = gamesystem.find('h4').last();
     ose.append(` <sub><a href="https://oldschoolessentials.necroticgnome.com/srd/index.php">SRD<a></sub>`);
@@ -96,7 +96,7 @@ Hooks.on("renderSidebarTab", async (object, html) => {
     // License text
     const template = "systems/ose/templates/chat/license.html";
     const rendered = await renderTemplate(template);
-    gamesystem.append(rendered);
+    gamesystem.find(".system").append(rendered);
     
     // User guide
     let docs = html.find("button[data-action='docs']");

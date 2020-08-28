@@ -41,21 +41,17 @@ async function rollTreasure(table, options = {}) {
   };
   let ids = [];
   table.results.forEach((r) => {
+    let subs = [];
     if (percent(r.weight)) {
-      let text = "";
-      switch (r.type) {
-        case 0:
-          text = r.text;
-          break;
-        case 1:
-          text = `@${r.collection}[${r.resultId}]{${r.text}}`;
-          break;
-        case 2:
-          text = `@Compendium[${r.collection}.${r.resultId}]{${r.text}}`;
+      let text = table._getResultChatText(r);
+      if ((r.type === CONST.TABLE_RESULT_TYPES.ENTITY) && (r.collection === "RollTable")) {
+        const results = game.tables.get(r.resultId).roll().results;
+        results.forEach((s) => { subs.push({text: table._getResultChatText(s)}); });
       }
       templateData.treasure.push({
         id: r._id,
         img: r.img,
+        subresults: subs,
         text: TextEditor.enrichHTML(text),
       });
       ids.push(r._id);
@@ -82,7 +78,7 @@ async function rollTreasure(table, options = {}) {
 
   let chatData = {
     content: html,
-    sound: "/systems/ose/assets/coins.mp3"
+    // sound: "/systems/ose/assets/coins.mp3"
   }
 
   let rollMode = game.settings.get("core", "rollMode");

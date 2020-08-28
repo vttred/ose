@@ -9,6 +9,9 @@
             <li class="treasure flexrow">
                 <img src="{{t.img}}" width="36" height="36" />
                 <div>{{{t.text}}}</div>
+                {{#each subresults}}
+                    <div>{{text}}</div>
+                {{/each}}
             </li>
             {{/each}}
         </ol>

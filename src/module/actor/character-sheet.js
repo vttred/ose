@@ -26,7 +26,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
       resizable: true,
       tabs: [
         {
-          navSelector: ".tabs",
+          navSelector: ".sheet-tabs",
           contentSelector: ".sheet-body",
           initial: "attributes",
         },

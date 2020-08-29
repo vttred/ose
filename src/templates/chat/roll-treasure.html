@@ -7,11 +7,18 @@
         <ol class="treasure-list">
             {{#each treasure as |t|}}
             <li class="treasure flexrow">
-                <img src="{{t.img}}" width="36" height="36" />
-                <div>{{{t.text}}}</div>
-                {{#each subresults}}
-                    <div>{{text}}</div>
-                {{/each}}
+                {{#if t.img}}<img src="{{t.img}}" width="36" height="36" />{{/if}}
+                <div>
+                    <div>{{{t.text}}}</div>
+                    {{#each t.treasure}}
+                        <li class="sub flexrow">
+                            {{#if img}}<img src="{{img}}" width="28" height="28">{{/if}}
+                            <div>
+                                {{{text}}}
+                            </div>
+                        </li>
+                    {{/each}}
+                </div>
             </li>
             {{/each}}
         </ol>

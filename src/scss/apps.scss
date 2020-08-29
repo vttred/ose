@@ -306,6 +306,18 @@
         }
         line-height: 36px;
       }
+      .sub {
+        padding-left: 25px;
+        line-height: 28px;
+        img {
+          flex: 0 0 28px;
+          border: none;
+        }
+        div {
+          text-indent: 10px;
+          font-size: 14px;
+        }
+      }
     }
     h3 {
       font-size: 12px;

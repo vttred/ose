@@ -119,22 +119,24 @@ export class OseActorSheet extends ActorSheet {
   }
 
   activateListeners(html) {
+    super.activateListeners(html);
+    
     // Item summaries
     html
       .find(".item .item-name h4")
       .click((event) => this._onItemSummary(event));
+
+    html.find(".item .item-controls .item-show").click(async (ev) => {
+      const li = $(ev.currentTarget).parents(".item");
+      const item = this.actor.getOwnedItem(li.data("itemId"));
+      item.show();
+    });
 
     html.find(".saving-throw .attribute-name a").click((ev) => {
       let actorObject = this.actor;
       let element = event.currentTarget;
       let save = element.parentElement.parentElement.dataset.save;
       actorObject.rollSave(save, { event: event });
-    });
-
-    html.find(".item .item-controls .item-show").click(async (ev) => {
-      const li = $(ev.currentTarget).parents(".item");
-      const item = this.actor.getOwnedItem(li.data("itemId"));
-      item.show();
     });
 
     html.find(".item .item-rollable .item-image").click(async (ev) => {
@@ -154,11 +156,6 @@ export class OseActorSheet extends ActorSheet {
       }
     });
 
-    html
-      .find(".memorize input")
-      .click((ev) => ev.target.select())
-      .change(this._onSpellChange.bind(this));
-
     html.find(".attack a").click((ev) => {
       let actorObject = this.actor;
       let element = event.currentTarget;
@@ -172,17 +169,24 @@ export class OseActorSheet extends ActorSheet {
         skipDialog: ev.ctrlKey,
       });
     });
-
-    html.find(".spells .item-reset").click((ev) => {
-      this._resetSpells(ev);
-    });
-
+    
     html.find(".hit-dice .attribute-name a").click((ev) => {
       let actorObject = this.actor;
       actorObject.rollHitDice({ event: event });
     });
 
-    super.activateListeners(html);
+    // Everything below here is only needed if the sheet is editable
+    if (!this.options.editable) return;
+
+    html
+      .find(".memorize input")
+      .click((ev) => ev.target.select())
+      .change(this._onSpellChange.bind(this));
+
+
+    html.find(".spells .item-reset").click((ev) => {
+      this._resetSpells(ev);
+    });
   }
 
   // Override to set resizable initial size
@@ -223,7 +227,7 @@ export class OseActorSheet extends ActorSheet {
         let heightDelta = this.position.height - this.options.height;
         editor.style.height = `${
           heightDelta + parseInt(container.dataset.editorSize)
-        }px`;
+          }px`;
       }
     });
   }

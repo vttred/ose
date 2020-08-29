@@ -170,6 +170,24 @@ export class OseActorSheetMonster extends OseActorSheet {
    * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
    */
   activateListeners(html) {
+    super.activateListeners(html);
+
+    html.find(".morale-check a").click((ev) => {
+      let actorObject = this.actor;
+      actorObject.rollMorale({ event: event });
+    });
+
+    html.find(".reaction-check a").click((ev) => {
+      let actorObject = this.actor;
+      actorObject.rollReaction({ event: event });
+    });
+
+    html.find(".appearing-check a").click((ev) => {
+      let actorObject = this.actor;
+      let check = $(ev.currentTarget).closest('.check-field').data('check');
+      actorObject.rollAppearing({ event: event, check: check });
+    });
+    
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
 
@@ -220,22 +238,6 @@ export class OseActorSheetMonster extends OseActorSheet {
       this._resetCounters(ev);
     });
 
-    html.find(".morale-check a").click((ev) => {
-      let actorObject = this.actor;
-      actorObject.rollMorale({ event: event });
-    });
-
-    html.find(".reaction-check a").click((ev) => {
-      let actorObject = this.actor;
-      actorObject.rollReaction({ event: event });
-    });
-
-    html.find(".appearing-check a").click((ev) => {
-      let actorObject = this.actor;
-      let check = $(ev.currentTarget).closest('.check-field').data('check');
-      actorObject.rollAppearing({ event: event, check: check });
-    });
-
     html
       .find(".counter input")
       .click((ev) => ev.target.select())
@@ -263,7 +265,5 @@ export class OseActorSheetMonster extends OseActorSheet {
     });
 
     html.find('button[data-action="generate-saves"]').click(() => this.generateSave());
-    // Handle default listeners last so system listeners are triggered first
-    super.activateListeners(html);
   }
 }

@@ -136,6 +136,50 @@ export class OseActorSheetCharacter extends OseActorSheet {
    * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
    */
   activateListeners(html) {
+    super.activateListeners(html);
+
+    html.find(".ability-score .attribute-name a").click((ev) => {
+      let actorObject = this.actor;
+      let element = event.currentTarget;
+      let score = element.parentElement.parentElement.dataset.score;
+      let stat = element.parentElement.parentElement.dataset.stat;
+      if (!score) {
+        if (stat == "lr") {
+          actorObject.rollLoyalty(score, { event: event });
+        }
+      } else {
+        actorObject.rollCheck(score, { event: event });
+      }
+    });
+
+    html.find(".exploration .attribute-name a").click((ev) => {
+      let actorObject = this.actor;
+      let element = event.currentTarget;
+      let expl = element.parentElement.parentElement.dataset.exploration;
+      actorObject.rollExploration(expl, { event: event });
+    });
+
+    html.find(".inventory .item-titles .item-caret").click((ev) => {
+      let items = $(event.currentTarget.parentElement.parentElement).children(
+        ".item-list"
+      );
+      if (items.css("display") == "none") {
+        let el = $(event.currentTarget).find(".fas.fa-caret-right");
+        el.removeClass("fa-caret-right");
+        el.addClass("fa-caret-down");
+        items.slideDown(200);
+      } else {
+        let el = $(event.currentTarget).find(".fas.fa-caret-down");
+        el.removeClass("fa-caret-down");
+        el.addClass("fa-caret-right");
+        items.slideUp(200);
+      }
+    });
+
+    html.find("a[data-action='modifiers']").click((ev) => {
+      this._onShowModifiers(ev);
+    });
+
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
 
@@ -200,53 +244,8 @@ export class OseActorSheetCharacter extends OseActorSheet {
       .click((ev) => ev.target.select())
       .change(this._onQtChange.bind(this));
 
-    html.find(".ability-score .attribute-name a").click((ev) => {
-      let actorObject = this.actor;
-      let element = event.currentTarget;
-      let score = element.parentElement.parentElement.dataset.score;
-      let stat = element.parentElement.parentElement.dataset.stat;
-      if (!score) {
-        if (stat == "lr") {
-          actorObject.rollLoyalty(score, { event: event });
-        }
-      } else {
-        actorObject.rollCheck(score, { event: event });
-      }
-    });
-
-    html.find(".exploration .attribute-name a").click((ev) => {
-      let actorObject = this.actor;
-      let element = event.currentTarget;
-      let expl = element.parentElement.parentElement.dataset.exploration;
-      actorObject.rollExploration(expl, { event: event });
-    });
-
-    html.find(".inventory .item-titles .item-caret").click((ev) => {
-      let items = $(event.currentTarget.parentElement.parentElement).children(
-        ".item-list"
-      );
-      if (items.css("display") == "none") {
-        let el = $(event.currentTarget).find(".fas.fa-caret-right");
-        el.removeClass("fa-caret-right");
-        el.addClass("fa-caret-down");
-        items.slideDown(200);
-      } else {
-        let el = $(event.currentTarget).find(".fas.fa-caret-down");
-        el.removeClass("fa-caret-down");
-        el.addClass("fa-caret-right");
-        items.slideUp(200);
-      }
-    });
-
-    html.find("a[data-action='modifiers']").click((ev) => {
-      this._onShowModifiers(ev);
-    });
-
     html.find("a[data-action='generate-scores']").click((ev) => {
       this.generateScores(ev);
     });
-    
-    // Handle default listeners last so system listeners are triggered first
-    super.activateListeners(html);
   }
 }

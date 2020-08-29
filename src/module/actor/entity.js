@@ -123,14 +123,17 @@ export class OseActor extends Actor {
       roll: {
         type: "above",
         target: this.data.data.saves[save].value,
+        magic: this.data.data.scores.wis.mod
       },
       details: game.i18n.format("OSE.roll.details.save", { save: label }),
     };
 
     let skip = options.event && options.event.ctrlKey;
 
+    const rollMethod = this.data.type == "character" ? OseDice.RollSave : OseDice.Roll;
+
     // Roll and return
-    return OseDice.Roll({
+    return rollMethod({
       event: options.event,
       parts: rollParts,
       data: data,

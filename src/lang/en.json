@@ -95,6 +95,7 @@
   "OSE.saves.spell.short": "S",
   "OSE.saves.spell.long": "Spells Rods Staves",
   "OSE.saves.magic.long": "Bonus vs Magic",
+  "OSE.saves.magic.short": "vs Magic",
 
   "OSE.Health": "Hit Points",
   "OSE.HealthMax": "Maximum Hit Points",

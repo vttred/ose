@@ -123,7 +123,7 @@ export class OseActor extends Actor {
       roll: {
         type: "above",
         target: this.data.data.saves[save].value,
-        magic: this.data.data.scores.wis.mod
+        magic: this.data.type === "character" ? this.data.data.scores.wis.mod : 0,
       },
       details: game.i18n.format("OSE.roll.details.save", { save: label }),
     };

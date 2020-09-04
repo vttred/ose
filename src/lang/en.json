@@ -14,7 +14,7 @@
   "OSE.dialog.tweaks": "Tweaks",
   "OSE.dialog.partysheet": "Party Overview",
   "OSE.dialog.selectActors": "Select PCs",
-  "OSE.dialog.dealXP": "Deal XP",
+  "OSE.dialog.xp.deal": "Deal XP",
   "OSE.dialog.generator": "Character generator",
   "OSE.dialog.generateSaves": "Generate Saves",
   "OSE.dialog.generateScores": "Generate Scores",

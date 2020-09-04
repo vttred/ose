@@ -1,0 +1,19 @@
+<form autocomplete="off">
+    <div class="form-group">
+        <label>Amount</label>
+        <input name="total" placeholder="0" type="text" data-dtype="Number"/>
+        <button type="button" data-action="calculate-share"><i class="fas fa-calculator"></i></button>
+    </div>
+    <hr/>
+    <ul class="actors">
+    {{#each actors as |e|}}
+    <li class="actor form-group" data-actor-id="{{e.id}}">
+        <label>{{e.name}} ({{e.data.data.details.xp.share}}%)</label>
+        <input name="" placeholder="0" type="text" data-dtype="Number"/>
+    </li>
+    {{/each}}
+    </ul>
+  <div class="dialog-buttons">
+    <button type="button" data-action="deal-xp"><i class="fas fa-hand-holding"></i> {{localize "OSE.dialog.xp.deal"}}</button>
+  </div>
+</form>

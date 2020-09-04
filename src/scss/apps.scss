@@ -32,6 +32,20 @@
   }
 }
 
+.ose.dialog.party-xp {
+  .actors {
+    height: 270px;
+    padding: 0;
+    overflow-y: auto;
+  }
+  .form-group {
+    button {
+      line-height: 18px;
+      flex-grow: 0;
+    }
+  }
+}
+
 .ose.dialog.party-sheet {
   min-width: 250px;
   min-height: 250px;

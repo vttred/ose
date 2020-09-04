@@ -14,7 +14,7 @@
   "OSE.dialog.tweaks": "Ajuster",
   "OSE.dialog.partysheet": "Fiche de Groupe",
   "OSE.dialog.selectActors": "Choisir PJs",
-  "OSE.dialog.dealXP": "Donner XP",
+  "OSE.dialog.xp.deal": "Donner XP",
   "OSE.dialog.generator": "Générateur de personnage",
   "OSE.dialog.generateSaves": "Générer les Sauvegardes",
   "OSE.dialog.generateScores": "Générer les Scores",

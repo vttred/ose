@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file.
 
 ## [1.0.5] - 2020-09-04
 ### Added
+- Deal XP now allow preview and modifying values
 ### Changed
 - Fix dropping treasure table on monster from compendium
 ### Removed

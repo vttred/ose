@@ -1,3 +1,5 @@
+import { OsePartyXP } from "./party-xp.js";
+
 export class OsePartySheet extends FormApplication {
   
   static get defaultOptions() {
@@ -52,41 +54,8 @@ export class OsePartySheet extends FormApplication {
   }
   /* -------------------------------------------- */
 
-  _dealXP(ev) {
-    // Grab experience
-    const template = `
-          <form>
-           <div class="form-group">
-            <label>Amount</label> 
-            <input name="total" placeholder="0" type="text"/>
-           </div>
-        </form>`;
-    let pcs = this.object.entities.filter((e) => {
-      return e.getFlag('ose', 'party') && e.data.type == "character";
-    });
-    new Dialog({
-      title: "Deal Experience",
-      content: template,
-      buttons: {
-        set: {
-          icon: '<i class="fas fa-hand"></i>',
-          label: game.i18n.localize("OSE.dialog.dealXP"),
-          callback: (html) => {
-            let toDeal = html.find('input[name="total"]').val();
-            // calculate number of shares
-            let shares = 0;
-            pcs.forEach(c => {shares += c.data.data.details.xp.share});
-            const value = parseFloat(toDeal) / shares;
-            if (value) {
-              // Give experience
-              pcs.forEach((c) => {
-                c.getExperience(Math.floor(c.data.data.details.xp.share * value));
-              });
-            }
-          },
-        },
-      },
-    }).render(true);
+  async _dealXP(ev) {
+    new OsePartyXP(this.object, {}).render(true);
   }
 
   async _selectActors(ev) {
@@ -111,7 +80,8 @@ export class OsePartySheet extends FormApplication {
           },
         },
       },
-    }, {height: "auto", width: 220}).render(true);
+    }, {height: "auto", width: 220})
+    .render(true);
   }
 
   /** @override */

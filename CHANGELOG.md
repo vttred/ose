@@ -20,8 +20,15 @@ All notable changes to this project will be documented in this file.
 - Fix dropping treasure table on monster from compendium
 ### Removed
 
-## [1.0.6] - 2020-09-11
+## [1.0.7] - 2020-09-11
 ### Added
 ### Changed
 - Fix individual initiative reroll
+### Removed
+
+## [1.0.8] - 2020-09-11
+### Added
+- Combat Tracker: Spell and Move in Combat announcement toggles
+- Combat Tracker: Set Active context menu options
+### Changed
 ### Removed

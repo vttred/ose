@@ -19,3 +19,9 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - Fix dropping treasure table on monster from compendium
 ### Removed
+
+## [1.0.6] - 2020-09-11
+### Added
+### Changed
+- Fix individual initiative reroll
+### Removed

@@ -52,7 +52,7 @@ export class OseCombat {
       if (combat.settings.skipDefeated && c.defeated) {
         value = -790;
       }
-      updates.push({ _id: c._id, initiative: "value" });
+      updates.push({ _id: c._id, initiative: value });
 
       // Determine the roll mode
       let rollMode = game.settings.get("core", "rollMode");

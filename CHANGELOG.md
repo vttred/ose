@@ -31,4 +31,5 @@ All notable changes to this project will be documented in this file.
 - Combat Tracker: Spell and Move in Combat announcement toggles
 - Combat Tracker: Set Active context menu options
 ### Changed
+- FIX tweaks ac bonus not applied with ascending AC, issue #138
 ### Removed

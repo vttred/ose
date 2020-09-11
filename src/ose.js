@@ -112,34 +112,10 @@ Hooks.on("preCreateCombatant", (combat, data, options, id) => {
   }
 });
 
-Hooks.on("preUpdateCombatant", (combat, combatant, data) => {
-  OseCombat.updateCombatant(combat, combatant, data);
-});
-
-Hooks.on("renderCombatTracker", (object, html, data) => {
-  OseCombat.format(object, html, data);
-});
-
-Hooks.on("preUpdateCombat", async (combat, data, diff, id) => {
-  let init = game.settings.get("ose", "initiative");
-  let reroll = game.settings.get("ose", "rerollInitiative");
-  if (!data.round) {
-    return;
-  }
-  if (data.round !== 1) {
-    if (reroll === "reset") {
-      OseCombat.resetInitiative(combat, data, diff, id);
-      return;
-    } else if (reroll === "keep") {
-      return;
-    }
-  }
-  if (init === "group") {
-    OseCombat.rollInitiative(combat, data, diff, id);
-  } else if (init === "individual") {
-    OseCombat.individualInitiative(combat, data, diff, id);
-  }
-});
+Hooks.on("preUpdateCombatant", OseCombat.updateCombatant);
+Hooks.on("renderCombatTracker", OseCombat.format);
+Hooks.on("preUpdateCombat", OseCombat.preUpdateCombat);
+Hooks.on("getCombatTrackerEntryContext", OseCombat.addContextEntry);
 
 Hooks.on("renderChatLog", (app, html, data) => OseItem.chatListeners(html));
 Hooks.on("getChatLogEntryContext", chat.addChatMessageContextOptions);

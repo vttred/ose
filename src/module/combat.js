@@ -56,7 +56,7 @@ export class OseCombat {
 
       // Determine the roll mode
       let rollMode = game.settings.get("core", "rollMode");
-        if ((c.token.hidden || c.hidden) && (rollMode === "roll")) rollMode = "gmroll";
+      if ((c.token.hidden || c.hidden) && (rollMode === "roll")) rollMode = "gmroll";
 
       // Construct chat message data
       let messageData = mergeObject({
@@ -89,7 +89,23 @@ export class OseCombat {
           ? '<i class="fas fa-dizzy"></i>'
           : span.innerHTML;
     });
-    let init = game.settings.get("ose", "initiative") == "group";
+    
+    html.find(".combatant").each((_, ct) => {
+      // Append spellcast and retreat
+      const controls = $(ct).find(".combatant-controls .combatant-control");
+      const cmbtant = object.combat.getCombatant(ct.dataset.combatantId);
+      const moveActive = cmbtant.flags.ose && cmbtant.flags.ose.moveInCombat ? "active" : "";
+      controls.eq(1).after(
+        `<a class='combatant-control move-combat ${moveActive}'><i class='fas fa-walking'></i></a>`
+      );
+      const spellActive = cmbtant.flags.ose && cmbtant.flags.ose.prepareSpell ? "active" : "";
+      controls.eq(1).after(
+        `<a class='combatant-control prepare-spell ${spellActive}'><i class='fas fa-magic'></i></a>`
+      );
+    });
+    OseCombat.announceListener(html);
+
+    let init = game.settings.get("ose", "initiative") === "group";
     if (!init) {
       return;
     }
@@ -108,7 +124,7 @@ export class OseCombat {
       $(ct).find(".roll").remove();
 
       // Get group color
-      let cmbtant = object.combat.getCombatant(ct.dataset.combatantId);
+      const cmbtant = object.combat.getCombatant(ct.dataset.combatantId);
       let color = cmbtant.flags.ose.group;
 
       // Append colored flag
@@ -143,6 +159,29 @@ export class OseCombat {
         }
       });
     }
+  }
+
+  static announceListener(html) {
+    html.find(".combatant-control.prepare-spell").click((ev) => {
+      ev.preventDefault();
+      // Toggle spell announcement
+      let id = $(ev.currentTarget).closest(".combatant")[0].dataset.combatantId;
+      let isActive = ev.currentTarget.classList.contains('active');
+      game.combat.updateCombatant({
+        _id: id,
+        flags: { ose: { prepareSpell: !isActive } },
+      });
+    });
+    html.find(".combatant-control.move-combat").click((ev) => {
+      ev.preventDefault();
+      // Toggle spell announcement
+      let id = $(ev.currentTarget).closest(".combatant")[0].dataset.combatantId;
+      let isActive = ev.currentTarget.classList.contains('active');
+      game.combat.updateCombatant({
+        _id: id,
+        flags: { ose: { moveInCombat: !isActive } },
+      });
+    })
   }
 
   static addListeners(html) {
@@ -197,5 +236,39 @@ export class OseCombat {
         group: color,
       },
     };
+  }
+
+  static activateCombatant(li) {
+    const turn = game.combat.turns.findIndex(turn => turn._id === li.data('combatant-id'));
+    game.combat.update({turn: turn})
+  }
+
+  static addContextEntry(html, options) {
+    options.unshift({
+      name: "Set Active",
+      icon: '<i class="fas fa-star-of-life"></i>',
+      callback: OseCombat.activateCombatant
+    });
+  }
+
+  static async preUpdateCombat(combat, data, diff, id) {
+    let init = game.settings.get("ose", "initiative");
+    let reroll = game.settings.get("ose", "rerollInitiative");
+    if (!data.round) {
+      return;
+    }
+    if (data.round !== 1) {
+      if (reroll === "reset") {
+        OseCombat.resetInitiative(combat, data, diff, id);
+        return;
+      } else if (reroll === "keep") {
+        return;
+      }
+    }
+    if (init === "group") {
+      OseCombat.rollInitiative(combat, data, diff, id);
+    } else if (init === "individual") {
+      OseCombat.individualInitiative(combat, data, diff, id);
+    }
   }
 }

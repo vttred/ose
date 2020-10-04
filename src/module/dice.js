@@ -287,7 +287,7 @@ export class OseDice {
       flavor: flavor,
       speaker: speaker,
     };
-    if (skipDialog) { OseDice.sendRoll(rollData); }
+    if (skipDialog) { return OseDice.sendRoll(rollData); }
 
     let buttons = {
       ok: {
@@ -295,7 +295,7 @@ export class OseDice {
         icon: '<i class="fas fa-dice-d20"></i>',
         callback: (html) => {
           rolled = true;
-          rollData.form = html[0].children[0];
+          rollData.form = html[0].querySelector("form");
           roll = OseDice.sendRoll(rollData);
         },
       },
@@ -304,7 +304,7 @@ export class OseDice {
         icon: '<i class="fas fa-magic"></i>',
         callback: (html) => {
           rolled = true;
-          rollData.form = html[0].children[0];
+          rollData.form = html[0].querySelector("form");
           rollData.data.roll.target = parseInt(rollData.data.roll.target) + parseInt(rollData.data.roll.magic);
           rollData.title += ` ${game.i18n.localize("OSE.saves.magic.short")} (${rollData.data.roll.magic})`;
           roll = OseDice.sendRoll(rollData);
@@ -370,7 +370,7 @@ export class OseDice {
         icon: '<i class="fas fa-dice-d20"></i>',
         callback: (html) => {
           rolled = true;
-          rollData.form = html[0].children[0];
+          rollData.form = html[0].querySelector("form");
           roll = ["melee", "missile", "attack"].includes(data.roll.type)
             ? OseDice.sendAttackRoll(rollData)
             : OseDice.sendRoll(rollData);

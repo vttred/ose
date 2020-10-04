@@ -33,3 +33,10 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - FIX tweaks ac bonus not applied with ascending AC, issue #138
 ### Removed
+
+## [1.0.9] - 2020-10-04
+### Added
+### Changed
+- Hp roll no longer add nested hp balues, fixing issue #141
+- Added basic compatibility with 0.7.3
+### Removed

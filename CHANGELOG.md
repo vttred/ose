@@ -40,3 +40,9 @@ All notable changes to this project will be documented in this file.
 - Hp roll no longer add nested hp balues, fixing issue #141
 - Added basic compatibility with 0.7.3
 ### Removed
+
+## [1.1.0] - 2020-10-21
+### Added
+### Changed
+- Fixed tab height css rules for 0.7.4
+### Removed

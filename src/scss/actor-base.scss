@@ -92,11 +92,14 @@
     top: 365px;
     right: -169px;
     width: 320px;
+    border-top: none;
+    height: 20px;
     z-index: -1;
     .item {
       padding: 2px 10px 0;
       margin-left: -5px;
       text-indent: 4px;
+      line-height: 18px;
       background: url("/ui/parchment.jpg");
       border-top-right-radius: 4px;
       border-top-left-radius: 80px;

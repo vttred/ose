@@ -46,3 +46,11 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - Fixed tab height css rules for 0.7.4
 ### Removed
+
+## [1.1.1] - 2020-10-25
+### Added
+### Changed
+- Fixed css rules
+- Changed roll.parts to roll.terms
+- Fixed editor custom buttons
+### Removed

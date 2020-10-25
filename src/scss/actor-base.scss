@@ -93,16 +93,17 @@
     right: -169px;
     width: 320px;
     border-top: none;
-    height: 20px;
+    height: 18px;
     z-index: -1;
     .item {
-      padding: 2px 10px 0;
+      padding: 1px 10px 0;
       margin-left: -5px;
       text-indent: 4px;
-      line-height: 18px;
+      line-height: 16px;
       background: url("/ui/parchment.jpg");
       border-top-right-radius: 4px;
       border-top-left-radius: 80px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.15);
       box-shadow: 0 0 6px 1px $colorDark;
       font-size: 12px;
       filter: brightness(0.9);
@@ -116,7 +117,6 @@
     }
   }
   .sheet-body {
-    padding: 5px 0;
     height: calc(100% - 140px);
     .tab {
       height: 100%;

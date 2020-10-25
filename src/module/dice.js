@@ -7,7 +7,7 @@ export class OseDice {
       total: roll.total,
     };
 
-    let die = roll.parts[0].total;
+    let die = roll.terms[0].total;
     if (data.roll.type == "above") {
       // SAVING THROWS
       if (roll.total >= result.target) {

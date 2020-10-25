@@ -21,12 +21,12 @@ export class OseActorSheet extends ActorSheet {
     return data;
   }
 
-  _createEditor(target, editorOptions, initialContent) {
+  activateEditor(target, editorOptions, initialContent) {
     // remove some controls to the editor as the space is lacking
     if (target == "data.details.description") {
       editorOptions.toolbar = "styleselect bullist hr table removeFormat save";
     }
-    super._createEditor(target, editorOptions, initialContent);
+    super.activateEditor(target, editorOptions, initialContent);
   }
 
   /**

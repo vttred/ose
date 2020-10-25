@@ -78,6 +78,19 @@
           }
         }
       }
+      .form-group {
+        align-items: inherit;
+        label {
+          line-height: 21px;
+        }
+        .form-fields {
+          justify-content: space-evenly;
+          height: 22px;
+          select {
+            height: 24px;
+          }
+        }
+      }
       .block-input {
         display: flex;
         flex-direction: column;

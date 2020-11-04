@@ -54,3 +54,9 @@ All notable changes to this project will be documented in this file.
 - Changed roll.parts to roll.terms
 - Fixed editor custom buttons
 ### Removed
+
+## [1.1.1] - 2020-11-4
+### Added
+### Changed
+- Fixed Item creation dialog on monsters
+### Removed

@@ -104,8 +104,8 @@ export class OseCharacterCreator extends FormApplication {
     });
   }
 
-  async close() {
-    super.close();
+  async close(options) {
+    console.log("COUCOU")
     // Gather scores
     let scores = {};
     $(this.form.children).find(".score-roll").each((_, d) => {
@@ -127,6 +127,7 @@ export class OseCharacterCreator extends FormApplication {
       content: content,
       speaker,
     });
+    return super.close(options);
   }
 
   /** @override */

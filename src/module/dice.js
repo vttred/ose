@@ -32,7 +32,7 @@ export class OseDice {
     } else if (data.roll.type == "table") {
       // Reaction
       let table = data.roll.table;
-      let output = "";
+      let output = Object.values(table)[0];
       for (let i = 0; i <= roll.total; i++) {
         if (table[i]) {
           output = table[i];
@@ -305,7 +305,7 @@ export class OseDice {
         callback: (html) => {
           rolled = true;
           rollData.form = html[0].querySelector("form");
-          rollData.data.roll.target = parseInt(rollData.data.roll.target) + parseInt(rollData.data.roll.magic);
+          rollData.parts.push(`${rollData.data.roll.magic}`);
           rollData.title += ` ${game.i18n.localize("OSE.saves.magic.short")} (${rollData.data.roll.magic})`;
           roll = OseDice.sendRoll(rollData);
         },

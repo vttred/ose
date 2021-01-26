@@ -69,3 +69,10 @@ All notable changes to this project will be documented in this file.
 - Fix vs magic bonus applied to roll, issue #147
 - Fix creation dialog not closing, issue #146
 ### Removed
+
+## [1.1.4] - 2021-01-26
+### Added
+### Changed
+- Exploration rolls are blind
+- Fixed total treasure value rounding
+### Removed

@@ -327,6 +327,7 @@ export class OseActor extends Actor {
       roll: {
         type: "below",
         target: this.data.data.exploration[expl],
+        blindroll: true
       },
       details: game.i18n.format("OSE.roll.details.exploration", {
         expl: label,
@@ -594,7 +595,7 @@ export class OseActor extends Actor {
     treasure.forEach((item) => {
       total += item.data.quantity.value * item.data.cost;
     });
-    data.treasure = total;
+    data.treasure = Math.round(total * 100) / 100.0;
   }
 
   computeAC() {

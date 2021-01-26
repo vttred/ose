@@ -140,36 +140,36 @@ export class OseActorSheetCharacter extends OseActorSheet {
 
     html.find(".ability-score .attribute-name a").click((ev) => {
       let actorObject = this.actor;
-      let element = event.currentTarget;
+      let element = ev.currentTarget;
       let score = element.parentElement.parentElement.dataset.score;
       let stat = element.parentElement.parentElement.dataset.stat;
       if (!score) {
         if (stat == "lr") {
-          actorObject.rollLoyalty(score, { event: event });
+          actorObject.rollLoyalty(score, { event: ev });
         }
       } else {
-        actorObject.rollCheck(score, { event: event });
+        actorObject.rollCheck(score, { event: ev });
       }
     });
 
     html.find(".exploration .attribute-name a").click((ev) => {
       let actorObject = this.actor;
-      let element = event.currentTarget;
+      let element = ev.currentTarget;
       let expl = element.parentElement.parentElement.dataset.exploration;
-      actorObject.rollExploration(expl, { event: event });
+      actorObject.rollExploration(expl, { event: ev });
     });
 
     html.find(".inventory .item-titles .item-caret").click((ev) => {
-      let items = $(event.currentTarget.parentElement.parentElement).children(
+      let items = $(ev.currentTarget.parentElement.parentElement).children(
         ".item-list"
       );
       if (items.css("display") == "none") {
-        let el = $(event.currentTarget).find(".fas.fa-caret-right");
+        let el = $(ev.currentTarget).find(".fas.fa-caret-right");
         el.removeClass("fa-caret-right");
         el.addClass("fa-caret-down");
         items.slideDown(200);
       } else {
-        let el = $(event.currentTarget).find(".fas.fa-caret-down");
+        let el = $(ev.currentTarget).find(".fas.fa-caret-down");
         el.removeClass("fa-caret-down");
         el.addClass("fa-caret-right");
         items.slideUp(200);
@@ -198,19 +198,19 @@ export class OseActorSheetCharacter extends OseActorSheet {
     });
 
     html.find(".item-push").click((ev) => {
-      event.preventDefault();
-      const header = event.currentTarget;
+      ev.preventDefault();
+      const header = ev.currentTarget;
       const table = header.dataset.array;
       this._pushLang(table);
     });
 
     html.find(".item-pop").click((ev) => {
-      event.preventDefault();
-      const header = event.currentTarget;
+      ev.preventDefault();
+      const header = ev.currentTarget;
       const table = header.dataset.array;
       this._popLang(
         table,
-        $(event.currentTarget).closest(".item").data("lang")
+        $(ev.currentTarget).closest(".item").data("lang")
       );
     });
 

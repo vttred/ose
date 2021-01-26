@@ -76,7 +76,7 @@ export class OseDice {
     rollMode = form ? form.rollMode.value : rollMode;
 
     // Force blind roll (ability formulas)
-    if (data.roll.blindroll) {
+    if (!form && data.roll.blindroll) {
       rollMode = game.user.isGM ? "selfroll" : "blindroll";
     }
 
@@ -347,7 +347,7 @@ export class OseDice {
     let dialogData = {
       formula: parts.join(" "),
       data: data,
-      rollMode: game.settings.get("core", "rollMode"),
+      rollMode: data.roll.blindroll ? "blindroll" : game.settings.get("core", "rollMode"),
       rollModes: CONFIG.Dice.rollModes,
     };
 

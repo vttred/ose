@@ -75,4 +75,5 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - Exploration rolls are blind
 - Fixed total treasure value rounding
+- Fixed treasure height icon in rollable tables
 ### Removed

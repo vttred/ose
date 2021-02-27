@@ -50,6 +50,7 @@ export class OseDice {
     flavor = null,
     speaker = null,
     form = null,
+	chatMessage = true
   } = {}) {
     const template = "systems/ose/templates/chat/roll-result.html";
 
@@ -106,12 +107,14 @@ export class OseDice {
                 chatData.blind
               )
               .then((displayed) => {
-                ChatMessage.create(chatData);
+				if(chatMessage !== false)
+					ChatMessage.create(chatData);
                 resolve(roll);
               });
           } else {
             chatData.sound = CONFIG.sounds.dice;
-            ChatMessage.create(chatData);
+			if(chatMessage !== false)
+				ChatMessage.create(chatData);
             resolve(roll);
           }
         });
@@ -286,6 +289,7 @@ export class OseDice {
       title: title,
       flavor: flavor,
       speaker: speaker,
+	  chatMessage: chatMessage
     };
     if (skipDialog) { return OseDice.sendRoll(rollData); }
 
@@ -341,6 +345,7 @@ export class OseDice {
     speaker = null,
     flavor = null,
     title = null,
+	chatMessage = true
   } = {}) {
     let rolled = false;
     const template = "systems/ose/templates/chat/roll-dialog.html";
@@ -357,6 +362,7 @@ export class OseDice {
       title: title,
       flavor: flavor,
       speaker: speaker,
+	  chatMessage: chatMessage
     };
     if (skipDialog) {
       return ["melee", "missile", "attack"].includes(data.roll.type)

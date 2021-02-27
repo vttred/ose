@@ -273,6 +273,7 @@ export class OseDice {
     speaker = null,
     flavor = null,
     title = null,
+	chatMessage = true
   } = {}) {
     let rolled = false;
     const template = "systems/ose/templates/chat/roll-dialog.html";

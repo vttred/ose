@@ -6,10 +6,10 @@
     {{#if user.isGM}}
     <div class="item-controls flexrow">
       <div class="item-control">
-        <button type="button" class="deal-xp" title="{{localize 'OSE.dialog.dealXP'}}"><i class="fas fa-hand-holding"></i></button>
+        <button type="button" class="deal-xp" title="{{localize 'OSE.dialog.xp.deal'}}">{{localize 'OSE.dialog.xp.label'}}</button>
       </div>
       <div class="item-control">
-        <button type="button" class="select-actors" title="{{localize 'OSE.dialog.selectActors'}}"><i class="fas fa-users"></i></button>
+        <button type="button" class="select-actors" title="{{localize 'OSE.dialog.partyselect'}}"><i class="fas fa-users"></i></button>
       </div>
     </div>
     {{/if}}
@@ -25,8 +25,8 @@
       </div>
       <div class="fields">
         <div class="flexrow field-row">
-          <div class="field-name flex2">
-            <strong>{{e.name}}</strong>
+          <div title="{{e.name}}" class="field-name flex2">
+            {{e.name}}
           </div>
           <div class="field-long" title="{{localize 'OSE.Health'}}">
             <i class="fas fa-heart"></i>

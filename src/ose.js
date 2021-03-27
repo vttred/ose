@@ -71,6 +71,14 @@ Hooks.once("setup", function () {
       return obj;
     }, {});
   }
+
+  // Custom languages
+  const languages = game.settings.get("ose", "languages");
+  if (languages != "") {
+    const langArray = languages.split(',');
+    langArray.forEach((l, i) => langArray[i] = l.trim())  
+    CONFIG.OSE.languages = langArray;
+  }
 });
 
 Hooks.once("ready", async () => {

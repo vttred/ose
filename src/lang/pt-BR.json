@@ -13,7 +13,7 @@
 
   "OSE.dialog.tweaks": "Ferramentas",
   "OSE.dialog.partysheet": "Visão do grupo",
-  "OSE.dialog.selectActors": "Selecionar PJs",
+  "OSE.dialog.partyselect": "Selecionar PJs",
   "OSE.dialog.xp.deal": "Distribuir XP",
   "OSE.dialog.generator": "Gerar personagem",
   "OSE.dialog.generateSaves": "Gerar salvaguardas",

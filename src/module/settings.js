@@ -72,4 +72,14 @@ export const registerSettings = function () {
     config: true,
     onChange: _ => window.location.reload()
   });
+
+  game.settings.register("ose", "languages", {
+    name: game.i18n.localize("OSE.Setting.Languages"),
+    hint: game.i18n.localize("OSE.Setting.LanguagesHint"),
+    default: "",
+    scope: "world",
+    type: String,
+    config: true,
+    onChange: _ => window.location.reload()
+  });
 };

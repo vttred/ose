@@ -46,6 +46,29 @@
   }
 }
 
+.ose.dialog.party-select {
+  .actor-list {
+    padding: 0 4px 0;
+    max-height: 250px;
+    overflow: auto;
+    .actor {
+      label {
+        height: 28px;
+        overflow: hidden;
+      }
+      .form-fields {
+        flex: 0 20px;
+      }
+      &.disposition-1 label {
+        font-weight: 600;
+      }
+      &.disposition--1 label {
+        font-style: italic;
+      }
+    }
+  }
+}
+
 .ose.dialog.party-sheet {
   min-width: 250px;
   min-height: 250px;
@@ -87,6 +110,7 @@
       font-size: 12px;
       text-align: center;
       .fields .field-row {
+        white-space: nowrap;
         &:nth-child(odd) {
           background-color: rgba(0, 0, 0, 0.1);
         }
@@ -128,8 +152,10 @@
     }
   }
   .field-name {
+    overflow: hidden;
+    font-weight: 600;
     text-align: left;
-    text-indent: 10px;
+    text-indent: 5px;
   }
 }
 

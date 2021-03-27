@@ -37,6 +37,12 @@
           position: absolute;
           left: 0;
           top: -8px;
+          height: 18px;
+          width: 18px;
+          border-radius: 5px;
+          border: 1px solid $colorDark;
+          text-align: center;
+          background: url(/ui/parchment.jpg) repeat;
         }
       }
     }

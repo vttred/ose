@@ -48,10 +48,12 @@
       }
     }
   }
-  .profile-img {
-    border: 0;
+  .profile {
     flex: 0 0 145px;
-    height: 145px;
+    .profile-img {
+      border: 0;
+      height: 140px;
+    }
   }
 
   .summary {

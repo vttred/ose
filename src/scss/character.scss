@@ -12,12 +12,32 @@
   /* ----------------------------------------- */
 
   .sheet-header {
+    position: relative;
     .xp-bonus {
       top: -15px;
       right: 3px;
       color: $colorTan;
       font-size: 10px;
       position: absolute;
+    }
+    .profile {
+      .modifiers-btn {
+        opacity: 0;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 20px;
+        width: 145px;
+        padding: 2px 5px;
+        color: whitesmoke;
+        background: $colorDark;
+      }
+      &:hover .modifiers-btn {
+        opacity: 1;
+      }
+      &:hover .profile-img {
+        box-shadow: 0 0 2px $colorDark;
+      }
     }
   }
 
@@ -28,22 +48,9 @@
     .tab {
       height: 100%;
     }
-    .attributes-tab{
+    .attributes-tab {
       justify-content: space-between;
       height: 100%;
-      .attribute-group {
-        position: relative;
-        .modifiers-btn {
-          position: absolute;
-          left: 0;
-          top: 4px;
-          height: 18px;
-          width: 18px;
-          padding: 2px;
-          text-align: center;
-          background: url(/ui/parchment.jpg) repeat;
-        }
-      }
     }
     .resources {
       display: flex;
@@ -53,7 +60,7 @@
         flex: 0 0 55px;
         &.attribute-secondaries {
           flex: 0 0 40px;
-          margin-bottom: 5px
+          margin-bottom: 5px;
         }
       }
     }
@@ -79,7 +86,7 @@
               }
               .item-controls {
                 flex: 0 0 20px;
-                display:none;
+                display: none;
               }
             }
           }
@@ -94,7 +101,7 @@
           }
         }
         &.notes {
-          margin : 2px;
+          margin: 2px;
           .editor {
             height: 150px;
           }
@@ -103,7 +110,7 @@
     }
     .health {
       &.armor-class {
-        background: url('/systems/ose/assets/shield.png') no-repeat center;
+        background: url("/systems/ose/assets/shield.png") no-repeat center;
         background-size: 70px;
         .shield {
           text-align: right;
@@ -111,39 +118,40 @@
           font-size: 18px;
         }
       }
-        height: 70px;
-        position: relative;
-        .health-value {
-          font-size: 16px;
-          text-align: center;
-          font-weight: bolder;
-          text-shadow: 0 0 2px white, 0 1px 2px white, 1px 0 2px white, 1px 1px 2px white; 
-        }
-        .health-top {
-          border-bottom: none;
-          position: absolute;
-          font-size: 24px;
-          top: 10px;
-          width: 70px;
-          left: calc(50% - 35px);
-        }
-        .health-bottom {
-          border-bottom: none;
-          position: absolute;
-          bottom: 8px;
-          width: 40px;
-          right: calc(50% + -20px);
-        }
-        .health-empty {
-          background: url('/systems/ose/assets/heart_empty.png') no-repeat center;
-          background-size: 70px;
-          background-position: top;
-        }
-        .health-full {
-          background: url('/systems/ose/assets/heart_full.png') no-repeat center;
-          background-size: 70px;
-          background-position: bottom;
-        }
+      height: 70px;
+      position: relative;
+      .health-value {
+        font-size: 16px;
+        text-align: center;
+        font-weight: bolder;
+        text-shadow: 0 0 2px white, 0 1px 2px white, 1px 0 2px white,
+          1px 1px 2px white;
+      }
+      .health-top {
+        border-bottom: none;
+        position: absolute;
+        font-size: 24px;
+        top: 10px;
+        width: 70px;
+        left: calc(50% - 35px);
+      }
+      .health-bottom {
+        border-bottom: none;
+        position: absolute;
+        bottom: 8px;
+        width: 40px;
+        right: calc(50% + -20px);
+      }
+      .health-empty {
+        background: url("/systems/ose/assets/heart_empty.png") no-repeat center;
+        background-size: 70px;
+        background-position: top;
+      }
+      .health-full {
+        background: url("/systems/ose/assets/heart_full.png") no-repeat center;
+        background-size: 70px;
+        background-position: bottom;
+      }
     }
     .saving-throw {
       .attribute-value.flat {
@@ -189,16 +197,22 @@
       font-size: 13px;
       line-height: 12px;
       text-align: right;
-      color: #EEE;
+      color: #eee;
       text-shadow: 0 0 5px #000;
     }
 
     .encumbrance-breakpoint {
       display: block;
       position: absolute;
-      &.encumbrance-25 { left: 25% }
-      &.encumbrance-50 { left: 50% }
-      &.encumbrance-75 { left: 75% }
+      &.encumbrance-25 {
+        left: 25%;
+      }
+      &.encumbrance-50 {
+        left: 50%;
+      }
+      &.encumbrance-75 {
+        left: 75%;
+      }
     }
 
     .arrow-up {
@@ -220,8 +234,12 @@
     }
 
     &.encumbered {
-      .arrow-up { border-bottom: 4px solid $colorDark; }
-      .arrow-down { border-top: 4px solid $colorDark; }
+      .arrow-up {
+        border-bottom: 4px solid $colorDark;
+      }
+      .arrow-down {
+        border-top: 4px solid $colorDark;
+      }
     }
   }
   /* ----------------------------------------- */

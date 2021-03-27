@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [1.1.5] - 2021-03-27
 ### Added
 - Custom languages setting
+- Display tags in spell compendiums
 ### Changed
 - Changed XP dealing formula to apply share after splitting XP, issue #105
 - Fixed modifier button visibility

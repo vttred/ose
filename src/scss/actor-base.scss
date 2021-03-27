@@ -2,10 +2,10 @@
 
 @keyframes notify {
   from {
-    text-shadow: none;
+    color: black;
   }
   to {
-    text-shadow: -1px -1px 4px $colorOlive,  1px -1px 4px $colorOlive, -1px 1px 4px $colorOlive, 1px 1px 4px $colorOlive;
+    color: crimson;
   }
 }
 

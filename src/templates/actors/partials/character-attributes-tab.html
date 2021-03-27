@@ -1,17 +1,21 @@
 <section class="attributes-tab flexrow">
     {{!-- Scores --}}
     <div class="attribute-group">
+        {{#unless isNew}}
         <div class="modifiers-btn">
-            {{#unless isNew}}
             <a data-action="modifiers" title="{{localize 'OSE.Modifiers'}}"><i class="fas fa-book"></i></a>
-            {{else}}
-            <a data-action="generate-scores" title="{{localize 'OSE.dialog.generateScores'}}"><i class="fas fa-dice blinking"></i></a>
-            {{/unless}}
         </div>
+        {{else}}
+        <div class="modifiers-btn blinking">
+            <a data-action="generate-scores" title="{{localize 'OSE.dialog.generateScores'}}"><i
+                    class="fa fa-dice"></i></a>
+        </div>
+        {{/unless}}
         <ul class="attributes">
             <li class="attribute ability-score" data-score="str">
                 <h4 class="attribute-name box-title" title="{{ localize 'OSE.scores.str.long' }}">
-                    <a>{{ localize "OSE.scores.str.short" }}</a></h4>
+                    <a>{{ localize "OSE.scores.str.short" }}</a>
+                </h4>
                 <div class="attribute-value">
                     <input name="data.scores.str.value" type="text" value="{{data.scores.str.value}}" placeholder="0"
                         data-dtype="Number" />
@@ -19,7 +23,8 @@
             </li>
             <li class="attribute ability-score" data-score="int">
                 <h4 class="attribute-name box-title" title="{{ localize 'OSE.scores.int.long' }}">
-                    <a>{{ localize "OSE.scores.int.short" }}</a></h4>
+                    <a>{{ localize "OSE.scores.int.short" }}</a>
+                </h4>
                 <div class="attribute-value">
                     <input name="data.scores.int.value" type="text" value="{{data.scores.int.value}}" placeholder="0"
                         data-dtype="Number" />
@@ -27,7 +32,8 @@
             </li>
             <li class="attribute ability-score" data-score="wis">
                 <h4 class="attribute-name box-title" title="{{ localize 'OSE.scores.wis.long' }}">
-                    <a>{{ localize "OSE.scores.wis.short" }}</a></h4>
+                    <a>{{ localize "OSE.scores.wis.short" }}</a>
+                </h4>
                 <div class="attribute-value">
                     <input name="data.scores.wis.value" type="text" value="{{data.scores.wis.value}}" placeholder="0"
                         data-dtype="Number" />
@@ -35,7 +41,8 @@
             </li>
             <li class="attribute ability-score" data-score="dex">
                 <h4 class="attribute-name box-title" title="{{ localize 'OSE.scores.dex.long' }}">
-                    <a>{{ localize "OSE.scores.dex.short" }}</a></h4>
+                    <a>{{ localize "OSE.scores.dex.short" }}</a>
+                </h4>
                 <div class="attribute-value">
                     <input name="data.scores.dex.value" type="text" value="{{data.scores.dex.value}}" placeholder="0"
                         data-dtype="Number" />
@@ -43,7 +50,8 @@
             </li>
             <li class="attribute ability-score" data-score="con">
                 <h4 class="attribute-name box-title" title="{{ localize 'OSE.scores.con.long' }}">
-                    <a>{{ localize "OSE.scores.con.short" }}</a></h4>
+                    <a>{{ localize "OSE.scores.con.short" }}</a>
+                </h4>
                 <div class="attribute-value">
                     <input name="data.scores.con.value" type="text" value="{{data.scores.con.value}}" placeholder="0"
                         data-dtype="Number" />
@@ -51,7 +59,8 @@
             </li>
             <li class="attribute ability-score" data-score="cha">
                 <h4 class="attribute-name box-title" title="{{ localize 'OSE.scores.cha.long' }}">
-                    <a>{{ localize "OSE.scores.cha.short" }}</a></h4>
+                    <a>{{ localize "OSE.scores.cha.short" }}</a>
+                </h4>
                 <div class="attribute-value">
                     <input name="data.scores.cha.value" type="text" value="{{data.scores.cha.value}}" placeholder="0"
                         data-dtype="Number" />
@@ -86,14 +95,16 @@
                 <div class="health-value health-top" title="{{localize 'OSE.ArmorClass'}}">{{data.aac.value}}</div>
                 <div class="health-value health-bottom" title="{{localize 'OSE.ArmorClassNaked'}}">
                     {{data.aac.naked}}</div>
-                    {{#if data.aac.shield}}<div class="shield" title="{{localize 'OSE.items.hasShield'}} ({{data.aac.shield}})"><i
-                            class="fas fa-shield-alt"></i></div>{{/if}}
+                {{#if data.aac.shield}}<div class="shield"
+                    title="{{localize 'OSE.items.hasShield'}} ({{data.aac.shield}})"><i class="fas fa-shield-alt"></i>
+                </div>{{/if}}
                 {{else}}
                 <div class="health-value health-top" title="{{localize 'OSE.ArmorClass'}}">{{data.ac.value}}</div>
                 <div class="health-value health-bottom" title="{{localize 'OSE.ArmorClassNaked'}}">
                     {{data.ac.naked}}</div>
-                    {{#if data.ac.shield}}<div class="shield" title="{{localize 'OSE.items.hasShield'}} ({{data.ac.shield}})"><i
-                            class="fas fa-shield-alt"></i></div>{{/if}}
+                {{#if data.ac.shield}}<div class="shield"
+                    title="{{localize 'OSE.items.hasShield'}} ({{data.ac.shield}})"><i class="fas fa-shield-alt"></i>
+                </div>{{/if}}
                 {{/if}}
             </div>
         </div>
@@ -124,7 +135,8 @@
             <ul class="attributes flexrow">
                 <li class="attribute attribute-secondaries attack" data-attack="melee">
                     <h4 class="attribute-name box-title" title="{{localize 'OSE.Melee'}}">
-                        <a>{{localize 'OSE.MeleeShort'}}</a></h4>
+                        <a>{{localize 'OSE.MeleeShort'}}</a>
+                    </h4>
                     <div class="flexrow">
                         <div class="attribute-value"
                             title="{{localize 'OSE.scores.str.long'}}({{data.scores.str.mod}}) + {{localize 'OSE.Modifier'}}({{data.thac0.mod.melee}})">
@@ -157,7 +169,8 @@
                 {{/if}}
                 <li class="attribute attribute-secondaries attack" data-attack="missile">
                     <h4 class="attribute-name box-title" title="{{localize 'OSE.Missile'}}">
-                        <a>{{localize 'OSE.MissileShort'}}</a></h4>
+                        <a>{{localize 'OSE.MissileShort'}}</a>
+                    </h4>
                     <div class="flexrow">
                         <div class="attribute-value"
                             title="{{localize 'OSE.scores.dex.long'}}({{data.scores.dex.mod}}) + {{localize 'OSE.Modifier'}}({{data.thac0.mod.missile}})">
@@ -203,35 +216,40 @@
         <ul class="attributes">
             <li class="attribute saving-throw" data-save="death">
                 <h4 class="attribute-name box-title">
-                    <a>{{ localize "OSE.saves.death.long" }}</a></h4>
+                    <a>{{ localize "OSE.saves.death.long" }}</a>
+                </h4>
                 <div class="attribute-value">
                     <input name="data.saves.death.value" type="text" value="{{data.saves.death.value}}" placeholder="0"
                         data-dtype="Number" />
             </li>
             <li class="attribute saving-throw" data-save="wand">
                 <h4 class="attribute-name box-title">
-                    <a>{{ localize "OSE.saves.wand.long" }}</a></h4>
+                    <a>{{ localize "OSE.saves.wand.long" }}</a>
+                </h4>
                 <div class="attribute-value">
                     <input name="data.saves.wand.value" type="text" value="{{data.saves.wand.value}}" placeholder="0"
                         data-dtype="Number" />
             </li>
             <li class="attribute saving-throw" data-save="paralysis">
                 <h4 class="attribute-name box-title">
-                    <a>{{ localize "OSE.saves.paralysis.long" }}</a></h4>
+                    <a>{{ localize "OSE.saves.paralysis.long" }}</a>
+                </h4>
                 <div class="attribute-value">
                     <input name="data.saves.paralysis.value" type="text" value="{{data.saves.paralysis.value}}"
                         placeholder="0" data-dtype="Number" />
             </li>
             <li class="attribute saving-throw" data-save="breath">
                 <h4 class="attribute-name box-title">
-                    <a>{{ localize "OSE.saves.breath.long" }}</a></h4>
+                    <a>{{ localize "OSE.saves.breath.long" }}</a>
+                </h4>
                 <div class="attribute-value">
                     <input name="data.saves.breath.value" type="text" value="{{data.saves.breath.value}}"
                         placeholder="0" data-dtype="Number" />
             </li>
             <li class="attribute saving-throw" data-save="spell">
                 <h4 class="attribute-name box-title">
-                    <a>{{ localize "OSE.saves.spell.long" }}</a></h4>
+                    <a>{{ localize "OSE.saves.spell.long" }}</a>
+                </h4>
                 <div class="attribute-value">
                     <input name="data.saves.spell.value" type="text" value="{{data.saves.spell.value}}"
                         placeholder="0" />

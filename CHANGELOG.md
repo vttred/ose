@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Custom languages setting
 ### Changed
+- Changed XP dealing formula to apply share after splitting XP, issue #105
+- Fixed modifier button visibility
 - Floored encounter rate division
 - Improved roll chat messages
 - Improved party sheet layout

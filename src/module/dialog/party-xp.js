@@ -4,8 +4,8 @@ export class OsePartyXP extends FormApplication {
         return mergeObject(super.defaultOptions, {
             classes: ["ose", "dialog", "party-xp"],
             template: "systems/ose/templates/apps/party-xp.html",
-            width: 280,
-            height: 400,
+            width: 300,
+            height: "auto",
             resizable: false,
         });
     }
@@ -55,16 +55,10 @@ export class OsePartyXP extends FormApplication {
         const actors = this.object.entities.filter(e => e.data.type === "character" && e.data.flags.ose && e.data.flags.ose.party === true);
         const toDeal = $(ev.currentTarget.parentElement).find('input[name="total"]').val();
         const html = $(this.form);
-        let shares = 0;
-        actors.forEach((a) => {
-            shares += a.data.data.details.xp.share;
-        });
-        const value = parseFloat(toDeal) / shares;
-        if (value) {
-            actors.forEach(a => {
-                html.find(`li[data-actor-id='${a.id}'] input`).val(Math.floor(a.data.data.details.xp.share * value));
-            })
-        }
+        const value = parseFloat(toDeal) / actors.length;
+        actors.forEach(a => {
+            html.find(`li[data-actor-id='${a.id}'] input`).val(Math.floor(a.data.data.details.xp.share / 100 * value));
+        })
     }
 
     _dealXP(ev) {

@@ -34,9 +34,27 @@
 
 .ose.dialog.party-xp {
   .actors {
-    height: 270px;
-    padding: 0;
+    max-height: 250px;
+    padding: 0 4px 0;
     overflow-y: auto;
+    input {
+      flex: 0 60px;
+    }
+    label {
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    .share-tag {
+      flex: 0 35px;
+      text-align: center;
+      border: 1px solid $colorFaint;
+      background: $colorOlive;
+      font-size: 10px;
+      color: whitesmoke;
+      border-radius: 3px;
+      box-shadow: 0 0 1px $colorFaint;
+      padding: 1px 4px;
+    }
   }
   .form-group {
     button {

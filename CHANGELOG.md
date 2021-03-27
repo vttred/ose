@@ -3,9 +3,11 @@ All notable changes to this project will be documented in this file.
 
 ## [1.1.5] - 2021-03-27
 ### Added
+- Added a menu that appears when hovering the portrait
 - Custom languages setting
 - Display tags in spell compendiums
 ### Changed
+- Modifiers button has been moved to the portrait menu
 - Changed XP dealing formula to apply share after splitting XP, issue #105
 - Fixed modifier button visibility
 - Floored encounter rate division

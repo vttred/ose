@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Custom languages setting
 ### Changed
+- Floored encounter rate division
 - Improved roll chat messages
 - Improved party sheet layout
 - Reworked party select dialog

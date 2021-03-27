@@ -450,6 +450,7 @@
   position: relative;
   .tag-list {
     position: absolute;
+    pointer-events: none;
     top: 14px;
     left: 55px;
     .tag {

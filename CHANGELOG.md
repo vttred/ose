@@ -60,3 +60,20 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - Fixed Item creation dialog on monsters
 ### Removed
+
+## [1.1.3] - 2021-01-03
+### Added
+### Changed
+- Fix template preloading url error
+- Fix reaction roll with negative values, issue #148
+- Fix vs magic bonus applied to roll, issue #147
+- Fix creation dialog not closing, issue #146
+### Removed
+
+## [1.1.4] - 2021-01-26
+### Added
+### Changed
+- Exploration rolls are blind
+- Fixed total treasure value rounding
+- Fixed treasure height icon in rollable tables
+### Removed

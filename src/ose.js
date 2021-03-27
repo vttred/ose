@@ -13,6 +13,7 @@ import * as treasure from "./module/treasure.js";
 import * as macros from "./module/macros.js";
 import * as party from "./module/party.js";
 import { OseCombat } from "./module/combat.js";
+import * as renderList from "./module/renderList.js";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -130,3 +131,5 @@ Hooks.on("getChatLogEntryContext", chat.addChatMessageContextOptions);
 Hooks.on("renderChatMessage", chat.addChatMessageButtons);
 Hooks.on("renderRollTableConfig", treasure.augmentTable);
 Hooks.on("updateActor", party.update);
+
+Hooks.on("renderCompendium", renderList.RenderCompendium);

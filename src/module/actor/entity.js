@@ -27,6 +27,26 @@ export class OseActor extends Actor {
     }
     data.movement.encounter = Math.floor(data.movement.base / 3);
   }
+  
+  
+  static async update(data, options={}) {
+    
+    // Compute AAC from AC
+    if (data.data?.ac?.value) {
+      data.data.aac = {value: 19 - data.data.ac.value};
+    } else if (data.data?.aac?.value) {
+      data.data.ac = {value: 19 - data.data.aac.value};
+    }
+
+    // Compute Thac0 from BBA
+    if (data.data?.thac0?.value) {
+      data.data.thac0.bba = 19 - data.data.thac0.value;
+    } else if (data.data?.thac0?.bba) {
+      data.data.thac0.value = 19 - data.data.thac0.bba;
+    }
+
+    super.update(data, options);
+  }
   /* -------------------------------------------- */
   /*  Socket Listeners and Handlers
     /* -------------------------------------------- */
@@ -76,7 +96,16 @@ export class OseActor extends Actor {
         saves = tmp;
       }
     }
+    // Compute Thac0 
+    let thac0 = 20;
+    Object.keys(CONFIG.OSE.monster_thac0).forEach((k) => {
+      if (parseInt(hd) < parseInt(k)) {
+        return;
+      }
+      thac0 = CONFIG.OSE.monster_thac0[k];
+    });
     this.update({
+      "data.thac0.value": thac0,
       "data.saves": {
         death: {
           value: saves.d,

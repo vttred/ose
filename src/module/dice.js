@@ -122,6 +122,19 @@ export class OseDice {
     });
   }
 
+  static attackIsSuccess(roll, thac0, ac) {
+    if (roll.total == 1 || roll.results[0] == 1) {
+      return false;
+    }
+    if (roll.total >= 20 || roll.results[0] == 20) {
+      return true, -3;
+    }
+    if (roll.total + ac >= thac0) {
+      return true;
+    }
+    return false;
+  }
+
   static digestAttackResult(data, roll) {
     let result = {
       isSuccess: false,
@@ -154,8 +167,7 @@ export class OseDice {
       });
       result.isSuccess = true;
     } else {
-      // B/X Historic THAC0 Calculation
-      if (result.target - roll.total > targetAc) {
+      if (!this.attackIsSuccess(roll, result.target, targetAc)) {
         result.details = game.i18n.format("OSE.messages.AttackFailure", {
           bonus: result.target,
         });

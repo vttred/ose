@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.1.6] - 2021-03-28
+### Added
+- Compute AAC/AC, Thac0/BBA values on actor updates, issue #157
+- Monster saves generation also generates THAC0/BAB
+### Changed
+### Removed
+
 ## [1.1.5] - 2021-03-27
 ### Added
 - Added a menu that appears when hovering the portrait

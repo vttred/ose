@@ -52,7 +52,7 @@ export class OseActorSheetMonster extends OseActorSheet {
           label: game.i18n.localize("OSE.Ok"),
           icon: '<i class="fas fa-check"></i>',
           callback: (html) => {
-            let hd = html.find('select[name="choice"]').val();
+            let hd = html.find('input[name="hd"]').val();
             this.actor.generateSave(hd);
           },
         },

@@ -2,13 +2,7 @@
     <div class="form-group">
         <label>{{localize 'OSE.HitDice'}}</label>
         <div class="form-fields">
-            <select name="choice">
-                {{#select choices}}
-                {{#each choices as |saves mode|}}
-                <option value="{{mode}}">{{saves.label}}</option>
-                {{/each}}
-                {{/select}}
-            </select>
+            <input data-dType="Number" type="text" name="hd"/>
         </div>
     </div>
 </div>

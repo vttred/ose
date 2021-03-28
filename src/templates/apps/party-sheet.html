@@ -41,14 +41,17 @@
           </div>
         </div>
         <div class="flexrow field-row">
+          {{#unless @root.settings.ascending}}
           <div class="field-short" title="{{localize 'OSE.Thac0'}}">
             <i class="fas fa-crosshairs"></i>
-            {{#unless settings.ascendingAC}}
             {{e.data.data.thac0.value}}
-            {{else}}
-            {{e.data.data.thac0.bba}}
-            {{/unless}}
           </div>
+          {{else}}
+          <div class="field-short" title="{{localize 'OSE.AB'}}">
+            <i class="fas fa-crosshairs"></i>
+            {{e.data.data.thac0.bba}}
+          </div>
+          {{/unless}}
           {{#if (eq e.data.type 'character')}}
           <div class="field-short" title="{{localize 'OSE.Melee'}}">
             <i class="fas fa-fist-raised"></i>

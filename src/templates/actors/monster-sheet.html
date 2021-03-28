@@ -29,14 +29,14 @@
     <div class="tab" data-group="primary" data-tab="attributes">
       {{> "systems/ose/templates/actors/partials/monster-attributes-tab.html"}}
     </div>
-    {{#if data.spells.enabled}}
-    <div class="tab" data-group="primary" data-tab="spells">
-      {{> "systems/ose/templates/actors/partials/character-spells-tab.html"}}
-    </div>
-    {{/if}}
     {{#if data.config.enableInventory}}
     <div class="tab" data-group="primary" data-tab="inventory">
     {{> "systems/ose/templates/actors/partials/character-inventory-tab.html"}}
+    </div>
+    {{/if}}
+    {{#if data.spells.enabled}}
+    <div class="tab" data-group="primary" data-tab="spells">
+      {{> "systems/ose/templates/actors/partials/character-spells-tab.html"}}
     </div>
     {{/if}}
     <div class="tab" data-group="primary" data-tab="notes">

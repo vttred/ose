@@ -5,7 +5,9 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Compute AAC/AC, Thac0/BBA values on actor updates, issue #157
 - Monster saves generation also generates THAC0/BAB
+- Added a consumable counter bar
 ### Changed
+- Fixed party sheet not showing AB when using AAC
 ### Removed
 
 ## [1.1.5] - 2021-03-27

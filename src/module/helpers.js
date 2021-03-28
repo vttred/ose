@@ -23,7 +23,7 @@ export const registerHelpers = async function () {
   });
 
   Handlebars.registerHelper("subtract", function (lh, rh) {
-    return parseInt(rh) - parseInt(lh);
+    return parseInt(lh) - parseInt(rh);
   });
 
   Handlebars.registerHelper("divide", function (lh, rh) {
@@ -47,5 +47,12 @@ export const registerHelpers = async function () {
     return status
       ? Math.clamped((100.0 * value) / max, 0, 100)
       : Math.clamped(100 - (100.0 * value) / max, 0, 100);
+  });
+
+  Handlebars.registerHelper('times', function (n, block) {
+    var accum = '';
+    for (let i = 0; i < n; ++i)
+      accum += block.fn(i);
+    return accum;
   });
 };

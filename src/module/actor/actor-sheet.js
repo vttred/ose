@@ -120,7 +120,7 @@ export class OseActorSheet extends ActorSheet {
 
   activateListeners(html) {
     super.activateListeners(html);
-    
+
     // Item summaries
     html
       .find(".item .item-name h4")
@@ -158,7 +158,7 @@ export class OseActorSheet extends ActorSheet {
 
     html.find(".attack a").click((ev) => {
       let actorObject = this.actor;
-      let element = event.currentTarget;
+      let element = ev.currentTarget;
       let attack = element.parentElement.parentElement.dataset.attack;
       const rollData = {
         actor: this.data,
@@ -169,7 +169,7 @@ export class OseActorSheet extends ActorSheet {
         skipDialog: ev.ctrlKey,
       });
     });
-    
+
     html.find(".hit-dice .attribute-name a").click((ev) => {
       let actorObject = this.actor;
       actorObject.rollHitDice({ event: event });
@@ -186,6 +186,20 @@ export class OseActorSheet extends ActorSheet {
 
     html.find(".spells .item-reset").click((ev) => {
       this._resetSpells(ev);
+    });
+
+    html.find(".item-entry .consumable-counter .empty-mark").click(ev => {
+      const el = ev.currentTarget.parentElement.parentElement.children[0];
+      const id = el.dataset.itemId;
+      const item = this.actor.getOwnedItem(id);
+      item.update({"data.quantity.value": item.data.data.quantity.value + 1});
+    });
+
+    html.find(".item-entry .consumable-counter .full-mark").click(ev => {
+      const el = ev.currentTarget.parentElement.parentElement.children[0];
+      const id = el.dataset.itemId;
+      const item = this.actor.getOwnedItem(id);
+      item.update({"data.quantity.value": item.data.data.quantity.value - 1});
     });
   }
 
@@ -225,8 +239,7 @@ export class OseActorSheet extends ActorSheet {
       let container = editor.closest(".resizable-editor");
       if (container) {
         let heightDelta = this.position.height - this.options.height;
-        editor.style.height = `${
-          heightDelta + parseInt(container.dataset.editorSize)
+        editor.style.height = `${heightDelta + parseInt(container.dataset.editorSize)
           }px`;
       }
     });

@@ -188,6 +188,7 @@
   "OSE.Setting.SignificantTreasureHint": "Poids auquel le Trésor réduit le déplacement. Utilisé pour l'encombrement Basique",
   "OSE.Setting.Languages": "Langues",
   "OSE.Setting.LanguagesHint": "Entrez une liste des Langues de l'univers séparée par des virgules",
+  "OSE.Setting.EnableInventory": "Afficher l'inventaire",
 
   "OSE.items.Equip": "Equiper",
   "OSE.items.Unequip": "Déséquiper",

@@ -188,6 +188,7 @@
   "OSE.Setting.SignificantTreasureHint": "Weight at which treasure will reduce the movement, only useful for basic encumbrance", 
   "OSE.Setting.Languages": "Languages",
   "OSE.Setting.LanguagesHint": "Enter a comma separated list of languages",
+  "OSE.Setting.EnableInventory": "Enable Inventory",
 
   "OSE.items.Equip": "Equip",
   "OSE.items.Unequip": "Unequip",

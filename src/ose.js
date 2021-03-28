@@ -133,3 +133,4 @@ Hooks.on("renderRollTableConfig", treasure.augmentTable);
 Hooks.on("updateActor", party.update);
 
 Hooks.on("renderCompendium", renderList.RenderCompendium);
+Hooks.on("renderSidebarDirectory", renderList.RenderDirectory);

@@ -1,23 +1,31 @@
 export const RenderCompendium = async function(object, html) {
-    if (object.metadata.name != "spells") {
+    if (object.metadata.entity != "Item") {
         return;
     }
-    const spellRender = html[0].querySelectorAll(".item");
+    const render = html[0].querySelectorAll(".item");
     const content = await object.getContent();
-    spellRender.forEach(function(item, i) {
-        const tagList = document.createElement("div");
+    render.forEach(function(item, i) {
+        const tagList = document.createElement("ol");
         tagList.classList.add("tag-list");
-
-        appendTag(tagList, content[i].data.data.class);
-        appendTag(tagList, `lvl ${content[i].data.data.lvl}`);
-    
+        const tags = content[i].getTags();
+        tagList.innerHTML = tags;
         item.appendChild(tagList);
     })
 }
 
-function appendTag(html, tagContent) {
-    const tag = document.createElement("span");
-    tag.classList.add("tag");
-    tag.innerHTML = tagContent;
-    html.appendChild(tag);
+export const RenderDirectory = async function(object, html) {
+    if (object.id != "items") {
+        return;
+    }
+    const render = html[0].querySelectorAll(".item");
+    const content = object.entities;
+    render.forEach(function(item) {
+        const tagList = document.createElement("ol");
+        tagList.classList.add("tag-list");
+        const entity = content.find((e) => e.id == item.dataset.entityId);
+        console.log(entity);
+        const tags = entity.getTags();
+        tagList.innerHTML = tags;
+        item.appendChild(tagList);
+    })
 }

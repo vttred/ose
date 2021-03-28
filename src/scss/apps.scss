@@ -449,20 +449,54 @@
 .app .compendium .directory-item {
   position: relative;
   .tag-list {
+    max-width: 260px;
+    overflow: hidden;
     position: absolute;
-    pointer-events: none;
-    top: 14px;
+    bottom: 0;
     left: 55px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
     .tag {
-      flex: 0 35px;
-      text-align: center;
-      border: 1px solid $colorFaint;
-      background: $colorOlive;
+      pointer-events: none;
+      white-space: nowrap;
+      margin: 1px;
       font-size: 10px;
+      line-height: 12px;
+      background: $colorOlive;
+      padding: 1px 3px;
       color: whitesmoke;
       border-radius: 3px;
       box-shadow: 0 0 1px $colorFaint;
-      padding: 1px 4px;
+    }
+  }
+}
+
+.sidebar-tab.sidebar-directory .directory-list {
+  .directory-item {
+    position: relative;
+    .tag-list {
+      max-width: 200px;
+      overflow: hidden;
+      position: absolute;
+      bottom: 0;
+      left: 52px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      display: flex;
+      .tag {
+        pointer-events: none;
+        white-space: nowrap;
+        margin: 0 1px;
+        font-size: 10px;
+        line-height: 12px;
+        background: $colorOlive;
+        padding: 1px 3px;
+        color: whitesmoke;
+        border-radius: 3px;
+      }
     }
   }
 }

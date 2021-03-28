@@ -1,6 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.1.6] - 2021-03-29
+### Added
+- Display tags in items directory
+- Can enable inventory on Monsters
+### Changed
+- Rounded treasure cost to 2 decimals
+### Removed
+
+
 ## [1.1.6] - 2021-03-28
 ### Added
 - Compute AAC/AC, Thac0/BBA values on actor updates, issue #157

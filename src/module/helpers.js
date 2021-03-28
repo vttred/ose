@@ -31,7 +31,7 @@ export const registerHelpers = async function () {
   });
 
   Handlebars.registerHelper("mult", function (lh, rh) {
-    return parseFloat(lh) * parseFloat(rh);
+    return Math.round(100 * parseFloat(lh) * parseFloat(rh)) / 100;
   });
 
   Handlebars.registerHelper("roundWeight", function (weight) {

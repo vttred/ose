@@ -114,7 +114,8 @@
                         </div>
                     </li>
                     {{/each}}
-                    {{#each owned as |section| }}
+                    {{#each owned as |section id| }}
+                    {{#unless (and (eq id "items") @root.data.config.enableInventory)}}
                     {{#each section as |item|}}
                     <li class="item-entry">
                         <div class="item flexrow" data-item-id="{{item._id}}">
@@ -147,6 +148,7 @@
                         </div>
                     </li>
                     {{/each}}
+                    {{/unless}}
                     {{/each}}
                 </ol>
             </div>

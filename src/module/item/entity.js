@@ -47,7 +47,6 @@ export class OseItem extends Item {
 
     // Item properties
     const props = [];
-    const labels = this.labels;
 
     if (this.data.type == "weapon") {
       data.tags.forEach(t => props.push(t.value));
@@ -156,6 +155,7 @@ export class OseItem extends Item {
   getTags() {
     let formatTag = (tag, icon) => {
       if (!tag) return "";
+      tag = tag.trim();
       let fa = "";
       if (icon) {
         fa = `<i class="fas ${icon}"></i> `;
@@ -195,7 +195,10 @@ export class OseItem extends Item {
         roll += data.roll ? data.roll : "";
         roll += data.rollTarget ? CONFIG.OSE.roll_type[data.rollType] : "";
         roll += data.rollTarget ? data.rollTarget : "";
-        return `${formatTag(data.requirements)}${formatTag(roll)}`;
+        const reqs = data.requirements.split(",");
+        let reqTags = "";
+        reqs.forEach((r) => reqTags += formatTag(r))
+        return `${reqTags}${formatTag(roll)}`;
     }
     return "";
   }

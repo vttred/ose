@@ -23,7 +23,6 @@ export const RenderDirectory = async function(object, html) {
         const tagList = document.createElement("ol");
         tagList.classList.add("tag-list");
         const entity = content.find((e) => e.id == item.dataset.entityId);
-        console.log(entity);
         const tags = entity.getTags();
         tagList.innerHTML = tags;
         item.appendChild(tagList);

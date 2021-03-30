@@ -33,6 +33,67 @@ export class OseActorSheetMonster extends OseActorSheet {
   }
 
   /**
+   * Organize and classify Owned Items for Character sheets
+   * @private
+   */
+  _prepareItems(data) {
+    // Partition items by category
+    data.attackPatterns = {};
+    let [items, armors, spells] = data.items.reduce(
+      (arr, item) => {
+        // Grab attack groups
+        if (["weapon", "ability"].includes(item.type)) {
+          if (data.attackPatterns[item.data.pattern] === undefined) data.attackPatterns[item.data.pattern] = [];
+          data.attackPatterns[item.data.pattern].push(item);
+          return arr;
+        }
+        
+        // Classify items into types
+        if (item.type === "item") arr[0].push(item);
+        else if (item.type === "armor") arr[1].push(item);
+        else if (item.type === "spell") arr[2].push(item);
+        return arr;
+      },
+      [[], [], []]
+    );
+    // Sort spells by level
+    var sortedSpells = {};
+    var slots = {};
+    for (var i = 0; i < spells.length; i++) {
+      let lvl = spells[i].data.lvl;
+      if (!sortedSpells[lvl]) sortedSpells[lvl] = [];
+      if (!slots[lvl]) slots[lvl] = 0;
+      slots[lvl] += spells[i].data.memorized;
+      sortedSpells[lvl].push(spells[i]);
+    }
+    data.slots = {
+      used: slots,
+    };
+    // Assign and return
+    data.owned = {
+      items: items,
+      armors: armors,
+    };
+    data.spells = sortedSpells;
+  }
+
+  /**
+   * Prepare data for rendering the Actor sheet
+   * The prepared data object contains both the actor data as well as additional sheet options
+   */
+  getData() {
+    const data = super.getData();
+    // Prepare owned items
+    this._prepareItems(data);
+
+    // Settings
+    data.config.morale = game.settings.get("ose", "morale");
+    data.data.details.treasure.link = TextEditor.enrichHTML(data.data.details.treasure.table);
+    data.isNew = this.actor.isNew();
+    return data;
+  }
+
+  /**
    * Monster creation helpers
    */
   async generateSave() {
@@ -66,21 +127,6 @@ export class OseActorSheetMonster extends OseActorSheet {
       width: 250
     }).render(true);
   }
-
-  /**
-   * Prepare data for rendering the Actor sheet
-   * The prepared data object contains both the actor data as well as additional sheet options
-   */
-  getData() {
-    const data = super.getData();
-
-    // Settings
-    data.config.morale = game.settings.get("ose", "morale");
-    data.data.details.treasure.link = TextEditor.enrichHTML(data.data.details.treasure.table);
-    data.isNew = this.actor.isNew();
-    return data;
-  }
-
 
   async _onDrop(event) {
     super._onDrop(event);
@@ -187,7 +233,7 @@ export class OseActorSheetMonster extends OseActorSheet {
       let check = $(ev.currentTarget).closest('.check-field').data('check');
       actorObject.rollAppearing({ event: event, check: check });
     });
-    
+
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
 

@@ -15,9 +15,6 @@ export class OseActorSheet extends ActorSheet {
     data.config.ascendingAC = game.settings.get("ose", "ascendingAC");
     data.config.encumbrance = game.settings.get("ose", "encumbranceOption");
 
-    // Prepare owned items
-    this._prepareItems(data);
-
     return data;
   }
 
@@ -27,48 +24,6 @@ export class OseActorSheet extends ActorSheet {
       editorOptions.toolbar = "styleselect bullist hr table removeFormat save";
     }
     super.activateEditor(target, editorOptions, initialContent);
-  }
-
-  /**
-   * Organize and classify Owned Items for Character sheets
-   * @private
-   */
-  _prepareItems(data) {
-    // Partition items by category
-    let [items, weapons, armors, abilities, spells] = data.items.reduce(
-      (arr, item) => {
-        // Classify items into types
-        if (item.type === "item") arr[0].push(item);
-        else if (item.type === "weapon") arr[1].push(item);
-        else if (item.type === "armor") arr[2].push(item);
-        else if (item.type === "ability") arr[3].push(item);
-        else if (item.type === "spell") arr[4].push(item);
-        return arr;
-      },
-      [[], [], [], [], []]
-    );
-
-    // Sort spells by level
-    var sortedSpells = {};
-    var slots = {};
-    for (var i = 0; i < spells.length; i++) {
-      let lvl = spells[i].data.lvl;
-      if (!sortedSpells[lvl]) sortedSpells[lvl] = [];
-      if (!slots[lvl]) slots[lvl] = 0;
-      slots[lvl] += spells[i].data.memorized;
-      sortedSpells[lvl].push(spells[i]);
-    }
-    data.slots = {
-      used: slots,
-    };
-    // Assign and return
-    data.owned = {
-      items: items,
-      weapons: weapons,
-      armors: armors,
-    };
-    data.abilities = abilities;
-    data.spells = sortedSpells;
   }
 
   _onItemSummary(event) {

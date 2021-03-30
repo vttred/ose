@@ -69,7 +69,9 @@ export class OsePartyXP extends FormApplication {
             const value = qRow.find('input').val();
             const id = qRow.data('actorId');
             const actor = this.object.entities.find(e => e.id === id);
-            actor.getExperience(Math.floor(parseInt(value)))
+            if (value) {
+                actor.getExperience(Math.floor(parseInt(value)));
+            }
         })
     }
 

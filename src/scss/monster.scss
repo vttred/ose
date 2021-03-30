@@ -82,11 +82,20 @@
     }
   }
   .panel.abilities {
+    .attack-pattern {
+      // border-bottom: 1px solid $colorDark;
+      box-shadow: 1px 0 1px black;
+    }
     .item-list {
       .item-entry {
         .item-pattern {
-          flex: 0 0 15px;
+          flex: 0 15px;
+          font-size: 10px;
+          text-align: center;
           cursor: pointer;
+          &:hover .fas {
+            transform: rotate(90deg);
+          }
         }
       }  
     }

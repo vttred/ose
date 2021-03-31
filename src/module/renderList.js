@@ -1,13 +1,13 @@
-export const RenderCompendium = async function(object, html) {
+export const RenderCompendium = async function(object, html, d) {
     if (object.metadata.entity != "Item") {
         return;
     }
     const render = html[0].querySelectorAll(".item");
-    const content = await object.getContent();
+    const docs = await d.collection.getDocuments()
     render.forEach(function(item, i) {
         const tagList = document.createElement("ol");
         tagList.classList.add("tag-list");
-        const tags = content[i].getTags();
+        const tags = docs[i].getTags();
         tagList.innerHTML = tags;
         item.appendChild(tagList);
     })
@@ -18,7 +18,7 @@ export const RenderDirectory = async function(object, html) {
         return;
     }
     const render = html[0].querySelectorAll(".item");
-    const content = object.entities;
+    const content = object.documents;
     render.forEach(function(item) {
         const tagList = document.createElement("ol");
         tagList.classList.add("tag-list");

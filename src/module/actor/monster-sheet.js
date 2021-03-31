@@ -185,7 +185,7 @@ export class OseActorSheetMonster extends OseActorSheet {
   async _resetCounters(event) {
     const weapons = this.actor.data.items.filter(i => i.type === 'weapon');
     for (let wp of weapons) {
-      const item = this.actor.getOwnedItem(wp._id);
+      const item = this.actor.items.get(wp._id);
       await item.update({
         data: {
           counter: {
@@ -199,7 +199,7 @@ export class OseActorSheetMonster extends OseActorSheet {
   async _onCountChange(event) {
     event.preventDefault();
     const itemId = event.currentTarget.closest(".item").dataset.itemId;
-    const item = this.actor.getOwnedItem(itemId);
+    const item = this.actor.items.get(itemId);
     if (event.target.dataset.field == "value") {
       return item.update({
         "data.counter.value": parseInt(event.target.value),
@@ -240,7 +240,7 @@ export class OseActorSheetMonster extends OseActorSheet {
     // Update Inventory Item
     html.find(".item-edit").click((ev) => {
       const li = $(ev.currentTarget).parents(".item");
-      const item = this.actor.getOwnedItem(li.data("itemId"));
+      const item = this.actor.items.get(li.data("itemId"));
       item.sheet.render(true);
     });
 
@@ -296,7 +296,7 @@ export class OseActorSheetMonster extends OseActorSheet {
 
     html.find(".item-pattern").click(ev => {
       const li = $(ev.currentTarget).parents(".item");
-      const item = this.actor.getOwnedItem(li.data("itemId"));
+      const item = this.actor.items.get(li.data("itemId"));
       let currentColor = item.data.data.pattern;
       let colors = Object.keys(CONFIG.OSE.colors);
       let index = colors.indexOf(currentColor);

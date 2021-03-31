@@ -41,21 +41,27 @@ Hooks.once("init", async function () {
   // Register custom system settings
   registerSettings();
 
-  CONFIG.Actor.entityClass = OseActor;
-  CONFIG.Item.entityClass = OseItem;
+  CONFIG.Actor.documentClass = OseActor;
+  CONFIG.Item.documentClass = OseItem;
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
   Actors.registerSheet("ose", OseActorSheetCharacter, {
     types: ["character"],
     makeDefault: true,
+    label: "OSE.SheetClassCharacter"
   });
   Actors.registerSheet("ose", OseActorSheetMonster, {
     types: ["monster"],
     makeDefault: true,
+    label: "OSE.SheetClassMonster"
   });
+
   Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet("ose", OseItemSheet, { makeDefault: true });
+  Items.registerSheet("ose", OseItemSheet, {
+    makeDefault: true,
+    label: "OSE.SheetClassItem"
+  });
 
   await preloadHandlebarsTemplates();
 });
@@ -77,7 +83,7 @@ Hooks.once("setup", function () {
   const languages = game.settings.get("ose", "languages");
   if (languages != "") {
     const langArray = languages.split(',');
-    langArray.forEach((l, i) => langArray[i] = l.trim())  
+    langArray.forEach((l, i) => langArray[i] = l.trim())
     CONFIG.OSE.languages = langArray;
   }
 });
@@ -103,13 +109,13 @@ Hooks.on("renderSidebarTab", async (object, html) => {
     const template = "systems/ose/templates/chat/license.html";
     const rendered = await renderTemplate(template);
     gamesystem.find(".system").append(rendered);
-    
+
     // User guide
     let docs = html.find("button[data-action='docs']");
     const styling = "border:none;margin-right:2px;vertical-align:middle;margin-bottom:5px";
     $(`<button data-action="userguide"><img src='/systems/ose/assets/dragon.png' width='16' height='16' style='${styling}'/>Old School Guide</button>`).insertAfter(docs);
     html.find('button[data-action="userguide"]').click(ev => {
-      new FrameViewer('https://mesfoliesludiques.gitlab.io/foundryvtt-ose', {resizable: true}).render(true);
+      new FrameViewer('https://mesfoliesludiques.gitlab.io/foundryvtt-ose', { resizable: true }).render(true);
     });
   }
 });

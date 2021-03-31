@@ -29,7 +29,7 @@ export class OseActorSheet extends ActorSheet {
   _onItemSummary(event) {
     event.preventDefault();
     let li = $(event.currentTarget).parents(".item"),
-      item = this.actor.getOwnedItem(li.data("item-id")),
+      item = this.actor.items.get(li.data("item-id")),
       description = TextEditor.enrichHTML(item.data.data.description);
     // Toggle summary
     if (li.hasClass("expanded")) {
@@ -49,7 +49,7 @@ export class OseActorSheet extends ActorSheet {
   async _onSpellChange(event) {
     event.preventDefault();
     const itemId = event.currentTarget.closest(".item").dataset.itemId;
-    const item = this.actor.getOwnedItem(itemId);
+    const item = this.actor.items.get(itemId);
     if (event.target.dataset.field == "cast") {
       return item.update({ "data.cast": parseInt(event.target.value) });
     } else if (event.target.dataset.field == "memorize") {
@@ -65,7 +65,7 @@ export class OseActorSheet extends ActorSheet {
       .find(".item");
     spells.each((_, el) => {
       let itemId = el.dataset.itemId;
-      const item = this.actor.getOwnedItem(itemId);
+      const item = this.actor.items.get(itemId);
       item.update({
         _id: item.id,
         "data.cast": item.data.data.memorized,
@@ -83,7 +83,7 @@ export class OseActorSheet extends ActorSheet {
 
     html.find(".item .item-controls .item-show").click(async (ev) => {
       const li = $(ev.currentTarget).parents(".item");
-      const item = this.actor.getOwnedItem(li.data("itemId"));
+      const item = this.actor.items.get(li.data("itemId"));
       item.show();
     });
 
@@ -96,7 +96,7 @@ export class OseActorSheet extends ActorSheet {
 
     html.find(".item .item-rollable .item-image").click(async (ev) => {
       const li = $(ev.currentTarget).parents(".item");
-      const item = this.actor.getOwnedItem(li.data("itemId"));
+      const item = this.actor.items.get(li.data("itemId"));
       if (item.type == "weapon") {
         if (this.actor.data.type === "monster") {
           item.update({
@@ -146,14 +146,14 @@ export class OseActorSheet extends ActorSheet {
     html.find(".item-entry .consumable-counter .empty-mark").click(ev => {
       const el = ev.currentTarget.parentElement.parentElement.children[0];
       const id = el.dataset.itemId;
-      const item = this.actor.getOwnedItem(id);
+      const item = this.actor.items.get(id);
       item.update({"data.quantity.value": item.data.data.quantity.value + 1});
     });
 
     html.find(".item-entry .consumable-counter .full-mark").click(ev => {
       const el = ev.currentTarget.parentElement.parentElement.children[0];
       const id = el.dataset.itemId;
-      const item = this.actor.getOwnedItem(id);
+      const item = this.actor.items.get(id);
       item.update({"data.quantity.value": item.data.data.quantity.value - 1});
     });
   }

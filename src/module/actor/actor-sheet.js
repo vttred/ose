@@ -10,22 +10,24 @@ export class OseActorSheet extends ActorSheet {
   getData() {
     const data = super.getData().data;
     data.owner = this.actor.isOwner;
+    data.editable = this.actor.sheet.isEditable;
     
     data.config = {...CONFIG.OSE,
       ascendingAC: game.settings.get("ose", "ascendingAC"),
       initiative: game.settings.get("ose", "initiative") != "group",
       encumbrance: game.settings.get("ose", "encumbranceOption")
     };
+    data.isNew = this.actor.isNew();
     
     return data;
   }
 
-  activateEditor(target, editorOptions, initialContent) {
+  activateEditor(name, options, initialContent) {
     // remove some controls to the editor as the space is lacking
-    if (target == "data.details.description") {
-      editorOptions.toolbar = "styleselect bullist hr table removeFormat save";
-    }
-    super.activateEditor(target, editorOptions, initialContent);
+    if (name == "data.details.description") {
+      options.toolbar = "styleselect bullist hr table removeFormat save";
+    } 
+    super.activateEditor(name, options, initialContent);
   }
 
   _onItemSummary(event) {
@@ -33,6 +35,7 @@ export class OseActorSheet extends ActorSheet {
     let li = $(event.currentTarget).parents(".item"),
       item = this.actor.items.get(li.data("item-id")),
       description = TextEditor.enrichHTML(item.data.data.description);
+
     // Toggle summary
     if (li.hasClass("expanded")) {
       let summary = li.parents(".item-entry").children(".item-summary");

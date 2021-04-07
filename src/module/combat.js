@@ -73,7 +73,7 @@ export class OseCombat {
       if (i > 0) chatData.sound = null;   // Only play 1 sound for the whole set
       messages.push(chatData);
     });
-    await combat.updateEmbeddedEntity("Combatant", updates);
+    await combat.updateEmbeddedDocument("Combatant", updates);
     await CONFIG.ChatMessage.entityClass.create(messages);
     data.turn = 0;
   }

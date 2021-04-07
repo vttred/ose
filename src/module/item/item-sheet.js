@@ -46,6 +46,7 @@ export class OseItemSheet extends ItemSheet {
   getData() {
     const data = super.getData();
     data.config = CONFIG.OSE;
+    console.log(data);
     return data;
   }
 

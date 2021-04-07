@@ -266,15 +266,14 @@ export class OseActorSheetCharacter extends OseActorSheet {
         data: duplicate(header.dataset),
       };
       delete itemData.data["type"];
-      return this.actor.createEmbeddedDocument("Item", itemData);
+      return this.actor.createEmbeddedDocuments("Item", [itemData]);
     });
 
     //Toggle Equipment
     html.find(".item-toggle").click(async (ev) => {
       const li = $(ev.currentTarget).parents(".item");
       const item = this.actor.items.get(li.data("itemId"));
-      await this.actor.updateOwnedItem({
-        _id: li.data("itemId"),
+      await item.update({
         data: {
           equipped: !item.data.data.equipped,
         },

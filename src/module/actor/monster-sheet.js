@@ -272,12 +272,12 @@ export class OseActorSheetMonster extends OseActorSheet {
         const choices = header.dataset.choices.split(",");
         this._chooseItemType(choices).then((dialogInput) => {
           const itemData = createItem(dialogInput.type, dialogInput.name);
-          this.actor.createEmbeddedDocument("Item", itemData, {});
+          this.actor.createEmbeddedDocuments("Item", [itemData], {});
         });
         return;
       }
       const itemData = createItem(type);
-      return this.actor.createEmbeddedDocument("Item", itemData, {});
+      return this.actor.createEmbeddedDocuments("Item", [itemData], {});
     });
 
     html.find(".item-reset").click((ev) => {

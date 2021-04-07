@@ -44,9 +44,9 @@ export class OseItemSheet extends ItemSheet {
    * The prepared data object contains both the actor data as well as additional sheet options
    */
   getData() {
-    const data = super.getData();
+    const data = super.getData().data;
+    data.editable = this.document.sheet.isEditable;
     data.config = CONFIG.OSE;
-    console.log(data);
     return data;
   }
 

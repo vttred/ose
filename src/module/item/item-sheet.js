@@ -16,7 +16,7 @@ export class OseItemSheet extends ItemSheet {
    * @returns {Object}
    */
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["ose", "sheet", "item"],
       width: 520,
       height: 390,

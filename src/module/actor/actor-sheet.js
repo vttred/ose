@@ -8,13 +8,15 @@ export class OseActorSheet extends ActorSheet {
   /* -------------------------------------------- */
 
   getData() {
-    const data = super.getData();
-
-    data.config = CONFIG.OSE;
-    // Settings
-    data.config.ascendingAC = game.settings.get("ose", "ascendingAC");
-    data.config.encumbrance = game.settings.get("ose", "encumbranceOption");
-
+    const data = super.getData().data;
+    data.owner = this.actor.isOwner;
+    
+    data.config = {...CONFIG.OSE,
+      ascendingAC: game.settings.get("ose", "ascendingAC"),
+      initiative: game.settings.get("ose", "initiative") != "group",
+      encumbrance: game.settings.get("ose", "encumbranceOption")
+    };
+    
     return data;
   }
 

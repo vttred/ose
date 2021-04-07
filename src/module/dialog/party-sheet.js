@@ -3,7 +3,7 @@ import { OsePartyXP } from "./party-xp.js";
 export class OsePartySheet extends FormApplication {
   
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["ose", "dialog", "party-sheet"],
       template: "systems/ose/templates/apps/party-sheet.html",
       width: 280,

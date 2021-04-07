@@ -59,10 +59,10 @@ export class OseCombat {
       if ((c.token.hidden || c.hidden) && (rollMode === "roll")) rollMode = "gmroll";
 
       // Construct chat message data
-      let messageData = mergeObject({
+      let messageData = foundry.utils.mergeObject({
         speaker: {
           scene: canvas.scene._id,
-          actor: c.actor ? c.actor._id : null,
+          actor: c.actor ? c.actor.id : null,
           token: c.token._id,
           alias: c.token.name
         },

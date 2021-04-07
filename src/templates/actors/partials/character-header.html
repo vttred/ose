@@ -1,5 +1,5 @@
 <div class="profile">
-  <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+  <img class="profile-img" src="{{img}}" data-edit="img" title="{{name}}" />
   <div class="modifiers-btn">
     {{#unless isNew}}
     <a data-action="modifiers" title="{{localize 'OSE.Modifiers'}}"><i class="fas fa-book"></i></a>
@@ -11,7 +11,7 @@
 </div>
 <section class="header-details flexrow">
   <h1 class="charname">
-    <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'OSE.details.name'}}"
+    <input name="name" type="text" value="{{name}}" placeholder="{{localize 'OSE.details.name'}}"
       data-dtype="String" />
   </h1>
   <ul class="summary flexrow">

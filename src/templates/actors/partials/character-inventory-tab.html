@@ -13,7 +13,7 @@
     <ol class="item-list">
       {{#each owned.weapons as |item|}}
       <li class="item-entry">
-        <div class="item flexrow" data-item-id="{{item._id}}">
+        <div class="item flexrow" data-item-id="{{item.id}}">
           <div class="item-name item-rollable flexrow">
             <div class="item-image" style="background-image: url({{item.img}})"></div>
             <a>
@@ -71,7 +71,7 @@
     <ol class="item-list">
       {{#each owned.armors as |item|}}
       <li class="item-entry">
-        <div class="item flexrow" data-item-id="{{item._id}}">
+        <div class="item flexrow" data-item-id="{{item.id}}">
           <div class="item-name flexrow">
             <div class="item-image" style="background-image: url({{item.img}})"></div>
             <a>
@@ -121,7 +121,7 @@
       {{#each owned.items as |item|}}
       {{#unless item.data.treasure}}
       <li class="item-entry">
-        <div class="item flexrow" data-item-id="{{item._id}}">
+        <div class="item flexrow" data-item-id="{{item.id}}">
           <div class="item-name flexrow">
             <div class="item-image" style="background-image: url({{item.img}})"></div>
             <a>
@@ -175,7 +175,7 @@
       {{#each owned.items as |item|}}
       {{#if item.data.treasure}}
       <li class="item-entry">
-        <div class="item flexrow" data-item-id="{{item._id}}">
+        <div class="item flexrow" data-item-id="{{item.id}}">
           <div class="item-name flexrow">
             <div class="item-image" style="background-image: url({{item.img}})"></div>
             <a>

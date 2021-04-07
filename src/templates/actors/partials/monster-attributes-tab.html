@@ -98,7 +98,7 @@
                     <div class="attack-pattern">
                         {{#each section as |item|}}
                         <li class="item-entry">
-                            <div class="item flexrow" data-item-id="{{item._id}}">
+                            <div class="item flexrow" data-item-id="{{item.id}}">
                                 <div class="item-pattern" style="background:{{pattern}};" title="{{localize 'OSE.items.pattern'}}"><i
                                         class="fas fa-link"></i></div>
                                 <div class="item-name item-rollable flexrow">
@@ -140,7 +140,7 @@
                     {{#unless (and (eq id "items") @root.data.config.enableInventory)}}
                     {{#each section as |item|}}
                     <li class="item-entry">
-                        <div class="item flexrow" data-item-id="{{item._id}}">
+                        <div class="item flexrow" data-item-id="{{item.id}}">
                             <div class="item-name flexrow">
                                 <div class="item-image" style="background-image: url({{item.img}})"></div>
                                 <h4 title="{{item.name}}">

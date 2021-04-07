@@ -16,7 +16,7 @@ export class OseActorSheetMonster extends OseActorSheet {
    * @returns {Object}
    */
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["ose", "sheet", "monster", "actor"],
       template: "systems/ose/templates/actors/monster-sheet.html",
       width: 450,
@@ -185,7 +185,7 @@ export class OseActorSheetMonster extends OseActorSheet {
   async _resetCounters(event) {
     const weapons = this.actor.data.items.filter(i => i.type === 'weapon');
     for (let wp of weapons) {
-      const item = this.actor.items.get(wp._id);
+      const item = this.actor.items.get(wp.id);
       await item.update({
         data: {
           counter: {
@@ -247,7 +247,7 @@ export class OseActorSheetMonster extends OseActorSheet {
     // Delete Inventory Item
     html.find(".item-delete").click((ev) => {
       const li = $(ev.currentTarget).parents(".item");
-      this.actor.deleteOwnedItem(li.data("itemId"));
+      this.actor.deleteEmbeddedDocuments("item", [li.data("itemId")]);
       li.slideUp(200, () => this.render(false));
     });
 

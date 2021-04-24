@@ -93,7 +93,6 @@ export class OseDice {
 
     // templateData.result = OseDice.digestResult(data, roll);
 
-    // console.log("ROLL START");
     // return new Promise((resolve) => {
     //   roll.render().then((r) => {
     //     templateData.rollOSE = r;

@@ -28,7 +28,7 @@ export class OseEntityTweaks extends FormApplication {
    * @return {Object}
    */
   getData() {
-    let data = this.object.data;
+    const data = foundry.utils.deepClone(this.object.data);
     if (this.object.data.type === 'character') {
       data.isCharacter = true;
     }

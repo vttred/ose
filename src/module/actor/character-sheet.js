@@ -132,7 +132,6 @@ export class OseActorSheetCharacter extends OseActorSheet {
   }
 
   _pushLang(table) {
-    console.log(this);
     const data = this.actor.data.data;
     let update = duplicate(data[table]);
     this._chooseLang().then((dialogInput) => {

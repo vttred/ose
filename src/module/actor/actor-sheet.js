@@ -8,7 +8,7 @@ export class OseActorSheet extends ActorSheet {
   /* -------------------------------------------- */
 
   getData() {
-    const data = super.getData().data;
+    const data = foundry.utils.deepClone(super.getData().data);
     data.owner = this.actor.isOwner;
     data.editable = this.actor.sheet.isEditable;
     

@@ -60,10 +60,10 @@ export class OseActorSheetCharacter extends OseActorSheet {
     var sortedSpells = {};
     var slots = {};
     for (var i = 0; i < spells.length; i++) {
-      let lvl = spells[i].data.lvl;
+      const lvl = spells[i].data.data.lvl;
       if (!sortedSpells[lvl]) sortedSpells[lvl] = [];
       if (!slots[lvl]) slots[lvl] = 0;
-      slots[lvl] += spells[i].data.memorized;
+      slots[lvl] += spells[i].data.data.memorized;
       sortedSpells[lvl].push(spells[i]);
     }
     data.slots = {

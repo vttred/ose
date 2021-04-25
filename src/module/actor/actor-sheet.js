@@ -94,9 +94,9 @@ export class OseActorSheet extends ActorSheet {
 
     html.find(".saving-throw .attribute-name a").click((ev) => {
       let actorObject = this.actor;
-      let element = event.currentTarget;
+      let element = ev.currentTarget;
       let save = element.parentElement.parentElement.dataset.save;
-      actorObject.rollSave(save, { event: event });
+      actorObject.rollSave(save, { event: ev });
     });
 
     html.find(".item .item-rollable .item-image").click(async (ev) => {

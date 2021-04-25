@@ -119,7 +119,7 @@
     </li>
     <ol class="item-list">
       {{#each owned.items as |item|}}
-      {{#unless item.data.treasure}}
+      {{#unless item.data.data.treasure}}
       <li class="item-entry">
         <div class="item flexrow" data-item-id="{{item.id}}">
           <div class="item-name flexrow">
@@ -173,7 +173,7 @@
     </li>
     <ol class="item-list">
       {{#each owned.items as |item|}}
-      {{#if item.data.treasure}}
+      {{#if item.data.data.treasure}}
       <li class="item-entry">
         <div class="item flexrow" data-item-id="{{item.id}}">
           <div class="item-name flexrow">
@@ -210,12 +210,10 @@
   <div class="encumbrance {{#if encumbered}}encumbered{{/if}}">
     <span class="encumbrance-bar" style="width:{{pct}}%"></span>
     <span class="encumbrance-label">{{value}} / {{max}}</span>
-    <i class="encumbrance-breakpoint encumbrance-25 arrow-up"></i>
-    <i class="encumbrance-breakpoint encumbrance-25 arrow-down"></i>
-    <i class="encumbrance-breakpoint encumbrance-50 arrow-up"></i>
-    <i class="encumbrance-breakpoint encumbrance-50 arrow-down"></i>
-    <i class="encumbrance-breakpoint encumbrance-75 arrow-up"></i>
-    <i class="encumbrance-breakpoint encumbrance-75 arrow-down"></i>
+    {{#each steps as |s|}}
+      <i class="encumbrance-breakpoint arrow-up" style="left:{{s}}%"></i>
+      <i class="encumbrance-breakpoint arrow-down" style="left:{{s}}%"></i>
+    {{/each}}
   </div>
   {{/with}}
 </section>

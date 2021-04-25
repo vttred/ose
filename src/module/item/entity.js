@@ -4,34 +4,27 @@ import { OseDice } from "../dice.js";
  * Override and extend the basic :class:`Item` implementation
  */
 export class OseItem extends Item {
-  /* -------------------------------------------- */
-  /*	Data Preparation														*/
-  /* -------------------------------------------- */
-  /**
-   * Augment the basic Item data model with additional dynamic data.
-   */
-  prepareData() {
-    // Set default image
-    let img = CONST.DEFAULT_TOKEN;
-    switch (this.data.type) {
+
+  // Replacing default image
+  async _preCreate(data, options, user) {
+    super._preCreate(data, options, user);
+    switch (data.type) {
       case "spell":
-        img = "/systems/ose/assets/default/spell.png";
+        data.img = "/systems/ose/assets/default/spell.png";
         break;
       case "ability":
-        img = "/systems/ose/assets/default/ability.png";
+        data.img = "/systems/ose/assets/default/ability.png";
         break;
       case "armor":
-        img = "/systems/ose/assets/default/armor.png";
+        data.img = "/systems/ose/assets/default/armor.png";
         break;
       case "weapon":
-        img = "/systems/ose/assets/default/weapon.png";
+        data.img = "/systems/ose/assets/default/weapon.png";
         break;
       case "item":
-        img = "/systems/ose/assets/default/item.png";
+        data.img = "/systems/ose/assets/default/item.png";
         break;
     }
-    if (!this.data.img) this.data.img = img;
-    super.prepareData();
   }
 
   static chatListeners(html) {
@@ -283,8 +276,8 @@ export class OseItem extends Item {
     const token = this.actor.token;
     const templateData = {
       actor: this.actor,
-      tokenId: token ? `${token.scene._id}.${token.id}` : null,
-      item: this.data,
+      tokenId: token ? `${token.parent.id}.${token.id}` : null,
+      item: foundry.utils.duplicate(this.data),
       data: this.getChatData(),
       labels: this.labels,
       isHealing: this.isHealing,
@@ -300,11 +293,11 @@ export class OseItem extends Item {
 
     // Basic chat message data
     const chatData = {
-      user: game.user._id,
+      user: game.user.id,
       type: CONST.CHAT_MESSAGE_TYPES.OTHER,
       content: html,
       speaker: {
-        actor: this.actor._id,
+        actor: this.actor.id,
         token: this.actor.token,
         alias: this.actor.name,
       },

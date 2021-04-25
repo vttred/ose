@@ -29,7 +29,7 @@ export class OseEntityTweaks extends FormApplication {
    */
   getData() {
     const data = foundry.utils.deepClone(this.object.data);
-    if (this.object.data.type === 'character') {
+    if (data.type === 'character') {
       data.isCharacter = true;
     }
     data.user = game.user;

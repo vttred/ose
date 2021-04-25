@@ -15,8 +15,8 @@
       <div class="field-short">{{localize 'OSE.spells.Slots'}}</div>
       <div class="field-long flexrow">
         <input type="text" value="{{lookup @root.slots.used @key}}" name="data.spells.{{id}}.value" data-dtype="Number"
-          placeholder="0" disabled>/<input type="text" value="{{lookup (lookup ../actor.data.spells @key) 'max'}}"
-          name="data.spells.{{id}}.max" data-dtype="Number" placeholder="0"></div>
+          placeholder="0" disabled title="{{localize 'OSE.spells.MemorizedSlotsHint'}}">/<input type="text" value="{{lookup (lookup @root.data.spells @key) 'max'}}"
+          name="data.spells.{{id}}.max" data-dtype="Number" placeholder="0" title="{{localize 'OSE.spells.MaximumSlotsHint'}}"></div>
       <div class="item-controls">
         <a class="item-control item-create" data-type="spell" data-lvl="{{id}}" title="{{localize 'OSE.Add'}}"><i
             class="fa fa-plus"></i></a>
@@ -35,10 +35,10 @@
             </a>
           </div>
           <div class="field-long memorize flexrow">
-            <input type="text" value="{{item.data.cast}}" data-dtype="Number" placeholder="0" data-field="cast"
+            <input type="text" value="{{item.data.data.cast}}" data-dtype="Number" placeholder="0" data-field="cast"
               title="{{localize 'OSE.spells.Cast'}}">
             /
-            <input type="text" value="{{item.data.memorized}}" data-field="memorize" data-dtype="Number" placeholder="0"
+            <input type="text" value="{{item.data.data.memorized}}" data-field="memorize" data-dtype="Number" placeholder="0"
               title="{{localize 'OSE.spells.Memorized'}}"></div>
           <div class="item-controls">
             {{#if ../../owner}}

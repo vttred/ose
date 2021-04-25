@@ -27,15 +27,15 @@ export class OseActor extends Actor {
     }
     data.movement.encounter = Math.floor(data.movement.base / 3);
   }
-  
-  
-  static async update(data, options={}) {
-    
+
+
+  static async update(data, options = {}) {
+
     // Compute AAC from AC
     if (data.data?.ac?.value) {
-      data.data.aac = {value: 19 - data.data.ac.value};
+      data.data.aac = { value: 19 - data.data.ac.value };
     } else if (data.data?.aac?.value) {
-      data.data.ac = {value: 19 - data.data.aac.value};
+      data.data.ac = { value: 19 - data.data.aac.value };
     }
 
     // Compute Thac0 from BBA
@@ -169,7 +169,7 @@ export class OseActor extends Actor {
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: game.i18n.format("OSE.roll.save", { save: label }),
       title: game.i18n.format("OSE.roll.save", { save: label }),
-	  chatMessage: options.chatMessage
+      chatMessage: options.chatMessage
     });
   }
 
@@ -288,7 +288,7 @@ export class OseActor extends Actor {
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: game.i18n.format("OSE.roll.attribute", { attribute: label }),
       title: game.i18n.format("OSE.roll.attribute", { attribute: label }),
-	  chatMessage: options.chatMessage
+      chatMessage: options.chatMessage
     });
   }
 
@@ -532,34 +532,36 @@ export class OseActor extends Actor {
     }
     const data = this.data.data;
     let option = game.settings.get("ose", "encumbranceOption");
-
+    const items = [...this.data.items.values()];
     // Compute encumbrance
-    let totalWeight = 0;
-    let hasItems = false;
-    Object.values(this.data.items).forEach((item) => {
-      if (item.type == "item" && !item.data.treasure) {
-        hasItems = true;
+    const hasItems = items.every((item) => { return item.type != "item" && !item.data.treasure });
+
+    let totalWeight = items.reduce((acc, item) => {
+      if (item.type === "item" && (["complete", "disabled"].includes(option) || item.data.data.treasure)) {
+        return acc + item.data.data.quantity.value * item.data.data.weight;
       }
-      if (
-        item.type == "item" &&
-        (["complete", "disabled"].includes(option) || item.data.treasure)
-      ) {
-        totalWeight += item.data.quantity.value * item.data.weight;
-      } else if (option != "basic" && ["weapon", "armor"].includes(item.type)) {
-        totalWeight += item.data.weight;
+      if (["weapon", "armor"].includes(item.type) && option !== "basic") {
+        return acc + item.data.data.weight;
       }
-    });
+      return acc;
+    }, 0)
+
     if (option === "detailed" && hasItems) totalWeight += 80;
+
+    const max = option === "basic" ? game.settings.get("ose", "significantTreasure") : data.encumbrance.max;
+
+    let steps = ["detailed", "complete"].includes(option) ? [100 * 400 / max, 100 * 600 / max, 100 * 800 / max] : [];
 
     data.encumbrance = {
       pct: Math.clamped(
-        (100 * parseFloat(totalWeight)) / data.encumbrance.max,
+        (100 * parseFloat(totalWeight)) / max,
         0,
         100
       ),
-      max: data.encumbrance.max,
+      max: max,
       encumbered: totalWeight > data.encumbrance.max,
       value: totalWeight,
+      steps: steps
     };
 
     if (data.config.movementAuto && option != "disabled") {
@@ -621,10 +623,10 @@ export class OseActor extends Actor {
     // Compute treasure
     let total = 0;
     let treasure = this.data.items.filter(
-      (i) => i.type == "item" && i.data.treasure
+      (i) => i.type == "item" && i.data.data.treasure
     );
     treasure.forEach((item) => {
-      total += item.data.quantity.value * item.data.cost;
+      total += item.data.data.quantity.value * item.data.data.cost;
     });
     data.treasure = Math.round(total * 100) / 100.0;
   }
@@ -633,22 +635,25 @@ export class OseActor extends Actor {
     if (this.data.type != "character") {
       return;
     }
+    const data = this.data.data;
+
     // Compute AC
     let baseAc = 9;
     let baseAac = 10;
     let AcShield = 0;
     let AacShield = 0;
-    const data = this.data.data;
+    
     data.aac.naked = baseAac + data.scores.dex.mod;
     data.ac.naked = baseAc - data.scores.dex.mod;
     const armors = this.data.items.filter((i) => i.type == "armor");
     armors.forEach((a) => {
-      if (a.data.equipped && a.data.type != "shield") {
-        baseAc = a.data.ac.value;
-        baseAac = a.data.aac.value;
-      } else if (a.data.equipped && a.data.type == "shield") {
-        AcShield = a.data.ac.value;
-        AacShield = a.data.aac.value;
+      const armorData = a.data.data;
+      if (armorData.equipped && a.type != "shield") {
+        baseAc = armorData.ac.value;
+        baseAac = armorData.aac.value;
+      } else if (armorData.equipped && armorData.type == "shield") {
+        AcShield = armorData.ac.value;
+        AacShield = armorData.aac.value;
       }
     });
     data.aac.value = baseAac + data.scores.dex.mod + AacShield + data.aac.mod;

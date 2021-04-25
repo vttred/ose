@@ -245,6 +245,8 @@
   "OSE.spells.Level": "Level",
   "OSE.spells.Save": "Save",
   "OSE.spells.ResetSlots": "Reset Spell slots",
+  "OSE.spells.MemorizedSlotsHint": "Memorized slots",
+  "OSE.spells.MaximumSlotsHint": "Available slots",
 
   "OSE.abilities.Requirements": "Requirements",
 

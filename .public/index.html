@@ -96,24 +96,24 @@
         </p>
         <p>
           <ul>
-             <li>
+            <li>
               Launch Foundry VTT.
-             </li>
-             <li>
-               Go to Game Systems, Install System.
-             </li>
-             <li>
-               Find 'Old-School Essentials' and click Install.
-             </li>
-             <li>
-               Go to Modules, Install Module.
-             </li>
-             <li>
-               Find 'Old-School Essentials OGL Content' and click Install.
-             </li>
-             <li>
-               Create a new World using the Old-School Essentials system.
-             </li>
+            </li>
+            <li>
+              Go to Game Systems, Install System.
+            </li>
+            <li>
+              Find 'Old-School Essentials' and click Install.
+            </li>
+            <li>
+              Go to Modules, Install Module.
+            </li>
+            <li>
+              Find 'Old-School Essentials OGL Content' and click Install.
+            </li>
+            <li>
+              Create a new World using the Old-School Essentials system.
+            </li>
           </ul>
         </p>
         <h4>Setup</h4>
@@ -126,11 +126,16 @@
           These are several settings to customize your experience with Old
           School Essentials.
           <ul>
-            <li><strong>Individual initiative</strong>:The default behavior for
-              initiative is to have only one roll per faction. This will come
-              back to Foundry VTT
-              default behavior, and show the initiative field on character
+            <li><strong>Initiative</strong>:Initiative can be switched from
+              grouped to individual.
+              Grouped initiative means initiative is rolled once per faction.
+              Switching to individuall will have every combatant roll their own
+              initiative.
+              Setting to invidual will show the initiative field on character
               sheets, see the <a href="#attributes">Attributes</a> section.
+            </li>
+            <li><strong>Initiative persistence</strong>:Initiative can be kept
+              between each turn, reset, or rerolled.
             </li>
             <li><strong>Ascending Armor Class</strong>:Old School Essentials
               default option is to use the original descending Armor Class and
@@ -148,11 +153,15 @@
               You have three options here.
               <ul>
                 <li><strong>Disabled</strong>: You can disable the effect of
-                  weight on movement, it will still be calculated.</li>
-                <li><strong>Basic</strong>: This will add only the weight of
-                  your treasure, and take into account the armor you're wearing
-                  to find your movement rate.</li>
-                <li><strong>Detailed</strong>: All the weight you carry will be
+                  weight and armor on movement.</li>
+                <li><strong>Basic</strong>: Movement is calculated from the
+                  armor type and weither you are carrying more than the
+                  significant treasure weight (see below).</li>
+                <li><strong>Detailed</strong>: If the character carry items, 80
+                  coins of weight will be added in total. The weight you carry
+                  will be counted, your movement value depends on the fraction
+                  of your max encumbrance you carry. </li>
+                <li><strong>Complete</strong>: All the weight you carry will be
                   counted, your movement value depends on the fraction of your
                   max encumbrance you carry.</li>
               </ul>

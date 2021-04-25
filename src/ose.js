@@ -127,7 +127,7 @@ Hooks.on("preCreateCombatant", (combat, data, options, id) => {
   }
 });
 
-Hooks.on("preUpdateCombatant", OseCombat.updateCombatant);
+Hooks.on("updateCombatant", OseCombat.updateCombatant);
 Hooks.on("renderCombatTracker", OseCombat.format);
 Hooks.on("preUpdateCombat", OseCombat.preUpdateCombat);
 Hooks.on("getCombatTrackerEntryContext", OseCombat.addContextEntry);

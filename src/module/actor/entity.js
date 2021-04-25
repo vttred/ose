@@ -28,7 +28,6 @@ export class OseActor extends Actor {
     data.movement.encounter = Math.floor(data.movement.base / 3);
   }
 
-
   static async update(data, options = {}) {
 
     // Compute AAC from AC
@@ -131,7 +130,7 @@ export class OseActor extends Actor {
   /* -------------------------------------------- */
 
   rollHP(options = {}) {
-    let roll = new Roll(this.data.data.hp.hd).roll();
+    let roll = new Roll(this.data.data.hp.hd).roll({async: false});
     return this.update({
       data: {
         hp: {
@@ -514,16 +513,12 @@ export class OseActor extends Actor {
   }
 
   _isSlow() {
-    this.data.data.isSlow = false;
-    if (this.data.type != "character") {
-      return;
-    }
-    this.data.items.forEach((item) => {
-      if (item.type == "weapon" && item.data.slow && item.data.equipped) {
-        this.data.data.isSlow = true;
-        return;
+    this.data.data.isSlow = ![...this.data.items.values()].every((item) => {
+      if (item.type !== "weapon" || !item.data.data.slow || !item.data.data.equipped) {
+        return true;
       }
-    });
+      return false;
+    })
   }
 
   computeEncumbrance() {

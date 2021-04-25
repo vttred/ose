@@ -33,7 +33,7 @@ export const augmentTable = (table, html, data) => {
 function drawTreasure(table, data) {
   const percent = async (chance) => {
     const roll = new Roll("1d100");
-    await roll.roll();
+    roll.roll({async: false});
     return roll.total <= chance;
   };
   data.treasure = {};
@@ -52,7 +52,7 @@ function drawTreasure(table, data) {
       }
     });
   } else {
-    const results = table.roll().results;
+    const results = table.roll({async: false}).results;
     results.forEach((s) => { 
       const text = TextEditor.enrichHTML(table._getResultChatText(s));
       data.treasure[s._id] = {img: s.img, text: text}; 

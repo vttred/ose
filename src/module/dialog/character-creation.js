@@ -29,10 +29,10 @@ export class OseCharacterCreator extends FormApplication {
    * @return {Object}
    */
   getData() {
-    let data = this.object.data;
+    let data = foundry.utils.deepClone(this.object.data);
     data.user = game.user;
     data.config = CONFIG.OSE;
-    data.counters = {
+    this.counters = {
       str: 0,
       wis: 0,
       dex: 0,
@@ -41,7 +41,7 @@ export class OseCharacterCreator extends FormApplication {
       con: 0,
       gold: 0
     }
-    data.stats = {
+    this.stats = {
       sum: 0,
       avg: 0,
       std: 0
@@ -83,7 +83,7 @@ export class OseCharacterCreator extends FormApplication {
 
   rollScore(score, options = {}) {
     // Increase counter
-    this.object.data.counters[score]++;
+    this.counters[score]++;
 
     const label = score != "gold" ? game.i18n.localize(`OSE.scores.${score}.long`) : "Gold";
     const rollParts = ["3d6"];
@@ -99,8 +99,8 @@ export class OseCharacterCreator extends FormApplication {
       data: data,
       skipDialog: true,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: game.i18n.format('OSE.dialog.generateScore', { score: label, count: this.object.data.counters[score] }),
-      title: game.i18n.format('OSE.dialog.generateScore', { score: label, count: this.object.data.counters[score] }),
+      flavor: game.i18n.format('OSE.dialog.generateScore', { score: label, count: this.counters[score] }),
+      title: game.i18n.format('OSE.dialog.generateScore', { score: label, count: this.counters[score] }),
     });
   }
 

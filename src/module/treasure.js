@@ -31,15 +31,16 @@ export const augmentTable = (table, html, data) => {
 };
 
 function drawTreasure(table, data) {
-  const percent = (chance) => {
-    const roll = new Roll("1d100").roll();
+  const percent = async (chance) => {
+    const roll = new Roll("1d100");
+    await roll.roll();
     return roll.total <= chance;
   };
   data.treasure = {};
   if (table.getFlag('ose', 'treasure')) {
     table.results.forEach((r) => {
       if (percent(r.weight)) {
-        const text = table._getResultChatText(r);
+        const text = r.getChatText(r);
         data.treasure[r._id] = ({
           img: r.img,
           text: TextEditor.enrichHTML(text),
@@ -70,7 +71,7 @@ async function rollTreasure(table, options = {}) {
   
   // Animation
   if (options.event) {
-    let results = $(event.currentTarget.parentElement)
+    let results = $(options.event.currentTarget.parentElement)
       .prev()
       .find(".table-result");
     results.each((_, item) => {

@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.1.8] - 2021-05-06
+### Added
+- Foundry VTT 0.8.2 compatibility
+### Changed
+### Removed
+
 ## [1.1.7] - 2021-03-29
 ### Added
 - Display tags in items directory

@@ -1,4 +1,5 @@
 import { OseDice } from "../dice.js";
+import {OseItem} from "../item/entity.js"
 
 export class OseActor extends Actor {
   /**
@@ -46,6 +47,15 @@ export class OseActor extends Actor {
 
     super.update(data, options);
   }
+
+
+  async createEmbeddedDocuments(embeddedName, data = [], context = {}) {
+    data.map((item) => {
+      item.img = OseItem.defaultIcons[item.type];
+    });
+    return super.createEmbeddedDocuments(embeddedName, data, context);
+  }
+
   /* -------------------------------------------- */
   /*  Socket Listeners and Handlers
     /* -------------------------------------------- */
@@ -95,7 +105,7 @@ export class OseActor extends Actor {
         saves = tmp;
       }
     }
-    // Compute Thac0 
+    // Compute Thac0
     let thac0 = 20;
     Object.keys(CONFIG.OSE.monster_thac0).forEach((k) => {
       if (parseInt(hd) < parseInt(k)) {
@@ -637,7 +647,7 @@ export class OseActor extends Actor {
     let baseAac = 10;
     let AcShield = 0;
     let AacShield = 0;
-    
+
     data.aac.naked = baseAac + data.scores.dex.mod;
     data.ac.naked = baseAc - data.scores.dex.mod;
     const armors = this.data.items.filter((i) => i.type == "armor");

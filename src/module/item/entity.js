@@ -4,27 +4,20 @@ import { OseDice } from "../dice.js";
  * Override and extend the basic :class:`Item` implementation
  */
 export class OseItem extends Item {
-
-  // Replacing default image
-  async _preCreate(data, options, user) {
-    super._preCreate(data, options, user);
-    switch (data.type) {
-      case "spell":
-        data.img = "/systems/ose/assets/default/spell.png";
-        break;
-      case "ability":
-        data.img = "/systems/ose/assets/default/ability.png";
-        break;
-      case "armor":
-        data.img = "/systems/ose/assets/default/armor.png";
-        break;
-      case "weapon":
-        data.img = "/systems/ose/assets/default/weapon.png";
-        break;
-      case "item":
-        data.img = "/systems/ose/assets/default/item.png";
-        break;
+    // Replacing default image */
+    static get defaultIcons() {
+        return {
+            spell: "/systems/ose/assets/default/spell.png",
+            ability: "/systems/ose/assets/default/ability.png",
+            armor: "/systems/ose/assets/default/armor.png",
+            weapon: "/systems/ose/assets/default/weapon.png",
+            item: "/systems/ose/assets/default/item.png",
+        };
     }
+
+  static async create(data, context = {}) {
+    data.img = this.defaultIcons[data.type];
+    return super.create(data, context);
   }
 
   static chatListeners(html) {
@@ -42,7 +35,7 @@ export class OseItem extends Item {
     const props = [];
 
     if (this.data.type == "weapon") {
-      data.tags.forEach(t => props.push(t.value));
+      data.tags.forEach((t) => props.push(t.value));
     }
     if (this.data.type == "spell") {
       props.push(`${data.class} ${data.lvl}`, data.range, data.duration);
@@ -61,14 +54,13 @@ export class OseItem extends Item {
     const targets = 5;
     const data = this.data.data;
     let type = isNPC ? "attack" : "melee";
-    const rollData =
-    {
+    const rollData = {
       item: this.data,
       actor: this.actor.data,
       roll: {
         save: this.data.data.save,
-        target: null
-      }
+        target: null,
+      },
     };
 
     if (data.missile && data.melee && !isNPC) {
@@ -190,7 +182,7 @@ export class OseItem extends Item {
         roll += data.rollTarget ? data.rollTarget : "";
         const reqs = data.requirements.split(",");
         let reqTags = "";
-        reqs.forEach((r) => reqTags += formatTag(r))
+        reqs.forEach((r) => (reqTags += formatTag(r)));
         return `${reqTags}${formatTag(roll)}`;
     }
     return "";

@@ -58,7 +58,7 @@ export class OseItemSheet extends ItemSheet {
    */
   activateListeners(html) {
     html.find('input[data-action="add-tag"]').keypress((ev) => {
-      if (event.which == 13) {
+      if (ev.which == 13) {
         let value = $(ev.currentTarget).val();
         let values = value.split(',');
         this.object.pushTag(values);

@@ -14,7 +14,7 @@ export class OseCombat {
 
     // Roll init
     Object.keys(groups).forEach((group) => {
-      let roll = new Roll("1d6").roll({async: false});
+      let roll = new Roll("1d6").evaluate({async: false});
       roll.toMessage({
         flavor: game.i18n.format('OSE.roll.initiative', { group: CONFIG["OSE"].colors[group] }),
       });

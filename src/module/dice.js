@@ -13,7 +13,7 @@ export class OseDice {
     const template = "systems/ose/templates/chat/roll-result.html";
 
     let chatData = {
-      user: game.user._id,
+      user: game.user.id,
       speaker: speaker,
     };
 
@@ -29,7 +29,7 @@ export class OseDice {
     }
 
     //;
-    const roll = new Roll(parts.join("+"), data).roll({async: false});
+    const roll = new Roll(parts.join("+"), data).evaluate({async: false});
 
     // Convert the roll to a chat message and return the roll
     let rollMode = game.settings.get("core", "rollMode");
@@ -197,7 +197,7 @@ export class OseDice {
     const template = "systems/ose/templates/chat/roll-attack.html";
 
     let chatData = {
-      user: game.user._id,
+      user: game.user.id,
       speaker: speaker,
     };
 
@@ -211,8 +211,8 @@ export class OseDice {
     // Optionally include a situational bonus
     if (form !== null && form.bonus.value) parts.push(form.bonus.value);
 
-    const roll = new Roll(parts.join("+"), data).roll({async: false});
-    const dmgRoll = new Roll(data.roll.dmg.join("+"), data).roll({async: false});
+    const roll = new Roll(parts.join("+"), data).evaluate({async: false});
+    const dmgRoll = new Roll(data.roll.dmg.join("+"), data).evaluate({async: false});
 
     // Convert the roll to a chat message and return the roll
     let rollMode = game.settings.get("core", "rollMode");

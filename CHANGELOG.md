@@ -1,6 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.1.10] - 2021-05-XX
+### Added
+- Added one click character generation
+### Changed
+- Fixed item icons
+- Fix Stats generation
+### Removed
+
+
 ## [1.1.8] - 2021-05-06
 ### Added
 - Foundry VTT 0.8.2 compatibility

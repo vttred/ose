@@ -4,19 +4,21 @@ import { OseDice } from "../dice.js";
  * Override and extend the basic :class:`Item` implementation
  */
 export class OseItem extends Item {
-    // Replacing default image */
-    static get defaultIcons() {
-        return {
-            spell: "/systems/ose/assets/default/spell.png",
-            ability: "/systems/ose/assets/default/ability.png",
-            armor: "/systems/ose/assets/default/armor.png",
-            weapon: "/systems/ose/assets/default/weapon.png",
-            item: "/systems/ose/assets/default/item.png",
-        };
-    }
+  // Replacing default image */
+  static get defaultIcons() {
+    return {
+      spell: "/systems/ose/assets/default/spell.png",
+      ability: "/systems/ose/assets/default/ability.png",
+      armor: "/systems/ose/assets/default/armor.png",
+      weapon: "/systems/ose/assets/default/weapon.png",
+      item: "/systems/ose/assets/default/item.png",
+    };
+  }
 
   static async create(data, context = {}) {
-    data.img = this.defaultIcons[data.type];
+    if (data.img === undefined) {
+      data.img = this.defaultIcons[data.type];
+    }
     return super.create(data, context);
   }
 

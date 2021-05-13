@@ -1,5 +1,5 @@
 import { OseDice } from "../dice.js";
-import {OseItem} from "../item/entity.js"
+import { OseItem } from "../item/entity.js";
 
 export class OseActor extends Actor {
   /**
@@ -30,7 +30,6 @@ export class OseActor extends Actor {
   }
 
   static async update(data, options = {}) {
-
     // Compute AAC from AC
     if (data.data?.ac?.value) {
       data.data.aac = { value: 19 - data.data.ac.value };
@@ -48,10 +47,11 @@ export class OseActor extends Actor {
     super.update(data, options);
   }
 
-
   async createEmbeddedDocuments(embeddedName, data = [], context = {}) {
     data.map((item) => {
-      item.img = OseItem.defaultIcons[item.type];
+      if (item.img === undefined) {
+        item.img = OseItem.defaultIcons[item.type];
+      }
     });
     return super.createEmbeddedDocuments(embeddedName, data, context);
   }
@@ -140,7 +140,7 @@ export class OseActor extends Actor {
   /* -------------------------------------------- */
 
   rollHP(options = {}) {
-    let roll = new Roll(this.data.data.hp.hd).roll({async: false});
+    let roll = new Roll(this.data.data.hp.hd).roll({ async: false });
     return this.update({
       data: {
         hp: {
@@ -160,14 +160,16 @@ export class OseActor extends Actor {
       roll: {
         type: "above",
         target: this.data.data.saves[save].value,
-        magic: this.data.type === "character" ? this.data.data.scores.wis.mod : 0,
+        magic:
+          this.data.type === "character" ? this.data.data.scores.wis.mod : 0,
       },
       details: game.i18n.format("OSE.roll.details.save", { save: label }),
     };
 
     let skip = options?.event?.ctrlKey || options.fastForward;
 
-    const rollMethod = this.data.type == "character" ? OseDice.RollSave : OseDice.Roll;
+    const rollMethod =
+      this.data.type == "character" ? OseDice.RollSave : OseDice.Roll;
 
     // Roll and return
     return rollMethod({
@@ -178,7 +180,7 @@ export class OseActor extends Actor {
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: game.i18n.format("OSE.roll.save", { save: label }),
       title: game.i18n.format("OSE.roll.save", { save: label }),
-      chatMessage: options.chatMessage
+      chatMessage: options.chatMessage,
     });
   }
 
@@ -297,7 +299,7 @@ export class OseActor extends Actor {
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: game.i18n.format("OSE.roll.attribute", { attribute: label }),
       title: game.i18n.format("OSE.roll.attribute", { attribute: label }),
-      chatMessage: options.chatMessage
+      chatMessage: options.chatMessage,
     });
   }
 
@@ -367,7 +369,7 @@ export class OseActor extends Actor {
       roll: {
         type: "below",
         target: this.data.data.exploration[expl],
-        blindroll: true
+        blindroll: true,
       },
       details: game.i18n.format("OSE.roll.details.exploration", {
         expl: label,
@@ -524,11 +526,15 @@ export class OseActor extends Actor {
 
   _isSlow() {
     this.data.data.isSlow = ![...this.data.items.values()].every((item) => {
-      if (item.type !== "weapon" || !item.data.data.slow || !item.data.data.equipped) {
+      if (
+        item.type !== "weapon" ||
+        !item.data.data.slow ||
+        !item.data.data.equipped
+      ) {
         return true;
       }
       return false;
-    })
+    });
   }
 
   computeEncumbrance() {
@@ -539,34 +545,40 @@ export class OseActor extends Actor {
     let option = game.settings.get("ose", "encumbranceOption");
     const items = [...this.data.items.values()];
     // Compute encumbrance
-    const hasItems = items.every((item) => { return item.type != "item" && !item.data.treasure });
+    const hasItems = items.every((item) => {
+      return item.type != "item" && !item.data.treasure;
+    });
 
     let totalWeight = items.reduce((acc, item) => {
-      if (item.type === "item" && (["complete", "disabled"].includes(option) || item.data.data.treasure)) {
+      if (
+        item.type === "item" &&
+        (["complete", "disabled"].includes(option) || item.data.data.treasure)
+      ) {
         return acc + item.data.data.quantity.value * item.data.data.weight;
       }
       if (["weapon", "armor"].includes(item.type) && option !== "basic") {
         return acc + item.data.data.weight;
       }
       return acc;
-    }, 0)
+    }, 0);
 
     if (option === "detailed" && hasItems) totalWeight += 80;
 
-    const max = option === "basic" ? game.settings.get("ose", "significantTreasure") : data.encumbrance.max;
+    const max =
+      option === "basic"
+        ? game.settings.get("ose", "significantTreasure")
+        : data.encumbrance.max;
 
-    let steps = ["detailed", "complete"].includes(option) ? [100 * 400 / max, 100 * 600 / max, 100 * 800 / max] : [];
+    let steps = ["detailed", "complete"].includes(option)
+      ? [(100 * 400) / max, (100 * 600) / max, (100 * 800) / max]
+      : [];
 
     data.encumbrance = {
-      pct: Math.clamped(
-        (100 * parseFloat(totalWeight)) / max,
-        0,
-        100
-      ),
+      pct: Math.clamped((100 * parseFloat(totalWeight)) / max, 0, 100),
       max: max,
       encumbered: totalWeight > data.encumbrance.max,
       value: totalWeight,
-      steps: steps
+      steps: steps,
     };
 
     if (data.config.movementAuto && option != "disabled") {

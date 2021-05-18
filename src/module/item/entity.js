@@ -139,6 +139,47 @@ export class OseItem extends Item {
     });
   }
 
+  getTagList() {
+    const tagList = [];
+    const data = this.data.data;
+    switch (this.data.type) {
+      case "weapon":
+        tagList.push({label: data.damage, icon: "fa-tint"});
+        data.tags.forEach((t) => {
+          tagList.push({label: t.value});
+        });
+        tagList.push({label: CONFIG.OSE.saves_long[data.save], icon: "fa-skull"});
+        if (data.missile) {
+          tagList.push({label: `${data.range.short}/${data.range.medium}/${data.range.long}`, icon: "fa-bullseye"});
+        }
+        return tagList;
+      case "armor":
+        return [{label: CONFIG.OSE.armor[data.type], icon: "fa-tshirt"}];
+      case "item":
+        return [];
+      case "spell":
+        tagList.push({label: data.class}, {label: data.range}, {label: data.duration}, {label: data.roll})
+        if (data.save) {
+          tagList.push({label: CONFIG.OSE.saves_long[data.save], icon:"fa-skull"});
+        }
+        return tagList;
+      case "ability":
+        let roll = "";
+        roll += data.roll ? data.roll : "";
+        roll += data.rollTarget ? CONFIG.OSE.roll_type[data.rollType] : "";
+        roll += data.rollTarget ? data.rollTarget : "";
+        const reqs = data.requirements.split(",");
+        reqs.forEach((r) => (tagList.push({label: r})));
+        if (data.roll) {
+          tagList.push({label: `${game.i18n.localize("OSE.items.Roll")} ${roll}`});
+        }
+        if (data.save) {
+          tagList.push({label: `${game.i18n.localize("OSE.spells.Save")} vs ${CONFIG.OSE.saves_long[data.save]}`});
+        }
+        return tagList;
+    }
+  }
+
   getTags() {
     let formatTag = (tag, icon) => {
       if (!tag) return "";
@@ -149,45 +190,7 @@ export class OseItem extends Item {
       }
       return `<li class='tag'>${fa}${tag}</li>`;
     };
-
-    const data = this.data.data;
-    switch (this.data.type) {
-      case "weapon":
-        let wTags = formatTag(data.damage, "fa-tint");
-        data.tags.forEach((t) => {
-          wTags += formatTag(t.value);
-        });
-        wTags += formatTag(CONFIG.OSE.saves_long[data.save], "fa-skull");
-        if (data.missile) {
-          wTags += formatTag(
-            data.range.short + "/" + data.range.medium + "/" + data.range.long,
-            "fa-bullseye"
-          );
-        }
-        return wTags;
-      case "armor":
-        return `${formatTag(CONFIG.OSE.armor[data.type], "fa-tshirt")}`;
-      case "item":
-        return "";
-      case "spell":
-        let sTags = `${formatTag(data.class)}${formatTag(
-          data.range
-        )}${formatTag(data.duration)}${formatTag(data.roll)}`;
-        if (data.save) {
-          sTags += formatTag(CONFIG.OSE.saves_long[data.save], "fa-skull");
-        }
-        return sTags;
-      case "ability":
-        let roll = "";
-        roll += data.roll ? data.roll : "";
-        roll += data.rollTarget ? CONFIG.OSE.roll_type[data.rollType] : "";
-        roll += data.rollTarget ? data.rollTarget : "";
-        const reqs = data.requirements.split(",");
-        let reqTags = "";
-        reqs.forEach((r) => (reqTags += formatTag(r)));
-        return `${reqTags}${formatTag(roll)}`;
-    }
-    return "";
+    return this.getTagList().reduce((acc, v) => {return `${acc}${formatTag(v.label, v.icon)}`}, "");
   }
 
   pushTag(values) {
@@ -280,6 +283,7 @@ export class OseItem extends Item {
       hasSave: this.hasSave,
       config: CONFIG.OSE,
     };
+    templateData.data.properties = this.getTagList();
 
     // Render the chat card template
     const template = `systems/ose/templates/chat/item-card.html`;

@@ -148,6 +148,7 @@
         {{#if item.data.data.quantity.max}}
         {{#if (lte item.data.data.quantity.max 38)}}
         <div class="consumable-counter">
+          <label>{{localize "OSE.items.uses"}}</label>
           {{#times item.data.data.quantity.value}}<div class="full-mark"></div>{{/times}}
           {{#times (subtract item.data.data.quantity.max item.data.data.quantity.value)}}<div class="empty-mark"></div>{{/times}}
         </div>

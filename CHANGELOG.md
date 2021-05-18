@@ -4,9 +4,11 @@ All notable changes to this project will be documented in this file.
 ## [1.1.10] - 2021-05-XX
 ### Added
 - Added one click character generation
+- Show properties on item cards
 ### Changed
-- Fixed item icons
+- Fix item icons
 - Fix Stats generation
+- Fix ability rollable display
 ### Removed
 
 

@@ -223,11 +223,18 @@
         & > * {
           line-height: 30px;
         }
+        .item-entry {
+          box-shadow: inset 1px 0 0 0 $colorTan;
+        }
         .item-summary {
           font-size: 13px;
           padding: 0 4px;
           line-height: 20px;
-          box-shadow: 0 0 3px $colorDark;
+          border-bottom: 1px solid $colorTan;
+          div > p {
+            padding: 0.5em 0;
+            margin: 0;
+          }
           .tag-list {
             padding: 0;
             margin: 0;
@@ -297,10 +304,16 @@
         .consumable-counter {
           height: 14px;
           display: flex;
-          margin: 0 0 5px 40px;
           flex-wrap: wrap;
-          cursor: pointer;
+          line-height: 14px;
+          label {
+            flex: 0 30px;
+            font-size: 11px;
+            color: $colorDark;
+            text-indent: 3px;
+          }
           .full-mark, .empty-mark {
+            cursor: pointer;
             flex: 0 8px;
             margin: 1px;
             box-shadow: inset 0 0 2px $colorTan;

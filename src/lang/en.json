@@ -217,6 +217,7 @@
   "OSE.items.typeTag": "Type a comma separated list of tag e.g 'Melee,Missile (5’–10’ / 11’–20’ / 21’–30’)' and press ENTER",
   "OSE.items.enterTag": "Tags",
   "OSE.items.pattern": "Attack pattern marker",
+  "OSE.items.uses": "Uses",
 
   "OSE.items.Range": "Range",
   "OSE.items.Melee": "Melee",

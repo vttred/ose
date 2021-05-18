@@ -245,9 +245,9 @@ export class OseActorSheetMonster extends OseActorSheet {
     });
 
     // Delete Inventory Item
-    html.find(".item-delete").click((ev) => {
+    html.find(".item-delete").click(async (ev) => {
       const li = $(ev.currentTarget).parents(".item");
-      this.actor.deleteEmbeddedDocuments("item", [li.data("itemId")]);
+      await this.actor.deleteEmbeddedDocuments("Item", [li.data("itemId")]);
       li.slideUp(200, () => this.render(false));
     });
 

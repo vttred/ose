@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.1.10] - 2021-05-XX
+## [1.1.10] - 2021-06-02
 ### Added
 - Added one click character generation
 - Show properties on item cards
@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - Fix item icons
 - Fix Stats generation
 - Fix ability rollable display
+- Fix item macros
 ### Removed
 
 

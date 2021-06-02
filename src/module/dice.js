@@ -156,7 +156,7 @@ export class OseDice {
     result.victim = data.roll.target ? data.roll.target.data.name : null;
 
     if (game.settings.get("ose", "ascendingAC")) {
-      if ((roll.results[0] != 20 && (roll.total < targetAac) || roll.results[0] == 1)) {
+      if ((roll.terms[0] != 20 && (roll.total < targetAac) || roll.terms[0] == 1)) {
         result.details = game.i18n.format(
           "OSE.messages.AttackAscendingFailure",
           {

@@ -4,7 +4,7 @@
   "description": "Play B/X OSR modules with Old-School Essentials on Foundry VTT",
   "version": "1.1.10",
   "minimumCoreVersion": "0.8.4",
-  "compatibleCoreVersion": "0.8.4",
+  "compatibleCoreVersion": "0.8.6",
   "templateVersion": 2,
   "author": "U~man",
   "esmodules": ["ose.js"],

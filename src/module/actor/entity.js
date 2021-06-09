@@ -665,13 +665,14 @@ export class OseActor extends Actor {
     const armors = this.data.items.filter((i) => i.type == "armor");
     armors.forEach((a) => {
       const armorData = a.data.data;
-      if (armorData.equipped && a.type != "shield") {
-        baseAc = armorData.ac.value;
-        baseAac = armorData.aac.value;
-      } else if (armorData.equipped && armorData.type == "shield") {
+      if (!armorData.equipped) return;
+      if (armorData.type == "shield") {
         AcShield = armorData.ac.value;
         AacShield = armorData.aac.value;
+        return
       }
+      baseAc = armorData.ac.value;
+      baseAac = armorData.aac.value;
     });
     data.aac.value = baseAac + data.scores.dex.mod + AacShield + data.aac.mod;
     data.ac.value = baseAc - data.scores.dex.mod - AcShield - data.ac.mod;

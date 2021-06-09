@@ -39,15 +39,15 @@ function drawTreasure(table, data) {
   data.treasure = {};
   if (table.getFlag('ose', 'treasure')) {
     table.results.forEach((r) => {
-      if (percent(r.weight)) {
+      if (percent(r.data.weight)) {
         const text = r.getChatText(r);
-        data.treasure[r._id] = ({
-          img: r.img,
+        data.treasure[r.id] = ({
+          img: r.data.img,
           text: TextEditor.enrichHTML(text),
         });
-        if ((r.type === CONST.TABLE_RESULT_TYPES.ENTITY) && (r.collection === "RollTable")) {
-          const embeddedTable = game.tables.get(r.resultId);
-          drawTreasure(embeddedTable, data.treasure[r._id]);
+        if ((r.data.type === CONST.TABLE_RESULT_TYPES.ENTITY) && (r.data.collection === "RollTable")) {
+          const embeddedTable = game.tables.get(r.data.resultId);
+          drawTreasure(embeddedTable, data.treasure[r.id]);
         }
       }
     });
@@ -55,7 +55,7 @@ function drawTreasure(table, data) {
     const results = table.evaluate({async: false}).results;
     results.forEach((s) => {
       const text = TextEditor.enrichHTML(table._getResultChatText(s));
-      data.treasure[s._id] = {img: s.img, text: text};
+      data.treasure[s.id] = {img: s.data.img, text: text};
     });
   }
   return data;

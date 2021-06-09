@@ -132,7 +132,7 @@ export class OseActorSheet extends ActorSheet {
 
     html.find(".hit-dice .attribute-name a").click((ev) => {
       let actorObject = this.actor;
-      actorObject.rollHitDice({ event: event });
+      actorObject.rollHitDice({ event: ev });
     });
 
     // Everything below here is only needed if the sheet is editable

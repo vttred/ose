@@ -156,7 +156,7 @@
     }
   },
   "Item": {
-    "types": ["item", "weapon", "armor", "spell", "ability"],
+    "types": ["item", "weapon", "armor", "spell", "ability", "container"],
     "item": {
       "description": "",
       "quantity": {
@@ -168,6 +168,10 @@
       "weight": 0,
       "containerId": "",
       "isContainer": false
+    },
+    "container": {
+      "description": "",
+      "weight": 0
     },
     "weapon": {
       "range": {

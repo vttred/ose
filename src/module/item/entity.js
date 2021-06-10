@@ -12,6 +12,7 @@ export class OseItem extends Item {
       armor: "/systems/ose/assets/default/armor.png",
       weapon: "/systems/ose/assets/default/weapon.png",
       item: "/systems/ose/assets/default/item.png",
+      container: "/systems/ose/assets/default/bag.png"
     };
   }
 
@@ -147,6 +148,8 @@ export class OseItem extends Item {
     const tagList = [];
     const data = this.data.data;
     switch (this.data.type) {
+      case "container":
+        return [];
       case "weapon":
         tagList.push({label: data.damage, icon: "fa-tint"});
         data.tags.forEach((t) => {

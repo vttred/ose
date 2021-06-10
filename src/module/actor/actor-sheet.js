@@ -166,18 +166,27 @@ export class OseActorSheet extends ActorSheet {
 
   _onSortItem(event, itemData) {
 
-    // Get the drag source and its siblings
+    // Dragging items into a container
     const source = this.actor.items.get(itemData._id);
     const siblings = this.actor.items.filter(i => {
-      return (i.data.type === source.data.type) && (i.data._id !== source.data._id);
+      return i.data._id !== source.data._id;
     });
-
-    // Get the drop target
     const dropTarget = event.target.closest("[data-item-id]");
     const targetId = dropTarget ? dropTarget.dataset.itemId : null;
     const target = siblings.find(s => s.data._id === targetId);
-
     
+    if (target?.data.type == "container") {
+      this.actor.updateEmbeddedDocuments("Item", [
+        { _id: source.id, "data.containerId": target.id }
+      ]);
+      return;
+    }
+    if (itemData.data.containerId != "") {
+      this.actor.updateEmbeddedDocuments("Item", [
+        { _id: source.id, "data.containerId": "" }
+      ]);
+    }
+
     super._onSortItem(event, itemData);
   }
 

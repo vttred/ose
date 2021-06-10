@@ -106,6 +106,54 @@
     </ol>
   </div>
   <div class="">
+    {{!-- Containers items --}}
+    <li class="item-titles flexrow">
+      <div class="item-caret"><i class="fas fa-caret-down"></i></div>
+      <div class="item-name">{{localize "OSE.items.Containers"}}</div>
+      <div class="field-short"><i class="fas fa-hashtag"></i></div>
+      <div class="field-short"><i class="fas fa-weight-hanging"></i></div>
+      <div class="item-controls">
+        <a class="item-control item-create" data-type="container" title="{{localize 'OSE.Add'}}"><i
+            class="fa fa-plus"></i></a>
+      </div>
+    </li>
+    <ol class="item-list">
+      {{#each owned.containers as |bag|}}
+      <li class="item-entry container">
+        <div class="item flexrow" data-item-id="{{bag.id}}">
+          <div class="item-name flexrow">
+            <div class="item-image" style="background-image: url({{bag.img}})"></div>
+            <a>
+              <h4 title="{{bag.name}}">
+                {{bag.name~}}
+              </h4>
+            </a>
+          </div>
+          <div class="field-short">
+            {{#if (eq @root.config.encumbrance "basic")}}_{{else if (eq @root.config.encumbrance
+            "detailed")}}_{{else}}{{add bag.data.data.weight bag.data.data.totalWeight}}{{/if}}
+          </div>
+          <div class="item-controls">
+            {{#if @root.owner}}
+            <a class="item-control item-edit" title='{{localize "OSE.Edit"}}'><i class="fas fa-edit"></i></a>
+            <a class="item-control item-delete" title='{{localize "OSE.Delete"}}'><i class="fas fa-trash"></i></a>
+            {{/if}}
+          </div>
+        </div>
+        <div class="item-gallery">
+          {{#each bag.data.data.itemIds as |item|}}
+            <div class="item-entry">
+              <div class="item item-square" data-item-id="{{item.id}}">
+                <a class="item-control item-edit"><div class="item-image" style="background-image: url({{item.img}})" title="{{item.name}}"></div></a>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      </li>
+      {{/each}}
+    </ol>
+  </div>
+  <div class="">
     {{!-- Misc items --}}
     <li class="item-titles flexrow">
       <div class="item-caret"><i class="fas fa-caret-down"></i></div>
@@ -119,8 +167,6 @@
     </li>
     <ol class="item-list">
       {{#each owned.items as |item|}}
-      {{#unless item.data.data.treasure}}
-      {{#unless item.data.data.containerId}}
       <li class="item-entry">
         <div class="item flexrow" data-item-id="{{item.id}}">
           <div class="item-name flexrow">
@@ -156,12 +202,7 @@
         </div>
         {{/if}}
         {{/if}}
-        {{#each itemIds as |id|}}
-          {{id}}
-        {{/each}}
       </li>
-      {{/unless}}
-      {{/unless}}
       {{/each}}
     </ol>
   </div>
@@ -179,8 +220,7 @@
       </div>
     </li>
     <ol class="item-list">
-      {{#each owned.items as |item|}}
-      {{#if item.data.data.treasure}}
+      {{#each owned.treasures as |item|}}
       <li class="item-entry">
         <div class="item flexrow" data-item-id="{{item.id}}">
           <div class="item-name flexrow">
@@ -207,7 +247,6 @@
           </div>
         </div>
       </li>
-      {{/if}}
       {{/each}}
     </ol>
   </div>

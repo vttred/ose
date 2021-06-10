@@ -15,6 +15,14 @@
     font-weight: bold;
     animation: 0.8s ease-in 1s infinite alternate notify;
   }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    border: 1px solid $colorTan;
+  }
+  ::-webkit-scrollbar-track {
+    border-radius: 2px;
+    background: $colorDark;
+  }
   .panel {
     border: 1px solid $colorDark;
     .panel-title {
@@ -264,6 +272,26 @@
               background: rgba(0, 0, 0, 0.1);
             }
           }
+          .item-gallery {
+            display: flex;
+            margin-left: 36px;
+            overflow-x: auto;
+            .item-entry {
+              &:nth-child(even) .item {
+                background: none;
+              }
+              padding: 0 1px;
+              box-shadow: none;
+              .item-square {
+                box-shadow: 0 0 1px $colorFaint;
+                .item-image {
+                  background-size: 28px;
+                  height: 28px;
+                  width: 28px;
+                }
+              }
+            }
+          }
         }
         .item {
           line-height: 30px;
@@ -312,7 +340,8 @@
             color: $colorDark;
             text-indent: 3px;
           }
-          .full-mark, .empty-mark {
+          .full-mark,
+          .empty-mark {
             cursor: pointer;
             flex: 0 8px;
             margin: 1px;
@@ -389,7 +418,8 @@
         }
         a:hover {
           color: $colorCrimson;
-          text-shadow: 0 0 5px $colorFaint, 1px 0 5px $colorFaint, 0 1px 5px $colorFaint, 1px 1px 5px $colorFaint;
+          text-shadow: 0 0 5px $colorFaint, 1px 0 5px $colorFaint,
+            0 1px 5px $colorFaint, 1px 1px 5px $colorFaint;
         }
       }
       &.spells {

@@ -43,20 +43,26 @@ export class OseActorSheetCharacter extends OseActorSheet {
    */
   _prepareItems(data) {
     const itemsData = this.actor.data.items;
+    const containerContents = {};
     // Partition items by category
-    let [items, weapons, armors, abilities, spells] = itemsData.reduce(
+    let [containers, treasures, items, weapons, armors, abilities, spells] = itemsData.reduce(
       (arr, item) => {
         // Classify items into types
-        if (item.type === "item") arr[0].push(item);
-        else if (item.type === "weapon") arr[1].push(item);
-        else if (item.type === "armor") arr[2].push(item);
-        else if (item.type === "ability") arr[3].push(item);
-        else if (item.type === "spell") arr[4].push(item);
+        const containerId = item?.data?.data?.containerId;
+        if (containerId) {
+          containerContents[containerId] = [...(containerContents[containerId] || []), item];
+        }
+        else if (item.type === "container") arr[0].push(item);
+        else if (item.type === "item" && item?.data?.data?.treasure) arr[1].push(item);
+        else if (item.type === "item") arr[2].push(item);
+        else if (item.type === "weapon") arr[3].push(item);
+        else if (item.type === "armor") arr[4].push(item);
+        else if (item.type === "ability") arr[5].push(item);
+        else if (item.type === "spell") arr[6].push(item);
         return arr;
       },
-      [[], [], [], [], []]
+      [[], [], [], [], [], [], []]
     );
-
     // Sort spells by level
     var sortedSpells = {};
     var slots = {};
@@ -70,13 +76,19 @@ export class OseActorSheetCharacter extends OseActorSheet {
     data.slots = {
       used: slots,
     };
+    containers.map((val, key, arr) => {
+      arr[key].data.data.itemIds = containerContents[val.id] || [];
+      arr[key].data.data.totalWeight += containerContents[val.id]?.data?.data?.weight || 0;
+    });
     // Assign and return
     data.owned = {
       items: items,
       armors: armors,
-      weapons: weapons
+      weapons: weapons,
+      treasures: treasures,
+      containers: containers,
     };
-
+    data.containers = containers;
     data.abilities = abilities;
     data.spells = sortedSpells;
 
@@ -238,9 +250,23 @@ export class OseActorSheetCharacter extends OseActorSheet {
 
     // Delete Inventory Item
     html.find(".item-delete").click((ev) => {
-      const li = $(ev.currentTarget).parents(".item");
-      this.actor.deleteEmbeddedDocuments("Item", [li.data("itemId")]);
-      li.slideUp(200, () => this.render(false));
+      const li = ev.currentTarget.closest(".item");
+      const item = this.actor.items.get(li.dataset.itemId);
+      if (item.type == "container") {
+        const updateData = item.data.data.itemIds.reduce((acc, val) => {
+          acc.push({
+            _id: val.id,
+            "data.containerId": ""
+          })
+          return acc;
+        }, []);
+        this.actor.updateEmbeddedDocuments("Item", updateData).then(() => {
+          this.actor.deleteEmbeddedDocuments("Item", [li.dataset.itemId]);
+        });
+        return;
+      }
+      this.actor.deleteEmbeddedDocuments("Item", [li.dataset.itemId]);
+      $(li).slideUp(200, () => this.render(false));
     });
 
     html.find(".item-push").click((ev) => {

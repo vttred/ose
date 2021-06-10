@@ -75,6 +75,8 @@ export class OseActorSheetMonster extends OseActorSheet {
       armors: armors,
     };
     data.spells = sortedSpells;
+    [...Object.values(data.attackPatterns), ...Object.values(data.owned), ...Object.values(data.spells)].forEach(o => o.sort((a, b) => (a.data.sort || 0) - (b.data.sort || 0)));
+  
   }
 
   /**

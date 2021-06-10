@@ -165,7 +165,9 @@
       },
       "treasure": false,
       "cost": 0,
-      "weight": 0
+      "weight": 0,
+      "containerId": "",
+      "isContainer": false
     },
     "weapon": {
       "range": {
@@ -188,7 +190,8 @@
       "counter": {
         "value": 0,
         "max": 0
-      }
+      },
+      "containerId": ""
     },
     "armor": {
       "description": "",
@@ -197,7 +200,8 @@
       "type": "light",
       "cost": 0,
       "equipped": false,
-      "weight": 0
+      "weight": 0,
+      "containerId": ""
     },
     "spell": {
       "lvl": 1,

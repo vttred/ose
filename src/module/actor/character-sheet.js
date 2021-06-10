@@ -42,8 +42,9 @@ export class OseActorSheetCharacter extends OseActorSheet {
    * @private
    */
   _prepareItems(data) {
+    const itemsData = this.actor.data.items;
     // Partition items by category
-    let [items, weapons, armors, abilities, spells] = this.actor.data.items.reduce(
+    let [items, weapons, armors, abilities, spells] = itemsData.reduce(
       (arr, item) => {
         // Classify items into types
         if (item.type === "item") arr[0].push(item);
@@ -75,8 +76,12 @@ export class OseActorSheetCharacter extends OseActorSheet {
       armors: armors,
       weapons: weapons
     };
+
     data.abilities = abilities;
     data.spells = sortedSpells;
+
+    // Sort by sort order (see ActorSheet)
+    [...Object.values(data.owned), ...Object.values(data.spells), data.abilities].forEach(o => o.sort((a, b) => (a.data.sort || 0) - (b.data.sort || 0)));
   }
 
   generateScores() {

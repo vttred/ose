@@ -11,14 +11,15 @@ export class OseActorSheet extends ActorSheet {
     const data = foundry.utils.deepClone(super.getData().data);
     data.owner = this.actor.isOwner;
     data.editable = this.actor.sheet.isEditable;
-    
-    data.config = {...CONFIG.OSE,
+
+    data.config = {
+      ...CONFIG.OSE,
       ascendingAC: game.settings.get("ose", "ascendingAC"),
       initiative: game.settings.get("ose", "initiative") != "group",
       encumbrance: game.settings.get("ose", "encumbranceOption")
     };
     data.isNew = this.actor.isNew();
-    
+
     return data;
   }
 
@@ -26,7 +27,7 @@ export class OseActorSheet extends ActorSheet {
     // remove some controls to the editor as the space is lacking
     if (name == "data.details.description") {
       options.toolbar = "styleselect bullist hr table removeFormat save";
-    } 
+    }
     super.activateEditor(name, options, initialContent);
   }
 
@@ -152,15 +153,32 @@ export class OseActorSheet extends ActorSheet {
       const el = ev.currentTarget.parentElement.parentElement.children[0];
       const id = el.dataset.itemId;
       const item = this.actor.items.get(id);
-      item.update({"data.quantity.value": item.data.data.quantity.value + 1});
+      item.update({ "data.quantity.value": item.data.data.quantity.value + 1 });
     });
 
     html.find(".item-entry .consumable-counter .full-mark").click(ev => {
       const el = ev.currentTarget.parentElement.parentElement.children[0];
       const id = el.dataset.itemId;
       const item = this.actor.items.get(id);
-      item.update({"data.quantity.value": item.data.data.quantity.value - 1});
+      item.update({ "data.quantity.value": item.data.data.quantity.value - 1 });
     });
+  }
+
+  _onSortItem(event, itemData) {
+
+    // Get the drag source and its siblings
+    const source = this.actor.items.get(itemData._id);
+    const siblings = this.actor.items.filter(i => {
+      return (i.data.type === source.data.type) && (i.data._id !== source.data._id);
+    });
+
+    // Get the drop target
+    const dropTarget = event.target.closest("[data-item-id]");
+    const targetId = dropTarget ? dropTarget.dataset.itemId : null;
+    const target = siblings.find(s => s.data._id === targetId);
+
+    
+    super._onSortItem(event, itemData);
   }
 
   // Override to set resizable initial size

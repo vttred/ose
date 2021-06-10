@@ -210,6 +210,7 @@
   "OSE.items.ArmorAAC": "CAA",
   "OSE.items.Bonus": "Bonus",
   "OSE.items.AtkBonus": "Bonus d'Attaque",
+  "OSE.items.Container": "Conteneur",
   "OSE.items.roundAttacks": "Attaques utilisées ce tour",
   "OSE.items.roundAttacksMax": "Attaques max par tour",
   "OSE.items.resetAttacks": "Réinitialiser les Attaques",

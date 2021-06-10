@@ -1,7 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.1.13] - 2021-06-XX
+## [1.1.14] - 2021-06-1X
+## Added
+- Items can now be sorted with drag/dropping
+### Changed
+
+## [1.1.13] - 2021-06-10
 ### Changed
 - Fixed compendium rendering issue
 - Fixed monster items can't be edited issue #179

@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.1.13] - 2021-06-XX
+### Changed
+- Fixed compendium rendering issue
+- Fixed monster items can't be edited issue #179
+
 ## [1.1.12] - 2021-06-09
 ### Changed
 - Fixed shield computation for AAC

@@ -39,7 +39,7 @@ export class OseActorSheetMonster extends OseActorSheet {
   _prepareItems(data) {
     // Partition items by category
     data.attackPatterns = {};
-    let [items, armors, spells] = data.items.reduce(
+    let [items, armors, spells] = this.actor.data.items.reduce(
       (arr, item) => {
         // Grab attack groups
         if (["weapon", "ability"].includes(item.type)) {

@@ -2,8 +2,8 @@
   "name": "ose",
   "title": "Old-School Essentials",
   "description": "Play B/X OSR modules with Old-School Essentials on Foundry VTT",
-  "version": "1.1.12",
-  "minimumCoreVersion": "0.8.4",
+  "version": "1.1.13",
+  "minimumCoreVersion": "0.8.6",
   "compatibleCoreVersion": "0.8.6",
   "templateVersion": 2,
   "author": "U~man",
@@ -41,5 +41,5 @@
   "gridUnits": "ft",
   "url": "https://gitlab.com/mesfoliesludiques/foundryvtt-ose",
   "manifest": "https://gitlab.com/mesfoliesludiques/foundryvtt-ose/raw/master/src/system.json",
-  "download": "https://gitlab.com/mesfoliesludiques/foundryvtt-ose/-/raw/master/package/ose-v1.1.12.zip"
+  "download": "https://gitlab.com/mesfoliesludiques/foundryvtt-ose/-/raw/master/package/ose-v1.1.13.zip"
 }

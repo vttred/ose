@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.2.0] - 2021-06-1X
+## [1.2.0] - 2021-06-16
 ## Added
 - Items can now be sorted with drag/dropping
 - Containers entity can be added to sheets and can sort items with drag/dropping

@@ -76,9 +76,11 @@ export class OseActorSheetCharacter extends OseActorSheet {
     data.slots = {
       used: slots,
     };
-    containers.map((val, key, arr) => {
-      arr[key].data.data.itemIds = containerContents[val.id] || [];
-      arr[key].data.data.totalWeight += containerContents[val.id]?.data?.data?.weight || 0;
+    containers.map((container, key, arr) => {
+      arr[key].data.data.itemIds = containerContents[container.id] || [];
+      arr[key].data.data.totalWeight = containerContents[container.id]?.reduce((acc, item) => {
+        return acc + item.data?.data?.weight * (item.data?.data?.quantity?.value || 1);
+      }, container.data?.data?.weight);
     });
     // Assign and return
     data.owned = {
@@ -189,12 +191,25 @@ export class OseActorSheetCharacter extends OseActorSheet {
     }).render(true);
   }
 
+   async _onShowItemTooltip(event) {
+    let templateData = {},
+      dlg = await renderTemplate(
+        "/systems/ose/templates/actors/partials/character-item-tooltip.html",
+        templateData
+      );
+      document.querySelector(".game").append(dlg);
+  }
+
   /**
    * Activate event listeners using the prepared sheet HTML
    * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
    */
   activateListeners(html) {
     super.activateListeners(html);
+
+    html.find(".item-square").hover((event) => {
+      this._onShowItemTooltip(event);
+    })
 
     html.find(".ability-score .attribute-name a").click((ev) => {
       let actorObject = this.actor;

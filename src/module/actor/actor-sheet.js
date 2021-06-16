@@ -145,7 +145,7 @@ export class OseActorSheet extends ActorSheet {
       .change(this._onSpellChange.bind(this));
 
 
-    html.find(".spells .item-reset").click((ev) => {
+    html.find(".spells .item-reset[data-action='reset-spells']").click((ev) => {
       this._resetSpells(ev);
     });
 

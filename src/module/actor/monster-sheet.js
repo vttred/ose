@@ -43,11 +43,10 @@ export class OseActorSheetMonster extends OseActorSheet {
       (arr, item) => {
         // Grab attack groups
         if (["weapon", "ability"].includes(item.type)) {
-          if (data.attackPatterns[item.data.pattern] === undefined) data.attackPatterns[item.data.pattern] = [];
-          data.attackPatterns[item.data.pattern].push(item);
+          if (data.attackPatterns[item.data.data.pattern] === undefined) data.attackPatterns[item.data.data.pattern] = [];
+          data.attackPatterns[item.data.data.pattern].push(item);
           return arr;
         }
-        
         // Classify items into types
         if (item.type === "item") arr[0].push(item);
         else if (item.type === "armor") arr[1].push(item);
@@ -60,10 +59,10 @@ export class OseActorSheetMonster extends OseActorSheet {
     var sortedSpells = {};
     var slots = {};
     for (var i = 0; i < spells.length; i++) {
-      let lvl = spells[i].data.lvl;
+      let lvl = spells[i].data.data.lvl;
       if (!sortedSpells[lvl]) sortedSpells[lvl] = [];
       if (!slots[lvl]) slots[lvl] = 0;
-      slots[lvl] += spells[i].data.memorized;
+      slots[lvl] += spells[i].data.data.memorized;
       sortedSpells[lvl].push(spells[i]);
     }
     data.slots = {
@@ -184,14 +183,14 @@ export class OseActorSheetMonster extends OseActorSheet {
     });
   }
 
-  async _resetCounters(event) {
+  async _resetAttacks(event) {
     const weapons = this.actor.data.items.filter(i => i.type === 'weapon');
     for (let wp of weapons) {
       const item = this.actor.items.get(wp.id);
       await item.update({
         data: {
           counter: {
-            value: parseInt(wp.data.counter.max),
+            value: parseInt(wp.data.data.counter.max),
           },
         },
       });
@@ -282,8 +281,8 @@ export class OseActorSheetMonster extends OseActorSheet {
       return this.actor.createEmbeddedDocuments("Item", [itemData], {});
     });
 
-    html.find(".item-reset").click((ev) => {
-      this._resetCounters(ev);
+    html.find(".item-reset[data-action='reset-attacks']").click((ev) => {
+      this._resetAttacks(ev);
     });
 
     html

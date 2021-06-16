@@ -275,6 +275,7 @@
           .item-gallery {
             display: flex;
             margin-left: 36px;
+            margin-bottom: 2px;
             overflow-x: auto;
             .item-entry {
               &:nth-child(even) .item {
@@ -284,10 +285,30 @@
               box-shadow: none;
               .item-square {
                 box-shadow: 0 0 1px $colorFaint;
+                height: 28px;
+                width: 28px;
+                cursor: pointer;
+                position: relative;
+                &:hover {
+                  box-shadow: 0 0 1px $colorCrimson;
+                  border: 1px solid red;
+                  box-sizing: border-box;
+                }
                 .item-image {
-                  background-size: 28px;
                   height: 28px;
                   width: 28px;
+                  background-size: 28px 28px;
+                  background-position: center;
+                }
+                .item-quantity {
+                  position: absolute;
+                  top: 6px;
+                  right: 1px;
+                  text-shadow: 0 0 2px black;
+                  font-size: 12px;
+                  font-weight: 600;
+                  color: white;
+                  pointer-events: none;
                 }
               }
             }

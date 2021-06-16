@@ -1,10 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.1.14] - 2021-06-1X
+## [1.2.0] - 2021-06-1X
 ## Added
 - Items can now be sorted with drag/dropping
+- Containers entity can be added to sheets and can sort items with drag/dropping
 ### Changed
+- Fixed monster attack groups
+- Fixed monster spell counters
+- Fixed monster spells
 
 ## [1.1.13] - 2021-06-10
 ### Changed

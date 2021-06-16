@@ -143,7 +143,7 @@
           {{#each bag.data.data.itemIds as |item|}}
           <div class="item-entry">
             <div class="item item-square" data-item-id="{{item.id}}">
-              <div class="item-control item-edit item-image" style="background-image: url({{item.img}})"></div>
+              <div class="item-control item-edit item-image" style="background-image: url({{item.img}})" title="{{item.name}}"></div>
               {{#if item.data.data.quantity.value}}
               <span class="item-quantity">{{item.data.data.quantity.value}}</span>
               {{/if}}

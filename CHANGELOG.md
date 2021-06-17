@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.2.2] - 2021-06-17
+## Added
+- Italian language
+## Changed
+- Fixed treasure rolls displaying all items
+
 ## [1.2.1] - 2021-06-17
 ## Changed
 - Fixed entity tweaks displaying ac modifier when it should display aac

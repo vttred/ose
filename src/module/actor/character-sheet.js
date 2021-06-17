@@ -80,8 +80,10 @@ export class OseActorSheetCharacter extends OseActorSheet {
       arr[key].data.data.itemIds = containerContents[container.id] || [];
       arr[key].data.data.totalWeight = containerContents[container.id]?.reduce((acc, item) => {
         return acc + item.data?.data?.weight * (item.data?.data?.quantity?.value || 1);
-      }, container.data?.data?.weight);
+      }, 0);
+      return arr;
     });
+    
     // Assign and return
     data.owned = {
       items: items,

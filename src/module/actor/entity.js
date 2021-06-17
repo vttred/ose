@@ -556,7 +556,7 @@ export class OseActor extends Actor {
       ) {
         return acc + item.data.data.quantity.value * item.data.data.weight;
       }
-      if (["weapon", "armor"].includes(item.type) && option !== "basic") {
+      if (["weapon", "armor", "container"].includes(item.type) && option !== "basic") {
         return acc + item.data.data.weight;
       }
       return acc;

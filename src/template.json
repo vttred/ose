@@ -171,6 +171,7 @@
     },
     "container": {
       "description": "",
+      "cost": 0,
       "weight": 0
     },
     "weapon": {

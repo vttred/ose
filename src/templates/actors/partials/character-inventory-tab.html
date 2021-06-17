@@ -110,6 +110,7 @@
     <li class="item-titles flexrow">
       <div class="item-caret"><i class="fas fa-caret-down"></i></div>
       <div class="item-name">{{localize "OSE.items.Containers"}}</div>
+      <div class="field-short"><i class="fas fa-suitcase"></i></div>
       <div class="field-short"><i class="fas fa-weight-hanging"></i></div>
       <div class="item-controls">
         <a class="item-control item-create" data-type="container" title="{{localize 'OSE.Add'}}"><i
@@ -131,6 +132,10 @@
           <div class="field-short">
             {{#if (eq @root.config.encumbrance "basic")}}_{{else if (eq @root.config.encumbrance
             "detailed")}}_{{else}}{{bag.data.data.totalWeight}}{{/if}}
+          </div>
+          <div class="field-short">
+            {{#if (eq @root.config.encumbrance "basic")}}_{{else if (eq @root.config.encumbrance
+            "detailed")}}_{{else}}{{bag.data.data.weight}}{{/if}}
           </div>
           <div class="item-controls">
             {{#if @root.owner}}

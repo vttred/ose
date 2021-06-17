@@ -37,23 +37,33 @@ export class OseActorSheetMonster extends OseActorSheet {
    * @private
    */
   _prepareItems(data) {
+    const itemsData = this.actor.data.items;
+    const containerContents = {};
+    const attackPatterns = {};
+
     // Partition items by category
-    data.attackPatterns = {};
-    let [items, armors, spells] = this.actor.data.items.reduce(
+    let [items, armors, spells, containers] = itemsData.reduce(
       (arr, item) => {
+        // Classify items into types
+        const containerId = item?.data?.data?.containerId;
+        if (containerId) {
+          containerContents[containerId] = [...(containerContents[containerId] || []), item];
+          return arr;
+        }
         // Grab attack groups
         if (["weapon", "ability"].includes(item.type)) {
-          if (data.attackPatterns[item.data.data.pattern] === undefined) data.attackPatterns[item.data.data.pattern] = [];
-          data.attackPatterns[item.data.data.pattern].push(item);
+          if (attackPatterns[item.data.data.pattern] === undefined) attackPatterns[item.data.data.pattern] = [];
+          attackPatterns[item.data.data.pattern].push(item);
           return arr;
         }
         // Classify items into types
         if (item.type === "item") arr[0].push(item);
         else if (item.type === "armor") arr[1].push(item);
         else if (item.type === "spell") arr[2].push(item);
+        else if (item.type === "container") arr[3].push(item);
         return arr;
       },
-      [[], [], []]
+      [[], [], [], []]
     );
     // Sort spells by level
     var sortedSpells = {};
@@ -68,11 +78,20 @@ export class OseActorSheetMonster extends OseActorSheet {
     data.slots = {
       used: slots,
     };
+    containers.map((container, key, arr) => {
+      arr[key].data.data.itemIds = containerContents[container.id] || [];
+      arr[key].data.data.totalWeight = containerContents[container.id]?.reduce((acc, item) => {
+        return acc + item.data?.data?.weight * (item.data?.data?.quantity?.value || 1);
+      }, 0);
+      return arr;
+    });
     // Assign and return
     data.owned = {
       items: items,
+      containers: containers,
       armors: armors,
     };
+    data.attackPatterns = attackPatterns;
     data.spells = sortedSpells;
     [...Object.values(data.attackPatterns), ...Object.values(data.owned), ...Object.values(data.spells)].forEach(o => o.sort((a, b) => (a.data.sort || 0) - (b.data.sort || 0)));
   

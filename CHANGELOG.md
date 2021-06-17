@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.2.1] - 2021-06-17
+## Changed
+- Fixed entity tweaks displaying ac modifier when it should display aac
+- Fixed weight calculation of containers
+- Fixed containers on monster inventories
+- Fixed container cost not registered in template.json
+
 ## [1.2.0] - 2021-06-16
 ## Added
 - Items can now be sorted with drag/dropping

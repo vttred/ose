@@ -603,14 +603,17 @@ export class OseActor extends Actor {
       } else {
         data.movement.base = 120;
       }
-    } else if (option == "basic") {
-      const armors = this.data.items.filter((i) => i.type == "armor");
+    } else if (option === "basic") {
+      const armors = this.data.items.filter((i) => i.type === "armor");
       let heaviest = 0;
       armors.forEach((a) => {
-        if (a.data.equipped) {
-          if (a.data.type == "light" && heaviest == 0) {
+        let armorData = a.data.data;
+        let weight = armorData.type;
+        let equipped = armorData.equipped;
+        if (equipped) {
+          if (weight === "light" && heaviest === 0) {
             heaviest = 1;
-          } else if (a.data.type == "heavy") {
+          } else if (weight === "heavy") {
             heaviest = 2;
           }
         }

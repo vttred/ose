@@ -594,11 +594,11 @@ export class OseActor extends Actor {
     if (["detailed", "complete"].includes(option)) {
       if (weight > data.encumbrance.max) {
         data.movement.base = 0;
-      } else if (weight > 800 + delta) {
+      } else if (weight >= 800 + delta) {
         data.movement.base = 30;
-      } else if (weight > 600 + delta) {
+      } else if (weight >= 600 + delta) {
         data.movement.base = 60;
-      } else if (weight > 400 + delta) {
+      } else if (weight >= 400 + delta) {
         data.movement.base = 90;
       } else {
         data.movement.base = 120;
@@ -629,7 +629,7 @@ export class OseActor extends Actor {
           data.movement.base = 60;
           break;
       }
-      if (weight > game.settings.get("ose", "significantTreasure")) {
+      if (weight >= game.settings.get("ose", "significantTreasure")) {
         data.movement.base -= 30;
       }
     }

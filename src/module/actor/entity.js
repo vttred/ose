@@ -545,8 +545,8 @@ export class OseActor extends Actor {
     let option = game.settings.get("ose", "encumbranceOption");
     const items = [...this.data.items.values()];
     // Compute encumbrance
-    const hasItems = items.every((item) => {
-      return item.type != "item" && !item.data.treasure;
+    const hasItems = items.some((item) => {
+      return item.type === "item" && !item.data.treasure;
     });
 
     let totalWeight = items.reduce((acc, item) => {

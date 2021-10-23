@@ -542,11 +542,11 @@ export class OseActor extends Actor {
       return;
     }
     const data = this.data.data;
-    let option = game.settings.get("ose", "encumbranceOption");
+    const option = game.settings.get("ose", "encumbranceOption");
     const items = [...this.data.items.values()];
     // Compute encumbrance
-    const hasItems = items.some((item) => {
-      return item.type === "item" && !item.data.treasure;
+    const hasAdventuringGear = items.some((item) => {
+      return item.type === "item" && !item.data.data.treasure;
     });
 
     let totalWeight = items.reduce((acc, item) => {
@@ -562,23 +562,26 @@ export class OseActor extends Actor {
       return acc;
     }, 0);
 
-    if (option === "detailed" && hasItems) totalWeight += 80;
+    if (option === "detailed" && hasAdventuringGear) totalWeight += 80;
 
-    const max =
-      option === "basic"
-        ? game.settings.get("ose", "significantTreasure")
-        : data.encumbrance.max;
+    // Compute weigth thresholds
+    const max = data.encumbrance.max;
+    const basicSignificantEncumbrance = game.settings.get("ose", "significantTreasure");
 
-    let steps = ["detailed", "complete"].includes(option)
-      ? [(100 * 400) / max, (100 * 600) / max, (100 * 800) / max]
-      : [];
+    const steps = ["detailed", "complete"].includes(option)
+      ? [400, 600, 800]
+      : option === "basic"
+        ? [basicSignificantEncumbrance]
+        : [];
+
+    const percentSteps = steps.map(s => 100 * s / max);
 
     data.encumbrance = {
       pct: Math.clamped((100 * parseFloat(totalWeight)) / max, 0, 100),
       max: max,
       encumbered: totalWeight > data.encumbrance.max,
       value: totalWeight,
-      steps: steps,
+      steps: percentSteps,
     };
 
     if (data.config.movementAuto && option != "disabled") {

@@ -632,7 +632,9 @@ export class OseActor extends Actor {
           data.movement.base = 60;
           break;
       }
-      if (weight >= game.settings.get("ose", "significantTreasure")) {
+      if (weight >= data.encumbrance.max) {
+        data.movement.base = 0;
+      } else if (weight >= game.settings.get("ose", "significantTreasure")) {
         data.movement.base -= 30;
       }
     }

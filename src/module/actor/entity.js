@@ -595,7 +595,7 @@ export class OseActor extends Actor {
     const weight = data.encumbrance.value;
     const delta = data.encumbrance.max - 1600;
     if (["detailed", "complete"].includes(option)) {
-      if (weight > data.encumbrance.max) {
+      if (weight >= data.encumbrance.max) {
         data.movement.base = 0;
       } else if (weight >= 800 + delta) {
         data.movement.base = 30;

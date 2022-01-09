@@ -591,9 +591,9 @@ export class OseActor extends Actor {
 
   _calculateMovement() {
     const data = this.data.data;
-    let option = game.settings.get("ose", "encumbranceOption");
-    let weight = data.encumbrance.value;
-    let delta = data.encumbrance.max - 1600;
+    const option = game.settings.get("ose", "encumbranceOption");
+    const weight = data.encumbrance.value;
+    const delta = data.encumbrance.max - 1600;
     if (["detailed", "complete"].includes(option)) {
       if (weight > data.encumbrance.max) {
         data.movement.base = 0;
@@ -610,9 +610,9 @@ export class OseActor extends Actor {
       const armors = this.data.items.filter((i) => i.type === "armor");
       let heaviest = 0;
       armors.forEach((a) => {
-        let armorData = a.data.data;
-        let weight = armorData.type;
-        let equipped = armorData.equipped;
+        const armorData = a.data.data;
+        const weight = armorData.type;
+        const equipped = armorData.equipped;
         if (equipped) {
           if (weight === "light" && heaviest === 0) {
             heaviest = 1;

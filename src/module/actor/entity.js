@@ -542,11 +542,11 @@ export class OseActor extends Actor {
       return;
     }
     const data = this.data.data;
-    let option = game.settings.get("ose", "encumbranceOption");
+    const option = game.settings.get("ose", "encumbranceOption");
     const items = [...this.data.items.values()];
     // Compute encumbrance
-    const hasItems = items.every((item) => {
-      return item.type != "item" && !item.data.treasure;
+    const hasAdventuringGear = items.some((item) => {
+      return item.type === "item" && !item.data.data.treasure;
     });
 
     let totalWeight = items.reduce((acc, item) => {
@@ -562,23 +562,26 @@ export class OseActor extends Actor {
       return acc;
     }, 0);
 
-    if (option === "detailed" && hasItems) totalWeight += 80;
+    if (option === "detailed" && hasAdventuringGear) totalWeight += 80;
 
-    const max =
-      option === "basic"
-        ? game.settings.get("ose", "significantTreasure")
-        : data.encumbrance.max;
+    // Compute weigth thresholds
+    const max = data.encumbrance.max;
+    const basicSignificantEncumbrance = game.settings.get("ose", "significantTreasure");
 
-    let steps = ["detailed", "complete"].includes(option)
-      ? [(100 * 400) / max, (100 * 600) / max, (100 * 800) / max]
-      : [];
+    const steps = ["detailed", "complete"].includes(option)
+      ? [400, 600, 800]
+      : option === "basic"
+        ? [basicSignificantEncumbrance]
+        : [];
+
+    const percentSteps = steps.map(s => 100 * s / max);
 
     data.encumbrance = {
       pct: Math.clamped((100 * parseFloat(totalWeight)) / max, 0, 100),
       max: max,
       encumbered: totalWeight > data.encumbrance.max,
       value: totalWeight,
-      steps: steps,
+      steps: percentSteps,
     };
 
     if (data.config.movementAuto && option != "disabled") {
@@ -588,29 +591,32 @@ export class OseActor extends Actor {
 
   _calculateMovement() {
     const data = this.data.data;
-    let option = game.settings.get("ose", "encumbranceOption");
-    let weight = data.encumbrance.value;
-    let delta = data.encumbrance.max - 1600;
+    const option = game.settings.get("ose", "encumbranceOption");
+    const weight = data.encumbrance.value;
+    const delta = data.encumbrance.max - 1600;
     if (["detailed", "complete"].includes(option)) {
-      if (weight > data.encumbrance.max) {
+      if (weight >= data.encumbrance.max) {
         data.movement.base = 0;
-      } else if (weight > 800 + delta) {
+      } else if (weight >= 800 + delta) {
         data.movement.base = 30;
-      } else if (weight > 600 + delta) {
+      } else if (weight >= 600 + delta) {
         data.movement.base = 60;
-      } else if (weight > 400 + delta) {
+      } else if (weight >= 400 + delta) {
         data.movement.base = 90;
       } else {
         data.movement.base = 120;
       }
-    } else if (option == "basic") {
-      const armors = this.data.items.filter((i) => i.type == "armor");
+    } else if (option === "basic") {
+      const armors = this.data.items.filter((i) => i.type === "armor");
       let heaviest = 0;
       armors.forEach((a) => {
-        if (a.data.equipped) {
-          if (a.data.type == "light" && heaviest == 0) {
+        const armorData = a.data.data;
+        const weight = armorData.type;
+        const equipped = armorData.equipped;
+        if (equipped) {
+          if (weight === "light" && heaviest === 0) {
             heaviest = 1;
-          } else if (a.data.type == "heavy") {
+          } else if (weight === "heavy") {
             heaviest = 2;
           }
         }
@@ -626,7 +632,9 @@ export class OseActor extends Actor {
           data.movement.base = 60;
           break;
       }
-      if (weight > game.settings.get("ose", "significantTreasure")) {
+      if (weight >= data.encumbrance.max) {
+        data.movement.base = 0;
+      } else if (weight >= game.settings.get("ose", "significantTreasure")) {
         data.movement.base -= 30;
       }
     }

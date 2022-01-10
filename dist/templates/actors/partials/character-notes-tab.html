@@ -1,0 +1,44 @@
+<section class="notes-tab">
+    <div class="inventory">
+        <div class="flexrow">
+            <div class="languages">
+                <div class="item-titles flexrow">
+                    <div class="item-name">
+                        {{localize "OSE.category.languages"}}
+                    </div>
+                    <div class="item-controls">
+                        <a class="item-control item-push" data-array="languages" title="{{localize 'OSE.Add'}}"><i
+                                class="fa fa-plus"></i></a>
+                    </div>
+                </div>
+                <ol>
+                    {{#each data.languages.value as |lang|}}
+                    <li class="item flexrow" data-lang="{{lang}}">
+                        <div class="item-name">
+                            {{lang}}
+                        </div>
+                        <div class="item-controls">
+                            <a class="item-control item-pop" data-array="languages" title="{{localize 'OSE.Del'}}"><i
+                                class="fa fa-trash"></i></a>
+                        </div>
+                    </li>
+                    {{/each}}
+                </ol>
+            </div>
+            <div class="flex3 description">
+                <div class="item-titles">{{localize "OSE.category.description"}}</div>
+                <div>
+                    {{editor content=data.details.description target="data.details.description"
+                button=true owner=owner editable=editable}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="inventory notes">
+        <div class="item-titles">{{localize "OSE.category.notes"}}</div>
+        <div class="resizable-editor" data-editor-size="140">
+            {{editor content=data.details.notes target="data.details.notes"
+            button=true owner=owner editable=editable}}
+        </div>
+    </div>
+</section>

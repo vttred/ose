@@ -12,6 +12,7 @@ const sass = require("gulp-sass");
 const git = require("gulp-git");
 
 const argv = require("yargs").argv;
+const { config } = require("yargs");
 
 sass.compiler = require("sass");
 
@@ -30,7 +31,9 @@ function getConfig() {
 function getManifest() {
   const json = {};
 
-  if (fs.existsSync("src")) {
+  if (config.manifest) {
+    json.root = config.manifest;
+  } else if (fs.existsSync("src")) {
     json.root = "src";
   } else {
     json.root = "dist";
@@ -82,7 +85,7 @@ function createTransformer() {
    * @param {typescript.TransformationContext} context
    */
   function importTransformer(context) {
-    return node => {
+    return (node) => {
       /**
        * @param {typescript.Node} node
        */
@@ -123,9 +126,9 @@ function createTransformer() {
 }
 
 const tsConfig = ts.createProject("tsconfig.json", {
-  getCustomTransformers: prgram => ({
-    after: [createTransformer()]
-  })
+  getCustomTransformers: (prgram) => ({
+    after: [createTransformer()],
+  }),
 });
 
 /********************/
@@ -136,20 +139,14 @@ const tsConfig = ts.createProject("tsconfig.json", {
  * Build TypeScript
  */
 function buildTS() {
-  return gulp
-    .src("src/**/*.ts")
-    .pipe(tsConfig())
-    .pipe(gulp.dest("dist"));
+  return gulp.src("src/**/*.ts").pipe(tsConfig()).pipe(gulp.dest("dist"));
 }
 
 /**
  * Build Less
  */
 function buildLess() {
-  return gulp
-    .src("src/*.less")
-    .pipe(less())
-    .pipe(gulp.dest("dist"));
+  return gulp.src("src/*.less").pipe(less()).pipe(gulp.dest("dist"));
 }
 
 /**
@@ -176,7 +173,7 @@ async function copyFiles() {
     "ose.js",
     "module.json",
     "system.json",
-    "template.json"
+    "template.json",
   ];
   try {
     for (const file of statics) {
@@ -267,11 +264,13 @@ async function linkUserData() {
   let destDir;
   try {
     if (
+      fs.existsSync(path.resolve(".", "module.json")) ||
       fs.existsSync(path.resolve(".", "dist", "module.json")) ||
       fs.existsSync(path.resolve(".", "src", "module.json"))
     ) {
       destDir = "modules";
     } else if (
+      fs.existsSync(path.resolve(".", "system.json")) ||
       fs.existsSync(path.resolve(".", "dist", "system.json")) ||
       fs.existsSync(path.resolve(".", "src", "system.json"))
     ) {
@@ -342,7 +341,7 @@ async function packageBuild() {
       return Promise.resolve();
     });
 
-    zip.on("error", err => {
+    zip.on("error", (err) => {
       throw err;
     });
 
@@ -458,7 +457,7 @@ function gitCommit() {
   return gulp.src("./*").pipe(
     git.commit(`v${getManifest().file.version}`, {
       args: "-a",
-      disableAppendPaths: true
+      disableAppendPaths: true,
     })
   );
 }
@@ -468,7 +467,7 @@ function gitTag() {
   return git.tag(
     `v${manifest.file.version}`,
     `Updated to ${manifest.file.version}`,
-    err => {
+    (err) => {
       if (err) throw err;
     }
   );

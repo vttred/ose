@@ -34,12 +34,12 @@
     {
       "lang": "fr",
       "name": "French (FRANCE)",
-      "path": "lang/fr.json"
+      "path": "dist/lang/fr.json"
     },
     {
       "lang": "es",
       "name": "Spanish",
-      "path": "lang/es.json"
+      "path": "dist/lang/es.json"
     }
   ],
   "gridDistance": 5,

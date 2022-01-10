@@ -1,0 +1,48 @@
+<form class="{{cssClass}}" autocomplete="off">
+  {{! Sheet Header }}
+  <header class="sheet-header flexrow">
+    {{> "systems/ose/templates/actors/partials/character-header.html"}}
+  </header>
+
+  {{! Sheet Tab Navigation }}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="attributes">
+      {{localize "OSE.category.attributes"}}
+    </a>
+    <a class="item" data-tab="abilities">
+      {{localize "OSE.category.abilities"}}
+    </a>
+    {{#if data.spells.enabled}}
+    <a class="item" data-tab="spells">
+      {{localize "OSE.category.spells"}}
+    </a>
+    {{/if}}
+    <a class="item" data-tab="inventory">
+      {{localize "OSE.category.inventory"}}
+    </a>
+    <a class="item" data-tab="notes">
+      {{localize "OSE.category.notes"}}
+    </a>
+  </nav>
+  {{! Sheet Body }}
+  <section class="sheet-body">
+    {{! Attributes Tab }}
+    <div class="tab" data-group="primary" data-tab="attributes">
+      {{> "systems/ose/templates/actors/partials/character-attributes-tab.html"}}
+    </div>
+    <div class="tab" data-group="primary" data-tab="abilities">
+      {{> "systems/ose/templates/actors/partials/character-abilities-tab.html"}}
+    </div>
+    {{#if data.spells.enabled}}
+    <div class="tab" data-group="primary" data-tab="spells">
+      {{> "systems/ose/templates/actors/partials/character-spells-tab.html"}}
+    </div>
+    {{/if}}
+    <div class="tab" data-group="primary" data-tab="inventory">
+      {{> "systems/ose/templates/actors/partials/character-inventory-tab.html"}}
+    </div>
+    <div class="tab" data-group="primary" data-tab="notes">
+      {{> "systems/ose/templates/actors/partials/character-notes-tab.html"}}
+    </div>
+  </section>
+</form>

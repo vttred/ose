@@ -1,0 +1,32 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <header class="sheet-header">
+    <img class="profile-img" src="{{img}}" data-edit="img" title="{{name}}" />
+    <div class="header-col">
+      <h1 class="charname">
+        <input name="name" type="text" value="{{name}}" placeholder="Name" />
+      </h1>
+    </div>
+  </header>
+  <section class="sheet-body">
+    <div class="flexrow">
+      <div class="stats">
+        <div class="form-group">
+          <label>{{localize 'OSE.items.Cost'}}</label>
+          <div class="form-fields">
+            <input type="text" name="data.cost" value="{{data.cost}}" data-dtype="Number" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>{{localize 'OSE.items.Weight'}}</label>
+          <div class="form-fields">
+            <input type="text" name="data.weight" value="{{data.weight}}" data-dtype="Number" />
+          </div>
+        </div>
+      </div>
+      <div class="description weapon-editor">
+        {{editor content=data.description target="data.description" button=true
+        owner=owner editable=editable}}
+      </div>
+    </div>
+  </section>
+</form>

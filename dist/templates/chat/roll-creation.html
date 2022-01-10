@@ -1,0 +1,29 @@
+<section class="ose chat-card">
+    <div class="ose chat-block">
+        <div class="flexrow chat-header">
+            <div class="chat-title"><h2>{{title}}</h2></div>
+            <div class="chat-img" style="background-image:url('{{data.actor.img}}')"></div>
+        </div>
+        <div class="flexrow">
+            <ol class="flex2">
+                {{#each scores as |score id|}}
+                <li class="flexrow">
+                    <div style="text-align:right;">
+                        {{lookup ../config.scores id}}
+                    </div>
+                    <div style="text-align:center;">
+                        {{score.value}}
+                    </div>
+                </li>
+                {{/each}}
+            </ol>
+            <div style="margin: 0.5em 0">
+                <div>Sum: {{stats.sum}}</div>
+                <div>Avg: {{stats.avg}}</div>
+                <div>σ: {{stats.std}}</div>
+                <hr>
+                <div>Gold: {{gold}}</div>
+            </div>
+        </div>
+    </div>
+</section>

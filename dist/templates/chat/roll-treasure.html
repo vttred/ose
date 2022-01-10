@@ -1,0 +1,26 @@
+<div class="ose chat-card treasure-card">
+    <header class="card-header flexrow">
+        <img src="/systems/ose/assets/treasure.png" title="{{table.name}}" width="36" height="36" />
+        <h3>{{table.name}}</h3>
+    </header>
+    <div class="card-content">
+        <ol class="treasure-list">
+            {{#each treasure as |t|}}
+            <li class="treasure flexrow">
+                {{#if t.img}}<img src="{{t.img}}" width="36" height="36" />{{/if}}
+                <div>
+                    <div>{{{t.text}}}</div>
+                    {{#each t.treasure}}
+                        <li class="sub flexrow">
+                            {{#if img}}<img src="{{img}}" width="28" height="28">{{/if}}
+                            <div>
+                                {{{text}}}
+                            </div>
+                        </li>
+                    {{/each}}
+                </div>
+            </li>
+            {{/each}}
+        </ol>
+    </div>
+</div>

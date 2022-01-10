@@ -1,0 +1,63 @@
+<ul class="attributes exploration flexrow">
+  <li class="attribute flexrow" data-exploration="ld">
+    <h4 class="attribute-name box-title" title="({{localize 'OSE.exploration.ld.abrev'}}) {{localize 'OSE.exploration.ld.long'}}"><a>{{ localize "OSE.exploration.ld.short" }}</a></h4>
+    <div class="attribute-value">
+      <input name="data.exploration.ld" type="text" value="{{data.exploration.ld}}" data-dtype="Number" placeholder="0" />
+    </div>
+  </li>
+  <li class="attribute flexrow" data-exploration="od">
+    <h4 class="attribute-name box-title" title="({{localize 'OSE.exploration.od.abrev'}}) {{localize 'OSE.exploration.od.long'}}"><a>{{ localize "OSE.exploration.od.short" }}</a>
+    </h4>
+    <div class="attribute-value">
+      <input name="data.exploration.od" type="text" value="{{data.exploration.od}}" placeholder="0" data-dtype="String" />
+    </div>
+  </li>
+  <li class="attribute flexrow" data-exploration="sd">
+    <h4 class="attribute-name box-title" title="({{localize 'OSE.exploration.sd.abrev'}}) {{localize 'OSE.exploration.sd.long'}}"><a>{{ localize "OSE.exploration.sd.short" }}</a>
+    </h4>
+    <div class="attribute-value">
+      <input name="data.exploration.sd" type="text" value="{{data.exploration.sd}}" placeholder="0" data-dtype="String" />
+    </div>
+  </li>
+  <li class="attribute flexrow" data-exploration="ft">
+    <h4 class="attribute-name box-title" title="({{localize 'OSE.exploration.ft.abrev'}}) {{localize 'OSE.exploration.ft.long'}}"><a>{{ localize "OSE.exploration.ft.short" }}</a>
+    </h4>
+    <div class="attribute-value">
+      <input name="data.exploration.ft" type="text" value="{{data.exploration.ft}}" placeholder="0" data-dtype="String" />
+    </div>
+  </li>
+</ul>
+<div class="inventory abilities">
+  <div class="item-titles flexrow">
+    <div class="item-name">{{localize 'OSE.category.abilities'}}</div>
+    <div class="item-controls">
+      {{#if owner}}
+      <a class="item-control item-create" title='{{localize "OSE.Add"}}' data-type="ability"><i
+          class="fas fa-plus"></i></a>
+      {{/if}}
+    </div>
+  </div>
+  <ol class="item-list resizable" data-base-size="260">
+    {{#each abilities as |item|}}
+    <li class="item-entry">
+      <div class="item flexrow" data-item-id="{{item.id}}">
+        <div class="item-name {{#if item.data.data.roll}}item-rollable{{/if}} flexrow">
+          <div class="item-image" style="background-image: url({{item.img}})"></div>
+          <a>
+            <h4 title="{{item.name}}">
+              {{item.name~}}
+            </h4>
+          </a>
+        </div>
+        <div class="item-controls">
+          {{#if ../owner}}
+          <a class="item-control item-show" title='{{localize "OSE.Show"}}'><i class="fas fa-eye"></i></a>
+          <a class="item-control item-edit" title='{{localize "OSE.Edit"}}'><i class="fas fa-edit"></i></a>
+          <a class="item-control item-delete" title='{{localize "OSE.Delete"}}'><i class="fas fa-trash"></i></a>
+          {{/if}}
+        </div>
+      </div>
+    </li>
+    {{/each}}
+  </ol>
+</div>

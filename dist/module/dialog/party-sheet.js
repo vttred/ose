@@ -58,12 +58,12 @@ export class OsePartySheet extends FormApplication {
   }
 
   async _selectActors(ev) {
-    const entities = this.object.entities.sort(
+    const actorDocuments = this.object.documents.sort(
       (a, b) => b.data.token.disposition - a.data.token.disposition
     );
     const template = "systems/ose/dist/templates/apps/party-select.html";
     const templateData = {
-      actors: entities,
+      actors: actorDocuments,
     };
     const content = await renderTemplate(template, templateData);
     new Dialog(
@@ -79,7 +79,7 @@ export class OsePartySheet extends FormApplication {
               await Promise.all(
                 checks.map(async (_, c) => {
                   let key = c.getAttribute("name");
-                  await this.object.entities[key].setFlag(
+                  await this.object.documents[key].setFlag(
                     "ose",
                     "party",
                     c.checked

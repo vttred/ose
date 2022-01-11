@@ -7,12 +7,12 @@ export class OseItem extends Item {
   // Replacing default image */
   static get defaultIcons() {
     return {
-      spell: "/systems/ose/assets/default/spell.png",
-      ability: "/systems/ose/assets/default/ability.png",
-      armor: "/systems/ose/assets/default/armor.png",
-      weapon: "/systems/ose/assets/default/weapon.png",
-      item: "/systems/ose/assets/default/item.png",
-      container: "/systems/ose/assets/default/bag.png"
+      spell: "assets/default/spell.png",
+      ability: "assets/default/ability.png",
+      armor: "assets/default/armor.png",
+      weapon: "assets/default/weapon.png",
+      item: "assets/default/item.png",
+      container: "assets/default/bag.png",
     };
   }
 
@@ -151,23 +151,37 @@ export class OseItem extends Item {
       case "container":
         return [];
       case "weapon":
-        tagList.push({label: data.damage, icon: "fa-tint"});
+        tagList.push({ label: data.damage, icon: "fa-tint" });
         data.tags.forEach((t) => {
-          tagList.push({label: t.value});
+          tagList.push({ label: t.value });
         });
-        tagList.push({label: CONFIG.OSE.saves_long[data.save], icon: "fa-skull"});
+        tagList.push({
+          label: CONFIG.OSE.saves_long[data.save],
+          icon: "fa-skull",
+        });
         if (data.missile) {
-          tagList.push({label: `${data.range.short}/${data.range.medium}/${data.range.long}`, icon: "fa-bullseye"});
+          tagList.push({
+            label: `${data.range.short}/${data.range.medium}/${data.range.long}`,
+            icon: "fa-bullseye",
+          });
         }
         return tagList;
       case "armor":
-        return [{label: CONFIG.OSE.armor[data.type], icon: "fa-tshirt"}];
+        return [{ label: CONFIG.OSE.armor[data.type], icon: "fa-tshirt" }];
       case "item":
         return [];
       case "spell":
-        tagList.push({label: data.class}, {label: data.range}, {label: data.duration}, {label: data.roll})
+        tagList.push(
+          { label: data.class },
+          { label: data.range },
+          { label: data.duration },
+          { label: data.roll }
+        );
         if (data.save) {
-          tagList.push({label: CONFIG.OSE.saves_long[data.save], icon:"fa-skull"});
+          tagList.push({
+            label: CONFIG.OSE.saves_long[data.save],
+            icon: "fa-skull",
+          });
         }
         return tagList;
       case "ability":
@@ -176,12 +190,18 @@ export class OseItem extends Item {
         roll += data.rollTarget ? CONFIG.OSE.roll_type[data.rollType] : "";
         roll += data.rollTarget ? data.rollTarget : "";
         const reqs = data.requirements.split(",");
-        reqs.forEach((r) => (tagList.push({label: r})));
+        reqs.forEach((r) => tagList.push({ label: r }));
         if (data.roll) {
-          tagList.push({label: `${game.i18n.localize("OSE.items.Roll")} ${roll}`});
+          tagList.push({
+            label: `${game.i18n.localize("OSE.items.Roll")} ${roll}`,
+          });
         }
         if (data.save) {
-          tagList.push({label: `${game.i18n.localize("OSE.spells.Save")} vs ${CONFIG.OSE.saves_long[data.save]}`});
+          tagList.push({
+            label: `${game.i18n.localize("OSE.spells.Save")} vs ${
+              CONFIG.OSE.saves_long[data.save]
+            }`,
+          });
         }
         return tagList;
     }
@@ -197,7 +217,9 @@ export class OseItem extends Item {
       }
       return `<li class='tag'>${fa}${tag}</li>`;
     };
-    return this.getTagList().reduce((acc, v) => {return `${acc}${formatTag(v.label, v.icon)}`}, "");
+    return this.getTagList().reduce((acc, v) => {
+      return `${acc}${formatTag(v.label, v.icon)}`;
+    }, "");
   }
 
   pushTag(values) {
@@ -293,7 +315,7 @@ export class OseItem extends Item {
     templateData.data.properties = this.getTagList();
 
     // Render the chat card template
-    const template = `systems/ose/templates/chat/item-card.html`;
+    const template = `systems/ose/dist/templates/chat/item-card.html`;
     const html = await renderTemplate(template, templateData);
 
     // Basic chat message data

@@ -29,7 +29,7 @@
 }
 .ose.sheet.actor .panel .panel-title {
   color: whitesmoke;
-  background: url("/systems/ose/assets/back.png");
+  background: url("assets/back.png");
   line-height: 12px;
   height: 20px;
   text-align: center;
@@ -139,7 +139,7 @@
   padding: 2px;
   margin: 0;
   border: 1px solid rgba(0, 0, 0, 0.9);
-  background: url("/systems/ose/assets/back.png");
+  background: url("assets/back.png");
   text-align: center;
 }
 .ose.sheet.actor .sheet-body .attributes .attribute.ability-score {
@@ -204,7 +204,7 @@
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.9);
   font-weight: 300;
   font-size: 13px;
-  background: url("/systems/ose/assets/back.png");
+  background: url("assets/back.png");
   color: white;
 }
 .ose.sheet.actor .sheet-body .inventory .item-titles .item-name {
@@ -281,7 +281,7 @@
   position: relative;
 }
 .ose.sheet.actor .sheet-body .inventory .item-list .item-entry .item-gallery .item-entry .item-square:hover {
-  box-shadow: 0 0 1px #44191A;
+  box-shadow: 0 0 1px #44191a;
   border: 1px solid red;
   box-sizing: border-box;
 }
@@ -422,7 +422,7 @@
   color: rgba(0, 0, 0, 0.2);
 }
 .ose.sheet.actor .sheet-body .inventory .item-controls a:hover {
-  color: #44191A;
+  color: #44191a;
   text-shadow: 0 0 5px #d8d6c9, 1px 0 5px #d8d6c9, 0 1px 5px #d8d6c9, 1px 1px 5px #d8d6c9;
 }
 .ose.sheet.actor .sheet-body .inventory.spells .item-titles {
@@ -516,7 +516,7 @@
 }
 .ose.dialog.party-sheet .header {
   color: whitesmoke;
-  background: url("/systems/ose/assets/back.png");
+  background: url("assets/back.png");
   padding: 4px 0;
   line-height: 20px;
   text-align: left;
@@ -617,7 +617,7 @@
   color: white;
   margin: 0 2px 5px 8px;
   border-radius: 8px;
-  background: url("/systems/ose/assets/treasure.png") no-repeat center;
+  background: url("systems/ose/dist/assets/treasure.png") no-repeat center;
   background-size: cover;
   padding: 5px 8px;
   cursor: pointer;
@@ -655,7 +655,7 @@
 .ose.chat-block .chat-header {
   height: 46px;
   margin: 4px 0;
-  background: url("/systems/ose/assets/back.png");
+  background: url("assets/back.png");
   border: 1px solid black;
   border-radius: 3px;
   color: white;
@@ -996,7 +996,7 @@
   position: relative;
 }
 .ose.sheet.actor.character .sheet-body .health.armor-class {
-  background: url("/systems/ose/assets/shield.png") no-repeat center;
+  background: url("assets/shield.png") no-repeat center;
   background-size: 70px;
 }
 .ose.sheet.actor.character .sheet-body .health.armor-class .shield {
@@ -1026,12 +1026,12 @@
   right: calc(50% + -20px);
 }
 .ose.sheet.actor.character .sheet-body .health .health-empty {
-  background: url("/systems/ose/assets/heart_empty.png") no-repeat center;
+  background: url("assets/heart_empty.png") no-repeat center;
   background-size: 70px;
   background-position: top;
 }
 .ose.sheet.actor.character .sheet-body .health .health-full {
-  background: url("/systems/ose/assets/heart_full.png") no-repeat center;
+  background: url("assets/heart_full.png") no-repeat center;
   background-size: 70px;
   background-position: bottom;
 }
@@ -1049,7 +1049,7 @@
 }
 .ose.sheet.actor.character .encumbrance {
   height: 12px;
-  background: url("/systems/ose/assets/back.png");
+  background: url("assets/back.png");
   margin: 1px 15px 0 1px;
   border: 1px solid rgba(0, 0, 0, 0.9);
   border-radius: 3px;

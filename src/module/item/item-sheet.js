@@ -35,7 +35,7 @@ export class OseItemSheet extends ItemSheet {
 
   /** @override */
   get template() {
-    const path = "systems/ose/templates/items/";
+    const path = "systems/ose/dist/templates/items/";
     return `${path}/${this.item.data.type}-sheet.html`;
   }
 
@@ -60,20 +60,20 @@ export class OseItemSheet extends ItemSheet {
     html.find('input[data-action="add-tag"]').keypress((ev) => {
       if (ev.which == 13) {
         let value = $(ev.currentTarget).val();
-        let values = value.split(',');
+        let values = value.split(",");
         this.object.pushTag(values);
       }
     });
-    html.find('.tag-delete').click((ev) => {
+    html.find(".tag-delete").click((ev) => {
       let value = ev.currentTarget.parentElement.dataset.tag;
       this.object.popTag(value);
     });
-    html.find('a.melee-toggle').click(() => {
-      this.object.update({data: {melee: !this.object.data.data.melee}});
+    html.find("a.melee-toggle").click(() => {
+      this.object.update({ data: { melee: !this.object.data.data.melee } });
     });
 
-    html.find('a.missile-toggle').click(() => {
-      this.object.update({data: {missile: !this.object.data.data.missile}});
+    html.find("a.missile-toggle").click(() => {
+      this.object.update({ data: { missile: !this.object.data.data.missile } });
     });
 
     super.activateListeners(html);

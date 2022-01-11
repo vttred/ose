@@ -18,7 +18,7 @@ export class OseActorSheetMonster extends OseActorSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["ose", "sheet", "monster", "actor"],
-      template: "systems/ose/templates/actors/monster-sheet.html",
+      template: "systems/ose/dist/templates/actors/monster-sheet.html",
       width: 450,
       height: 560,
       resizable: true,
@@ -47,12 +47,16 @@ export class OseActorSheetMonster extends OseActorSheet {
         // Classify items into types
         const containerId = item?.data?.data?.containerId;
         if (containerId) {
-          containerContents[containerId] = [...(containerContents[containerId] || []), item];
+          containerContents[containerId] = [
+            ...(containerContents[containerId] || []),
+            item,
+          ];
           return arr;
         }
         // Grab attack groups
         if (["weapon", "ability"].includes(item.type)) {
-          if (attackPatterns[item.data.data.pattern] === undefined) attackPatterns[item.data.data.pattern] = [];
+          if (attackPatterns[item.data.data.pattern] === undefined)
+            attackPatterns[item.data.data.pattern] = [];
           attackPatterns[item.data.data.pattern].push(item);
           return arr;
         }
@@ -80,9 +84,15 @@ export class OseActorSheetMonster extends OseActorSheet {
     };
     containers.map((container, key, arr) => {
       arr[key].data.data.itemIds = containerContents[container.id] || [];
-      arr[key].data.data.totalWeight = containerContents[container.id]?.reduce((acc, item) => {
-        return acc + item.data?.data?.weight * (item.data?.data?.quantity?.value || 1);
-      }, 0);
+      arr[key].data.data.totalWeight = containerContents[container.id]?.reduce(
+        (acc, item) => {
+          return (
+            acc +
+            item.data?.data?.weight * (item.data?.data?.quantity?.value || 1)
+          );
+        },
+        0
+      );
       return arr;
     });
     // Assign and return
@@ -93,8 +103,11 @@ export class OseActorSheetMonster extends OseActorSheet {
     };
     data.attackPatterns = attackPatterns;
     data.spells = sortedSpells;
-    [...Object.values(data.attackPatterns), ...Object.values(data.owned), ...Object.values(data.spells)].forEach(o => o.sort((a, b) => (a.data.sort || 0) - (b.data.sort || 0)));
-  
+    [
+      ...Object.values(data.attackPatterns),
+      ...Object.values(data.owned),
+      ...Object.values(data.spells),
+    ].forEach((o) => o.sort((a, b) => (a.data.sort || 0) - (b.data.sort || 0)));
   }
 
   /**
@@ -108,7 +121,9 @@ export class OseActorSheetMonster extends OseActorSheet {
 
     // Settings
     data.config.morale = game.settings.get("ose", "morale");
-    data.data.details.treasure.link = TextEditor.enrichHTML(data.data.details.treasure.table);
+    data.data.details.treasure.link = TextEditor.enrichHTML(
+      data.data.details.treasure.table
+    );
     data.isNew = this.actor.isNew();
     return data;
   }
@@ -121,38 +136,41 @@ export class OseActorSheetMonster extends OseActorSheet {
 
     let templateData = { choices: choices },
       dlg = await renderTemplate(
-        "/systems/ose/templates/actors/dialogs/monster-saves.html",
+        "systems/ose/dist/templates/actors/dialogs/monster-saves.html",
         templateData
       );
     //Create Dialog window
-    new Dialog({
-      title: game.i18n.localize("OSE.dialog.generateSaves"),
-      content: dlg,
-      buttons: {
-        ok: {
-          label: game.i18n.localize("OSE.Ok"),
-          icon: '<i class="fas fa-check"></i>',
-          callback: (html) => {
-            let hd = html.find('input[name="hd"]').val();
-            this.actor.generateSave(hd);
+    new Dialog(
+      {
+        title: game.i18n.localize("OSE.dialog.generateSaves"),
+        content: dlg,
+        buttons: {
+          ok: {
+            label: game.i18n.localize("OSE.Ok"),
+            icon: '<i class="fas fa-check"></i>',
+            callback: (html) => {
+              let hd = html.find('input[name="hd"]').val();
+              this.actor.generateSave(hd);
+            },
+          },
+          cancel: {
+            icon: '<i class="fas fa-times"></i>',
+            label: game.i18n.localize("OSE.Cancel"),
           },
         },
-        cancel: {
-          icon: '<i class="fas fa-times"></i>',
-          label: game.i18n.localize("OSE.Cancel"),
-        },
+        default: "ok",
       },
-      default: "ok",
-    }, {
-      width: 250
-    }).render(true);
+      {
+        width: 250,
+      }
+    ).render(true);
   }
 
   async _onDrop(event) {
     super._onDrop(event);
     let data;
     try {
-      data = JSON.parse(event.dataTransfer.getData('text/plain'));
+      data = JSON.parse(event.dataTransfer.getData("text/plain"));
       if (data.type !== "RollTable") return;
     } catch (err) {
       return false;
@@ -160,7 +178,9 @@ export class OseActorSheetMonster extends OseActorSheet {
 
     let link = "";
     if (data.pack) {
-      let tableData = game.packs.get(data.pack).index.filter(el => el._id === data.id);
+      let tableData = game.packs
+        .get(data.pack)
+        .index.filter((el) => el._id === data.id);
       link = `@Compendium[${data.pack}.${data.id}]{${tableData[0].name}}`;
     } else {
       link = `@RollTable[${data.id}]`;
@@ -173,7 +193,7 @@ export class OseActorSheetMonster extends OseActorSheet {
   async _chooseItemType(choices = ["weapon", "armor", "shield", "gear"]) {
     let templateData = { types: choices },
       dlg = await renderTemplate(
-        "systems/ose/templates/items/entity-create.html",
+        "systems/ose/dist/templates/items/entity-create.html",
         templateData
       );
     //Create Dialog window
@@ -203,7 +223,7 @@ export class OseActorSheetMonster extends OseActorSheet {
   }
 
   async _resetAttacks(event) {
-    const weapons = this.actor.data.items.filter(i => i.type === 'weapon');
+    const weapons = this.actor.data.items.filter((i) => i.type === "weapon");
     for (let wp of weapons) {
       const item = this.actor.items.get(wp.id);
       await item.update({
@@ -250,7 +270,7 @@ export class OseActorSheetMonster extends OseActorSheet {
 
     html.find(".appearing-check a").click((ev) => {
       let actorObject = this.actor;
-      let check = $(ev.currentTarget).closest('.check-field').data('check');
+      let check = $(ev.currentTarget).closest(".check-field").data("check");
       actorObject.rollAppearing({ event: event, check: check });
     });
 
@@ -314,7 +334,7 @@ export class OseActorSheetMonster extends OseActorSheet {
       actorObject.rollHP({ event: event });
     });
 
-    html.find(".item-pattern").click(ev => {
+    html.find(".item-pattern").click((ev) => {
       const li = $(ev.currentTarget).parents(".item");
       const item = this.actor.items.get(li.data("itemId"));
       let currentColor = item.data.data.pattern;
@@ -326,10 +346,12 @@ export class OseActorSheetMonster extends OseActorSheet {
         index++;
       }
       item.update({
-        "data.pattern": colors[index]
-      })
+        "data.pattern": colors[index],
+      });
     });
 
-    html.find('button[data-action="generate-saves"]').click(() => this.generateSave());
+    html
+      .find('button[data-action="generate-saves"]')
+      .click(() => this.generateSave());
   }
 }

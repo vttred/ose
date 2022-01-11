@@ -20,7 +20,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["ose", "sheet", "actor", "character"],
-      template: "systems/ose/templates/actors/character-sheet.html",
+      template: "systems/ose/dist/templates/actors/character-sheet.html",
       width: 450,
       height: 530,
       resizable: true,
@@ -31,9 +31,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
           initial: "attributes",
         },
       ],
-      scrollY: [
-        '.inventory'
-      ],
+      scrollY: [".inventory"],
     });
   }
 
@@ -45,24 +43,28 @@ export class OseActorSheetCharacter extends OseActorSheet {
     const itemsData = this.actor.data.items;
     const containerContents = {};
     // Partition items by category
-    let [containers, treasures, items, weapons, armors, abilities, spells] = itemsData.reduce(
-      (arr, item) => {
-        // Classify items into types
-        const containerId = item?.data?.data?.containerId;
-        if (containerId) {
-          containerContents[containerId] = [...(containerContents[containerId] || []), item];
-        }
-        else if (item.type === "container") arr[0].push(item);
-        else if (item.type === "item" && item?.data?.data?.treasure) arr[1].push(item);
-        else if (item.type === "item") arr[2].push(item);
-        else if (item.type === "weapon") arr[3].push(item);
-        else if (item.type === "armor") arr[4].push(item);
-        else if (item.type === "ability") arr[5].push(item);
-        else if (item.type === "spell") arr[6].push(item);
-        return arr;
-      },
-      [[], [], [], [], [], [], []]
-    );
+    let [containers, treasures, items, weapons, armors, abilities, spells] =
+      itemsData.reduce(
+        (arr, item) => {
+          // Classify items into types
+          const containerId = item?.data?.data?.containerId;
+          if (containerId) {
+            containerContents[containerId] = [
+              ...(containerContents[containerId] || []),
+              item,
+            ];
+          } else if (item.type === "container") arr[0].push(item);
+          else if (item.type === "item" && item?.data?.data?.treasure)
+            arr[1].push(item);
+          else if (item.type === "item") arr[2].push(item);
+          else if (item.type === "weapon") arr[3].push(item);
+          else if (item.type === "armor") arr[4].push(item);
+          else if (item.type === "ability") arr[5].push(item);
+          else if (item.type === "spell") arr[6].push(item);
+          return arr;
+        },
+        [[], [], [], [], [], [], []]
+      );
     // Sort spells by level
     var sortedSpells = {};
     var slots = {};
@@ -78,12 +80,18 @@ export class OseActorSheetCharacter extends OseActorSheet {
     };
     containers.map((container, key, arr) => {
       arr[key].data.data.itemIds = containerContents[container.id] || [];
-      arr[key].data.data.totalWeight = containerContents[container.id]?.reduce((acc, item) => {
-        return acc + item.data?.data?.weight * (item.data?.data?.quantity?.value || 1);
-      }, 0);
+      arr[key].data.data.totalWeight = containerContents[container.id]?.reduce(
+        (acc, item) => {
+          return (
+            acc +
+            item.data?.data?.weight * (item.data?.data?.quantity?.value || 1)
+          );
+        },
+        0
+      );
       return arr;
     });
-    
+
     // Assign and return
     data.owned = {
       items: items,
@@ -97,7 +105,11 @@ export class OseActorSheetCharacter extends OseActorSheet {
     data.spells = sortedSpells;
 
     // Sort by sort order (see ActorSheet)
-    [...Object.values(data.owned), ...Object.values(data.spells), data.abilities].forEach(o => o.sort((a, b) => (a.data.sort || 0) - (b.data.sort || 0)));
+    [
+      ...Object.values(data.owned),
+      ...Object.values(data.spells),
+      data.abilities,
+    ].forEach((o) => o.sort((a, b) => (a.data.sort || 0) - (b.data.sort || 0)));
   }
 
   generateScores() {
@@ -118,13 +130,12 @@ export class OseActorSheetCharacter extends OseActorSheet {
     return data;
   }
 
-
   async _chooseLang() {
     let choices = CONFIG.OSE.languages;
 
     let templateData = { choices: choices },
       dlg = await renderTemplate(
-        "/systems/ose/templates/actors/dialogs/lang-create.html",
+        "systems/ose/dist/templates/actors/dialogs/lang-create.html",
         templateData
       );
     //Create Dialog window
@@ -193,13 +204,13 @@ export class OseActorSheetCharacter extends OseActorSheet {
     }).render(true);
   }
 
-   async _onShowItemTooltip(event) {
+  async _onShowItemTooltip(event) {
     let templateData = {},
       dlg = await renderTemplate(
-        "/systems/ose/templates/actors/partials/character-item-tooltip.html",
+        "systems/ose/dist/templates/actors/partials/character-item-tooltip.html",
         templateData
       );
-      document.querySelector(".game").append(dlg);
+    document.querySelector(".game").append(dlg);
   }
 
   /**
@@ -211,7 +222,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
 
     html.find(".item-square").hover((event) => {
       this._onShowItemTooltip(event);
-    })
+    });
 
     html.find(".ability-score .attribute-name a").click((ev) => {
       let actorObject = this.actor;
@@ -273,8 +284,8 @@ export class OseActorSheetCharacter extends OseActorSheet {
         const updateData = item.data.data.itemIds.reduce((acc, val) => {
           acc.push({
             _id: val.id,
-            "data.containerId": ""
-          })
+            "data.containerId": "",
+          });
           return acc;
         }, []);
         this.actor.updateEmbeddedDocuments("Item", updateData).then(() => {
@@ -297,10 +308,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
       ev.preventDefault();
       const header = ev.currentTarget;
       const table = header.dataset.array;
-      this._popLang(
-        table,
-        $(ev.currentTarget).closest(".item").data("lang")
-      );
+      this._popLang(table, $(ev.currentTarget).closest(".item").data("lang"));
     });
 
     html.find(".item-create").click((event) => {

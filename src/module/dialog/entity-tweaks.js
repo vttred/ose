@@ -1,12 +1,12 @@
 // eslint-disable-next-line no-unused-vars
-import { OseActor } from '../actor/entity.js';
+import { OseActor } from "../actor/entity.js";
 
 export class OseEntityTweaks extends FormApplication {
   static get defaultOptions() {
     const options = super.defaultOptions;
-    options.id = 'sheet-tweaks';
+    options.id = "sheet-tweaks";
     options.template =
-      'systems/ose/templates/actors/dialogs/tweaks-dialog.html';
+      "systems/ose/dist/templates/actors/dialogs/tweaks-dialog.html";
     options.width = 380;
     return options;
   }
@@ -18,7 +18,7 @@ export class OseEntityTweaks extends FormApplication {
    * @type {String}
    */
   get title() {
-    return `${this.object.name}: ${game.i18n.localize('OSE.dialog.tweaks')}`;
+    return `${this.object.name}: ${game.i18n.localize("OSE.dialog.tweaks")}`;
   }
 
   /* -------------------------------------------- */
@@ -29,11 +29,14 @@ export class OseEntityTweaks extends FormApplication {
    */
   getData() {
     const data = foundry.utils.deepClone(this.object.data);
-    if (data.type === 'character') {
+    if (data.type === "character") {
       data.isCharacter = true;
     }
     data.user = game.user;
-    data.config = { ...CONFIG.OSE, ascendingAC: game.settings.get("ose", "ascendingAC") };
+    data.config = {
+      ...CONFIG.OSE,
+      ascendingAC: game.settings.get("ose", "ascendingAC"),
+    };
     return data;
   }
 

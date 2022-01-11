@@ -49,18 +49,18 @@ Hooks.once("init", async function () {
   Actors.registerSheet("ose", OseActorSheetCharacter, {
     types: ["character"],
     makeDefault: true,
-    label: "OSE.SheetClassCharacter"
+    label: "OSE.SheetClassCharacter",
   });
   Actors.registerSheet("ose", OseActorSheetMonster, {
     types: ["monster"],
     makeDefault: true,
-    label: "OSE.SheetClassMonster"
+    label: "OSE.SheetClassMonster",
   });
 
   Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet("ose", OseItemSheet, {
     makeDefault: true,
-    label: "OSE.SheetClassItem"
+    label: "OSE.SheetClassItem",
   });
 
   await preloadHandlebarsTemplates();
@@ -71,7 +71,14 @@ Hooks.once("init", async function () {
  */
 Hooks.once("setup", function () {
   // Localize CONFIG objects once up-front
-  const toLocalize = ["saves_short", "saves_long", "scores", "armor", "colors", "tags"];
+  const toLocalize = [
+    "saves_short",
+    "saves_long",
+    "scores",
+    "armor",
+    "colors",
+    "tags",
+  ];
   for (let o of toLocalize) {
     CONFIG.OSE[o] = Object.entries(CONFIG.OSE[o]).reduce((obj, e) => {
       obj[e[0]] = game.i18n.localize(e[1]);
@@ -82,8 +89,8 @@ Hooks.once("setup", function () {
   // Custom languages
   const languages = game.settings.get("ose", "languages");
   if (languages != "") {
-    const langArray = languages.split(',');
-    langArray.forEach((l, i) => langArray[i] = l.trim())
+    const langArray = languages.split(",");
+    langArray.forEach((l, i) => (langArray[i] = l.trim()));
     CONFIG.OSE.languages = langArray;
   }
 });
@@ -102,20 +109,27 @@ Hooks.on("renderSidebarTab", async (object, html) => {
   if (object instanceof Settings) {
     let gamesystem = html.find("#game-details");
     // SRD Link
-    let ose = gamesystem.find('h4').last();
-    ose.append(` <sub><a href="https://oldschoolessentials.necroticgnome.com/srd/index.php">SRD<a></sub>`);
+    let ose = gamesystem.find("h4").last();
+    ose.append(
+      ` <sub><a href="https://oldschoolessentials.necroticgnome.com/srd/index.php">SRD<a></sub>`
+    );
 
     // License text
-    const template = "systems/ose/templates/chat/license.html";
+    const template = "systems/ose/dist/templates/chat/license.html";
     const rendered = await renderTemplate(template);
     gamesystem.find(".system").append(rendered);
 
     // User guide
     let docs = html.find("button[data-action='docs']");
-    const styling = "border:none;margin-right:2px;vertical-align:middle;margin-bottom:5px";
-    $(`<button data-action="userguide"><img src='/systems/ose/assets/dragon.png' width='16' height='16' style='${styling}'/>Old School Guide</button>`).insertAfter(docs);
-    html.find('button[data-action="userguide"]').click(ev => {
-      new FrameViewer('https://mesfoliesludiques.gitlab.io/foundryvtt-ose', { resizable: true }).render(true);
+    const styling =
+      "border:none;margin-right:2px;vertical-align:middle;margin-bottom:5px";
+    $(
+      `<button data-action="userguide"><img src='systems/ose/dist/assets/dragon.png' width='16' height='16' style='${styling}'/>Old School Guide</button>`
+    ).insertAfter(docs);
+    html.find('button[data-action="userguide"]').click((ev) => {
+      new FrameViewer("https://mesfoliesludiques.gitlab.io/foundryvtt-ose", {
+        resizable: true,
+      }).render(true);
     });
   }
 });

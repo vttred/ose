@@ -7,7 +7,7 @@ export class OseCharacterCreator extends FormApplication {
     (options.classes = ["ose", "dialog", "creator"]),
       (options.id = "character-creator");
     options.template =
-      "systems/ose/templates/actors/dialogs/character-creation.html";
+      "systems/ose/dist/templates/actors/dialogs/character-creation.html";
     options.width = 235;
     return options;
   }
@@ -128,7 +128,7 @@ export class OseCharacterCreator extends FormApplication {
       gold: this.gold,
     };
     const content = await renderTemplate(
-      "/systems/ose/templates/chat/roll-creation.html",
+      "systems/ose/dist/templates/chat/roll-creation.html",
       templateData
     );
     ChatMessage.create({
@@ -189,7 +189,7 @@ export class OseCharacterCreator extends FormApplication {
     const itemData = {
       name: "GP",
       type: "item",
-      img: "/systems/ose/assets/gold.png",
+      img: "systems/ose/dist/assets/gold.png",
       data: {
         treasure: true,
         cost: 1,

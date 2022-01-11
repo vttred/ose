@@ -10,7 +10,7 @@ export const OSE = {
   roll_type: {
     result: "=",
     above: "≥",
-    below: "≤"
+    below: "≤",
   },
   saves_short: {
     death: "OSE.saves.death.short",
@@ -26,7 +26,7 @@ export const OSE = {
     breath: "OSE.saves.breath.long",
     spell: "OSE.saves.spell.long",
   },
-  armor : {
+  armor: {
     unarmored: "OSE.armor.unarmored",
     light: "OSE.armor.light",
     heavy: "OSE.armor.heavy",
@@ -39,7 +39,7 @@ export const OSE = {
     purple: "OSE.colors.purple",
     blue: "OSE.colors.blue",
     orange: "OSE.colors.orange",
-    white: "OSE.colors.white"
+    white: "OSE.colors.white",
   },
   languages: [
     "Common",
@@ -64,7 +64,7 @@ export const OSE = {
     "Minotaur",
     "Ogre",
     "Orcish",
-    "Pixie"
+    "Pixie",
   ],
   tags: {
     melee: "OSE.items.Melee",
@@ -78,15 +78,15 @@ export const OSE = {
     charge: "OSE.items.Charge",
   },
   tag_images: {
-    melee: "/systems/ose/assets/melee.png",
-    missile: "/systems/ose/assets/missile.png",
-    slow: "/systems/ose/assets/slow.png",
-    twohanded: "/systems/ose/assets/twohanded.png",
-    blunt: "/systems/ose/assets/blunt.png",
-    brace: "/systems/ose/assets/brace.png",
-    splash: "/systems/ose/assets/splash.png",
-    reload: "/systems/ose/assets/reload.png",
-    charge: "/systems/ose/assets/charge.png",
+    melee: "systems/ose/dist/assets/melee.png",
+    missile: "systems/ose/dist/assets/missile.png",
+    slow: "systems/ose/dist/assets/slow.png",
+    twohanded: "systems/ose/dist/assets/twohanded.png",
+    blunt: "systems/ose/dist/assets/blunt.png",
+    brace: "systems/ose/dist/assets/brace.png",
+    splash: "systems/ose/dist/assets/splash.png",
+    reload: "systems/ose/dist/assets/reload.png",
+    charge: "systems/ose/dist/assets/charge.png",
   },
   monster_saves: {
     0: {
@@ -94,63 +94,63 @@ export const OSE = {
       w: 15,
       p: 16,
       b: 17,
-      s: 18
+      s: 18,
     },
     1: {
       d: 12,
       w: 13,
       p: 14,
       b: 15,
-      s: 16
+      s: 16,
     },
     4: {
       d: 10,
       w: 11,
       p: 12,
       b: 13,
-      s: 14
+      s: 14,
     },
     7: {
       d: 8,
       w: 9,
       p: 10,
       b: 10,
-      s: 12
+      s: 12,
     },
     10: {
       d: 6,
       w: 7,
       p: 8,
       b: 8,
-      s: 10
+      s: 10,
     },
     13: {
       d: 4,
       w: 5,
       p: 6,
       b: 5,
-      s: 8
+      s: 8,
     },
     16: {
       d: 2,
       w: 3,
       p: 4,
       b: 3,
-      s: 6
+      s: 6,
     },
     19: {
       d: 2,
       w: 2,
       p: 2,
       b: 2,
-      s: 4
+      s: 4,
     },
     22: {
       d: 2,
       w: 2,
       p: 2,
       b: 2,
-      s: 2
+      s: 2,
     },
   },
   monster_thac0: {
@@ -169,6 +169,6 @@ export const OSE = {
     16: 8,
     18: 7,
     20: 6,
-    22: 5
-  }
+    22: 5,
+  },
 };

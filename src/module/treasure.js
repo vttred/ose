@@ -21,7 +21,9 @@ export const augmentTable = (table, html, data) => {
     html.find(".result-weight").first().text("Chance");
 
     // Replace Roll button
-    const roll = `<button class="roll-treasure" type="button"><i class="fas fa-gem"></i> ${game.i18n.localize('OSE.table.treasure.roll')}</button>`;
+    const roll = `<button class="roll-treasure" type="button"><i class="fas fa-gem"></i> ${game.i18n.localize(
+      "OSE.table.treasure.roll"
+    )}</button>`;
     html.find(".sheet-footer .roll").replaceWith(roll);
   }
 
@@ -37,15 +39,18 @@ function drawTreasure(table, data) {
     return roll.total <= chance;
   };
   data.treasure = {};
-  if (table.getFlag('ose', 'treasure')) {
+  if (table.getFlag("ose", "treasure")) {
     table.results.forEach((r) => {
       if (percent(r.data.weight)) {
         const text = r.getChatText(r);
-        data.treasure[r.id] = ({
+        data.treasure[r.id] = {
           img: r.data.img,
           text: TextEditor.enrichHTML(text),
-        });
-        if ((r.data.type === CONST.TABLE_RESULT_TYPES.ENTITY) && (r.data.collection === "RollTable")) {
+        };
+        if (
+          r.data.type === CONST.TABLE_RESULT_TYPES.ENTITY &&
+          r.data.collection === "RollTable"
+        ) {
           const embeddedTable = game.tables.get(r.data.resultId);
           drawTreasure(embeddedTable, data.treasure[r.id]);
         }
@@ -83,17 +88,18 @@ async function rollTreasure(table, options = {}) {
   }
 
   let html = await renderTemplate(
-    "systems/ose/templates/chat/roll-treasure.html",
+    "systems/ose/dist/templates/chat/roll-treasure.html",
     templateData
   );
 
   let chatData = {
     content: html,
-    // sound: "/systems/ose/assets/coins.mp3"
-  }
+    // sound: "systems/ose/dist/assets/coins.mp3"
+  };
 
   let rollMode = game.settings.get("core", "rollMode");
-  if (["gmroll", "blindroll"].includes(rollMode)) chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
+  if (["gmroll", "blindroll"].includes(rollMode))
+    chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
   if (rollMode === "selfroll") chatData["whisper"] = [game.user._id];
   if (rollMode === "blindroll") chatData["blind"] = true;
 

@@ -139,7 +139,7 @@
   padding: 2px;
   margin: 0;
   border: 1px solid rgba(0, 0, 0, 0.9);
-  background: url("/assets/back.png");
+  background: url("assets/back.png");
   text-align: center;
 }
 .ose.sheet.actor .sheet-body .attributes .attribute.ability-score {
@@ -642,7 +642,7 @@
 }
 .ose.dialog.party-sheet .header {
   color: whitesmoke;
-  background: url("/assets/back.png");
+  background: url("assets/back.png");
   padding: 4px 0;
   line-height: 20px;
   text-align: left;
@@ -1158,7 +1158,7 @@
   position: relative;
 }
 .ose.sheet.actor.character .sheet-body .health.armor-class {
-  background: url("systems/ose/dist/assets/shield.png") no-repeat center;
+  background: url("assets/shield.png") no-repeat center;
   background-size: 70px;
 }
 .ose.sheet.actor.character .sheet-body .health.armor-class .shield {
@@ -1189,12 +1189,12 @@
   right: calc(50% + -20px);
 }
 .ose.sheet.actor.character .sheet-body .health .health-empty {
-  background: url("systems/ose/dist/assets/heart_empty.png") no-repeat center;
+  background: url("assets/heart_empty.png") no-repeat center;
   background-size: 70px;
   background-position: top;
 }
 .ose.sheet.actor.character .sheet-body .health .health-full {
-  background: url("systems/ose/dist/assets/heart_full.png") no-repeat center;
+  background: url("assets/heart_full.png") no-repeat center;
   background-size: 70px;
   background-position: bottom;
 }
@@ -1212,7 +1212,7 @@
 }
 .ose.sheet.actor.character .encumbrance {
   height: 12px;
-  background: url("/assets/back.png");
+  background: url("assets/back.png");
   margin: 1px 15px 0 1px;
   border: 1px solid rgba(0, 0, 0, 0.9);
   border-radius: 3px;

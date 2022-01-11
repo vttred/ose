@@ -1,0 +1,62 @@
+<form autocomplete="off" onsubmit="event.preventDefault();">
+  <div class="flexrow">
+    <div class="attribute-list">
+      {{#each config.scores as |score id| }}
+      <div data-score="{{id}}" class="form-group">
+        <label
+          ><a class="score-roll"><i class="fas fa-dice"></i></a>
+          {{score}}</label
+        >
+        <div class="form-fields">
+          <input
+            class="score-value"
+            name="data.scores.{{id}}.value"
+            type="text"
+            value="0"
+            data-dtype="Number"
+          />
+        </div>
+      </div>
+      {{/each}}
+    </div>
+    <div class="roll-stats">
+      <div class="form-group">
+        <label>Auto <a class="auto-roll"><i class="fas fa-dice"></i></a></label>
+      </div>
+      <div class="form-group">
+        <label>Sum</label>
+        <div class="form-fields">
+          <span class="sum">0</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Avg</label>
+        <div class="form-fields">
+          <span class="avg">0</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>σ</label>
+        <div class="form-fields">
+          <span class="std">0</span>
+        </div>
+      </div>
+      <hr />
+      <div class="form-group">
+        <label>Gold&nbsp;</label>
+        <div class="form-fields">
+          <a class="gold-roll"><i class="fas fa-dice"></i></a>
+        </div>
+      </div>
+      <div></div>
+      <div class="form-group">
+        <input id="gold" class="gold-value" type="text" value="0" disabled />
+      </div>
+    </div>
+  </div>
+  <footer class="sheet-footer">
+    <button type="submit" disabled>
+      <i class="fas fa-save"></i>{{localize "Save Changes"}}
+    </button>
+  </footer>
+</form>

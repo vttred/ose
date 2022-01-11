@@ -1,0 +1,1498 @@
+/* ----------------------------------------- */
+/*  Sheet Styles                             */
+/* ----------------------------------------- */
+@keyframes notify {
+  from {
+    color: black;
+  }
+  to {
+    color: crimson;
+  }
+}
+.ose.sheet.actor {
+  /* Header Summary Details */
+}
+.ose.sheet.actor .blinking {
+  font-weight: bold;
+  animation: 0.8s ease-in 1s infinite alternate notify;
+}
+.ose.sheet.actor ::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  border: 1px solid #7a7971;
+}
+.ose.sheet.actor ::-webkit-scrollbar-track {
+  border-radius: 2px;
+  background: rgba(0, 0, 0, 0.9);
+}
+.ose.sheet.actor .panel {
+  border: 1px solid rgba(0, 0, 0, 0.9);
+}
+.ose.sheet.actor .panel .panel-title {
+  color: whitesmoke;
+  background: url("assets/back.png");
+  line-height: 12px;
+  height: 20px;
+  text-align: center;
+  margin: 0;
+  padding: 4px;
+  display: flex;
+}
+.ose.sheet.actor .panel .panel-title h4 {
+  flex: 1;
+}
+.ose.sheet.actor .panel .panel-title .item-controls {
+  font-size: 12px;
+  flex: 0 0 18px;
+}
+.ose.sheet.actor .panel .panel-content {
+  margin: 0;
+  padding: 0;
+}
+.ose.sheet.actor .header-details h1 input {
+  margin: 0 0 10px 0;
+}
+.ose.sheet.actor .profile {
+  flex: 0 0 145px;
+}
+.ose.sheet.actor .profile .profile-img {
+  border: 0;
+  height: 140px;
+}
+.ose.sheet.actor .summary {
+  flex: 0 0 100%;
+  height: 44px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: none;
+}
+.ose.sheet.actor .summary li {
+  height: calc(100% - 6px);
+  float: left;
+  margin: 2px 0;
+  padding: 0;
+  line-height: 30px;
+  color: #4b4a44;
+  position: relative;
+}
+.ose.sheet.actor .summary li label {
+  line-height: 10px;
+  position: absolute;
+  font-size: 10px;
+  color: #4b4a44;
+  bottom: 0;
+  left: 12px;
+}
+.ose.sheet.actor .summary li.notify input {
+  font-weight: bold;
+  animation: 0.8s ease-in 1s infinite alternate notify;
+}
+.ose.sheet.actor .sheet-tabs {
+  position: absolute;
+  transform: rotate(90deg);
+  top: 365px;
+  right: -169px;
+  width: 320px;
+  border-top: none;
+  height: 18px;
+  z-index: -1;
+}
+.ose.sheet.actor .sheet-tabs .item {
+  padding: 1px 10px 0;
+  margin-left: -5px;
+  text-indent: 4px;
+  line-height: 16px;
+  background: url("/ui/parchment.jpg");
+  border-top-right-radius: 4px;
+  border-top-left-radius: 80px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.9);
+  font-size: 12px;
+  filter: brightness(0.9);
+}
+.ose.sheet.actor .sheet-tabs .item.active {
+  filter: none;
+  z-index: 1;
+  font-weight: bold;
+  text-shadow: none;
+  margin-bottom: -1px;
+}
+.ose.sheet.actor .sheet-body {
+  height: calc(100% - 140px);
+}
+.ose.sheet.actor .sheet-body .tab {
+  height: 100%;
+}
+.ose.sheet.actor .sheet-body .attributes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  justify-content: space-evenly;
+}
+.ose.sheet.actor .sheet-body .attributes .attribute {
+  position: relative;
+  border: 1px solid #7a7971;
+  box-shadow: 0 0 2px #7a7971;
+}
+.ose.sheet.actor .sheet-body .attributes .attribute .attribute-name {
+  color: whitesmoke;
+  padding: 2px;
+  margin: 0;
+  border: 1px solid rgba(0, 0, 0, 0.9);
+  background: url("assets/back.png");
+  text-align: center;
+}
+.ose.sheet.actor .sheet-body .attributes .attribute.ability-score {
+  height: 40px;
+}
+.ose.sheet.actor
+  .sheet-body
+  .attributes
+  .attribute.ability-score
+  .attribute-value {
+  line-height: 36px;
+}
+.ose.sheet.actor .sheet-body .attributes .attribute .attribute-value {
+  text-align: center;
+  padding: 4px;
+}
+.ose.sheet.actor .sheet-body .attributes .attribute .attribute-value .sep {
+  flex: 0 0 5px;
+  line-height: 24px;
+}
+.ose.sheet.actor .sheet-body .attribute-group {
+  flex: 0 0 88px;
+}
+.ose.sheet.actor .sheet-body .attribute-group .attributes {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 100%;
+}
+.ose.sheet.actor .sheet-body .attribute-group .attributes .attribute {
+  display: flex;
+  flex-direction: row;
+}
+.ose.sheet.actor
+  .sheet-body
+  .attribute-group
+  .attributes
+  .attribute
+  .attribute-name {
+  width: 40px;
+  margin: 0;
+  line-height: 35px;
+}
+.ose.sheet.actor
+  .sheet-body
+  .attribute-group
+  .attributes
+  .attribute
+  .attribute-name
+  a {
+  margin: auto;
+}
+.ose.sheet.actor
+  .sheet-body
+  .attribute-group
+  .attributes
+  .attribute.saving-throw
+  .attribute-name {
+  line-height: 16px;
+  width: 80px;
+}
+.ose.sheet.actor
+  .sheet-body
+  .attribute-group
+  .attributes
+  .attribute.saving-throw
+  .attribute-value {
+  line-height: 29px;
+}
+.ose.sheet.actor
+  .sheet-body
+  .attribute-group
+  .attributes
+  .attribute
+  .attribute-value {
+  width: 45px;
+  flex-grow: 0;
+}
+.ose.sheet.actor
+  .sheet-body
+  .attribute-group
+  .attributes
+  .attribute
+  .attribute-value
+  input {
+  padding: 0;
+}
+.ose.sheet.actor .sheet-body .inventory {
+  overflow: auto;
+}
+.ose.sheet.actor .sheet-body .inventory .header-spells {
+  line-height: 30px;
+}
+.ose.sheet.actor .sheet-body .inventory .item-titles {
+  text-align: center;
+  padding: 4px 0;
+  border: 1px solid rgba(0, 0, 0, 0.9);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.9);
+  font-weight: 300;
+  font-size: 13px;
+  background: url("assets/back.png");
+  color: white;
+}
+.ose.sheet.actor .sheet-body .inventory .item-titles .item-name {
+  text-align: left;
+  text-indent: 8px;
+}
+.ose.sheet.actor .sheet-body .inventory .item-titles input {
+  color: white;
+  margin: auto;
+}
+.ose.sheet.actor .sheet-body .inventory .item-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.ose.sheet.actor .sheet-body .inventory .item-list > * {
+  line-height: 30px;
+}
+.ose.sheet.actor .sheet-body .inventory .item-list .item-entry {
+  box-shadow: inset 1px 0 0 0 #7a7971;
+}
+.ose.sheet.actor .sheet-body .inventory .item-list .item-summary {
+  font-size: 13px;
+  padding: 0 4px;
+  line-height: 20px;
+  border-bottom: 1px solid #7a7971;
+}
+.ose.sheet.actor .sheet-body .inventory .item-list .item-summary div > p {
+  padding: 0.5em 0;
+  margin: 0;
+}
+.ose.sheet.actor .sheet-body .inventory .item-list .item-summary .tag-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+}
+.ose.sheet.actor
+  .sheet-body
+  .inventory
+  .item-list
+  .item-summary
+  .tag-list
+  .tag {
+  margin: 1px 2px;
+  border: 1px solid #d8d6c9;
+  font-size: 11px;
+  line-height: 14px;
+  background: #4b4a44;
+  padding: 1px 4px;
+  color: whitesmoke;
+  border-radius: 3px;
+  box-shadow: 0 0 1px #d8d6c9;
+}
+.ose.sheet.actor .sheet-body .inventory .item-list .item-header {
+  padding: 0px;
+  margin-bottom: 0px;
+}
+.ose.sheet.actor
+  .sheet-body
+  .inventory
+  .item-list
+  .item-entry:nth-child(even)
+  .item {
+  background: rgba(0, 0, 0, 0.1);
+}
+.ose.sheet.actor .sheet-body .inventory .item-list .item-entry .item-gallery {
+  display: flex;
+  margin-left: 36px;
+  margin-bottom: 2px;
+  overflow-x: auto;
+}
+.ose.sheet.actor
+  .sheet-body
+  .inventory
+  .item-list
+  .item-entry
+  .item-gallery
+  .item-entry {
+  padding: 0 1px;
+  box-shadow: none;
+}
+.ose.sheet.actor
+  .sheet-body
+  .inventory
+  .item-list
+  .item-entry
+  .item-gallery
+  .item-entry:nth-child(even)
+  .item {
+  background: none;
+}
+.ose.sheet.actor
+  .sheet-body
+  .inventory
+  .item-list
+  .item-entry
+  .item-gallery
+  .item-entry
+  .item-square {
+  box-shadow: 0 0 1px #d8d6c9;
+  height: 28px;
+  width: 28px;
+  cursor: pointer;
+  position: relative;
+}
+.ose.sheet.actor
+  .sheet-body
+  .inventory
+  .item-list
+  .item-entry
+  .item-gallery
+  .item-entry
+  .item-square:hover {
+  box-shadow: 0 0 1px #44191a;
+  border: 1px solid red;
+  box-sizing: border-box;
+}
+.ose.sheet.actor
+  .sheet-body
+  .inventory
+  .item-list
+  .item-entry
+  .item-gallery
+  .item-entry
+  .item-square
+  .item-image {
+  height: 28px;
+  width: 28px;
+  background-size: 28px 28px;
+  background-position: center;
+}
+.ose.sheet.actor
+  .sheet-body
+  .inventory
+  .item-list
+  .item-entry
+  .item-gallery
+  .item-entry
+  .item-square
+  .item-quantity {
+  position: absolute;
+  top: 6px;
+  right: 1px;
+  text-shadow: 0 0 2px black;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  pointer-events: none;
+}
+.ose.sheet.actor .sheet-body .inventory .item-list .item {
+  line-height: 30px;
+  height: 30px;
+  overflow: hidden;
+}
+.ose.sheet.actor .sheet-body .inventory .item-list .item-equipped {
+  grid-area: item-equipped;
+  justify-self: center;
+}
+.ose.sheet.actor
+  .sheet-body
+  .inventory
+  .item-list
+  .item-rollable:hover
+  .item-image {
+  background-image: url("/icons/svg/d20-grey.svg") !important;
+  cursor: pointer;
+}
+.ose.sheet.actor
+  .sheet-body
+  .inventory
+  .item-list
+  .item-rollable
+  .item-image:hover {
+  background-image: url("/icons/svg/d20-black.svg") !important;
+}
+.ose.sheet.actor .sheet-body .inventory .item-list .item-name {
+  text-indent: 8px;
+  text-align: left;
+  overflow: hidden;
+  height: 30px;
+  margin: 0;
+  line-height: 30px;
+  flex-basis: 90px;
+}
+.ose.sheet.actor .sheet-body .inventory .item-list .item-name .item-image {
+  flex-basis: 30px;
+  flex-grow: 0;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.ose.sheet.actor .sheet-body .inventory .item-list .item-name h4 {
+  margin: 0;
+}
+.ose.sheet.actor .sheet-body .inventory .item-list .consumable-counter {
+  height: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  line-height: 14px;
+}
+.ose.sheet.actor .sheet-body .inventory .item-list .consumable-counter label {
+  flex: 0 30px;
+  font-size: 11px;
+  color: rgba(0, 0, 0, 0.9);
+  text-indent: 3px;
+}
+.ose.sheet.actor
+  .sheet-body
+  .inventory
+  .item-list
+  .consumable-counter
+  .full-mark,
+.ose.sheet.actor
+  .sheet-body
+  .inventory
+  .item-list
+  .consumable-counter
+  .empty-mark {
+  cursor: pointer;
+  flex: 0 8px;
+  margin: 1px;
+  box-shadow: inset 0 0 2px #7a7971;
+}
+.ose.sheet.actor
+  .sheet-body
+  .inventory
+  .item-list
+  .consumable-counter
+  .full-mark:hover,
+.ose.sheet.actor
+  .sheet-body
+  .inventory
+  .item-list
+  .consumable-counter
+  .empty-mark:hover {
+  background: #7a7971;
+}
+.ose.sheet.actor
+  .sheet-body
+  .inventory
+  .item-list
+  .consumable-counter
+  .full-mark {
+  background: #4b4a44;
+  border: 1px inset #7a7971;
+}
+.ose.sheet.actor .sheet-body .inventory .icon-row img {
+  border: none;
+  margin: 3px 1px;
+  flex: 0 0 24px;
+}
+.ose.sheet.actor .sheet-body .inventory .icon-row span {
+  font-size: 12px;
+  flex-grow: 0;
+}
+.ose.sheet.actor .sheet-body .inventory .field-flex {
+  flex: 1;
+  text-align: left;
+  font-size: 12px;
+  text-indent: 8px;
+}
+.ose.sheet.actor .sheet-body .inventory .field-longer {
+  text-indent: 8px;
+  text-align: left;
+  flex-basis: 90px;
+  font-size: 12px;
+}
+.ose.sheet.actor .sheet-body .inventory .field-long {
+  flex-basis: 65px;
+  flex-grow: 0;
+  text-align: center;
+  font-size: 12px;
+}
+.ose.sheet.actor .sheet-body .inventory .field-long.memorize input {
+  border-bottom: none;
+  margin: 3px 0;
+}
+.ose.sheet.actor .sheet-body .inventory .field-short {
+  font-size: 12px;
+  flex-basis: 45px;
+  flex-grow: 0;
+  text-align: center;
+}
+.ose.sheet.actor .sheet-body .inventory .field-short.quantity {
+  display: flex;
+}
+.ose.sheet.actor .sheet-body .inventory .field-short.quantity input {
+  margin: 3px 0;
+  border-bottom: none;
+}
+.ose.sheet.actor .sheet-body .inventory .item-caret {
+  flex: 0 0 10px;
+  margin: 0 4px;
+  cursor: pointer;
+}
+.ose.sheet.actor .sheet-body .inventory .item-controls {
+  font-size: 12px;
+  flex-basis: 50px;
+  flex-grow: 0;
+  text-align: right;
+  margin-right: 4px;
+}
+.ose.sheet.actor .sheet-body .inventory .item-controls .item-unequipped {
+  color: rgba(0, 0, 0, 0.2);
+}
+.ose.sheet.actor .sheet-body .inventory .item-controls a:hover {
+  color: #44191a;
+  text-shadow: 0 0 5px #d8d6c9, 1px 0 5px #d8d6c9, 0 1px 5px #d8d6c9,
+    1px 1px 5px #d8d6c9;
+}
+.ose.sheet.actor .sheet-body .inventory.spells .item-titles {
+  line-height: 24px;
+}
+.ose.sheet.actor .sheet-body .inventory.spells .item-controls {
+  flex-basis: 45px;
+}
+.ose.sheet.actor .sheet-body .editor {
+  height: 300px;
+  padding: 4px;
+}
+
+.ose.roll-dialog .roll-details {
+  font-weight: bold;
+  text-align: center;
+}
+
+.ose.dialog.creator .attribute-list .form-fields {
+  flex: 0 0 50px;
+}
+.ose.dialog.creator .attribute-list .form-fields input {
+  text-align: center;
+  font-weight: bold;
+}
+.ose.dialog.creator .roll-stats {
+  flex: 0 0 65px;
+  padding: 5px;
+  margin-left: 4px;
+  border-left: 1px solid #7a7971;
+}
+.ose.dialog.creator .roll-stats .form-group .form-fields span {
+  text-align: center;
+  line-height: 24px;
+  flex: 0;
+}
+
+.ose.dialog.party-xp .actors {
+  max-height: 250px;
+  padding: 0 4px 0;
+  overflow-y: auto;
+}
+.ose.dialog.party-xp .actors input {
+  flex: 0 60px;
+}
+.ose.dialog.party-xp .actors label {
+  white-space: nowrap;
+  overflow: hidden;
+}
+.ose.dialog.party-xp .actors .share-tag {
+  flex: 0 35px;
+  text-align: center;
+  border: 1px solid #d8d6c9;
+  background: #4b4a44;
+  font-size: 10px;
+  color: whitesmoke;
+  border-radius: 3px;
+  box-shadow: 0 0 1px #d8d6c9;
+  padding: 1px 4px;
+}
+.ose.dialog.party-xp .form-group button {
+  line-height: 18px;
+  flex-grow: 0;
+}
+
+.ose.dialog.party-select .actor-list {
+  padding: 0 4px 0;
+  max-height: 250px;
+  overflow: auto;
+}
+.ose.dialog.party-select .actor-list .actor label {
+  height: 28px;
+  overflow: hidden;
+}
+.ose.dialog.party-select .actor-list .actor .form-fields {
+  flex: 0 20px;
+}
+.ose.dialog.party-select .actor-list .actor.disposition-1 label {
+  font-weight: 600;
+}
+.ose.dialog.party-select .actor-list .actor.disposition--1 label {
+  font-style: italic;
+}
+
+.ose.dialog.party-sheet {
+  min-width: 250px;
+  min-height: 250px;
+}
+.ose.dialog.party-sheet .window-content {
+  padding: 0;
+}
+.ose.dialog.party-sheet .header {
+  color: whitesmoke;
+  background: url("assets/back.png");
+  padding: 4px 0;
+  line-height: 20px;
+  text-align: left;
+  padding: 2px 10px;
+}
+.ose.dialog.party-sheet .header .item-controls .item-control {
+  padding: 0 2px;
+}
+.ose.dialog.party-sheet .header .item-controls .item-control button {
+  line-height: 15px;
+  margin: 0 1px;
+  background: rgba(255, 255, 240, 0.8);
+  border: 1px solid #b5b3a4;
+}
+.ose.dialog.party-sheet .actor-list {
+  margin: 0;
+  overflow: auto;
+  list-style: none;
+  padding: 0;
+}
+.ose.dialog.party-sheet .actor-list .actor {
+  border-bottom: 1px solid #7a7971;
+  border-top: 1px solid #7a7971;
+  margin-bottom: 2px;
+  font-size: 12px;
+  text-align: center;
+}
+.ose.dialog.party-sheet .actor-list .actor .fas {
+  padding: 0 2px;
+  font-size: 10px;
+}
+.ose.dialog.party-sheet .actor-list .actor .fields .field-row {
+  white-space: nowrap;
+}
+.ose.dialog.party-sheet .actor-list .actor .fields .field-row:nth-child(odd) {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.ose.dialog.party-sheet .actor-list .actor .field-img {
+  flex: 0 0 50px;
+  position: relative;
+}
+.ose.dialog.party-sheet .actor-list .actor .field-img:hover .img-btns button {
+  display: block;
+}
+.ose.dialog.party-sheet .actor-list .actor .field-img img {
+  border: none;
+  width: 45px;
+  height: 45px;
+}
+.ose.dialog.party-sheet .actor-list .actor .field-img .img-btns {
+  position: absolute;
+  bottom: 6px;
+  left: 3px;
+  width: 45px;
+  height: 12px;
+}
+.ose.dialog.party-sheet .actor-list .actor .field-img .img-btns button {
+  display: none;
+  cursor: pointer;
+  font-size: 10px;
+  height: 18px;
+  width: 14px;
+  line-height: 13px;
+  margin: 0 1px;
+  border: 1px solid #4b4a44;
+  padding: 2px;
+  background: #d8d6c9;
+  box-shadow: inset 0 0px 3px #7a7971;
+}
+.ose.dialog.party-sheet .field-name {
+  overflow: hidden;
+  font-weight: 600;
+  text-align: left;
+  text-indent: 5px;
+}
+
+#sidebar #actors .directory-header .header-search .ose-party-sheet {
+  width: 32px;
+  text-align: center;
+  line-height: 20px;
+}
+#sidebar #actors .directory-header .header-search input {
+  width: calc(100% - 45px);
+}
+
+.ose.dialog.modifiers .attribute-bonuses label {
+  font-weight: bold;
+}
+.ose.dialog.modifiers .attribute-bonuses ol {
+  list-style: outside;
+}
+
+.sheet.roll-table-config .sheet-header .toggle-treasure {
+  flex: 0 0 30px;
+  font-size: 26px;
+  line-height: 25px;
+  height: 25px;
+  color: white;
+  margin: 0 2px 5px 8px;
+  border-radius: 8px;
+  background: url("systems/ose/dist/assets/treasure.png") no-repeat center;
+  background-size: cover;
+  padding: 5px 8px;
+  cursor: pointer;
+  filter: grayscale(1) opacity(0.5);
+}
+.sheet.roll-table-config .sheet-header .toggle-treasure.active,
+.sheet.roll-table-config .sheet-header .toggle-treasure:hover {
+  filter: none;
+}
+@keyframes activated {
+  from {
+    background: none;
+  }
+  to {
+    background: rgba(0, 0, 0, 0.12);
+  }
+}
+.sheet.roll-table-config .results .table-result.active {
+  animation: 0.7s infinite alternate activated;
+}
+
+#settings .ose.game-license {
+  font-size: 12px;
+}
+#settings .ose.game-license .button {
+  text-align: center;
+  margin: 4px;
+}
+#settings .ose.game-license .footer {
+  text-align: right;
+}
+
+.ose.chat-block {
+  margin: 0;
+}
+.ose.chat-block .chat-header {
+  height: 46px;
+  margin: 4px 0;
+  background: url("assets/back.png");
+  border: 1px solid black;
+  border-radius: 3px;
+  color: white;
+  padding: 2px;
+  box-shadow: 0 0 2px #fff inset;
+}
+.ose.chat-block .chat-header .chat-title {
+  margin: 4px 0;
+  height: 30px;
+  overflow: hidden;
+}
+.ose.chat-block .chat-header .chat-title h2 {
+  border: none;
+  line-height: 34px;
+  margin: 0;
+  text-indent: 10px;
+  font-size: 16px;
+  word-break: break-all;
+}
+.ose.chat-block .chat-header .chat-img {
+  flex: 0 0 42px;
+  background-size: cover;
+}
+.ose.chat-block .chat-target {
+  text-align: right;
+  font-style: italic;
+  padding: 2px;
+}
+.ose.chat-block .chat-details {
+  padding: 4px;
+  font-size: 13px;
+}
+.ose.chat-block .roll-result {
+  font-size: 13px;
+  text-align: center;
+}
+.ose.chat-block .roll-result.roll-success {
+  color: #18520b;
+}
+.ose.chat-block .roll-result.roll-fail {
+  color: #aa0200;
+}
+.ose.chat-block .damage-roll {
+  position: relative;
+}
+.ose.chat-block .damage-roll .dice-damage {
+  display: none;
+  position: absolute;
+  line-height: 24px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+  box-shadow: 0 0 2px #fff inset;
+  bottom: 1px;
+  right: 10px;
+}
+.ose.chat-block .damage-roll .dice-damage button {
+  padding: 2px 5px;
+  width: 22px;
+  line-height: 14px;
+  height: 22px;
+  cursor: pointer;
+}
+.ose.chat-block .damage-roll:hover .dice-damage {
+  display: block;
+}
+
+.ose.chat-card {
+  font-style: normal;
+  font-size: 12px;
+}
+.ose.chat-card .card-header {
+  padding: 3px 0;
+  border-top: 2px groove #fff;
+  border-bottom: 2px groove #fff;
+}
+.ose.chat-card .card-header img {
+  flex: 0 0 36px;
+  margin-right: 5px;
+  border: none;
+}
+.ose.chat-card .card-header h3 {
+  flex: 1;
+  margin: 0;
+  line-height: 36px;
+  color: #4b4a44;
+}
+.ose.chat-card .card-header h3:hover {
+  color: #111;
+}
+.ose.chat-card .card-content {
+  margin: 5px 0;
+}
+.ose.chat-card .card-content .treasure-list {
+  padding: 0;
+  list-style: none;
+}
+.ose.chat-card .card-content .treasure-list .treasure {
+  line-height: 36px;
+}
+.ose.chat-card .card-content .treasure-list .treasure img {
+  flex: 0 0 36px;
+  border: none;
+}
+.ose.chat-card .card-content .treasure-list .treasure div {
+  text-indent: 10px;
+  font-size: 14px;
+  font-weight: bold;
+}
+.ose.chat-card .card-content .treasure-list .sub {
+  padding-left: 25px;
+  line-height: 28px;
+}
+.ose.chat-card .card-content .treasure-list .sub img {
+  flex: 0 0 28px;
+  border: none;
+}
+.ose.chat-card .card-content .treasure-list .sub div {
+  text-indent: 10px;
+  font-size: 14px;
+}
+.ose.chat-card .card-content h3 {
+  font-size: 12px;
+  margin: 0;
+  font-weight: bold;
+}
+.ose.chat-card .card-content > * {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+.ose.chat-card .card-buttons {
+  margin: 5px 0;
+}
+.ose.chat-card .card-buttons span {
+  display: block;
+  line-height: 28px;
+  text-align: center;
+  border: 1px solid #7a7971;
+}
+.ose.chat-card .card-buttons button {
+  font-size: 12px;
+  height: 24px;
+  line-height: 20px;
+  margin: 2px 0;
+}
+.ose.chat-card .card-footer {
+  padding: 3px 0 0;
+  border-top: 2px groove #fff;
+}
+.ose.chat-card .card-footer span {
+  border-right: 2px groove #fff;
+  padding: 0 5px 0 0;
+  font-size: 10px;
+}
+.ose.chat-card .card-footer span:last-child {
+  border-right: none;
+  padding-right: 0;
+}
+
+.dice-roll .dice-total.success {
+  color: inherit;
+  background: #c7d0c0;
+  border: 1px solid #006c00;
+}
+.dice-roll .dice-total.failure {
+  color: inherit;
+  background: #ffdddd;
+  border: 1px solid #6e0000;
+}
+.dice-roll .dice-total.critical {
+  color: green;
+}
+.dice-roll .dice-total.fumble {
+  color: red;
+}
+
+.app .compendium .directory-item {
+  position: relative;
+}
+.app .compendium .directory-item .tag-list {
+  max-width: 260px;
+  overflow: hidden;
+  position: absolute;
+  bottom: 0;
+  left: 55px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+}
+.app .compendium .directory-item .tag-list .tag {
+  pointer-events: none;
+  white-space: nowrap;
+  margin: 1px;
+  font-size: 10px;
+  line-height: 12px;
+  background: #4b4a44;
+  padding: 1px 3px;
+  color: whitesmoke;
+  border-radius: 3px;
+  box-shadow: 0 0 1px #d8d6c9;
+}
+
+.sidebar-tab.directory .directory-list .directory-item {
+  position: relative;
+}
+.sidebar-tab.directory .directory-list .directory-item .tag-list {
+  max-width: 200px;
+  overflow: hidden;
+  position: absolute;
+  bottom: 0;
+  left: 52px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+}
+.sidebar-tab.directory .directory-list .directory-item .tag-list .tag {
+  pointer-events: none;
+  white-space: nowrap;
+  margin: 0 1px;
+  font-size: 10px;
+  line-height: 12px;
+  background: #4b4a44;
+  padding: 1px 3px;
+  color: whitesmoke;
+  border-radius: 3px;
+}
+
+/* ----------------------------------------- */
+/*  Sheet Styles                             */
+/* ----------------------------------------- */
+/* ----------------------------------------- */
+/*  Basic Structure                          */
+/* ----------------------------------------- */
+.ose.sheet.actor.character {
+  min-width: 450px;
+  min-height: 550px;
+  /* ----------------------------------------- */
+  /*  Sheet Header                             */
+  /* ----------------------------------------- */
+  /* ----------------------------------------- */
+  /*  Sheet Body                               */
+  /* ----------------------------------------- */
+  /* Encumbrance Bar */
+  /* ----------------------------------------- */
+  /*  Item Controls                            */
+  /* ----------------------------------------- */
+}
+.ose.sheet.actor.character .sheet-header {
+  position: relative;
+}
+.ose.sheet.actor.character .sheet-header .xp-bonus {
+  top: -15px;
+  right: 3px;
+  color: #7a7971;
+  font-size: 10px;
+  position: absolute;
+}
+.ose.sheet.actor.character .sheet-header .profile .modifiers-btn {
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 20px;
+  width: 140px;
+  padding: 2px 5px;
+  color: whitesmoke;
+  background: rgba(0, 0, 0, 0.9);
+}
+.ose.sheet.actor.character .sheet-header .profile:hover .modifiers-btn {
+  opacity: 1;
+}
+.ose.sheet.actor.character .sheet-header .profile:hover .profile-img {
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.9);
+}
+.ose.sheet.actor.character .sheet-body .tab {
+  height: 100%;
+}
+.ose.sheet.actor.character .sheet-body .attributes-tab {
+  justify-content: space-between;
+  height: 100%;
+}
+.ose.sheet.actor.character .sheet-body .resources {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+.ose.sheet.actor.character .sheet-body .resources .attribute {
+  flex: 0 0 55px;
+}
+.ose.sheet.actor.character
+  .sheet-body
+  .resources
+  .attribute.attribute-secondaries {
+  flex: 0 0 40px;
+  margin-bottom: 5px;
+}
+.ose.sheet.actor.character .sheet-body .notes-tab .inventory .languages {
+  margin: 2px;
+  flex: 0 0 130px;
+}
+.ose.sheet.actor.character
+  .sheet-body
+  .notes-tab
+  .inventory
+  .languages
+  .item-titles
+  .item-controls {
+  flex: 0 0 20px;
+}
+.ose.sheet.actor.character .sheet-body .notes-tab .inventory .languages ol {
+  height: 100px;
+  overflow: auto;
+  list-style: none;
+  padding: 5px;
+}
+.ose.sheet.actor.character .sheet-body .notes-tab .inventory .languages ol li {
+  margin: 0;
+}
+.ose.sheet.actor.character
+  .sheet-body
+  .notes-tab
+  .inventory
+  .languages
+  ol
+  li:hover
+  .item-controls {
+  display: flex;
+}
+.ose.sheet.actor.character
+  .sheet-body
+  .notes-tab
+  .inventory
+  .languages
+  ol
+  li
+  .item-controls {
+  flex: 0 0 20px;
+  display: none;
+}
+.ose.sheet.actor.character .sheet-body .notes-tab .inventory .description {
+  margin: 2px;
+}
+.ose.sheet.actor.character
+  .sheet-body
+  .notes-tab
+  .inventory
+  .description
+  .editor {
+  height: 110px;
+}
+.ose.sheet.actor.character
+  .sheet-body
+  .notes-tab
+  .inventory
+  .description
+  .editor
+  .tox
+  .tox-tbtn {
+  height: 24px;
+}
+.ose.sheet.actor.character .sheet-body .notes-tab .inventory.notes {
+  margin: 2px;
+}
+.ose.sheet.actor.character .sheet-body .notes-tab .inventory.notes .editor {
+  height: 150px;
+}
+.ose.sheet.actor.character .sheet-body .health {
+  height: 70px;
+  position: relative;
+}
+.ose.sheet.actor.character .sheet-body .health.armor-class {
+  background: url("assets/shield.png") no-repeat center;
+  background-size: 70px;
+}
+.ose.sheet.actor.character .sheet-body .health.armor-class .shield {
+  text-align: right;
+  padding: 0 14px;
+  font-size: 18px;
+}
+.ose.sheet.actor.character .sheet-body .health .health-value {
+  font-size: 16px;
+  text-align: center;
+  font-weight: bolder;
+  text-shadow: 0 0 2px white, 0 1px 2px white, 1px 0 2px white,
+    1px 1px 2px white;
+}
+.ose.sheet.actor.character .sheet-body .health .health-top {
+  border-bottom: none;
+  position: absolute;
+  font-size: 24px;
+  top: 10px;
+  width: 70px;
+  left: calc(50% - 35px);
+}
+.ose.sheet.actor.character .sheet-body .health .health-bottom {
+  border-bottom: none;
+  position: absolute;
+  bottom: 8px;
+  width: 40px;
+  right: calc(50% + -20px);
+}
+.ose.sheet.actor.character .sheet-body .health .health-empty {
+  background: url("assets/heart_empty.png") no-repeat center;
+  background-size: 70px;
+  background-position: top;
+}
+.ose.sheet.actor.character .sheet-body .health .health-full {
+  background: url("assets/heart_full.png") no-repeat center;
+  background-size: 70px;
+  background-position: bottom;
+}
+.ose.sheet.actor.character .sheet-body .saving-throw .attribute-value.flat {
+  line-height: 30px;
+}
+.ose.sheet.actor.character .sheet-body .exploration .attribute {
+  margin: 4px;
+}
+.ose.sheet.actor.character .sheet-body .exploration .attribute .attribute-name {
+  text-align: left;
+  flex: 1 0 60px;
+  line-height: 25px;
+  font-size: 12px;
+}
+.ose.sheet.actor.character .encumbrance {
+  height: 12px;
+  background: url("assets/back.png");
+  margin: 1px 15px 0 1px;
+  border: 1px solid rgba(0, 0, 0, 0.9);
+  border-radius: 3px;
+  position: relative;
+}
+.ose.sheet.actor.character .encumbrance .encumbrance-bar {
+  position: absolute;
+  background: rgba(255, 0, 0, 0.6);
+  height: 10px;
+  border: 1px solid #777;
+  border-radius: 2px;
+}
+.ose.sheet.actor.character .encumbrance .encumbrance-label {
+  height: 10px;
+  padding: 0 5px;
+  position: absolute;
+  top: 0;
+  right: 10px;
+  font-size: 13px;
+  line-height: 12px;
+  text-align: right;
+  color: #eee;
+  text-shadow: 0 0 5px #000;
+}
+.ose.sheet.actor.character .encumbrance .encumbrance-breakpoint {
+  display: block;
+  position: absolute;
+}
+.ose.sheet.actor.character .encumbrance .arrow-up {
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 4px solid #d8d6c9;
+}
+.ose.sheet.actor.character .encumbrance .arrow-down {
+  top: 0;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #d8d6c9;
+}
+.ose.sheet.actor.character .encumbrance.encumbered .arrow-up {
+  border-bottom: 4px solid rgba(0, 0, 0, 0.9);
+}
+.ose.sheet.actor.character .encumbrance.encumbered .arrow-down {
+  border-top: 4px solid rgba(0, 0, 0, 0.9);
+}
+
+.ose .window-content .collapsed {
+  display: none;
+}
+.ose .window-content .margin {
+  margin: 5px;
+}
+.ose .window-content input {
+  text-align: center;
+}
+.ose .window-content input[type="number"] {
+  -moz-appearance: textfield;
+}
+.ose .window-content input[type="number"]::-webkit-inner-spin-button,
+.ose .window-content input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+.ose .window-content input:not([type="checkbox"]) {
+  background: none;
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid #7a7971;
+}
+.ose .window-content input:not([type="checkbox"]):hover:not(:disabled),
+.ose .window-content input:not([type="checkbox"]):focus:not(:disabled) {
+  box-shadow: none;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.1));
+}
+.ose .window-content a:hover {
+  text-shadow: none;
+}
+.ose .window-content .resizable {
+  overflow: auto;
+}
+
+.ose.sheet.item .sheet-header h1 input {
+  margin: 6px 2%;
+}
+.ose.sheet.item .sheet-header .details {
+  flex: 0 0 70px;
+}
+.ose.sheet.item .sheet-header .details label {
+  flex: 0 0 20px;
+}
+.ose.sheet.item .sheet-header .profile-img {
+  border: none;
+  flex: 0 0 84px;
+  height: 84px;
+}
+.ose.sheet.item .sheet-header .tag-list {
+  margin: 0;
+  height: 24px;
+  overflow: auto;
+  list-style: none;
+  padding: 1px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.ose.sheet.item .sheet-header .tag-list .tag {
+  background: #4b4a44;
+  border-radius: 5px;
+  color: whitesmoke;
+  padding: 1px 5px;
+  height: 18px;
+  box-shadow: 0 0 3px #d8d6c9;
+  margin: 0 2px;
+}
+.ose.sheet.item .sheet-header .tag-list .tag i {
+  font-size: 8px;
+  vertical-align: top;
+  color: #d8d6c9;
+}
+.ose.sheet.item .sheet-body .stats {
+  flex: 0 0 80px;
+  border-right: 1px groove rgba(0, 0, 0, 0.2);
+  padding-right: 2px;
+  font-size: 13px;
+}
+.ose.sheet.item .sheet-body .stats .form-group {
+  margin: 1px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+.ose.sheet.item .sheet-body .stats .form-group label {
+  background: rgba(0, 0, 0, 0.1);
+  padding: 0 4px;
+}
+.ose.sheet.item .sheet-body .stats .form-group input {
+  border-bottom: none;
+  margin: auto 0;
+}
+.ose.sheet.item .sheet-body .stats .form-group .form-fields.range .sep {
+  flex: 0 0 1px;
+  background: #7a7971;
+  margin: 4px 0;
+}
+.ose.sheet.item .sheet-body .stats .form-group.attack-type {
+  text-align: center;
+  padding: 2px;
+  font-size: 15px;
+}
+.ose.sheet.item .sheet-body .stats .form-group.attack-type a {
+  color: #969696;
+}
+.ose.sheet.item .sheet-body .stats .form-group.attack-type a.active,
+.ose.sheet.item .sheet-body .stats .form-group.attack-type a :hover {
+  color: rgba(0, 0, 0, 0.9);
+}
+.ose.sheet.item .sheet-body .stats .form-group {
+  align-items: inherit;
+}
+.ose.sheet.item .sheet-body .stats .form-group label {
+  line-height: 21px;
+}
+.ose.sheet.item .sheet-body .stats .form-group .form-fields {
+  justify-content: space-evenly;
+  height: 22px;
+}
+.ose.sheet.item .sheet-body .stats .form-group .form-fields select {
+  height: 24px;
+}
+.ose.sheet.item .sheet-body .stats .block-input {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.ose.sheet.item .sheet-body .stats.narrow .form-group input {
+  height: 18px;
+}
+.ose.sheet.item .sheet-body .description .editor {
+  height: 250px;
+}
+.ose.sheet.item .sheet-body .description .editor .editor-content {
+  padding: 0 5px;
+}
+
+.ose.actor.monster {
+  min-height: 565px;
+  min-width: 460px;
+}
+.ose.actor.monster .header-details .summary .treasure-table {
+  text-align: center;
+}
+.ose.actor.monster .header-details .summary .check-field:hover .check {
+  display: block;
+}
+.ose.actor.monster .header-details .summary .check-field .check {
+  display: none;
+  line-height: 35px;
+  flex: 0 0 20px;
+  position: absolute;
+  font-size: 12px;
+}
+.ose.actor.monster .header-details .summary .check-field .check:hover {
+  color: rgba(0, 0, 0, 0.9);
+}
+.ose.actor.monster .sheet-body .editor {
+  height: 300px;
+}
+.ose.actor.monster .sheet-body .attributes-tab {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  height: 100%;
+}
+.ose.actor.monster .sheet-body .attributes-tab .attribute-row .attributes {
+  justify-content: space-between;
+}
+.ose.actor.monster .sheet-body .attributes-tab .attribute-row .attribute-group {
+  margin: 5px;
+}
+.ose.actor.monster .sheet-body .attributes-tab .attributes .attribute {
+  flex: 0 0 60px;
+}
+.ose.actor.monster .sheet-body .attributes-tab .attributes .attribute.health {
+  flex: 0 0 85px;
+}
+.ose.actor.monster
+  .sheet-body
+  .attributes-tab
+  .attributes
+  .attribute.saving-throw {
+  flex: 0 0 40px;
+}
+.ose.actor.monster .attributes .attribute.health {
+  position: relative;
+}
+.ose.actor.monster .attributes .attribute.health .attribute-name .hp-roll {
+  font-size: 12px;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  color: #d8d6c9;
+}
+.ose.actor.monster
+  .attributes
+  .attribute.health
+  .attribute-name
+  .hp-roll:hover {
+  color: white;
+}
+.ose.actor.monster .attribute-group .attacks-description {
+  margin: 2px;
+  padding: 0;
+  text-align: center;
+}
+.ose.actor.monster .attribute-group .attacks-description label {
+  color: #7a7971;
+  font-size: 10px;
+}
+.ose.actor.monster .panel.abilities .attack-pattern {
+  box-shadow: 1px 0 1px black;
+}
+.ose.actor.monster .panel.abilities .item-list .item-entry .item-pattern {
+  flex: 0 15px;
+  font-size: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+.ose.actor.monster
+  .panel.abilities
+  .item-list
+  .item-entry
+  .item-pattern:hover
+  .fas {
+  transform: rotate(90deg);
+}
+
+/* ----------------------------------------- */
+/*  Sheet Styles                             */
+/* ----------------------------------------- */

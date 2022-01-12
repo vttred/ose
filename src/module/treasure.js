@@ -94,7 +94,7 @@ async function rollTreasure(table, options = {}) {
 
   let chatData = {
     content: html,
-    // sound: "systems/ose/dist/assets/coins.mp3"
+    // sound: "systems/ose/assets/coins.mp3"
   };
 
   let rollMode = game.settings.get("core", "rollMode");

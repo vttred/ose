@@ -166,7 +166,6 @@ async function copyFiles() {
   const statics = [
     "lang",
     "fonts",
-    "assets",
     "templates",
     "module",
     "packs",

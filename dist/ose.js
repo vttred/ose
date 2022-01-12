@@ -124,7 +124,7 @@ Hooks.on("renderSidebarTab", async (object, html) => {
     const styling =
       "border:none;margin-right:2px;vertical-align:middle;margin-bottom:5px";
     $(
-      `<button data-action="userguide"><img src='systems/ose/dist/assets/dragon.png' width='16' height='16' style='${styling}'/>Old School Guide</button>`
+      `<button data-action="userguide"><img src='systems/ose/assets/dragon.png' width='16' height='16' style='${styling}'/>Old School Guide</button>`
     ).insertAfter(docs);
     html.find('button[data-action="userguide"]').click((ev) => {
       new FrameViewer("https://mesfoliesludiques.gitlab.io/foundryvtt-ose", {

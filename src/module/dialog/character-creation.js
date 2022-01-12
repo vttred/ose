@@ -189,7 +189,7 @@ export class OseCharacterCreator extends FormApplication {
     const itemData = {
       name: "GP",
       type: "item",
-      img: "systems/ose/dist/assets/gold.png",
+      img: "systems/ose/assets/gold.png",
       data: {
         treasure: true,
         cost: 1,

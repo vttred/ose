@@ -220,9 +220,10 @@ export class OseActorSheetCharacter extends OseActorSheet {
   activateListeners(html) {
     super.activateListeners(html);
 
-    html.find(".item-square").hover((event) => {
-      this._onShowItemTooltip(event);
-    });
+    // See Issue #20 Hovering over items inside a container causes the right sidebar to move
+    // html.find(".item-square").hover((event) => {
+    //   this._onShowItemTooltip(event);
+    // });
 
     html.find(".ability-score .attribute-name a").click((ev) => {
       let actorObject = this.actor;

@@ -135,60 +135,15 @@ export class OsePartySheet extends FormApplication {
     new OsePartyXP(this.object, {}).render(true);
   }
 
-  async _selectActors(ev) {
-    const actorDocuments = this.object.documents.sort(
-      (a, b) => b.data.token.disposition - a.data.token.disposition
-    );
-    const template = "systems/ose/dist/templates/apps/party-select.html";
-    const templateData = {
-      actors: actorDocuments,
-    };
-    const content = await renderTemplate(template, templateData);
-    new Dialog(
-      {
-        title: game.i18n.localize("OSE.dialog.partyselect"),
-        content: content,
-        buttons: {
-          set: {
-            icon: '<i class="fas fa-save"></i>',
-            label: game.i18n.localize("OSE.Update"),
-            callback: async (html) => {
-              let checks = html.find("input[data-action='select-actor']");
-              await Promise.all(
-                checks.map(async (_, c) => {
-                  let key = c.getAttribute("name");
-                  await this.object.documents[key].setFlag(
-                    "ose",
-                    "party",
-                    c.checked
-                  );
-                })
-              );
-              this.render(true);
-            },
-          },
-        },
-      },
-      {
-        height: "auto",
-        width: 260,
-        classes: ["ose", "dialog", "party-select"],
-      }
-    ).render(true);
-  }
-
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
-    html
-      .find(".item-controls .item-control .select-actors")
-      .click(this._selectActors.bind(this));
 
     html
-      .find(".item-controls .item-control .deal-xp")
+      .find(".header #deal-xp")
       .click(this._dealXP.bind(this));
 
-    html.find("a.resync").click(() => this.render(true));
+    html.find(".header #resync").click(() => this.render(true));
 
     // Actor buttons
     const getActor = (event) => {

@@ -1,21 +1,10 @@
 <form autocomplete="off" id="party-sheet">
-  <div class="actor header flexrow">
-    <div>
-      <a class="item-control resync"><i class="fas fa-sync"></i></a>
-    </div>
+  <div class="actor header flexrow item-controls">
+    <a id="resync" class="item-control "><i class="fas fa-sync"></i></a>
     {{#if user.isGM}}
-    <div class="item-controls flexrow">
-      <div class="item-control">
-        <button type="button" class="deal-xp" title="{{localize 'OSE.dialog.xp.deal'}}">
-          {{localize 'OSE.dialog.xp.label'}}
-        </button>
-      </div>
-      <div class="item-control">
-        <button type="button" class="select-actors" title="{{localize 'OSE.dialog.partyselect'}}">
-          <i class="fas fa-users"></i>
-        </button>
-      </div>
-    </div>
+    <button id="deal-xp" class="item-control" type="button" title="{{localize 'OSE.dialog.xp.deal'}}">
+      {{localize 'OSE.dialog.xp.label'}}
+    </button>
     {{/if}}
   </div>
   <div class="body party-members">

@@ -64,29 +64,6 @@
   }
 }
 
-.ose.dialog.party-select {
-  .actor-list {
-    padding: 0 4px 0;
-    max-height: 250px;
-    overflow: auto;
-    .actor {
-      label {
-        height: 28px;
-        overflow: hidden;
-      }
-      .form-fields {
-        flex: 0 20px;
-      }
-      &.disposition-1 label {
-        font-weight: 600;
-      }
-      &.disposition--1 label {
-        font-style: italic;
-      }
-    }
-  }
-}
-
 .ose.dialog.party-sheet {
   min-width: 250px;
   min-height: 250px;
@@ -104,16 +81,15 @@
     line-height: 20px;
     text-align: left;
     padding: 2px 10px;
-    .item-controls {
-      .item-control {
-        padding: 0 2px;
-        button {
-          line-height: 15px;
-          margin: 0 1px;
-          background: rgba(255, 255, 240, 0.8);
-          border: 1px solid #b5b3a4;
-        }
-      }
+    .item-control {
+      padding: 0 2px;
+    }
+    button {
+      max-width: 25%;
+      line-height: 15px;
+      margin: 0 1px;
+      background: rgba(255, 255, 240, 0.8);
+      border: 1px solid #b5b3a4;
     }
   }
   .body {

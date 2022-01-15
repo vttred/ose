@@ -170,11 +170,23 @@ export class OsePartySheet extends FormApplication {
 
     html.find("a.resync").click(() => this.render(true));
 
-    html.find(".field-img button[data-action='open-sheet']").click((ev) => {
-      let actorId =
-        ev.currentTarget.parentElement.parentElement.parentElement.dataset
-          .actorId;
-      game.actors.get(actorId).sheet.render(true);
-    });
+    // Actor buttons
+    const getActor = (event) => {
+      const id = event.currentTarget.closest(".actor").dataset.actorId;
+      return game.actors.get(id)
+    };
+
+    html
+      .find(".field-img button[data-action='open-sheet']")
+      .click((event) => {
+        getActor(event).sheet.render(true);
+      });
+
+    html
+      .find(".field-img button[data-action='remove-actor']")
+      .click(async (event) => {
+        await this._removeActorFromParty(getActor(event));
+        this.render();
+      });
   }
 }

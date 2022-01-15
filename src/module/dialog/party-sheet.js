@@ -8,7 +8,7 @@ export class OsePartySheet extends FormApplication {
       width: 280,
       height: 400,
       resizable: true,
-      dragDrop: [{ dragSelector: null, dropSelector: ".party-members" }]
+      dragDrop: [{ dragSelector: ".actor-list .actor", dropSelector: ".party-members" }]
     });
   }
 
@@ -109,6 +109,26 @@ export class OsePartySheet extends FormApplication {
         break;
     }
   }
+
+  /* - Dragging from the Party Sheet - */
+  _onDragStart(event) {
+    try {
+      const actorId = event.currentTarget.dataset.actorId;
+
+      const dragData = {
+        id: actorId,
+        type: "Actor"
+      };
+
+      // Set data transfer
+      event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
+    } catch (error) {
+      return false;
+    }
+
+    return true;
+  }
+
   /* -------------------------------------------- */
 
   async _dealXP(ev) {

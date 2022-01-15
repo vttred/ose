@@ -73,20 +73,12 @@ export class OsePartySheet extends FormApplication {
       switch (data.type) {
         case "Actor":
           return this._onDropActor(event, data);
-        case "Item":
-          return this._onDropItem(event, data);
         case "Folder":
           return this._onDropFolder(event, data);
       }
     } catch (err) {
       return false;
     }
-  }
-
-  _onDropItem(event, data) {
-    console.log("got an item:", data);
-
-    const itemId = data["id"];
   }
 
   _onDropActor(event, data) {
@@ -104,8 +96,6 @@ export class OsePartySheet extends FormApplication {
     switch (data.documentName) {
       case "Actor":
         folder.content.forEach(actor => this._addActorToParty(actor));
-        break;
-      case "Item":
         break;
     }
   }
@@ -161,7 +151,7 @@ export class OsePartySheet extends FormApplication {
       .find(".field-img button[data-action='remove-actor']")
       .click(async (event) => {
         await this._removeActorFromParty(getActor(event));
-        this.render();
+        this.render(true);
       });
   }
 }

@@ -8,6 +8,7 @@ export class OsePartySheet extends FormApplication {
       width: 280,
       height: 400,
       resizable: true,
+      dragDrop: [{ dragSelector: null, dropSelector: ".party-members" }]
     });
   }
 
@@ -40,15 +41,72 @@ export class OsePartySheet extends FormApplication {
     return data;
   }
 
+  async _addActorToParty(actor) {
+    await actor.setFlag(
+      "ose",
+      "party",
+      true
+    );
+  }
+
+  async _removeActorFromParty(actor) {
+    await actor.setFlag(
+      "ose",
+      "party",
+      false
+    );
+  }
+
+  /* ---------------------- */
+  /* --Drag&Drop Behavior-- */
+  /* ---------------------- */
+
+  /* - Adding to the Party Sheet -*/
   _onDrop(event) {
     event.preventDefault();
+
     // WIP Drop Items
     let data;
     try {
       data = JSON.parse(event.dataTransfer.getData("text/plain"));
-      if (data.type !== "Item") return;
+
+      switch (data.type) {
+        case "Actor":
+          return this._onDropActor(event, data);
+        case "Item":
+          return this._onDropItem(event, data);
+        case "Folder":
+          return this._onDropFolder(event, data);
+      }
     } catch (err) {
       return false;
+    }
+  }
+
+  _onDropItem(event, data) {
+    console.log("got an item:", data);
+
+    const itemId = data["id"];
+  }
+
+  _onDropActor(event, data) {
+    const actors = this.object.documents;
+    let droppedActor = actors.find(actor => actor.id === data.id);
+
+    this._addActorToParty(droppedActor);
+  }
+
+  _onDropFolder(event, data) {
+
+    const folder = game.folders.get(data.id);
+    if (!folder) return [];
+
+    switch (data.documentName) {
+      case "Actor":
+        folder.content.forEach(actor => this._addActorToParty(actor));
+        break;
+      case "Item":
+        break;
     }
   }
   /* -------------------------------------------- */

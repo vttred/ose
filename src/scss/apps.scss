@@ -93,6 +93,10 @@
   .window-content {
     padding: 0;
   }
+  #party-sheet{
+    display: flex;
+    flex-direction: column;
+  }
   .header {
     color: whitesmoke;
     background: $darkBackground;
@@ -111,6 +115,10 @@
         }
       }
     }
+  }
+  .body {
+    width: 100%;
+    flex-grow: 1;
   }
   .actor-list {
     margin: 0;

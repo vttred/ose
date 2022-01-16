@@ -88,12 +88,11 @@ export class OsePartyXP extends FormApplication {
     });
   }
 
-  /** @override */
   activateListeners(html) {
     super.activateListeners(html);
-    html
-      .find('button[data-action="calculate-share"')
-      .click(this._calculateShare.bind(this));
+
+    const totalField = html.find('input[name="total"]');
+    totalField.on("input", this._calculateShare.bind(this));
     html.find('button[data-action="deal-xp"').click(this._dealXP.bind(this));
   }
 }

@@ -1,6 +1,6 @@
 <form autocomplete="off" id="party-sheet">
   <div class="actor header flexrow item-controls">
-    <a id="resync" class="item-control "><i class="fas fa-sync"></i></a>
+    <div id="empty"></div>
     {{#if user.isGM}}
     <button id="deal-xp" class="item-control" type="button" title="{{localize 'OSE.dialog.xp.deal'}}">
       {{localize 'OSE.dialog.xp.label'}}
@@ -9,7 +9,7 @@
   </div>
   <div class="body party-members">
     <ol class="actor-list">
-      {{#each data.documents as |e|}} {{#if e.data.flags.ose.party}}
+      {{#each partyActors as |e|}}
       <li class="actor flexrow" data-actor-id="{{e.id}}">
         <div class="field-img">
           <img src="{{e.img}}" />
@@ -82,7 +82,7 @@
           </div>
         </div>
       </li>
-      {{/if}} {{/each}}
+      {{/each}}
     </ol>
   </div>
 </form>

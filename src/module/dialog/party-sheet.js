@@ -8,7 +8,8 @@ export class OsePartySheet extends FormApplication {
       width: 280,
       height: 400,
       resizable: true,
-      dragDrop: [{ dragSelector: ".actor-list .actor", dropSelector: ".party-members" }]
+      dragDrop: [{ dragSelector: ".actor-list .actor", dropSelector: ".party-members" }],
+      closeOnSubmit: false
     });
   }
 
@@ -29,10 +30,18 @@ export class OsePartySheet extends FormApplication {
    * @return {Object}
    */
   getData() {
+    const actors = this.object.documents.filter(
+      (e) =>
+        e.data.type === "character" &&
+        e.data.flags.ose &&
+        e.data.flags.ose.party === true
+    );
     const settings = {
       ascending: game.settings.get("ose", "ascendingAC"),
     };
+
     let data = {
+      partyActors: actors,
       data: this.object,
       config: CONFIG.OSE,
       user: game.user,
@@ -42,19 +51,11 @@ export class OsePartySheet extends FormApplication {
   }
 
   async _addActorToParty(actor) {
-    await actor.setFlag(
-      "ose",
-      "party",
-      true
-    );
+    await actor.setFlag("ose", "party", true);
   }
 
   async _removeActorFromParty(actor) {
-    await actor.setFlag(
-      "ose",
-      "party",
-      false
-    );
+    await actor.setFlag("ose", "party", false);
   }
 
   /* ---------------------- */
@@ -89,7 +90,6 @@ export class OsePartySheet extends FormApplication {
   }
 
   _onDropFolder(event, data) {
-
     const folder = game.folders.get(data.id);
     if (!folder) return [];
 
@@ -151,7 +151,6 @@ export class OsePartySheet extends FormApplication {
       .find(".field-img button[data-action='remove-actor']")
       .click(async (event) => {
         await this._removeActorFromParty(getActor(event));
-        this.render(true);
       });
   }
 }

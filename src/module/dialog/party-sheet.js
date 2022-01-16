@@ -91,7 +91,7 @@ export class OsePartySheet extends FormApplication {
 
   _onDropFolder(event, data) {
     const folder = game.folders.get(data.id);
-    if (!folder) return [];
+    if (!folder) return;
 
     switch (data.documentName) {
       case "Actor":
@@ -132,8 +132,6 @@ export class OsePartySheet extends FormApplication {
     html
       .find(".header #deal-xp")
       .click(this._dealXP.bind(this));
-
-    html.find(".header #resync").click(() => this.render(true));
 
     // Actor buttons
     const getActor = (event) => {

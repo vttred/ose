@@ -188,23 +188,24 @@ export class OseDice {
   static async sendAttackRoll({
     parts = [],
     data = {},
+    flags= {},
     title = null,
     flavor = null,
     speaker = null,
     form = null,
   } = {}) {
     const template = "systems/ose/dist/templates/chat/roll-attack.html";
-
     let chatData = {
       user: game.user.id,
       speaker: speaker,
+      flags: flags
     };
 
     let templateData = {
       title: title,
       flavor: flavor,
       data: data,
-      config: CONFIG.OSE,
+      config: CONFIG.OSE
     };
 
     // Optionally include a situational bonus
@@ -367,6 +368,8 @@ export class OseDice {
     flavor = null,
     title = null,
     chatMessage = true,
+    flags = {}
+
   } = {}) {
     let rolled = false;
     const template = "systems/ose/dist/templates/chat/roll-dialog.html";
@@ -378,7 +381,6 @@ export class OseDice {
         : game.settings.get("core", "rollMode"),
       rollModes: CONFIG.Dice.rollModes,
     };
-
     let rollData = {
       parts: parts,
       data: data,
@@ -386,6 +388,7 @@ export class OseDice {
       flavor: flavor,
       speaker: speaker,
       chatMessage: chatMessage,
+      flags: flags
     };
     if (skipDialog) {
       return ["melee", "missile", "attack"].includes(data.roll.type)

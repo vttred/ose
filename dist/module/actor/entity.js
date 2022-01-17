@@ -480,15 +480,16 @@ export class OseActor extends Actor {
     const rollData = {
       actor: this.data,
       item: attData.item,
+      itemId: attData.item._id,
       roll: {
         type: options.type,
         thac0: thac0,
         dmg: dmgParts,
         save: attData.roll.save,
-        target: attData.roll.target,
+        target: attData.roll.target
+        
       },
     };
-
     // Roll and return
     return OseDice.Roll({
       event: options.event,
@@ -497,6 +498,7 @@ export class OseActor extends Actor {
       skipDialog: options.skipDialog,
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: label,
+      flags: {ose: {roll: 'attack', itemId: attData.item._id}},
       title: label,
     });
   }

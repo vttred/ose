@@ -185,7 +185,7 @@
   "OSE.Setting.EncumbranceComplete": "Complete",
   "OSE.Setting.MovementAuto": "Calculate Movement",
   "OSE.Setting.SignificantTreasure": "Significant Treasure Weight",
-  "OSE.Setting.SignificantTreasureHint": "Weight at which treasure will reduce the movement, only useful for basic encumbrance", 
+  "OSE.Setting.SignificantTreasureHint": "Weight at which treasure will reduce the movement, only useful for basic encumbrance",
   "OSE.Setting.Languages": "Languages",
   "OSE.Setting.LanguagesHint": "Enter a comma separated list of languages",
   "OSE.Setting.EnableInventory": "Enable Inventory",
@@ -287,5 +287,8 @@
   "OSE.reaction.Unfriendly": "{name} is Unfriendly",
   "OSE.reaction.Neutral": "{name} is Neutral",
   "OSE.reaction.Indifferent": "{name} is Indifferent",
-  "OSE.reaction.Friendly": "{name} is Friendly"
+  "OSE.reaction.Friendly": "{name} is Friendly",
+
+  "OSE.CombatFlag.SpellDeclared": "Spell Declared",
+  "OSE.CombatFlag.RetreatFromMeleeDeclared": "Retreat From Melee Declared"
 }

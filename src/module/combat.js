@@ -14,9 +14,11 @@ export class OseCombat {
 
     // Roll init
     Object.keys(groups).forEach((group) => {
-      let roll = new Roll("1d6").evaluate({async: false});
+      let roll = new Roll("1d6").evaluate({ async: false });
       roll.toMessage({
-        flavor: game.i18n.format('OSE.roll.initiative', { group: CONFIG["OSE"].colors[group] }),
+        flavor: game.i18n.format("OSE.roll.initiative", {
+          group: CONFIG["OSE"].colors[group],
+        }),
       });
       groups[group].initiative = roll.total;
     });
@@ -27,10 +29,10 @@ export class OseCombat {
         return;
       }
       if (data.combatants[i].actor.data.data.isSlow) {
-        data.combatants[i].update({initiative: OseCombat.STATUS_SLOW});
+        data.combatants[i].update({ initiative: OseCombat.STATUS_SLOW });
       } else {
         const group = data.combatants[i].getFlag("ose", "group");
-        data.combatants[i].update({initiative: groups[group].initiative});
+        data.combatants[i].update({ initiative: groups[group].initiative });
       }
     }
     combat.setupTurns();
@@ -59,24 +61,33 @@ export class OseCombat {
       updates.push({ _id: c.id, initiative: value });
 
       // Determine the roll mode
-      let rollMode = game.settings.get("core", "rollMode");;
-      if ((c.token.hidden || c.hidden) && (rollMode === "roll")) rollMode = "gmroll";
+      let rollMode = game.settings.get("core", "rollMode");
+      if ((c.token.hidden || c.hidden) && rollMode === "roll")
+        rollMode = "gmroll";
 
       // Construct chat message data
       // Construct chat message data
-      let messageData = foundry.utils.mergeObject({
-        speaker: {
-          scene: combat.scene.id,
-          actor: c.actor?.id,
-          token: c.token?.id,
-          alias: c.name
+      let messageData = foundry.utils.mergeObject(
+        {
+          speaker: {
+            scene: combat.scene.id,
+            actor: c.actor?.id,
+            token: c.token?.id,
+            alias: c.name,
+          },
+          flavor: game.i18n.format("OSE.roll.individualInit", {
+            name: c.token.name,
+          }),
+          flags: { "ose.initiativeRoll": true },
         },
-        flavor: game.i18n.format('OSE.roll.individualInit', { name: c.token.name }),
-        flags: {"ose.initiativeRoll": true}
-      }, {});
-      const chatData = roll.toMessage(messageData, { rollMode: c.hidden && (rollMode === "roll") ? "gmroll" : rollMode, create: false });
+        {}
+      );
+      const chatData = roll.toMessage(messageData, {
+        rollMode: c.hidden && rollMode === "roll" ? "gmroll" : rollMode,
+        create: false,
+      });
 
-      if (i > 0) chatData.sound = null;   // Only play 1 sound for the whole set
+      if (i > 0) chatData.sound = null; // Only play 1 sound for the whole set
       messages.push(chatData);
     });
 
@@ -105,13 +116,21 @@ export class OseCombat {
       const moveInCombat = cmbtant.getFlag("ose", "moveInCombat");
       const preparingSpell = cmbtant.getFlag("ose", "prepareSpell");
       const moveActive = moveInCombat ? "active" : "";
-      controls.eq(1).after(
-        `<a class='combatant-control move-combat ${moveActive}'><i class='fas fa-walking'></i></a>`
-      );
+      controls
+        .eq(1)
+        .after(
+          `<a class='combatant-control move-combat ${moveActive}' title="${game.i18n.localize(
+            "OSE.CombatFlag.RetreatFromMeleeDeclared"
+          )}"><i class='fas fa-walking'></i></a>`
+        );
       const spellActive = preparingSpell ? "active" : "";
-      controls.eq(1).after(
-        `<a class='combatant-control prepare-spell ${spellActive}'><i class='fas fa-magic'></i></a>`
-      );
+      controls
+        .eq(1)
+        .after(
+          `<a class='combatant-control prepare-spell ${spellActive}' title="${game.i18n.localize(
+            "OSE.CombatFlag.SpellDeclared"
+          )}"><i class='fas fa-magic'></i></a>`
+        );
     });
     OseCombat.announceListener(html);
 
@@ -166,7 +185,7 @@ export class OseCombat {
           group == cmbtGroup
         ) {
           // Set init
-          combatant.update({initiative: parseInt(ct.initiative)});
+          combatant.update({ initiative: parseInt(ct.initiative) });
         }
       });
     }
@@ -177,7 +196,7 @@ export class OseCombat {
       ev.preventDefault();
       // Toggle spell announcement
       let id = $(ev.currentTarget).closest(".combatant")[0].dataset.combatantId;
-      let isActive = ev.currentTarget.classList.contains('active');
+      let isActive = ev.currentTarget.classList.contains("active");
       const combatant = game.combat.combatants.get(id);
       combatant.setFlag("ose", "prepareSpell", !isActive);
     });
@@ -185,10 +204,10 @@ export class OseCombat {
       ev.preventDefault();
       // Toggle spell announcement
       let id = $(ev.currentTarget).closest(".combatant")[0].dataset.combatantId;
-      let isActive = ev.currentTarget.classList.contains('active');
+      let isActive = ev.currentTarget.classList.contains("active");
       const combatant = game.combat.combatants.get(id);
       combatant.setFlag("ose", "moveInCombat", !isActive);
-    })
+    });
   }
 
   static addListeners(html) {
@@ -244,15 +263,17 @@ export class OseCombat {
   }
 
   static activateCombatant(li) {
-    const turn = game.combat.turns.findIndex(turn => turn.id === li.data('combatant-id'));
-    game.combat.update({ turn: turn })
+    const turn = game.combat.turns.findIndex(
+      (turn) => turn.id === li.data("combatant-id")
+    );
+    game.combat.update({ turn: turn });
   }
 
   static addContextEntry(html, options) {
     options.unshift({
       name: "Set Active",
       icon: '<i class="fas fa-star-of-life"></i>',
-      callback: OseCombat.activateCombatant
+      callback: OseCombat.activateCombatant,
     });
   }
 

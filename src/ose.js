@@ -33,6 +33,7 @@ Hooks.once("init", async function () {
 
   game.ose = {
     rollItemMacro: macros.rollItemMacro,
+    oseCombat: OseCombat,
   };
 
   // Custom Handlebars helpers
@@ -141,10 +142,13 @@ Hooks.on("preCreateCombatant", (combat, data, options, id) => {
   }
 });
 
-Hooks.on("updateCombatant", OseCombat.updateCombatant);
-Hooks.on("renderCombatTracker", OseCombat.format);
+Hooks.on("updateCombatant", OseCombat.debounce(OseCombat.updateCombatant), 100);
+Hooks.on("renderCombatTracker", OseCombat.debounce(OseCombat.format, 100));
 Hooks.on("preUpdateCombat", OseCombat.preUpdateCombat);
-Hooks.on("getCombatTrackerEntryContext", OseCombat.addContextEntry);
+Hooks.on(
+  "getCombatTrackerEntryContext",
+  OseCombat.debounce(OseCombat.addContextEntry, 100)
+);
 
 Hooks.on("renderChatLog", (app, html, data) => OseItem.chatListeners(html));
 Hooks.on("getChatLogEntryContext", chat.addChatMessageContextOptions);

@@ -480,6 +480,7 @@ export class OseActor extends Actor {
     const rollData = {
       actor: this.data,
       item: attData.item,
+      itemId: attData.item._id,
       roll: {
         type: options.type,
         thac0: thac0,
@@ -488,7 +489,6 @@ export class OseActor extends Actor {
         target: attData.roll.target,
       },
     };
-
     // Roll and return
     return OseDice.Roll({
       event: options.event,
@@ -497,6 +497,7 @@ export class OseActor extends Actor {
       skipDialog: options.skipDialog,
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: label,
+      flags: { ose: { roll: "attack", itemId: attData.item._id } },
       title: label,
     });
   }
@@ -556,7 +557,10 @@ export class OseActor extends Actor {
       ) {
         return acc + item.data.data.quantity.value * item.data.data.weight;
       }
-      if (["weapon", "armor", "container"].includes(item.type) && option !== "basic") {
+      if (
+        ["weapon", "armor", "container"].includes(item.type) &&
+        option !== "basic"
+      ) {
         return acc + item.data.data.weight;
       }
       return acc;
@@ -566,15 +570,18 @@ export class OseActor extends Actor {
 
     // Compute weigth thresholds
     const max = data.encumbrance.max;
-    const basicSignificantEncumbrance = game.settings.get("ose", "significantTreasure");
+    const basicSignificantEncumbrance = game.settings.get(
+      "ose",
+      "significantTreasure"
+    );
 
     const steps = ["detailed", "complete"].includes(option)
       ? [400, 600, 800]
       : option === "basic"
-        ? [basicSignificantEncumbrance]
-        : [];
+      ? [basicSignificantEncumbrance]
+      : [];
 
-    const percentSteps = steps.map(s => 100 * s / max);
+    const percentSteps = steps.map((s) => (100 * s) / max);
 
     data.encumbrance = {
       pct: Math.clamped((100 * parseFloat(totalWeight)) / max, 0, 100),
@@ -677,7 +684,7 @@ export class OseActor extends Actor {
       if (armorData.type == "shield") {
         AcShield = armorData.ac.value;
         AacShield = armorData.aac.value;
-        return
+        return;
       }
       baseAc = armorData.ac.value;
       baseAac = armorData.aac.value;

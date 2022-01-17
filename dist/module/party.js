@@ -4,24 +4,28 @@ export const addControl = (object, html) => {
     let control = `<button class='ose-party-sheet' type="button" title='${game.i18n.localize('OSE.dialog.partysheet')}'><i class='fas fa-users'></i></button>`;
     html.find(".fas.fa-search").replaceWith($(control))
     html.find('.ose-party-sheet').click(ev => {
-        showPartySheet(object);
+        showPartySheet(ev, object);
     })
 }
 
-export const showPartySheet = (object) => {
+export const showPartySheet = (event, object) => {
     event.preventDefault();
     new OsePartySheet(object, {
-      top: window.screen.height / 2 - 180,
-      left:window.screen.width / 2 - 140,
+        top: window.screen.height / 2 - 180,
+        left: window.screen.width / 2 - 140,
     }).render(true);
 }
 
 export const update = (actor, data) => {
-    if (actor.getFlag('ose', 'party')) {
-        Object.values(ui.windows).forEach(w => {
-            if (w instanceof OsePartySheet) {
-                w.render(true);
-            }
-        })
+    const partyFlag = actor.getFlag('ose', 'party');
+
+    if (partyFlag === null) {
+        return;
+    }
+
+    const partySheetUI = Object.values(ui.windows).find(win => { return win instanceof OsePartySheet });
+
+    if (partySheetUI) {
+        partySheetUI.render();
     }
 }

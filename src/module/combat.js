@@ -2,7 +2,16 @@ export class OseCombat {
   static STATUS_SLOW = -789;
   static STATUS_DIZZY = -790;
 
-  static rollInitiative(combat, data) {
+  static debounce(callback, wait) {
+    let timeoutId = null;
+    return (...args) => {
+      window.clearTimeout(timeoutId);
+      timeoutId = window.setTimeout(() => {
+        callback.apply(null, args);
+      }, wait);
+    };
+  }
+  static async rollInitiative(combat, data) {
     // Check groups
     data.combatants = [];
     let groups = {};
@@ -11,31 +20,39 @@ export class OseCombat {
       groups[group] = { present: true };
       data.combatants.push(cbt);
     });
-
     // Roll init
-    Object.keys(groups).forEach((group) => {
+    for (let group in groups) {
+      // Object.keys(groups).forEach((group) => {
       let roll = new Roll("1d6").evaluate({ async: false });
-      roll.toMessage({
+      await roll.toMessage({
         flavor: game.i18n.format("OSE.roll.initiative", {
           group: CONFIG["OSE"].colors[group],
         }),
       });
       groups[group].initiative = roll.total;
-    });
-
+      // });
+    }
     // Set init
     for (let i = 0; i < data.combatants.length; ++i) {
-      if (!data.combatants[i].actor) {
-        return;
-      }
-      if (data.combatants[i].actor.data.data.isSlow) {
-        data.combatants[i].update({ initiative: OseCombat.STATUS_SLOW });
-      } else {
-        const group = data.combatants[i].getFlag("ose", "group");
-        data.combatants[i].update({ initiative: groups[group].initiative });
+      if (game.user.isGM) {
+        if (!data.combatants[i].actor) {
+          return;
+        }
+        if (data.combatants[i].actor.data.data.isSlow) {
+          await data.combatants[i].update({
+            initiative: OseCombat.STATUS_SLOW,
+          });
+        } else {
+          const group = data.combatants[i].getFlag("ose", "group");
+          this.debounce(
+            data.combatants[i].update({ initiative: groups[group].initiative }),
+            500
+          );
+        }
       }
     }
-    combat.setupTurns();
+
+    await combat.setupTurns();
   }
 
   static async resetInitiative(combat, data) {
@@ -49,23 +66,28 @@ export class OseCombat {
   static async individualInitiative(combat, data) {
     let updates = [];
     let messages = [];
-    combat.data.combatants.forEach((c, i) => {
+
+    for (let i = 0; i < combat.data.combatants.size; i++) {
+      let c = combat.data.combatants.contents[i];
+
       // This comes from foundry.js, had to remove the update turns thing
       // Roll initiative
-      const cf = c._getInitiativeFormula(c);
-      const roll = c.getInitiativeRoll(cf);
+      const cf = await c._getInitiativeFormula(c);
+      const roll = await c.getInitiativeRoll(cf).evaluate({ async: true });
+
       let value = roll.total;
       if (combat.settings.skipDefeated && c.defeated) {
         value = OseCombat.STATUS_DIZZY;
       }
-      updates.push({ _id: c.id, initiative: value });
+      const data = { _id: c.id, initiative: value };
+
+      updates.push(data);
 
       // Determine the roll mode
       let rollMode = game.settings.get("core", "rollMode");
       if ((c.token.hidden || c.hidden) && rollMode === "roll")
         rollMode = "gmroll";
 
-      // Construct chat message data
       // Construct chat message data
       let messageData = foundry.utils.mergeObject(
         {
@@ -82,16 +104,16 @@ export class OseCombat {
         },
         {}
       );
-      const chatData = roll.toMessage(messageData, {
+      const chatData = await roll.toMessage(messageData, {
         rollMode: c.hidden && rollMode === "roll" ? "gmroll" : rollMode,
         create: false,
       });
-
       if (i > 0) chatData.sound = null; // Only play 1 sound for the whole set
       messages.push(chatData);
-    });
-
-    await combat.updateEmbeddedDocuments("Combatant", updates);
+    }
+    if (game.user.isGM) {
+      await combat.updateEmbeddedDocuments("Combatant", updates);
+    }
 
     await ChatMessage.implementation.create(messages);
     data.turn = 0;
@@ -185,7 +207,9 @@ export class OseCombat {
           group == cmbtGroup
         ) {
           // Set init
-          combatant.update({ initiative: parseInt(ct.initiative) });
+          if (game.user.isGM) {
+            combatant.update({ initiative: parseInt(groupInit) });
+          }
         }
       });
     }
@@ -206,7 +230,9 @@ export class OseCombat {
       let id = $(ev.currentTarget).closest(".combatant")[0].dataset.combatantId;
       let isActive = ev.currentTarget.classList.contains("active");
       const combatant = game.combat.combatants.get(id);
-      combatant.setFlag("ose", "moveInCombat", !isActive);
+      if (game.user.isGM) {
+        combatant.setFlag("ose", "moveInCombat", !isActive);
+      }
     });
   }
 
@@ -226,7 +252,9 @@ export class OseCombat {
       }
       let id = $(ev.currentTarget).closest(".combatant")[0].dataset.combatantId;
       const combatant = game.combat.combatants.get(id);
-      combatant.setFlag("ose", "group", colors[index]);
+      if (game.user.isGM) {
+        combatant.setFlag("ose", "group", colors[index]);
+      }
     });
 
     html.find('.combat-control[data-control="reroll"]').click((ev) => {
@@ -235,9 +263,11 @@ export class OseCombat {
       }
       let data = {};
       OseCombat.rollInitiative(game.combat, data);
-      game.combat.update({ data: data }).then(() => {
-        game.combat.setupTurns();
-      });
+      if (game.user.isGM) {
+        game.combat.update({ data: data }).then(() => {
+          game.combat.setupTurns();
+        });
+      }
     });
   }
 
@@ -266,7 +296,9 @@ export class OseCombat {
     const turn = game.combat.turns.findIndex(
       (turn) => turn.id === li.data("combatant-id")
     );
-    game.combat.update({ turn: turn });
+    if (game.user.isGM) {
+      game.combat.update({ turn: turn });
+    }
   }
 
   static addContextEntry(html, options) {

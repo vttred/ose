@@ -6,6 +6,7 @@ export class OsePartyXP extends FormApplication {
       width: 300,
       height: "auto",
       resizable: false,
+      closeOnSubmit: true
     });
   }
 
@@ -55,6 +56,10 @@ export class OsePartyXP extends FormApplication {
   }
   /* -------------------------------------------- */
 
+  _updateObject(event, formData) {
+    this._dealXP(event);
+  }
+
   _calculateShare(ev) {
     const actors = this.object.documents.filter(
       (e) =>
@@ -88,12 +93,12 @@ export class OsePartyXP extends FormApplication {
     });
   }
 
-  /** @override */
   activateListeners(html) {
     super.activateListeners(html);
-    html
-      .find('button[data-action="calculate-share"')
-      .click(this._calculateShare.bind(this));
-    html.find('button[data-action="deal-xp"').click(this._dealXP.bind(this));
+
+    const totalField = html.find('input[name="total"]');
+    totalField.on("input", this._calculateShare.bind(this));
+
+    html.find('button[data-action="deal-xp"').click(event => { super.submit(event) });
   }
 }

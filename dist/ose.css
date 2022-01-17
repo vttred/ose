@@ -488,31 +488,16 @@
   flex-grow: 0;
 }
 
-.ose.dialog.party-select .actor-list {
-  padding: 0 4px 0;
-  max-height: 250px;
-  overflow: auto;
-}
-.ose.dialog.party-select .actor-list .actor label {
-  height: 28px;
-  overflow: hidden;
-}
-.ose.dialog.party-select .actor-list .actor .form-fields {
-  flex: 0 20px;
-}
-.ose.dialog.party-select .actor-list .actor.disposition-1 label {
-  font-weight: 600;
-}
-.ose.dialog.party-select .actor-list .actor.disposition--1 label {
-  font-style: italic;
-}
-
 .ose.dialog.party-sheet {
   min-width: 250px;
   min-height: 250px;
 }
 .ose.dialog.party-sheet .window-content {
   padding: 0;
+}
+.ose.dialog.party-sheet #party-sheet {
+  display: flex;
+  flex-direction: column;
 }
 .ose.dialog.party-sheet .header {
   color: whitesmoke;
@@ -522,14 +507,19 @@
   text-align: left;
   padding: 2px 10px;
 }
-.ose.dialog.party-sheet .header .item-controls .item-control {
+.ose.dialog.party-sheet .header .item-control {
   padding: 0 2px;
 }
-.ose.dialog.party-sheet .header .item-controls .item-control button {
+.ose.dialog.party-sheet .header button {
+  max-width: 25%;
   line-height: 15px;
   margin: 0 1px;
   background: rgba(255, 255, 240, 0.8);
   border: 1px solid #b5b3a4;
+}
+.ose.dialog.party-sheet .body {
+  width: 100%;
+  flex-grow: 1;
 }
 .ose.dialog.party-sheet .actor-list {
   margin: 0;

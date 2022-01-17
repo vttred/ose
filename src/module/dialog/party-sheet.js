@@ -8,6 +8,8 @@ export class OsePartySheet extends FormApplication {
       width: 280,
       height: 400,
       resizable: true,
+      dragDrop: [{ dragSelector: ".actor-list .actor", dropSelector: ".party-members" }],
+      closeOnSubmit: false
     });
   }
 
@@ -28,10 +30,18 @@ export class OsePartySheet extends FormApplication {
    * @return {Object}
    */
   getData() {
+    const actors = this.object.documents.filter(
+      (e) =>
+        e.data.type === "character" &&
+        e.data.flags.ose &&
+        e.data.flags.ose.party === true
+    );
     const settings = {
       ascending: game.settings.get("ose", "ascendingAC"),
     };
+
     let data = {
+      partyActors: actors,
       data: this.object,
       config: CONFIG.OSE,
       user: game.user,
@@ -40,83 +50,105 @@ export class OsePartySheet extends FormApplication {
     return data;
   }
 
+  async _addActorToParty(actor) {
+    await actor.setFlag("ose", "party", true);
+  }
+
+  async _removeActorFromParty(actor) {
+    await actor.setFlag("ose", "party", false);
+  }
+
+  /* ---------------------- */
+  /* --Drag&Drop Behavior-- */
+  /* ---------------------- */
+
+  /* - Adding to the Party Sheet -*/
   _onDrop(event) {
     event.preventDefault();
+
     // WIP Drop Items
     let data;
     try {
       data = JSON.parse(event.dataTransfer.getData("text/plain"));
-      if (data.type !== "Item") return;
+
+      switch (data.type) {
+        case "Actor":
+          return this._onDropActor(event, data);
+        case "Folder":
+          return this._onDropFolder(event, data);
+      }
     } catch (err) {
       return false;
     }
   }
+
+  _onDropActor(event, data) {
+    const actors = this.object.documents;
+    let droppedActor = actors.find(actor => actor.id === data.id);
+
+    this._addActorToParty(droppedActor);
+  }
+
+  _onDropFolder(event, data) {
+    const folder = game.folders.get(data.id);
+    if (!folder) return;
+
+    switch (data.documentName) {
+      case "Actor":
+        folder.content.forEach(actor => this._addActorToParty(actor));
+        break;
+    }
+  }
+
+  /* - Dragging from the Party Sheet - */
+  _onDragStart(event) {
+    try {
+      const actorId = event.currentTarget.dataset.actorId;
+
+      const dragData = {
+        id: actorId,
+        type: "Actor"
+      };
+
+      // Set data transfer
+      event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
+    } catch (error) {
+      return false;
+    }
+
+    return true;
+  }
+
   /* -------------------------------------------- */
 
   async _dealXP(ev) {
     new OsePartyXP(this.object, {}).render(true);
   }
 
-  async _selectActors(ev) {
-    const actorDocuments = this.object.documents.sort(
-      (a, b) => b.data.token.disposition - a.data.token.disposition
-    );
-    const template = "systems/ose/dist/templates/apps/party-select.html";
-    const templateData = {
-      actors: actorDocuments,
-    };
-    const content = await renderTemplate(template, templateData);
-    new Dialog(
-      {
-        title: game.i18n.localize("OSE.dialog.partyselect"),
-        content: content,
-        buttons: {
-          set: {
-            icon: '<i class="fas fa-save"></i>',
-            label: game.i18n.localize("OSE.Update"),
-            callback: async (html) => {
-              let checks = html.find("input[data-action='select-actor']");
-              await Promise.all(
-                checks.map(async (_, c) => {
-                  let key = c.getAttribute("name");
-                  await this.object.documents[key].setFlag(
-                    "ose",
-                    "party",
-                    c.checked
-                  );
-                })
-              );
-              this.render(true);
-            },
-          },
-        },
-      },
-      {
-        height: "auto",
-        width: 260,
-        classes: ["ose", "dialog", "party-select"],
-      }
-    ).render(true);
-  }
-
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
-    html
-      .find(".item-controls .item-control .select-actors")
-      .click(this._selectActors.bind(this));
 
     html
-      .find(".item-controls .item-control .deal-xp")
+      .find(".header #deal-xp")
       .click(this._dealXP.bind(this));
 
-    html.find("a.resync").click(() => this.render(true));
+    // Actor buttons
+    const getActor = (event) => {
+      const id = event.currentTarget.closest(".actor").dataset.actorId;
+      return game.actors.get(id)
+    };
 
-    html.find(".field-img button[data-action='open-sheet']").click((ev) => {
-      let actorId =
-        ev.currentTarget.parentElement.parentElement.parentElement.dataset
-          .actorId;
-      game.actors.get(actorId).sheet.render(true);
-    });
+    html
+      .find(".field-img button[data-action='open-sheet']")
+      .click((event) => {
+        getActor(event).sheet.render(true);
+      });
+
+    html
+      .find(".field-img button[data-action='remove-actor']")
+      .click(async (event) => {
+        await this._removeActorFromParty(getActor(event));
+      });
   }
 }

@@ -38,7 +38,7 @@ export class OseCombat {
         }
         if (data.combatants[i].actor.data.data.isSlow) {
           await data.combatants[i].update({ initiative: OseCombat.STATUS_SLOW });
-        } else {
+        } else { 
           const group = data.combatants[i].getFlag('ose', 'group');
           this.debounce(data.combatants[i].update({ initiative: groups[group].initiative }), 500);
         }
@@ -173,9 +173,8 @@ export class OseCombat {
         const group = ct.getFlag('ose', 'group');
         if (ct.initiative && ct.initiative != '-789.00' && ct.id != data.id && group == cmbtGroup) {
           // Set init
-
           if (game.user.isGM) {
-            combatant.update({ initiative: parseInt(ct.initiative) });
+            combatant.update({ initiative: parseInt(groupInit) });
           }
         }
       });

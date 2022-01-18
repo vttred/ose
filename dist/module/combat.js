@@ -84,37 +84,33 @@ export class OseCombat {
       updates.push(data);
 
       // Determine the roll mode
-      let rollMode = game.settings.get("core", "rollMode");
-      if ((c.token.hidden || c.hidden) && rollMode === "roll")
-        rollMode = "gmroll";
-
-      // Construct chat message data
+      let rollMode = game.settings.get('core', 'rollMode');
+      if ((c.token.hidden || c.hidden) && rollMode === 'roll') rollMode = 'gmroll';
       let messageData = foundry.utils.mergeObject(
         {
+          roll: roll,
           speaker: {
             scene: combat.scene.id,
             actor: c.actor?.id,
             token: c.token?.id,
-            alias: c.name,
+            alias: c.name
           },
-          flavor: game.i18n.format("OSE.roll.individualInit", {
-            name: c.token.name,
+          flavor: game.i18n.format('OSE.roll.individualInit', {
+            name: c.token.name
           }),
-          flags: { "ose.initiativeRoll": true },
+          flags: { 'ose.initiativeRoll': true },
+          rollMode: c.hidden && rollMode === 'roll' ? 'gmroll' : rollMode,
+          content: value
         },
         {}
       );
-      const chatData = await roll.toMessage(messageData, {
-        rollMode: c.hidden && rollMode === "roll" ? "gmroll" : rollMode,
-        create: false,
-      });
-      if (i > 0) chatData.sound = null; // Only play 1 sound for the whole set
-      messages.push(chatData);
-    }
-    if (game.user.isGM) {
-      await combat.updateEmbeddedDocuments("Combatant", updates);
-    }
+      if (combat.combatants.size <= 15) messageData.type = CONST.CHAT_MESSAGE_TYPES.ROLL;
 
+      if (i > 0) messageData.sound = null; // Only play 1 sound for the whole set
+
+      messages.push(messageData);
+    }
+    if (game.user.isGM) await combat.updateEmbeddedDocuments('Combatant', updates);
     await ChatMessage.implementation.create(messages);
     data.turn = 0;
   }

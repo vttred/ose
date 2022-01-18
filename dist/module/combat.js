@@ -75,7 +75,7 @@ export class OseCombat {
       const cf = await c._getInitiativeFormula(c);
       const roll = await c.getInitiativeRoll(cf).evaluate({ async: true });
 
-      let value = roll.total;
+      let value = c.actor.data.data.isSlow ? OseCombat.STATUS_SLOW :roll.total;
       if (combat.settings.skipDefeated && c.defeated) {
         value = OseCombat.STATUS_DIZZY;
       }

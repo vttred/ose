@@ -14,9 +14,9 @@
   "OSE.dialog.tweaks": "Ajustes",
   "OSE.dialog.partysheet": "Resumen del grupo",
   "OSE.dialog.partyselect": "Seleccionar PJ",
-  "OSE.dialog.createItem": "Crear objeto",
-  "OSE.dialog.itemType": "Tipo de objeto",
-  "OSE.dialog.itemName": "Nombre del objeto",
+  "OSE.dialog.createItem": "Crear elemento",
+  "OSE.dialog.itemType": "Tipo de elemento",
+  "OSE.dialog.itemName": "Nombre del elemento",
   "OSE.dialog.xp.deal": "Repartir PX",
   "OSE.dialog.xp.label": "PX",
   "OSE.dialog.generator": "Generador de personajes",
@@ -28,7 +28,7 @@
   "OSE.SitMod": "Modificador situacional",
   "OSE.Modifier": "Modificador",
   "OSE.Modifiers": "Modificadores",
-  "OSE.RollMode": "Modo de tirada",
+  "OSE.RollMode": "Tipo de tirada",
   "OSE.RollExample": "ej. +1d4",
 
   "OSE.roll.formula": "Tira {label}",
@@ -41,7 +41,7 @@
   "OSE.roll.details.save": "Tira 1d20 >= {save} para tener éxito",
   "OSE.roll.attribute": "Chequeo de {attribute}",
   "OSE.roll.details.attribute": "Tira 1d20 <= {score} para tener éxito",
-  "OSE.roll.exploration": "{exploration} test",
+  "OSE.roll.exploration": "Chequeo de {exploration}",
   "OSE.roll.details.exploration": "Tira 1d6 <= {expl} para tener éxito",
   "OSE.roll.reaction": "Tirada de reacción",
   "OSE.roll.initiative": "¡El grupo {group} tira iniciativa!",
@@ -287,5 +287,8 @@
   "OSE.reaction.Unfriendly": "{name} es poco amistoso",
   "OSE.reaction.Neutral": "{name} es neutral",
   "OSE.reaction.Indifferent": "{name} es indiferente",
-  "OSE.reaction.Friendly": "{name} es amistoso"
+  "OSE.reaction.Friendly": "{name} es amistoso",
+  
+  "OSE.CombatFlag.SpellDeclared": "Hechizo declarado",
+  "OSE.CombatFlag.RetreatFromMeleeDeclared": "Retirada declarada"
 }

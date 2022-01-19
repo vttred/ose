@@ -290,6 +290,7 @@ export class OseCombat {
         group: color,
       },
     };
+    combat.data.update({ flags: { ose: { group: color } } });
   }
 
   static activateCombatant(li) {

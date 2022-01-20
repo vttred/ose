@@ -65,35 +65,22 @@ export class OseCombat {
 
   static async individualInitiative(combat, data) {
     let updates = [];
-    let messages = [];
     let rolls = []
     for (let i = 0; i < combat.data.combatants.size; i++) {
       let c = combat.data.combatants.contents[i];
-      
       // This comes from foundry.js, had to remove the update turns thing
       // Roll initiative
       const cf = await c._getInitiativeFormula(c);
-
-      const roll = await c.getInitiativeRoll(cf)
-      
-      rolls.push(roll)
-      
-      const data = { _id: c.id };
-      
+      const roll = await c.getInitiativeRoll(cf)      
+      rolls.push(roll)      
+      const data = { _id: c.id };      
       updates.push(data);
     }
-    
-
     //combine init rolls
     const pool = PoolTerm.fromRolls(rolls);
     const combinedRoll = await Roll.fromTerms([pool]);
     //get evaluated chat message
     const evalRoll = await combinedRoll.toMessage({},{create: false})
-    
-    //update tracker 
-   
-
-    
     let rollArr = combinedRoll.terms[0].rolls
     let msgContent = ``
     for(let i = 0; i < rollArr.length; i++){
@@ -115,10 +102,8 @@ export class OseCombat {
         name: cbt.name,
         formula: roll.formula,
         total: roll.total
-      }
-      
-      let rendered = await renderTemplate(template, tData)
-      
+      }      
+      let rendered = await renderTemplate(template, tData)      
       msgContent += rendered
     }
     evalRoll.content = `
@@ -126,7 +111,6 @@ export class OseCombat {
     <summary>${game.i18n.localize('OSE.roll.individualInitGroup')}</summary>
     ${msgContent}
     </details>`
-
     ChatMessage.create(evalRoll)
     //update tracker
     if (game.user.isGM) await combat.updateEmbeddedDocuments('Combatant', updates);

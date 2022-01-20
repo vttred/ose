@@ -66,53 +66,71 @@ export class OseCombat {
   static async individualInitiative(combat, data) {
     let updates = [];
     let messages = [];
-
+    let rolls = []
     for (let i = 0; i < combat.data.combatants.size; i++) {
       let c = combat.data.combatants.contents[i];
-
+      
       // This comes from foundry.js, had to remove the update turns thing
       // Roll initiative
       const cf = await c._getInitiativeFormula(c);
-      const roll = await c.getInitiativeRoll(cf).evaluate({ async: true });
 
-      let value = c.actor.data.data.isSlow ? OseCombat.STATUS_SLOW :roll.total;
-      if (combat.settings.skipDefeated && c.defeated) {
+      const roll = await c.getInitiativeRoll(cf)
+      
+      rolls.push(roll)
+      
+      const data = { _id: c.id };
+      
+      updates.push(data);
+    }
+    
+
+    //combine init rolls
+    const pool = PoolTerm.fromRolls(rolls);
+    const combinedRoll = await Roll.fromTerms([pool]);
+    //get evaluated chat message
+    const evalRoll = await combinedRoll.toMessage({},{create: false})
+    
+    //update tracker 
+   
+
+    
+    let rollArr = combinedRoll.terms[0].rolls
+    let msgContent = ``
+    for(let i = 0; i < rollArr.length; i++){
+      let roll = rollArr[i]
+      //get combatant
+      let cbt = game.combats.viewed.combatants.find(c=>c.id == updates[i]._id)
+      //add initiative value to update 
+      //check if actor is slow 
+      let value = cbt.actor.data.data.isSlow ? OseCombat.STATUS_SLOW : roll.total
+      //check if actor is defeated
+      if (combat.settings.skipDefeated &&cbt.isDefeated) {
         value = OseCombat.STATUS_DIZZY;
       }
-      const data = { _id: c.id, initiative: value };
+      updates[i].initiative = value
 
-      updates.push(data);
-
-      // Determine the roll mode
-      let rollMode = game.settings.get('core', 'rollMode');
-      if ((c.token.hidden || c.hidden) && rollMode === 'roll') rollMode = 'gmroll';
-      let messageData = foundry.utils.mergeObject(
-        {
-          roll: roll,
-          speaker: {
-            scene: combat.scene.id,
-            actor: c.actor?.id,
-            token: c.token?.id,
-            alias: c.name
-          },
-          flavor: game.i18n.format('OSE.roll.individualInit', {
-            name: c.token.name
-          }),
-          flags: { 'ose.initiativeRoll': true },
-          rollMode: c.hidden && rollMode === 'roll' ? 'gmroll' : rollMode,
-          content: value
-        },
-        {}
-      );
-      if (combat.combatants.size <= 15) messageData.type = CONST.CHAT_MESSAGE_TYPES.ROLL;
-
-      if (i > 0) messageData.sound = null; // Only play 1 sound for the whole set
-
-      messages.push(messageData);
+      //render template
+      let template = "systems/ose/dist/templates/chat/roll-individual-initiative.html"
+      let tData = {
+        name: cbt.name,
+        formula: roll.formula,
+        total: roll.total
+      }
+      
+      let rendered = await renderTemplate(template, tData)
+      
+      msgContent += rendered
     }
+    evalRoll.content = `
+    <details>
+    <summary>${game.i18n.localize('OSE.roll.individualInitGroup')}</summary>
+    ${msgContent}
+    </details>`
+
+    ChatMessage.create(evalRoll)
+    //update tracker
     if (game.user.isGM) await combat.updateEmbeddedDocuments('Combatant', updates);
-    await ChatMessage.implementation.create(messages);
-    data.turn = 0;
+     data.turn = 0;
   }
 
   static format(object, html, user) {

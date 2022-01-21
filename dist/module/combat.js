@@ -101,6 +101,7 @@ export class OseCombat {
       let tData = {
         name: cbt.name,
         formula: roll.formula,
+        result: roll.result,
         total: roll.total,
       }      
       let rendered = await renderTemplate(template, tData)      

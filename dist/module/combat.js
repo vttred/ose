@@ -89,7 +89,7 @@ export class OseCombat {
       let cbt = game.combats.viewed.combatants.find(c=>c.id == updates[i]._id)
       //add initiative value to update 
       //check if actor is slow 
-      let value = cbt.actor.data.data.isSlow ? OseCombat.STATUS_SLOW : roll.total
+      let value = cbt.actor.data.data.isSlow ? OseCombat.STATUS_SLOW : roll.total;
       //check if actor is defeated
       if (combat.settings.skipDefeated &&cbt.isDefeated) {
         value = OseCombat.STATUS_DIZZY;
@@ -101,7 +101,7 @@ export class OseCombat {
       let tData = {
         name: cbt.name,
         formula: roll.formula,
-        total: roll.total
+        total: roll.total,
       }      
       let rendered = await renderTemplate(template, tData)      
       msgContent += rendered
@@ -111,7 +111,7 @@ export class OseCombat {
     <summary>${game.i18n.localize('OSE.roll.individualInitGroup')}</summary>
     ${msgContent}
     </details>`
-    ChatMessage.create(evalRoll)
+    ChatMessage.create(evalRoll);
     //update tracker
     if (game.user.isGM) await combat.updateEmbeddedDocuments('Combatant', updates);
      data.turn = 0;

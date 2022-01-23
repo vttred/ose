@@ -480,7 +480,7 @@ export class OseActor extends Actor {
     const rollData = {
       actor: this.data,
       item: attData.item,
-      itemId: attData.item._id,
+      itemId: attData.item?._id,
       roll: {
         type: options.type,
         thac0: thac0,
@@ -497,7 +497,7 @@ export class OseActor extends Actor {
       skipDialog: options.skipDialog,
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: label,
-      flags: { ose: { roll: "attack", itemId: attData.item._id } },
+      flags: { ose: { roll: "attack", itemId: attData.item?._id } },
       title: label,
     });
   }

@@ -105,6 +105,10 @@
     border-top: none;
     height: 18px;
     z-index: -1;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
     .item {
       padding: 1px 10px 0;
       margin-left: -5px;

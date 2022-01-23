@@ -41,5 +41,9 @@
   "gridUnits": "ft",
   "url": "AUTOMATICALLY REPLACED BY GITHUB WORKFLOW ACTION",
   "manifest": "AUTOMATICALLY REPLACED BY GITHUB WORKFLOW ACTION",
-  "download": "AUTOMATICALLY REPLACED BY GITHUB WORKFLOW ACTION"
+  "download": "AUTOMATICALLY REPLACED BY GITHUB WORKFLOW ACTION",
+  "bugs": "https://github.com/vttred/ose/issues",
+  "flags": {
+    "allowBugReporter": true
+  }
 }

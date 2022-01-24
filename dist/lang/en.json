@@ -46,6 +46,7 @@
   "OSE.roll.reaction": "Reaction roll",
   "OSE.roll.initiative": "Group {group} rolls for Initiative!",
   "OSE.roll.individualInit": "{name} rolls for Initiative!",
+  "OSE.roll.individualInitGroup": "Initiative Rolls",
 
   "OSE.table.treasure.roll": "Roll Treasure",
 

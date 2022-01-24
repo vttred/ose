@@ -272,13 +272,13 @@ export class OseItem extends Item {
     return this.update({ data: newData });
   }
 
-  roll() {
+  roll(options = {}) {
     switch (this.type) {
       case "weapon":
-        this.rollWeapon();
+        this.rollWeapon(options);
         break;
       case "spell":
-        this.spendSpell();
+        this.spendSpell(options);
         break;
       case "ability":
         if (this.data.data.roll) {

@@ -51,6 +51,10 @@ export class OsePartySheet extends FormApplication {
   }
 
   async _addActorToParty(actor) {
+    if (actor.type !== "character") {
+      return;
+    }
+
     await actor.setFlag("ose", "party", true);
   }
 

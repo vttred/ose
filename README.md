@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://foundryvtt.com/packages/ose/">
-    <img alt="Medusa" src="https://raw.githubusercontent.com/vttred/ose/main/docs/images/unofficial-ose-fvtt-logo.png" width="256" />
+    <img alt="Unofficial OSE on Foundry VTT logo" src="https://raw.githubusercontent.com/vttred/ose/main/docs/images/unofficial-ose-fvtt-logo.png" width="256" />
   </a>
 </p>
 <h1 align="center">

@@ -21,7 +21,7 @@ export class OseActor extends Actor {
     if (game.settings.get("ose", "initiative") != "group") {
       data.initiative.value = data.initiative.mod;
       if (this.data.type == "character") {
-        data.initiative.value += data.scores.dex.mod;
+        data.initiative.value += data.scores.dex.init;
       }
     } else {
       data.initiative.value = 0;

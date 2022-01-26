@@ -1,0 +1,21 @@
+# People who have contributed patches show here.
+# The AUTHORS file lists the copyright holders; this file
+# lists people. For example, VTT Red employees are listed here
+# but not in AUTHORS, because VTT Red holds the copyright.
+#
+# When adding J Random Contributor's name to this file,
+# either J's name or J's organization's name should be
+# added to the AUTHORS file, depending on whether the
+# individual or corporate CLA was used.
+#
+# Names should be added to this file as:
+#     Name <email address>
+#
+# Please keep the list sorted.
+
+Anthony Ronda <ose.vtt.red@anthonyronda.com>
+Emmanuel Ruaud <43685820+mesfoliesludiques@users.noreply.github.com>
+
+# PLEASE NOTE THIS LIST IS INCOMPLETE
+# AND WAITING FOR CONTRIBUTORS TO RESPOND TO AN OPEN ISSUE
+# https://github.com/vttred/ose/issues/59

@@ -91,6 +91,9 @@
 .ose.sheet nav{
   padding: 0;
 }
+nav.sheet-tabs.tabs {
+  max-height: 35px;
+}
 .ose.sheet.actor .sheet-tabs {
   position: absolute;
   transform: rotate(90deg);

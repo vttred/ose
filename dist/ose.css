@@ -87,6 +87,13 @@
   font-weight: bold;
   animation: 0.8s ease-in 1s infinite alternate notify;
 }
+/* tab padding fix */
+.ose.sheet nav{
+  padding: 0;
+}
+nav.sheet-tabs.tabs {
+  max-height: 35px;
+}
 .ose.sheet.actor .sheet-tabs {
   position: absolute;
   transform: rotate(90deg);

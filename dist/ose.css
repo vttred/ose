@@ -87,14 +87,9 @@
   font-weight: bold;
   animation: 0.8s ease-in 1s infinite alternate notify;
 }
-/* tab padding fix */
-.ose.sheet nav{
-  padding: 0;
-}
-nav.sheet-tabs.tabs {
-  max-height: 35px;
-}
 .ose.sheet.actor .sheet-tabs {
+  padding: 0;
+  /* tab padding fix */
   position: absolute;
   transform: rotate(90deg);
   top: 365px;
@@ -109,6 +104,8 @@ nav.sheet-tabs.tabs {
   justify-content: space-around;
 }
 .ose.sheet.actor .sheet-tabs .item {
+  max-height: 35px;
+  /* tab padding fix */
   padding: 1px 10px 0;
   margin-left: -5px;
   text-indent: 4px;

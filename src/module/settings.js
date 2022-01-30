@@ -82,4 +82,17 @@ export const registerSettings = function () {
     config: true,
     onChange: _ => window.location.reload()
   });
+   game.settings.register('ose', 'applyDamageOption', {
+    name: game.i18n.localize('OSE.Setting.applyDamageOption'),
+    hint: game.i18n.localize('OSE.Setting.applyDamageOptionHint'),
+    default: 'selected',
+    scope: 'world',
+    type: String,
+    config: true,
+    choices: {
+      selected: 'OSE.Setting.damageSelected',
+      targeted: 'OSE.Setting.damageTarget'
+    },
+    onChange: _ => window.location.reload()
+  });
 };

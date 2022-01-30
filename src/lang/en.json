@@ -190,6 +190,10 @@
   "OSE.Setting.Languages": "Languages",
   "OSE.Setting.LanguagesHint": "Enter a comma separated list of languages",
   "OSE.Setting.EnableInventory": "Enable Inventory",
+  "OSE.Setting.applyDamageOption": "Token Damage Target",
+  "OSE.Setting.applyDamageOptionHint": "Which token(s) to apply damage to on an attack roll",
+  "OSE.Setting.damageSelected": "Selected",
+  "OSE.Setting.damageTarget": "Target",
 
   "OSE.items.Equip": "Equip",
   "OSE.items.Unequip": "Unequip",

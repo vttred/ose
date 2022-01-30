@@ -55,12 +55,18 @@ export const addChatMessageButtons = function(msg, html, data) {
  * @param {Number} multiplier   A damage multiplier to apply to the rolled damage.
  * @return {Promise}
  */
-function applyChatCardDamage(roll, multiplier) {
-  const amount = roll.find('.dice-total').last().text();
-  return Promise.all(canvas.tokens.controlled.map(t => {
-    const a = t.actor;
-    return a.applyDamage(amount, multiplier);
-  }));
-}
+ function applyChatCardDamage(roll, multiplier) {
+  const amount = roll.find('.dice-total').last().text(); 
+  const dmgTgt = game.settings.get('ose', 'applyDamageOption');
+  if(dmgTgt === `targeted`){
+    game.user.targets.forEach(async t=>{
+      if(game.user.isGM) return await t.actor.applyDamage(amount, multiplier)
+    })
+  }
+  if(dmgTgt === `selected`){
+    canvas.tokens.controlled.forEach(async t=>{
+      if(game.user.isGM) return await t.actor.applyDamage(amount,multiplier)
+    })
+  }
 
 /* -------------------------------------------- */

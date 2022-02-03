@@ -55,7 +55,7 @@ See [LICENSE.OGL](/LICENSE.OGL) file.
 <!-- BEGIN TEXT REQUIRED BY LICENSE -->
 This third party product is not affiliated with or approved by Necrotic Gnome.
 
-Old-School Essentials is a trademark of Necrotic Gnome. The trademark and Old-School Essentials logo are used with permission of Necrotic Gnome, under license.
+Old-School Essentials is a trademark of Necrotic Gnome. The trademark and Old-School Essentials logo are used with permission of Necrotic Gnome, under license. <!-- ADDITIONAL TEXT REQUESTED BY NECROTIC GNOME --> Permission to use Old-School Essentials in the ruleset title granted by Necrotic Gnome. <!-- END ADDITIONAL TEXT -->
 <!-- END TEXT REQUIRED BY LICENSE -->
 
 See [LICENSE.OTHER.OSE_THIRD_PARTY_V1_5](/LICENSE.OTHER.OSETHIRDPARTY.V1_5) file.

@@ -86,7 +86,13 @@ export class OseDice {
     };
 
     let die = roll.terms[0].total;
-    if (data.roll.type == "above") {
+    if (data.roll.type == "result") {
+      if (roll.total == result.target) {
+        result.isSuccess = true;
+      } else {
+        result.isFailure = true;
+      }
+    } else if (data.roll.type == "above") {
       // SAVING THROWS
       if (roll.total >= result.target) {
         result.isSuccess = true;

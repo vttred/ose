@@ -7,20 +7,21 @@
  *
  * @return {Array}              The extended options Array including new context choices
  */
-export const addChatMessageContextOptions = function(html, options) {
-  let canApply = li => canvas.tokens.controlled.length && li.find(".dice-roll").length;
+export const addChatMessageContextOptions = function (html, options) {
+  let canApply = (li) =>
+    canvas.tokens.controlled.length && li.find(".dice-roll").length;
   options.push(
     {
       name: game.i18n.localize("OSE.messages.applyDamage"),
       icon: '<i class="fas fa-user-minus"></i>',
       condition: canApply,
-      callback: li => applyChatCardDamage(li, 1)
+      callback: (li) => applyChatCardDamage(li, 1),
     },
     {
       name: game.i18n.localize("OSE.messages.applyHealing"),
       icon: '<i class="fas fa-user-plus"></i>',
       condition: canApply,
-      callback: li => applyChatCardDamage(li, -1)
+      callback: (li) => applyChatCardDamage(li, -1),
     }
   );
   return options;
@@ -28,24 +29,35 @@ export const addChatMessageContextOptions = function(html, options) {
 
 /* -------------------------------------------- */
 
-export const addChatMessageButtons = function(msg, html, data) {
+export const addChatMessageButtons = function (msg, html, data) {
   // Hide blind rolls
-  let blindable = html.find('.blindable');
-  if (msg.data.blind && !game.user.isGM && blindable && blindable.data('blind') === true) {
-    blindable.replaceWith("<div class='dice-roll'><div class='dice-result'><div class='dice-formula'>???</div></div></div>");
+  let blindable = html.find(".blindable");
+  if (
+    msg.data.blind &&
+    !game.user.isGM &&
+    blindable &&
+    blindable.data("blind") === true
+  ) {
+    blindable.replaceWith(
+      "<div class='dice-roll'><div class='dice-result'><div class='dice-formula'>???</div></div></div>"
+    );
   }
   // Buttons
-  let roll = html.find('.damage-roll');
+  let roll = html.find(".damage-roll");
   if (roll.length > 0) {
-    let total = roll.find('.dice-total');
+    let total = roll.find(".dice-total");
     let value = total.text();
-    roll.append($(`<div class="dice-damage"><button type="button" data-action="apply-damage"><i class="fas fa-tint"></i></button></div>`))
+    roll.append(
+      $(
+        `<div class="dice-damage"><button type="button" data-action="apply-damage"><i class="fas fa-tint"></i></button></div>`
+      )
+    );
     roll.find('button[data-action="apply-damage"]').click((ev) => {
       ev.preventDefault();
       applyChatCardDamage(roll, 1);
-    })
+    });
   }
-}
+};
 
 /**
  * Apply rolled dice damage to the token or tokens which are currently controlled.
@@ -56,11 +68,18 @@ export const addChatMessageButtons = function(msg, html, data) {
  * @return {Promise}
  */
 function applyChatCardDamage(roll, multiplier) {
-  const amount = roll.find('.dice-total').last().text();
-  return Promise.all(canvas.tokens.controlled.map(t => {
-    const a = t.actor;
-    return a.applyDamage(amount, multiplier);
-  }));
+  const amount = roll.find(".dice-total").last().text();
+  const dmgTgt = game.settings.get("ose", "applyDamageOption");
+  if (dmgTgt === `targeted`) {
+    game.user.targets.forEach(async (t) => {
+      if (game.user.isGM) return await t.actor.applyDamage(amount, multiplier);
+    });
+  }
+  if (dmgTgt === `selected`) {
+    canvas.tokens.controlled.forEach(async (t) => {
+      if (game.user.isGM) return await t.actor.applyDamage(amount, multiplier);
+    });
+  }
 }
 
 /* -------------------------------------------- */

@@ -46,6 +46,7 @@
   "OSE.roll.reaction": "Tirada de reacción",
   "OSE.roll.initiative": "¡El grupo {group} tira iniciativa!",
   "OSE.roll.individualInit": "¡{name} tira iniciativa!",
+  "OSE.roll.individualInitGroup": "Tiradas de iniciativa",
 
   "OSE.table.treasure.roll": "Tirada de tesoro",
 
@@ -189,6 +190,10 @@
   "OSE.Setting.Languages": "Idiomas",
   "OSE.Setting.LanguagesHint": "Introduce una lista de idiomas separada por comas",
   "OSE.Setting.EnableInventory": "Activar inventario",
+  "OSE.Setting.applyDamageOption": "Daño al token objetivo",
+  "OSE.Setting.applyDamageOptionHint": "El(los) token(s) a los que se le aplicará el daño de una tirada de ataque",
+  "OSE.Setting.damageSelected": "Seleccionado",
+  "OSE.Setting.damageTarget": "Objetivo",
 
   "OSE.items.Equip": "Equipar",
   "OSE.items.Unequip": "Desequipar",

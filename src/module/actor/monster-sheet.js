@@ -42,7 +42,7 @@ export class OseActorSheetMonster extends OseActorSheet {
     const attackPatterns = {};
 
     // Partition items by category
-    let [items, armors, spells, containers] = itemsData.reduce(
+    let [weapons, items, armors, spells, containers] = itemsData.reduce(
       (arr, item) => {
         // Classify items into types
         const containerId = item?.data?.data?.containerId;
@@ -58,16 +58,16 @@ export class OseActorSheetMonster extends OseActorSheet {
           if (attackPatterns[item.data.data.pattern] === undefined)
             attackPatterns[item.data.data.pattern] = [];
           attackPatterns[item.data.data.pattern].push(item);
-          return arr;
         }
         // Classify items into types
-        if (item.type === "item") arr[0].push(item);
-        else if (item.type === "armor") arr[1].push(item);
-        else if (item.type === "spell") arr[2].push(item);
-        else if (item.type === "container") arr[3].push(item);
+        if (item.type === "weapon") arr[0].push(item);
+        else if (item.type === "item") arr[1].push(item);
+        else if (item.type === "armor") arr[2].push(item);
+        else if (item.type === "spell") arr[3].push(item);
+        else if (item.type === "container") arr[4].push(item);
         return arr;
       },
-      [[], [], [], []]
+      [[], [], [], [], []]
     );
     // Sort spells by level
     var sortedSpells = {};
@@ -97,6 +97,7 @@ export class OseActorSheetMonster extends OseActorSheet {
     });
     // Assign and return
     data.owned = {
+      weapons: weapons,
       items: items,
       containers: containers,
       armors: armors,

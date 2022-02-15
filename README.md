@@ -22,7 +22,7 @@ https://github.com/vttred/ose/releases/latest/download/system.json
 
 ### Open Game Content Compendium
 
-The Old-School Essentials Content Compendium is a Foundry VTT module separate from the system. Find it within Foundry VTT's *module* browser with the search term `ose`.
+The Old-School Essentials Content Compendium is a Foundry VTT module separate from the system. Find it within Foundry VTT's _module_ browser with the search term `ose`.
 
 You may also copy the manifest link below and paste it into the manifest link input box.
 
@@ -40,6 +40,18 @@ If you use this system and appreciate it, we're not asking for your financial su
 - If you speak JavaScript, consider [contributing code](/CONTRIBUTING.md).
 - If you'd like to support the original maintainer of this system, U\~man, buy them a coffee on [Ko-Fi](https://ko-fi.com/u_man). It is largely because of U\~man's generosity that we are able to continue providing a free and open source system for Foundry VTT users.
 
+## Troubleshooting and Requesting User Support
+
+It's always appreciated when users [submit an issue](https://github.com/vttred/ose/issues/new) for all kinds of user questions, comments, and concerns. For those who prefer support via public chat, we recommend asking in:
+
+- The **#dnd-other** channel in the [official Foundry VTT Discord server](https://discord.gg/foundryvtt)
+- The **#ose-virtual-tabletop** channel in the [official Necrotic Gnome Discord server](https://discord.gg/)
+- There is a Discord server for Unofficial Old-School Essentials on Foundry VTT. Please ask for the invite link in one of the above places. We are sensitive to the possibility of spam and phishing attacks, so we do not post it on GitHub directly. This space is subject to the [VTT Red Code of Conduct](/CODE_OF_CONDUCT.md).
+- There are [unofficial Foundry VTT user communities for many other languages](https://www.foundryvtt-hub.com/links/#internationaldiscords) if you'd prefer to discuss Foundry VTT in another language. Keep in mind that it's unlikely you'll find answers to your questions about a less popular game system like Old-School Essentials, but they are good for asking questions about Foundry VTT in general.
+- The [/r/FoundryVTT community on Reddit](https://reddit.com/r/FoundryVTT) may also have answers to your Foundry VTT questions, but it is another general Foundry VTT user community that may not have many users with specific knowledge about OSE. Be sure to write `[OSE]` in your post subject and select `FVTT Question` from the "Flair" menu.
+
+**We do not offer user support via email. Sorry for the inconvenience.**
+
 ## Contributions
 
 Any feedback is deeply appreciated. Please browse the [open issues](https://github.com/vttred/ose/issues/) and if there's not a matching one already, open a new one.
@@ -53,9 +65,11 @@ See [LICENSE.OGL](/LICENSE.OGL) file.
 ## Trademarks Used Under License
 
 <!-- BEGIN TEXT REQUIRED BY LICENSE -->
+
 This third party product is not affiliated with or approved by Necrotic Gnome.
 
 Old-School Essentials is a trademark of Necrotic Gnome. The trademark and Old-School Essentials logo are used with permission of Necrotic Gnome, under license. <!-- ADDITIONAL TEXT REQUESTED BY NECROTIC GNOME --> Permission to use Old-School Essentials in the ruleset title granted by Necrotic Gnome. <!-- END ADDITIONAL TEXT -->
+
 <!-- END TEXT REQUIRED BY LICENSE -->
 
 See [LICENSE.OTHER.OSE_THIRD_PARTY_V1_5](/LICENSE.OTHER.OSETHIRDPARTY.V1_5) file.
@@ -69,3 +83,11 @@ See [LICENSE.GPL](/LICENSE.GPL) file.
 Weapon quality icons, and the Treasure chest are from [Rexxard](https://assetstore.unity.com/packages/2d/gui/icons/flat-skills-icons-82713).
 
 [![designed for use with Old-School Essentials](https://raw.githubusercontent.com/vttred/ose/main/docs/images/Designed_For_Use_With_Old-School_Essentials_-_Black.png)](https://necroticgnome.com)
+
+## Additional Artwork Credits
+
+The Unofficial Old-School Essentials on Foundry VTT logo is used with permission from project contributor Godforsaken.
+
+## Licensing Inquiries
+
+You may direct licensing inquiries to [ose@vtt.red](mailto:ose@vtt.red).

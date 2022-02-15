@@ -8,6 +8,7 @@ import { OseItem } from "./module/item/entity.js";
 import { OSE } from "./module/config.js";
 import { registerSettings } from "./module/settings.js";
 import { registerHelpers } from "./module/helpers.js";
+import { registerFVTTModuleAPIs } from "./module/fvttModuleAPIs.js";
 import * as chat from "./module/chat.js";
 import * as treasure from "./module/treasure.js";
 import * as macros from "./module/macros.js";
@@ -41,6 +42,9 @@ Hooks.once("init", async function () {
 
   // Register custom system settings
   registerSettings();
+
+  // Register APIs of Foundry VTT Modules we explicitly support that need us to register on init
+  registerFVTTModuleAPIs();
 
   CONFIG.Actor.documentClass = OseActor;
   CONFIG.Item.documentClass = OseItem;
@@ -102,7 +106,7 @@ Hooks.once("ready", async () => {
   );
 });
 
-// License and KOFI infos
+// License info
 Hooks.on("renderSidebarTab", async (object, html) => {
   if (object instanceof ActorDirectory) {
     party.addControl(object, html);

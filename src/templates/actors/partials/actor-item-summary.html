@@ -1,0 +1,15 @@
+<div class="item-description">
+  <ol class="tag-list">
+    {{#each item.data.data.autoTags as |tag|}}
+    {{#if tag.label}}
+    <li class="tag">
+      {{#if tag.icon}}
+      <i class="fas {{tag.icon}}"></i>
+      {{/if}}
+      {{tag.label~}}
+    </li>
+    {{/if}}
+    {{/each}}
+  </ol>
+  <div>{{{item.data.data.description}}}</div>
+</div>

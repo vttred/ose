@@ -25,7 +25,7 @@
     <ol class="item-list">
       {{#each spellGroup as |item|}}
       <li class="item-entry">
-        <div class="item flexrow" data-item-id="{{item.id}}">
+        <div class="item item-header flexrow" data-item-id="{{item.id}}">
           <div class="item-name item-rollable flexrow">
             <div class="item-image" style="background-image: url({{item.img}})"></div>
             <a>
@@ -47,6 +47,9 @@
             <a class="item-control item-delete" title='{{localize "OSE.Delete"}}'><i class="fas fa-trash"></i></a>
             {{/if}}
           </div>
+        </div>
+        <div class="item-summary">
+          {{> "systems/ose/dist/templates/actors/partials/actor-item-summary.html" item=item}}
         </div>
       </li>
       {{/each}}

@@ -13,7 +13,7 @@
     <ol class="item-list">
       {{#each owned.weapons as |item|}}
       <li class="item-entry">
-        <div class="item flexrow" data-item-id="{{item.id}}">
+        <div class="item item-header flexrow" data-item-id="{{item.id}}">
           <div class="item-name item-rollable flexrow">
             <div class="item-image" style="background-image: url({{item.img}})"></div>
             <a>
@@ -49,6 +49,9 @@
             {{/if}}
           </div>
         </div>
+        <div class="item-summary">
+          {{> "systems/ose/dist/templates/actors/partials/actor-item-summary.html" item=item}}
+        </div>
       </li>
       {{/each}}
     </ol>
@@ -71,7 +74,7 @@
     <ol class="item-list">
       {{#each owned.armors as |item|}}
       <li class="item-entry">
-        <div class="item flexrow" data-item-id="{{item.id}}">
+        <div class="item item-header flexrow" data-item-id="{{item.id}}">
           <div class="item-name flexrow">
             <div class="item-image" style="background-image: url({{item.img}})"></div>
             <a>
@@ -101,6 +104,9 @@
             {{/if}}
           </div>
         </div>
+        <div class="item-summary">
+          {{> "systems/ose/dist/templates/actors/partials/actor-item-summary.html" item=item}}
+        </div>
       </li>
       {{/each}}
     </ol>
@@ -120,7 +126,7 @@
     <ol class="item-list">
       {{#each owned.containers as |bag|}}
       <li class="item-entry container">
-        <div class="item flexrow" data-item-id="{{bag.id}}">
+        <div class="item item-header flexrow" data-item-id="{{bag.id}}">
           <div class="item-name flexrow">
             <div class="item-image" style="background-image: url({{bag.img}})"></div>
             <a>
@@ -143,6 +149,9 @@
             <a class="item-control item-delete" title='{{localize "OSE.Delete"}}'><i class="fas fa-trash"></i></a>
             {{/if}}
           </div>
+        </div>
+        <div class="item-summary">
+          {{> "systems/ose/dist/templates/actors/partials/actor-item-summary.html" item=item}}
         </div>
         <div class="item-gallery">
           {{#each bag.data.data.itemIds as |item|}}
@@ -175,7 +184,7 @@
     <ol class="item-list">
       {{#each owned.items as |item|}}
       <li class="item-entry">
-        <div class="item flexrow" data-item-id="{{item.id}}">
+        <div class="item item-header flexrow" data-item-id="{{item.id}}">
           <div class="item-name flexrow">
             <div class="item-image" style="background-image: url({{item.img}})"></div>
             <a>
@@ -209,6 +218,9 @@
         </div>
         {{/if}}
         {{/if}}
+        <div class="item-summary">
+          {{> "systems/ose/dist/templates/actors/partials/actor-item-summary.html" item=item}}
+        </div>
       </li>
       {{/each}}
     </ol>
@@ -229,7 +241,7 @@
     <ol class="item-list">
       {{#each owned.treasures as |item|}}
       <li class="item-entry">
-        <div class="item flexrow" data-item-id="{{item.id}}">
+        <div class="item item-header flexrow" data-item-id="{{item.id}}">
           <div class="item-name flexrow">
             <div class="item-image" style="background-image: url({{item.img}})"></div>
             <a>
@@ -252,6 +264,9 @@
             <a class="item-control item-delete" title='{{localize "OSE.Delete"}}'><i class="fas fa-trash"></i></a>
             {{/if}}
           </div>
+        </div>
+        <div class="item-summary">
+          {{> "systems/ose/dist/templates/actors/partials/actor-item-summary.html" item=item}}
         </div>
       </li>
       {{/each}}

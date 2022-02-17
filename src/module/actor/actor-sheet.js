@@ -31,25 +31,15 @@ export class OseActorSheet extends ActorSheet {
     super.activateEditor(name, options, initialContent);
   }
 
-  _onItemSummary(event) {
+  _toggleItemSummary(event) {
     event.preventDefault();
-    let li = $(event.currentTarget).parents(".item"),
-      item = this.actor.items.get(li.data("item-id")),
-      description = TextEditor.enrichHTML(item.data.data.description);
+    const summary = $(event.currentTarget).closest(".item-header").next(".item-summary");
 
-    // Toggle summary
-    if (li.hasClass("expanded")) {
-      let summary = li.parents(".item-entry").children(".item-summary");
-      summary.slideUp(200, () => summary.remove());
+    if (summary.css("display") === "none") {
+      summary.slideDown(200);
     } else {
-      // Add item tags
-      let div = $(
-        `<div class="item-summary"><ol class="tag-list">${item.getTags()}</ol><div>${description}</div></div>`
-      );
-      li.parents(".item-entry").append(div.hide());
-      div.slideDown(200);
+      summary.slideUp(200);
     }
-    li.toggleClass("expanded");
   }
 
   async _onSpellChange(event) {
@@ -83,9 +73,7 @@ export class OseActorSheet extends ActorSheet {
     super.activateListeners(html);
 
     // Item summaries
-    html
-      .find(".item .item-name h4")
-      .click((event) => this._onItemSummary(event));
+    html.find(".item-name").click((event) => { this._toggleItemSummary(event) });
 
     html.find(".item .item-controls .item-show").click(async (ev) => {
       const li = $(ev.currentTarget).parents(".item");
@@ -174,7 +162,7 @@ export class OseActorSheet extends ActorSheet {
     const dropTarget = event.target.closest("[data-item-id]");
     const targetId = dropTarget ? dropTarget.dataset.itemId : null;
     const target = siblings.find(s => s.data._id === targetId);
-    
+
     if (target?.data.type == "container") {
       this.actor.updateEmbeddedDocuments("Item", [
         { _id: source.id, "data.containerId": target.id }

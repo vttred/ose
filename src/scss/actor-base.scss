@@ -241,6 +241,9 @@
           box-shadow: inset 1px 0 0 0 $colorTan;
         }
         .item-summary {
+          display: none
+        }
+        .item-description {
           font-size: 13px;
           padding: 0 4px;
           line-height: 20px;

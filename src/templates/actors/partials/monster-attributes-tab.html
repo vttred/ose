@@ -98,7 +98,7 @@
                     <div class="attack-pattern">
                         {{#each section as |item|}}
                         <li class="item-entry">
-                            <div class="item flexrow" data-item-id="{{item.id}}">
+                            <div class="item item-header flexrow" data-item-id="{{item.id}}">
                                 <div class="item-pattern" style="background:{{pattern}};"
                                     title="{{localize 'OSE.items.pattern'}}"><i class="fas fa-link"></i></div>
                                 {{#if (or item.data.data.roll (eq item.type "weapon"))}}
@@ -135,6 +135,9 @@
                                         {{/if}}
                                     </div>
                                 </div>
+                           <div class="item-summary">
+                                {{> "systems/ose/dist/templates/actors/partials/actor-item-summary.html" item=item}}
+                            </div>
                         </li>
                         {{/each}}
                     </div>
@@ -144,7 +147,7 @@
                     {{#unless (and (eq id "items") @root.data.config.enableInventory)}}
                     {{#each section as |item|}}
                     <li class="item-entry">
-                        <div class="item flexrow" data-item-id="{{item.id}}">
+                        <div class="item item-header flexrow" data-item-id="{{item.id}}">
                             <div class="item-name flexrow">
                                 <div class="item-image" style="background-image: url({{item.img}})"></div>
                                 <h4 title="{{item.name}}">
@@ -159,6 +162,9 @@
                                         class="fas fa-trash"></i></a>
                                 {{/if}}
                             </div>
+                        </div>
+                        <div class="item-summary">
+                            {{> "systems/ose/dist/templates/actors/partials/actor-item-summary.html" item=item}}
                         </div>
                     </li>
                     {{/each}}

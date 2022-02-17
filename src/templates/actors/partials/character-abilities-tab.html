@@ -40,7 +40,7 @@
   <ol class="item-list resizable" data-base-size="260">
     {{#each abilities as |item|}}
     <li class="item-entry">
-      <div class="item flexrow" data-item-id="{{item.id}}">
+      <div class="item item-header flexrow" data-item-id="{{item.id}}">
         <div class="item-name {{#if item.data.data.roll}}item-rollable{{/if}} flexrow">
           <div class="item-image" style="background-image: url({{item.img}})"></div>
           <a>
@@ -56,6 +56,9 @@
           <a class="item-control item-delete" title='{{localize "OSE.Delete"}}'><i class="fas fa-trash"></i></a>
           {{/if}}
         </div>
+      </div>
+      <div class="item-summary">
+        {{> "systems/ose/dist/templates/actors/partials/actor-item-summary.html" item=item}}
       </div>
     </li>
     {{/each}}

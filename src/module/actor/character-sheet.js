@@ -191,8 +191,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
 
   async _onQtChange(event) {
     event.preventDefault();
-    const itemId = event.currentTarget.closest(".item").dataset.itemId;
-    const item = this.actor.items.get(itemId);
+    const item = super._getItemFromActor(event);
     return item.update({ "data.quantity.value": parseInt(event.target.value) });
   }
 
@@ -246,23 +245,6 @@ export class OseActorSheetCharacter extends OseActorSheet {
       actorObject.rollExploration(expl, { event: ev });
     });
 
-    html.find(".inventory .item-titles .item-caret").click((ev) => {
-      let items = $(ev.currentTarget.parentElement.parentElement).children(
-        ".item-list"
-      );
-      if (items.css("display") == "none") {
-        let el = $(ev.currentTarget).find(".fas.fa-caret-right");
-        el.removeClass("fa-caret-right");
-        el.addClass("fa-caret-down");
-        items.slideDown(200);
-      } else {
-        let el = $(ev.currentTarget).find(".fas.fa-caret-down");
-        el.removeClass("fa-caret-down");
-        el.addClass("fa-caret-right");
-        items.slideUp(200);
-      }
-    });
-
     html.find("a[data-action='modifiers']").click((ev) => {
       this._onShowModifiers(ev);
     });
@@ -270,34 +252,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
 
-    // Update Inventory Item
-    html.find(".item-edit").click((ev) => {
-      const li = $(ev.currentTarget).parents(".item");
-      const item = this.actor.items.get(li.data("itemId"));
-      item.sheet.render(true);
-    });
-
-    // Delete Inventory Item
-    html.find(".item-delete").click((ev) => {
-      const li = ev.currentTarget.closest(".item");
-      const item = this.actor.items.get(li.dataset.itemId);
-      if (item.type == "container") {
-        const updateData = item.data.data.itemIds.reduce((acc, val) => {
-          acc.push({
-            _id: val.id,
-            "data.containerId": "",
-          });
-          return acc;
-        }, []);
-        this.actor.updateEmbeddedDocuments("Item", updateData).then(() => {
-          this.actor.deleteEmbeddedDocuments("Item", [li.dataset.itemId]);
-        });
-        return;
-      }
-      this.actor.deleteEmbeddedDocuments("Item", [li.dataset.itemId]);
-      $(li).slideUp(200, () => this.render(false));
-    });
-
+    // Language Management
     html.find(".item-push").click((ev) => {
       ev.preventDefault();
       const header = ev.currentTarget;
@@ -310,19 +265,6 @@ export class OseActorSheetCharacter extends OseActorSheet {
       const header = ev.currentTarget;
       const table = header.dataset.array;
       this._popLang(table, $(ev.currentTarget).closest(".item").data("lang"));
-    });
-
-    html.find(".item-create").click((event) => {
-      event.preventDefault();
-      const header = event.currentTarget;
-      const type = header.dataset.type;
-      const itemData = {
-        name: `New ${type.capitalize()}`,
-        type: type,
-        data: duplicate(header.dataset),
-      };
-      delete itemData.data["type"];
-      return this.actor.createEmbeddedDocuments("Item", [itemData]);
     });
 
     //Toggle Equipment
@@ -339,7 +281,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
     html
       .find(".quantity input")
       .click((ev) => ev.target.select())
-      .change(this._onQtChange.bind(this));
+      .change(super._updateItemQuantity.bind(this));
 
     html.find("a[data-action='generate-scores']").click((ev) => {
       this.generateScores(ev);

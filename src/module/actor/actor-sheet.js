@@ -31,6 +31,37 @@ export class OseActorSheet extends ActorSheet {
     super.activateEditor(name, options, initialContent);
   }
 
+  // Helpers
+
+  _getItemFromActor(event) {
+    const li = event.currentTarget.closest(".item-entry");
+    const item = this.actor.items.get(li.dataset.itemId);
+
+    return item;
+  }
+
+  // end Helpers
+
+  _toggleItemCategory(event) {
+    event.preventDefault();
+    const targetCategory = $(event.currentTarget);
+    let items = targetCategory.next(".item-list");
+
+    if (items.css("display") === "none") {
+      let el = $(event.currentTarget).find(".fas.fa-caret-right");
+      el.removeClass("fa-caret-right");
+      el.addClass("fa-caret-down");
+
+      items.slideDown(200);
+    } else {
+      let el = $(event.currentTarget).find(".fas.fa-caret-down");
+      el.removeClass("fa-caret-down");
+      el.addClass("fa-caret-right");
+
+      items.slideUp(200);
+    }
+  }
+
   _toggleItemSummary(event) {
     event.preventDefault();
     const summary = $(event.currentTarget).closest(".item-header").next(".item-summary");
@@ -42,10 +73,49 @@ export class OseActorSheet extends ActorSheet {
     }
   }
 
+  async _displayItemInChat(event) {
+    const li = $(event.currentTarget).closest(".item-entry");
+    const item = this.actor.items.get(li.data("itemId"));
+    item.show();
+  }
+
+  async _removeItemFromActor(event) {
+    const item = this._getItemFromActor(event);
+    const itemDisplay = event.currentTarget.closest(".item-entry");
+
+    if (item.type === "container") {
+      const updateData = item.data.data.itemIds.reduce((acc, val) => {
+        acc.push({
+          _id: val.id,
+          "data.containerId": "",
+        });
+        return acc;
+      }, []);
+      this.actor.updateEmbeddedDocuments("Item", updateData).then(() => {
+        this.actor.deleteEmbeddedDocuments("Item", [itemDisplay.dataset.itemId]);
+      });
+    } else {
+      this.actor.deleteEmbeddedDocuments("Item", [itemDisplay.dataset.itemId]);
+      $(itemDisplay).slideUp(200, () => this.render(false));
+    }
+  }
+
+  /**
+   * @param {bool} decrement
+   */
+  _useConsumable(event, decrement) {
+    const item = this._getItemFromActor(event);
+
+    if (decrement) {
+      item.update({ "data.quantity.value": item.data.data.quantity.value - 1 });
+    } else {
+      item.update({ "data.quantity.value": item.data.data.quantity.value + 1 });
+    }
+  }
+
   async _onSpellChange(event) {
     event.preventDefault();
-    const itemId = event.currentTarget.closest(".item").dataset.itemId;
-    const item = this.actor.items.get(itemId);
+    const item = this._getItemFromActor(event);
     if (event.target.dataset.field == "cast") {
       return item.update({ "data.cast": parseInt(event.target.value) });
     } else if (event.target.dataset.field == "memorize") {
@@ -58,7 +128,7 @@ export class OseActorSheet extends ActorSheet {
   async _resetSpells(event) {
     let spells = $(event.currentTarget)
       .closest(".inventory.spells")
-      .find(".item");
+      .find(".item-entry");
     spells.each((_, el) => {
       let itemId = el.dataset.itemId;
       const item = this.actor.items.get(itemId);
@@ -69,86 +139,40 @@ export class OseActorSheet extends ActorSheet {
     });
   }
 
-  activateListeners(html) {
-    super.activateListeners(html);
-
-    // Item summaries
-    html.find(".item-name").click((event) => { this._toggleItemSummary(event) });
-
-    html.find(".item .item-controls .item-show").click(async (ev) => {
-      const li = $(ev.currentTarget).parents(".item");
-      const item = this.actor.items.get(li.data("itemId"));
-      item.show();
-    });
-
-    html.find(".saving-throw .attribute-name a").click((ev) => {
-      let actorObject = this.actor;
-      let element = ev.currentTarget;
-      let save = element.parentElement.parentElement.dataset.save;
-      actorObject.rollSave(save, { event: ev });
-    });
-
-    html.find(".item .item-rollable .item-image").click(async (ev) => {
-      const li = $(ev.currentTarget).parents(".item");
-      const item = this.actor.items.get(li.data("itemId"));
-      if (item.type == "weapon") {
-        if (this.actor.data.type === "monster") {
-          item.update({
-            data: { counter: { value: item.data.data.counter.value - 1 } },
-          });
-        }
-        item.rollWeapon({ skipDialog: ev.ctrlKey });
-      } else if (item.type == "spell") {
-        item.spendSpell({ skipDialog: ev.ctrlKey });
-      } else {
-        item.rollFormula({ skipDialog: ev.ctrlKey });
+  async _rollAbility(event) {
+    const item = this._getItemFromActor(event);
+    if (item.type == "weapon") {
+      if (this.actor.data.type === "monster") {
+        item.update({
+          data: { counter: { value: item.data.data.counter.value - 1 } },
+        });
       }
-    });
+      item.rollWeapon({ skipDialog: event.ctrlKey });
+    } else if (item.type == "spell") {
+      item.spendSpell({ skipDialog: event.ctrlKey });
+    } else {
+      item.rollFormula({ skipDialog: event.ctrlKey });
+    }
+  }
 
-    html.find(".attack a").click((ev) => {
-      let actorObject = this.actor;
-      let element = ev.currentTarget;
-      let attack = element.parentElement.parentElement.dataset.attack;
-      const rollData = {
-        actor: this.data,
-        roll: {},
-      };
-      actorObject.targetAttack(rollData, attack, {
-        type: attack,
-        skipDialog: ev.ctrlKey,
-      });
-    });
+  async _rollSave(event) {
+    let actorObject = this.actor;
+    let element = event.currentTarget;
+    let save = element.parentElement.parentElement.dataset.save;
+    actorObject.rollSave(save, { event: event });
+  }
 
-    html.find(".hit-dice .attribute-name a").click((ev) => {
-      let actorObject = this.actor;
-      actorObject.rollHitDice({ event: ev });
-    });
-
-    // Everything below here is only needed if the sheet is editable
-    if (!this.options.editable) return;
-
-    html
-      .find(".memorize input")
-      .click((ev) => ev.target.select())
-      .change(this._onSpellChange.bind(this));
-
-
-    html.find(".spells .item-reset[data-action='reset-spells']").click((ev) => {
-      this._resetSpells(ev);
-    });
-
-    html.find(".item-entry .consumable-counter .empty-mark").click(ev => {
-      const el = ev.currentTarget.parentElement.parentElement.children[0];
-      const id = el.dataset.itemId;
-      const item = this.actor.items.get(id);
-      item.update({ "data.quantity.value": item.data.data.quantity.value + 1 });
-    });
-
-    html.find(".item-entry .consumable-counter .full-mark").click(ev => {
-      const el = ev.currentTarget.parentElement.parentElement.children[0];
-      const id = el.dataset.itemId;
-      const item = this.actor.items.get(id);
-      item.update({ "data.quantity.value": item.data.data.quantity.value - 1 });
+  async _rollAttack(event) {
+    let actorObject = this.actor;
+    let element = event.currentTarget;
+    let attack = element.parentElement.parentElement.dataset.attack;
+    const rollData = {
+      actor: this.data,
+      roll: {},
+    };
+    actorObject.targetAttack(rollData, attack, {
+      type: attack,
+      skipDialog: event.ctrlKey,
     });
   }
 
@@ -176,6 +200,82 @@ export class OseActorSheet extends ActorSheet {
     }
 
     super._onSortItem(event, itemData);
+  }
+
+  async _chooseItemType(choices = ["weapon", "armor", "shield", "gear"]) {
+    let templateData = { types: choices },
+      dlg = await renderTemplate(
+        "systems/ose/dist/templates/items/entity-create.html",
+        templateData
+      );
+    //Create Dialog window
+    return new Promise((resolve) => {
+      new Dialog({
+        title: game.i18n.localize("OSE.dialog.createItem"),
+        content: dlg,
+        buttons: {
+          ok: {
+            label: game.i18n.localize("OSE.Ok"),
+            icon: '<i class="fas fa-check"></i>',
+            callback: (html) => {
+              resolve({
+                type: html.find('select[name="type"]').val(),
+                name: html.find('input[name="name"]').val(),
+              });
+            },
+          },
+          cancel: {
+            icon: '<i class="fas fa-times"></i>',
+            label: game.i18n.localize("OSE.Cancel"),
+          },
+        },
+        default: "ok",
+      }).render(true);
+    });
+  }
+
+  _createItem(event) {
+    event.preventDefault();
+    const header = event.currentTarget;
+    const type = header.dataset.type;
+
+    // item creation helper func
+    const createItem = function (type, name) {
+      const itemData = {
+        name: name ? name : `New ${type.capitalize()}`,
+        type: type,
+        data: duplicate(header.dataset),
+      };
+      delete itemData.data["type"];
+      return itemData;
+    };
+
+    // Getting back to main logic
+    if (type === "choice") {
+      const choices = header.dataset.choices.split(",");
+      this._chooseItemType(choices).then((dialogInput) => {
+        const itemData = createItem(dialogInput.type, dialogInput.name);
+        this.actor.createEmbeddedDocuments("Item", [itemData], {});
+      });
+    } else {
+      const itemData = createItem(type);
+      return this.actor.createEmbeddedDocuments("Item", [itemData], {});
+    }
+  }
+
+  async _updateItemQuantity(event) {
+    event.preventDefault();
+    const item = this._getItemFromActor(event);
+
+    if (event.target.dataset.field === "value") {
+      return item.update({
+        "data.counter.value": parseInt(event.target.value),
+      });
+    } else if (event.target.dataset.field === "max") {
+      return item.update({
+        "data.counter.max": parseInt(event.target.value),
+      });
+    }
   }
 
   // Override to set resizable initial size
@@ -243,10 +343,59 @@ export class OseActorSheet extends ActorSheet {
           label: game.i18n.localize("OSE.dialog.tweaks"),
           class: "configure-actor",
           icon: "fas fa-code",
-          onclick: (ev) => this._onConfigureActor(ev),
+          onclick: (event) => this._onConfigureActor(event),
         },
       ].concat(buttons);
     }
     return buttons;
+  }
+
+  activateListeners(html) {
+    super.activateListeners(html);
+
+    // Attributes
+    html.find(".saving-throw .attribute-name a").click((event) => { this._rollSave(event); });
+
+    html.find(".attack a").click((event) => { this._rollAttack(event); });
+
+    html.find(".hit-dice .attribute-name").click((event) => {
+      this.actor.rollHitDice({ event: event });
+    });
+
+    // Items (Abilities, Inventory and Spells)
+    html.find(".item-rollable .item-image").click(async (event) => { this._rollAbility(event); });
+
+    html.find(".inventory .item-category-title").click((event) => { this._toggleItemCategory(event); });
+
+    html.find(".item-name").click((event) => { this._toggleItemSummary(event) });
+
+    html.find(".item-controls .item-show").click(async (event) => { this._displayItemInChat(event); });
+
+    // Everything below here is only needed if the sheet is editable
+    if (!this.options.editable) return;
+
+    // Item Management
+    html.find(".item-create").click((event) => { this._createItem(event); });
+
+    html.find(".item-edit").click((event) => {
+      const item = this._getItemFromActor(event);
+      item.sheet.render(true);
+    });
+
+    html.find(".item-delete").click((event) => { this._removeItemFromActor(event); });
+
+    // Consumables
+    html.find(".consumable-counter .full-mark").click(event => { this._useConsumable(event, true) });
+    html.find(".consumable-counter .empty-mark").click(event => { this._useConsumable(event, false) });
+
+    // Spells
+    html
+      .find(".memorize input")
+      .click((event) => event.target.select())
+      .change(this._onSpellChange.bind(this));
+
+    html.find(".spells .item-reset[data-action='reset-spells']").click((event) => {
+      this._resetSpells(event);
+    });
   }
 }

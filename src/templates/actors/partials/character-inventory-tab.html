@@ -23,12 +23,12 @@
             </a>
           </div>
           <div class="icon-row flexrow">
-            {{#each item.data.data.tags as |tag|}}
+            {{#each item.data.data.manualTags as |tag|}}
             {{#if (getTagIcon tag.value)}}
             <img title="{{tag.title}}" src="{{getTagIcon tag.value}}" width="24" height="24" />
             {{/if}}
             {{/each}}
-            {{#each item.data.data.tags as |tag|}}
+            {{#each item.data.data.manualTags as |tag|}}
             {{#unless (getTagIcon tag.value)}}
             <span title="{{tag.title}}">{{tag.value}}{{#unless @last}},{{/unless}}</span>
 

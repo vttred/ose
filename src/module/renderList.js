@@ -9,7 +9,7 @@ export const RenderCompendium = async function (object, html, d) {
     const element = docs.filter((d) => d.id === id)[0];
     const tagList = document.createElement("ol");
     tagList.classList.add("tag-list");
-    const tags = element.getTags();
+    const tags = element.getAutoTagDisplay();
     tagList.innerHTML = tags;
     item.appendChild(tagList);
   });
@@ -27,7 +27,7 @@ export const RenderDirectory = async function (object, html) {
     const foundryDocument = content.find(
       (e) => e.id == item.dataset.documentId
     );
-    const tags = foundryDocument.getTags();
+    const tags = foundryDocument.getAutoTagDisplay();
     tagList.innerHTML = tags;
     item.appendChild(tagList);
   });

@@ -83,21 +83,16 @@ export class OseActorSheet extends ActorSheet {
     const item = this._getItemFromActor(event);
     const itemDisplay = event.currentTarget.closest(".item-entry");
 
-    if (item.type === "container") {
-      const updateData = item.data.data.itemIds.reduce((acc, val) => {
-        acc.push({
-          _id: val.id,
-          "data.containerId": "",
-        });
+    if (item.type === "container" && item.data.data.itemIds) {
+      const containedItems = item.data.data.itemIds;
+      const updateData = containedItems.reduce((acc, val) => {
+        acc.push({ _id: val.id, "data.containerId": "", });
         return acc;
       }, []);
-      this.actor.updateEmbeddedDocuments("Item", updateData).then(() => {
-        this.actor.deleteEmbeddedDocuments("Item", [itemDisplay.dataset.itemId]);
-      });
-    } else {
-      this.actor.deleteEmbeddedDocuments("Item", [itemDisplay.dataset.itemId]);
-      $(itemDisplay).slideUp(200, () => this.render(false));
+
+      await this.actor.updateEmbeddedDocuments("Item", updateData);
     }
+    this.actor.deleteEmbeddedDocuments("Item", [itemDisplay.dataset.itemId]);
   }
 
   /**

@@ -87,21 +87,30 @@ export class OsePartySheet extends FormApplication {
   }
 
   _onDropActor(event, data) {
+    if (data.documentName !== "Actor") {
+      return;
+    }
+
     const actors = this.object.documents;
     let droppedActor = actors.find(actor => actor.id === data.id);
 
     this._addActorToParty(droppedActor);
   }
 
+  _recursiveAddFolder(folder) {
+    folder.content.forEach(actor => this._addActorToParty(actor));
+    folder.children.forEach(folder => this._recursiveAddFolder(folder));
+  }
+
   _onDropFolder(event, data) {
+    if (data.documentName !== "Actor") {
+      return;
+    }
+
     const folder = game.folders.get(data.id);
     if (!folder) return;
 
-    switch (data.documentName) {
-      case "Actor":
-        folder.content.forEach(actor => this._addActorToParty(actor));
-        break;
-    }
+    this._recursiveAddFolder(folder);
   }
 
   /* - Dragging from the Party Sheet - */

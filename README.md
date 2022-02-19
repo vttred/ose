@@ -1,7 +1,4 @@
 <p align="center">
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
   <a href="https://foundryvtt.com/packages/ose/">
     <img alt="Unofficial OSE on Foundry VTT logo" src="https://raw.githubusercontent.com/vttred/ose/main/docs/images/unofficial-ose-fvtt-logo.png" width="256" />
   </a>
@@ -12,6 +9,10 @@
 <p align="center">
   <!-- BEGIN TEXT REQUIRED BY LICENSE -->Requires <strong><em>Old-School Essentials</em></strong>.<!-- END TEXT REQUIRED BY LICENSE --> Find the game at <a href="https://necroticgnome.com">Necrotic Gnome's website</a>.
 </p>
+
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Installation
 

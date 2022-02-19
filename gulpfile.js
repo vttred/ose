@@ -140,7 +140,7 @@ function getSymLinkName() {
   if (config?.symLinkName) {
     return config.symLinkName;
   } else {
-    throw new Error("No User Data path defined in foundryconfig.json");
+    return "ose";
   }
 }
 

@@ -13,6 +13,15 @@
       "contributions": [
         "design"
       ]
+    },
+    {
+      "login": "freohr",
+      "name": "Stephen FAURE",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3462951?v=4",
+      "profile": "https://github.com/freohr",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

@@ -1,6 +1,6 @@
 <p align="center">
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
   <a href="https://foundryvtt.com/packages/ose/">
     <img alt="Unofficial OSE on Foundry VTT logo" src="https://raw.githubusercontent.com/vttred/ose/main/docs/images/unofficial-ose-fvtt-logo.png" width="256" />
@@ -108,6 +108,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/freohr"><img src="https://avatars.githubusercontent.com/u/3462951?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Stephen FAURE</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=freohr" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/engleback"><img src="https://avatars.githubusercontent.com/u/35422051?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ian Engleback</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=engleback" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/RabidOwlbear"><img src="https://avatars.githubusercontent.com/u/71675732?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Grim</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=RabidOwlbear" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/WallaceMcGregor"><img src="https://avatars.githubusercontent.com/u/17795541?v=4?s=100" width="100px;" alt=""/><br /><sub><b>WallaceMcGregor</b></sub></a><br /><a href="#translation-WallaceMcGregor" title="Translation">🌍</a></td>
   </tr>
 </table>
 

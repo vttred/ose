@@ -40,6 +40,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "WallaceMcGregor",
+      "name": "WallaceMcGregor",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17795541?v=4",
+      "profile": "https://github.com/WallaceMcGregor",
+      "contributions": [
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 7,

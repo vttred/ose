@@ -8,19 +8,35 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      # Standard required steps for a Node.js package
+      - name: Checkout repository to add to workspace
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js version 14
+        uses: actions/setup-node@v2
         with:
           node-version: "14"
 
-      # Get dev dependencies for the package, including gulp
-      - run: npm ci
+      - name: Enable caching for Node.js modules
+        uses: actions/cache@v2
+        with:
+          path: .npm
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+            ${{ runner.OS }}-
 
-      # Create a build using gulp development
-      - run: npm run build
+      # Get dev dependencies for the package, including Gulp and Rollup
+      - name: Install dev dependencies
+        run: npm ci --cache .npm --prefer-offline
 
-      # Substitute the Manifest and Download URLs in the module.json
-      - name: Substitute Manifest and Download Links For Versioned Ones
+      # Create a build using Gulp build script
+      - name: Run Gulp build script
+        run: npm run build
+
+      # Insert "manifest", "download", and "version" for this release into the system.json manifest file
+      # Doing it this way works for forks as well
+      - name: Insert release-specific values in manifest file
         id: sub_manifest_link_version
         uses: microsoft/variable-substitution@v1
         with:
@@ -32,7 +48,9 @@ jobs:
           download: https://github.com/${{github.repository}}/releases/download/${{github.event.release.tag_name}}/system.zip
 
       # Create a zip file with all files required by the module to add to the release
-      - run: zip -r ./system.zip system.json template.json dist/ assets/ LICENSE.OGL LICENSE.GPL LICENSE.OTHER.OSE_THIRD_PARTY_V1_5 AUTHORS
+      - name: Create zip file
+        # Remember to update the below line when there's a change in repository files/directories
+        run: zip -r ./system.zip system.json template.json dist/ assets/ LICENSE.OGL LICENSE.GPL LICENSE.OTHER.OSE_THIRD_PARTY_V1_5 AUTHORS
 
       # Create a release for this specific version
       - name: Update Release with Files

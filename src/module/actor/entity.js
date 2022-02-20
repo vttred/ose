@@ -273,6 +273,8 @@ export class OseActor extends Actor {
   }
 
   rollCheck(score, options = {}) {
+    if (this.data.type !== "character") return;
+
     const label = game.i18n.localize(`OSE.scores.${score}.long`);
     const rollParts = ["1d20"];
 
@@ -330,6 +332,8 @@ export class OseActor extends Actor {
   }
 
   rollAppearing(options = {}) {
+    if (this.data.type !== "monster") return;
+
     const rollParts = [];
     let label = "";
     if (options.check == "wilderness") {
@@ -361,6 +365,8 @@ export class OseActor extends Actor {
   }
 
   rollExploration(expl, options = {}) {
+    if (this.data.type !== "character") return;
+
     const label = game.i18n.localize(`OSE.exploration.${expl}.long`);
     const rollParts = ["1d6"];
 

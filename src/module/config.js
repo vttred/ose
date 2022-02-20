@@ -7,6 +7,26 @@ export const OSE = {
     con: "OSE.scores.con.long",
     cha: "OSE.scores.cha.long",
   },
+  scores_short: {
+    str: "OSE.scores.str.short",
+    int: "OSE.scores.int.short",
+    dex: "OSE.scores.dex.short",
+    wis: "OSE.scores.wis.short",
+    con: "OSE.scores.con.short",
+    cha: "OSE.scores.cha.short",
+  },
+  exploration_skills: {
+    ld: "OSE.exploration.ld.long",
+    od: "OSE.exploration.od.long",
+    sd: "OSE.exploration.sd.long",
+    fs: "OSE.exploration.ft.long",
+  },
+  exploration_skills_short: {
+    ld: "OSE.exploration.ld.abrev",
+    od: "OSE.exploration.od.abrev",
+    sd: "OSE.exploration.sd.abrev",
+    fs: "OSE.exploration.ft.abrev",
+  },
   roll_type: {
     result: "=",
     above: "≥",

@@ -157,77 +157,77 @@
   },
   "Item": {
     "types": ["item", "weapon", "armor", "spell", "ability", "container"],
-    "item": {
-      "description": "",
-      "quantity": {
-        "value": 1,
-        "max": 0
+    "templates": {
+      "common": {
+        "description": ""
       },
+      "physical": {
+        "quantity": {
+          "value": 1,
+          "max": 0
+        },
+        "weight": 0,
+        "cost": 0,
+        "containerId": ""
+      },
+      "rollable": {
+        "save": ""
+      },
+      "equippable": {
+        "equipped": false
+      }
+    },
+    "item": {
+      "templates": ["common", "physical"],
       "treasure": false,
-      "cost": 0,
-      "weight": 0,
-      "containerId": "",
       "isContainer": false
     },
     "container": {
-      "description": "",
-      "cost": 0,
-      "weight": 0
+      "templates": ["common", "physical"]
     },
     "weapon": {
+      "templates": ["common", "physical", "rollable", "equippable"],
       "range": {
         "short": 0,
         "medium": 0,
         "long": 0
       },
-      "save": "",
       "pattern": "transparent",
-      "description": "",
       "damage": "1d6",
       "bonus": 0,
       "tags": [],
       "slow": false,
       "missile": false,
       "melee": true,
-      "cost": 0,
-      "equipped": false,
-      "weight": 0,
       "counter": {
         "value": 0,
         "max": 0
-      },
-      "containerId": ""
+      }
     },
     "armor": {
-      "description": "",
+      "templates": ["common", "physical", "equippable"],
       "ac": 9,
       "aac": 10,
-      "type": "light",
-      "cost": 0,
-      "equipped": false,
-      "weight": 0,
-      "containerId": ""
+      "type": "light"
     },
     "spell": {
+      "templates": ["common", "rollable"],
       "lvl": 1,
       "class": "Magic-User",
       "duration": "",
       "range": "",
       "roll": "",
-      "description": "",
       "memorized": 0,
-      "cast": 0,
-      "save": ""
+      "cast": 0
     },
     "ability": {
+      "templates": ["common", "rollable"],
       "pattern": "white",
       "requirements": "",
       "roll": "",
       "rollType": "result",
       "rollTarget": 0,
-      "blindroll": false,
-      "description": "",
-      "save": ""
+      "blindroll": false
     }
   }
 }

@@ -1,31 +1,40 @@
 export const augmentTable = (table, html, data) => {
   // Treasure Toggle
+  const isTreasureTable = table.object.getFlag("ose", "treasure");
+
+  let treasureTableToggle = $("<div class='toggle-treasure' title='Toggle Treasure Table'></div>");
+  treasureTableToggle.toggleClass("active", isTreasureTable);
+
   let head = html.find(".sheet-header");
-  const flag = table.object.getFlag("ose", "treasure");
-  const treasure = flag
-    ? "<div class='toggle-treasure active'></div>"
-    : "<div class='toggle-treasure'></div>";
-  head.append(treasure);
+  head.append(treasureTableToggle);
 
   html.find(".toggle-treasure").click((ev) => {
-    let isTreasure = table.object.getFlag("ose", "treasure");
+    const isTreasure = table.object.getFlag("ose", "treasure");
     table.object.setFlag("ose", "treasure", !isTreasure);
   });
 
   // Treasure table formatting
-  if (flag) {
-    // Remove Interval
-    html.find(".result-range").remove();
-    html.find(".normalize-results").remove();
-
-    html.find(".result-weight").first().text("Chance");
-
-    // Replace Roll button
-    const roll = `<button class="roll-treasure" type="button"><i class="fas fa-gem"></i> ${game.i18n.localize(
-      "OSE.table.treasure.roll"
-    )}</button>`;
-    html.find(".sheet-footer .roll").replaceWith(roll);
+  if (!isTreasureTable) {
+    return
   }
+
+  // Hide irrelevant standard fields
+  html.find(".result-range").hide(); // We only hide this column because the underlying model requires two fields for the range and throw an error if they are missing
+  html.find(".normalize-results").remove();
+
+  let chanceHeader = html.find(".table-header .result-weight");
+  chanceHeader.text("Chance (%)");
+
+  let chanceColumn = html.find(".result-weight");
+  chanceColumn.css("flex", "0 0 75px");
+
+  let formula = html.find("input[name=formula]");
+  formula.attr("value", "1d100");
+  formula.attr("disabled", true);
+
+  // Replace Roll button
+  const roll = `<button class="roll-treasure" type="button"><i class="fas fa-gem"></i> ${game.i18n.localize("OSE.table.treasure.roll")}</button>`;
+  html.find(".sheet-footer .roll").replaceWith(roll);
 
   html.find(".roll-treasure").click((ev) => {
     rollTreasure(table.object, { event: ev });
@@ -48,7 +57,7 @@ function drawTreasure(table, data) {
           text: TextEditor.enrichHTML(text),
         };
         if (
-          r.data.type === CONST.TABLE_RESULT_TYPES.ENTITY &&
+          r.data.type === CONST.TABLE_RESULT_TYPES.DOCUMENT &&
           r.data.collection === "RollTable"
         ) {
           const embeddedTable = game.tables.get(r.data.resultId);

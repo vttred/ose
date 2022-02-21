@@ -7,12 +7,7 @@
     "build": "gulp build",
     "link": "gulp link",
     "build:watch": "gulp watch",
-    "clean": "gulp clean && gulp link --clean",
-    "preinstall": "([ \"$CI\" != true ] && npx npm-force-resolutions) || :"
-  },
-  "resolutions": {
-    "glob-parent": "^6.0.1",
-    "strip-ansi": "^7.0.0"
+    "clean": "gulp clean && gulp link --clean"
   },
   "author": "",
   "license": "",

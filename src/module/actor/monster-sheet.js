@@ -60,15 +60,29 @@ export class OseActorSheetMonster extends OseActorSheet {
           attackPatterns[item.data.data.pattern].push(item);
         }
         // Classify items into types
-        if (item.type === "weapon") arr[0].push(item);
-        else if (item.type === "item") arr[1].push(item);
-        else if (item.type === "armor") arr[2].push(item);
-        else if (item.type === "spell") arr[3].push(item);
-        else if (item.type === "container") arr[4].push(item);
+        switch (item.type) {
+          case "weapon":
+            arr[0].push(item);
+            break;
+          case "item":
+            arr[1].push(item);
+            break;
+          case "armor":
+            arr[2].push(item);
+            break;
+          case "spell":
+            arr[3].push(item);
+            break;
+          case "container":
+            arr[4].push(item);
+            break;
+        }
+
         return arr;
       },
       [[], [], [], [], []]
     );
+
     // Sort spells by level
     var sortedSpells = {};
     var slots = {};
@@ -190,39 +204,6 @@ export class OseActorSheetMonster extends OseActorSheet {
   }
 
   /* -------------------------------------------- */
-
-  async _chooseItemType(choices = ["weapon", "armor", "shield", "gear"]) {
-    let templateData = { types: choices },
-      dlg = await renderTemplate(
-        "systems/ose/dist/templates/items/entity-create.html",
-        templateData
-      );
-    //Create Dialog window
-    return new Promise((resolve) => {
-      new Dialog({
-        title: game.i18n.localize("OSE.dialog.createItem"),
-        content: dlg,
-        buttons: {
-          ok: {
-            label: game.i18n.localize("OSE.Ok"),
-            icon: '<i class="fas fa-check"></i>',
-            callback: (html) => {
-              resolve({
-                type: html.find('select[name="type"]').val(),
-                name: html.find('input[name="name"]').val(),
-              });
-            },
-          },
-          cancel: {
-            icon: '<i class="fas fa-times"></i>',
-            label: game.i18n.localize("OSE.Cancel"),
-          },
-        },
-        default: "ok",
-      }).render(true);
-    });
-  }
-
   async _resetAttacks(event) {
     const weapons = this.actor.data.items.filter((i) => i.type === "weapon");
     for (let wp of weapons) {
@@ -237,19 +218,19 @@ export class OseActorSheetMonster extends OseActorSheet {
     }
   }
 
-  async _onCountChange(event) {
-    event.preventDefault();
-    const itemId = event.currentTarget.closest(".item").dataset.itemId;
-    const item = this.actor.items.get(itemId);
-    if (event.target.dataset.field == "value") {
-      return item.update({
-        "data.counter.value": parseInt(event.target.value),
-      });
-    } else if (event.target.dataset.field == "max") {
-      return item.update({
-        "data.counter.max": parseInt(event.target.value),
-      });
+  _cycleAttackPatterns(event) {
+    const item = super._getItemFromActor(event);
+    let currentColor = item.data.data.pattern;
+    let colors = Object.keys(CONFIG.OSE.colors);
+    let index = colors.indexOf(currentColor);
+    if (index + 1 == colors.length) {
+      index = 0;
+    } else {
+      index++;
     }
+    item.update({
+      "data.pattern": colors[index],
+    });
   }
 
   /**
@@ -261,65 +242,22 @@ export class OseActorSheetMonster extends OseActorSheet {
 
     html.find(".morale-check a").click((ev) => {
       let actorObject = this.actor;
-      actorObject.rollMorale({ event: event });
+      actorObject.rollMorale({ event: ev });
     });
 
     html.find(".reaction-check a").click((ev) => {
       let actorObject = this.actor;
-      actorObject.rollReaction({ event: event });
+      actorObject.rollReaction({ event: ev });
     });
 
     html.find(".appearing-check a").click((ev) => {
       let actorObject = this.actor;
       let check = $(ev.currentTarget).closest(".check-field").data("check");
-      actorObject.rollAppearing({ event: event, check: check });
+      actorObject.rollAppearing({ event: ev, check: check });
     });
 
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
-
-    // Update Inventory Item
-    html.find(".item-edit").click((ev) => {
-      const li = $(ev.currentTarget).parents(".item");
-      const item = this.actor.items.get(li.data("itemId"));
-      item.sheet.render(true);
-    });
-
-    // Delete Inventory Item
-    html.find(".item-delete").click(async (ev) => {
-      const li = $(ev.currentTarget).parents(".item");
-      await this.actor.deleteEmbeddedDocuments("Item", [li.data("itemId")]);
-      li.slideUp(200, () => this.render(false));
-    });
-
-    html.find(".item-create").click((event) => {
-      event.preventDefault();
-      const header = event.currentTarget;
-      const type = header.dataset.type;
-
-      // item creation helper func
-      let createItem = function (type, name = `New ${type.capitalize()}`) {
-        const itemData = {
-          name: name ? name : `New ${type.capitalize()}`,
-          type: type,
-          data: duplicate(header.dataset),
-        };
-        delete itemData.data["type"];
-        return itemData;
-      };
-
-      // Getting back to main logic
-      if (type == "choice") {
-        const choices = header.dataset.choices.split(",");
-        this._chooseItemType(choices).then((dialogInput) => {
-          const itemData = createItem(dialogInput.type, dialogInput.name);
-          this.actor.createEmbeddedDocuments("Item", [itemData], {});
-        });
-        return;
-      }
-      const itemData = createItem(type);
-      return this.actor.createEmbeddedDocuments("Item", [itemData], {});
-    });
 
     html.find(".item-reset[data-action='reset-attacks']").click((ev) => {
       this._resetAttacks(ev);
@@ -328,28 +266,13 @@ export class OseActorSheetMonster extends OseActorSheet {
     html
       .find(".counter input")
       .click((ev) => ev.target.select())
-      .change(this._onCountChange.bind(this));
+      .change(super._updateItemQuantity.bind(this));
 
     html.find(".hp-roll").click((ev) => {
-      let actorObject = this.actor;
-      actorObject.rollHP({ event: event });
+      this.actor.rollHP({ event: ev });
     });
 
-    html.find(".item-pattern").click((ev) => {
-      const li = $(ev.currentTarget).parents(".item");
-      const item = this.actor.items.get(li.data("itemId"));
-      let currentColor = item.data.data.pattern;
-      let colors = Object.keys(CONFIG.OSE.colors);
-      let index = colors.indexOf(currentColor);
-      if (index + 1 == colors.length) {
-        index = 0;
-      } else {
-        index++;
-      }
-      item.update({
-        "data.pattern": colors[index],
-      });
-    });
+    html.find(".item-pattern").click((ev) => this._cycleAttackPatterns(ev));
 
     html
       .find('button[data-action="generate-saves"]')

@@ -30,7 +30,7 @@
       background: $darkBackground;
       line-height: 12px;
       height: 20px;
-      text-align: center;
+      text-align: left;
       margin: 0;
       padding: 4px;
       display: flex;
@@ -212,35 +212,39 @@
       .header-spells {
         line-height: 30px;
       }
-      .item-titles {
+      .item-category-title {
         text-align: center;
         padding: 4px 0;
         border: 1px solid $colorDark;
         box-shadow: 0 0 5px $colorDark;
-        .item-name {
-          text-align: left;
-          text-indent: 8px;
-        }
+        line-height: 16px;
         font-weight: 300;
         font-size: 13px;
         background: $darkBackground;
         color: white;
+        cursor: pointer;
         input {
           color: white;
           margin: auto;
+        }
+        .category-name {
+          text-indent: 8px;
+          text-align: left;
+          overflow: hidden;
+          margin: 0;
+          height: 16px;
+          flex-basis: 90px;
         }
       }
       .item-list {
         list-style: none;
         margin: 0;
         padding: 0;
-        & > * {
-          line-height: 30px;
-        }
-        .item-entry {
-          box-shadow: inset 1px 0 0 0 $colorTan;
-        }
+
         .item-summary {
+          display: none
+        }
+        .item-description {
           font-size: 13px;
           padding: 0 4px;
           line-height: 20px;
@@ -271,59 +275,33 @@
           @extend %header-field !optional;
           padding: 0px;
           margin-bottom: 0px;
+          height: 30px;
+
+          .item-image {
+            flex-basis: 30px;
+            flex-grow: 0;
+            background-size: contain;
+            background-repeat: no-repeat;
+          }
+
+          .item-name {
+            text-indent: 8px;
+            text-align: left;
+            overflow: hidden;
+            margin: 0;
+            line-height: 30px;
+            flex-basis: 90px;
+            cursor: pointer;
+          }
         }
         .item-entry {
+          box-shadow: inset 1px 0 0 0 $colorTan;
+          line-height: 30px;
           &:nth-child(even) {
-            .item {
+            .item-header {
               background: rgba(0, 0, 0, 0.1);
             }
           }
-          .item-gallery {
-            display: flex;
-            margin-left: 36px;
-            margin-bottom: 2px;
-            overflow-x: auto;
-            .item-entry {
-              &:nth-child(even) .item {
-                background: none;
-              }
-              padding: 0 1px;
-              box-shadow: none;
-              .item-square {
-                box-shadow: 0 0 1px $colorFaint;
-                height: 28px;
-                width: 28px;
-                cursor: pointer;
-                position: relative;
-                &:hover {
-                  box-shadow: 0 0 1px $colorCrimson;
-                  border: 1px solid red;
-                  box-sizing: border-box;
-                }
-                .item-image {
-                  height: 28px;
-                  width: 28px;
-                  background-size: 28px 28px;
-                  background-position: center;
-                }
-                .item-quantity {
-                  position: absolute;
-                  top: 6px;
-                  right: 1px;
-                  text-shadow: 0 0 2px black;
-                  font-size: 12px;
-                  font-weight: 600;
-                  color: white;
-                  pointer-events: none;
-                }
-              }
-            }
-          }
-        }
-        .item {
-          line-height: 30px;
-          height: 30px;
-          overflow: hidden;
         }
         .item-equipped {
           grid-area: item-equipped;
@@ -338,24 +316,7 @@
             background-image: url("/icons/svg/d20-black.svg") !important;
           }
         }
-        .item-name {
-          text-indent: 8px;
-          text-align: left;
-          overflow: hidden;
-          height: 30px;
-          margin: 0;
-          line-height: 30px;
-          flex-basis: 90px;
-          .item-image {
-            flex-basis: 30px;
-            flex-grow: 0;
-            background-size: contain;
-            background-repeat: no-repeat;
-          }
-          h4 {
-            margin: 0;
-          }
-        }
+
         .consumable-counter {
           height: 14px;
           display: flex;
@@ -429,7 +390,7 @@
           }
         }
       }
-      .item-caret {
+      .category-caret {
         flex: 0 0 10px;
         margin: 0 4px;
         cursor: pointer;
@@ -450,7 +411,7 @@
         }
       }
       &.spells {
-        .item-titles {
+        .item-category-title {
           line-height: 24px;
         }
         .item-controls {

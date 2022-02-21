@@ -1,56 +1,57 @@
 <section class="inventory spells resizable" data-base-size="320">
-  <div class="item-titles flexrow" style="line-height:15px">
-    <div class="item-name">{{localize "OSE.category.spells"}}</div>
+  <div class="item-category-title flexrow" style="line-height:15px">
+    <div class="category-name">{{localize "OSE.category.spells"}}</div>
     <div class="item-controls">
-      <a class="item-control item-reset" title='{{localize "OSE.spells.ResetSlots"}}' data-action="reset-spells"><i class="fas fa-sync"></i></a>
+      <a class="item-control item-reset" title='{{localize "OSE.spells.ResetSlots"}}' data-action="reset-spells"><i
+          class="fas fa-sync"></i></a>
       <a class="item-control item-create" data-type="spell" title="{{localize 'OSE.Add'}}"><i
           class="fa fa-plus"></i></a>
     </div>
   </div>
   {{#each spells as |spellGroup id|}}
-  <div>
-    <li class="item-titles flexrow">
-      <div class="item-caret"><i class="fas fa-caret-down"></i> </div>
-      <div class="item-name">{{localize "OSE.spells.Level"}} {{id}}</div>
-      <div class="field-short">{{localize 'OSE.spells.Slots'}}</div>
-      <div class="field-long flexrow">
-        <input type="text" value="{{lookup @root.slots.used @key}}" name="data.spells.{{id}}.value" data-dtype="Number"
-          placeholder="0" disabled title="{{localize 'OSE.spells.MemorizedSlotsHint'}}">/<input type="text" value="{{lookup (lookup @root.data.spells @key) 'max'}}"
-          name="data.spells.{{id}}.max" data-dtype="Number" placeholder="0" title="{{localize 'OSE.spells.MaximumSlotsHint'}}"></div>
-      <div class="item-controls">
-        <a class="item-control item-create" data-type="spell" data-lvl="{{id}}" title="{{localize 'OSE.Add'}}"><i
-            class="fa fa-plus"></i></a>
+  <div class="item-category-title flexrow">
+    <div class="category-caret"><i class="fas fa-caret-down"></i> </div>
+    <div class="category-name">{{localize "OSE.spells.Level"}} {{id}}</div>
+    <div class="field-short">{{localize 'OSE.spells.Slots'}}</div>
+    <div class="field-long flexrow">
+      <input type="text" value="{{lookup @root.slots.used @key}}" name="data.spells.{{id}}.value" data-dtype="Number"
+        placeholder="0" disabled title="{{localize 'OSE.spells.MemorizedSlotsHint'}}">/<input type="text"
+        value="{{lookup (lookup @root.data.spells @key) 'max'}}" name="data.spells.{{id}}.max" data-dtype="Number"
+        placeholder="0" title="{{localize 'OSE.spells.MaximumSlotsHint'}}">
+    </div>
+    <div class="item-controls">
+      <a class="item-control item-create" data-type="spell" data-lvl="{{id}}" title="{{localize 'OSE.Add'}}"><i
+          class="fa fa-plus"></i></a>
+    </div>
+  </div>
+  <ol class="item-list">
+    {{#each spellGroup as |item|}}
+    <li class="item-entry item" data-item-id="{{item.id}}">
+      <div class="item-header flexrow item-rollable">
+        <div class="item-image" style="background-image: url({{item.img}})"></div>
+        <h4 class="item-name" title="{{item.name}}">
+          {{item.name~}}
+        </h4>
+        <div class="field-long memorize flexrow">
+          <input type="text" value="{{item.data.data.cast}}" data-dtype="Number" placeholder="0" data-field="cast"
+            title="{{localize 'OSE.spells.Cast'}}">
+          /
+          <input type="text" value="{{item.data.data.memorized}}" data-field="memorize" data-dtype="Number"
+            placeholder="0" title="{{localize 'OSE.spells.Memorized'}}">
+        </div>
+        <div class="item-controls">
+          {{#if ../../owner}}
+          <a class="item-control item-show" title='{{localize "OSE.Show"}}'><i class="fas fa-eye"></i></a>
+          <a class="item-control item-edit" title='{{localize "OSE.Edit"}}'><i class="fas fa-edit"></i></a>
+          <a class="item-control item-delete" title='{{localize "OSE.Delete"}}'><i class="fas fa-trash"></i></a>
+          {{/if}}
+        </div>
+      </div>
+      <div class="item-summary">
+        {{> "systems/ose/dist/templates/actors/partials/actor-item-summary.html" item=item}}
       </div>
     </li>
-    <ol class="item-list">
-      {{#each spellGroup as |item|}}
-      <li class="item-entry">
-        <div class="item flexrow" data-item-id="{{item.id}}">
-          <div class="item-name item-rollable flexrow">
-            <div class="item-image" style="background-image: url({{item.img}})"></div>
-            <a>
-              <h4 title="{{item.name}}">
-                {{item.name~}}
-              </h4>
-            </a>
-          </div>
-          <div class="field-long memorize flexrow">
-            <input type="text" value="{{item.data.data.cast}}" data-dtype="Number" placeholder="0" data-field="cast"
-              title="{{localize 'OSE.spells.Cast'}}">
-            /
-            <input type="text" value="{{item.data.data.memorized}}" data-field="memorize" data-dtype="Number" placeholder="0"
-              title="{{localize 'OSE.spells.Memorized'}}"></div>
-          <div class="item-controls">
-            {{#if ../../owner}}
-            <a class="item-control item-show" title='{{localize "OSE.Show"}}'><i class="fas fa-eye"></i></a>
-            <a class="item-control item-edit" title='{{localize "OSE.Edit"}}'><i class="fas fa-edit"></i></a>
-            <a class="item-control item-delete" title='{{localize "OSE.Delete"}}'><i class="fas fa-trash"></i></a>
-            {{/if}}
-          </div>
-        </div>
-      </li>
-      {{/each}}
-    </ol>
-  </div>
+    {{/each}}
+  </ol>
   {{/each}}
 </section>

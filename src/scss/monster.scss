@@ -85,19 +85,40 @@
     .attack-pattern {
       // border-bottom: 1px solid $colorDark;
       box-shadow: 1px 0 1px black;
-    }
-    .item-list {
-      .item-entry {
-        .item-pattern {
-          flex: 0 15px;
-          font-size: 10px;
-          text-align: center;
-          cursor: pointer;
-          &:hover .fas {
-            transform: rotate(90deg);
-          }
+      padding: 0;
+      margin: 0 0 0.5em;
+
+      .pattern-green {
+        background-color: green;
+      }
+      .pattern-red {
+        background-color: red;
+      }
+      .pattern-yellow {
+        background-color: yellow;
+      }
+      .pattern-purple {
+        background-color: purple;
+      }
+      .pattern-blue {
+        background-color: blue;
+      }
+      .pattern-orange {
+        background-color: orange;
+      }
+      .pattern-white {
+        background-color: white;
+      }
+
+      .item-pattern {
+        flex: 0 15px;
+        font-size: 10px;
+        text-align: center;
+        cursor: pointer;
+        &:hover .fas {
+          transform: rotate(90deg);
         }
-      }  
+      }
     }
   }
 }

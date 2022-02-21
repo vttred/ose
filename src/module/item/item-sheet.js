@@ -61,12 +61,12 @@ export class OseItemSheet extends ItemSheet {
       if (ev.which == 13) {
         let value = $(ev.currentTarget).val();
         let values = value.split(",");
-        this.object.pushTag(values);
+        this.object.pushManualTag(values);
       }
     });
     html.find(".tag-delete").click((ev) => {
       let value = ev.currentTarget.parentElement.dataset.tag;
-      this.object.popTag(value);
+      this.object.popManualTag(value);
     });
     html.find("a.melee-toggle").click(() => {
       this.object.update({ data: { melee: !this.object.data.data.melee } });

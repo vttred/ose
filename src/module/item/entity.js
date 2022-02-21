@@ -27,6 +27,11 @@ export class OseItem extends Item {
     super.prepareData();
   }
 
+  prepareDerivedData() {
+    this.data.data.autoTags = this.getAutoTagList();
+    this.data.data.manualTags = this.data.data.tags;
+  }
+
   static chatListeners(html) {
     html.on("click", ".card-buttons button", this._onChatCardAction.bind(this));
     html.on("click", ".item-name", this._onChatCardToggleContent.bind(this));
@@ -144,70 +149,80 @@ export class OseItem extends Item {
     });
   }
 
-  getTagList() {
+  _getRollTag(data) {
+    if (data.roll) {
+      const roll = `${data.roll}${data.rollTarget ? CONFIG.OSE.roll_type[data.rollType] : ""}${data.rollTarget ? data.rollTarget : ""}`;
+      return {
+        label: `${game.i18n.localize("OSE.items.Roll")} ${roll}`
+      };
+    } else {
+      return;
+    }
+  }
+
+  _getSaveTag(data) {
+    if (data.save) {
+      return {
+        label: CONFIG.OSE.saves_long[data.save],
+        icon: "fa-skull",
+      };
+    } else {
+      return;
+    }
+  }
+
+  getAutoTagList() {
     const tagList = [];
     const data = this.data.data;
+
     switch (this.data.type) {
       case "container":
-        return [];
+      case "item":
+        break;
       case "weapon":
         tagList.push({ label: data.damage, icon: "fa-tint" });
-        data.tags.forEach((t) => {
-          tagList.push({ label: t.value });
-        });
-        tagList.push({
-          label: CONFIG.OSE.saves_long[data.save],
-          icon: "fa-skull",
-        });
         if (data.missile) {
           tagList.push({
             label: `${data.range.short}/${data.range.medium}/${data.range.long}`,
             icon: "fa-bullseye",
           });
         }
-        return tagList;
+
+        // Push manual tags
+        data.tags.forEach((t) => {
+          tagList.push({ label: t.value });
+        });
+        break;
       case "armor":
-        return [{ label: CONFIG.OSE.armor[data.type], icon: "fa-tshirt" }];
-      case "item":
-        return [];
+        tagList.push({ label: CONFIG.OSE.armor[data.type], icon: "fa-tshirt" });
+        break;
       case "spell":
         tagList.push(
           { label: data.class },
           { label: data.range },
-          { label: data.duration },
-          { label: data.roll }
+          { label: data.duration }
         );
-        if (data.save) {
-          tagList.push({
-            label: CONFIG.OSE.saves_long[data.save],
-            icon: "fa-skull",
-          });
-        }
-        return tagList;
+        break;
       case "ability":
-        let roll = "";
-        roll += data.roll ? data.roll : "";
-        roll += data.rollTarget ? CONFIG.OSE.roll_type[data.rollType] : "";
-        roll += data.rollTarget ? data.rollTarget : "";
         const reqs = data.requirements.split(",");
-        reqs.forEach((r) => tagList.push({ label: r }));
-        if (data.roll) {
-          tagList.push({
-            label: `${game.i18n.localize("OSE.items.Roll")} ${roll}`,
-          });
-        }
-        if (data.save) {
-          tagList.push({
-            label: `${game.i18n.localize("OSE.spells.Save")} vs ${
-              CONFIG.OSE.saves_long[data.save]
-            }`,
-          });
-        }
-        return tagList;
+        reqs.forEach((req) => tagList.push({ label: req }));
+        break;
     }
+
+    const rollTag = this._getRollTag(data);
+    if (rollTag) {
+      tagList.push(rollTag);
+    }
+
+    const saveTag = this._getSaveTag(data);
+    if (saveTag) {
+      tagList.push(saveTag);
+    }
+
+    return tagList;
   }
 
-  getTags() {
+  getAutoTagDisplay() {
     let formatTag = (tag, icon) => {
       if (!tag) return "";
       tag = tag.trim();
@@ -217,12 +232,12 @@ export class OseItem extends Item {
       }
       return `<li class='tag'>${fa}${tag}</li>`;
     };
-    return this.getTagList().reduce((acc, v) => {
+    return this.getAutoTagList().reduce((acc, v) => {
       return `${acc}${formatTag(v.label, v.icon)}`;
     }, "");
   }
 
-  pushTag(values) {
+  pushManualTag(values) {
     const data = this.data.data;
     let update = [];
     if (data.tags) {
@@ -263,9 +278,11 @@ export class OseItem extends Item {
     return this.update({ data: newData });
   }
 
-  popTag(value) {
-    const data = this.data.data;
-    let update = data.tags.filter((el) => el.value != value);
+  popManualTag(value) {
+    const tags = this.data.data.tags;
+    if (!tags) return;
+
+    let update = tags.filter((el) => el.value != value);
     let newData = {
       tags: update,
     };
@@ -312,7 +329,7 @@ export class OseItem extends Item {
       hasSave: this.hasSave,
       config: CONFIG.OSE,
     };
-    templateData.data.properties = this.getTagList();
+    templateData.data.properties = this.getAutoTagList();
 
     // Render the chat card template
     const template = `systems/ose/dist/templates/chat/item-card.html`;

@@ -16,11 +16,20 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: "16"
-          cache: "npm"
+
+      # Caching to improve build speed
+      - name: Enable caching for Node.js modules
+        uses: actions/cache@v2
+        with:
+          path: .npm
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+            ${{ runner.OS }}-
 
       # Get dev dependencies for the package, including Gulp and Rollup
       - name: Install dev dependencies
-        run: npm ci --prefer-offline
+        run: npm ci --cache .npm --prefer-offline
 
       # Create a build using Gulp build script
       - name: Run Gulp build script

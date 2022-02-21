@@ -15,8 +15,9 @@ jobs:
       - name: Setup Node.js version 14
         uses: actions/setup-node@v2
         with:
-          node-version: "14"
+          node-version: "16"
 
+      # Caching to improve build speed
       - name: Enable caching for Node.js modules
         uses: actions/cache@v2
         with:

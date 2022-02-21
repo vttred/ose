@@ -20,7 +20,7 @@ jobs:
       - name: Enable caching for Node.js modules
         uses: actions/cache@v2
         with:
-          path: .npm
+          path: ~/.npm
           key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.OS }}-node-

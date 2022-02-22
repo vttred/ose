@@ -1,6 +1,6 @@
 export const augmentTable = (table, html, data) => {
   // Treasure Toggle
-  const isTreasureTable = table.object.getFlag("ose", "treasure");
+  const isTreasureTable = Boolean(table.object.getFlag("ose", "treasure"));
 
   let treasureTableToggle = $("<div class='toggle-treasure' title='Toggle Treasure Table'></div>");
   treasureTableToggle.toggleClass("active", isTreasureTable);
@@ -9,7 +9,7 @@ export const augmentTable = (table, html, data) => {
   head.append(treasureTableToggle);
 
   html.find(".toggle-treasure").click((ev) => {
-    const isTreasure = table.object.getFlag("ose", "treasure");
+    const isTreasure = Boolean(table.object.getFlag("ose", "treasure"));
     table.object.setFlag("ose", "treasure", !isTreasure);
   });
 

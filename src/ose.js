@@ -43,7 +43,7 @@ Hooks.once("init", async function () {
   // Register custom system settings
   registerSettings();
 
-  // Register APIs of Foundry VTT Modules we explicitly support that need us to register on init
+  // Register APIs of Foundry VTT Modules we explicitly support that provide custom hooks
   registerFVTTModuleAPIs();
 
   CONFIG.Actor.documentClass = OseActor;

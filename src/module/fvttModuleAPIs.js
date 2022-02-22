@@ -1,6 +1,4 @@
 export const registerFVTTModuleAPIs = () => {
-  let ItemPiles = null;
-  if (ItemPiles) console.log("undefined");
   // see docs for more info https://github.com/fantasycalendar/FoundryVTT-ItemPiles/blob/master/docs/api.md
   Hooks.once("item-piles-ready", async function () {
     if (ItemPiles.API.ACTOR_CLASS_TYPE !== "character")

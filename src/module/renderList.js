@@ -1,17 +1,19 @@
+import { OseItem } from "./item/entity";
+
 export const RenderCompendium = async function (object, html, d) {
   if (object.documentName != "Item") {
     return;
   }
   const render = html[0].querySelectorAll(".item");
   const docs = await d.collection.getDocuments();
-  render.forEach(function (item, i) {
+
+  render.forEach(async function (item, i) {
     const id = render[i].dataset.documentId;
+
     const element = docs.filter((d) => d.id === id)[0];
-    const tagList = document.createElement("ol");
-    tagList.classList.add("tag-list");
-    const tags = element.getAutoTagDisplay();
-    tagList.innerHTML = tags;
-    item.appendChild(tagList);
+    const tagTemplate = $.parseHTML(await renderTemplate("systems/ose/dist/templates/actors/partials/item-auto-tags-partial.html", {tags: OseItem.prototype.getAutoTagList.call(element)}));
+
+    $(item).append(tagTemplate);
   });
 };
 
@@ -19,16 +21,17 @@ export const RenderDirectory = async function (object, html) {
   if (object.id != "items") {
     return;
   }
+  
   const render = html[0].querySelectorAll(".item");
   const content = object.documents;
-  render.forEach(function (item) {
-    const tagList = document.createElement("ol");
-    tagList.classList.add("tag-list");
+
+  render.forEach(async function (item) {
+
     const foundryDocument = content.find(
       (e) => e.id == item.dataset.documentId
     );
-    const tags = foundryDocument.getAutoTagDisplay();
-    tagList.innerHTML = tags;
-    item.appendChild(tagList);
+
+    const tagTemplate = $.parseHTML(await renderTemplate("systems/ose/dist/templates/actors/partials/item-auto-tags-partial.html", {tags: OseItem.prototype.getAutoTagList.call(foundryDocument)}));
+    $(item).append(tagTemplate);
   });
 };

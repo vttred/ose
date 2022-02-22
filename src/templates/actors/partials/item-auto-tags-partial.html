@@ -1,0 +1,12 @@
+<ol class="tag-list">
+  {{#each tags as |tag|}}
+  {{#if tag.label}}
+  <li class="tag">
+    {{#if tag.icon}}
+    <i class="fas {{tag.icon}}"></i>
+    {{/if}}
+    {{tag.label~}}
+  </li>
+  {{/if}}
+  {{/each}}
+</ol>

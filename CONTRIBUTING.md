@@ -29,7 +29,9 @@ Prerequisites: Node.js (v16 is recommended), a familiarity with command Foundry 
 
 ## Addendum: Git for Beginners
 
-Many contributors to Unofficial OSE on Foundry VTT are inexperienced with git. Here are some next steps to get started on your first code or translation contribution.
+Many contributors to Unofficial OSE on Foundry VTT are inexperienced with git. GitHub provides their own [GitHub Quickstart tutorial](GitHub provides their own [GitHub) which we recommend as a first step toward becoming an OSE Contributor.
+
+Here are some next steps to get started on your first code or translation contribution to Unofficial OSE. 
 
 1. Create a new branch for your patch. In your command line, `git checkout -b a-branchname-of-your-choosing`
 1. Make any code contributions you'd like, making sure to confirm the behavior you want in Foundry VTT and testing for edge cases if relevant.

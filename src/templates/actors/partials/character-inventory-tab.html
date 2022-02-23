@@ -12,7 +12,7 @@
   <ol class="item-list">
     {{#each owned.weapons as |item|}}
     <li class="item-entry item" data-item-id="{{item.id}}">
-      <div class="item-header flexrow">
+      <div class="item-header item-rollable flexrow">
         <div class="item-image" style="background-image: url({{item.img}})"></div>
         <h4 class="item-name" title="{{item.name}}">
           {{item.name~}}
@@ -149,7 +149,7 @@
       <ol class="item-list">
         {{#each bag.data.data.itemIds as |item|}}
         <li class="item-entry item" data-item-id="{{item.id}}">
-          <div class="item-header flexrow">
+          <div class="item-header flexrow {{#if (eq item.type 'weapon') }}item-rollable{{/if}}">
             <div class="item-image" style="background-image: url({{item.img}})"></div>
             <h4 class="item-name" title="{{item.name}}">
               {{item.name~}}

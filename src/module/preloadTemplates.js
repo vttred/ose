@@ -15,6 +15,9 @@ export const preloadHandlebarsTemplates = async function () {
     "systems/ose/dist/templates/actors/partials/monster-header.html",
     "systems/ose/dist/templates/actors/partials/monster-attributes-tab.html",
 
+    // Item Display
+    "systems/ose/dist/templates/actors/partials/item-auto-tags-partial.html",
+
     // Party Sheet
     "systems/ose/dist/templates/apps/party-sheet.html",
     "systems/ose/dist/templates/apps/party-xp.html",

@@ -1,15 +1,4 @@
 <div class="item-description">
-  <ol class="tag-list">
-    {{#each item.data.data.autoTags as |tag|}}
-    {{#if tag.label}}
-    <li class="tag">
-      {{#if tag.icon}}
-      <i class="fas {{tag.icon}}"></i>
-      {{/if}}
-      {{tag.label~}}
-    </li>
-    {{/if}}
-    {{/each}}
-  </ol>
+  {{> "systems/ose/dist/templates/actors/partials/item-auto-tags-partial.html" tags=item.data.data.autoTags}}
   <div>{{{item.data.data.description}}}</div>
 </div>

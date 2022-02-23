@@ -222,21 +222,6 @@ export class OseItem extends Item {
     return tagList;
   }
 
-  getAutoTagDisplay() {
-    let formatTag = (tag, icon) => {
-      if (!tag) return "";
-      tag = tag.trim();
-      let fa = "";
-      if (icon) {
-        fa = `<i class="fas ${icon}"></i> `;
-      }
-      return `<li class='tag'>${fa}${tag}</li>`;
-    };
-    return this.getAutoTagList().reduce((acc, v) => {
-      return `${acc}${formatTag(v.label, v.icon)}`;
-    }, "");
-  }
-
   pushManualTag(values) {
     const data = this.data.data;
     let update = [];

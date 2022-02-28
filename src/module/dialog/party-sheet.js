@@ -87,7 +87,7 @@ export class OsePartySheet extends FormApplication {
   }
 
   _onDropActor(event, data) {
-    if (data.documentName !== "Actor") {
+    if (data.type !== "Actor") {
       return;
     }
 

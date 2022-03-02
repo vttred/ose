@@ -39,7 +39,7 @@ https://github.com/vttred/ose-content/releases/latest/download/module.json
 If you use this system and appreciate it, we're not asking for your financial support at this time. Here's a couple free things you can do instead.
 
 - If you're a GitHub user and you appreciate this system, please give us a GitHub Star.
-- If you're a Foundry Hub user, please [endorse us or write a comment](https://www.foundryvtt-hub.com/ose) (happy feedback and constructive feedback appreciated).
+- If you're a Foundry Hub user, please [endorse us or write a comment](https://www.foundryvtt-hub.com/package/ose/) (happy feedback and constructive feedback appreciated).
 - If you speak a non-English language, ask about contributing a system translation. Sign up for GitHub and start a [new Issue](https://github.com/vttred/ose/issues/new).
 - If you speak JavaScript, consider [contributing code](/CONTRIBUTING.md).
 - If you'd like to support the original maintainer of this system, U\~man, buy them a coffee on [Ko-Fi](https://ko-fi.com/u_man). It is largely because of U\~man's generosity that we are able to continue providing a free and open source system for Foundry VTT users.

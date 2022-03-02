@@ -27,7 +27,7 @@ Prerequisites: Node.js (v16 is recommended), a familiarity with command Foundry 
 1. In your command line, run `npm run link`. A new system should now appear in your systems directory but it doesn't yet run any code.
 1. In your command line, run `npm run build` (build once) or `npm run build:watch` (build whenever a change is saved). You now have a working copy of OSE.
 
-## Addendum: Git for Beginners
+### Addendum: Git for Beginners
 
 Many contributors to Unofficial OSE on Foundry VTT are inexperienced with git. GitHub provides their [quickstart tutorial](https://docs.github.com/en/get-started/quickstart/hello-world) which we recommend as a first step toward becoming an OSE Contributor.
 
@@ -51,3 +51,7 @@ You may have skipped `npm i npm -g && npm -v`. If it shows npm version <7.0, the
 **Error: Cannot find module (any module except rollup)**
 
 You will need to `npm i` occasionally as we put out updates to the build process. We try to communicate whenever there's a change in devDependencies on Discord and in release notes.
+
+## Repeat Contributors
+
+Repeat contributors may ask via Discord direct message (@corporat#1282) or email (ose@vtt.red) to be added to a list of people who are interested in referrals for contract work.

@@ -5,15 +5,15 @@
       <h1 class="charname">
         <input name="name" type="text" value="{{name}}" placeholder="Name" />
       </h1>
-    </div>
-    <ol class="tag-list">
-      {{#each data.manualTags as |tag|}}
-      <li class="tag" title="{{tag.title}}" data-tag="{{tag.value}}">
-        <span>{{tag.value}}</span>
-        <a class="tag-delete"><i class="fas fa-times"></i></a>
-      </li>
-      {{/each}}
-    </ol>
+      <ol class="tag-list">
+          {{#each data.manualTags as |tag|}}
+          <li class="tag" title="{{tag.title}}" data-tag="{{tag.value}}">
+            <span>{{tag.value}}</span>
+            <a class="tag-delete"><i class="fas fa-times"></i></a>
+          </li>
+          {{/each}}
+        </ol>
+    </div>  
   </header>
   <section class="sheet-body">
     <div class="flexrow">

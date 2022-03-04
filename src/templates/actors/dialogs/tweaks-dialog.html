@@ -73,22 +73,37 @@
     <div class="form-group">
       <label>{{localize "OSE.details.3rdClass"}}</label>
       <div class="form-fields">
+        {{#if data.details.xp2.enabled}}
         <input type="checkbox" name="data.details.xp3.enabled" id="xp3enabled" {{checked data.details.xp3.enabled}}
           data-dtype="Boolean" />
+        {{else}}
+        <input type="checkbox" name="data.details.xp3.enabled" id="xp3enabled" {{checked false}} disabled
+          data-dtype="Boolean" />
+        {{/if}}
       </div>
     </div>
     <div class="form-group">
       <label>{{localize "OSE.details.experience.next"}}</label>
       <div class="form-fields">
+        {{#if data.details.xp2.enabled}}
         <input type="text" name="data.details.xp3.next" id="experiencenext3" value="{{data.details.xp3.next}}"
           data-dtype="Number" />
+        {{else}}
+        <input type="text" name="data.details.xp3.next" id="experiencenext3" value="0" disabled
+          data-dtype="Number" />
+        {{/if}}
       </div>
     </div>
     <div class="form-group">
       <label>{{localize "OSE.details.experience.bonus"}} (%)</label>
       <div class="form-fields">
+        {{#if data.details.xp2.enabled}}
         <input type="text" name="data.details.xp3.bonus" id="experience" value="{{data.details.xp3.bonus}}"
           data-dtype="Number" />
+        {{else}}
+        <input type="text" name="data.details.xp3.bonus" id="experience" value="0" disabled
+          data-dtype="Number" />
+        {{/if}}
       </div>
     </div>
   </div>

@@ -10,6 +10,7 @@
   "OSE.Roll": "Tirar",
   "OSE.Success": "Éxito",
   "OSE.Failure": "Fallo",
+  "OSE.Multiclass": "Multiclass Character",
 
   "OSE.dialog.tweaks": "Ajustes",
   "OSE.dialog.partysheet": "Resumen del grupo",
@@ -52,6 +53,7 @@
 
   "OSE.details.name": "Nombre",
   "OSE.details.class": "Clase",
+  "OSE.details.race": "Race",
   "OSE.details.title": "Título",
   "OSE.details.alignment": "Alineamiento",
   "OSE.details.level": "Nivel",
@@ -66,6 +68,9 @@
   "OSE.details.morale": "Moral",
   "OSE.details.reaction": "Reacción",
   "OSE.details.appearing": "NA",
+  "OSE.details.1stClass": "1st Class",
+  "OSE.details.2ndClass": "2nd Class",
+  "OSE.details.3rdClass": "3rd Class",
 
   "OSE.Attack": "Ataque",
   "OSE.Encumbrance": "Carga",
@@ -107,6 +112,8 @@
   "OSE.HealthShort": "PG",
   "OSE.HitDice": "Dado de Golpe",
   "OSE.HitDiceShort": "DG",
+  "OSE.FractionalHpShort": "HPF",
+  "OSE.FractionalHp": "Remaining HP Fraction",
 
   "OSE.movement.base": "Movimiento",
   "OSE.movement.short": "MV",

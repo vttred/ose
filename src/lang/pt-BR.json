@@ -10,6 +10,7 @@
   "OSE.Roll": "Rolar",
   "OSE.Success": "Sucesso",
   "OSE.Failure": "Falha",
+  "OSE.Multiclass": "Multiclass Character",
 
   "OSE.dialog.tweaks": "Ferramentas",
   "OSE.dialog.partysheet": "Visão do grupo",
@@ -48,6 +49,7 @@
   "OSE.details.name": "Nome",
   "OSE.details.class": "Classe",
   "OSE.details.title": "Titulo",
+  "OSE.details.race": "Race",
   "OSE.details.alignment": "Alinhamento",
   "OSE.details.level": "Nivel",
   "OSE.details.experience.base": "Experiência",
@@ -61,6 +63,9 @@
   "OSE.details.morale": "Moral",
   "OSE.details.reaction": "Reação",
   "OSE.details.appearing": "NA",
+  "OSE.details.1stClass": "1st Class",
+  "OSE.details.2ndClass": "2nd Class",
+  "OSE.details.3rdClass": "3rd Class",
 
   "OSE.Attack": "Ataca",
   "OSE.Encumbrance": "Sobrecarga",
@@ -101,6 +106,8 @@
   "OSE.HealthShort": "PV",
   "OSE.HitDice": "Dados de Vida",
   "OSE.HitDiceShort": "DV",
+  "OSE.FractionalHpShort": "HPF",
+  "OSE.FractionalHp": "Remaining HP Fraction",
 
   "OSE.movement.base": "Taxa de Movimento",
   "OSE.movement.short": "TM",

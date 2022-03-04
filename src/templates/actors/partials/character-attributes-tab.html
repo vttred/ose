@@ -109,6 +109,17 @@
                             data-dtype="String" />
                     </div>
                 </li>
+                {{#if data.multiclass.enabled}}
+                <li class="attribute fractional-hp">
+                    <h4 class="attribute-name box-title" title="{{ localize 'OSE.FractionalHp' }}">
+                        <a>{{ localize "OSE.FractionalHpShort" }}</a>
+                    </h4>
+                    <div class="attribute-value">
+                        <input name="data.hp.fraction" type="text" value="{{data.hp.fraction}}" placeholder=""
+                            data-dtype="String" />
+                    </div>
+                </li>
+                {{/if}}
                 {{#if config.initiative}}
                 <li class="attribute">
                     <h4 class="attribute-name box-title" title="{{ localize 'OSE.Initiative' }}">

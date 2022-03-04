@@ -22,6 +22,18 @@
   </div>
   {{#if (eq this.type 'character')}}
   <div class="form-group">
+    <label for="spellcaster">{{localize "OSE.Multiclass"}}</label>
+    <div class="form-fields">
+      <input type="checkbox" name="data.multiclass.enabled" id="multiclass" {{checked data.multiclass.enabled}}
+        data-dtype="Boolean" />
+    </div>
+  </div>
+  {{#if data.multiclass.enabled}}
+  <div class="form-group">
+    <label>{{localize "OSE.details.1stClass"}}</label>    
+  </div>
+  {{/if}}
+  <div class="form-group">
     <label>{{localize "OSE.details.experience.next"}}</label>
     <div class="form-fields">
       <input type="text" name="data.details.xp.next" id="experiencenext" value="{{data.details.xp.next}}"
@@ -35,6 +47,52 @@
         data-dtype="Number" />
     </div>
   </div>
+  {{#if data.multiclass.enabled}}
+  <div class="additional-classes">
+    <div class="form-group">
+      <label>{{localize "OSE.details.2ndClass"}}</label>
+      <div class="form-fields">
+        <input type="checkbox" name="data.details.xp2.enabled" id="xp2enabled" {{checked data.details.xp2.enabled}}
+          data-dtype="Boolean" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label>{{localize "OSE.details.experience.next"}}</label>
+      <div class="form-fields">
+        <input type="text" name="data.details.xp2.next" id="experiencenext2" value="{{data.details.xp2.next}}"
+          data-dtype="Number" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label>{{localize "OSE.details.experience.bonus"}} (%)</label>
+      <div class="form-fields">
+        <input type="text" name="data.details.xp2.bonus" id="experience" value="{{data.details.xp2.bonus}}"
+          data-dtype="Number" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label>{{localize "OSE.details.3rdClass"}}</label>
+      <div class="form-fields">
+        <input type="checkbox" name="data.details.xp3.enabled" id="xp3enabled" {{checked data.details.xp3.enabled}}
+          data-dtype="Boolean" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label>{{localize "OSE.details.experience.next"}}</label>
+      <div class="form-fields">
+        <input type="text" name="data.details.xp3.next" id="experiencenext3" value="{{data.details.xp3.next}}"
+          data-dtype="Number" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label>{{localize "OSE.details.experience.bonus"}} (%)</label>
+      <div class="form-fields">
+        <input type="text" name="data.details.xp3.bonus" id="experience" value="{{data.details.xp3.bonus}}"
+          data-dtype="Number" />
+      </div>
+    </div>
+  </div>
+  {{/if}}
   <div class="form-group">
     <label>{{localize "OSE.details.experience.share"}} (%)</label>
     <div class="form-fields">

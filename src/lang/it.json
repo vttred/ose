@@ -10,6 +10,7 @@
   "OSE.Roll": "Tiro",
   "OSE.Success": "Successo",
   "OSE.Failure": "Fallimento",
+  "OSE.Multiclass": "Multiclass Character",
 
   "OSE.dialog.tweaks": "Modifiche",
   "OSE.dialog.partysheet": "Panoramica del Gruppo",
@@ -52,6 +53,7 @@
   "OSE.details.name": "Nome",
   "OSE.details.class": "Classe",
   "OSE.details.title": "Titolo",
+  "OSE.details.race": "Race",
   "OSE.details.alignment": "Allineamento",
   "OSE.details.level": "Livello",
   "OSE.details.experience.base": "Esperienza",
@@ -65,6 +67,9 @@
   "OSE.details.morale": "Morale",
   "OSE.details.reaction": "Reazione",
   "OSE.details.appearing": "Nr. Mostri",
+  "OSE.details.1stClass": "1st Class",
+  "OSE.details.2ndClass": "2nd Class",
+  "OSE.details.3rdClass": "3rd Class",
 
   "OSE.Attack": "Attacco",
   "OSE.Encumbrance": "Ingombro",
@@ -106,7 +111,9 @@
   "OSE.HealthShort": "PF",
   "OSE.HitDice": "Dadi Vita",
   "OSE.HitDiceShort": "DV",
-
+  "OSE.FractionalHpShort": "HPF",
+  "OSE.FractionalHp": "Remaining HP Fraction",
+  
   "OSE.movement.base": "Movimento",
   "OSE.movement.short": "MV",
   "OSE.movement.details": "Dettagli Movimento",

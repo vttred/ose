@@ -28,11 +28,10 @@
         data-dtype="Boolean" />
     </div>
   </div>
-  {{#if data.multiclass.enabled}}
-  <div class="form-group">
+  
+  <div class="form-group first-class-multiclass-label{{#unless data.multiclass.enabled}} hidden{{/unless}}">
     <label>{{localize "OSE.details.1stClass"}}</label>    
   </div>
-  {{/if}}
   <div class="form-group">
     <label>{{localize "OSE.details.experience.next"}}</label>
     <div class="form-fields">
@@ -47,8 +46,8 @@
         data-dtype="Number" />
     </div>
   </div>
-  {{#if data.multiclass.enabled}}
-  <div class="additional-classes">
+  
+  <div class="additional-classes{{#unless data.multiclass.enabled}} hidden{{/unless}}">
     <div class="form-group">
       <label>{{localize "OSE.details.2ndClass"}}</label>
       <div class="form-fields">
@@ -66,7 +65,7 @@
     <div class="form-group">
       <label>{{localize "OSE.details.experience.bonus"}} (%)</label>
       <div class="form-fields">
-        <input type="text" name="data.details.xp2.bonus" id="experience" value="{{data.details.xp2.bonus}}"
+        <input type="text" name="data.details.xp2.bonus" id="experience2" value="{{data.details.xp2.bonus}}"
           data-dtype="Number" />
       </div>
     </div>
@@ -89,7 +88,7 @@
         <input type="text" name="data.details.xp3.next" id="experiencenext3" value="{{data.details.xp3.next}}"
           data-dtype="Number" />
         {{else}}
-        <input type="text" name="data.details.xp3.next" id="experiencenext3" value="0" disabled
+        <input type="text" name="data.details.xp3.next" id="experiencenext3" value="0" readonly
           data-dtype="Number" />
         {{/if}}
       </div>
@@ -98,16 +97,16 @@
       <label>{{localize "OSE.details.experience.bonus"}} (%)</label>
       <div class="form-fields">
         {{#if data.details.xp2.enabled}}
-        <input type="text" name="data.details.xp3.bonus" id="experience" value="{{data.details.xp3.bonus}}"
+        <input type="text" name="data.details.xp3.bonus" id="experience3" value="{{data.details.xp3.bonus}}"
           data-dtype="Number" />
         {{else}}
-        <input type="text" name="data.details.xp3.bonus" id="experience" value="0" disabled
+        <input type="text" name="data.details.xp3.bonus" id="experience3" value="0" readonly
           data-dtype="Number" />
         {{/if}}
       </div>
     </div>
   </div>
-  {{/if}}
+  
   <div class="form-group">
     <label>{{localize "OSE.details.experience.share"}} (%)</label>
     <div class="form-fields">

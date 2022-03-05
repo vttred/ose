@@ -63,7 +63,7 @@ export class OseActor extends Actor {
     if (this.data.type != "character") {
       return;
     }
-    if(!this.data.data.multiclass){
+    if(!this.data.data.multiclass?.enabled){
       let modified = Math.floor(
         value + (this.data.data.details.xp.bonus * value) / 100
       );

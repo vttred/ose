@@ -218,6 +218,21 @@ export class OseActorSheetMonster extends OseActorSheet {
     }
   }
 
+  async _updateAttackCounter(event) {
+    event.preventDefault();
+    const item = this._getItemFromActor(event);
+
+    if (event.target.dataset.field === "value") {
+      return item.update({
+        "data.counter.value": parseInt(event.target.value),
+      });
+    } else if (event.target.dataset.field === "max") {
+      return item.update({
+        "data.counter.max": parseInt(event.target.value),
+      });
+    }
+  }
+
   _cycleAttackPatterns(event) {
     const item = super._getItemFromActor(event);
     let currentColor = item.data.data.pattern;
@@ -266,7 +281,7 @@ export class OseActorSheetMonster extends OseActorSheet {
     html
       .find(".counter input")
       .click((ev) => ev.target.select())
-      .change(super._updateItemQuantity.bind(this));
+      .change(this._updateAttackCounter.bind(this));
 
     html.find(".hp-roll").click((ev) => {
       this.actor.rollHP({ event: ev });

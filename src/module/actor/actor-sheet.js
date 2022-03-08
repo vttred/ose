@@ -16,7 +16,7 @@ export class OseActorSheet extends ActorSheet {
       ...CONFIG.OSE,
       ascendingAC: game.settings.get("ose", "ascendingAC"),
       initiative: game.settings.get("ose", "initiative") != "group",
-      encumbrance: game.settings.get("ose", "encumbranceOption")
+      encumbrance: game.settings.get("ose", "encumbranceOption"),
     };
     data.isNew = this.actor.isNew();
 
@@ -64,7 +64,9 @@ export class OseActorSheet extends ActorSheet {
 
   _toggleItemSummary(event) {
     event.preventDefault();
-    const summary = $(event.currentTarget).closest(".item-header").next(".item-summary");
+    const summary = $(event.currentTarget)
+      .closest(".item-header")
+      .next(".item-summary");
 
     if (summary.css("display") === "none") {
       summary.slideDown(200);
@@ -86,7 +88,7 @@ export class OseActorSheet extends ActorSheet {
     if (item.type === "container" && item.data.data.itemIds) {
       const containedItems = item.data.data.itemIds;
       const updateData = containedItems.reduce((acc, val) => {
-        acc.push({ _id: val.id, "data.containerId": "", });
+        acc.push({ _id: val.id, "data.containerId": "" });
         return acc;
       }, []);
 
@@ -172,25 +174,24 @@ export class OseActorSheet extends ActorSheet {
   }
 
   _onSortItem(event, itemData) {
-
     // Dragging items into a container
     const source = this.actor.items.get(itemData._id);
-    const siblings = this.actor.items.filter(i => {
+    const siblings = this.actor.items.filter((i) => {
       return i.data._id !== source.data._id;
     });
     const dropTarget = event.target.closest("[data-item-id]");
     const targetId = dropTarget ? dropTarget.dataset.itemId : null;
-    const target = siblings.find(s => s.data._id === targetId);
+    const target = siblings.find((s) => s.data._id === targetId);
 
     if (target?.data.type == "container") {
       this.actor.updateEmbeddedDocuments("Item", [
-        { _id: source.id, "data.containerId": target.id }
+        { _id: source.id, "data.containerId": target.id },
       ]);
       return;
     }
     if (itemData.data.containerId != "") {
       this.actor.updateEmbeddedDocuments("Item", [
-        { _id: source.id, "data.containerId": "" }
+        { _id: source.id, "data.containerId": "" },
       ]);
     }
 
@@ -264,11 +265,11 @@ export class OseActorSheet extends ActorSheet {
 
     if (event.target.dataset.field === "value") {
       return item.update({
-        "data.counter.value": parseInt(event.target.value),
+        "data.quantity.value": parseInt(event.target.value),
       });
     } else if (event.target.dataset.field === "max") {
       return item.update({
-        "data.counter.max": parseInt(event.target.value),
+        "data.quantity.max": parseInt(event.target.value),
       });
     }
   }
@@ -309,8 +310,9 @@ export class OseActorSheet extends ActorSheet {
       let container = editor.closest(".resizable-editor");
       if (container) {
         let heightDelta = this.position.height - this.options.height;
-        editor.style.height = `${heightDelta + parseInt(container.dataset.editorSize)
-          }px`;
+        editor.style.height = `${
+          heightDelta + parseInt(container.dataset.editorSize)
+        }px`;
       }
     });
   }
@@ -349,39 +351,64 @@ export class OseActorSheet extends ActorSheet {
     super.activateListeners(html);
 
     // Attributes
-    html.find(".saving-throw .attribute-name a").click((event) => { this._rollSave(event); });
+    html.find(".saving-throw .attribute-name a").click((event) => {
+      this._rollSave(event);
+    });
 
-    html.find(".attack a").click((event) => { this._rollAttack(event); });
+    html.find(".attack a").click((event) => {
+      this._rollAttack(event);
+    });
 
     html.find(".hit-dice .attribute-name").click((event) => {
       this.actor.rollHitDice({ event: event });
     });
 
     // Items (Abilities, Inventory and Spells)
-    html.find(".item-rollable .item-image").click(async (event) => { this._rollAbility(event); });
+    html.find(".item-rollable .item-image").click(async (event) => {
+      this._rollAbility(event);
+    });
 
-    html.find(".inventory .item-category-title").click((event) => { this._toggleItemCategory(event); });
+    html.find(".inventory .item-category-title").click((event) => {
+      this._toggleItemCategory(event);
+    });
 
-    html.find(".item-name").click((event) => { this._toggleItemSummary(event) });
+    html.find(".item-name").click((event) => {
+      this._toggleItemSummary(event);
+    });
 
-    html.find(".item-controls .item-show").click(async (event) => { this._displayItemInChat(event); });
+    html.find(".item-controls .item-show").click(async (event) => {
+      this._displayItemInChat(event);
+    });
 
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
 
     // Item Management
-    html.find(".item-create").click((event) => { this._createItem(event); });
+    html.find(".item-create").click((event) => {
+      this._createItem(event);
+    });
 
     html.find(".item-edit").click((event) => {
       const item = this._getItemFromActor(event);
       item.sheet.render(true);
     });
 
-    html.find(".item-delete").click((event) => { this._removeItemFromActor(event); });
+    html.find(".item-delete").click((event) => {
+      this._removeItemFromActor(event);
+    });
+
+    html
+      .find(".quantity input")
+      .click((ev) => ev.target.select())
+      .change(this._updateItemQuantity.bind(this));
 
     // Consumables
-    html.find(".consumable-counter .full-mark").click(event => { this._useConsumable(event, true) });
-    html.find(".consumable-counter .empty-mark").click(event => { this._useConsumable(event, false) });
+    html.find(".consumable-counter .full-mark").click((event) => {
+      this._useConsumable(event, true);
+    });
+    html.find(".consumable-counter .empty-mark").click((event) => {
+      this._useConsumable(event, false);
+    });
 
     // Spells
     html
@@ -389,8 +416,10 @@ export class OseActorSheet extends ActorSheet {
       .click((event) => event.target.select())
       .change(this._onSpellChange.bind(this));
 
-    html.find(".spells .item-reset[data-action='reset-spells']").click((event) => {
-      this._resetSpells(event);
-    });
+    html
+      .find(".spells .item-reset[data-action='reset-spells']")
+      .click((event) => {
+        this._resetSpells(event);
+      });
   }
 }

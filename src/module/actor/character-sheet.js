@@ -189,12 +189,6 @@ export class OseActorSheetCharacter extends OseActorSheet {
 
   /* -------------------------------------------- */
 
-  async _onQtChange(event) {
-    event.preventDefault();
-    const item = super._getItemFromActor(event);
-    return item.update({ "data.quantity.value": parseInt(event.target.value) });
-  }
-
   _onShowModifiers(event) {
     event.preventDefault();
     new OseCharacterModifiers(this.actor, {

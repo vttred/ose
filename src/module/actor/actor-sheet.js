@@ -285,11 +285,11 @@ export class OseActorSheet extends ActorSheet {
 
     if (event.target.dataset.field === "value") {
       return item.update({
-        "data.counter.value": parseInt(event.target.value),
+        "data.quantity.value": parseInt(event.target.value),
       });
     } else if (event.target.dataset.field === "max") {
       return item.update({
-        "data.counter.max": parseInt(event.target.value),
+        "data.quantity.max": parseInt(event.target.value),
       });
     }
   }
@@ -419,6 +419,11 @@ export class OseActorSheet extends ActorSheet {
     html.find(".item-delete").click((event) => {
       this._removeItemFromActor(event);
     });
+
+    html
+      .find(".quantity input")
+      .click((ev) => ev.target.select())
+      .change(this._updateItemQuantity.bind(this));
 
     // Consumables
     html.find(".consumable-counter .full-mark").click((event) => {

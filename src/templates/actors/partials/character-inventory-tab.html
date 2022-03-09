@@ -22,7 +22,7 @@
           style="background-image: url({{item.img}})"
         ></div>
         <h4 class="item-name" title="{{item.name}}">{{item.name~}}</h4>
-        <div class="icon-row flexrow">
+        <div class="tag-row icon-row">
           {{#each item.data.data.manualTags as |tag|}} {{#if (getTagIcon
           tag.value)}}
           <img
@@ -194,6 +194,7 @@
                 value="{{item.data.data.quantity.value}}"
                 type="text"
                 placeholder="0"
+                data-field="value"
               />{{#if
               item.data.data.quantity.max}}<span>/{{item.data.data.quantity.max}}</span>{{/if}}
             </div>
@@ -267,6 +268,7 @@
             value="{{item.data.data.quantity.value}}"
             type="text"
             placeholder="0"
+            data-field="value"
           />{{#if
           item.data.data.quantity.max}}<span>/{{item.data.data.quantity.max}}</span>{{/if}}
         </div>
@@ -341,6 +343,7 @@
             value="{{item.data.data.quantity.value}}"
             type="text"
             placeholder="0"
+            data-field="value"
           />
           {{#if item.data.data.quantity.max}}
           <span>/{{item.data.data.quantity.max}}</span>

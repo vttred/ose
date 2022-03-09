@@ -62,6 +62,26 @@ export class OseActorSheet extends ActorSheet {
     }
   }
 
+  _toggleContainedItems(event) {
+    event.preventDefault();
+    const targetItems = $(event.target.closest(".container"));
+    let items = targetItems.find(".item-list.contained-items");
+
+    if (items.css("display") === "none") {
+      let el = targetItems.find(".fas.fa-caret-right");
+      el.removeClass("fa-caret-right");
+      el.addClass("fa-caret-down");
+
+      items.slideDown(200);
+    } else {
+      let el = targetItems.find(".fas.fa-caret-down");
+      el.removeClass("fa-caret-down");
+      el.addClass("fa-caret-right");
+
+      items.slideUp(200);
+    }
+  }
+
   _toggleItemSummary(event) {
     event.preventDefault();
     const summary = $(event.currentTarget)
@@ -370,6 +390,9 @@ export class OseActorSheet extends ActorSheet {
 
     html.find(".inventory .item-category-title").click((event) => {
       this._toggleItemCategory(event);
+    });
+    html.find(".inventory .category-caret").click((event) => {
+      this._toggleContainedItems(event);
     });
 
     html.find(".item-name").click((event) => {

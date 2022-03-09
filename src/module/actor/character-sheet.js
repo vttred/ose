@@ -189,12 +189,6 @@ export class OseActorSheetCharacter extends OseActorSheet {
 
   /* -------------------------------------------- */
 
-  async _onQtChange(event) {
-    event.preventDefault();
-    const item = super._getItemFromActor(event);
-    return item.update({ "data.quantity.value": parseInt(event.target.value) });
-  }
-
   _onShowModifiers(event) {
     event.preventDefault();
     new OseCharacterModifiers(this.actor, {
@@ -218,11 +212,6 @@ export class OseActorSheetCharacter extends OseActorSheet {
    */
   activateListeners(html) {
     super.activateListeners(html);
-
-    // See Issue #20 Hovering over items inside a container causes the right sidebar to move
-    // html.find(".item-square").hover((event) => {
-    //   this._onShowItemTooltip(event);
-    // });
 
     html.find(".ability-score .attribute-name a").click((ev) => {
       let actorObject = this.actor;
@@ -277,11 +266,6 @@ export class OseActorSheetCharacter extends OseActorSheet {
         },
       });
     });
-
-    html
-      .find(".quantity input")
-      .click((ev) => ev.target.select())
-      .change(super._updateItemQuantity.bind(this));
 
     html.find("a[data-action='generate-scores']").click((ev) => {
       this.generateScores(ev);

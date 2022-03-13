@@ -1,4 +1,5 @@
 import { OsePartyXP } from "./party-xp.js";
+import { OseParty } from "./party.js";
 
 export class OsePartySheet extends FormApplication {
   static get defaultOptions() {
@@ -30,18 +31,12 @@ export class OsePartySheet extends FormApplication {
    * @return {Object}
    */
   getData() {
-    const actors = this.object.documents.filter(
-      (e) =>
-        e.data.type === "character" &&
-        e.data.flags.ose &&
-        e.data.flags.ose.party === true
-    );
     const settings = {
       ascending: game.settings.get("ose", "ascendingAC"),
     };
 
     let data = {
-      partyActors: actors,
+      partyActors: OseParty.currentParty,
       data: this.object,
       config: CONFIG.OSE,
       user: game.user,

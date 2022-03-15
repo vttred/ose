@@ -164,11 +164,11 @@ export class OseActorSheet extends ActorSheet {
           data: { counter: { value: item.data.data.counter.value - 1 } },
         });
       }
-      item.rollWeapon({ skipDialog: event.ctrlKey });
+      item.rollWeapon({ skipDialog: event.ctrlKey || event.metaKey });
     } else if (item.type == "spell") {
-      item.spendSpell({ skipDialog: event.ctrlKey });
+      item.spendSpell({ skipDialog: event.ctrlKey || event.metaKey });
     } else {
-      item.rollFormula({ skipDialog: event.ctrlKey });
+      item.rollFormula({ skipDialog: event.ctrlKey || event.metaKey });
     }
   }
 
@@ -189,7 +189,7 @@ export class OseActorSheet extends ActorSheet {
     };
     actorObject.targetAttack(rollData, attack, {
       type: attack,
-      skipDialog: event.ctrlKey,
+      skipDialog: event.ctrlKey || event.metaKey,
     });
   }
 

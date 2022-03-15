@@ -1,0 +1,33 @@
+<section class="ose chat-card">
+  <div class="ose chat-block">
+    <div class="flexrow chat-header">
+      <div class="chat-title"><h2>{{title}}</h2></div>
+      {{#if data.item}}
+      <div
+        class="chat-img"
+        style="background-image:url('{{data.item.img}}')"
+      ></div>
+      {{else}}
+      <div
+        class="chat-img"
+        style="background-image:url('{{data.actor.img}}')"
+      ></div>
+      {{/if}}
+    </div>
+    <div class="blindable" data-blind="{{data.roll.blindroll}}">
+      {{#if result.details}}
+      <div class="chat-details">{{{result.details}}}</div>
+      {{/if}} {{#if result.isFailure}}
+      <div class="roll-result roll-fail">
+        <b>{{localize 'OSE.Failure'}}</b> ({{result.target}})
+      </div>
+      {{/if}} {{#if result.isSuccess}}
+      <div class="roll-result roll-success">
+        <b>{{localize 'OSE.Success'}}</b> ({{result.target}})
+      </div>
+      {{/if}} {{#if rollOSE}}
+      <div>{{{rollOSE}}}</div>
+      {{/if}}
+    </div>
+  </div>
+</section>

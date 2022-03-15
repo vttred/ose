@@ -1,7 +1,8 @@
 import { OseActor } from "./entity.js";
 import { OseActorSheet } from "./actor-sheet.js";
-import { OseCharacterModifiers } from "../dialog/character-modifiers.js";
 import { OseCharacterCreator } from "../dialog/character-creation.js";
+import { OseCharacterGpCost } from "../dialog/character-gp-cost.js";
+import { OseCharacterModifiers } from "../dialog/character-modifiers.js";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -173,6 +174,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
       } else {
         update = { value: [name] };
       }
+
       let newData = {};
       newData[table] = update;
       return this.actor.update({ data: newData });
@@ -198,6 +200,14 @@ export class OseActorSheetCharacter extends OseActorSheet {
   _onShowModifiers(event) {
     event.preventDefault();
     new OseCharacterModifiers(this.actor, {
+      top: this.position.top + 40,
+      left: this.position.left + (this.position.width - 400) / 2,
+    }).render(true);
+  }
+
+  async _onShowGpCost(event, preparedData) {
+    event.preventDefault();
+    new OseCharacterGpCost(this.actor, preparedData, {
       top: this.position.top + 40,
       left: this.position.left + (this.position.width - 400) / 2,
     }).render(true);
@@ -247,6 +257,10 @@ export class OseActorSheetCharacter extends OseActorSheet {
 
     html.find("a[data-action='modifiers']").click((ev) => {
       this._onShowModifiers(ev);
+    });
+
+    html.find("a[data-action='gp-cost']").click((ev) => {
+      this._onShowGpCost(ev, this.getData());
     });
 
     // Everything below here is only needed if the sheet is editable

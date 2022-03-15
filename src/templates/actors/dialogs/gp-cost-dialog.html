@@ -1,0 +1,70 @@
+<form autocomplete="off">
+        <ul>
+        {{#each owned.weapons as |item|}}
+        <li data-item-id="{{item.id}}">
+          <div class="item-header item-rollable flexrow">
+            <h4 class="item-name" title="{{item.name}}">{{item.name~}}</h4>
+            <div class="field-short">
+              {{item.data.data.cost}}
+            </div>
+          </div>
+        </li>
+        {{/each}}
+      </ul>
+      <ul>
+        {{#each owned.armors as |item|}}
+        <li data-item-id="{{item.id}}">
+            <div class="item-header item-rollable flexrow">
+              <h4 class="item-name" title="{{item.name}}">{{item.name~}}</h4>
+              <div class="field-short">
+                {{item.data.data.cost}}
+              </div>
+            </div>
+          </li>
+        {{/each}}
+      </ul>
+      <ul class="item-list">
+        {{#each owned.containers as |bag|}}
+        <li data-item-id="{{bag.id}}">
+            <div class="item-header item-rollable flexrow">
+              <h4 class="item-name" title="{{bag.name}}">{{bag.name~}}</h4>
+              <div class="field-short">
+                {{bag.data.data.cost}}
+              </div>
+            </div>
+          </li>
+        {{#each bag.data.data.itemIds as |item|}}
+        <ol>
+        <li data-item-id="{{item.id}}">
+            <div class="item-header item-rollable flexrow">
+              <h4 class="item-name" title="{{item.name}}">{{item.name~}}</h4>
+              <div class="field-short">
+                {{item.data.data.cost}}
+              </div>
+            </div>
+          </li>
+        </ol>
+            {{/each}}
+        {{/each}}
+      </ul>
+      <ul class="item-list">
+        {{#each owned.items as |item|}}
+        <li data-item-id="{{item.id}}">
+            <div class="item-header item-rollable flexrow">
+              <h4 class="item-name" title="{{item.name}}">{{item.name~}}</h4>
+              <div class="field-short">
+                {{item.data.data.cost}}
+              </div>
+            </div>
+          </li>
+        {{/each}}
+      </ul>
+    <div class="form-group">
+        <label
+        >Total {{ totalCost }}</label>
+      <label
+        >Auto <a class="auto-deduct"><i class="fas fa-handshake"></i></a
+      ></label>
+    </div>
+  </div>
+</form>

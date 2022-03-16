@@ -10,23 +10,24 @@
   "OSE.Roll": "Rolar",
   "OSE.Success": "Sucesso",
   "OSE.Failure": "Falha",
-
   "OSE.dialog.tweaks": "Ferramentas",
   "OSE.dialog.partysheet": "Visão do grupo",
   "OSE.dialog.partyselect": "Selecionar PJs",
+  "OSE.dialog.createItem": "Create Item",
+  "OSE.dialog.itemType": "Item type",
+  "OSE.dialog.itemName": "Item name",
   "OSE.dialog.xp.deal": "Distribuir XP",
+  "OSE.dialog.xp.label": "XP",
   "OSE.dialog.generator": "Gerar personagem",
   "OSE.dialog.generateSaves": "Gerar salvaguardas",
   "OSE.dialog.generateScores": "Gerar status",
   "OSE.dialog.generateScore": "Rolou {score} ({count})",
-
   "OSE.Formula": "Fórmula",
   "OSE.SitMod": "Modificador situacional",
   "OSE.Modifier": "Modificador",
   "OSE.Modifiers": "Modificadores",
   "OSE.RollMode": "Modo de rolagem",
   "OSE.RollExample": "ex. +1d4",
-
   "OSE.roll.formula": "{label} rolar",
   "OSE.roll.appearing": "Aparecimento da rolagem ({type})",
   "OSE.roll.morale": "Teste de moral",
@@ -42,9 +43,8 @@
   "OSE.roll.reaction": "Rolagem de reação",
   "OSE.roll.initiative": "Grupo {group} rola para iniciativa!",
   "OSE.roll.individualInit": "{name} rola para iniciativa!",
-
+  "OSE.roll.individualInitGroup": "Initiative Rolls",
   "OSE.table.treasure.roll": "Rolar tesouro",
-
   "OSE.details.name": "Nome",
   "OSE.details.class": "Classe",
   "OSE.details.title": "Titulo",
@@ -61,16 +61,13 @@
   "OSE.details.morale": "Moral",
   "OSE.details.reaction": "Reação",
   "OSE.details.appearing": "NA",
-
   "OSE.Attack": "Ataca",
   "OSE.Encumbrance": "Sobrecarga",
-
   "OSE.Retainer": "Empregado",
   "OSE.RetainerWage": "Salário",
   "OSE.RetainerUpkeep": "Manutenção",
   "OSE.Loyalty": "Classificação de lealdade",
   "OSE.LoyaltyShort": "CL",
-
   "OSE.scores.str.long": "Força",
   "OSE.scores.str.short": "FOR",
   "OSE.scores.wis.long": "Sabedoria",
@@ -83,7 +80,6 @@
   "OSE.scores.con.short": "CON",
   "OSE.scores.cha.long": "Carisma",
   "OSE.scores.cha.short": "CAR",
-
   "OSE.saves.death.short": "Mt",
   "OSE.saves.death.long": "Morte Veneno",
   "OSE.saves.wand.short": "V",
@@ -95,13 +91,12 @@
   "OSE.saves.spell.short": "Ma",
   "OSE.saves.spell.long": "Magias Bastões Cajados",
   "OSE.saves.magic.long": "Bônus vs Magia",
-
+  "OSE.saves.magic.short": "vs Magic",
   "OSE.Health": "Pontos de Vida",
   "OSE.HealthMax": "Pontos de Vida máximo",
   "OSE.HealthShort": "PV",
   "OSE.HitDice": "Dados de Vida",
   "OSE.HitDiceShort": "DV",
-
   "OSE.movement.base": "Taxa de Movimento",
   "OSE.movement.short": "TM",
   "OSE.movement.details": "Detalhes do movimento",
@@ -111,7 +106,6 @@
   "OSE.movement.overland.short": "TMT",
   "OSE.movement.exploration.short": "TE",
   "OSE.movement.exploration.long": "Taxa de Movimento em Exploração",
-
   "OSE.ArmorClassNaked": "Classe de Armadura despido",
   "OSE.ArmorClass": "Classe de Armadura",
   "OSE.ArmorClassShort": "CA",
@@ -133,7 +127,6 @@
   "OSE.AttacksShort": "ATA",
   "OSE.Damage": "Dano",
   "OSE.Spellcaster": "Conjurador",
-
   "OSE.Language": "Lingua",
   "OSE.SpokenLanguages": "Linguas faladas",
   "OSE.Literacy": "Alfabetização",
@@ -145,10 +138,8 @@
   "OSE.NativePlus1": "Nativo + 1",
   "OSE.NativePlus2": "Nativo + 2",
   "OSE.NativePlus3": "Nativo + 3",
-
   "OSE.NPCReaction": "Reação do NPC",
   "OSE.RetainersMax": "#Retentor",
-
   "OSE.category.saves": "Salvaguarda",
   "OSE.category.attributes": "Atributos",
   "OSE.category.inventory": "Itens",
@@ -158,12 +149,15 @@
   "OSE.category.languages": "Linguas",
   "OSE.category.description": "Descrição",
   "OSE.category.equipment": "Equipamento",
-
   "OSE.Setting.Initiative": "Iniciativa",
   "OSE.Setting.InitiativeHint": "Iniciativa agrupada ou individual. Iniciativa única individual é somente rolada ao inicio do combate",
-  "OSE.Setting.InitiativeOnce": "Iniciativa única individual",
-  "OSE.Setting.InitiativeReroll": "Iniciativa individual por rodada",
+  "OSE.Setting.InitiativeIndividual": "Individual initiative",
   "OSE.Setting.InitiativeGroup": "Iniciativa agrupada",
+  "OSE.Setting.RerollInitiative": "Initiative persistence",
+  "OSE.Setting.RerollInitiativeHint": "Keeps, resets or rerolls initiative each round",
+  "OSE.Setting.InitiativeKeep": "Keep for each round",
+  "OSE.Setting.InitiativeReroll": "Iniciativa individual por rodada",
+  "OSE.Setting.InitiativeReset": "Reset each round",
   "OSE.Setting.AscendingAC": "Classe de armadura ascendente",
   "OSE.Setting.AscendingACHint": "Quanto maior melhor",
   "OSE.Setting.Morale": "Habilitar taxa de moral dos monstros",
@@ -173,15 +167,23 @@
   "OSE.Setting.EncumbranceDisabled": "Desabilitada",
   "OSE.Setting.EncumbranceBasic": "Básica",
   "OSE.Setting.EncumbranceDetailed": "Detalhada",
+  "OSE.Setting.EncumbranceComplete": "Complete",
   "OSE.Setting.MovementAuto": "Calcular movimento",
   "OSE.Setting.SignificantTreasure": "Peso significativo do tesouro",
   "OSE.Setting.SignificantTreasureHint": "Peso com o qual o tesouro reduzirá o movimento, somente usar com sobrecarga básica",
-
+  "OSE.Setting.Languages": "Linguas",
+  "OSE.Setting.LanguagesHint": "Enter a comma separated list of languages",
+  "OSE.Setting.EnableInventory": "Enable Inventory",
+  "OSE.Setting.applyDamageOption": "Token Damage Target",
+  "OSE.Setting.applyDamageOptionHint": "Which token(s) to apply damage to on an attack roll",
+  "OSE.Setting.damageSelected": "Selected",
+  "OSE.Setting.damageTarget": "Target",
   "OSE.items.Equip": "Equipar",
   "OSE.items.Unequip": "Desequipar",
   "OSE.items.Misc": "Diverso",
   "OSE.items.Weapons": "Armas",
   "OSE.items.Treasure": "Tesouro",
+  "OSE.items.Containers": "Containers",
   "OSE.items.Armors": "Proteção",
   "OSE.items.Weight": "Peso",
   "OSE.items.Qualities": "Qualidades",
@@ -204,7 +206,7 @@
   "OSE.items.typeTag": "Digite virgula para separar a lista de tag",
   "OSE.items.enterTag": "Tags",
   "OSE.items.pattern": "Marcador padrão de ataque",
-
+  "OSE.items.uses": "Uses",
   "OSE.items.Range": "Distância",
   "OSE.items.Melee": "Corpo",
   "OSE.items.Missile": "Projétil",
@@ -215,13 +217,11 @@
   "OSE.items.Splash": "Arma de respingo",
   "OSE.items.Reload": "Recarga",
   "OSE.items.Charge": "Carga",
-
   "OSE.armor.type": "Tipo de armadura",
   "OSE.armor.unarmored": "Sem armadura",
   "OSE.armor.light": "Leve",
   "OSE.armor.heavy": "Pesada",
   "OSE.armor.shield": "Escudo",
-
   "OSE.spells.spend": "{speaker} está conjurando {name}!",
   "OSE.spells.Memorized": "Memorizada",
   "OSE.spells.Cast": "Conjurar",
@@ -232,9 +232,9 @@
   "OSE.spells.Level": "Nivel",
   "OSE.spells.Save": "Salvaguarda",
   "OSE.spells.ResetSlots": "Reiniciar espaços de magia",
-
+  "OSE.spells.MemorizedSlotsHint": "Memorized slots",
+  "OSE.spells.MaximumSlotsHint": "Available slots",
   "OSE.abilities.Requirements": "Requerimentos",
-
   "OSE.exploration.ld.long": "Ouvir Ruídos",
   "OSE.exploration.ld.short": "Ouvir Ruídos",
   "OSE.exploration.ld.abrev": "OR",
@@ -247,7 +247,6 @@
   "OSE.exploration.ft.long": "Encontrar Armadilhas em Salas",
   "OSE.exploration.ft.short": "Encontrar Armadilhas",
   "OSE.exploration.ft.abrev": "EA",
-
   "OSE.messages.GetExperience": "{name} ganha {value} pontos de experiência!",
   "OSE.messages.AttackSuccess": "<b>Acerta CA {result}!</b> ({bonus})",
   "OSE.messages.AttackAscendingSuccess": "<b>Acerta CA {result}!</b>",
@@ -256,7 +255,6 @@
   "OSE.messages.InflictsDamage": "Inflige dano!",
   "OSE.messages.applyDamage": "Aplicar dano",
   "OSE.messages.applyHealing": "Aplicar cura",
-
   "OSE.colors.green": "Verde",
   "OSE.colors.red": "Vermelho",
   "OSE.colors.yellow": "Amarelo",
@@ -264,11 +262,12 @@
   "OSE.colors.blue": "Azul",
   "OSE.colors.orange": "Laranja",
   "OSE.colors.white": "Branco",
-
   "OSE.reaction.check": "Teste de reação",
   "OSE.reaction.Hostile": "{name} é Hostil",
   "OSE.reaction.Unfriendly": "{name} é Inamistoso",
   "OSE.reaction.Neutral": "{name} é Neutro",
   "OSE.reaction.Indifferent": "{name} é Indiferente",
-  "OSE.reaction.Friendly": "{name} é Amigável"
+  "OSE.reaction.Friendly": "{name} é Amigável",
+  "OSE.CombatFlag.SpellDeclared": "Spell Declared",
+  "OSE.CombatFlag.RetreatFromMeleeDeclared": "Retreat From Melee Declared"
 }

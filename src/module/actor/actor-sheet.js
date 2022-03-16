@@ -164,11 +164,11 @@ export class OseActorSheet extends ActorSheet {
           data: { counter: { value: item.data.data.counter.value - 1 } },
         });
       }
-      item.rollWeapon({ skipDialog: event.ctrlKey });
+      item.rollWeapon({ skipDialog: event.ctrlKey || event.metaKey });
     } else if (item.type == "spell") {
-      item.spendSpell({ skipDialog: event.ctrlKey });
+      item.spendSpell({ skipDialog: event.ctrlKey || event.metaKey });
     } else {
-      item.rollFormula({ skipDialog: event.ctrlKey });
+      item.rollFormula({ skipDialog: event.ctrlKey || event.metaKey });
     }
   }
 
@@ -189,12 +189,11 @@ export class OseActorSheet extends ActorSheet {
     };
     actorObject.targetAttack(rollData, attack, {
       type: attack,
-      skipDialog: event.ctrlKey,
+      skipDialog: event.ctrlKey || event.metaKey,
     });
   }
 
   _onSortItem(event, itemData) {
-    // Dragging items into a container
     const source = this.actor.items.get(itemData._id);
     const siblings = this.actor.items.filter((i) => {
       return i.data._id !== source.data._id;
@@ -203,13 +202,17 @@ export class OseActorSheet extends ActorSheet {
     const targetId = dropTarget ? dropTarget.dataset.itemId : null;
     const target = siblings.find((s) => s.data._id === targetId);
 
-    if (target?.data.type == "container") {
+    // Dragging items into a container
+    if (
+      target?.data.type === "container" &&
+      target?.data.data.containerId === ""
+    ) {
       this.actor.updateEmbeddedDocuments("Item", [
         { _id: source.id, "data.containerId": target.id },
       ]);
       return;
     }
-    if (itemData.data.containerId != "") {
+    if (source?.data.containerId !== "") {
       this.actor.updateEmbeddedDocuments("Item", [
         { _id: source.id, "data.containerId": "" },
       ]);

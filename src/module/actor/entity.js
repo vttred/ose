@@ -319,7 +319,8 @@ export class OseActor extends Actor {
       },
     };
 
-    let skip = options.event && options.event.ctrlKey;
+    let skip =
+      options.event && (options.event.ctrlKey || options.event.metaKey);
 
     // Roll and return
     return OseDice.Roll({
@@ -443,7 +444,8 @@ export class OseActor extends Actor {
       }),
     };
 
-    let skip = options.event && options.event.ctrlKey;
+    let skip =
+      options.event && (options.event.ctrlKey || options.event.metaKey);
 
     // Roll and return
     return OseDice.Roll({

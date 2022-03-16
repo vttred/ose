@@ -10,7 +10,6 @@
   "OSE.Roll": "Lancer",
   "OSE.Success": "Succès",
   "OSE.Failure": "Échec",
-
   "OSE.dialog.tweaks": "Ajuster",
   "OSE.dialog.partysheet": "Fiche de Groupe",
   "OSE.dialog.partyselect": "Choisir PJs",
@@ -23,14 +22,12 @@
   "OSE.dialog.generateSaves": "Générer les Sauvegardes",
   "OSE.dialog.generateScores": "Générer les Scores",
   "OSE.dialog.generateScore": "Création: {score} ({count})",
-
   "OSE.Formula": "Formule",
   "OSE.SitMod": "Mod. de situation",
   "OSE.Modifier": "Modificateur",
   "OSE.Modifiers": "Modificateurs",
   "OSE.RollMode": "Mode de Jet",
   "OSE.RollExample": "ex. +1d4",
-
   "OSE.roll.formula": "Jet de {label}",
   "OSE.roll.appearing": "Nombre Apparaissant",
   "OSE.roll.morale": "Jet de Moral",
@@ -46,9 +43,8 @@
   "OSE.roll.reaction": "Jet de Réaction",
   "OSE.roll.initiative": "Le groupe {group} tire son Initiative !",
   "OSE.roll.individualInit": "{name} tire son Initiative!",
-
+  "OSE.roll.individualInitGroup": "Initiative Rolls",
   "OSE.table.treasure.roll": "Trésor Aléatoire",
-
   "OSE.details.name": "Nom",
   "OSE.details.class": "Classe",
   "OSE.details.title": "Titre",
@@ -65,16 +61,13 @@
   "OSE.details.morale": "Moral",
   "OSE.details.reaction": "Réaction",
   "OSE.details.appearing": "NA",
-
   "OSE.Attack": "Attaque",
   "OSE.Encumbrance": "Encombrement",
-
   "OSE.Retainer": "Suivant",
   "OSE.RetainerWage": "Tarif",
   "OSE.RetainerUpkeep": "Entretien",
   "OSE.Loyalty": "Loyauté",
   "OSE.LoyaltyShort": "LOY",
-
   "OSE.scores.str.long": "Force",
   "OSE.scores.str.short": "FOR",
   "OSE.scores.wis.long": "Sagesse",
@@ -87,7 +80,6 @@
   "OSE.scores.con.short": "CON",
   "OSE.scores.cha.long": "Charisme",
   "OSE.scores.cha.short": "CHA",
-
   "OSE.saves.death.short": "MP",
   "OSE.saves.death.long": "Mort Poison",
   "OSE.saves.wand.short": "B",
@@ -100,13 +92,11 @@
   "OSE.saves.spell.long": "Sorts Bâtons",
   "OSE.saves.magic.long": "Sauv. Magie",
   "OSE.saves.magic.short": "vs Magie",
-
   "OSE.Health": "Points de Vie",
   "OSE.HealthMax": "Points de Vie Maximaux",
   "OSE.HealthShort": "PV",
   "OSE.HitDice": "Dé de Vie",
   "OSE.HitDiceShort": "DV",
-
   "OSE.movement.base": "Déplacement",
   "OSE.movement.short": "DP",
   "OSE.movement.details": "Détail du Déplacement",
@@ -116,7 +106,6 @@
   "OSE.movement.overland.short": "Ext",
   "OSE.movement.exploration.short": "Dp",
   "OSE.movement.exploration.long": "Déplacement",
-
   "OSE.ArmorClassNaked": "Sans Armure",
   "OSE.ArmorClass": "Classe d'Armure",
   "OSE.ArmorClassShort": "CA",
@@ -138,7 +127,6 @@
   "OSE.AttacksShort": "ATT",
   "OSE.Damage": "Dégâts",
   "OSE.Spellcaster": "Lanceur de Sort",
-
   "OSE.Language": "Langue",
   "OSE.SpokenLanguages": "Langues parlées",
   "OSE.Literacy": "Lire/Écrire",
@@ -150,10 +138,8 @@
   "OSE.NativePlus1": "Natale + 1",
   "OSE.NativePlus2": "Natale + 2",
   "OSE.NativePlus3": "Natale + 3",
-
   "OSE.NPCReaction": "Réaction",
   "OSE.RetainersMax": "#Suivants",
-
   "OSE.category.saves": "Sauvegardes",
   "OSE.category.attributes": "Stats",
   "OSE.category.inventory": "Inventaire",
@@ -163,7 +149,6 @@
   "OSE.category.languages": "Langues",
   "OSE.category.description": "Descriptions",
   "OSE.category.equipment": "Équipement",
-
   "OSE.Setting.Initiative": "Initiative",
   "OSE.Setting.InitiativeHint": "Initiative groupée ou individuelle.",
   "OSE.Setting.InitiativeIndividual": "Initiative individuelle",
@@ -189,7 +174,10 @@
   "OSE.Setting.Languages": "Langues",
   "OSE.Setting.LanguagesHint": "Entrez une liste des Langues de l'univers séparée par des virgules",
   "OSE.Setting.EnableInventory": "Afficher l'inventaire",
-
+  "OSE.Setting.applyDamageOption": "Token Damage Target",
+  "OSE.Setting.applyDamageOptionHint": "Which token(s) to apply damage to on an attack roll",
+  "OSE.Setting.damageSelected": "Selected",
+  "OSE.Setting.damageTarget": "Target",
   "OSE.items.Equip": "Equiper",
   "OSE.items.Unequip": "Déséquiper",
   "OSE.items.Misc": "Divers",
@@ -218,7 +206,7 @@
   "OSE.items.typeTag": "Tapez une liste de tags descriptifs ex. 'Mêlée,Missile (5’–10’ / 11’–20’ / 21’–30’)' puis Entrée",
   "OSE.items.enterTag": "Tags",
   "OSE.items.pattern": "Marqueur de schéma d'attaque",
-  
+  "OSE.items.uses": "Uses",
   "OSE.items.Range": "Portée",
   "OSE.items.Melee": "Mêlée",
   "OSE.items.Missile": "Distance",
@@ -229,13 +217,11 @@
   "OSE.items.Splash": "Zone",
   "OSE.items.Reload": "Rechargement",
   "OSE.items.Charge": "Charge",
-
   "OSE.armor.type": "Type d'Armure",
   "OSE.armor.unarmored": "Sans Armure",
   "OSE.armor.light": "Légère",
   "OSE.armor.heavy": "Lourde",
   "OSE.armor.shield": "Bouclier",
-
   "OSE.spells.spend": "{speaker} lance {name}!",
   "OSE.spells.Memorized": "Memorisé",
   "OSE.spells.Cast": "Lancé",
@@ -246,9 +232,9 @@
   "OSE.spells.Level": "Niveau",
   "OSE.spells.Save": "Sauvegarde",
   "OSE.spells.ResetSlots": "Réinitialiser les Emplacements",
-
+  "OSE.spells.MemorizedSlotsHint": "Memorized slots",
+  "OSE.spells.MaximumSlotsHint": "Available slots",
   "OSE.abilities.Requirements": "Prérequis",
-
   "OSE.exploration.ld.long": "Ecoute aux Portes",
   "OSE.exploration.ld.short": "Eco. Porte",
   "OSE.exploration.ld.abrev": "EP",
@@ -261,7 +247,6 @@
   "OSE.exploration.ft.long": "Détecter les Pièges",
   "OSE.exploration.ft.short": "Dét. Pièges",
   "OSE.exploration.ft.abrev": "DP",
-
   "OSE.messages.GetExperience": "{name} a gagné {value} points d'expérience !",
   "OSE.messages.AttackSuccess": "<b>Touche une CA de {result}!</b> ({bonus})",
   "OSE.messages.AttackAscendingSuccess": "<b>Touche une CAA de {result}!</b>",
@@ -270,7 +255,6 @@
   "OSE.messages.InflictsDamage": "Inflige des dégâts !",
   "OSE.messages.applyDamage": "Appliquer les dégâts",
   "OSE.messages.applyHealing": "Appliquer les soins",
-
   "OSE.colors.green": "Vert",
   "OSE.colors.red": "Rouge",
   "OSE.colors.yellow": "Jaune",
@@ -278,10 +262,12 @@
   "OSE.colors.blue": "Bleu",
   "OSE.colors.orange": "Orange",
   "OSE.colors.white": "Blanc",
-
+  "OSE.reaction.check": "Reaction Check",
   "OSE.reaction.Hostile": "{name} est Hostile",
   "OSE.reaction.Unfriendly": "{name} est Inamical",
   "OSE.reaction.Neutral": "{name} est Neutre",
   "OSE.reaction.Indifferent": "{name} est Indifférent",
-  "OSE.reaction.Friendly": "{name} est Amical"
+  "OSE.reaction.Friendly": "{name} est Amical",
+  "OSE.CombatFlag.SpellDeclared": "Spell Declared",
+  "OSE.CombatFlag.RetreatFromMeleeDeclared": "Retreat From Melee Declared"
 }

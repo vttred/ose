@@ -221,6 +221,71 @@ export class OseActorSheet extends ActorSheet {
     super._onSortItem(event, itemData);
   }
 
+  _onDragStart(event) {
+    const li = event.currentTarget;
+    let itemIdsArray = [];
+    if (event.target.classList.contains("content-link")) return;
+
+    // Create drag data
+    const dragData = {
+      actorId: this.actor.id,
+      sceneId: this.actor.isToken ? canvas.scene?.id : null,
+      tokenId: this.actor.isToken ? this.actor.token.id : null,
+      pack: this.actor.pack,
+    };
+
+    // Owned Items
+    if (li.dataset.itemId) {
+      const item = this.actor.items.get(li.dataset.itemId);
+      dragData.type = "Item";
+      dragData.data = item.data;
+      if (item.data.type === "container" && item.data.data.itemIds.length) {
+        //otherwise JSON.stringify will quadruple stringify for some reason
+        itemIdsArray = item.data.data.itemIds;
+      }
+    }
+
+    // Active Effect
+    if (li.dataset.effectId) {
+      const effect = this.actor.effects.get(li.dataset.effectId);
+      dragData.type = "ActiveEffect";
+      dragData.data = effect.data;
+    }
+
+    // Set data transfer
+    event.dataTransfer.setData(
+      "text/plain",
+      JSON.stringify(dragData, (key, value) => {
+        if (key === "itemIds") {
+          //something about how this Array is created makes its elements not real Array elements
+          //we go through this hoop to trick stringify into creating our string
+          return JSON.stringify(itemIdsArray);
+        }
+        return value;
+      })
+    );
+  }
+
+  async _onDropItemCreate(itemData) {
+    //override to fix hidden items because their original containers don't exist on this actor
+    itemData = itemData instanceof Array ? itemData : [itemData];
+    itemData.forEach((item) => {
+      if (item.data.containerId && item.data.containerId !== "")
+        item.data.containerId = "";
+      if (item.type === "container" && typeof item.data.itemIds === "string") {
+        //itemIds was double stringified to fix strange behavior with stringify blanking our Arrays
+        const containedItems = JSON.parse(item.data.itemIds);
+        containedItems.forEach((containedItem) => {
+          containedItem.data.containerId = "";
+        });
+        itemData.push(...containedItems);
+      }
+    });
+    return this.actor.createEmbeddedDocuments("Item", itemData);
+  }
+
+  /* -------------------------------------------- */
+
   async _chooseItemType(choices = ["weapon", "armor", "shield", "gear"]) {
     let templateData = { types: choices },
       dlg = await renderTemplate(
@@ -356,7 +421,7 @@ export class OseActorSheet extends ActorSheet {
     let buttons = super._getHeaderButtons();
 
     // Token Configuration
-    const canConfigure = game.user.isGM || this.actor.owner;
+    const canConfigure = game.user.isGM || this.actor.isOwner;
     if (this.options.editable && canConfigure) {
       buttons = [
         {

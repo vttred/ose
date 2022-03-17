@@ -182,7 +182,9 @@
     "types": ["item", "weapon", "armor", "spell", "ability", "container"],
     "templates": {
       "common": {
-        "description": ""
+        "description": "",
+        "autoTags": [],
+        "manualTags": []
       },
       "physical": {
         "quantity": {
@@ -206,7 +208,8 @@
       "isContainer": false
     },
     "container": {
-      "templates": ["common", "physical"]
+      "templates": ["common", "physical"],
+      "itemIds": []
     },
     "weapon": {
       "templates": ["common", "physical", "rollable", "equippable"],

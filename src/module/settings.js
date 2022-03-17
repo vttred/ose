@@ -11,7 +11,6 @@ export const registerSettings = function () {
       individual: "OSE.Setting.InitiativeIndividual",
       group: "OSE.Setting.InitiativeGroup",
     },
-    onChange: _ => window.location.reload()
   });
 
   game.settings.register("ose", "rerollInitiative", {
@@ -35,7 +34,6 @@ export const registerSettings = function () {
     scope: "world",
     type: Boolean,
     config: true,
-    onChange: _ => window.location.reload()
   });
 
   game.settings.register("ose", "morale", {
@@ -60,7 +58,6 @@ export const registerSettings = function () {
       detailed: "OSE.Setting.EncumbranceDetailed",
       complete: "OSE.Setting.EncumbranceComplete",
     },
-    onChange: _ => window.location.reload()
   });
 
   game.settings.register("ose", "significantTreasure", {
@@ -70,7 +67,6 @@ export const registerSettings = function () {
     scope: "world",
     type: Number,
     config: true,
-    onChange: _ => window.location.reload()
   });
 
   game.settings.register("ose", "languages", {
@@ -80,7 +76,6 @@ export const registerSettings = function () {
     scope: "world",
     type: String,
     config: true,
-    onChange: _ => window.location.reload()
   });
    game.settings.register('ose', 'applyDamageOption', {
     name: game.i18n.localize('OSE.Setting.applyDamageOption'),
@@ -93,6 +88,5 @@ export const registerSettings = function () {
       selected: 'OSE.Setting.damageSelected',
       targeted: 'OSE.Setting.damageTarget'
     },
-    onChange: _ => window.location.reload()
   });
 };

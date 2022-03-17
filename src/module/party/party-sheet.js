@@ -103,7 +103,7 @@ export class OsePartySheet extends FormApplication {
       return;
     }
 
-    const actors = this.object.documents;
+    const actors = game.actors;
     let droppedActor = actors.find(actor => actor.id === data.id);
 
     this._addActorToParty(droppedActor);

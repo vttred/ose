@@ -76,7 +76,7 @@ export class OsePartyXP extends FormApplication {
       const qRow = $(row);
       const value = qRow.find("input").val();
       const id = qRow.data("actorId");
-      const actor = this.object.documents.find((e) => e.id === id);
+      const actor = OseParty.currentParty.find((e) => e.id === id);
       if (value) {
         actor.getExperience(Math.floor(parseInt(value)));
       }

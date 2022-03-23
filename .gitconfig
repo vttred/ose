@@ -1,0 +1,3 @@
+[filter "devLink"]
+    smudge = 'sh ".git/linkHelper.sh"'
+    clean = 'sh ".git/unlink.sh"'

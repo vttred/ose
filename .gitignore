@@ -1,3 +1,4 @@
 node_modules
 foundryconfig.json
 dist
+.DS_Store

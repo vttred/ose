@@ -118,91 +118,6 @@ async function clean() {
 /********************/
 
 /**
- * Update version and URLs in the manifest JSON
- */
-function updateManifest(cb) {
-  const packageJson = fs.readJSONSync("package.json");
-  const config = getConfig(),
-    manifest = getManifest(),
-    rawURL = config.rawURL,
-    repoURL = config.repository,
-    manifestRoot = manifest.root;
-
-  if (!config) cb(Error("foundryconfig.json not found"));
-  if (!manifest) cb(Error("Manifest JSON not found"));
-  if (!rawURL || !repoURL)
-    cb(Error("Repository URLs not configured in foundryconfig.json"));
-
-  try {
-    const version = argv.update || argv.u;
-
-    /* Update version */
-
-    const versionMatch = /^(\d{1,}).(\d{1,}).(\d{1,})$/;
-    const currentVersion = manifest.file.version;
-    let targetVersion = "";
-
-    if (!version) {
-      cb(Error("Missing version number"));
-    }
-
-    if (versionMatch.test(version)) {
-      targetVersion = version;
-    } else {
-      targetVersion = currentVersion.replace(
-        versionMatch,
-        (substring, major, minor, patch) => {
-          if (version === "major") {
-            return `${Number(major) + 1}.0.0`;
-          } else if (version === "minor") {
-            return `${major}.${Number(minor) + 1}.0`;
-          } else if (version === "patch") {
-            return `${major}.${minor}.${Number(minor) + 1}`;
-          } else {
-            return "";
-          }
-        }
-      );
-    }
-
-    if (targetVersion === "") {
-      return cb(Error("Error: Incorrect version arguments."));
-    }
-
-    if (targetVersion === currentVersion) {
-      return cb(
-        Error("Error: Target version is identical to current version.")
-      );
-    }
-    console.log(`Updating version number to '${targetVersion}'`);
-
-    packageJson.version = targetVersion;
-    manifest.file.version = targetVersion;
-
-    /* Update URLs */
-
-    const result = `${rawURL}/v${manifest.file.version}/package/${manifest.file.name}-v${manifest.file.version}.zip`;
-
-    manifest.file.url = repoURL;
-    manifest.file.manifest = `${rawURL}/master/${manifestRoot}/${manifest.name}`;
-    manifest.file.download = result;
-
-    const prettyProjectJson = stringify(manifest.file, { maxLength: 35 });
-
-    fs.writeJSONSync("package.json", packageJson, { spaces: 2 });
-    fs.writeFileSync(
-      path.join(manifest.root, manifest.name),
-      prettyProjectJson,
-      "utf8"
-    );
-
-    return cb();
-  } catch (err) {
-    cb(err);
-  }
-}
-
-/**
  * Get the data path of Foundry VTT based on what is configured in `foundryconfig.json`
  */
 function getDataPath() {
@@ -223,7 +138,6 @@ function getSymLinkName() {
   const config = fs.readJSONSync("foundryconfig.json");
 
   if (config?.symLinkName) {
-    updateManifest();
     return config.symLinkName;
   } else {
     return "ose";

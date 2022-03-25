@@ -1,3 +1,5 @@
+import { OseParty } from "./party.js";
+
 export class OsePartyXP extends FormApplication {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
@@ -27,14 +29,8 @@ export class OsePartyXP extends FormApplication {
    * @return {Object}
    */
   getData() {
-    const actors = this.object.documents.filter(
-      (e) =>
-        e.data.type === "character" &&
-        e.data.flags.ose &&
-        e.data.flags.ose.party === true
-    );
     let data = {
-      actors: actors,
+      actors: OseParty.currentParty,
       data: this.object,
       config: CONFIG.OSE,
       user: game.user,
@@ -61,21 +57,15 @@ export class OsePartyXP extends FormApplication {
   }
 
   _calculateShare(ev) {
-    const actors = this.object.documents.filter(
-      (e) =>
-        e.data.type === "character" &&
-        e.data.flags.ose &&
-        e.data.flags.ose.party === true
-    );
-    const toDeal = $(ev.currentTarget.parentElement)
-      .find('input[name="total"]')
-      .val();
+    const currentParty = OseParty.currentParty;
+
     const html = $(this.form);
-    const value = parseFloat(toDeal) / actors.length;
-    actors.forEach((a) => {
-      html
-        .find(`li[data-actor-id='${a.id}'] input`)
-        .val(Math.floor((a.data.data.details.xp.share / 100) * value));
+    const totalXP = html.find('input[name="total"]').val();
+    const baseXpShare = parseFloat(totalXP) / currentParty.length;
+
+    currentParty.forEach((a) => {
+      const xpShare = Math.floor((a.data.data.details.xp.share / 100) * baseXpShare)
+      html.find(`li[data-actor-id='${a.id}'] input`).val(xpShare);
     });
   }
 
@@ -86,7 +76,7 @@ export class OsePartyXP extends FormApplication {
       const qRow = $(row);
       const value = qRow.find("input").val();
       const id = qRow.data("actorId");
-      const actor = this.object.documents.find((e) => e.id === id);
+      const actor = OseParty.currentParty.find((e) => e.id === id);
       if (value) {
         actor.getExperience(Math.floor(parseInt(value)));
       }

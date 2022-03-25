@@ -15,6 +15,7 @@ import * as macros from "./module/macros.js";
 import * as party from "./module/party.js";
 import { OseCombat } from "./module/combat.js";
 import * as renderList from "./module/renderList.js";
+import { OsePartySheet } from "./module/party/party-sheet.js";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -36,6 +37,9 @@ Hooks.once("init", async function () {
     rollItemMacro: macros.rollItemMacro,
     oseCombat: OseCombat,
   };
+
+  // Init Party Sheet handler
+  OsePartySheet.init();
 
   // Custom Handlebars helpers
   registerHelpers();
@@ -162,3 +166,5 @@ Hooks.on("updateActor", party.update);
 
 Hooks.on("renderCompendium", renderList.RenderCompendium);
 Hooks.on("renderSidebarDirectory", renderList.RenderDirectory);
+
+Hooks.on("OSE.Party.showSheet", OsePartySheet.showPartySheet);

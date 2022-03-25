@@ -1,6 +1,12 @@
 import { OsePartyXP } from "./party-xp.js";
+import { OseParty } from "./party.js";
+
+const Party = {
+  partySheet: void 0
+};
 
 export class OsePartySheet extends FormApplication {
+
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["ose", "dialog", "party-sheet"],
@@ -11,6 +17,18 @@ export class OsePartySheet extends FormApplication {
       dragDrop: [{ dragSelector: ".actor-list .actor", dropSelector: ".party-members" }],
       closeOnSubmit: false
     });
+  }
+
+  static init() {
+    Party.partySheet = new OsePartySheet();
+  }
+
+  static showPartySheet(options = {}) {
+    OsePartySheet.partySheet.render(true, { focus: true, ...options });
+  }
+
+  static get partySheet() {
+    return Party.partySheet;
   }
 
   /* -------------------------------------------- */
@@ -30,19 +48,13 @@ export class OsePartySheet extends FormApplication {
    * @return {Object}
    */
   getData() {
-    const actors = this.object.documents.filter(
-      (e) =>
-        e.data.type === "character" &&
-        e.data.flags.ose &&
-        e.data.flags.ose.party === true
-    );
     const settings = {
       ascending: game.settings.get("ose", "ascendingAC"),
     };
 
     let data = {
-      partyActors: actors,
-      data: this.object,
+      partyActors: OseParty.currentParty,
+      // data: this.object,
       config: CONFIG.OSE,
       user: game.user,
       settings: settings,
@@ -91,7 +103,7 @@ export class OsePartySheet extends FormApplication {
       return;
     }
 
-    const actors = this.object.documents;
+    const actors = game.actors;
     let droppedActor = actors.find(actor => actor.id === data.id);
 
     this._addActorToParty(droppedActor);

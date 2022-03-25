@@ -22,7 +22,7 @@
           style="background-image: url({{item.img}})"
         ></div>
         <h4 class="item-name" title="{{item.name}}">{{item.name~}}</h4>
-        <div class="icon-row flexrow">
+        <div class="tag-row icon-row">
           {{#each item.data.data.manualTags as |tag|}} {{#if (getTagIcon
           tag.value)}}
           <img
@@ -151,6 +151,7 @@
           class="item-image"
           style="background-image: url({{bag.img}})"
         ></div>
+        <div class="category-caret"><i class="fas fa-caret-down"></i></div>
         <h4 class="item-name" title="{{bag.name}}">{{bag.name~}}</h4>
         <div class="field-short container-total-weight">
           {{#if (eq @root.config.encumbrance "basic")}}_{{else if (eq
@@ -177,21 +178,7 @@
         {{> "systems/ose/dist/templates/actors/partials/actor-item-summary.html"
         item=bag}}
       </div>
-      <div class="item-category-title flexrow">
-        <div class="category-caret"><i class="fas fa-caret-down"></i></div>
-        <div class="category-name">{{bag.name~}}</div>
-        <div class="field-short"><i class="fas fa-suitcase"></i></div>
-        <div class="field-short"><i class="fas fa-weight-hanging"></i></div>
-        <div class="item-controls">
-          <a
-            class="item-control item-create"
-            data-type="container"
-            title="{{localize 'OSE.Add'}}"
-            ><i class="fa fa-plus"></i
-          ></a>
-        </div>
-      </div>
-      <ol class="item-list">
+      <ol class="item-list contained-items">
         {{#each bag.data.data.itemIds as |item|}}
         <li class="item-entry item" data-item-id="{{item.id}}">
           <div
@@ -207,6 +194,7 @@
                 value="{{item.data.data.quantity.value}}"
                 type="text"
                 placeholder="0"
+                data-field="value"
               />{{#if
               item.data.data.quantity.max}}<span>/{{item.data.data.quantity.max}}</span>{{/if}}
             </div>
@@ -280,6 +268,7 @@
             value="{{item.data.data.quantity.value}}"
             type="text"
             placeholder="0"
+            data-field="value"
           />{{#if
           item.data.data.quantity.max}}<span>/{{item.data.data.quantity.max}}</span>{{/if}}
         </div>
@@ -354,6 +343,7 @@
             value="{{item.data.data.quantity.value}}"
             type="text"
             placeholder="0"
+            data-field="value"
           />
           {{#if item.data.data.quantity.max}}
           <span>/{{item.data.data.quantity.max}}</span>

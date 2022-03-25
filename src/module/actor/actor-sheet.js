@@ -16,7 +16,7 @@ export class OseActorSheet extends ActorSheet {
       ...CONFIG.OSE,
       ascendingAC: game.settings.get("ose", "ascendingAC"),
       initiative: game.settings.get("ose", "initiative") != "group",
-      encumbrance: game.settings.get("ose", "encumbranceOption")
+      encumbrance: game.settings.get("ose", "encumbranceOption"),
     };
     data.isNew = this.actor.isNew();
 
@@ -62,9 +62,31 @@ export class OseActorSheet extends ActorSheet {
     }
   }
 
+  _toggleContainedItems(event) {
+    event.preventDefault();
+    const targetItems = $(event.target.closest(".container"));
+    let items = targetItems.find(".item-list.contained-items");
+
+    if (items.css("display") === "none") {
+      let el = targetItems.find(".fas.fa-caret-right");
+      el.removeClass("fa-caret-right");
+      el.addClass("fa-caret-down");
+
+      items.slideDown(200);
+    } else {
+      let el = targetItems.find(".fas.fa-caret-down");
+      el.removeClass("fa-caret-down");
+      el.addClass("fa-caret-right");
+
+      items.slideUp(200);
+    }
+  }
+
   _toggleItemSummary(event) {
     event.preventDefault();
-    const summary = $(event.currentTarget).closest(".item-header").next(".item-summary");
+    const summary = $(event.currentTarget)
+      .closest(".item-header")
+      .next(".item-summary");
 
     if (summary.css("display") === "none") {
       summary.slideDown(200);
@@ -86,7 +108,7 @@ export class OseActorSheet extends ActorSheet {
     if (item.type === "container" && item.data.data.itemIds) {
       const containedItems = item.data.data.itemIds;
       const updateData = containedItems.reduce((acc, val) => {
-        acc.push({ _id: val.id, "data.containerId": "", });
+        acc.push({ _id: val.id, "data.containerId": "" });
         return acc;
       }, []);
 
@@ -142,11 +164,11 @@ export class OseActorSheet extends ActorSheet {
           data: { counter: { value: item.data.data.counter.value - 1 } },
         });
       }
-      item.rollWeapon({ skipDialog: event.ctrlKey });
+      item.rollWeapon({ skipDialog: event.ctrlKey || event.metaKey });
     } else if (item.type == "spell") {
-      item.spendSpell({ skipDialog: event.ctrlKey });
+      item.spendSpell({ skipDialog: event.ctrlKey || event.metaKey });
     } else {
-      item.rollFormula({ skipDialog: event.ctrlKey });
+      item.rollFormula({ skipDialog: event.ctrlKey || event.metaKey });
     }
   }
 
@@ -167,35 +189,102 @@ export class OseActorSheet extends ActorSheet {
     };
     actorObject.targetAttack(rollData, attack, {
       type: attack,
-      skipDialog: event.ctrlKey,
+      skipDialog: event.ctrlKey || event.metaKey,
     });
   }
 
   _onSortItem(event, itemData) {
-
-    // Dragging items into a container
     const source = this.actor.items.get(itemData._id);
-    const siblings = this.actor.items.filter(i => {
+    const siblings = this.actor.items.filter((i) => {
       return i.data._id !== source.data._id;
     });
     const dropTarget = event.target.closest("[data-item-id]");
     const targetId = dropTarget ? dropTarget.dataset.itemId : null;
-    const target = siblings.find(s => s.data._id === targetId);
+    const target = siblings.find((s) => s.data._id === targetId);
 
-    if (target?.data.type == "container") {
+    // Dragging items into a container
+    if (
+      target?.data.type === "container" &&
+      target?.data.data.containerId === ""
+    ) {
       this.actor.updateEmbeddedDocuments("Item", [
-        { _id: source.id, "data.containerId": target.id }
+        { _id: source.id, "data.containerId": target.id },
       ]);
       return;
     }
-    if (itemData.data.containerId != "") {
+    if (source?.data.containerId !== "") {
       this.actor.updateEmbeddedDocuments("Item", [
-        { _id: source.id, "data.containerId": "" }
+        { _id: source.id, "data.containerId": "" },
       ]);
     }
 
     super._onSortItem(event, itemData);
   }
+
+  _onDragStart(event) {
+    const li = event.currentTarget;
+    let itemIdsArray = [];
+    if (event.target.classList.contains("content-link")) return;
+
+    // Create drag data
+    const dragData = {
+      actorId: this.actor.id,
+      sceneId: this.actor.isToken ? canvas.scene?.id : null,
+      tokenId: this.actor.isToken ? this.actor.token.id : null,
+      pack: this.actor.pack,
+    };
+
+    // Owned Items
+    if (li.dataset.itemId) {
+      const item = this.actor.items.get(li.dataset.itemId);
+      dragData.type = "Item";
+      dragData.data = item.data;
+      if (item.data.type === "container" && item.data.data.itemIds.length) {
+        //otherwise JSON.stringify will quadruple stringify for some reason
+        itemIdsArray = item.data.data.itemIds;
+      }
+    }
+
+    // Active Effect
+    if (li.dataset.effectId) {
+      const effect = this.actor.effects.get(li.dataset.effectId);
+      dragData.type = "ActiveEffect";
+      dragData.data = effect.data;
+    }
+
+    // Set data transfer
+    event.dataTransfer.setData(
+      "text/plain",
+      JSON.stringify(dragData, (key, value) => {
+        if (key === "itemIds") {
+          //something about how this Array is created makes its elements not real Array elements
+          //we go through this hoop to trick stringify into creating our string
+          return JSON.stringify(itemIdsArray);
+        }
+        return value;
+      })
+    );
+  }
+
+  async _onDropItemCreate(itemData) {
+    //override to fix hidden items because their original containers don't exist on this actor
+    itemData = itemData instanceof Array ? itemData : [itemData];
+    itemData.forEach((item) => {
+      if (item.data.containerId && item.data.containerId !== "")
+        item.data.containerId = "";
+      if (item.type === "container" && typeof item.data.itemIds === "string") {
+        //itemIds was double stringified to fix strange behavior with stringify blanking our Arrays
+        const containedItems = JSON.parse(item.data.itemIds);
+        containedItems.forEach((containedItem) => {
+          containedItem.data.containerId = "";
+        });
+        itemData.push(...containedItems);
+      }
+    });
+    return this.actor.createEmbeddedDocuments("Item", itemData);
+  }
+
+  /* -------------------------------------------- */
 
   async _chooseItemType(choices = ["weapon", "armor", "shield", "gear"]) {
     let templateData = { types: choices },
@@ -264,11 +353,11 @@ export class OseActorSheet extends ActorSheet {
 
     if (event.target.dataset.field === "value") {
       return item.update({
-        "data.counter.value": parseInt(event.target.value),
+        "data.quantity.value": parseInt(event.target.value),
       });
     } else if (event.target.dataset.field === "max") {
       return item.update({
-        "data.counter.max": parseInt(event.target.value),
+        "data.quantity.max": parseInt(event.target.value),
       });
     }
   }
@@ -309,8 +398,9 @@ export class OseActorSheet extends ActorSheet {
       let container = editor.closest(".resizable-editor");
       if (container) {
         let heightDelta = this.position.height - this.options.height;
-        editor.style.height = `${heightDelta + parseInt(container.dataset.editorSize)
-          }px`;
+        editor.style.height = `${
+          heightDelta + parseInt(container.dataset.editorSize)
+        }px`;
       }
     });
   }
@@ -331,7 +421,7 @@ export class OseActorSheet extends ActorSheet {
     let buttons = super._getHeaderButtons();
 
     // Token Configuration
-    const canConfigure = game.user.isGM || this.actor.owner;
+    const canConfigure = game.user.isGM || this.actor.isOwner;
     if (this.options.editable && canConfigure) {
       buttons = [
         {
@@ -349,39 +439,67 @@ export class OseActorSheet extends ActorSheet {
     super.activateListeners(html);
 
     // Attributes
-    html.find(".saving-throw .attribute-name a").click((event) => { this._rollSave(event); });
+    html.find(".saving-throw .attribute-name a").click((event) => {
+      this._rollSave(event);
+    });
 
-    html.find(".attack a").click((event) => { this._rollAttack(event); });
+    html.find(".attack a").click((event) => {
+      this._rollAttack(event);
+    });
 
     html.find(".hit-dice .attribute-name").click((event) => {
       this.actor.rollHitDice({ event: event });
     });
 
     // Items (Abilities, Inventory and Spells)
-    html.find(".item-rollable .item-image").click(async (event) => { this._rollAbility(event); });
+    html.find(".item-rollable .item-image").click(async (event) => {
+      this._rollAbility(event);
+    });
 
-    html.find(".inventory .item-category-title").click((event) => { this._toggleItemCategory(event); });
+    html.find(".inventory .item-category-title").click((event) => {
+      this._toggleItemCategory(event);
+    });
+    html.find(".inventory .category-caret").click((event) => {
+      this._toggleContainedItems(event);
+    });
 
-    html.find(".item-name").click((event) => { this._toggleItemSummary(event) });
+    html.find(".item-name").click((event) => {
+      this._toggleItemSummary(event);
+    });
 
-    html.find(".item-controls .item-show").click(async (event) => { this._displayItemInChat(event); });
+    html.find(".item-controls .item-show").click(async (event) => {
+      this._displayItemInChat(event);
+    });
 
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
 
     // Item Management
-    html.find(".item-create").click((event) => { this._createItem(event); });
+    html.find(".item-create").click((event) => {
+      this._createItem(event);
+    });
 
     html.find(".item-edit").click((event) => {
       const item = this._getItemFromActor(event);
       item.sheet.render(true);
     });
 
-    html.find(".item-delete").click((event) => { this._removeItemFromActor(event); });
+    html.find(".item-delete").click((event) => {
+      this._removeItemFromActor(event);
+    });
+
+    html
+      .find(".quantity input")
+      .click((ev) => ev.target.select())
+      .change(this._updateItemQuantity.bind(this));
 
     // Consumables
-    html.find(".consumable-counter .full-mark").click(event => { this._useConsumable(event, true) });
-    html.find(".consumable-counter .empty-mark").click(event => { this._useConsumable(event, false) });
+    html.find(".consumable-counter .full-mark").click((event) => {
+      this._useConsumable(event, true);
+    });
+    html.find(".consumable-counter .empty-mark").click((event) => {
+      this._useConsumable(event, false);
+    });
 
     // Spells
     html
@@ -389,8 +507,10 @@ export class OseActorSheet extends ActorSheet {
       .click((event) => event.target.select())
       .change(this._onSpellChange.bind(this));
 
-    html.find(".spells .item-reset[data-action='reset-spells']").click((event) => {
-      this._resetSpells(event);
-    });
+    html
+      .find(".spells .item-reset[data-action='reset-spells']")
+      .click((event) => {
+        this._resetSpells(event);
+      });
   }
 }

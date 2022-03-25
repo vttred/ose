@@ -241,8 +241,12 @@
         margin: 0;
         padding: 0;
 
+        .contained-items {
+          padding-left: 30px;
+        }
+
         .item-summary {
-          display: none
+          display: none;
         }
         .item-description {
           font-size: 13px;

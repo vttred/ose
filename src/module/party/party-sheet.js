@@ -1,21 +1,23 @@
-import { OsePartyXP } from "./party-xp.js";
-import { OseParty } from "./party.js";
+import { OsePartyXP } from "./party-xp";
+import { OseParty } from "./party";
+import { OSE } from "../config";
 
 const Party = {
-  partySheet: void 0
+  partySheet: void 0,
 };
 
 export class OsePartySheet extends FormApplication {
-
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["ose", "dialog", "party-sheet"],
-      template: "systems/ose/dist/templates/apps/party-sheet.html",
+      template: `${OSE.systemPath}/templates/apps/party-sheet.html`,
       width: 280,
       height: 400,
       resizable: true,
-      dragDrop: [{ dragSelector: ".actor-list .actor", dropSelector: ".party-members" }],
-      closeOnSubmit: false
+      dragDrop: [
+        { dragSelector: ".actor-list .actor", dropSelector: ".party-members" },
+      ],
+      closeOnSubmit: false,
     });
   }
 
@@ -104,14 +106,14 @@ export class OsePartySheet extends FormApplication {
     }
 
     const actors = game.actors;
-    let droppedActor = actors.find(actor => actor.id === data.id);
+    let droppedActor = actors.find((actor) => actor.id === data.id);
 
     this._addActorToParty(droppedActor);
   }
 
   _recursiveAddFolder(folder) {
-    folder.content.forEach(actor => this._addActorToParty(actor));
-    folder.children.forEach(folder => this._recursiveAddFolder(folder));
+    folder.content.forEach((actor) => this._addActorToParty(actor));
+    folder.children.forEach((folder) => this._recursiveAddFolder(folder));
   }
 
   _onDropFolder(event, data) {
@@ -132,7 +134,7 @@ export class OsePartySheet extends FormApplication {
 
       const dragData = {
         id: actorId,
-        type: "Actor"
+        type: "Actor",
       };
 
       // Set data transfer
@@ -154,21 +156,17 @@ export class OsePartySheet extends FormApplication {
   activateListeners(html) {
     super.activateListeners(html);
 
-    html
-      .find(".header #deal-xp")
-      .click(this._dealXP.bind(this));
+    html.find(".header #deal-xp").click(this._dealXP.bind(this));
 
     // Actor buttons
     const getActor = (event) => {
       const id = event.currentTarget.closest(".actor").dataset.actorId;
-      return game.actors.get(id)
+      return game.actors.get(id);
     };
 
-    html
-      .find(".field-img button[data-action='open-sheet']")
-      .click((event) => {
-        getActor(event).sheet.render(true);
-      });
+    html.find(".field-img button[data-action='open-sheet']").click((event) => {
+      getActor(event).sheet.render(true);
+    });
 
     html
       .find(".field-img button[data-action='remove-actor']")

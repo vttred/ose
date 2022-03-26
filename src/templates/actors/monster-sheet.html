@@ -1,7 +1,7 @@
 <form class="{{cssClass}}" autocomplete="off">
   {{! Sheet Header }}
   <header class="sheet-header flexrow">
-    {{> "systems/ose/dist/templates/actors/partials/monster-header.html"}}
+    {{> (path "/templates/actors/partials/monster-header.html") }}
   </header>
 
   {{! Sheet Tab Navigation }}
@@ -22,18 +22,15 @@
   <section class="sheet-body">
     {{! Attributes Tab }}
     <div class="tab" data-group="primary" data-tab="attributes">
-      {{>
-      "systems/ose/dist/templates/actors/partials/monster-attributes-tab.html"}}
+      {{> (path "/templates/actors/partials/monster-attributes-tab.html") }}
     </div>
     {{#if data.config.enableInventory}}
     <div class="tab" data-group="primary" data-tab="inventory">
-      {{>
-      "systems/ose/dist/templates/actors/partials/character-inventory-tab.html"}}
+      {{> (path "/templates/actors/partials/character-inventory-tab.html") }}
     </div>
     {{/if}} {{#if data.spells.enabled}}
     <div class="tab" data-group="primary" data-tab="spells">
-      {{>
-      "systems/ose/dist/templates/actors/partials/character-spells-tab.html"}}
+      {{> (path "/templates/actors/partials/character-spells-tab.html") }}
     </div>
     {{/if}}
     <div class="tab" data-group="primary" data-tab="notes">

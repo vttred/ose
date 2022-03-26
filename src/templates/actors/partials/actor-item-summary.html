@@ -1,4 +1,5 @@
 <div class="item-description">
-  {{> "systems/ose/dist/templates/actors/partials/item-auto-tags-partial.html" tags=item.data.data.autoTags}}
+  {{> (path "/templates/actors/partials/item-auto-tags-partial.html")
+  tags=item.data.data.autoTags}}
   <div>{{{item.data.data.description}}}</div>
 </div>

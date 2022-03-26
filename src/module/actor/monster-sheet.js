@@ -1,5 +1,5 @@
-import { OseActor } from "./entity.js";
-import { OseActorSheet } from "./actor-sheet.js";
+import { OseActorSheet } from "./actor-sheet";
+import { OSE } from "../config";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -18,7 +18,7 @@ export class OseActorSheetMonster extends OseActorSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["ose", "sheet", "monster", "actor"],
-      template: "systems/ose/dist/templates/actors/monster-sheet.html",
+      template: `${OSE.systemPath}/templates/actors/monster-sheet.html`,
       width: 450,
       height: 560,
       resizable: true,
@@ -151,7 +151,7 @@ export class OseActorSheetMonster extends OseActorSheet {
 
     let templateData = { choices: choices },
       dlg = await renderTemplate(
-        "systems/ose/dist/templates/actors/dialogs/monster-saves.html",
+        `${OSE.systemPath}/templates/actors/dialogs/monster-saves.html`,
         templateData
       );
     //Create Dialog window

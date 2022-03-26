@@ -1,3 +1,5 @@
+import { OSE } from "./config";
+
 export class OseCombat {
   static STATUS_SLOW = -789;
   static STATUS_DIZZY = -790;
@@ -101,8 +103,7 @@ export class OseCombat {
       updates[i].initiative = value;
 
       //render template
-      let template =
-        "systems/ose/dist/templates/chat/roll-individual-initiative.html";
+      let template = `${OSE.systemPath}/dist/templates/chat/roll-individual-initiative.html`;
       let tData = {
         name: cbt.name,
         formula: roll.formula,

@@ -1,3 +1,5 @@
+import { OSE } from "../config";
+
 /**
  * Extend the basic ItemSheet with some very simple modifications
  */
@@ -35,7 +37,7 @@ export class OseItemSheet extends ItemSheet {
 
   /** @override */
   get template() {
-    const path = "systems/ose/dist/templates/items/";
+    const path = `${OSE.systemPath}/templates/items/`;
     return `${path}/${this.item.data.type}-sheet.html`;
   }
 

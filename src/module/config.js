@@ -1,4 +1,5 @@
 export const OSE = {
+  systemPath: "/systems/dev-ose/dist",
   scores: {
     str: "OSE.scores.str.long",
     int: "OSE.scores.int.long",

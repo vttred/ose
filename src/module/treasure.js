@@ -1,8 +1,12 @@
+import { OSE } from "./config";
+
 export const augmentTable = (table, html, data) => {
   // Treasure Toggle
   const isTreasureTable = Boolean(table.object.getFlag("ose", "treasure"));
 
-  let treasureTableToggle = $("<div class='toggle-treasure' title='Toggle Treasure Table'></div>");
+  let treasureTableToggle = $(
+    "<div class='toggle-treasure' title='Toggle Treasure Table'></div>"
+  );
   treasureTableToggle.toggleClass("active", isTreasureTable);
 
   let head = html.find(".sheet-header");
@@ -15,7 +19,7 @@ export const augmentTable = (table, html, data) => {
 
   // Treasure table formatting
   if (!isTreasureTable) {
-    return
+    return;
   }
 
   // Hide irrelevant standard fields
@@ -33,7 +37,9 @@ export const augmentTable = (table, html, data) => {
   formula.attr("disabled", true);
 
   // Replace Roll button
-  const roll = `<button class="roll-treasure" type="button"><i class="fas fa-gem"></i> ${game.i18n.localize("OSE.table.treasure.roll")}</button>`;
+  const roll = `<button class="roll-treasure" type="button"><i class="fas fa-gem"></i> ${game.i18n.localize(
+    "OSE.table.treasure.roll"
+  )}</button>`;
   html.find(".sheet-footer .roll").replaceWith(roll);
 
   html.find(".roll-treasure").click((ev) => {
@@ -97,7 +103,7 @@ async function rollTreasure(table, options = {}) {
   }
 
   let html = await renderTemplate(
-    "systems/ose/dist/templates/chat/roll-treasure.html",
+    `${OSE.systemPath}/templates/chat/roll-treasure.html`,
     templateData
   );
 

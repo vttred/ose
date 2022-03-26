@@ -1,5 +1,5 @@
-import { OseDice } from "../dice.js";
-import { OseItem } from "../item/entity.js";
+import { OseDice } from "../dice";
+import { OseItem } from "../item/entity";
 
 export class OseActor extends Actor {
   /**

@@ -1,7 +1,7 @@
-import { OseActor } from "./entity.js";
-import { OseActorSheet } from "./actor-sheet.js";
-import { OseCharacterModifiers } from "../dialog/character-modifiers.js";
-import { OseCharacterCreator } from "../dialog/character-creation.js";
+import { OseActorSheet } from "./actor-sheet";
+import { OseCharacterModifiers } from "../dialog/character-modifiers";
+import { OseCharacterCreator } from "../dialog/character-creation";
+import { OSE } from "../config";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -20,7 +20,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["ose", "sheet", "actor", "character"],
-      template: "systems/ose/dist/templates/actors/character-sheet.html",
+      template: `${OSE.systemPath()}/templates/actors/character-sheet.html`,
       width: 450,
       height: 530,
       resizable: true,
@@ -135,7 +135,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
 
     let templateData = { choices: choices },
       dlg = await renderTemplate(
-        "systems/ose/dist/templates/actors/dialogs/lang-create.html",
+        `${OSE.systemPath()}/templates/actors/dialogs/lang-create.html`,
         templateData
       );
     //Create Dialog window
@@ -200,7 +200,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
   async _onShowItemTooltip(event) {
     let templateData = {},
       dlg = await renderTemplate(
-        "systems/ose/dist/templates/actors/partials/character-item-tooltip.html",
+        `${OSE.systemPath()}/templates/actors/partials/character-item-tooltip.html`,
         templateData
       );
     document.querySelector(".game").append(dlg);

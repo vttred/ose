@@ -1,5 +1,5 @@
-import { OseActor } from "./entity.js";
-import { OseEntityTweaks } from "../dialog/entity-tweaks.js";
+import { OseEntityTweaks } from "../dialog/entity-tweaks";
+import { OSE } from "../config";
 
 export class OseActorSheet extends ActorSheet {
   constructor(...args) {
@@ -289,7 +289,7 @@ export class OseActorSheet extends ActorSheet {
   async _chooseItemType(choices = ["weapon", "armor", "shield", "gear"]) {
     let templateData = { types: choices },
       dlg = await renderTemplate(
-        "systems/ose/dist/templates/items/entity-create.html",
+        `${OSE.systemPath()}/templates/items/entity-create.html`,
         templateData
       );
     //Create Dialog window

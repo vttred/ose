@@ -1,12 +1,10 @@
-// eslint-disable-next-line no-unused-vars
-import { OseActor } from "../actor/entity.js";
+import { OSE } from "../config";
 
 export class OseEntityTweaks extends FormApplication {
   static get defaultOptions() {
     const options = super.defaultOptions;
     options.id = "sheet-tweaks";
-    options.template =
-      "systems/ose/dist/templates/actors/dialogs/tweaks-dialog.html";
+    options.template = `${OSE.systemPath()}/templates/actors/dialogs/tweaks-dialog.html`;
     options.width = 380;
     return options;
   }

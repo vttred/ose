@@ -6,7 +6,7 @@ export class OseCharacterCreator extends FormApplication {
     const options = super.defaultOptions;
     (options.classes = ["ose", "dialog", "creator"]),
       (options.id = "character-creator");
-    options.template = `${OSE.systemPath}/templates/actors/dialogs/character-creation.html`;
+    options.template = `${OSE.systemPath()}/templates/actors/dialogs/character-creation.html`;
     options.width = 235;
     return options;
   }
@@ -127,7 +127,7 @@ export class OseCharacterCreator extends FormApplication {
       gold: this.gold,
     };
     const content = await renderTemplate(
-      `${OSE.systemPath}/templates/chat/roll-creation.html`,
+      `${OSE.systemPath()}/templates/chat/roll-creation.html`,
       templateData
     );
     ChatMessage.create({

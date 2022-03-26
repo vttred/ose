@@ -5,7 +5,7 @@ export class OsePartyXP extends FormApplication {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["ose", "dialog", "party-xp"],
-      template: `${OSE.systemPath}/templates/apps/party-xp.html`,
+      template: `${OSE.systemPath()}/templates/apps/party-xp.html`,
       width: 300,
       height: "auto",
       resizable: false,

@@ -103,7 +103,7 @@ async function rollTreasure(table, options = {}) {
   }
 
   let html = await renderTemplate(
-    `${OSE.systemPath}/templates/chat/roll-treasure.html`,
+    `${OSE.systemPath()}/templates/chat/roll-treasure.html`,
     templateData
   );
 

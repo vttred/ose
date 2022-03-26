@@ -14,7 +14,7 @@ export const RenderCompendium = async function (object, html, d) {
     const element = docs.filter((d) => d.id === id)[0];
     const tagTemplate = $.parseHTML(
       await renderTemplate(
-        `${OSE.systemPath}/templates/actors/partials/item-auto-tags-partial.html`,
+        `${OSE.systemPath()}/templates/actors/partials/item-auto-tags-partial.html`,
         { tags: OseItem.prototype.getAutoTagList.call(element) }
       )
     );
@@ -38,7 +38,7 @@ export const RenderDirectory = async function (object, html) {
 
     const tagTemplate = $.parseHTML(
       await renderTemplate(
-        `${OSE.systemPath}/templates/actors/partials/item-auto-tags-partial.html`,
+        `${OSE.systemPath()}/templates/actors/partials/item-auto-tags-partial.html`,
         { tags: OseItem.prototype.getAutoTagList.call(foundryDocument) }
       )
     );

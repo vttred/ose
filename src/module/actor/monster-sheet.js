@@ -18,7 +18,7 @@ export class OseActorSheetMonster extends OseActorSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["ose", "sheet", "monster", "actor"],
-      template: `${OSE.systemPath}/templates/actors/monster-sheet.html`,
+      template: `${OSE.systemPath()}/templates/actors/monster-sheet.html`,
       width: 450,
       height: 560,
       resizable: true,
@@ -151,7 +151,7 @@ export class OseActorSheetMonster extends OseActorSheet {
 
     let templateData = { choices: choices },
       dlg = await renderTemplate(
-        `${OSE.systemPath}/templates/actors/dialogs/monster-saves.html`,
+        `${OSE.systemPath()}/templates/actors/dialogs/monster-saves.html`,
         templateData
       );
     //Create Dialog window

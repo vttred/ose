@@ -289,7 +289,7 @@ export class OseActorSheet extends ActorSheet {
   async _chooseItemType(choices = ["weapon", "armor", "shield", "gear"]) {
     let templateData = { types: choices },
       dlg = await renderTemplate(
-        `${OSE.systemPath}/templates/items/entity-create.html`,
+        `${OSE.systemPath()}/templates/items/entity-create.html`,
         templateData
       );
     //Create Dialog window

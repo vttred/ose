@@ -10,7 +10,7 @@ export class OseDice {
     form = null,
     chatMessage = true,
   } = {}) {
-    const template = `${OSE.systemPath}/templates/chat/roll-result.html`;
+    const template = `${OSE.systemPath()}/templates/chat/roll-result.html`;
 
     let chatData = {
       user: game.user.id,
@@ -202,7 +202,7 @@ export class OseDice {
     speaker = null,
     form = null,
   } = {}) {
-    const template = `${OSE.systemPath}/templates/chat/roll-attack.html`;
+    const template = `${OSE.systemPath()}/templates/chat/roll-attack.html`;
     let chatData = {
       user: game.user.id,
       speaker: speaker,
@@ -301,7 +301,7 @@ export class OseDice {
     chatMessage = true,
   } = {}) {
     let rolled = false;
-    const template = `${OSE.systemPath}/templates/chat/roll-dialog.html`;
+    const template = `${OSE.systemPath()}/templates/chat/roll-dialog.html`;
     let dialogData = {
       formula: parts.join(" "),
       data: data,
@@ -379,7 +379,7 @@ export class OseDice {
     flags = {},
   } = {}) {
     let rolled = false;
-    const template = `${OSE.systemPath}/templates/chat/roll-dialog.html`;
+    const template = `${OSE.systemPath()}/templates/chat/roll-dialog.html`;
     let dialogData = {
       formula: parts.join(" "),
       data: data,

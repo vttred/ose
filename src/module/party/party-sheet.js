@@ -10,7 +10,7 @@ export class OsePartySheet extends FormApplication {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["ose", "dialog", "party-sheet"],
-      template: `${OSE.systemPath}/templates/apps/party-sheet.html`,
+      template: `${OSE.systemPath()}/templates/apps/party-sheet.html`,
       width: 280,
       height: 400,
       resizable: true,

@@ -60,6 +60,6 @@ export const registerHelpers = async function () {
   });
 
   Handlebars.registerHelper("path", function (relativePath) {
-    return `${OSE.systemPath}${relativePath}`;
+    return `${OSE.systemPath()}${relativePath}`;
   });
 };

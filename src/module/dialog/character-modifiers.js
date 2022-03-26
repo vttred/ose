@@ -5,7 +5,7 @@ export class OseCharacterModifiers extends FormApplication {
     const options = super.defaultOptions;
     (options.classes = ["ose", "dialog", "modifiers"]),
       (options.id = "sheet-modifiers");
-    options.template = `${OSE.systemPath}/templates/actors/dialogs/modifiers-dialog.html`;
+    options.template = `${OSE.systemPath()}/templates/actors/dialogs/modifiers-dialog.html`;
     options.width = 240;
     return options;
   }

@@ -1,14 +1,15 @@
-import { OseParty } from "./party.js";
+import { OseParty } from "./party";
+import { OSE } from "../config";
 
 export class OsePartyXP extends FormApplication {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["ose", "dialog", "party-xp"],
-      template: "systems/ose/dist/templates/apps/party-xp.html",
+      template: `${OSE.systemPath()}/templates/apps/party-xp.html`,
       width: 300,
       height: "auto",
       resizable: false,
-      closeOnSubmit: true
+      closeOnSubmit: true,
     });
   }
 
@@ -64,7 +65,9 @@ export class OsePartyXP extends FormApplication {
     const baseXpShare = parseFloat(totalXP) / currentParty.length;
 
     currentParty.forEach((a) => {
-      const xpShare = Math.floor((a.data.data.details.xp.share / 100) * baseXpShare)
+      const xpShare = Math.floor(
+        (a.data.data.details.xp.share / 100) * baseXpShare
+      );
       html.find(`li[data-actor-id='${a.id}'] input`).val(xpShare);
     });
   }
@@ -89,6 +92,8 @@ export class OsePartyXP extends FormApplication {
     const totalField = html.find('input[name="total"]');
     totalField.on("input", this._calculateShare.bind(this));
 
-    html.find('button[data-action="deal-xp"').click(event => { super.submit(event) });
+    html.find('button[data-action="deal-xp"').click((event) => {
+      super.submit(event);
+    });
   }
 }

@@ -1,7 +1,7 @@
 <form class="{{cssClass}}{{#if data.multiclass.enabled}} multiclass{{/if}}" autocomplete="off">
   {{! Sheet Header }}
   <header class="sheet-header flexrow">
-    {{> "systems/ose/dist/templates/actors/partials/character-header.html"}}
+    {{> (path "/templates/actors/partials/character-header.html") }}
   </header>
 
   {{! Sheet Tab Navigation }}
@@ -24,26 +24,21 @@
   <section class="sheet-body">
     {{! Attributes Tab }}
     <div class="tab" data-group="primary" data-tab="attributes">
-      {{>
-      "systems/ose/dist/templates/actors/partials/character-attributes-tab.html"}}
+      {{> (path "/templates/actors/partials/character-attributes-tab.html") }}
     </div>
     <div class="tab" data-group="primary" data-tab="abilities">
-      {{>
-      "systems/ose/dist/templates/actors/partials/character-abilities-tab.html"}}
+      {{> (path "/templates/actors/partials/character-abilities-tab.html") }}
     </div>
     {{#if data.spells.enabled}}
     <div class="tab" data-group="primary" data-tab="spells">
-      {{>
-      "systems/ose/dist/templates/actors/partials/character-spells-tab.html"}}
+      {{> (path "/templates/actors/partials/character-spells-tab.html") }}
     </div>
     {{/if}}
     <div class="tab" data-group="primary" data-tab="inventory">
-      {{>
-      "systems/ose/dist/templates/actors/partials/character-inventory-tab.html"}}
+      {{> (path "/templates/actors/partials/character-inventory-tab.html") }}
     </div>
     <div class="tab" data-group="primary" data-tab="notes">
-      {{>
-      "systems/ose/dist/templates/actors/partials/character-notes-tab.html"}}
+      {{> (path "/templates/actors/partials/character-notes-tab.html") }}
     </div>
   </section>
 </form>

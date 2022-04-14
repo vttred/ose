@@ -111,6 +111,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/RabidOwlbear"><img src="https://avatars.githubusercontent.com/u/71675732?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Grim</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=RabidOwlbear" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/WallaceMcGregor"><img src="https://avatars.githubusercontent.com/u/17795541?v=4?s=100" width="100px;" alt=""/><br /><sub><b>WallaceMcGregor</b></sub></a><br /><a href="#translation-WallaceMcGregor" title="Translation">🌍</a></td>
     <td align="center"><a href="https://github.com/IGALEGOI"><img src="https://avatars.githubusercontent.com/u/97805442?v=4?s=100" width="100px;" alt=""/><br /><sub><b>IGALEGOI</b></sub></a><br /><a href="#translation-IGALEGOI" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/sanviler"><img src="https://avatars.githubusercontent.com/u/96877404?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Lorenzo Castelletta</b></sub></a><br /><a href="#translation-sanviler" title="Translation">🌍</a></td>
     <td align="center"><a href="https://github.com/HerrSquash"><img src="https://avatars.githubusercontent.com/u/97633309?v=4?s=100" width="100px;" alt=""/><br /><sub><b>herrsquash</b></sub></a><br /><a href="#translation-herrsquash" title="Translation">🌍</a></td>
   </tr>
 </table>

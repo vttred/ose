@@ -1,16 +1,24 @@
-# This is the official list of benchmark authors for copyright purposes.
-# This file is distinct from the CONTRIBUTORS files.
-# See the latter for an explanation.
+# This is the official list of ose authors for copyright purposes.
+#
+# This file is distinct from the Contributors thanked in the README file.
+#   Copyright may be assigned to an org, while contributors are always listed
+#   as individuals.
+# 
 #
 # Names should be added to this file as:
 #	Name or Organization <email address>
-# The email address is not required for organizations.
 #
-# Please keep the list sorted.
+# If you'd prefer email privacy, use the noreply address provided by GitHub at
+#   this web address:
+#   https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-user-account/managing-email-preferences/setting-your-commit-email-address#setting-your-commit-email-address-on-github
+#
+# Please keep the list sorted alphabetically.
 
 Emmanuel Ruaud <43685820+mesfoliesludiques@users.noreply.github.com>
+HerrSquash <97633309+HerrSquash@users.noreply.github.com>
 Ian Engleback <35422051+engleback@users.noreply.github.com>
 IGALEGOI <97805442+IGALEGOI@users.noreply.github.com>
+Lorenzo Castelletta <lorenzo.castelletta@gmail.com>
 RabidOwlbear <71675732+RabidOwlbear@users.noreply.github.com>
 Stephen Faure <faure.stephen@gmail.com>
 VTT Red LLC <ose@vtt.red>

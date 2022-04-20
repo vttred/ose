@@ -40,7 +40,7 @@ If you use this system and appreciate it, we're not asking for your financial su
 
 - If you're a GitHub user and you appreciate this system, please give us a GitHub Star.
 - If you're a Foundry Hub user, please [endorse us or write a comment](https://www.foundryvtt-hub.com/package/ose/) (happy feedback and constructive feedback appreciated).
-- If you speak a non-English language, ask about contributing a system translation. Sign up for GitHub and start a [new Issue](https://github.com/vttred/ose/issues/new).
+- If you speak a non-English language, contribute some of your time on a system translation. [Join the ose project on Crowdin](https://crowdin.com/project/ose).
 - If you speak JavaScript, consider [contributing code](/CONTRIBUTING.md).
 - If you'd like to support the original maintainer of this system, U\~man, buy them a coffee on [Ko-Fi](https://ko-fi.com/u_man). It is largely because of U\~man's generosity that we are able to continue providing a free and open source system for Foundry VTT users.
 
@@ -61,6 +61,8 @@ It's always appreciated when users [submit an issue](https://github.com/vttred/o
 Any feedback is deeply appreciated. Please browse the [open issues](https://github.com/vttred/ose/issues/) and if there's not a matching one already, open a new one.
 
 If you're a developer, look for our [CONTRIBUTING.md](/CONTRIBUTING.md) file.
+
+If you speak a non-English language, [Join the ose project on Crowdin](https://crowdin.com/project/ose).
 
 ## Open Game Content Used Under License
 

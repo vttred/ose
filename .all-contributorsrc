@@ -60,12 +60,11 @@
       ]
     },
     {
-
       "login": "sanviler",
       "name": "Lorenzo Castelletta",
       "avatar_url": "https://avatars.githubusercontent.com/u/96877404?v=4",
       "profile": "https://github.com/sanviler",
-            "contributions": [
+      "contributions": [
         "translation"
       ]
     },
@@ -74,6 +73,15 @@
       "name": "herrsquash",
       "avatar_url": "https://avatars.githubusercontent.com/u/97633309?v=4",
       "profile": "https://github.com/HerrSquash",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "igorteuri",
+      "name": "Igor Teuri",
+      "avatar_url": "https://avatars.githubusercontent.com/u/64547748?v=4",
+      "profile": "http://linktr.ee/teuri",
       "contributions": [
         "translation"
       ]

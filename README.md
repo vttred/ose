@@ -11,7 +11,7 @@
 </p>
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Installation
@@ -114,7 +114,10 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/WallaceMcGregor"><img src="https://avatars.githubusercontent.com/u/17795541?v=4?s=100" width="100px;" alt=""/><br /><sub><b>WallaceMcGregor</b></sub></a><br /><a href="#translation-WallaceMcGregor" title="Translation">🌍</a></td>
     <td align="center"><a href="https://github.com/IGALEGOI"><img src="https://avatars.githubusercontent.com/u/97805442?v=4?s=100" width="100px;" alt=""/><br /><sub><b>IGALEGOI</b></sub></a><br /><a href="#translation-IGALEGOI" title="Translation">🌍</a></td>
     <td align="center"><a href="https://github.com/sanviler"><img src="https://avatars.githubusercontent.com/u/96877404?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Lorenzo Castelletta</b></sub></a><br /><a href="#translation-sanviler" title="Translation">🌍</a></td>
+  </tr>
+  <tr>
     <td align="center"><a href="https://github.com/HerrSquash"><img src="https://avatars.githubusercontent.com/u/97633309?v=4?s=100" width="100px;" alt=""/><br /><sub><b>herrsquash</b></sub></a><br /><a href="#translation-herrsquash" title="Translation">🌍</a></td>
+    <td align="center"><a href="http://linktr.ee/teuri"><img src="https://avatars.githubusercontent.com/u/64547748?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Igor Teuri</b></sub></a><br /><a href="#translation-igorteuri" title="Translation">🌍</a></td>
   </tr>
 </table>
 

@@ -1,15 +1,8 @@
-<<<<<<< HEAD
-import { OseActor } from "./entity.js";
-import { OseActorSheet } from "./actor-sheet.js";
-import { OseCharacterCreator } from "../dialog/character-creation.js";
-import { OseCharacterGpCost } from "../dialog/character-gp-cost.js";
-import { OseCharacterModifiers } from "../dialog/character-modifiers.js";
-=======
 import { OseActorSheet } from "./actor-sheet";
 import { OseCharacterModifiers } from "../dialog/character-modifiers";
+import { OseCharacterGpCost } from "../dialog/character-gp-cost.js";
 import { OseCharacterCreator } from "../dialog/character-creation";
 import { OSE } from "../config";
->>>>>>> origin
 
 /**
  * Extend the basic ActorSheet with some very simple modifications

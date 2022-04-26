@@ -10,27 +10,24 @@
   "OSE.Roll": "Tiro",
   "OSE.Success": "Successo",
   "OSE.Failure": "Fallimento",
-
   "OSE.dialog.tweaks": "Modifiche",
   "OSE.dialog.partysheet": "Panoramica del Gruppo",
   "OSE.dialog.partyselect": "Scegli Pg",
   "OSE.dialog.createItem": "Crea Oggetto",
   "OSE.dialog.itemType": "Tipo Oggetto",
   "OSE.dialog.itemName": "Nome Oggetto",
-  "OSE.dialog.xp.deal": "Assegna Exp",
-  "OSE.dialog.xp.label": "Exp",
+  "OSE.dialog.xp.deal": "Distribuisci XP",
+  "OSE.dialog.xp.label": "XP",
   "OSE.dialog.generator": "Generatore Personaggio",
   "OSE.dialog.generateSaves": "Genera Tiri Salvezza",
   "OSE.dialog.generateScores": "Genera Punteggi",
   "OSE.dialog.generateScore": "Tiro per {score} ({count})",
-
   "OSE.Formula": "Formula",
   "OSE.SitMod": "Modificatore di Circostanza",
   "OSE.Modifier": "Modificatore",
   "OSE.Modifiers": "Modificatori",
   "OSE.RollMode": "Modalità di Tiro",
   "OSE.RollExample": "es. +1d4",
-
   "OSE.roll.formula": "{label} tiro",
   "OSE.roll.appearing": "Tiro nr. Mostri ({type})",
   "OSE.roll.morale": "Tiro sul Morale",
@@ -45,10 +42,9 @@
   "OSE.roll.details.exploration": "Tira 1d6 <= {expl} per avere successo",
   "OSE.roll.reaction": "Tiro di Reazione",
   "OSE.roll.initiative": "Il Gruppo {group} tira per l'Iniziativa!",
-  "OSE.roll.individualInit": "{name} tira per for l'Iniziativa!",
-
+  "OSE.roll.individualInit": "{name} tira per l'Iniziativa!",
+  "OSE.roll.individualInitGroup": "Tiri per l'Iniziativa",
   "OSE.table.treasure.roll": "Tiro per i Tesori",
-
   "OSE.details.name": "Nome",
   "OSE.details.class": "Classe",
   "OSE.details.title": "Titolo",
@@ -65,16 +61,13 @@
   "OSE.details.morale": "Morale",
   "OSE.details.reaction": "Reazione",
   "OSE.details.appearing": "Nr. Mostri",
-
   "OSE.Attack": "Attacco",
   "OSE.Encumbrance": "Ingombro",
-
   "OSE.Retainer": "Seguace",
   "OSE.RetainerWage": "Ingaggio",
   "OSE.RetainerUpkeep": "Mantenimento",
   "OSE.Loyalty": "Livello di Fedeltà",
   "OSE.LoyaltyShort": "Fd",
-
   "OSE.scores.str.long": "Forza",
   "OSE.scores.str.short": "FOR",
   "OSE.scores.wis.long": "Saggezza",
@@ -87,7 +80,6 @@
   "OSE.scores.con.short": "COS",
   "OSE.scores.cha.long": "Carisma",
   "OSE.scores.cha.short": "CAR",
-
   "OSE.saves.death.short": "V",
   "OSE.saves.death.long": "Veleno o Raggio della Morte",
   "OSE.saves.wand.short": "B",
@@ -100,13 +92,11 @@
   "OSE.saves.spell.long": "Incantesimo, Verga o Bastone Magico",
   "OSE.saves.magic.long": "Bonus contro Magia",
   "OSE.saves.magic.short": "contro Magia",
-
   "OSE.Health": "Punti Ferita",
   "OSE.HealthMax": "Punti Ferita Massimi",
   "OSE.HealthShort": "PF",
   "OSE.HitDice": "Dadi Vita",
   "OSE.HitDiceShort": "DV",
-
   "OSE.movement.base": "Movimento",
   "OSE.movement.short": "MV",
   "OSE.movement.details": "Dettagli Movimento",
@@ -116,7 +106,6 @@
   "OSE.movement.overland.short": "Vi",
   "OSE.movement.exploration.short": "Es",
   "OSE.movement.exploration.long": "Movimento in Esplorazione",
-
   "OSE.ArmorClassNaked": "Classe Armatura Naturale",
   "OSE.ArmorClass": "Classe Armatura",
   "OSE.ArmorClassShort": "CA",
@@ -138,7 +127,6 @@
   "OSE.AttacksShort": "N.ATT",
   "OSE.Damage": "Danni",
   "OSE.Spellcaster": "Lanciatore di Incantesimi",
-
   "OSE.Language": "Linguaggio",
   "OSE.SpokenLanguages": "Lingue Parlate",
   "OSE.Literacy": "Letteratura",
@@ -150,10 +138,8 @@
   "OSE.NativePlus1": "Nativo + 1",
   "OSE.NativePlus2": "Nativo + 2",
   "OSE.NativePlus3": "Nativo + 3",
-
   "OSE.NPCReaction": "Reazione del PNG",
   "OSE.RetainersMax": "#Seguaci",
-
   "OSE.category.saves": "Tiri Salvezza",
   "OSE.category.attributes": "Attributi",
   "OSE.category.inventory": "Inventario",
@@ -163,9 +149,8 @@
   "OSE.category.languages": "Lingue",
   "OSE.category.description": "Descrizione",
   "OSE.category.equipment": "Equipaggiamento",
-
   "OSE.Setting.Initiative": "Iniziativa",
-  "OSE.Setting.InitiativeHint": "Iniziativa di gruppo o individuale",
+  "OSE.Setting.InitiativeHint": "Iniziativa di gruppo o individuale.",
   "OSE.Setting.InitiativeIndividual": "Iniziativa Individuale",
   "OSE.Setting.InitiativeGroup": "Iniziativa di Gruppo",
   "OSE.Setting.RerollInitiative": "Persistenza dell'Iniziativa",
@@ -175,7 +160,7 @@
   "OSE.Setting.InitiativeReset": "Resettala ad ogni round",
   "OSE.Setting.AscendingAC": "Classe Armatura Ascendente",
   "OSE.Setting.AscendingACHint": "Più alta è, meglio è",
-  "OSE.Setting.Morale": "Abilita il Morale dei mostri",
+  "OSE.Setting.Morale": "Abilita il Morale dei Mostri",
   "OSE.Setting.MoraleHint": "Il Morale viene mostrato sulla scheda del mostro",
   "OSE.Setting.Encumbrance": "Ingombro",
   "OSE.Setting.EncumbranceHint": "Scegli il metodo di calcolo dell'ingombro",
@@ -184,23 +169,27 @@
   "OSE.Setting.EncumbranceDetailed": "Dettagliato",
   "OSE.Setting.EncumbranceComplete": "Completo",
   "OSE.Setting.MovementAuto": "Calcolo automatico del movimento",
-  "OSE.Setting.SignificantTreasure": "Soglia del valore del tesoro",
-  "OSE.Setting.SignificantTreasureHint": "Peso per il quale il tesoro ridurrà il movimento, valido solo per l'ingombro di tipo 'base'",
+  "OSE.Setting.SignificantTreasure": "Soglia dell'Ingombro",
+  "OSE.Setting.SignificantTreasureHint": "Soglia del peso oltre la quale l'ingombro ridurrà la capacità di movimento (opzione valida solo se l'ingombro è di tipo 'base')",
   "OSE.Setting.Languages": "Lingue",
   "OSE.Setting.LanguagesHint": "Inserisci una lista di lingue, separate da una virgola",
   "OSE.Setting.EnableInventory": "Abilita l'Inventario",
-
+  "OSE.Setting.applyDamageOption": "Token Bersaglio dei Danni",
+  "OSE.Setting.applyDamageOptionHint": "Token ai quali applicare i danni in arrivo",
+  "OSE.Setting.damageSelected": "Token Selezionato",
+  "OSE.Setting.damageTarget": "Token Bersaglio",
   "OSE.items.Equip": "Indossa o Impugna",
   "OSE.items.Unequip": "Togli o Riponi",
   "OSE.items.Misc": "Altro",
   "OSE.items.Weapons": "Armi",
   "OSE.items.Treasure": "Tesori",
+  "OSE.items.Containers": "Borse",
   "OSE.items.Armors": "Armature",
   "OSE.items.Weight": "Peso",
   "OSE.items.Qualities": "Qualità",
   "OSE.items.Notes": "Note",
   "OSE.items.Cost": "Costo",
-  "OSE.items.Quantity": "Qt.",
+  "OSE.items.Quantity": "Qtà.",
   "OSE.items.Roll": "Tiro",
   "OSE.items.BlindRoll": "Nascosto",
   "OSE.items.RollTarget": "Bersaglio",
@@ -218,7 +207,6 @@
   "OSE.items.enterTag": "Etichette",
   "OSE.items.pattern": "Segnalatore del pattern dell'Attacco",
   "OSE.items.uses": "Utilizzi",
-
   "OSE.items.Range": "Distanza",
   "OSE.items.Melee": "Ravvicinato",
   "OSE.items.Missile": "A Distanza",
@@ -229,13 +217,11 @@
   "OSE.items.Splash": "Ad Area",
   "OSE.items.Reload": "Ricarica",
   "OSE.items.Charge": "Carica",
-
   "OSE.armor.type": "Tipo di Armatura",
   "OSE.armor.unarmored": "Senza Armatura",
   "OSE.armor.light": "Leggera",
   "OSE.armor.heavy": "Pesante",
   "OSE.armor.shield": "Scudo",
-
   "OSE.spells.spend": "{speaker} sta lanciando {name}!",
   "OSE.spells.Memorized": "Memorizzato",
   "OSE.spells.Cast": "Lanciato",
@@ -248,9 +234,7 @@
   "OSE.spells.ResetSlots": "Resetta gli slot degli Incantesimi",
   "OSE.spells.MemorizedSlotsHint": "Slot Memorizzati",
   "OSE.spells.MaximumSlotsHint": "Slot Disponibili",
-
   "OSE.abilities.Requirements": "Requisiti",
-
   "OSE.exploration.ld.long": "Ascoltare Porte",
   "OSE.exploration.ld.short": "Ascoltare Porte",
   "OSE.exploration.ld.abrev": "AP",
@@ -263,7 +247,6 @@
   "OSE.exploration.ft.long": "Scoprire Trappole",
   "OSE.exploration.ft.short": "Scoprire Trappole",
   "OSE.exploration.ft.abrev": "ST",
-
   "OSE.messages.GetExperience": "{name} ha guadagnato {value} punti esperienza!",
   "OSE.messages.AttackSuccess": "<b>Colpisce CA {result}!</b> ({bonus})",
   "OSE.messages.AttackAscendingSuccess": "<b>Colpisce CA {result}!</b>",
@@ -272,7 +255,6 @@
   "OSE.messages.InflictsDamage": "Infligge il Danno!",
   "OSE.messages.applyDamage": "Applica i Danni",
   "OSE.messages.applyHealing": "Applica le Cure",
-
   "OSE.colors.green": "Verde",
   "OSE.colors.red": "Rosso",
   "OSE.colors.yellow": "Giallo",
@@ -280,11 +262,12 @@
   "OSE.colors.blue": "Blu",
   "OSE.colors.orange": "Arancione",
   "OSE.colors.white": "Bianco",
-
   "OSE.reaction.check": "Tiro di Reazione",
   "OSE.reaction.Hostile": "{name} è Ostile",
   "OSE.reaction.Unfriendly": "{name} non è Amichevole",
   "OSE.reaction.Neutral": "{name} è Neutrale",
   "OSE.reaction.Indifferent": "{name} è Indifferente",
-  "OSE.reaction.Friendly": "{name} è Amichevole"
+  "OSE.reaction.Friendly": "{name} è Amichevole",
+  "OSE.CombatFlag.SpellDeclared": "Incantesimo Dichiarato",
+  "OSE.CombatFlag.RetreatFromMeleeDeclared": "Ritiro dal Combattimento in Mischia Dichiarato"
 }

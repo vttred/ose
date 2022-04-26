@@ -1,13 +1,12 @@
-import { OseActor } from "../actor/entity.js";
-import { OseDice } from "../dice.js";
+import { OseDice } from "../dice";
+import { OSE } from "../config";
 
 export class OseCharacterCreator extends FormApplication {
   static get defaultOptions() {
     const options = super.defaultOptions;
     (options.classes = ["ose", "dialog", "creator"]),
       (options.id = "character-creator");
-    options.template =
-      "systems/ose/dist/templates/actors/dialogs/character-creation.html";
+    options.template = `${OSE.systemPath()}/templates/actors/dialogs/character-creation.html`;
     options.width = 235;
     return options;
   }
@@ -128,7 +127,7 @@ export class OseCharacterCreator extends FormApplication {
       gold: this.gold,
     };
     const content = await renderTemplate(
-      "systems/ose/dist/templates/chat/roll-creation.html",
+      `${OSE.systemPath()}/templates/chat/roll-creation.html`,
       templateData
     );
     ChatMessage.create({

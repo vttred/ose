@@ -3,11 +3,11 @@
 rollup.config.js
 gulpfile.js
 
-# wherever lines of code match that found at the following repository:
+## wherever lines of code match that found at the following repository
 
 https://github.com/ghost-fvtt/foundry-factory
 
-# ghost-fvtt/foundry-factory LICENSE TEXT BELOW
+## ghost-fvtt/foundry-factory LICENSE TEXT BELOW
 
 Copyright 2021 Johannes Loher
 

@@ -11,7 +11,7 @@
 </p>
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Installation
@@ -40,7 +40,7 @@ If you use this system and appreciate it, we're not asking for your financial su
 
 - If you're a GitHub user and you appreciate this system, please give us a GitHub Star.
 - If you're a Foundry Hub user, please [endorse us or write a comment](https://www.foundryvtt-hub.com/package/ose/) (happy feedback and constructive feedback appreciated).
-- If you speak a non-English language, ask about contributing a system translation. Sign up for GitHub and start a [new Issue](https://github.com/vttred/ose/issues/new).
+- If you speak a non-English language, contribute some of your time on a system translation. [Join the ose project on Crowdin](https://crowdin.com/project/ose).
 - If you speak JavaScript, consider [contributing code](/CONTRIBUTING.md).
 - If you'd like to support the original maintainer of this system, U\~man, buy them a coffee on [Ko-Fi](https://ko-fi.com/u_man). It is largely because of U\~man's generosity that we are able to continue providing a free and open source system for Foundry VTT users.
 
@@ -61,6 +61,8 @@ It's always appreciated when users [submit an issue](https://github.com/vttred/o
 Any feedback is deeply appreciated. Please browse the [open issues](https://github.com/vttred/ose/issues/) and if there's not a matching one already, open a new one.
 
 If you're a developer, look for our [CONTRIBUTING.md](/CONTRIBUTING.md) file.
+
+If you speak a non-English language, [Join the ose project on Crowdin](https://crowdin.com/project/ose).
 
 ## Open Game Content Used Under License
 
@@ -111,6 +113,11 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/RabidOwlbear"><img src="https://avatars.githubusercontent.com/u/71675732?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Grim</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=RabidOwlbear" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/WallaceMcGregor"><img src="https://avatars.githubusercontent.com/u/17795541?v=4?s=100" width="100px;" alt=""/><br /><sub><b>WallaceMcGregor</b></sub></a><br /><a href="#translation-WallaceMcGregor" title="Translation">🌍</a></td>
     <td align="center"><a href="https://github.com/IGALEGOI"><img src="https://avatars.githubusercontent.com/u/97805442?v=4?s=100" width="100px;" alt=""/><br /><sub><b>IGALEGOI</b></sub></a><br /><a href="#translation-IGALEGOI" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/sanviler"><img src="https://avatars.githubusercontent.com/u/96877404?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Lorenzo Castelletta</b></sub></a><br /><a href="#translation-sanviler" title="Translation">🌍</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/HerrSquash"><img src="https://avatars.githubusercontent.com/u/97633309?v=4?s=100" width="100px;" alt=""/><br /><sub><b>herrsquash</b></sub></a><br /><a href="#translation-herrsquash" title="Translation">🌍</a></td>
+    <td align="center"><a href="http://linktr.ee/teuri"><img src="https://avatars.githubusercontent.com/u/64547748?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Igor Teuri</b></sub></a><br /><a href="#translation-igorteuri" title="Translation">🌍</a></td>
   </tr>
 </table>
 

@@ -1,3 +1,5 @@
+import { OSE } from "./config";
+
 export const registerHelpers = async function () {
   // Handlebars template helpers
   Handlebars.registerHelper("eq", function (a, b) {
@@ -39,7 +41,9 @@ export const registerHelpers = async function () {
   });
 
   Handlebars.registerHelper("getTagIcon", function (tag) {
-    let idx = Object.keys(CONFIG.OSE.tags).find(k => (CONFIG.OSE.tags[k] == tag));
+    let idx = Object.keys(CONFIG.OSE.tags).find(
+      (k) => CONFIG.OSE.tags[k] == tag
+    );
     return CONFIG.OSE.tag_images[idx];
   });
 
@@ -49,10 +53,13 @@ export const registerHelpers = async function () {
       : Math.clamped(100 - (100.0 * value) / max, 0, 100);
   });
 
-  Handlebars.registerHelper('times', function (n, block) {
-    var accum = '';
-    for (let i = 0; i < n; ++i)
-      accum += block.fn(i);
+  Handlebars.registerHelper("times", function (n, block) {
+    var accum = "";
+    for (let i = 0; i < n; ++i) accum += block.fn(i);
     return accum;
+  });
+
+  Handlebars.registerHelper("path", function (relativePath) {
+    return `${OSE.systemPath()}${relativePath}`;
   });
 };

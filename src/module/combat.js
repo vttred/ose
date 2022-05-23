@@ -14,7 +14,6 @@ export class OseCombat {
     };
   }
   static async rollInitiative(combat, data) {
-    console.log('roll init')
     // Check groups
     data.combatants = [];
     let groups = {};
@@ -270,7 +269,6 @@ export class OseCombat {
         return;
       }
       let data = {};
-      console.log('bingo')
       OseCombat.rollInitiative(game.combat, data);
       if (game.user.isGM) {
         game.combat.update({ data: data }).then(() => {

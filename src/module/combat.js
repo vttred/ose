@@ -63,6 +63,7 @@ export class OseCombat {
       return;
     }
     combat.resetAll();
+    
   }
 
   static async individualInitiative(combat, data) {

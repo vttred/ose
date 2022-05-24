@@ -107,7 +107,7 @@ export class OseItem extends Item {
     return true;
   }
 
-  async rollFormula(options = {}) {
+  async rollFormula({skipDialog = false, event}) {
     const data = this.data.data;
     if (!data.roll) {
       throw new Error("This Item does not have a formula to roll!");
@@ -130,10 +130,10 @@ export class OseItem extends Item {
 
     // Roll and return
     return OseDice.Roll({
-      event: options.event,
+      event: event,
       parts: rollParts,
       data: newData,
-      skipDialog: true,
+      skipDialog,
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: game.i18n.format("OSE.roll.formula", { label: label }),
       title: game.i18n.format("OSE.roll.formula", { label: label }),

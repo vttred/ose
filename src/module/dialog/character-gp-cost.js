@@ -1,5 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 
+import { OSE } from "../config";
+
 export class OseCharacterGpCost extends FormApplication {
   constructor(event, preparedData, position) {
     super(event, position);
@@ -10,7 +12,7 @@ export class OseCharacterGpCost extends FormApplication {
     (options.classes = ["ose", "dialog", "gp-cost"]),
       (options.id = "sheet-gp-cost");
     options.template =
-      "systems/ose/dist/templates/actors/dialogs/gp-cost-dialog.html";
+      `${OSE.systemPath()}/templates/actors/dialogs/gp-cost-dialog.html`;
     options.width = 240;
     return options;
   }
@@ -33,13 +35,28 @@ export class OseCharacterGpCost extends FormApplication {
    */
   async getData() {
     const data = await foundry.utils.deepClone(this.object.preparedData);
-    data.totalCost = this._getTotalCost(data);
+    data.totalCost = await this._getTotalCost(data);
     data.user = game.user;
     return data;
   }
 
   async close(options) {
     return super.close(options);
+  }
+
+  async _onSubmit(
+    event,
+    { preventClose = false, preventRender = false } = {}
+  ) {
+    super._onSubmit(event, {
+      preventClose: preventClose,
+      preventRender: preventRender,
+    });
+    // Generate gold
+    const totalCost = await this._getTotalCost(await this.getData());
+    const gp = await this.object.items.find((item)=>{return item.name === "GP"});
+    const newGP = gp.data.data.quantity.value - totalCost;
+    this.object.updateEmbeddedDocuments("Item", [{_id: gp._id, "data.data.quantity.value": newGP}]);
   }
 
   /**
@@ -57,7 +74,7 @@ export class OseCharacterGpCost extends FormApplication {
       gold: this.gold,
     };
     const content = await renderTemplate(
-      "systems/ose/dist/templates/chat/inventory-list.html",
+      `${OSE.systemPath()}/templates/chat/inventory-list.html`,
       templateData
     );
     ChatMessage.create({
@@ -74,9 +91,9 @@ export class OseCharacterGpCost extends FormApplication {
   async _getTotalCost(data) {
     let total = 0;
     const physical = ["item", "container", "weapon", "armor"];
-    for (item in data.items) {
-      if (physical.some((item) => item.type)) total += item.cost;
-    }
+    data.items.forEach(item => {
+      if (physical.some((itemType) => item.type === itemType) && !item.data.treasure) total += item.data.cost*item.data.quantity.value;
+    });
     return total;
   }
 

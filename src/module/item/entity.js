@@ -386,7 +386,10 @@ export class OseItem extends Item {
     const item = actor.items.get(card.dataset.itemId);
     if (!item) {
       return ui.notifications.error(
-        `The requested item ${card.dataset.itemId} no longer exists on Actor ${actor.name}`
+        game.i18n.format("OSE.error.itemNoLongerExistsOnActor", {
+          actorName: actor.name,
+          itemId: card.dataset.itemId,
+        })
       );
     }
 
@@ -402,8 +405,8 @@ export class OseItem extends Item {
     // Saving Throws for card targets
     else if (action == "save") {
       if (!targets.length) {
-        ui.notifications.warn(
-          `You must have one or more controlled Tokens in order to use this option.`
+        ui.notifications.error(
+          game.i18n.localize("OSE.error.noTokenControlled")
         );
         return (button.disabled = false);
       }

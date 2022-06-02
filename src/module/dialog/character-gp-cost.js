@@ -11,8 +11,7 @@ export class OseCharacterGpCost extends FormApplication {
     const options = super.defaultOptions;
     (options.classes = ["ose", "dialog", "gp-cost"]),
       (options.id = "sheet-gp-cost");
-    options.template =
-      `${OSE.systemPath()}/templates/actors/dialogs/gp-cost-dialog.html`;
+    options.template = `${OSE.systemPath()}/templates/actors/dialogs/gp-cost-dialog.html`;
     options.width = 240;
     return options;
   }
@@ -24,7 +23,9 @@ export class OseCharacterGpCost extends FormApplication {
    * @type {String}
    */
   get title() {
-    return `${this.object.name}: GP Cost`;
+    return `${this.object.name}: ${game.i18n.localize(
+      "OSE.dialog.shoppingCart"
+    )}`;
   }
 
   /* -------------------------------------------- */
@@ -37,6 +38,7 @@ export class OseCharacterGpCost extends FormApplication {
     const data = await foundry.utils.deepClone(this.object.preparedData);
     data.totalCost = await this._getTotalCost(data);
     data.user = game.user;
+    this.inventory = this.object.items;
     return data;
   }
 
@@ -44,19 +46,27 @@ export class OseCharacterGpCost extends FormApplication {
     return super.close(options);
   }
 
-  async _onSubmit(
-    event,
-    { preventClose = false, preventRender = false } = {}
-  ) {
+  async _onSubmit(event, { preventClose = false, preventRender = false } = {}) {
     super._onSubmit(event, {
       preventClose: preventClose,
       preventRender: preventRender,
     });
     // Generate gold
     const totalCost = await this._getTotalCost(await this.getData());
-    const gp = await this.object.items.find((item)=>{return item.name === "GP"});
+    const gp = await this.object.items.find((item) => {
+      return item.name === "GP" && item.data.data.treasure;
+    });
+    if (!gp) {
+      ui.notifications.error(game.i18n.localize("OSE.error.noGP"));
+    }
     const newGP = gp.data.data.quantity.value - totalCost;
-    this.object.updateEmbeddedDocuments("Item", [{_id: gp._id, "data.data.quantity.value": newGP}]);
+    if (newGP >= 0) {
+      this.object.updateEmbeddedDocuments("Item", [
+        { _id: gp.id, "data.quantity.value": newGP },
+      ]);
+    } else {
+      ui.notifications.error(game.i18n.localize("OSE.error.notEnoughGP"));
+    }
   }
 
   /**
@@ -71,7 +81,7 @@ export class OseCharacterGpCost extends FormApplication {
 
     const speaker = ChatMessage.getSpeaker({ actor: this });
     const templateData = {
-      gold: this.gold,
+      name: this.gold,
     };
     const content = await renderTemplate(
       `${OSE.systemPath()}/templates/chat/inventory-list.html`,
@@ -91,8 +101,12 @@ export class OseCharacterGpCost extends FormApplication {
   async _getTotalCost(data) {
     let total = 0;
     const physical = ["item", "container", "weapon", "armor"];
-    data.items.forEach(item => {
-      if (physical.some((itemType) => item.type === itemType) && !item.data.treasure) total += item.data.cost*item.data.quantity.value;
+    data.items.forEach((item) => {
+      if (
+        physical.some((itemType) => item.type === itemType) &&
+        !item.data.treasure
+      )
+        total += item.data.cost * item.data.quantity.value;
     });
     return total;
   }

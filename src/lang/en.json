@@ -23,6 +23,7 @@
   "OSE.dialog.generateSaves": "Generate Saves",
   "OSE.dialog.generateScores": "Generate Scores",
   "OSE.dialog.generateScore": "Rolling {score} ({count})",
+  "OSE.dialog.shoppingCart": "Shopping Cart",
 
   "OSE.Formula": "Formula",
   "OSE.SitMod": "Situational Modifier",
@@ -303,5 +304,6 @@
   "OSE.error.noItemWithName": "Your controlled Actor {actorName} does not have an item named {itemName}.",
   "OSE.error.notEnoughGP": "This Actor doesn't have enough GP to pay for its inventory.",
   "OSE.error.itemNoLongerExistsOnActor": "The requested Item {itemId} no longer exists on Actor {actorName}.",
-  "OSE.error.noTokenControlled": "You must have one or more controlled Tokens in order to use this option."
+  "OSE.error.noTokenControlled": "You must have one or more controlled Tokens in order to use this option.",
+  "OSE.error.noGP": "You need a GP item to use this feature."
 }

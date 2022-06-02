@@ -18,7 +18,7 @@ export class OseCombat {
     data.combatants = [];
     let groups = {};
     combat.data.combatants.forEach((cbt) => {
-      const group = cbt.getFlag("ose", "group");
+      const group = cbt.getFlag(game.system.id, "group");
       groups[group] = { present: true };
       data.combatants.push(cbt);
     });
@@ -45,7 +45,7 @@ export class OseCombat {
             initiative: OseCombat.STATUS_SLOW,
           });
         } else {
-          const group = data.combatants[i].getFlag("ose", "group");
+          const group = data.combatants[i].getFlag(game.system.id, "group");
           this.debounce(
             data.combatants[i].update({ initiative: groups[group].initiative }),
             500
@@ -142,8 +142,8 @@ export class OseCombat {
       // Append spellcast and retreat
       const controls = $(ct).find(".combatant-controls .combatant-control");
       const cmbtant = object.viewed.combatants.get(ct.dataset.combatantId);
-      const moveInCombat = cmbtant.getFlag("ose", "moveInCombat");
-      const preparingSpell = cmbtant.getFlag("ose", "prepareSpell");
+      const moveInCombat = cmbtant.getFlag(game.system.id, "moveInCombat");
+      const preparingSpell = cmbtant.getFlag(game.system.id, "prepareSpell");
       const moveActive = moveInCombat ? "active" : "";
       controls
         .eq(1)
@@ -183,7 +183,7 @@ export class OseCombat {
 
       // Get group color
       const cmbtant = object.viewed.combatants.get(ct.dataset.combatantId);
-      let color = cmbtant.getFlag("ose", "group");
+      let color = cmbtant.getFlag(game.system.id, "group");
 
       // Append colored flag
       let controls = $(ct).find(".combatant-controls");
@@ -203,10 +203,10 @@ export class OseCombat {
     }
     if (data.initiative && init == "group") {
       let groupInit = data.initiative;
-      const cmbtGroup = combatant.getFlag("ose", "group");
+      const cmbtGroup = combatant.getFlag(game.system.id, "group");
       // Check if there are any members of the group with init
       game.combats.viewed.combatants.forEach((ct) => {
-        const group = ct.getFlag("ose", "group");
+        const group = ct.getFlag(game.system.id, "group");
         if (
           ct.initiative &&
           ct.initiative != "-789.00" &&
@@ -229,7 +229,7 @@ export class OseCombat {
       let id = $(ev.currentTarget).closest(".combatant")[0].dataset.combatantId;
       let isActive = ev.currentTarget.classList.contains("active");
       const combatant = game.combat.combatants.get(id);
-      combatant.setFlag("ose", "prepareSpell", !isActive);
+      combatant.setFlag(game.system.id, "prepareSpell", !isActive);
     });
     html.find(".combatant-control.move-combat").click((ev) => {
       ev.preventDefault();
@@ -238,7 +238,7 @@ export class OseCombat {
       let isActive = ev.currentTarget.classList.contains("active");
       const combatant = game.combat.combatants.get(id);
       if (game.user.isGM) {
-        combatant.setFlag("ose", "moveInCombat", !isActive);
+        combatant.setFlag(game.system.id, "moveInCombat", !isActive);
       }
     });
   }
@@ -260,7 +260,7 @@ export class OseCombat {
       let id = $(ev.currentTarget).closest(".combatant")[0].dataset.combatantId;
       const combatant = game.combat.combatants.get(id);
       if (game.user.isGM) {
-        combatant.setFlag("ose", "group", colors[index]);
+        combatant.setFlag(game.system.id, "group", colors[index]);
       }
     });
 

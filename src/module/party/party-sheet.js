@@ -69,11 +69,11 @@ export class OsePartySheet extends FormApplication {
       return;
     }
 
-    await actor.setFlag("ose", "party", true);
+    await actor.setFlag(game.system.id, "party", true);
   }
 
   async _removeActorFromParty(actor) {
-    await actor.setFlag("ose", "party", false);
+    await actor.setFlag(game.system.id, "party", false);
   }
 
   /* ---------------------- */

@@ -1,0 +1,155 @@
+<section class="ose chat-card">
+  <div class="ose chat-block">
+    <div class="flexrow chat-header">
+      <div class="chat-title">
+        <h2>{{name}} {{localize "OSE.category.inventory"}}</h2>
+      </div>
+    </div>
+    <div class="inventory-list">
+      <div id="weapons" class="item-category-title">
+        <div class="category-name">{{localize "OSE.items.Weapons"}}</div>
+      </div>
+      <ol class="item-list">
+        {{#each owned.weapons as |item|}}
+        <li class="item-entry item" data-item-id="{{item.id}}">
+          <div class="item-header flexrow">
+            <div
+              class="item-image"
+              style="background-image: url({{item.img}})"
+            ></div>
+            <h4 class="item-name" title="{{item.name}}">{{item.name~}}</h4>
+            <div class="field-short">
+              {{localize "OSE.items.Quantity"}}
+              {{item.data.data.quantity.value}}
+            </div>
+          </div>
+          <div class="item-summary">
+            {{> (path "/templates/actors/partials/actor-item-summary.html")
+            item=item}}
+          </div>
+        </li>
+        {{/each}}
+      </ol>
+      <div id="armors" class="item-category-title">
+        <div class="category-name">{{localize "OSE.items.Armors"}}</div>
+      </div>
+      <ol class="item-list">
+        {{#each owned.armors as |item|}}
+        <li class="item-entry item" data-item-id="{{item.id}}">
+          <div class="item-header flexrow">
+            <div
+              class="item-image"
+              style="background-image: url({{item.img}})"
+            ></div>
+            <h4 class="item-name" title="{{item.name}}">{{item.name~}}</h4>
+            <div class="field-short">
+              {{localize "OSE.items.Quantity"}}
+              {{item.data.data.quantity.value}}
+            </div>
+          </div>
+          <div class="item-summary">
+            {{> (path "/templates/actors/partials/actor-item-summary.html")
+            item=item}}
+          </div>
+        </li>
+        {{/each}}
+      </ol>
+      {{!-- Containers items --}}
+      <div id="container" class="item-category-title">
+        <div class="category-name">{{localize "OSE.items.Containers"}}</div>
+      </div>
+      <ol class="item-list">
+        {{#each owned.containers as |bag|}}
+        <li class="container item-entry item" data-item-id="{{bag.id}}">
+          <div class="item-header flexrow">
+            <div
+              class="item-image"
+              style="background-image: url({{bag.img}})"
+            ></div>
+            <h4 class="item-name" title="{{bag.name}}">{{bag.name~}}</h4>
+            <div class="field-short">
+              {{localize "OSE.items.Quantity"}}
+              {{item.data.data.quantity.value}}
+            </div>
+          </div>
+          <div class="item-summary">
+            {{> (path "/templates/actors/partials/actor-item-summary.html")
+            item=bag}}
+          </div>
+          <ol class="item-list contained-items">
+            {{#each bag.data.data.itemIds as |item|}}
+            <li class="item-entry item" data-item-id="{{item.id}}">
+              <div class="item-header flexrow">
+                <div
+                  class="item-image"
+                  style="background-image: url({{item.img}})"
+                ></div>
+                <h4 class="item-name" title="{{item.name}}">{{item.name~}}</h4>
+                <div class="field-short">
+                  {{localize "OSE.items.Quantity"}}
+                  {{item.data.data.quantity.value}}
+                </div>
+              </div>
+              <div class="item-summary">
+                {{> (path "/templates/actors/partials/actor-item-summary.html")
+                item=item}}
+              </div>
+            </li>
+            {{/each}}
+          </ol>
+        </li>
+        {{/each}}
+      </ol>
+      {{!-- Misc items --}}
+      <div id="gear" class="item-category-title">
+        <div class="category-name">{{localize "OSE.items.Misc"}}</div>
+      </div>
+      <ol class="item-list">
+        {{#each owned.items as |item|}}
+        <li class="item-entry item" data-item-id="{{item.id}}">
+          <div class="item-header flexrow">
+            <div
+              class="item-image"
+              style="background-image: url({{item.img}})"
+            ></div>
+            <h4 class="item-name" title="{{item.name}}">{{item.name~}}</h4>
+            <div class="field-short">
+              {{localize "OSE.items.Quantity"}}
+              {{item.data.data.quantity.value}}
+            </div>
+          </div>
+          <div class="item-summary">
+            {{> (path "/templates/actors/partials/actor-item-summary.html")
+            item=item}}
+          </div>
+        </li>
+        {{/each}}
+      </ol>
+      {{!-- Treasure items --}}
+      <div id="treasure" class="item-category-title">
+        <div class="category-name">{{localize "OSE.items.Treasure"}}</div>
+      </div>
+      <ol class="item-list">
+        {{#each owned.treasures as |item|}}
+        <li class="item-entry item" data-item-id="{{item.id}}">
+          <div class="item-header flexrow">
+            <div
+              class="item-image"
+              style="background-image: url({{item.img}})"
+            ></div>
+            <h4 class="item-name" title="{{item.name}}">{{item.name~}}</h4>
+            <div class="field-short">
+              {{localize "OSE.items.Quantity"}}
+              {{item.data.data.quantity.value}}
+            </div>
+          </div>
+          <div class="item-summary">
+            {{> (path "/templates/actors/partials/actor-item-summary.html")
+            item=item}}
+          </div>
+        </li>
+        {{/each}}
+      </ol>
+    </div>
+  </div>
+</section>

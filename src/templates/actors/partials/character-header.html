@@ -71,7 +71,7 @@
       <label>{{localize 'OSE.details.class'}}</label>
     </li>
     <li
-      class="{{#if (gt data.details.xp.value data.details.xp.next)}}notify{{/if}}"
+      class="{{#if (gte data.details.xp.value data.details.xp.next)}}notify{{/if}}"
     >
       <input
         type="text"

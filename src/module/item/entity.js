@@ -320,7 +320,7 @@ export class OseItem extends Item {
     templateData.data.properties = this.getAutoTagList();
 
     // Render the chat card template
-    const template = `${OSE.systemPath()}/dist/templates/chat/item-card.html`;
+    const template = `${OSE.systemPath()}/templates/chat/item-card.html`;
     const html = await renderTemplate(template, templateData);
 
     // Basic chat message data

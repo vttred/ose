@@ -63,6 +63,7 @@ export class OseCombat {
       return;
     }
     combat.resetAll();
+    
   }
 
   static async individualInitiative(combat, data) {
@@ -103,7 +104,7 @@ export class OseCombat {
       updates[i].initiative = value;
 
       //render template
-      let template = `${OSE.systemPath()}/dist/templates/chat/roll-individual-initiative.html`;
+      let template = `${OSE.systemPath()}/templates/chat/roll-individual-initiative.html`;
       let tData = {
         name: cbt.name,
         formula: roll.formula,

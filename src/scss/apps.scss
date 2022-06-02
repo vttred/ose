@@ -32,6 +32,34 @@
   }
 }
 
+.ose.dialog.gp-cost {
+  .item-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    .item-entry {
+      line-height: 30px;
+      .item-header {
+        padding: 0px;
+        margin-bottom: 0px;
+        height: 30px;
+        .item-image {
+          flex-basis: 30px;
+          flex-grow: 0;
+          background-size: contain;
+          background-repeat: no-repeat;
+        }
+        .field-short {
+          font-size: 12px;
+          flex-basis: 45px;
+          flex-grow: 0;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+
 .ose.dialog.party-xp {
   .actors {
     max-height: 250px;
@@ -70,7 +98,7 @@
   .window-content {
     padding: 0;
   }
-  #party-sheet{
+  #party-sheet {
     display: flex;
     flex-direction: column;
   }
@@ -328,6 +356,42 @@
       color: $colorOlive;
       &:hover {
         color: #111;
+      }
+    }
+  }
+
+  .inventory-list {
+    .item-category-title {
+      line-height: 30px;
+    }
+    .item-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      .item-entry {
+        line-height: 30px;
+        .item-header {
+          padding: 0px;
+          margin-bottom: 0px;
+          height: 30px;
+          .item-image {
+            flex-basis: 30px;
+            flex-grow: 0;
+            background-size: contain;
+            background-repeat: no-repeat;
+          }
+          .item-name {
+            text-indent: 8px;
+          }
+        }
+        .item-summary {
+          margin: 0 0 0 8px;
+          padding: 0;
+          line-height: normal;
+          .tag {
+            list-style: none;
+          }
+        }
       }
     }
   }

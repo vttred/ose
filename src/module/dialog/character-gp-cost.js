@@ -80,16 +80,14 @@ export class OseCharacterGpCost extends FormApplication {
     const items = this.object.data.items;
 
     const speaker = ChatMessage.getSpeaker({ actor: this });
-    const templateData = {
-      name: this.gold,
-    };
+    const templateData = await this.getData();
     const content = await renderTemplate(
       `${OSE.systemPath()}/templates/chat/inventory-list.html`,
       templateData
     );
     ChatMessage.create({
       content: content,
-      speaker,
+      speaker: speaker,
     });
     // Update the actor
     await this.object.update(formData);

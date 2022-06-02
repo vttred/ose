@@ -24,6 +24,7 @@
   "OSE.dialog.generateScores": "Generate Scores",
   "OSE.dialog.generateScore": "Rolling {score} ({count})",
   "OSE.dialog.shoppingCart": "Shopping Cart",
+  "OSE.dialog.purchaseFor": "Purchase for {totalCost}GP",
 
   "OSE.Formula": "Formula",
   "OSE.SitMod": "Situational Modifier",

@@ -23,6 +23,8 @@
   "OSE.dialog.generateSaves": "Generate Saves",
   "OSE.dialog.generateScores": "Generate Scores",
   "OSE.dialog.generateScore": "Rolling {score} ({count})",
+  "OSE.dialog.shoppingCart": "Shopping Cart",
+  "OSE.dialog.purchaseFor": "Purchase for {totalCost}GP",
 
   "OSE.Formula": "Formula",
   "OSE.SitMod": "Situational Modifier",
@@ -295,5 +297,14 @@
   "OSE.reaction.Friendly": "{name} is Friendly",
 
   "OSE.CombatFlag.SpellDeclared": "Spell Declared",
-  "OSE.CombatFlag.RetreatFromMeleeDeclared": "Retreat From Melee Declared"
+  "OSE.CombatFlag.RetreatFromMeleeDeclared": "Retreat From Melee Declared",
+
+  "OSE.warn.moreThanOneItemWithName": "Your controlled Actor {actorName} has more than one Item with name ${itemName}. The first matched Item will be chosen.",
+
+  "OSE.error.macrosOnlyForOwnedItems": "You can only create macro buttons for owned Items",
+  "OSE.error.noItemWithName": "Your controlled Actor {actorName} does not have an item named {itemName}.",
+  "OSE.error.notEnoughGP": "This Actor doesn't have enough GP to pay for its inventory.",
+  "OSE.error.itemNoLongerExistsOnActor": "The requested Item {itemId} no longer exists on Actor {actorName}.",
+  "OSE.error.noTokenControlled": "You must have one or more controlled Tokens in order to use this option.",
+  "OSE.error.noGP": "You need a GP item to use this feature."
 }

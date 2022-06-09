@@ -22,6 +22,8 @@
   "OSE.dialog.generateSaves": "Retten generieren",
   "OSE.dialog.generateScores": "Attribute generieren",
   "OSE.dialog.generateScore": "Würfeln {score} ({count})",
+  "OSE.dialog.shoppingCart": "Einkaufswagen",
+  "OSE.dialog.purchaseFor": "Einkauf für {totalCost}GP",
   "OSE.Formula": "Formel",
   "OSE.SitMod": "Situationsmodifikator",
   "OSE.Modifier": "Modifikator",
@@ -269,5 +271,12 @@
   "OSE.reaction.Indifferent": "{name} ist gleichgültig",
   "OSE.reaction.Friendly": "{name} ist freundlich",
   "OSE.CombatFlag.SpellDeclared": "Spruch deklariert",
-  "OSE.CombatFlag.RetreatFromMeleeDeclared": "Rückzug von Nahkampf erklärt"
+  "OSE.CombatFlag.RetreatFromMeleeDeclared": "Rückzug von Nahkampf erklärt",
+  "OSE.warn.moreThanOneItemWithName": "Der von Ihnen kontrollierte Akteur {actorName} hat mehr als einen Artikel mit dem Namen ${itemName}. Das erste passende Artikel wird ausgewählt.",
+  "OSE.error.macrosOnlyForOwnedItems": "Sie können nur Makrotasten für eigene Artikel erstellen",
+  "OSE.error.noItemWithName": "Der von Ihnen kontrollierte Akteur {actorName} hat keinen Artikel mit dem Namen {itemName}.",
+  "OSE.error.notEnoughGP": "Dieser Akteur hat nicht genug GP, um sein Inventar zu bezahlen.",
+  "OSE.error.itemNoLongerExistsOnActor": "Das gewünschte Artikel {itemId} existiert nicht mehr auf Akteur {actorName}.",
+  "OSE.error.noTokenControlled": "Sie müssen über ein oder mehrere kontrollierte Token verfügen, um diese Option nutzen zu können.",
+  "OSE.error.noGP": "Sie benötigen einen GP-Artikel, um diese Funktion zu nutzen."
 }

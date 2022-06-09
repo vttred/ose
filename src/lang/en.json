@@ -226,6 +226,8 @@
   "OSE.items.enterTag": "Tags",
   "OSE.items.pattern": "Attack pattern marker",
   "OSE.items.uses": "Uses",
+  "OSE.items.gp.short": "GP",
+  "OSE.items.gp.long": "Gold Pieces",
 
   "OSE.items.Range": "Range",
   "OSE.items.Melee": "Melee",

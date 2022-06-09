@@ -186,7 +186,7 @@ export class OseCharacterCreator extends FormApplication {
     });
     // Generate gold
     const itemData = {
-      name: "GP",
+      name: game.i18n.localize("OSE.items.gp.short"),
       type: "item",
       img: "systems/ose/assets/gold.png",
       data: {

@@ -1,5 +1,6 @@
 {
   "name": "ose",
+  "id": "dev-ose",
   "title": "Old-School Essentials",
   "description": "Play B/X OSR modules with Old-School Essentials on Foundry VTT",
   "version": "AUTOMATICALLY REPLACED BY GITHUB WORKFLOW ACTION",

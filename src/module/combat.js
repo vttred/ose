@@ -58,12 +58,11 @@ export class OseCombat {
   }
 
   static async resetInitiative(combat, data) {
-    let reroll = game.settings.get("ose", "rerollInitiative");
+    let reroll = game.settings.get(game.system.id, "rerollInitiative");
     if (!["reset", "reroll"].includes(reroll)) {
       return;
     }
     combat.resetAll();
-    
   }
 
   static async individualInitiative(combat, data) {
@@ -163,7 +162,7 @@ export class OseCombat {
     });
     OseCombat.announceListener(html);
 
-    let init = game.settings.get("ose", "initiative") === "group";
+    let init = game.settings.get(game.system.id, "initiative") === "group";
     if (!init) {
       return;
     }
@@ -195,7 +194,7 @@ export class OseCombat {
   }
 
   static updateCombatant(combatant, data) {
-    let init = game.settings.get("ose", "initiative");
+    let init = game.settings.get(game.system.id, "initiative");
     // Why do you reroll ?
     if (combatant.actor.data.data.isSlow) {
       data.initiative = -789;
@@ -318,8 +317,8 @@ export class OseCombat {
   }
 
   static async preUpdateCombat(combat, data, diff, id) {
-    let init = game.settings.get("ose", "initiative");
-    let reroll = game.settings.get("ose", "rerollInitiative");
+    let init = game.settings.get(game.system.id, "initiative");
+    let reroll = game.settings.get(game.system.id, "rerollInitiative");
     if (!data.round) {
       return;
     }

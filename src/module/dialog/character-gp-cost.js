@@ -54,6 +54,7 @@ export class OseCharacterGpCost extends FormApplication {
     // Generate gold
     const totalCost = await this._getTotalCost(await this.getData());
     const gp = await this.object.items.find((item) => {
+      itemData = item?.system || item?.data?.data; //v9-compatibility
       return item.name === "GP" && item.data.data.treasure;
     });
     if (!gp) {

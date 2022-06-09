@@ -159,7 +159,7 @@ export class OseDice {
       : 0;
     result.victim = data.roll.target ? data.roll.target.data.name : null;
 
-    if (game.settings.get("ose", "ascendingAC")) {
+    if (game.settings.get(game.system.id, "ascendingAC")) {
       if (
         (roll.terms[0] != 20 && roll.total < targetAac) ||
         roll.terms[0] == 1

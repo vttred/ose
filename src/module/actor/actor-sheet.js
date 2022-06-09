@@ -14,9 +14,9 @@ export class OseActorSheet extends ActorSheet {
 
     data.config = {
       ...CONFIG.OSE,
-      ascendingAC: game.settings.get("ose", "ascendingAC"),
-      initiative: game.settings.get("ose", "initiative") != "group",
-      encumbrance: game.settings.get("ose", "encumbranceOption"),
+      ascendingAC: game.settings.get(game.system.id, "ascendingAC"),
+      initiative: game.settings.get(game.system.id, "initiative") != "group",
+      encumbrance: game.settings.get(game.system.id, "encumbranceOption"),
     };
     data.isNew = this.actor.isNew();
 
@@ -25,9 +25,9 @@ export class OseActorSheet extends ActorSheet {
 
   activateEditor(name, options, initialContent) {
     // remove some controls to the editor as the space is lacking
-    if (name == "data.details.description") {
-      options.toolbar = "styleselect bullist hr table removeFormat save";
-    }
+    // if (name == "data.details.description") {
+    //   options.toolbar = "styleselect bullist hr table removeFormat save";
+    // }
     super.activateEditor(name, options, initialContent);
   }
 
@@ -184,7 +184,7 @@ export class OseActorSheet extends ActorSheet {
     let element = event.currentTarget;
     let attack = element.parentElement.parentElement.dataset.attack;
     const rollData = {
-      actor: this.data,
+      actor: isNewerVersion(game.version, "10.264") ? this : this.data, //v9-compatibility
       roll: {},
     };
     actorObject.targetAttack(rollData, attack, {

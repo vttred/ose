@@ -61,6 +61,11 @@ export const registerHelpers = async function () {
 
   // helper for parsing inline rolls
   Handlebars.registerHelper("parseInline", function (html) {
-    return TextEditor.enrichHTML(html)
-  })
+    return TextEditor.enrichHTML(html);
+  });
+
+  // helper for v9 compatibility
+  Handlebars.registerHelper("data", function (relativeKey) {
+    return `${"system." + relativeKey}`;
+  });
 };

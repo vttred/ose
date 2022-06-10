@@ -209,6 +209,8 @@
   "OSE.items.enterTag": "Stichworte",
   "OSE.items.pattern": "Angriffsmuster-Kennung",
   "OSE.items.uses": "Verwendungen",
+  "OSE.items.gp.short": "GM",
+  "OSE.items.gp.long": "Goldmünzen",
   "OSE.items.Range": "Reichweite",
   "OSE.items.Melee": "Nahkampf",
   "OSE.items.Missile": "Fernkampf",
@@ -275,8 +277,8 @@
   "OSE.warn.moreThanOneItemWithName": "Der von Ihnen kontrollierte Akteur {actorName} hat mehr als einen Artikel mit dem Namen ${itemName}. Das erste passende Artikel wird ausgewählt.",
   "OSE.error.macrosOnlyForOwnedItems": "Sie können nur Makrotasten für eigene Artikel erstellen",
   "OSE.error.noItemWithName": "Der von Ihnen kontrollierte Akteur {actorName} hat keinen Artikel mit dem Namen {itemName}.",
-  "OSE.error.notEnoughGP": "Dieser Akteur hat nicht genug GP, um sein Inventar zu bezahlen.",
+  "OSE.error.notEnoughGP": "Dieser Akteur hat nicht genug GM, um sein Inventar zu bezahlen.",
   "OSE.error.itemNoLongerExistsOnActor": "Das gewünschte Artikel {itemId} existiert nicht mehr auf Akteur {actorName}.",
   "OSE.error.noTokenControlled": "Sie müssen über ein oder mehrere kontrollierte Token verfügen, um diese Option nutzen zu können.",
-  "OSE.error.noGP": "Sie benötigen einen GP-Artikel, um diese Funktion zu nutzen."
+  "OSE.error.noGP": "Sie benötigen einen GM-Artikel, um diese Funktion zu nutzen."
 }

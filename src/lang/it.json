@@ -209,6 +209,8 @@
   "OSE.items.enterTag": "Etichette",
   "OSE.items.pattern": "Segnalatore del pattern dell'Attacco",
   "OSE.items.uses": "Utilizzi",
+  "OSE.items.gp.short": "MO",
+  "OSE.items.gp.long": "Monete d'Oro",
   "OSE.items.Range": "Distanza",
   "OSE.items.Melee": "Ravvicinato",
   "OSE.items.Missile": "A Distanza",

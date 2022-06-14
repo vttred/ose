@@ -103,10 +103,11 @@ export class OseActorSheet extends ActorSheet {
 
   async _removeItemFromActor(event) {
     const item = this._getItemFromActor(event);
+    const itemData = item?.system || item?.data?.data; //v9-compatibility
     const itemDisplay = event.currentTarget.closest(".item-entry");
 
-    if (item.type === "container" && item.data.data.itemIds) {
-      const containedItems = item.data.data.itemIds;
+    if (item.type === "container" && itemData.itemIds) {
+      const containedItems = itemData.itemIds;
       const updateData = containedItems.reduce((acc, val) => {
         acc.push({ _id: val.id, "data.containerId": "" });
         return acc;
@@ -122,11 +123,12 @@ export class OseActorSheet extends ActorSheet {
    */
   _useConsumable(event, decrement) {
     const item = this._getItemFromActor(event);
+    const itemData = item?.system || item?.data?.data; //v9-compatibility
 
     if (decrement) {
-      item.update({ "data.quantity.value": item.data.data.quantity.value - 1 });
+      item.update({ "data.quantity.value": itemData.quantity.value - 1 });
     } else {
-      item.update({ "data.quantity.value": item.data.data.quantity.value + 1 });
+      item.update({ "data.quantity.value": itemData.quantity.value + 1 });
     }
   }
 
@@ -149,19 +151,21 @@ export class OseActorSheet extends ActorSheet {
     spells.each((_, el) => {
       let itemId = el.dataset.itemId;
       const item = this.actor.items.get(itemId);
+      const itemData = item?.system || item?.data?.data; //v9-compatibility
       item.update({
         _id: item.id,
-        "data.cast": item.data.data.memorized,
+        "data.cast": itemData.memorized,
       });
     });
   }
 
   async _rollAbility(event) {
     const item = this._getItemFromActor(event);
+    const itemData = itemData?.system || item?.data?.data; //v9-compatibility
     if (item.type == "weapon") {
       if (this.actor.data.type === "monster") {
         item.update({
-          data: { counter: { value: item.data.data.counter.value - 1 } },
+          data: { counter: { value: itemData.counter.value - 1 } },
         });
       }
       item.rollWeapon({ skipDialog: event.ctrlKey || event.metaKey });

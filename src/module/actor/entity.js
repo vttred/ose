@@ -32,18 +32,21 @@ export class OseActor extends Actor {
   }
 
   static async update(data, options = {}) {
+    //v9-compatibility
+    data = isNewerVersion(game.version, "10.264") ? data : data.data;
+
     // Compute AAC from AC
-    if (data.data?.ac?.value) {
-      data.data.aac = { value: 19 - data.data.ac.value };
-    } else if (data.data?.aac?.value) {
-      data.data.ac = { value: 19 - data.data.aac.value };
+    if (data?.ac?.value) {
+      data.aac = { value: 19 - data.ac.value };
+    } else if (data?.aac?.value) {
+      data.ac = { value: 19 - data.aac.value };
     }
 
     // Compute Thac0 from BBA
-    if (data.data?.thac0?.value) {
-      data.data.thac0.bba = 19 - data.data.thac0.value;
-    } else if (data.data?.thac0?.bba) {
-      data.data.thac0.value = 19 - data.data.thac0.bba;
+    if (data?.thac0?.value) {
+      data.thac0.bba = 19 - data.thac0.value;
+    } else if (data?.thac0?.bba) {
+      data.thac0.value = 19 - data.thac0.bba;
     }
 
     super.update(data, options);
@@ -571,11 +574,8 @@ export class OseActor extends Actor {
     const actorItems = this?.items || this?.data?.items; //v9-compatibility
 
     actorData.isSlow = ![...actorItems.values()].every((item) => {
-      if (
-        item.type !== "weapon" ||
-        !item.data.data.slow ||
-        !item.data.data.equipped
-      ) {
+      const itemData = item?.system || item?.data?.data; // v9-compatibility
+      if (item.type !== "weapon" || !itemData.slow || !itemData.equipped) {
         return true;
       }
       return false;
@@ -620,7 +620,7 @@ export class OseActor extends Actor {
 
     if (option === "detailed" && hasAdventuringGear) totalWeight += 80;
 
-    // Compute weigth thresholds
+    // Compute weight thresholds
     const max = actorData.encumbrance.max;
     const basicSignificantEncumbrance = game.settings.get(
       game.system.id,

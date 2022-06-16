@@ -5,9 +5,14 @@
   "description": "Play B/X OSR modules with Old-School Essentials on Foundry VTT",
   "version": "AUTOMATICALLY REPLACED BY GITHUB WORKFLOW ACTION",
   "minimumCoreVersion": "0.8.6",
-  "compatibleCoreVersion": "9",
+  "compatibleCoreVersion": "10",
+  "compatibility": {
+    "minimum": "0.8.6",
+    "verified": "10.270",
+    "maximum": 10
+  },
   "templateVersion": 2,
-  "author": "VTT Red, U~man",
+  "author": "Maintained by VTT Red with 9 contributors",
   "esmodules": ["dist/module/ose.js"],
   "styles": ["dist/ose.css"],
   "packs": [],

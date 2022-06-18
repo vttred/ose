@@ -22,6 +22,8 @@
   "OSE.dialog.generateSaves": "Genera Tiri Salvezza",
   "OSE.dialog.generateScores": "Genera Punteggi",
   "OSE.dialog.generateScore": "Tiro per {score} ({count})",
+  "OSE.dialog.shoppingCart": "Carrello",
+  "OSE.dialog.purchaseFor": "Compra per {totalCost}MO",
   "OSE.Formula": "Formula",
   "OSE.SitMod": "Modificatore di Circostanza",
   "OSE.Modifier": "Modificatore",
@@ -207,6 +209,8 @@
   "OSE.items.enterTag": "Etichette",
   "OSE.items.pattern": "Segnalatore del pattern dell'Attacco",
   "OSE.items.uses": "Utilizzi",
+  "OSE.items.gp.short": "MO",
+  "OSE.items.gp.long": "Monete d'Oro",
   "OSE.items.Range": "Distanza",
   "OSE.items.Melee": "Ravvicinato",
   "OSE.items.Missile": "A Distanza",
@@ -269,5 +273,12 @@
   "OSE.reaction.Indifferent": "{name} è Indifferente",
   "OSE.reaction.Friendly": "{name} è Amichevole",
   "OSE.CombatFlag.SpellDeclared": "Incantesimo Dichiarato",
-  "OSE.CombatFlag.RetreatFromMeleeDeclared": "Ritiro dal Combattimento in Mischia Dichiarato"
+  "OSE.CombatFlag.RetreatFromMeleeDeclared": "Ritiro dal Combattimento in Mischia Dichiarato",
+  "OSE.warn.moreThanOneItemWithName": "Il personaggio {actorName} che controlli, possiede più di un oggetto denominato \"${itemName}\". Verrà scelto il primo oggetto corrispondente.",
+  "OSE.error.macrosOnlyForOwnedItems": "Puoi creare pulsanti macro soltanto per oggetti di tua proprietà",
+  "OSE.error.noItemWithName": "Il personaggio {actorName} che controlli, non è in possesso di alcun oggetto denominato \"{itemName}\".",
+  "OSE.error.notEnoughGP": "Questo personaggio non ha abbastanza MO per coprire il costo del suo equipaggiamento.",
+  "OSE.error.itemNoLongerExistsOnActor": "L'oggetto {itemId} richiesto non è più presente sul personaggio {actorName}.",
+  "OSE.error.noTokenControlled": "Per poter utilizzare questa opzione, devi controllare almeno un Token.",
+  "OSE.error.noGP": "Devi possedere un oggetto \"MO\" per poter utilizzare questa funzione."
 }

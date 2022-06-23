@@ -2,50 +2,101 @@
   <img class="profile-img" src="{{img}}" data-edit="img" title="{{name}}" />
   <div class="modifiers-btn">
     {{#unless isNew}}
-    <a data-action="modifiers" title="{{localize 'OSE.Modifiers'}}"><i class="fas fa-book"></i></a>
+    <a data-action="modifiers" title="{{localize 'OSE.Modifiers'}}"
+      ><i class="fas fa-book"></i
+    ></a>
+    <a data-action="gp-cost" title="{{localize 'OSE.Modifiers'}}"
+      ><i class="fas fa-coins"></i
+    ></a>
     {{else}}
-    <a class="blinking" data-action="generate-scores" title="{{localize 'OSE.dialog.generateScores'}}"><i
-        class="fa fa-dice"></i></a>
+    <a
+      class="blinking"
+      data-action="generate-scores"
+      title="{{localize 'OSE.dialog.generateScores'}}"
+      ><i class="fa fa-dice"></i
+    ></a>
     {{/unless}}
   </div>
 </div>
 <section class="header-details flexrow">
   <h1 class="charname">
-    <input name="name" type="text" value="{{name}}" placeholder="{{localize 'OSE.details.name'}}"
-      data-dtype="String" />
+    <input
+      name="name"
+      type="text"
+      value="{{name}}"
+      placeholder="{{localize 'OSE.details.name'}}"
+      data-dtype="String"
+    />
   </h1>
   <ul class="summary flexrow">
     {{#if data.retainer.enabled}}
     <li>
-      <input type="text" name="data.retainer.wage" value="{{data.retainer.wage}}" data-dtype="String" />
+      <input
+        type="text"
+        name="data.retainer.wage"
+        value="{{data.retainer.wage}}"
+        data-dtype="String"
+      />
       <label>{{localize 'OSE.RetainerWage'}}</label>
     </li>
     {{else}}
     <li>
-      <input type="text" name="data.details.title" value="{{data.details.title}}" data-dtype="String" />
+      <input
+        type="text"
+        name="data.details.title"
+        value="{{data.details.title}}"
+        data-dtype="String"
+      />
       <label>{{localize 'OSE.details.title'}}</label>
     </li>    
     {{/if}}
     <li>
-      <input type="text" name="data.details.race" value="{{data.details.race}}" data-dtype="String" />
+      <input 
+        type="text" 
+        name="data.details.race" 
+        value="{{data.details.race}}" 
+        data-dtype="String"
+      />
       <label>{{localize 'OSE.details.race'}}</label>
     </li>
     <li>
-      <input type="text" name="data.details.alignment" value="{{data.details.alignment}}" data-dtype="String" />
+      <input
+        type="text"
+        name="data.details.alignment"
+        value="{{data.details.alignment}}"
+        data-dtype="String"
+      />
       <label>{{localize 'OSE.details.alignment'}}</label>
     </li>
   </ul>
   <ul class="summary flexrow">
     <li class="flex3">
-      <input type="text" name="data.details.class" value="{{data.details.class}}" data-dtype="String" />
+      <input
+        type="text"
+        name="data.details.class"
+        value="{{data.details.class}}"
+        data-dtype="String"
+      />
       <label>{{localize 'OSE.details.class'}}</label>
     </li>
-    <li class="{{#if (gt data.details.xp.value data.details.xp.next)}}notify{{/if}}">
-      <input type="text" name="data.details.level" value="{{data.details.level}}" data-dtype="Number" />
+    <li
+      class="{{#if (gte data.details.xp.value data.details.xp.next)}}notify{{/if}}"
+    >
+      <input
+        type="text"
+        name="data.details.level"
+        value="{{data.details.level}}"
+        data-dtype="Number"
+      />
       <label>{{localize 'OSE.details.level'}}</label>
     </li>
     <li class="flex2">
-      <input type="text" name="data.details.xp.value" value="{{data.details.xp.value}}" data-dtype="Number" />
+      <input
+        type="text"
+        name="data.details.xp.value"
+        value="{{data.details.xp.value}}"
+        data-dtype="Number"
+      />
       <label>{{localize 'OSE.details.experience.base'}}</label>
       {{#if data.details.xp.bonus}}
       <span class="xp-bonus">+{{data.details.xp.bonus}}%</span>
@@ -93,3 +144,4 @@
   {{/if}}
   {{/if}}
 </section>
+

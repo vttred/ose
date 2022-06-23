@@ -11,7 +11,6 @@
   "OSE.Success": "Éxito",
   "OSE.Failure": "Fallo",
   "OSE.Multiclass": "Multiclass Character",
-
   "OSE.dialog.tweaks": "Ajustes",
   "OSE.dialog.partysheet": "Resumen del grupo",
   "OSE.dialog.partyselect": "Seleccionar PJ",
@@ -24,14 +23,14 @@
   "OSE.dialog.generateSaves": "Generar salvaciones",
   "OSE.dialog.generateScores": "Generar puntuaciones",
   "OSE.dialog.generateScore": "Tirando {score} ({count})",
-
+  "OSE.dialog.shoppingCart": "Cesta de la compra",
+  "OSE.dialog.purchaseFor": "Comprar por {totalCost} MO",
   "OSE.Formula": "Fórmula",
   "OSE.SitMod": "Modificador situacional",
   "OSE.Modifier": "Modificador",
   "OSE.Modifiers": "Modificadores",
   "OSE.RollMode": "Tipo de tirada",
   "OSE.RollExample": "ej. +1d4",
-
   "OSE.roll.formula": "Tira {label}",
   "OSE.roll.appearing": "Tirada de atacantes ({type})",
   "OSE.roll.morale": "Chequeo de Moral",
@@ -48,9 +47,7 @@
   "OSE.roll.initiative": "¡El grupo {group} tira iniciativa!",
   "OSE.roll.individualInit": "¡{name} tira iniciativa!",
   "OSE.roll.individualInitGroup": "Tiradas de iniciativa",
-
   "OSE.table.treasure.roll": "Tirada de tesoro",
-
   "OSE.details.name": "Nombre",
   "OSE.details.class": "Clase",
   "OSE.details.race": "Race",
@@ -71,16 +68,13 @@
   "OSE.details.1stClass": "1st Class",
   "OSE.details.2ndClass": "2nd Class",
   "OSE.details.3rdClass": "3rd Class",
-
   "OSE.Attack": "Ataque",
   "OSE.Encumbrance": "Carga",
-
   "OSE.Retainer": "Sirvientes",
   "OSE.RetainerWage": "Salario",
   "OSE.RetainerUpkeep": "Mantenimiento",
   "OSE.Loyalty": "Índice de lealtad",
   "OSE.LoyaltyShort": "IL",
-
   "OSE.scores.str.long": "Fuerza",
   "OSE.scores.str.short": "FUE",
   "OSE.scores.wis.long": "Sabiduría",
@@ -93,7 +87,6 @@
   "OSE.scores.con.short": "CON",
   "OSE.scores.cha.long": "Carisma",
   "OSE.scores.cha.short": "CAR",
-
   "OSE.saves.death.short": "M",
   "OSE.saves.death.long": "Muerte, Veneno",
   "OSE.saves.wand.short": "V",
@@ -106,7 +99,6 @@
   "OSE.saves.spell.long": "Hechizos, Varas, Bastones",
   "OSE.saves.magic.long": "Bonificador vs Magia",
   "OSE.saves.magic.short": "vs Magia",
-
   "OSE.Health": "Puntos de Golpe",
   "OSE.HealthMax": "Puntos de Golpe máximos",
   "OSE.HealthShort": "PG",
@@ -114,7 +106,6 @@
   "OSE.HitDiceShort": "DG",
   "OSE.FractionalHpShort": "HPF",
   "OSE.FractionalHp": "Remaining HP Fraction",
-
   "OSE.movement.base": "Movimiento",
   "OSE.movement.short": "MV",
   "OSE.movement.details": "Detalles de Movimiento",
@@ -124,7 +115,6 @@
   "OSE.movement.overland.short": "VT",
   "OSE.movement.exploration.short": "Ex",
   "OSE.movement.exploration.long": "Movimiento de exploración",
-
   "OSE.ArmorClassNaked": "Clase de Armadura sin armadura",
   "OSE.ArmorClass": "Clase de Armadura",
   "OSE.ArmorClassShort": "CA",
@@ -146,7 +136,6 @@
   "OSE.AttacksShort": "Atq",
   "OSE.Damage": "Daño",
   "OSE.Spellcaster": "Lanzador de hechizos",
-
   "OSE.Language": "Idioma",
   "OSE.SpokenLanguages": "Idiomas hablados",
   "OSE.Literacy": "Alfabetización",
@@ -158,10 +147,8 @@
   "OSE.NativePlus1": "Nativo + 1",
   "OSE.NativePlus2": "Nativo + 2",
   "OSE.NativePlus3": "Nativo + 3",
-
   "OSE.NPCReaction": "Reacción de PNJ",
   "OSE.RetainersMax": "#Sirvientes",
-
   "OSE.category.saves": "Salvaciones",
   "OSE.category.attributes": "Atributos",
   "OSE.category.inventory": "Inventario",
@@ -171,7 +158,6 @@
   "OSE.category.languages": "Idiomas",
   "OSE.category.description": "Descripción",
   "OSE.category.equipment": "Equipo",
-
   "OSE.Setting.Initiative": "Iniciativa",
   "OSE.Setting.InitiativeHint": "Iniciativa grupal o individual.",
   "OSE.Setting.InitiativeIndividual": "Iniciativa individual",
@@ -193,7 +179,7 @@
   "OSE.Setting.EncumbranceComplete": "Completa",
   "OSE.Setting.MovementAuto": "Calcular movimiento",
   "OSE.Setting.SignificantTreasure": "Peso del tesoro significante",
-  "OSE.Setting.SignificantTreasureHint": "Peso al que el tesoro reducirá el movimiento, sólo útil para la carga básica", 
+  "OSE.Setting.SignificantTreasureHint": "Peso al que el tesoro reducirá el movimiento, sólo útil para la carga básica",
   "OSE.Setting.Languages": "Idiomas",
   "OSE.Setting.LanguagesHint": "Introduce una lista de idiomas separada por comas",
   "OSE.Setting.EnableInventory": "Activar inventario",
@@ -201,7 +187,6 @@
   "OSE.Setting.applyDamageOptionHint": "El(los) token(s) a los que se le aplicará el daño de una tirada de ataque",
   "OSE.Setting.damageSelected": "Seleccionado",
   "OSE.Setting.damageTarget": "Objetivo",
-
   "OSE.items.Equip": "Equipar",
   "OSE.items.Unequip": "Desequipar",
   "OSE.items.Misc": "Misc",
@@ -231,7 +216,8 @@
   "OSE.items.enterTag": "Etiquetas",
   "OSE.items.pattern": "Marcador de patrón de ataque",
   "OSE.items.uses": "Usos",
-
+  "OSE.items.gp.short": "MO",
+  "OSE.items.gp.long": "Monedas de oro",
   "OSE.items.Range": "Alcance",
   "OSE.items.Melee": "Melé",
   "OSE.items.Missile": "Distancia",
@@ -242,13 +228,11 @@
   "OSE.items.Splash": "Arma de dispersión",
   "OSE.items.Reload": "Recarga",
   "OSE.items.Charge": "Carga",
-
   "OSE.armor.type": "Tipo de armadura",
   "OSE.armor.unarmored": "Sin armadura",
   "OSE.armor.light": "Ligera",
   "OSE.armor.heavy": "Pesada",
   "OSE.armor.shield": "Escudo",
-
   "OSE.spells.spend": "¡{speaker} está lanzando {name}!",
   "OSE.spells.Memorized": "Memorizados",
   "OSE.spells.Cast": "Lanzar",
@@ -261,9 +245,7 @@
   "OSE.spells.ResetSlots": "Reiniciar espacios de hechizos",
   "OSE.spells.MemorizedSlotsHint": "Espacios memorizados",
   "OSE.spells.MaximumSlotsHint": "Espacios disponibles",
-
   "OSE.abilities.Requirements": "Requisitos",
-
   "OSE.exploration.ld.long": "Escuchar tras una puerta",
   "OSE.exploration.ld.short": "Escuchar puerta",
   "OSE.exploration.ld.abrev": "EP",
@@ -276,7 +258,6 @@
   "OSE.exploration.ft.long": "Detectar trampas de habitación",
   "OSE.exploration.ft.short": "Detectar trampa",
   "OSE.exploration.ft.abrev": "DT",
-
   "OSE.messages.GetExperience": "¡{name} ha ganado {value} puntos de experiencia!",
   "OSE.messages.AttackSuccess": "<b>¡Impacta a CA {result}!</b> ({bonus})",
   "OSE.messages.AttackAscendingSuccess": "<b>¡Impacta a CA {result}!</b>",
@@ -285,7 +266,6 @@
   "OSE.messages.InflictsDamage": "¡Inflige daño!",
   "OSE.messages.applyDamage": "Aplicar daño",
   "OSE.messages.applyHealing": "Aplicar curación",
-
   "OSE.colors.green": "Verde",
   "OSE.colors.red": "Rojo",
   "OSE.colors.yellow": "Amarillo",
@@ -293,14 +273,19 @@
   "OSE.colors.blue": "Azul",
   "OSE.colors.orange": "Naranja",
   "OSE.colors.white": "Blanco",
-
   "OSE.reaction.check": "Chequeo de reacción",
   "OSE.reaction.Hostile": "{name} es hostil",
   "OSE.reaction.Unfriendly": "{name} es poco amistoso",
   "OSE.reaction.Neutral": "{name} es neutral",
   "OSE.reaction.Indifferent": "{name} es indiferente",
   "OSE.reaction.Friendly": "{name} es amistoso",
-  
   "OSE.CombatFlag.SpellDeclared": "Hechizo declarado",
-  "OSE.CombatFlag.RetreatFromMeleeDeclared": "Retirada declarada"
+  "OSE.CombatFlag.RetreatFromMeleeDeclared": "Retirada declarada",
+  "OSE.warn.moreThanOneItemWithName": "Tu actor controlado {actorName} tiene más de un objeto que se llama ${itemName}. El primer objeto que concuerde será seleccionado.",
+  "OSE.error.macrosOnlyForOwnedItems": "Solo puedes crear botones de macro con los objetos que poseas",
+  "OSE.error.noItemWithName": "Tu actor controlado {actorName} no tiene el objeto llamado {itemName}.",
+  "OSE.error.notEnoughGP": "Este actor no posee suficiente MO para pagar su inventario.",
+  "OSE.error.itemNoLongerExistsOnActor": "El elemento {itemId} solicitado ya no existe en el actor {actorName}.",
+  "OSE.error.noTokenControlled": "Debes controlar uno o más tokens para poder utilizar esta opción.",
+  "OSE.error.noGP": "Necesitas un objeto MO para poder utilizar esta función."
 }

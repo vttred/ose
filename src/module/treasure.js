@@ -2,7 +2,9 @@ import { OSE } from "./config";
 
 export const augmentTable = (table, html, data) => {
   // Treasure Toggle
-  const isTreasureTable = Boolean(table.object.getFlag("ose", "treasure"));
+  const isTreasureTable = Boolean(
+    table.object.getFlag(game.system.id, "treasure")
+  );
 
   let treasureTableToggle = $(
     "<div class='toggle-treasure' title='Toggle Treasure Table'></div>"
@@ -13,8 +15,10 @@ export const augmentTable = (table, html, data) => {
   head.append(treasureTableToggle);
 
   html.find(".toggle-treasure").click((ev) => {
-    const isTreasure = Boolean(table.object.getFlag("ose", "treasure"));
-    table.object.setFlag("ose", "treasure", !isTreasure);
+    const isTreasure = Boolean(
+      table.object.getFlag(game.system.id, "treasure")
+    );
+    table.object.setFlag(game.system.id, "treasure", !isTreasure);
   });
 
   // Treasure table formatting
@@ -54,7 +58,7 @@ function drawTreasure(table, data) {
     return roll.total <= chance;
   };
   data.treasure = {};
-  if (table.getFlag("ose", "treasure")) {
+  if (table.getFlag(game.system.id, "treasure")) {
     table.results.forEach((r) => {
       if (percent(r.data.weight)) {
         const text = r.getChatText(r);

@@ -12,7 +12,7 @@ export const addControl = (object, html) => {
 };
 
 export const update = (actor, data) => {
-  const partyFlag = actor.getFlag("ose", "party");
+  const partyFlag = actor.getFlag(game.system.id, "party");
 
   if (partyFlag === null) {
     return;

@@ -1,5 +1,5 @@
 <div class="item-description">
   {{> (path "/templates/actors/partials/item-auto-tags-partial.html")
   tags=item.data.data.autoTags}}
-  <div>{{{item.data.data.description}}}</div>
+  <div>{{{parseInline item.data.data.description}}}</div>
 </div>

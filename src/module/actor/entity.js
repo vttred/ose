@@ -63,21 +63,82 @@ export class OseActor extends Actor {
     if (this.data.type != "character") {
       return;
     }
-    let modified = Math.floor(
-      value + (this.data.data.details.xp.bonus * value) / 100
-    );
-    return this.update({
-      "data.details.xp.value": modified + this.data.data.details.xp.value,
-    }).then(() => {
-      const speaker = ChatMessage.getSpeaker({ actor: this });
-      ChatMessage.create({
-        content: game.i18n.format("OSE.messages.GetExperience", {
-          name: this.name,
-          value: modified,
-        }),
-        speaker,
+    if(!this.data.data.multiclass?.enabled){
+      let modified = Math.floor(
+        value + (this.data.data.details.xp.bonus * value) / 100
+      );
+      return this.update({
+        "data.details.xp.value": modified + this.data.data.details.xp.value,
+      }).then(() => {
+        const speaker = ChatMessage.getSpeaker({ actor: this });
+        ChatMessage.create({
+          content: game.i18n.format("OSE.messages.GetExperience", {
+            name: this.name,
+            value: modified,
+          }),
+          speaker,
+        });
       });
-    });
+    } else {
+      let xpModified;
+      let xp2Modified;
+      let xp3Modified;
+      let xpForUpdate = value;
+      let xpsToDisperse = {};
+      let total = 0;
+      const xp2Enabled = this.data.data.details.xp2.enabled;
+      const xp3Enabled = this.data.data.details.xp3.enabled;
+      
+      if(xp2Enabled){
+        xpForUpdate = Math.floor(value / 2);         
+      }
+
+      if(xp2Enabled && xp3Enabled){
+        xpForUpdate = Math.floor(value / 3); 
+      }
+      
+      xpModified = Math.floor(
+        xpForUpdate + (this.data.data.details.xp.bonus * xpForUpdate) / 100
+      );
+
+      total = xpModified + total;
+      xpsToDisperse = {
+        ...xpsToDisperse, 
+        "data.details.xp.value": xpModified + this.data.data.details.xp.value
+      };
+      
+      if(xp2Enabled){
+        xp2Modified = Math.floor(
+          xpForUpdate + (this.data.data.details.xp2.bonus * xpForUpdate) / 100
+        );
+        xpsToDisperse = {
+          ...xpsToDisperse, 
+          "data.details.xp2.value": 
+            xp2Modified + this.data.data.details.xp2.value
+        };        
+        total = xp2Modified + total;
+      }
+      
+      if(xp3Enabled){
+        xp3Modified = Math.floor(
+          xpForUpdate + (this.data.data.details.xp3.bonus * xpForUpdate) / 100
+        );
+        xpsToDisperse = {...xpsToDisperse, "data.details.xp3.value": xp3Modified + this.data.data.details.xp3.value};        
+        total = xp3Modified + total;
+      }
+
+      return this.update(xpsToDisperse).then(() => {
+        const speaker = ChatMessage.getSpeaker({ actor: this });
+        ChatMessage.create({
+          content: game.i18n.format("OSE.messages.GetExperience", {
+            name: this.name,
+            value: total,
+          }),
+          speaker,
+        });
+      });
+
+    }
   }
 
   isNew() {

@@ -48,8 +48,17 @@
         data-dtype="String"
       />
       <label>{{localize 'OSE.details.title'}}</label>
-    </li>
+    </li>    
     {{/if}}
+    <li>
+      <input 
+        type="text" 
+        name="data.details.race" 
+        value="{{data.details.race}}" 
+        data-dtype="String"
+      />
+      <label>{{localize 'OSE.details.race'}}</label>
+    </li>
     <li>
       <input
         type="text"
@@ -94,4 +103,45 @@
       {{/if}}
     </li>
   </ul>
+  {{#if data.multiclass.enabled}}
+  {{#if data.details.xp2.enabled}}
+  <ul class="summary flexrow">
+    <li class="flex3">
+      <input type="text" name="data.details.class2" value="{{data.details.class2}}" data-dtype="String" />
+      <label>{{localize 'OSE.details.class'}}</label>
+    </li>
+    <li class="{{#if (gt data.details.xp2.value data.details.xp2.next)}}notify{{/if}}">
+      <input type="text" name="data.details.level2" value="{{data.details.level2}}" data-dtype="Number" />
+      <label>{{localize 'OSE.details.level'}}</label>
+    </li>
+    <li class="flex2">
+      <input type="text" name="data.details.xp2.value" value="{{data.details.xp2.value}}" data-dtype="Number" />
+      <label>{{localize 'OSE.details.experience.base'}}</label>
+      {{#if data.details.xp2.bonus}}
+      <span class="xp-bonus">+{{data.details.xp2.bonus}}%</span>
+      {{/if}}
+    </li>
+  </ul>
+  {{/if}}
+  {{#if data.details.xp3.enabled}}
+  <ul class="summary flexrow">
+    <li class="flex3">
+      <input type="text" name="data.details.class3" value="{{data.details.class3}}" data-dtype="String" />
+      <label>{{localize 'OSE.details.class'}}</label>
+    </li>
+    <li class="{{#if (gt data.details.xp3.value data.details.xp3.next)}}notify{{/if}}">
+      <input type="text" name="data.details.level3" value="{{data.details.level3}}" data-dtype="Number" />
+      <label>{{localize 'OSE.details.level'}}</label>
+    </li>
+    <li class="flex2">
+      <input type="text" name="data.details.xp3.value" value="{{data.details.xp3.value}}" data-dtype="Number" />
+      <label>{{localize 'OSE.details.experience.base'}}</label>
+      {{#if data.details.xp3.bonus}}
+      <span class="xp-bonus">+{{data.details.xp3.bonus}}%</span>
+      {{/if}}
+    </li>
+  </ul>
+  {{/if}}
+  {{/if}}
 </section>
+

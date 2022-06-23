@@ -280,5 +280,12 @@
   "OSE.error.notEnoughGP": "Este Ator não tem PO suficiente para pagar por este inventário.",
   "OSE.error.itemNoLongerExistsOnActor": "O Item solicitado {itemId} não existe mais no Ator {actorName}.",
   "OSE.error.noTokenControlled": "Você deve ter um ou mais Tokens controlados para poder usar esta opção.",
-  "OSE.error.noGP": "Você precisa do item PO para usar este recurso."
+  "OSE.error.noGP": "Você precisa do item PO para usar este recurso.",
+  "OSE.Multiclass": "Multiclass Character",
+  "OSE.details.1stClass": "1st Class",
+  "OSE.details.2ndClass": "2nd Class",
+  "OSE.details.3rdClass": "3rd Class",
+  "OSE.FractionalHpShort": "HPF",
+  "OSE.FractionalHp": "Remaining HP Fraction",
+  "OSE.details.race": "Race"
 }

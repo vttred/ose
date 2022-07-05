@@ -84,14 +84,11 @@ export class OseActorSheet extends ActorSheet {
 
   _toggleItemSummary(event) {
     event.preventDefault();
-    const summary = $(event.currentTarget)
-      .closest(".item-header")
-      .next(".item-summary");
-
-    if (summary.css("display") === "none") {
-      summary.slideDown(200);
+    const itemSummary = event.currentTarget.closest(".item-entry.item").querySelector('.item-summary');
+    if (itemSummary.style.display === "") {
+      itemSummary.style.display = 'block';
     } else {
-      summary.slideUp(200);
+      itemSummary.style.display = '';
     }
   }
 

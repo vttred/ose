@@ -1,4 +1,7 @@
 export const registerSettings = function () {
+  if (!("settings" in game)) {
+    throw new Error("Settings initialized too early.");
+  }
 
   game.settings.register("ose", "initiative", {
     name: game.i18n.localize("OSE.Setting.Initiative"),
@@ -24,7 +27,7 @@ export const registerSettings = function () {
       keep: "OSE.Setting.InitiativeKeep",
       reset: "OSE.Setting.InitiativeReset",
       reroll: "OSE.Setting.InitiativeReroll",
-    }
+    },
   });
 
   game.settings.register("ose", "ascendingAC", {
@@ -77,16 +80,32 @@ export const registerSettings = function () {
     type: String,
     config: true,
   });
-   game.settings.register('ose', 'applyDamageOption', {
-    name: game.i18n.localize('OSE.Setting.applyDamageOption'),
-    hint: game.i18n.localize('OSE.Setting.applyDamageOptionHint'),
-    default: 'selected',
-    scope: 'world',
+  game.settings.register("ose", "applyDamageOption", {
+    name: game.i18n.localize("OSE.Setting.applyDamageOption"),
+    hint: game.i18n.localize("OSE.Setting.applyDamageOptionHint"),
+    default: "selected",
+    scope: "world",
     type: String,
     config: true,
     choices: {
-      selected: 'OSE.Setting.damageSelected',
-      targeted: 'OSE.Setting.damageTarget'
+      selected: "OSE.Setting.damageSelected",
+      targeted: "OSE.Setting.damageTarget",
     },
   });
 };
+
+declare global {
+  namespace ClientSettings {
+    // Include OSE settings in addition to foundry default settings
+    interface Values {
+      "ose.initiative": "individual" | "group";
+      "ose.rerollInitiative": "keep" | "reset" | "reroll";
+      "ose.ascendingAC": boolean;
+      "ose.morale": boolean;
+      "ose.encumbranceOption": "disabled" | "basic" | "detailed" | "complete";
+      "ose.significantTreasure": number;
+      "ose.languages": string;
+      "ose.applyDamageOption": "selected" | "targeted";
+    }
+  }
+}

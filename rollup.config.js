@@ -1,4 +1,5 @@
 const { nodeResolve } = require("@rollup/plugin-node-resolve");
+const typescript = require("@rollup/plugin-typescript");
 
 module.exports = () => ({
   input: "src/ose.js",
@@ -7,5 +8,5 @@ module.exports = () => ({
     format: "es",
     sourcemap: true,
   },
-  plugins: [nodeResolve()],
+  plugins: [nodeResolve(), typescript()],
 });

@@ -20,7 +20,7 @@ const sourceDirectory = "./src";
 const distDirectory = "./dist";
 const stylesDirectory = `scss`;
 const stylesExtension = "scss";
-const sourceFileExtension = "js";
+const sourceFileExtension = "[tj]s";
 const staticFiles = ["lang", "packs", "templates"];
 
 /********************/

@@ -6,7 +6,7 @@ import { preloadHandlebarsTemplates } from "./module/preloadTemplates.js";
 import { OseActor } from "./module/actor/entity.js";
 import { OseItem } from "./module/item/entity.js";
 import { OSE } from "./module/config.js";
-import { registerSettings } from "./module/settings.js";
+import { registerSettings } from "./module/settings";
 import { registerHelpers } from "./module/helpers.js";
 import { registerFVTTModuleAPIs } from "./module/fvttModuleAPIs.js";
 import * as chat from "./module/chat.js";

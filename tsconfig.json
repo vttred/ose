@@ -8,7 +8,9 @@
     "lib": ["ES6", "DOM"],
     "moduleResolution": "Node",
     "strict": true,
-    "sourceMap": true,
+    // let rollup handle source maps for now. Ignore console warnings.
+    // FIXME: source maps are of the generated JS, not the original typescript
+    "sourceMap": false,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,

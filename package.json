@@ -23,6 +23,7 @@
     "gulp-git": "^2.10.0",
     "gulp-sourcemaps": "^2.6.5",
     "json-stringify-pretty-compact": "^2.0.0",
+    "rollup": "^2.77.3",
     "sass": "^1.25.0",
     "tslib": "^2.4.0",
     "typescript": "^4.7.4",

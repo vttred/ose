@@ -1,4 +1,49 @@
-export const OSE = {
+export type OseConfig = {
+  systemPath: () => string;
+  scores: Record<Attribute, string>;
+  scores_short: Record<Attribute, string>;
+  exploration_skills: Record<ExplorationSkill, string>;
+  exploration_skills_short: Record<ExplorationSkill, string>;
+  roll_type: Record<RollType, string>;
+  saves_short: Record<Save, string>;
+  saves_long: Record<Save, string>;
+  armor: Record<Armor, string>;
+  colors: Record<Color, string>;
+  languages: string[];
+  tags: Record<InventoryItemTag, string>;
+  tag_images: Record<InventoryItemTag, string>;
+  monster_saves: Record<
+    number,
+    { d: number; w: number; p: number; b: number; s: number }
+  >;
+  monster_thac0: Record<number, number>;
+};
+
+export type Attribute = "str" | "int" | "dex" | "wis" | "con" | "cha";
+export type ExplorationSkill = "ld" | "od" | "sd" | "fs";
+export type RollType = "result" | "above" | "below";
+export type Save = "death" | "wand" | "paralysis" | "breath" | "spell";
+export type Armor = "unarmored" | "light" | "heavy" | "shield";
+export type Color =
+  | "green"
+  | "red"
+  | "yellow"
+  | "purple"
+  | "blue"
+  | "orange"
+  | "white";
+export type InventoryItemTag =
+  | "melee"
+  | "missile"
+  | "slow"
+  | "twohanded"
+  | "blunt"
+  | "brace"
+  | "splash"
+  | "reload"
+  | "charge";
+
+export const OSE: OseConfig = {
   systemPath: () => {
     return `/systems/${game.system.id}/dist`;
   },

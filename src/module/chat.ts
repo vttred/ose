@@ -3,14 +3,9 @@ import { OseActor } from "./actor/entity";
 /**
  * This function is used to hook into the Chat Log context menu to add additional options to each message
  * These options make it easy to conveniently apply damage to controlled tokens based on the value of a Roll
- *
- * @param {HTMLElement} html    The Chat Message being rendered
- * @param {Array} options       The Array of Context Menu options
- *
- * @return {Array}              The extended options Array including new context choices
  */
 export const addChatMessageContextOptions = function (
-  html: JQuery,
+  _: JQuery,
   options: ContextMenuEntry[]
 ) {
   let canApply: ContextMenuEntry["condition"] = (li) =>
@@ -20,13 +15,13 @@ export const addChatMessageContextOptions = function (
       name: game.i18n.localize("OSE.messages.applyDamage"),
       icon: '<i class="fas fa-user-minus"></i>',
       condition: canApply,
-      callback: (li: JQuery) => applyChatCardDamage(li, 1),
+      callback: (li) => applyChatCardDamage(li, 1),
     },
     {
       name: game.i18n.localize("OSE.messages.applyHealing"),
       icon: '<i class="fas fa-user-plus"></i>',
       condition: canApply,
-      callback: (li: JQuery) => applyChatCardDamage(li, -1),
+      callback: (li) => applyChatCardDamage(li, -1),
     }
   );
   return options;

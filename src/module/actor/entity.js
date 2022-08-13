@@ -510,6 +510,11 @@ export class OseActor extends Actor {
     });
   }
 
+  /**
+   * @param {number | string} amount
+   * @param {1 | -1} multiplier
+   * @returns
+   */
   async applyDamage(amount = 0, multiplier = 1) {
     amount = Math.floor(parseInt(amount) * multiplier);
     const hp = this.data.data.hp;

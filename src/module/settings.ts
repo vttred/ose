@@ -1,8 +1,4 @@
 export const registerSettings = function () {
-  if (!("settings" in game)) {
-    throw new Error("Settings initialized too early.");
-  }
-
   game.settings.register("ose", "initiative", {
     name: game.i18n.localize("OSE.Setting.Initiative"),
     hint: game.i18n.localize("OSE.Setting.InitiativeHint"),

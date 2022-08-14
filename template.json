@@ -225,7 +225,7 @@
     },
     "ability": {
       "templates": ["common", "rollable"],
-      "pattern": "white",
+      "pattern": "transparent",
       "requirements": "",
       "roll": "",
       "rollType": "result",

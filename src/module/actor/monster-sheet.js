@@ -39,7 +39,17 @@ export class OseActorSheetMonster extends OseActorSheet {
   _prepareItems(data) {
     const itemsData = this.actor.data.items;
     const containerContents = {};
-    const attackPatterns = {};
+    const attackPatterns = {
+    };
+
+    let colors = Object.keys(CONFIG.OSE.colors);
+    colors.push("transparent");
+
+    // Set up attack patterns in specific order
+    for (var i = 0; i < colors.length; i++)
+    {
+      attackPatterns[colors[i]] = [];
+    }    
 
     // Partition items by category
     let [weapons, items, armors, spells, containers] = itemsData.reduce(
@@ -53,10 +63,8 @@ export class OseActorSheetMonster extends OseActorSheet {
           ];
           return arr;
         }
-        // Grab attack groups
+        // Add Items to their respective attack groups
         if (["weapon", "ability"].includes(item.type)) {
-          if (attackPatterns[item.data.data.pattern] === undefined)
-            attackPatterns[item.data.data.pattern] = [];
           attackPatterns[item.data.data.pattern].push(item);
         }
         // Classify items into types
@@ -116,13 +124,21 @@ export class OseActorSheetMonster extends OseActorSheet {
       containers: containers,
       armors: armors,
     };
+    
     data.attackPatterns = attackPatterns;
+    // Sort items and spells alphabetically within their groups
     data.spells = sortedSpells;
     [
-      ...Object.values(data.attackPatterns),
       ...Object.values(data.owned),
       ...Object.values(data.spells),
-    ].forEach((o) => o.sort((a, b) => (a.data.sort || 0) - (b.data.sort || 0)));
+    ].forEach((o) => o.sort((a, b) => a.data.name.localeCompare(b.data.name)));
+
+    // Within each attack pattern, weapons come before abilities, 
+    // and are then alphabetized
+    Object.values(data.attackPatterns).forEach(
+        (o) => o.sort((a, b) => 
+        b.data.type.localeCompare(a.data.type) || a.data.name.localeCompare(b.data.name))
+    );
   }
 
   /**
@@ -236,7 +252,9 @@ export class OseActorSheetMonster extends OseActorSheet {
   _cycleAttackPatterns(event) {
     const item = super._getItemFromActor(event);
     let currentColor = item.data.data.pattern;
+    // Attack patterns include all OSE colors and transparent
     let colors = Object.keys(CONFIG.OSE.colors);
+    colors.push("transparent");
     let index = colors.indexOf(currentColor);
     if (index + 1 == colors.length) {
       index = 0;

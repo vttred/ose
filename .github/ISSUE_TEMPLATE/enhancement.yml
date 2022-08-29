@@ -1,6 +1,5 @@
 name: Enhancement Request
 description: Request a new feature or improvement to the current functionality.
-title: ""
 labels: ["enhancement"]
 body:
   - type: markdown

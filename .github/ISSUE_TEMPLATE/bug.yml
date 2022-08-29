@@ -26,39 +26,11 @@ body:
       description: If this is a bug, what would you expect the fix to do?
       placeholder: |
         When I click the token, it becomes selected and stays in its current position.
-  - type: dropdown
-    id: core-version
-    attributes:
-      label: Foundry VTT Core Version
-      description: Which version of Foundry VTT is installed?
-      options:
-        - V10
-        - V9
-        - 0.8.6-0.8.10
-        - Earlier than 0.8.6
-  - type: input
-    id: system-version
-    attributes:
-      label: Old-School Essentials Core Version
-      description: Which version of Old-School Essentials Foundry VTT Edition are you using?
-    validations:
-      required: true
-  - type: dropdown
-    id: browsers
-    attributes:
-      label: Which (updated) browsers are you seeing the problem on?
-      multiple: true
-      options:
-        - Firefox
-        - Chrome
-        - Safari
-        - Microsoft Edge
-        - Other
   - type: textarea
     id: logs
     attributes:
       label: Relevant Errors and Warnings
-      description: Is there an error message or warning in the browser console when you experienced this behaviour? Press F12, copy anything relevant, and paste it here.
+      description: Is there an error message or warning in the browser console when you experienced this behaviour? Right after triggering the bug, press F12 and copy anything relevant in the console window. Paste that here.
       render: shell
   - type: textarea
     id: debug
@@ -76,6 +48,32 @@ body:
         GPU: Apple M1
         Max Texture Size: 8192
         ...
+  - type: dropdown
+    id: core-version
+    attributes:
+      label: Foundry VTT Core Version
+      description: Which version of Foundry VTT is installed? Skip this if you provided Additional Support Details.
+      options:
+        - V10
+        - V9
+        - 0.8.6-0.8.10
+        - Earlier than 0.8.6
+  - type: input
+    id: system-version
+    attributes:
+      label: Old-School Essentials Core Version
+      description: Which version of Old-School Essentials Foundry VTT Edition are you using? Skip this if you provided Additional Support Details.
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: Please update your browser regularly. Which (updated) browsers are you seeing the problem on?
+      multiple: true
+      options:
+        - Firefox
+        - Chrome
+        - Safari
+        - Microsoft Edge
+        - Other
   - type: checkboxes
     id: code-of-conduct
     attributes:

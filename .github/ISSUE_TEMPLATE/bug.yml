@@ -1,0 +1,87 @@
+name: Bug Report
+description: File a bug report
+title: ""
+labels: ["bug", "triage"]
+assignees:
+  - anthonyronda
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Give us the details of the steps taken, and the unexpected result you experienced.
+      placeholder: |
+        Reproduction steps:
+        1. I clicked the token.
+        2. The token jumped across the scene 10 spaces to the left.
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behaviour
+    attributes:
+      label: What is the expected behaviour?
+      description: If this is a bug, what would you expect the fix to do?
+      placeholder: |
+        When I click the token, it becomes selected and stays in its current position.
+  - type: dropdown
+    id: core-version
+    attributes:
+      label: Foundry VTT Core Version
+      description: Which version of Foundry VTT is installed?
+      options:
+        - V10
+        - V9
+        - 0.8.6-0.8.10
+        - Earlier than 0.8.6
+  - type: input
+    id: system-version
+    attributes:
+      label: Old-School Essentials Core Version
+      description: Which version of Old-School Essentials Foundry VTT Edition are you using?
+    validations:
+      required: true
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: Which (updated) browsers are you seeing the problem on?
+      multiple: true
+      options:
+        - Firefox
+        - Chrome
+        - Safari
+        - Microsoft Edge
+        - Other
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant Errors and Warnings
+      description: Is there an error message or warning in the browser console when you experienced this behaviour? Press F12, copy anything relevant, and paste it here.
+      render: shell
+  - type: textarea
+    id: debug
+    attributes:
+      label: Additional Support Details
+      description: With your Foundry VTT game active, you may click the Game Settings tab, then click the Support button. Please copy the debug information and paste it below.
+      placeholder: |
+        Foundry Virtual Tabletop: Version 9, 9.269
+        Game System: ose, 1.5.1
+        Active Modules: 9
+        Performance Mode: 1
+
+        OS: Intel Mac OS X 10.15
+        Client: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:103.0) Gecko/20100101 Firefox/103.0
+        GPU: Apple M1
+        Max Texture Size: 8192
+        ...
+  - type: checkboxes
+    id: code-of-conduct
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/vttred/.github/blob/main/CODE_OF_CONDUCT.md)
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true

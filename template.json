@@ -10,6 +10,7 @@
         },
         "hp": {
           "hd": "1d8",
+          "fraction": "",
           "value": 20,
           "max": 20
         },
@@ -54,6 +55,9 @@
           "mod": 0
         }
       },
+      "multiclass": {
+        "enabled": false
+      },
       "spellcaster": {
         "spells": {
           "enabled": false,
@@ -87,10 +91,29 @@
         "biography": "",
         "notes": "",
         "class": "",
+        "class2": "",
+        "class3": "",
+        "race": "",
         "title": "",
         "alignment": "",
         "level": 1,
+        "level2": 0,
+        "level3": 0,
         "xp": {
+          "share": 100,
+          "next": 2000,
+          "value": 0,
+          "bonus": 0
+        },
+        "xp2": {
+          "enabled": false,
+          "share": 100,
+          "next": 2000,
+          "value": 0,
+          "bonus": 0
+        },
+        "xp3": {
+          "enabled": false,
           "share": 100,
           "next": 2000,
           "value": 0,

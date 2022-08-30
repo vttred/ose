@@ -18,7 +18,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
    * Extend and override the default options used by the 5e Actor Sheet
    * @returns {Object}
    */
-  static get defaultOptions() {
+  static get defaultOptions() {    
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["ose", "sheet", "actor", "character"],
       template: `${OSE.systemPath()}/templates/actors/character-sheet.html`,

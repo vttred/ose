@@ -10,7 +10,8 @@
   "OSE.Roll": "Roll",
   "OSE.Success": "Success",
   "OSE.Failure": "Failure",
-
+  "OSE.Multiclass": "Multiclass Character",
+  
   "OSE.dialog.tweaks": "Tweaks",
   "OSE.dialog.partysheet": "Party Overview",
   "OSE.dialog.partyselect": "Select PCs",
@@ -54,6 +55,7 @@
 
   "OSE.details.name": "Name",
   "OSE.details.class": "Class",
+  "OSE.details.race": "Race",
   "OSE.details.title": "Title",
   "OSE.details.alignment": "Alignment",
   "OSE.details.level": "Level",
@@ -69,6 +71,9 @@
   "OSE.details.morale": "Morale",
   "OSE.details.reaction": "Reaction",
   "OSE.details.appearing": "NA",
+  "OSE.details.1stClass": "1st Class",
+  "OSE.details.2ndClass": "2nd Class",
+  "OSE.details.3rdClass": "3rd Class",
 
   "OSE.Attack": "Attack",
   "OSE.Encumbrance": "Encumbrance",
@@ -110,6 +115,8 @@
   "OSE.HealthShort": "HP",
   "OSE.HitDice": "Hit Dice",
   "OSE.HitDiceShort": "HD",
+  "OSE.FractionalHpShort": "HPF",
+  "OSE.FractionalHp": "Remaining HP Fraction",
 
   "OSE.movement.base": "Movement Rate",
   "OSE.movement.short": "MV",

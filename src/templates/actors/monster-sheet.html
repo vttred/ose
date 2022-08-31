@@ -28,7 +28,7 @@
     <div class="tab" data-group="primary" data-tab="inventory">
       {{> (path "/templates/actors/partials/character-inventory-tab.html") }}
     </div>
-    {{/if}} {{#if (data "spells.enabled") }}
+    {{/if}} {{#if data.spells.enabled }}
     <div class="tab" data-group="primary" data-tab="spells">
       {{> (path "/templates/actors/partials/character-spells-tab.html") }}
     </div>
@@ -37,8 +37,8 @@
       <div class="inventory">
         <div class="item-category-title">{{localize "OSE.category.notes"}}</div>
         <div class="resizable-editor" data-editor-size="320">
-          {{editor content=(data "details.biography") target=(data
-          "details.biography") button=true owner=owner editable=editable}}
+          {{editor content=data.details.biography target=
+          "data.details.biography" button=true owner=owner editable=editable}}
         </div>
       </div>
     </div>

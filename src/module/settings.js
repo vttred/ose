@@ -76,7 +76,7 @@ export const registerSettings = function () {
     type: String,
     config: true,
   });
-  game.settings.register("ose", "applyDamageOption", {
+  game.settings.register(game.system.id, "applyDamageOption", {
     name: game.i18n.localize("OSE.Setting.applyDamageOption"),
     hint: game.i18n.localize("OSE.Setting.applyDamageOptionHint"),
     default: "selected",

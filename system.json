@@ -8,28 +8,41 @@
   "compatibleCoreVersion": "10",
   "compatibility": {
     "minimum": "0.8.6",
-    "verified": "10.270",
+    "verified": "10",
     "maximum": 10
   },
-  "templateVersion": 2,
   "author": "Maintained by VTT Red with 9 contributors",
-  "esmodules": ["dist/module/ose.js"],
-  "styles": ["dist/ose.css"],
+  "authors": [
+    {
+      "name": "VTT RED",
+      "email": "ose-content@vtt.red",
+      "url": "https://vtt.red"
+    },
+    {
+      "name": "and 9 other contributors"
+    }
+  ],
+  "esmodules": [
+    "dist/module/ose.js"
+  ],
+  "styles": [
+    "dist/ose.css"
+  ],
   "packs": [],
   "languages": [
     {
       "lang": "en",
-      "name": "English",
+      "name": "English (UK)",
       "path": "dist/lang/en.json"
     },
     {
       "lang": "it",
-      "name": "Italian",
+      "name": "Italiano (Italia)",
       "path": "dist/lang/it.json"
     },
     {
       "lang": "fr",
-      "name": "French (FRANCE)",
+      "name": "Français (France)",
       "path": "dist/lang/fr.json"
     },
     {
@@ -39,8 +52,13 @@
     },
     {
       "lang": "es",
-      "name": "Spanish",
+      "name": "Español (España)",
       "path": "dist/lang/es.json"
+    },
+    {
+      "lang": "de",
+      "name": "Deutsch (Deutschland)",
+      "path": "dist/lang/de.json"
     }
   ],
   "gridDistance": 5,

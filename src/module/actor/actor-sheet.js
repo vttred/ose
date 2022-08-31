@@ -332,7 +332,7 @@ export class OseActorSheet extends ActorSheet {
       const itemData = {
         name: name ? name : `New ${type.capitalize()}`,
         type: type,
-        data: duplicate(header.dataset),
+        data: header.toObject().dataset, //V10 compatibility
       };
       delete itemData.data["type"];
       return itemData;

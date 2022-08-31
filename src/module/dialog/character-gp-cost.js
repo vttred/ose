@@ -101,11 +101,12 @@ export class OseCharacterGpCost extends FormApplication {
     let total = 0;
     const physical = ["item", "container", "weapon", "armor"];
     data.items.forEach((item) => {
+      const itemData = item?.system || item?.data?.data;
       if (
         physical.some((itemType) => item.type === itemType) &&
-        !item.data.treasure
+        !itemData.treasure
       )
-        total += item.data.cost * item.data.quantity.value;
+        total += itemData.cost * itemData.quantity.value;
     });
     return total;
   }

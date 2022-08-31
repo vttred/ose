@@ -64,8 +64,8 @@ export const registerHelpers = async function () {
     return TextEditor.enrichHTML(html);
   });
 
-  // helper for v9 compatibility
-  Handlebars.registerHelper("data", function (relativeKey) {
-    return `${"system." + relativeKey}`;
-  });
+  // // helper for v9 compatibility
+  // Handlebars.registerHelper("data", function (relativeKey) {
+  //   return `${"system." + relativeKey}`;
+  // });
 };

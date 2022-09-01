@@ -15,8 +15,8 @@
       <div>
         <input
           type="text"
-          name="data.details.alignment"
-          value="{{data.details.alignment}}"
+          name="system.details.alignment"
+          value="{{system.details.alignment}}"
         />
         <label>{{localize 'OSE.details.alignment'}}</label>
       </div>
@@ -31,8 +31,8 @@
       <div>
         <input
           type="text"
-          name="data.details.appearing.d"
-          value="{{data.details.appearing.d}}"
+          name="system.details.appearing.d"
+          value="{{system.details.appearing.d}}"
         />
         <label>{{localize 'OSE.details.appearing'}}</label>
       </div>
@@ -48,8 +48,8 @@
       <div>
         <input
           type="text"
-          name="data.details.appearing.w"
-          value="{{data.details.appearing.w}}"
+          name="system.details.appearing.w"
+          value="{{system.details.appearing.w}}"
         />
       </div>
       )
@@ -65,8 +65,8 @@
       <div>
         <input
           type="text"
-          name="data.details.morale"
-          value="{{data.details.morale}}"
+          name="system.details.morale"
+          value="{{system.details.morale}}"
         />
         <label>{{localize 'OSE.details.morale'}}</label>
       </div>
@@ -78,14 +78,18 @@
   </ul>
   <ul class="summary flexrow">
     <li>
-      <input type="text" name="data.details.xp" value="{{data.details.xp}}" />
+      <input
+        type="text"
+        name="system.details.xp"
+        value="{{system.details.xp}}"
+      />
       <label>{{localize 'OSE.details.experience.award'}}</label>
     </li>
     <li>
       <input
         type="text"
-        name="data.details.specialAbilities"
-        value="{{data.details.specialAbilities}}"
+        name="system.details.specialAbilities"
+        value="{{system.details.specialAbilities}}"
       />
       <label title="Special Abilities"
         >{{localize 'OSE.details.special.abilities'}}</label
@@ -95,7 +99,7 @@
       class="treasure-table"
       title="{{localize 'OSE.details.treasureTableHint'}}"
     >
-      <div>{{{data.details.treasure.link}}}</div>
+      <div>{{{system.details.treasure.link}}}</div>
       <label>{{localize 'OSE.details.treasure'}}</label>
     </li>
   </ul>

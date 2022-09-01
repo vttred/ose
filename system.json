@@ -4,10 +4,10 @@
   "title": "Old-School Essentials",
   "description": "Play B/X OSR modules with Old-School Essentials on Foundry VTT",
   "version": "AUTOMATICALLY REPLACED BY GITHUB WORKFLOW ACTION",
-  "minimumCoreVersion": "0.8.6",
+  "minimumCoreVersion": "10",
   "compatibleCoreVersion": "10",
   "compatibility": {
-    "minimum": "0.8.6",
+    "minimum": "10",
     "verified": "10",
     "maximum": 10
   },

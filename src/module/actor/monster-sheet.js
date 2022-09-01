@@ -37,15 +37,16 @@ export class OseActorSheetMonster extends OseActorSheet {
    * @private
    */
   _prepareItems(data) {
-    const itemsData = this.actor.data.items;
+    const itemsData = this.actor?.items || this.actor?.data?.items; //v9-compatibility
     const containerContents = {};
     const attackPatterns = {};
 
     // Partition items by category
     let [weapons, items, armors, spells, containers] = itemsData.reduce(
       (arr, item) => {
+        const itemData = item?.system || item?.data?.data; //v9-compatibility
         // Classify items into types
-        const containerId = item?.data?.data?.containerId;
+        const containerId = itemData.containerId;
         if (containerId) {
           containerContents[containerId] = [
             ...(containerContents[containerId] || []),
@@ -129,17 +130,26 @@ export class OseActorSheetMonster extends OseActorSheet {
    * Prepare data for rendering the Actor sheet
    * The prepared data object contains both the actor data as well as additional sheet options
    */
-  getData() {
+  async getData() {
     const data = super.getData();
     // Prepare owned items
     this._prepareItems(data);
 
+    const monsterData = data?.system || data?.data; //v9-compatibility
+
     // Settings
-    data.config.morale = game.settings.get("ose", "morale");
-    data.data.details.treasure.link = TextEditor.enrichHTML(
-      data.data.details.treasure.table
+    data.config.morale = game.settings.get(game.system.id, "morale");
+    monsterData.details.treasure.link = TextEditor.enrichHTML(
+      monsterData.details.treasure.table
     );
     data.isNew = this.actor.isNew();
+
+    if (isNewerVersion(game.version, "10.264")) {
+      data.enrichedBiography = await TextEditor.enrichHTML(
+        this.object.system.details.biography,
+        { async: true }
+      );
+    }
     return data;
   }
 
@@ -200,12 +210,16 @@ export class OseActorSheetMonster extends OseActorSheet {
     } else {
       link = `@RollTable[${data.id}]`;
     }
-    this.actor.update({ "data.details.treasure.table": link });
+    const treasureTableKey = isNewerVersion(game.version, "10.264")
+      ? "system.details.treasure.table"
+      : "data.details.treasure.table"; //v9-compatibility
+    this.actor.update({ [treasureTableKey]: link });
   }
 
   /* -------------------------------------------- */
   async _resetAttacks(event) {
-    const weapons = this.actor.data.items.filter((i) => i.type === "weapon");
+    const monsterItems = this.actor?.items || this.actor?.data?.items; //v9-compatiblity
+    const weapons = monsterItems.filter((i) => i.type === "weapon");
     for (let wp of weapons) {
       const item = this.actor.items.get(wp.id);
       await item.update({

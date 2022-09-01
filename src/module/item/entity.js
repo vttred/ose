@@ -29,8 +29,9 @@ export class OseItem extends Item {
   }
 
   prepareDerivedData() {
-    this.data.data.autoTags = this.getAutoTagList();
-    this.data.data.manualTags = this.data.data.tags;
+    const actorData = this?.system || this?.data?.data; //v9-compatibility
+    actorData.autoTags = this.getAutoTagList();
+    actorData.manualTags = actorData.tags;
   }
 
   static chatListeners(html) {
@@ -39,7 +40,11 @@ export class OseItem extends Item {
   }
 
   getChatData(htmlOptions) {
-    const data = duplicate(this.data.data);
+    const actorType = this?.type || this?.data?.type; //v9-compatibility
+
+    const actorData = this?.system || this?.data?.data; //v9-compatibility
+
+    const data = actorData.toObject(); //V10 Compatibility
 
     // Rich text description
     data.description = TextEditor.enrichHTML(data.description, htmlOptions);
@@ -47,10 +52,10 @@ export class OseItem extends Item {
     // Item properties
     const props = [];
 
-    if (this.data.type == "weapon") {
+    if (actorType == "weapon") {
       data.tags.forEach((t) => props.push(t.value));
     }
-    if (this.data.type == "spell") {
+    if (actorType == "spell") {
       props.push(`${data.class} ${data.lvl}`, data.range, data.duration);
     }
     if (data.hasOwnProperty("equipped")) {
@@ -65,13 +70,14 @@ export class OseItem extends Item {
   rollWeapon(options = {}) {
     let isNPC = this.actor.data.type != "character";
     const targets = 5;
-    const data = this.data.data;
+    const itemData = this?.system || this?.data?.data; //v9-compatibility
+
     let type = isNPC ? "attack" : "melee";
     const rollData = {
       item: this.data,
       actor: this.actor.data,
       roll: {
-        save: this.data.data.save,
+        save: itemData.save,
         target: null,
       },
     };
@@ -108,7 +114,8 @@ export class OseItem extends Item {
   }
 
   async rollFormula(options = {}) {
-    const data = this.data.data;
+    const data = this?.system || this?.data?.data; //v9-compatibility
+
     if (!data.roll) {
       throw new Error("This Item does not have a formula to roll!");
     }
@@ -141,9 +148,10 @@ export class OseItem extends Item {
   }
 
   spendSpell() {
+    const itemData = this?.system || this?.data?.data; //v9-compatibility
     this.update({
       data: {
-        cast: this.data.data.cast - 1,
+        cast: itemData.cast - 1,
       },
     }).then(() => {
       this.show({ skipDialog: true });
@@ -176,9 +184,10 @@ export class OseItem extends Item {
 
   getAutoTagList() {
     const tagList = [];
-    const data = this.data.data;
+    const data = this?.system || this?.data?.data; //v9-compatibility
+    const actorType = this?.type || this?.data?.type; //v9-compatibility
 
-    switch (this.data.type) {
+    switch (actorType) {
       case "container":
       case "item":
         break;
@@ -226,10 +235,11 @@ export class OseItem extends Item {
   }
 
   pushManualTag(values) {
-    const data = this.data.data;
+    const data = this?.system || this?.data?.data; //v9-compatibility
+
     let update = [];
     if (data.tags) {
-      update = duplicate(data.tags);
+      update = data.tags;
     }
     let newData = {};
     var regExp = /\(([^)]+)\)/;
@@ -267,7 +277,9 @@ export class OseItem extends Item {
   }
 
   popManualTag(value) {
-    const tags = this.data.data.tags;
+    const itemData = this?.system || this?.data?.data; //v9-compatibility
+
+    const tags = itemData.tags;
     if (!tags) return;
 
     let update = tags.filter((el) => el.value != value);
@@ -278,6 +290,7 @@ export class OseItem extends Item {
   }
 
   roll(options = {}) {
+    const itemData = this?.system || this?.data?.data; //v9-compatibility
     switch (this.type) {
       case "weapon":
         this.rollWeapon(options);
@@ -286,7 +299,7 @@ export class OseItem extends Item {
         this.spendSpell(options);
         break;
       case "ability":
-        if (this.data.data.roll) {
+        if (itemData.roll) {
           this.rollFormula();
         } else {
           this.show();
@@ -303,17 +316,18 @@ export class OseItem extends Item {
    * @return {Promise}
    */
   async show() {
+    const actorType = this?.type || this?.data?.type; //v9-compatibility
     // Basic template rendering data
-    const token = this.actor.token;
+    const token = this.actor.token; //v10: prototypeToken?
     const templateData = {
       actor: this.actor,
       tokenId: token ? `${token.parent.id}.${token.id}` : null,
-      item: foundry.utils.duplicate(this.data),
+      item: this.data.toObject(), //V10 compatibility
       data: this.getChatData(),
       labels: this.labels,
       isHealing: this.isHealing,
       hasDamage: this.hasDamage,
-      isSpell: this.data.type === "spell",
+      isSpell: actorType === "spell",
       hasSave: this.hasSave,
       config: CONFIG.OSE,
     };

@@ -41,22 +41,22 @@ export class OseActorSheetCharacter extends OseActorSheet {
    * @private
    */
   _prepareItems(data) {
-    const itemsData = this.actor.data.items;
+    const actorItems = this.actor?.items || this.actor?.data?.items; //v9-compatibility
     const containerContents = {};
     // Partition items by category
     let [containers, treasures, items, weapons, armors, abilities, spells] =
-      itemsData.reduce(
+      actorItems.reduce(
         (arr, item) => {
+          const itemData = item?.system || item?.data?.data; //v9-compatibility
           // Classify items into types
-          const containerId = item?.data?.data?.containerId;
+          const containerId = itemData.containerId;
           if (containerId) {
             containerContents[containerId] = [
               ...(containerContents[containerId] || []),
               item,
             ];
           } else if (item.type === "container") arr[0].push(item);
-          else if (item.type === "item" && item?.data?.data?.treasure)
-            arr[1].push(item);
+          else if (item.type === "item" && itemData.treasure) arr[1].push(item);
           else if (item.type === "item") arr[2].push(item);
           else if (item.type === "weapon") arr[3].push(item);
           else if (item.type === "armor") arr[4].push(item);
@@ -70,22 +70,32 @@ export class OseActorSheetCharacter extends OseActorSheet {
     var sortedSpells = {};
     var slots = {};
     for (var i = 0; i < spells.length; i++) {
-      const lvl = spells[i].data.data.lvl;
+      const lvl = isNewerVersion(game.version, "10.264")
+        ? spells[i].system.lvl
+        : spells[i].data.data.lvl;
       if (!sortedSpells[lvl]) sortedSpells[lvl] = [];
       if (!slots[lvl]) slots[lvl] = 0;
-      slots[lvl] += spells[i].data.data.memorized;
+      slots[lvl] += isNewerVersion(game.version, "10.264")
+        ? spells[i].system.memorized
+        : spells[i].data.data.memorized;
       sortedSpells[lvl].push(spells[i]);
     }
     data.slots = {
       used: slots,
     };
     containers.map((container, key, arr) => {
-      arr[key].data.data.itemIds = containerContents[container.id] || [];
-      arr[key].data.data.totalWeight = containerContents[container.id]?.reduce(
+      const arrayItemData = isNewerVersion(game.version, "10.264")
+        ? arr[key]?.system
+        : arr[key]?.data?.data; //v9-compatibility
+      arrayItemData.itemIds = containerContents[container.id] || [];
+      arrayItemData.totalWeight = containerContents[container.id]?.reduce(
         (acc, item) => {
+          containedItemData = isNewerVersion(game.version, "10.264")
+            ? item?.system
+            : item?.data?.data; // v9-compatibility
           return (
             acc +
-            item.data?.data?.weight * (item.data?.data?.quantity?.value || 1)
+            containedItemData.weight * (containedItemData.quantity?.value || 1)
           );
         },
         0
@@ -124,10 +134,21 @@ export class OseActorSheetCharacter extends OseActorSheet {
    * Prepare data for rendering the Actor sheet
    * The prepared data object contains both the actor data as well as additional sheet options
    */
-  getData() {
+  async getData() {
     const data = super.getData();
     // Prepare owned items
     this._prepareItems(data);
+
+    if (isNewerVersion(game.version, "10.264")) {
+      data.enrichedBiography = await TextEditor.enrichHTML(
+        this.object.system.details.biography,
+        { async: true }
+      );
+      data.enrichedNotes = await TextEditor.enrichHTML(
+        this.object.system.details.notes,
+        { async: true }
+      );
+    }
     return data;
   }
 
@@ -166,7 +187,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
 
   _pushLang(table) {
     const data = this.actor.data.data;
-    let update = duplicate(data[table]);
+    let update = data.toObject()[table]; //V10 compatibility
     this._chooseLang().then((dialogInput) => {
       const name = CONFIG.OSE.languages[dialogInput.choice];
       if (update.value) {

@@ -29,12 +29,12 @@
     />
   </h1>
   <ul class="summary flexrow">
-    {{#if data.retainer.enabled}}
+    {{#if system.retainer.enabled}}
     <li>
       <input
         type="text"
-        name="data.retainer.wage"
-        value="{{data.retainer.wage}}"
+        name="system.retainer.wage"
+        value="{{system.retainer.wage}}"
         data-dtype="String"
       />
       <label>{{localize 'OSE.RetainerWage'}}</label>
@@ -43,8 +43,8 @@
     <li>
       <input
         type="text"
-        name="data.details.title"
-        value="{{data.details.title}}"
+        name="system.details.title"
+        value="{{system.details.title}}"
         data-dtype="String"
       />
       <label>{{localize 'OSE.details.title'}}</label>
@@ -53,8 +53,8 @@
     <li>
       <input
         type="text"
-        name="data.details.alignment"
-        value="{{data.details.alignment}}"
+        name="system.details.alignment"
+        value="{{system.details.alignment}}"
         data-dtype="String"
       />
       <label>{{localize 'OSE.details.alignment'}}</label>
@@ -64,19 +64,19 @@
     <li class="flex3">
       <input
         type="text"
-        name="data.details.class"
-        value="{{data.details.class}}"
+        name="system.details.class"
+        value="{{system.details.class}}"
         data-dtype="String"
       />
       <label>{{localize 'OSE.details.class'}}</label>
     </li>
     <li
-      class="{{#if (gte data.details.xp.value data.details.xp.next)}}notify{{/if}}"
+      class="{{#if (gte system.details.xp.value system.details.xp.next)}}notify{{/if}}"
     >
       <input
         type="text"
-        name="data.details.level"
-        value="{{data.details.level}}"
+        name="system.details.level"
+        value="{{system.details.level}}"
         data-dtype="Number"
       />
       <label>{{localize 'OSE.details.level'}}</label>
@@ -84,13 +84,13 @@
     <li class="flex2">
       <input
         type="text"
-        name="data.details.xp.value"
-        value="{{data.details.xp.value}}"
+        name="system.details.xp.value"
+        value="{{system.details.xp.value}}"
         data-dtype="Number"
       />
       <label>{{localize 'OSE.details.experience.base'}}</label>
-      {{#if data.details.xp.bonus}}
-      <span class="xp-bonus">+{{data.details.xp.bonus}}%</span>
+      {{#if system.details.xp.bonus}}
+      <span class="xp-bonus">+{{system.details.xp.bonus}}%</span>
       {{/if}}
     </li>
   </ul>

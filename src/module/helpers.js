@@ -61,6 +61,11 @@ export const registerHelpers = async function () {
 
   // helper for parsing inline rolls
   Handlebars.registerHelper("parseInline", function (html) {
-    return TextEditor.enrichHTML(html)
-  })
+    return TextEditor.enrichHTML(html);
+  });
+
+  // helper for v9 compatibility
+  Handlebars.registerHelper("isV10", function () {
+    if (isNewerVersion(game.version, "10.264")) return true;
+  });
 };

@@ -5,7 +5,6 @@ export const preloadHandlebarsTemplates = async function () {
     //Character Sheets
     `${OSE.systemPath()}/templates/actors/character-sheet.html`,
     `${OSE.systemPath()}/templates/actors/monster-sheet.html`,
-
     //Character Sheets Partials
     `${OSE.systemPath()}/templates/actors/partials/character-header.html`,
     `${OSE.systemPath()}/templates/actors/partials/character-attributes-tab.html`,
@@ -16,13 +15,11 @@ export const preloadHandlebarsTemplates = async function () {
     `${OSE.systemPath()}/templates/actors/partials/character-notes-tab.html`,
     `${OSE.systemPath()}/templates/actors/partials/monster-header.html`,
     `${OSE.systemPath()}/templates/actors/partials/monster-attributes-tab.html`,
-
     // Item Display
     `${OSE.systemPath()}/templates/actors/partials/item-auto-tags-partial.html`,
-
     // Party Sheet
     `${OSE.systemPath()}/templates/apps/party-sheet.html`,
-    `${OSE.systemPath()}/templates/apps/party-xp.html`,
+    // `${OSE.systemPath()}/templates/apps/party-xp.html`,
   ];
   return loadTemplates(templatePaths);
 };

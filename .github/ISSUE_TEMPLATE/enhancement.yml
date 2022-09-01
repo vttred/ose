@@ -1,0 +1,32 @@
+name: Enhancement Request
+description: Request a new feature or improvement to the current functionality.
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this enhancement request!
+  - type: textarea
+    id: new-behaviour
+    attributes:
+      label: New Feature or Changed Behaviour
+      description: Describe your proposed enhancement in detail, and provide examples.
+      placeholder: |
+        Example: Create a new character sheet field called "Race" which automatically changes the naked AC based on the race chosen.
+    validations:
+      required: true
+  - type: textarea
+    id: explanation-of-change
+    attributes:
+      label: Why?
+      description: Would this improve/shorten a player's workflow? Would this be more intuitive? Explain with details and examples.
+      placeholder: |
+        Players will be able to make AC modifications without having to use Tweaks, saving them time and removing an extra field from the Tweaks menu.
+  - type: checkboxes
+    id: code-of-conduct
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/vttred/.github/blob/main/CODE_OF_CONDUCT.md)
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true

@@ -44,6 +44,10 @@ Here are some next steps to get started on your first code or translation contri
 
 [Follow these directions](https://github.com/nodejs/node-gyp#on-windows), then run `npm i` again. If you still have issues after trying to follow Microsoft's Node.js guidelines, chat with us on Discord.
 
+**Error: `Operation not permitted` when trying to run `npm run link`**
+
+On Windows you may have to run your shell/command prompt in administrator mode to create a symlink. This should be rare in Linux, but `sudo npm run link` or changing the owner of the Foundry user data directory to the current user should make this command run without errors.
+
 **Error: Cannot find module 'rollup'**
 
 You may have skipped `npm i npm -g && npm -v`. If it shows npm version <7.0, then you may have an older version of Node or older operating system and need to upgrade.

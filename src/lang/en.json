@@ -62,6 +62,7 @@
   "OSE.details.experience.next": "Next level",
   "OSE.details.experience.share": "Experience Share",
   "OSE.details.experience.award": "XP Award",
+  "OSE.details.special.abilities": "Special Abilities",
   "OSE.details.treasure": "Treasure type",
   "OSE.details.treasureTable": "Table",
   "OSE.details.treasureTableHint": "Drop a rollable table here to roll the monster treasure",
@@ -226,6 +227,8 @@
   "OSE.items.enterTag": "Tags",
   "OSE.items.pattern": "Attack pattern marker",
   "OSE.items.uses": "Uses",
+  "OSE.items.gp.short": "GP",
+  "OSE.items.gp.long": "Gold Pieces",
 
   "OSE.items.Range": "Range",
   "OSE.items.Melee": "Melee",

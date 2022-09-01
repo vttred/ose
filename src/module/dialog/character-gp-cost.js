@@ -55,7 +55,11 @@ export class OseCharacterGpCost extends FormApplication {
     const totalCost = await this._getTotalCost(await this.getData());
     const gp = await this.object.items.find((item) => {
       itemData = item?.system || item?.data?.data; //v9-compatibility
-      return item.name === "GP" && item.data.data.treasure;
+      return (
+        (item.name === game.i18n.localize("OSE.items.gp.short") ||
+          item.name === "GP") && // legacy behavior used GP, even for other languages
+        itemData.treasure
+      );
     });
     if (!gp) {
       ui.notifications.error(game.i18n.localize("OSE.error.noGP"));
@@ -106,7 +110,8 @@ export class OseCharacterGpCost extends FormApplication {
         physical.some((itemType) => item.type === itemType) &&
         !itemData.treasure
       )
-        total += itemData.cost * itemData.quantity.value;
+        if (itemData.quantity.max) total += itemData.cost;
+        else total += itemData.cost * itemData.quantity.value;
     });
     return total;
   }

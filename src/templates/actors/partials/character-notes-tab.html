@@ -32,8 +32,11 @@
       <div class="flex3 description">
         <div class="item-category-title">Biography</div>
         <div>
-          {{editor content=data.details.biography target="data.details.biography"
-          button=true owner=owner editable=editable async=false}}
+          {{#if (isV10)}} {{editor enrichedBiography
+          target="system.details.biography" button=true editable=editable
+          async=true}} {{else}} {{editor content=data.details.biography
+          target="data.details.biography" button=true owner=owner
+          editable=editable}} {{/if}}
         </div>
       </div>
     </div>
@@ -41,8 +44,10 @@
   <div class="inventory notes">
     <div class="item-category-title">{{localize "OSE.category.notes"}}</div>
     <div class="resizable-editor" data-editor-size="140">
-      {{editor content=data.details.notes target="data.details.notes" button=true
-      owner=owner editable=editable async=false}}
+      {{#if (isV10)}} {{editor enrichedNotes target="system.details.notes"
+      button=true editable=editable async=true}} {{else}} {{editor
+      content=data.details.notes target="system.details.notes" button=true
+      owner=owner editable=editable}} {{/if}}
     </div>
   </div>
 </section>

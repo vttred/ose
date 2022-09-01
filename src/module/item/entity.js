@@ -44,7 +44,7 @@ export class OseItem extends Item {
 
     const actorData = this?.system || this?.data?.data; //v9-compatibility
 
-    const data = actorData.toObject();//V10 Compatibility
+    const data = actorData.toObject(); //V10 Compatibility
 
     // Rich text description
     data.description = TextEditor.enrichHTML(data.description, htmlOptions);
@@ -239,7 +239,7 @@ export class OseItem extends Item {
 
     let update = [];
     if (data.tags) {
-      update = data.toObject().tags; //V10 Compatibility
+      update = data.tags;
     }
     let newData = {};
     var regExp = /\(([^)]+)\)/;
@@ -322,7 +322,7 @@ export class OseItem extends Item {
     const templateData = {
       actor: this.actor,
       tokenId: token ? `${token.parent.id}.${token.id}` : null,
-      item: this.data.toObject(),//V10 compatibility
+      item: this.data.toObject(), //V10 compatibility
       data: this.getChatData(),
       labels: this.labels,
       isHealing: this.isHealing,

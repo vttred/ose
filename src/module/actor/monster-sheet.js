@@ -130,7 +130,7 @@ export class OseActorSheetMonster extends OseActorSheet {
    * Prepare data for rendering the Actor sheet
    * The prepared data object contains both the actor data as well as additional sheet options
    */
-  getData() {
+  async getData() {
     const data = super.getData();
     // Prepare owned items
     this._prepareItems(data);
@@ -143,6 +143,13 @@ export class OseActorSheetMonster extends OseActorSheet {
       monsterData.details.treasure.table
     );
     data.isNew = this.actor.isNew();
+
+    if (isNewerVersion(game.version, "10.264")) {
+      data.enrichedBiography = await TextEditor.enrichHTML(
+        this.object.system.details.biography,
+        { async: true }
+      );
+    }
     return data;
   }
 

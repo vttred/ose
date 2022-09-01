@@ -205,11 +205,12 @@ export class OseActorSheet extends ActorSheet {
     const dropTarget = event.target.closest("[data-item-id]");
     const targetId = dropTarget ? dropTarget.dataset.itemId : null;
     const target = siblings.find((s) => s.data._id === targetId);
+    const targetData = target?.system || target?.data?.data; //v9-compatibility
 
     // Dragging items into a container
     if (
-      target?.data.type === "container" &&
-      target?.data.data.containerId === ""
+      (target?.type === "container" || target?.data?.type === "container") &&
+      targetData.containerId === ""
     ) {
       this.actor.updateEmbeddedDocuments("Item", [
         { _id: source.id, "data.containerId": target.id },
@@ -332,7 +333,7 @@ export class OseActorSheet extends ActorSheet {
       const itemData = {
         name: name ? name : `New ${type.capitalize()}`,
         type: type,
-        data: header.toObject().dataset, //V10 compatibility
+        data: header.dataset,
       };
       delete itemData.data["type"];
       return itemData;

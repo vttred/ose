@@ -134,10 +134,21 @@ export class OseActorSheetCharacter extends OseActorSheet {
    * Prepare data for rendering the Actor sheet
    * The prepared data object contains both the actor data as well as additional sheet options
    */
-  getData() {
+  async getData() {
     const data = super.getData();
     // Prepare owned items
     this._prepareItems(data);
+
+    if (isNewerVersion(game.version, "10.264")) {
+      data.enrichedBiography = await TextEditor.enrichHTML(
+        this.object.system.details.biography,
+        { async: true }
+      );
+      data.enrichedNotes = await TextEditor.enrichHTML(
+        this.object.system.details.notes,
+        { async: true }
+      );
+    }
     return data;
   }
 

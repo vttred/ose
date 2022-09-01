@@ -37,8 +37,11 @@
       <div class="inventory">
         <div class="item-category-title">{{localize "OSE.category.notes"}}</div>
         <div class="resizable-editor" data-editor-size="320">
-          {{editor content=data.details.biography target=
-          "data.details.biography" button=true owner=owner editable=editable}}
+          {{#if (isV10)}} {{editor enrichedBiography
+          target="system.details.biography" button=true editable=editable
+          async=true}} {{else}} {{editor content=data.details.biography
+          target="data.details.biography" button=true owner=owner
+          editable=editable }} {{/if}}
         </div>
       </div>
     </div>

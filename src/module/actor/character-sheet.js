@@ -90,7 +90,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
       arrayItemData.itemIds = containerContents[container.id] || [];
       arrayItemData.totalWeight = containerContents[container.id]?.reduce(
         (acc, item) => {
-          containedItemData = isNewerVersion(game.version, "10.264")
+          const containedItemData = isNewerVersion(game.version, "10.264")
             ? item?.system
             : item?.data?.data; // v9-compatibility
           return (

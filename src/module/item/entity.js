@@ -82,7 +82,7 @@ export class OseItem extends Item {
       },
     };
 
-    if (data.missile && data.melee && !isNPC) {
+    if (itemData.missile && itemData.melee && !isNPC) {
       // Dialog
       new Dialog({
         title: "Choose Attack Range",
@@ -106,7 +106,7 @@ export class OseItem extends Item {
         default: "melee",
       }).render(true);
       return true;
-    } else if (data.missile && !isNPC) {
+    } else if (itemData.missile && !isNPC) {
       type = "missile";
     }
     this.actor.targetAttack(rollData, type, options);

@@ -28,10 +28,23 @@ export class OseItem extends Item {
     super.prepareData();
   }
 
-  prepareDerivedData() {
-    const actorData = this?.system || this?.data?.data; //v9-compatibility
-    actorData.autoTags = this.getAutoTagList();
-    actorData.manualTags = actorData.tags;
+  async prepareDerivedData() {
+    const itemData = this?.system || this?.data?.data; //v9-compatibility
+    itemData.autoTags = this.getAutoTagList();
+    itemData.manualTags = itemData.tags;
+
+    // Rich text description
+    if (isNewerVersion(game.version, "10.264")) {
+      itemData.enrichedDescription = await TextEditor.enrichHTML(
+        itemData.description,
+        { async: true }
+      );
+    } else {
+      itemData.description = TextEditor.enrichHTML(
+        itemData.description,
+        htmlOptions
+      );
+    }
   }
 
   static chatListeners(html) {
@@ -39,32 +52,31 @@ export class OseItem extends Item {
     html.on("click", ".item-name", this._onChatCardToggleContent.bind(this));
   }
 
-  getChatData(htmlOptions) {
-    const actorType = this?.type || this?.data?.type; //v9-compatibility
+  async getChatData(htmlOptions) {
+    const itemType = this?.type || this?.data?.type; //v9-compatibility
 
-    const actorData = this?.system || this?.data?.data; //v9-compatibility
-
-    const data = actorData.toObject(); //V10 Compatibility
-
-    // Rich text description
-    data.description = TextEditor.enrichHTML(data.description, htmlOptions);
+    const itemData = this?.system || this?.data?.data; //v9-compatibility
 
     // Item properties
     const props = [];
 
-    if (actorType == "weapon") {
-      data.tags.forEach((t) => props.push(t.value));
+    if (itemType == "weapon") {
+      itemData.tags.forEach((t) => props.push(t.value));
     }
-    if (actorType == "spell") {
-      props.push(`${data.class} ${data.lvl}`, data.range, data.duration);
+    if (itemType == "spell") {
+      props.push(
+        `${itemData.class} ${itemData.lvl}`,
+        itemData.range,
+        itemData.duration
+      );
     }
-    if (data.hasOwnProperty("equipped")) {
-      props.push(data.equipped ? "Equipped" : "Not Equipped");
+    if (itemData.hasOwnProperty("equipped")) {
+      props.push(itemData.equipped ? "Equipped" : "Not Equipped");
     }
 
     // Filter properties and return
-    data.properties = props.filter((p) => !!p);
-    return data;
+    itemData.properties = props.filter((p) => !!p);
+    return itemData;
   }
 
   rollWeapon(options = {}) {
@@ -185,9 +197,9 @@ export class OseItem extends Item {
   getAutoTagList() {
     const tagList = [];
     const data = this?.system || this?.data?.data; //v9-compatibility
-    const actorType = this?.type || this?.data?.type; //v9-compatibility
+    const itemType = this?.type || this?.data?.type; //v9-compatibility
 
-    switch (actorType) {
+    switch (itemType) {
       case "container":
       case "item":
         break;
@@ -316,18 +328,18 @@ export class OseItem extends Item {
    * @return {Promise}
    */
   async show() {
-    const actorType = this?.type || this?.data?.type; //v9-compatibility
+    const itemType = this?.type || this?.data?.type; //v9-compatibility
     // Basic template rendering data
     const token = this.actor.token; //v10: prototypeToken?
     const templateData = {
       actor: this.actor,
       tokenId: token ? `${token.parent.id}.${token.id}` : null,
       item: this.data,
-      data: this.getChatData(),
+      data: await this.getChatData(),
       labels: this.labels,
       isHealing: this.isHealing,
       hasDamage: this.hasDamage,
-      isSpell: actorType === "spell",
+      isSpell: itemType === "spell",
       hasSave: this.hasSave,
       config: CONFIG.OSE,
     };

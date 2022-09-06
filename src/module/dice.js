@@ -151,7 +151,9 @@ export class OseDice {
     };
     result.target = data.roll.thac0;
     let targetActorData =
-      data.roll.target.actor?.system || data.roll.target.actor?.data?.data; //v9-compatibility
+      data.roll.target?.actor?.system ||
+      data.roll.target?.actor?.data?.data ||
+      null; //v9-compatibility
 
     const targetAc = data.roll.target ? targetActorData.ac.value : 9;
     const targetAac = data.roll.target ? targetActorData.aac.value : 0;

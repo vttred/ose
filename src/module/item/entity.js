@@ -322,7 +322,7 @@ export class OseItem extends Item {
     const templateData = {
       actor: this.actor,
       tokenId: token ? `${token.parent.id}.${token.id}` : null,
-      item: this.data.toObject(), //V10 compatibility
+      item: this.data,
       data: this.getChatData(),
       labels: this.labels,
       isHealing: this.isHealing,

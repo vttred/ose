@@ -187,7 +187,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
 
   _pushLang(table) {
     const data = this.actor.data.data;
-    let update = data.toObject()[table]; //V10 compatibility
+    let update = data[table]; //V10 compatibility
     this._chooseLang().then((dialogInput) => {
       const name = CONFIG.OSE.languages[dialogInput.choice];
       if (update.value) {

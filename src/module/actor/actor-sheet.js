@@ -84,11 +84,13 @@ export class OseActorSheet extends ActorSheet {
 
   _toggleItemSummary(event) {
     event.preventDefault();
-    const itemSummary = event.currentTarget.closest(".item-entry.item").querySelector('.item-summary');
+    const itemSummary = event.currentTarget
+      .closest(".item-entry.item")
+      .querySelector(".item-summary");
     if (itemSummary.style.display === "") {
-      itemSummary.style.display = 'block';
+      itemSummary.style.display = "block";
     } else {
-      itemSummary.style.display = '';
+      itemSummary.style.display = "";
     }
   }
 
@@ -158,7 +160,7 @@ export class OseActorSheet extends ActorSheet {
 
   async _rollAbility(event) {
     const item = this._getItemFromActor(event);
-    const itemData = itemData?.system || item?.data?.data; //v9-compatibility
+    const itemData = item?.system || item?.data?.data; //v9-compatibility
     if (item.type == "weapon") {
       if (this.actor.data.type === "monster") {
         item.update({

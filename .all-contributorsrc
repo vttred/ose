@@ -85,6 +85,15 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "hogwrassler",
+      "name": "hogwrassler",
+      "avatar_url": "https://avatars.githubusercontent.com/u/110945935?v=4",
+      "profile": "https://github.com/hogwrassler",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

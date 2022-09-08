@@ -55,19 +55,19 @@ Hooks.once("init", async function () {
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet("ose", OseActorSheetCharacter, {
+  Actors.registerSheet(game.system.id, OseActorSheetCharacter, {
     types: ["character"],
     makeDefault: true,
     label: "OSE.SheetClassCharacter",
   });
-  Actors.registerSheet("ose", OseActorSheetMonster, {
+  Actors.registerSheet(game.system.id, OseActorSheetMonster, {
     types: ["monster"],
     makeDefault: true,
     label: "OSE.SheetClassMonster",
   });
 
   Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet("ose", OseItemSheet, {
+  Items.registerSheet(game.system.id, OseItemSheet, {
     makeDefault: true,
     label: "OSE.SheetClassItem",
   });
@@ -96,7 +96,7 @@ Hooks.once("setup", function () {
   }
 
   // Custom languages
-  const languages = game.settings.get("ose", "languages");
+  const languages = game.settings.get(game.system.id, "languages");
   if (languages != "") {
     const langArray = languages.split(",");
     langArray.forEach((l, i) => (langArray[i] = l.trim()));
@@ -144,7 +144,7 @@ Hooks.on("renderSidebarTab", async (object, html) => {
 });
 
 Hooks.on("preCreateCombatant", (combat, data, options, id) => {
-  let init = game.settings.get("ose", "initiative");
+  let init = game.settings.get(game.system.id, "initiative");
   if (init == "group") {
     OseCombat.addCombatant(combat, data, options, id);
   }

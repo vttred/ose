@@ -1,5 +1,5 @@
 export const registerSettings = function () {
-  game.settings.register("ose", "initiative", {
+  game.settings.register(game.system.id, "initiative", {
     name: game.i18n.localize("OSE.Setting.Initiative"),
     hint: game.i18n.localize("OSE.Setting.InitiativeHint"),
     default: "group",
@@ -12,7 +12,7 @@ export const registerSettings = function () {
     },
   });
 
-  game.settings.register("ose", "rerollInitiative", {
+  game.settings.register(game.system.id, "rerollInitiative", {
     name: game.i18n.localize("OSE.Setting.RerollInitiative"),
     hint: game.i18n.localize("OSE.Setting.RerollInitiativeHint"),
     default: "reset",
@@ -26,7 +26,7 @@ export const registerSettings = function () {
     },
   });
 
-  game.settings.register("ose", "ascendingAC", {
+  game.settings.register(game.system.id, "ascendingAC", {
     name: game.i18n.localize("OSE.Setting.AscendingAC"),
     hint: game.i18n.localize("OSE.Setting.AscendingACHint"),
     default: false,
@@ -35,7 +35,7 @@ export const registerSettings = function () {
     config: true,
   });
 
-  game.settings.register("ose", "morale", {
+  game.settings.register(game.system.id, "morale", {
     name: game.i18n.localize("OSE.Setting.Morale"),
     hint: game.i18n.localize("OSE.Setting.MoraleHint"),
     default: false,
@@ -44,7 +44,7 @@ export const registerSettings = function () {
     config: true,
   });
 
-  game.settings.register("ose", "encumbranceOption", {
+  game.settings.register(game.system.id, "encumbranceOption", {
     name: game.i18n.localize("OSE.Setting.Encumbrance"),
     hint: game.i18n.localize("OSE.Setting.EncumbranceHint"),
     default: "detailed",
@@ -59,7 +59,7 @@ export const registerSettings = function () {
     },
   });
 
-  game.settings.register("ose", "significantTreasure", {
+  game.settings.register(game.system.id, "significantTreasure", {
     name: game.i18n.localize("OSE.Setting.SignificantTreasure"),
     hint: game.i18n.localize("OSE.Setting.SignificantTreasureHint"),
     default: 800,
@@ -68,7 +68,7 @@ export const registerSettings = function () {
     config: true,
   });
 
-  game.settings.register("ose", "languages", {
+  game.settings.register(game.system.id, "languages", {
     name: game.i18n.localize("OSE.Setting.Languages"),
     hint: game.i18n.localize("OSE.Setting.LanguagesHint"),
     default: "",
@@ -76,7 +76,7 @@ export const registerSettings = function () {
     type: String,
     config: true,
   });
-  game.settings.register("ose", "applyDamageOption", {
+  game.settings.register(game.system.id, "applyDamageOption", {
     name: game.i18n.localize("OSE.Setting.applyDamageOption"),
     hint: game.i18n.localize("OSE.Setting.applyDamageOptionHint"),
     default: "selected",

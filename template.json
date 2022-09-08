@@ -142,6 +142,7 @@
         "biography": "",
         "alignment": "",
         "xp": 0,
+        "specialAbilities": 0,
         "treasure": {
           "table": "",
           "type": ""
@@ -225,7 +226,7 @@
     },
     "ability": {
       "templates": ["common", "rollable"],
-      "pattern": "white",
+      "pattern": "transparent",
       "requirements": "",
       "roll": "",
       "rollType": "result",

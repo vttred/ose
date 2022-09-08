@@ -60,4 +60,9 @@ export const registerHelpers = async function () {
   Handlebars.registerHelper("parseInline", function (html) {
     return TextEditor.enrichHTML(html);
   });
+
+  // helper for v9 compatibility
+  Handlebars.registerHelper("isV10", function () {
+    if (isNewerVersion(game.version, "10.264")) return true;
+  });
 };

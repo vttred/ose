@@ -37,15 +37,26 @@ export class OseActorSheetMonster extends OseActorSheet {
    * @private
    */
   _prepareItems(data) {
-    const itemsData = this.actor.data.items;
+    const itemsData = this.actor?.items || this.actor?.data?.items; //v9-compatibility
     const containerContents = {};
-    const attackPatterns = {};
+    const attackPatterns = {
+    };
+
+    let colors = Object.keys(CONFIG.OSE.colors);
+    colors.push("transparent");
+
+    // Set up attack patterns in specific order
+    for (var i = 0; i < colors.length; i++)
+    {
+      attackPatterns[colors[i]] = [];
+    }    
 
     // Partition items by category
     let [weapons, items, armors, spells, containers] = itemsData.reduce(
       (arr, item) => {
+        const itemData = item?.system || item?.data?.data; //v9-compatibility
         // Classify items into types
-        const containerId = item?.data?.data?.containerId;
+        const containerId = itemData.containerId;
         if (containerId) {
           containerContents[containerId] = [
             ...(containerContents[containerId] || []),
@@ -53,10 +64,8 @@ export class OseActorSheetMonster extends OseActorSheet {
           ];
           return arr;
         }
-        // Grab attack groups
+        // Add Items to their respective attack groups
         if (["weapon", "ability"].includes(item.type)) {
-          if (attackPatterns[item.data.data.pattern] === undefined)
-            attackPatterns[item.data.data.pattern] = [];
           attackPatterns[item.data.data.pattern].push(item);
         }
         // Classify items into types
@@ -116,30 +125,47 @@ export class OseActorSheetMonster extends OseActorSheet {
       containers: containers,
       armors: armors,
     };
+    
     data.attackPatterns = attackPatterns;
+    // Sort items and spells alphabetically within their groups
     data.spells = sortedSpells;
     [
-      ...Object.values(data.attackPatterns),
       ...Object.values(data.owned),
       ...Object.values(data.spells),
-    ].forEach((o) => o.sort((a, b) => (a.data.sort || 0) - (b.data.sort || 0)));
+    ].forEach((o) => o.sort((a, b) => a.data.name.localeCompare(b.data.name)));
+
+    // Within each attack pattern, weapons come before abilities, 
+    // and are then alphabetized
+    Object.values(data.attackPatterns).forEach(
+        (o) => o.sort((a, b) => 
+        b.data.type.localeCompare(a.data.type) || a.data.name.localeCompare(b.data.name))
+    );
   }
 
   /**
    * Prepare data for rendering the Actor sheet
    * The prepared data object contains both the actor data as well as additional sheet options
    */
-  getData() {
+  async getData() {
     const data = super.getData();
     // Prepare owned items
     this._prepareItems(data);
 
+    const monsterData = data?.system || data?.data; //v9-compatibility
+
     // Settings
-    data.config.morale = game.settings.get("ose", "morale");
-    data.data.details.treasure.link = TextEditor.enrichHTML(
-      data.data.details.treasure.table
+    data.config.morale = game.settings.get(game.system.id, "morale");
+    monsterData.details.treasure.link = TextEditor.enrichHTML(
+      monsterData.details.treasure.table
     );
     data.isNew = this.actor.isNew();
+
+    if (isNewerVersion(game.version, "10.264")) {
+      data.enrichedBiography = await TextEditor.enrichHTML(
+        this.object.system.details.biography,
+        { async: true }
+      );
+    }
     return data;
   }
 
@@ -200,12 +226,16 @@ export class OseActorSheetMonster extends OseActorSheet {
     } else {
       link = `@RollTable[${data.id}]`;
     }
-    this.actor.update({ "data.details.treasure.table": link });
+    const treasureTableKey = isNewerVersion(game.version, "10.264")
+      ? "system.details.treasure.table"
+      : "data.details.treasure.table"; //v9-compatibility
+    this.actor.update({ [treasureTableKey]: link });
   }
 
   /* -------------------------------------------- */
   async _resetAttacks(event) {
-    const weapons = this.actor.data.items.filter((i) => i.type === "weapon");
+    const monsterItems = this.actor?.items || this.actor?.data?.items; //v9-compatiblity
+    const weapons = monsterItems.filter((i) => i.type === "weapon");
     for (let wp of weapons) {
       const item = this.actor.items.get(wp.id);
       await item.update({
@@ -236,7 +266,9 @@ export class OseActorSheetMonster extends OseActorSheet {
   _cycleAttackPatterns(event) {
     const item = super._getItemFromActor(event);
     let currentColor = item.data.data.pattern;
+    // Attack patterns include all OSE colors and transparent
     let colors = Object.keys(CONFIG.OSE.colors);
+    colors.push("transparent");
     let index = colors.indexOf(currentColor);
     if (index + 1 == colors.length) {
       index = 0;

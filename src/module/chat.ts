@@ -33,7 +33,8 @@ export const addChatMessageButtons = function (msg: ChatMessage, html: JQuery) {
   // Hide blind rolls
   let blindable = html.find(".blindable");
   if (
-    msg.data.blind &&
+    msg?.blind &&
+    msg?.data?.blind && //v9 compatibility
     !game.user?.isGM &&
     blindable &&
     blindable.data("blind") === true
@@ -67,7 +68,7 @@ export const addChatMessageButtons = function (msg: ChatMessage, html: JQuery) {
  */
 function applyChatCardDamage(roll: JQuery, multiplier: 1 | -1) {
   const amount = roll.find(".dice-total").last().text();
-  const dmgTgt = game.settings.get("ose", "applyDamageOption");
+  const dmgTgt = game.settings.get(game.system.id, "applyDamageOption");
   if (dmgTgt === `targeted`) {
     game.user?.targets.forEach(async (t) => {
       if (game.user?.isGM && t.actor instanceof OseActor)

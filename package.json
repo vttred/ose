@@ -12,7 +12,7 @@
   "author": "",
   "license": "",
   "devDependencies": {
-    "@league-of-foundry-developers/foundry-vtt-types": "^9.269.0",
+    "@league-of-foundry-developers/foundry-vtt-types": "League-of-Foundry-Developers/foundry-vtt-types#main",
     "@rollup/plugin-node-resolve": "^13.1.3",
     "@rollup/plugin-typescript": "^8.3.4",
     "@rollup/stream": "^2.0.0",

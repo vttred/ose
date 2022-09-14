@@ -47,13 +47,13 @@ Here are some next steps to get started on your first code contribution.
 
 ## Troubleshooting
 
-To ask for a hand to help onboard you before making your first contributiion to this repo, I recommend joining our [Unofficial OSE on Foundry VTT Discord server](https://discord.gg/qGrxRK2yD5).
+To ask for a hand to help onboard you before making your first contribution to this repo, I recommend joining our [Unofficial OSE on Foundry VTT Discord server](https://discord.gg/qGrxRK2yD5).
 
-### Errors from `node gyp` when running `npm i` on Windows.**
+### Errors from `node gyp` when running `npm i` on Windows.
 
 [Follow these directions](https://github.com/nodejs/node-gyp#on-windows), then run `npm i` again. If you still have issues after trying to follow Microsoft's Node.js guidelines, chat with us on Discord.
 
-### Error: `Operation not permitted` when trying to run `npm run link`**
+### Error: `Operation not permitted` when trying to run `npm run link`
 
 On Windows you may have to run your shell/command prompt in administrator mode to create a symlink. This should be rare in Linux, but `sudo npm run link` or changing the owner of the Foundry user data directory to the current user should make this command run without errors.
 
@@ -69,7 +69,7 @@ You will need to `npm i` occasionally as we put out updates to the build process
 
 Repeat contributors may ask via Discord direct message (@corporat#1282) or email (ose@vtt.red) to be added to a list of people who are interested in referrals for contract work.
 
-## Final Addendum: Multiple Builds of OSE in the same Foundry VTT installation
+## Addendum: Multiple Builds of OSE in the same Foundry VTT installation
 
 The maintainer of this repository has three versions of OSE installed in any given version of Foundry VTT. And 2 or 3 versions of Foundry VTT installed at any given time. His home directory looks something like this.
 

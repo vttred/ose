@@ -57,11 +57,11 @@ To ask for a hand to help onboard you before making your first contribution to t
 
 On Windows you may have to run your shell/command prompt in administrator mode to create a symlink. This should be rare in Linux, but `sudo npm run link` or changing the owner of the Foundry user data directory to the current user should make this command run without errors.
 
-### Error: Cannot find module 'rollup'**
+### Error: Cannot find module 'rollup'
 
 You may have skipped `npm i npm -g && npm -v`. If it shows npm version <7.0, then you may have an older version of Node or older operating system and need to upgrade.
 
-### Error: Cannot find module (any module except rollup)**
+### Error: Cannot find module (any module except rollup)
 
 You will need to `npm i` occasionally as we put out updates to the build process. We try to communicate whenever there's a change in devDependencies on Discord and in release notes.
 

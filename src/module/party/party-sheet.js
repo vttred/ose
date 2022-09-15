@@ -51,7 +51,7 @@ export class OsePartySheet extends FormApplication {
    */
   getData() {
     const settings = {
-      ascending: game.settings.get("ose", "ascendingAC"),
+      ascending: game.settings.get(game.system.id, "ascendingAC"),
     };
 
     let data = {

@@ -37,7 +37,7 @@ export class OseItemSheet extends ItemSheet {
 
   /** @override */
   get template() {
-    const path = `${OSE.systemPath()}/templates/items/`;
+    const path = `${OSE.systemPath()}/templates/items`;
     return `${path}/${this.item.data.type}-sheet.html`;
   }
 

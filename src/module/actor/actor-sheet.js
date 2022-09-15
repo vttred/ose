@@ -14,9 +14,9 @@ export class OseActorSheet extends ActorSheet {
 
     data.config = {
       ...CONFIG.OSE,
-      ascendingAC: game.settings.get("ose", "ascendingAC"),
-      initiative: game.settings.get("ose", "initiative") != "group",
-      encumbrance: game.settings.get("ose", "encumbranceOption"),
+      ascendingAC: game.settings.get(game.system.id, "ascendingAC"),
+      initiative: game.settings.get(game.system.id, "initiative") != "group",
+      encumbrance: game.settings.get(game.system.id, "encumbranceOption"),
     };
     data.isNew = this.actor.isNew();
 
@@ -25,9 +25,9 @@ export class OseActorSheet extends ActorSheet {
 
   activateEditor(name, options, initialContent) {
     // remove some controls to the editor as the space is lacking
-    if (name == "data.details.description") {
-      options.toolbar = "styleselect bullist hr table removeFormat save";
-    }
+    // if (name == "data.details.description") {
+    //   options.toolbar = "styleselect bullist hr table removeFormat save";
+    // }
     super.activateEditor(name, options, initialContent);
   }
 
@@ -84,11 +84,13 @@ export class OseActorSheet extends ActorSheet {
 
   _toggleItemSummary(event) {
     event.preventDefault();
-    const itemSummary = event.currentTarget.closest(".item-entry.item").querySelector('.item-summary');
+    const itemSummary = event.currentTarget
+      .closest(".item-entry.item")
+      .querySelector(".item-summary");
     if (itemSummary.style.display === "") {
-      itemSummary.style.display = 'block';
+      itemSummary.style.display = "block";
     } else {
-      itemSummary.style.display = '';
+      itemSummary.style.display = "";
     }
   }
 
@@ -100,10 +102,11 @@ export class OseActorSheet extends ActorSheet {
 
   async _removeItemFromActor(event) {
     const item = this._getItemFromActor(event);
+    const itemData = item?.system || item?.data?.data; //v9-compatibility
     const itemDisplay = event.currentTarget.closest(".item-entry");
 
-    if (item.type === "container" && item.data.data.itemIds) {
-      const containedItems = item.data.data.itemIds;
+    if (item.type === "container" && itemData.itemIds) {
+      const containedItems = itemData.itemIds;
       const updateData = containedItems.reduce((acc, val) => {
         acc.push({ _id: val.id, "data.containerId": "" });
         return acc;
@@ -119,11 +122,12 @@ export class OseActorSheet extends ActorSheet {
    */
   _useConsumable(event, decrement) {
     const item = this._getItemFromActor(event);
+    const itemData = item?.system || item?.data?.data; //v9-compatibility
 
     if (decrement) {
-      item.update({ "data.quantity.value": item.data.data.quantity.value - 1 });
+      item.update({ "data.quantity.value": itemData.quantity.value - 1 });
     } else {
-      item.update({ "data.quantity.value": item.data.data.quantity.value + 1 });
+      item.update({ "data.quantity.value": itemData.quantity.value + 1 });
     }
   }
 
@@ -146,19 +150,21 @@ export class OseActorSheet extends ActorSheet {
     spells.each((_, el) => {
       let itemId = el.dataset.itemId;
       const item = this.actor.items.get(itemId);
+      const itemData = item?.system || item?.data?.data; //v9-compatibility
       item.update({
         _id: item.id,
-        "data.cast": item.data.data.memorized,
+        "data.cast": itemData.memorized,
       });
     });
   }
 
   async _rollAbility(event) {
     const item = this._getItemFromActor(event);
+    const itemData = item?.system || item?.data?.data; //v9-compatibility
     if (item.type == "weapon") {
       if (this.actor.data.type === "monster") {
         item.update({
-          data: { counter: { value: item.data.data.counter.value - 1 } },
+          data: { counter: { value: itemData.counter.value - 1 } },
         });
       }
       item.rollWeapon({ skipDialog: event.ctrlKey || event.metaKey });
@@ -181,7 +187,7 @@ export class OseActorSheet extends ActorSheet {
     let element = event.currentTarget;
     let attack = element.parentElement.parentElement.dataset.attack;
     const rollData = {
-      actor: this.data,
+      actor: isNewerVersion(game.version, "10.264") ? this : this.data, //v9-compatibility
       roll: {},
     };
     actorObject.targetAttack(rollData, attack, {
@@ -198,11 +204,12 @@ export class OseActorSheet extends ActorSheet {
     const dropTarget = event.target.closest("[data-item-id]");
     const targetId = dropTarget ? dropTarget.dataset.itemId : null;
     const target = siblings.find((s) => s.data._id === targetId);
+    const targetData = target?.system || target?.data?.data; //v9-compatibility
 
     // Dragging items into a container
     if (
-      target?.data.type === "container" &&
-      target?.data.data.containerId === ""
+      (target?.type === "container" || target?.data?.type === "container") &&
+      targetData.containerId === ""
     ) {
       this.actor.updateEmbeddedDocuments("Item", [
         { _id: source.id, "data.containerId": target.id },
@@ -325,7 +332,7 @@ export class OseActorSheet extends ActorSheet {
       const itemData = {
         name: name ? name : `New ${type.capitalize()}`,
         type: type,
-        data: duplicate(header.dataset),
+        data: header.dataset,
       };
       delete itemData.data["type"];
       return itemData;

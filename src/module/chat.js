@@ -33,7 +33,8 @@ export const addChatMessageButtons = function (msg, html, data) {
   // Hide blind rolls
   let blindable = html.find(".blindable");
   if (
-    msg.data.blind &&
+    msg?.blind &&
+    msg?.data?.blind && //v9 compatibility
     !game.user.isGM &&
     blindable &&
     blindable.data("blind") === true
@@ -69,7 +70,7 @@ export const addChatMessageButtons = function (msg, html, data) {
  */
 function applyChatCardDamage(roll, multiplier) {
   const amount = roll.find(".dice-total").last().text();
-  const dmgTgt = game.settings.get("ose", "applyDamageOption");
+  const dmgTgt = game.settings.get(game.system.id, "applyDamageOption");
   if (dmgTgt === `targeted`) {
     game.user.targets.forEach(async (t) => {
       if (game.user.isGM) return await t.actor.applyDamage(amount, multiplier);

@@ -6,10 +6,10 @@
                     <a class="hp-roll"><i class="fas fa-dice"></i></a>
                 </h4>
                 <div class="attribute-value flexrow">
-                    <input name="data.hp.value" type="text" value="{{data.hp.value}}" data-dtype="Number"
+                    <input name="system.hp.value" type="text" value="{{system.hp.value}}" data-dtype="Number"
                         placeholder="0" />
                     <span class="sep"> / </span>
-                    <input name="data.hp.max" type="text" value="{{data.hp.max}}" data-dtype="Number" placeholder="0" />
+                    <input name="system.hp.max" type="text" value="{{system.hp.max}}" data-dtype="Number" placeholder="0" />
                 </div>
             </li>
             <li class="attribute hit-dice">
@@ -17,7 +17,7 @@
                     <a>{{ localize "OSE.HitDiceShort" }}</a>
                 </h4>
                 <div class="attribute-value">
-                    <input name="data.hp.hd" type="text" value="{{data.hp.hd}}" data-dtype="String" />
+                    <input name="system.hp.hd" type="text" value="{{system.hp.hd}}" data-dtype="String" />
                 </div>
             </li>
             <li class="attribute">
@@ -25,14 +25,14 @@
                 <h4 class="attribute-name box-title" title="{{ localize 'OSE.ArmorClass' }}">
                     {{ localize "OSE.AscArmorClassShort" }}</h4>
                 <div class="attribute-value">
-                    <input name="data.aac.value" type="text" value="{{data.aac.value}}" data-dtype="Number"
+                    <input name="system.aac.value" type="text" value="{{system.aac.value}}" data-dtype="Number"
                         placeholder="10" data-dtype="Number" />
                 </div>
                 {{else}}
                 <h4 class="attribute-name box-title" title="{{ localize 'OSE.ArmorClass' }}">
                     {{ localize "OSE.ArmorClassShort" }}</h4>
                 <div class="attribute-value">
-                    <input name="data.ac.value" type="text" value="{{data.ac.value}}" data-dtype="Number"
+                    <input name="system.ac.value" type="text" value="{{system.ac.value}}" data-dtype="Number"
                         placeholder="9" data-dtype="Number" />
                 </div>
                 {{/if}}
@@ -42,25 +42,25 @@
                 <h4 class="attribute-name box-title" title="{{localize 'OSE.AB'}}"><a>{{ localize "OSE.ABShort" }}</a>
                 </h4>
                 <div class="attribute-value">
-                    <input name="data.thac0.bba" type="text" value="{{data.thac0.bba}}" placeholder="0"
+                    <input name="system.thac0.bba" type="text" value="{{system.thac0.bba}}" placeholder="0"
                         data-dtype="Number" />
                 </div>
                 {{else}}
                 <h4 class="attribute-name box-title" title="{{localize 'OSE.Thac0'}}"><a>{{ localize "OSE.Thac0" }}</a>
                 </h4>
                 <div class="attribute-value">
-                    <input name="data.thac0.value" type="text" value="{{data.thac0.value}}" placeholder="0"
+                    <input name="system.thac0.value" type="text" value="{{system.thac0.value}}" placeholder="0"
                         data-dtype="Number" />
                 </div>
                 {{/if}}
             </li>
-            {{#if data.retainer.enabled}}
+            {{#if system.retainer.enabled}}
             <li class="attribute">
                 <h4 class="attribute-name box-title" title="{{ localize 'OSE.Loyalty' }}">
                     {{ localize "OSE.LoyaltyShort" }}
                 </h4>
                 <div class="attribute-value">
-                    <input name="data.retainer.loyalty" type="text" value="{{data.retainer.loyalty}}" placeholder="0"
+                    <input name="system.retainer.loyalty" type="text" value="{{system.retainer.loyalty}}" placeholder="0"
                         data-dtype="Number" />
                 </div>
             </li>
@@ -70,7 +70,7 @@
                     {{ localize "OSE.movement.short" }}
                 </h4>
                 <div class="attribute-value">
-                    <input name="data.movement.base" type="text" value="{{data.movement.base}}" placeholder="0"
+                    <input name="system.movement.base" type="text" value="{{system.movement.base}}" placeholder="0"
                         data-dtype="Number" />
                 </div>
             </li>
@@ -97,7 +97,7 @@
                 {{#each attackPatterns as |section pattern|}}
                 <ol class="attack-pattern">
                     {{#each section as |item|}}
-                    <li class="item-entry {{#if (or item.data.data.roll (eq item.type 'weapon'))}}item-rollable{{/if}}"
+                    <li class="item-entry {{#if (or item.system.roll (eq item.type 'weapon'))}}item-rollable{{/if}}"
                         data-item-id="{{item.id}}">
                         <div class="item-header flexrow">
                             <div class="item-pattern pattern-{{pattern}}" title="{{localize 'OSE.items.pattern'}}">
@@ -109,10 +109,10 @@
                             </h4>
                             {{#if (eq type "weapon")}}
                             <div class="field-long counter flexrow">
-                                <input type="text" value="{{item.data.data.counter.value}}" data-dtype="Number"
+                                <input type="text" value="{{item.system.counter.value}}" data-dtype="Number"
                                     placeholder="0" data-field="value" title="{{localize 'OSE.items.roundAttacks'}}">
                                 /
-                                <input type="text" value="{{item.data.data.counter.max}}" data-field="max"
+                                <input type="text" value="{{item.system.counter.max}}" data-field="max"
                                     data-dtype="Number" placeholder="0"
                                     title="{{localize 'OSE.items.roundAttacksMax'}}">
                             </div>
@@ -145,7 +145,7 @@
                 <li class="attacks-description">
                     {{#unless isNew}}
                     <label>{{ localize "OSE.movement.details" }}</label>
-                    <input name="data.movement.value" type="text" value="{{data.movement.value}}" data-dtype="String" />
+                    <input name="system.movement.value" type="text" value="{{system.movement.value}}" data-dtype="String" />
                     {{else}}
                     <button data-action="generate-saves">{{localize "OSE.dialog.generateSaves"}}</button>
                     {{/unless}}
@@ -155,7 +155,7 @@
                         <a>{{ localize "OSE.saves.death.long" }}</a>
                     </h4>
                     <div class="attribute-value">
-                        <input name="data.saves.death.value" type="text" value="{{data.saves.death.value}}"
+                        <input name="system.saves.death.value" type="text" value="{{system.saves.death.value}}"
                             placeholder="0" data-dtype="Number" />
                 </li>
                 <li class="attribute saving-throw" data-save="wand">
@@ -163,7 +163,7 @@
                         <a>{{ localize "OSE.saves.wand.long" }}</a>
                     </h4>
                     <div class="attribute-value">
-                        <input name="data.saves.wand.value" type="text" value="{{data.saves.wand.value}}"
+                        <input name="system.saves.wand.value" type="text" value="{{system.saves.wand.value}}"
                             placeholder="0" data-dtype="Number" />
                 </li>
                 <li class="attribute saving-throw" data-save="paralysis">
@@ -171,7 +171,7 @@
                         <a>{{ localize "OSE.saves.paralysis.long" }}</a>
                     </h4>
                     <div class="attribute-value">
-                        <input name="data.saves.paralysis.value" type="text" value="{{data.saves.paralysis.value}}"
+                        <input name="system.saves.paralysis.value" type="text" value="{{system.saves.paralysis.value}}"
                             placeholder="0" data-dtype="Number" />
                 </li>
                 <li class="attribute saving-throw" data-save="breath">
@@ -179,7 +179,7 @@
                         <a>{{ localize "OSE.saves.breath.long" }}</a>
                     </h4>
                     <div class="attribute-value">
-                        <input name="data.saves.breath.value" type="text" value="{{data.saves.breath.value}}"
+                        <input name="system.saves.breath.value" type="text" value="{{system.saves.breath.value}}"
                             placeholder="0" data-dtype="Number" />
                 </li>
                 <li class="attribute saving-throw" data-save="spell">
@@ -187,7 +187,7 @@
                         <a>{{ localize "OSE.saves.spell.long" }}</a>
                     </h4>
                     <div class="attribute-value">
-                        <input name="data.saves.spell.value" type="text" value="{{data.saves.spell.value}}"
+                        <input name="system.saves.spell.value" type="text" value="{{system.saves.spell.value}}"
                             placeholder="0" />
                 </li>
             </ul>

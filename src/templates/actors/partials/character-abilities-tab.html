@@ -8,9 +8,9 @@
     </h4>
     <div class="attribute-value">
       <input
-        name="data.exploration.ld"
+        name="system.exploration.ld"
         type="text"
-        value="{{data.exploration.ld}}"
+        value="{{system.exploration.ld}}"
         data-dtype="Number"
         placeholder="0"
       />
@@ -25,9 +25,9 @@
     </h4>
     <div class="attribute-value">
       <input
-        name="data.exploration.od"
+        name="system.exploration.od"
         type="text"
-        value="{{data.exploration.od}}"
+        value="{{system.exploration.od}}"
         placeholder="0"
         data-dtype="String"
       />
@@ -42,9 +42,9 @@
     </h4>
     <div class="attribute-value">
       <input
-        name="data.exploration.sd"
+        name="system.exploration.sd"
         type="text"
-        value="{{data.exploration.sd}}"
+        value="{{system.exploration.sd}}"
         placeholder="0"
         data-dtype="String"
       />
@@ -59,9 +59,9 @@
     </h4>
     <div class="attribute-value">
       <input
-        name="data.exploration.ft"
+        name="system.exploration.ft"
         type="text"
-        value="{{data.exploration.ft}}"
+        value="{{system.exploration.ft}}"
         placeholder="0"
         data-dtype="String"
       />
@@ -86,7 +86,7 @@
     {{#each abilities as |item|}}
     <li class="item-entry item" data-item-id="{{item.id}}">
       <div
-        class="item-header flexrow {{#if item.data.data.roll}}item-rollable{{/if}}"
+        class="item-header flexrow {{#if item.system.roll}}item-rollable{{/if}}"
       >
         <div
           class="item-image"

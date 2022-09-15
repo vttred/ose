@@ -11,7 +11,7 @@
 </p>
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-10-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Installation
@@ -123,6 +123,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://github.com/HerrSquash"><img src="https://avatars.githubusercontent.com/u/97633309?v=4?s=100" width="100px;" alt=""/><br /><sub><b>herrsquash</b></sub></a><br /><a href="#translation-herrsquash" title="Translation">🌍</a></td>
     <td align="center"><a href="http://linktr.ee/teuri"><img src="https://avatars.githubusercontent.com/u/64547748?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Igor Teuri</b></sub></a><br /><a href="#translation-igorteuri" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/hogwrassler"><img src="https://avatars.githubusercontent.com/u/110945935?v=4?s=100" width="100px;" alt=""/><br /><sub><b>hogwrassler</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=hogwrassler" title="Code">💻</a></td>
   </tr>
 </table>
 

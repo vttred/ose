@@ -61,12 +61,10 @@ export class OsePartySheet extends FormApplication {
       user: game.user,
       settings: settings,
     };
-
     return data;
   }
 
   async _addActorToParty(actor) {
-
     if (actor.type !== "character") {
       return;
     }
@@ -85,6 +83,7 @@ export class OsePartySheet extends FormApplication {
   /* - Adding to the Party Sheet -*/
   _onDrop(event) {
     event.preventDefault();
+
     // WIP Drop Items
     let data;
     try {
@@ -92,7 +91,6 @@ export class OsePartySheet extends FormApplication {
 
       switch (data.type) {
         case "Actor":
-
           return this._onDropActor(event, data);
         case "Folder":
           return this._onDropFolder(event, data);
@@ -102,14 +100,13 @@ export class OsePartySheet extends FormApplication {
     }
   }
 
-  async _onDropActor(event, data) {
-   
+  _onDropActor(event, data) {
     if (data.type !== "Actor") {
       return;
     }
 
     const actors = game.actors;
-    let droppedActor = await fromUuid(data.uuid);
+    let droppedActor = actors.find((actor) => actor.id === data.id);
 
     this._addActorToParty(droppedActor);
   }

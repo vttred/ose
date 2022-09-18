@@ -105,6 +105,18 @@ Hooks.once("setup", function () {
 });
 
 Hooks.once("ready", async () => {
+   // swap for dev environment
+   OSE.tag_images = {
+    melee: game.system.id == 'ose' ? "systems/ose/assets/melee.png" : "systems/ose-dev/assets/melee.png",
+    missile: game.system.id == 'ose' ? "systems/ose/assets/missile.png" : "systems/ose-dev/assets/missile.png",
+    slow: game.system.id == 'ose' ? "systems/ose/assets/slow.png" : "systems/ose-dev/assets/slow.png",
+    twohanded: game.system.id == 'ose' ? "systems/ose/assets/twohanded.png" : "systems/ose-dev/assets/twohanded.png",
+    blunt: game.system.id == 'ose' ? "systems/ose/assets/blunt.png" :  "systems/ose-dev/assets/blunt.png",
+    brace: game.system.id == 'ose' ? "systems/ose/assets/brace.png" : "systems/ose-dev/assets/brace.png",
+    splash: game.system.id == 'ose' ? "systems/ose/assets/splash.png" : "systems/ose-dev/assets/splash.png",
+    reload: game.system.id == 'ose' ? "systems/ose/assets/reload.png" : "systems/ose-dev/assets/reload.png",
+    charge: game.system.id == 'ose' ? "systems/ose/assets/charge.png" : "systems/ose-dev/assets/charge.png",
+  },
   Hooks.on("hotbarDrop", (bar, data, slot) =>
     macros.createOseMacro(data, slot)
   );

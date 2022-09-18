@@ -269,12 +269,58 @@ export class OseActorSheet extends ActorSheet {
       })
     );
   }
+  async _onDropItem(event, data){
+    const item = await Item.implementation.fromDropData(data);
+    const itemContainer = this.object.items.get(item?.system?.containerId);
+    const itemData = item.toObject();
+    const targetEl = event.target.closest('.item')
+    const targetItem = this.object.items.get(targetEl?.dataset?.itemId)
+    const targetIsContainer = targetItem?.type == 'container' ? true : false;
+    const exists = this.object.items.get(item.id) ? true : false;
+    console.log(exists)
 
+
+    if(targetIsContainer){
+      return this._onContainerItemAdd(item, targetItem)
+    }  else if (itemContainer){
+      this._onContainerItemRemove(item, itemContainer)
+
+    } else{
+      if(!exists){
+      return this._onDropItemCreate([itemData])
+      }
+    }
+    
+    
+    
+  }
+  async _onContainerItemRemove(item, container){
+    let newList = container.system.itemIds.filter(i=>i.id != item.id);
+    const itemObj = this.object.items.get(item.id)
+    await container.update({system: {itemIds: newList}});
+    await itemObj.update({system:{containerId: ''}});
+
+  }
+  async _onContainerItemAdd(item, target){
+    const itemData = item.toObject();
+    const container = this.object.items.get(target.id);
+    
+    const containerId = container.id;
+    const a = this.object.items.get(item.id);
+    const alreadyExists = container.system.itemIds.find(i=>i.id == item.id);
+    if(!alreadyExists){
+      const newList = [...container.system.itemIds];
+      newList.push(item.id);
+      await container.update({system:{itemIds: newList}})
+      await a.update({system:{containerId: container.id}})
+    }
+    
+  }
   async _onDropItemCreate(itemData, container = false) {
     //override to fix hidden items because their original containers don't exist on this actor
     itemData = itemData instanceof Array ? itemData : [itemData];
     itemData.forEach((item) => {
-      
+
       if (item.system.containerId && item.system.containerId !== "")
         item.system.containerId = "";
       if (item.type === "container" && typeof item.system.itemIds === "string") {
@@ -290,7 +336,6 @@ export class OseActorSheet extends ActorSheet {
       return this.actor.createEmbeddedDocuments("Item", itemData);
     }
     if (container){
-      console.log('container', container, itemData[0])
       let itemIds = container.system.itemIds;
       itemIds.push(itemData.id);
       const item = this.actor.items.get(itemData[0]._id);

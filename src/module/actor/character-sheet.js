@@ -120,7 +120,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
       ...Object.values(data.owned),
       ...Object.values(data.spells),
       data.abilities,
-    ].forEach((o) => o.sort((a, b) => (a.data.sort || 0) - (b.data.sort || 0)));
+    ].forEach((o) => o.sort((a, b) => (a.sort || 0) - (b.sort || 0)));
   }
 
   generateScores() {
@@ -297,7 +297,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
       const item = this.actor.items.get(li.data("itemId"));
       await item.update({
         data: {
-          equipped: !item.data.data.equipped,
+          equipped: !item.system.equipped,
         },
       });
     });

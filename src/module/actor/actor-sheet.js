@@ -242,10 +242,10 @@ export class OseActorSheet extends ActorSheet {
     if (li.dataset.itemId) {
       const item = this.actor.items.get(li.dataset.itemId);
       dragData.type = "Item";
-      dragData.data = item.data;
-      if (item.data.type === "container" && item.data.data.itemIds.length) {
+      dragData.data = item;
+      if (item.type === "container" && item.system.itemIds.length) {
         //otherwise JSON.stringify will quadruple stringify for some reason
-        itemIdsArray = item.data.data.itemIds;
+        itemIdsArray = item.system.itemIds;
       }
     }
 
@@ -270,22 +270,34 @@ export class OseActorSheet extends ActorSheet {
     );
   }
 
-  async _onDropItemCreate(itemData) {
+  async _onDropItemCreate(itemData, container = false) {
     //override to fix hidden items because their original containers don't exist on this actor
     itemData = itemData instanceof Array ? itemData : [itemData];
     itemData.forEach((item) => {
-      if (item.data.containerId && item.data.containerId !== "")
-        item.data.containerId = "";
-      if (item.type === "container" && typeof item.data.itemIds === "string") {
+      
+      if (item.system.containerId && item.system.containerId !== "")
+        item.system.containerId = "";
+      if (item.type === "container" && typeof item.system.itemIds === "string") {
         //itemIds was double stringified to fix strange behavior with stringify blanking our Arrays
-        const containedItems = JSON.parse(item.data.itemIds);
+        const containedItems = JSON.parse(item.system.itemIds);
         containedItems.forEach((containedItem) => {
-          containedItem.data.containerId = "";
+          containedItem.system.containerId = "";
         });
         itemData.push(...containedItems);
       }
-    });
-    return this.actor.createEmbeddedDocuments("Item", itemData);
+    })
+    if (!container) {
+      return this.actor.createEmbeddedDocuments("Item", itemData);
+    }
+    if (container){
+      console.log('container', container, itemData[0])
+      let itemIds = container.system.itemIds;
+      itemIds.push(itemData.id);
+      const item = this.actor.items.get(itemData[0]._id);
+      await item.update({system:{containerId: container.id}});
+      await container.update({system:{itemIds: itemIds}});
+
+    }
   }
 
   /* -------------------------------------------- */

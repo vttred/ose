@@ -1,4 +1,4 @@
 [filter "mungePackageID"]
     required = true
-    smudge = 'sh "scripts/smudgePackageID.sh"'
-    clean = 'sh "scripts/cleanPackageID.sh"'
+    smudge = 'sh "../scripts/smudgePackageID.sh"'
+    clean = 'sh "../scripts/cleanPackageID.sh"'

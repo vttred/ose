@@ -118,3 +118,5 @@ This is achieved with a `foundryconfig.json` files in each local version of the 
 ```
 
 If you want to have two local versions of your repository, there will be an additional build step. Run `git config --local include.path ../.gitconfig` in each of your repositories' root directories. Then make sure they have different symlinkNames in the `foundryconfig.json` files for each repo. Run `npm run link` in each repository.
+
+Note: you will have to provide your own .gitconfig for Windows

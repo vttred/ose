@@ -22,15 +22,18 @@ Prerequisites: Node.js (v16 is recommended), a familiarity with command Foundry 
 1. Open `ose` in an IDE and/or your Terminal and install dependencies. In the command line, `cd ose && npm i`.
 1. Copy the `foundryconfig.json.example` file to your repo's root directory, and rename it `foundryconfig.json`
 
-    `/foundryconfig.json`
-    
-    ```json
-    {
-      "dataPath": ["path/to/FoundryVTT-userdata REPLACE THIS STRING", "path/to/FoundryVTT-userdata-if-you-have-multiple OTHERWISE USE ONLY ONE STRING"],
-      "symlinkName": "ose-dev"
-    }
-    ```
-    
+   `/foundryconfig.json`
+
+   ```json
+   {
+     "dataPath": [
+       "path/to/FoundryVTT-userdata REPLACE THIS STRING",
+       "path/to/FoundryVTT-userdata-if-you-have-multiple OTHERWISE USE ONLY ONE STRING"
+     ],
+     "symlinkName": "ose-dev"
+   }
+   ```
+
 1. In your command line, run `npm run link`. A new system should now appear in your systems directory (or directories) but it doesn't yet run any code.
 1. In your command line, run `npm run build` (build once) or `npm run build:watch` (build continuously, whenever a change is saved). You now have a working copy of OSE's developer build. You should be able to install releases of `ose` alongside this build.
 
@@ -38,7 +41,7 @@ Prerequisites: Node.js (v16 is recommended), a familiarity with command Foundry 
 
 Many contributors to Unofficial OSE on Foundry VTT are inexperienced with git. GitHub provides their [quickstart tutorial](https://docs.github.com/en/get-started/quickstart/hello-world) which we recommend as a first step toward becoming an OSE Contributor.
 
-Here are some next steps to get started on your first code contribution. 
+Here are some next steps to get started on your first code contribution.
 
 1. Create a new branch for your patch. In your command line, `git checkout -b a-branchname-of-your-choosing`
 1. Make any code contributions you'd like, making sure to confirm it performs the behavior you want after trying it in Foundry VTT, and testing for edge cases if relevant.
@@ -71,37 +74,37 @@ Repeat contributors may ask via Discord direct message (@corporat#1282) or email
 
 ## Addendum: Multiple Builds of OSE in the same Foundry VTT installation
 
-The maintainer of this repository has three versions of OSE installed in any given version of Foundry VTT. And 2 or 3 versions of Foundry VTT installed at any given time. His home directory looks something like this.
+The maintainer of this repository has three versions of OSE installed in any given version of Foundry VTT. And 2 or 3 versions of Foundry VTT installed at any given time. Their home directory looks something like this.
 
 ```console
 ~/
-mygithubusername/
-    ose/
-vttred/
-    ose/
-fvtt/
-    v9/
-    v9-userdata/Data/
-        systems/
-            ose/
-            ose-dev/
-            ose-test/
+    mygithubusername/
+        ose/
+    vttred/
+        ose/
+    fvtt/
+        v9/
+        v9-userdata/Data/
+            systems/
+                ose/
+                ose-dev/
+                ose-test/
     v10/
-    v10-userdata/Data/
-        systems/
-            ose/
-            ose-dev/
-            ose-test/
+         v10-userdata/Data/
+            systems/
+                ose/
+                ose-dev/
+                ose-test/
 ```
 
-This is achieved with two `foundryconfig.json` files in the two github repos, which each produce two symlinks when you run `npm run link` in each of them.
+This is achieved with a `foundryconfig.json` files in each local version of the github repo on the maintainer's computer. Because of an npm script, each repo can make two symlinks, one for Foundry V9 and one for Foundry V10.
 
 `~/mygithubusername/ose/foundryconfig.json`
 
 ```json
 {
-    "dataPath": ["~/fvtt/v9-userdata", "~/fvtt/v10-userdata"],
-    "symlinkName": "ose-dev"
+  "dataPath": ["~/fvtt/v9-userdata", "~/fvtt/v10-userdata"],
+  "symlinkName": "ose-dev"
 }
 ```
 
@@ -109,7 +112,9 @@ This is achieved with two `foundryconfig.json` files in the two github repos, wh
 
 ```json
 {
-    "dataPath": ["~/fvtt/v9-userdata", "~/fvtt/v10-userdata"],
-    "symlinkName": "ose-test"
+  "dataPath": ["~/fvtt/v9-userdata", "~/fvtt/v10-userdata"],
+  "symlinkName": "ose-test"
 }
 ```
+
+If you want to have two local versions of your repository, there will be an additional build step. Run `git config --local include.path ../.gitconfig` in each of your repositories' root directories. Then make sure they have different symlinkNames in the `foundryconfig.json` files for each repo. Run `npm run link` in each repository.

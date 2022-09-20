@@ -1,3 +1,4 @@
-[filter "devLink"]
-    smudge = 'sh ".git/linkHelper.sh"'
-    clean = 'sh ".git/unlink.sh"'
+[filter "mungePackageID"]
+    required = true
+    smudge = 'sh "scripts/smudgePackageID.sh"'
+    clean = 'sh "scripts/cleanPackageID.sh"'

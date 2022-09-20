@@ -1,0 +1,7 @@
+{
+  "dataPath": [
+    "/Users/yourusername/fvtt/v9-userdata",
+    "/Users/yourusername/fvtt/v10-userdata" //if you have only one userdata folder you'd like to use, you can do only one if you'd like
+  ],
+  "symlinkName": "ose-dev" //keep this to default if you don't care
+}

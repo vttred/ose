@@ -1,3 +1,37 @@
+{{#if {isV10}}}
+<form class="{{cssClass}}" autocomplete="off">
+  <header class="sheet-header">
+    <img class="profile-img" src="{{img}}" data-edit="img" title="{{name}}" />
+    <div class="header-col">
+      <h1 class="charname">
+        <input name="name" type="text" value="{{name}}" placeholder="Name" />
+      </h1>
+    </div>
+  </header>
+  <section class="sheet-body">
+    <div class="flexrow">
+      <div class="stats">
+        <div class="form-group">
+          <label>{{localize 'OSE.items.Cost'}}</label>
+          <div class="form-fields">
+            <input type="text" name="system.cost" value="{{system.cost}}" data-dtype="Number" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>{{localize 'OSE.items.Weight'}}</label>
+          <div class="form-fields">
+            <input type="text" name="system.weight" value="{{system.weight}}" data-dtype="Number" />
+          </div>
+        </div>
+      </div>
+      <div class="description weapon-editor">
+        {{editor enrichedDescription target="system.description" button=true
+        owner=owner editable=editable async=true}}
+      </div>
+    </div>
+  </section>
+</form>
+{{else}}
 <form class="{{cssClass}}" autocomplete="off">
   <header class="sheet-header">
     <img class="profile-img" src="{{img}}" data-edit="img" title="{{name}}" />
@@ -30,3 +64,4 @@
     </div>
   </section>
 </form>
+{{/if}}

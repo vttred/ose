@@ -1,3 +1,74 @@
+{{#if (isV10)}}
+<form class="{{cssClass}}" autocomplete="off">
+  <header class="sheet-header">
+    <img class="profile-img" src="{{img}}" data-edit="img" title="{{name}}" />
+    <div class="header-col">
+      <h1 class="charname">
+        <input name="name" type="text" value="{{name}}" placeholder="Name" />
+      </h1>
+    </div>
+  </header>
+  <section class="sheet-body">
+    <div class="flexrow">
+      <div class="stats">
+        <div class="form-group block-input">
+          <label>{{localize 'OSE.abilities.Requirements'}}</label>
+          <div class="form-fields">
+            <input type="text" name="system.requirements" value="{{system.requirements}}" data-dtype="String" />
+          </div>
+        </div>
+        <div class="form-group block-input">
+          <label>{{localize 'OSE.items.Roll'}}</label>
+          <div class="form-fields">
+            <input type="text" name="system.roll" value="{{system.roll}}" data-dtype="String" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>{{localize 'OSE.items.RollType'}}</label>
+          <div class="form-fields">
+            <select name="system.rollType">
+              {{#select system.rollType}}
+              {{#each config.roll_type as |t a|}}
+              <option value="{{a}}">{{t}}</option>
+              {{/each}}
+              {{/select}}
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>{{localize 'OSE.items.RollTarget'}}</label>
+          <div class="form-fields">
+            <input type="text" name="system.rollTarget" value="{{system.rollTarget}}" data-dtype="Number" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>{{localize 'OSE.items.BlindRoll'}}</label>
+          <div class="form-fields">
+            <input type="checkbox" name="system.blindroll" value="{{system.blindroll}}" {{checked system.blindroll}}  data-dtype="Number"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>{{localize 'OSE.spells.Save'}}</label>
+          <div class="form-fields">
+            <select name="system.save">
+              {{#select system.save}}
+              <option value=""></option>
+              {{#each config.saves_short as |save a|}}
+              <option value="{{a}}">{{save}}</option>
+              {{/each}}
+              {{/select}}
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="description">
+        {{editor enrichedDescription target="system.description" button=true
+        owner=owner editable=editable async=true}}
+      </div>
+    </div>
+  </section>
+</form>
+{{else}}
 <form class="{{cssClass}}" autocomplete="off">
   <header class="sheet-header">
     <img class="profile-img" src="{{img}}" data-edit="img" title="{{name}}" />
@@ -67,3 +138,4 @@
     </div>
   </section>
 </form>
+{{/if}}

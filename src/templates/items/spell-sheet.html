@@ -1,3 +1,68 @@
+{{#if}}
+<form class="{{cssClass}}" autocomplete="off">
+  <header class="sheet-header">
+    <img class="profile-img" src="{{img}}" data-edit="img" title="{{name}}" />
+    <div class="header-col">
+      <h1 class="charname">
+        <input name="name" type="text" value="{{name}}" placeholder="Name" />
+      </h1>
+    </div>
+  </header>
+  <section class="sheet-body">
+    <div class="flexrow">
+      <div class="stats narrow">
+        <div class="form-group">
+          <label>{{localize 'OSE.spells.Level'}}</label>
+          <div class="form-fields">
+            <input type="text" name="system.lvl" value="{{system.lvl}}" data-dtype="Number" />
+          </div>
+        </div>
+        <div class="form-group block-input">
+          <label>{{localize 'OSE.spells.Class'}}</label>
+          <div class="form-fields">
+            <input type="text" name="system.class" value="{{system.class}}" data-dtype="String" />
+          </div>
+        </div>
+        <div class="form-group block-input">
+          <label>{{localize 'OSE.spells.Duration'}}</label>
+          <div class="form-fields">
+            <input type="text" name="system.duration" value="{{system.duration}}" data-dtype="String" />
+          </div>
+        </div>
+        <div class="form-group block-input">
+          <label>{{localize 'OSE.spells.Range'}}</label>
+          <div class="form-fields">
+            <input type="text" name="system.range" value="{{system.range}}" data-dtype="String" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>{{localize 'OSE.spells.Save'}}</label>
+          <div class="form-fields">
+            <select name="system.save">
+              {{#select system.save}}
+              <option value=""></option>
+              {{#each config.saves_short as |save a|}}
+              <option value="{{a}}">{{save}}</option>
+              {{/each}}
+              {{/select}}
+            </select>
+          </div>
+        </div>
+        <div class="form-group block-input">
+          <label>{{localize 'OSE.items.Roll'}}</label>
+          <div class="form-fields">
+            <input type="text" name="system.roll" value="{{system.roll}}" data-dtype="String" />
+          </div>
+        </div>
+      </div>
+      <div class="description">
+        {{editor enrichedDescription target="system.description" button=true
+        owner=owner editable=editable async=true}
+      </div>
+    </div>
+  </section>
+</form>
+{{else}}
 <form class="{{cssClass}}" autocomplete="off">
   <header class="sheet-header">
     <img class="profile-img" src="{{img}}" data-edit="img" title="{{name}}" />
@@ -61,3 +126,4 @@
     </div>
   </section>
 </form>
+{{/if}}

@@ -1,11 +1,19 @@
 export class OseParty {
   static get currentParty() {
-    const characters = game.actors.filter(
-      (act) =>
-        act.data.type === "character" &&
-        act.data.flags.ose &&
-        act.data.flags.ose.party === true);
-
+    const v10 = isNewerVersion(game.version, "10.264");
+    const systemName = game.system.id == 'ose' ?game.system.id : 'ose-dev'
+    const characters = v10 ? 
+      game.actors.filter(
+        (act) =>
+          act.type === "character" &&
+          act.flags[systemName] &&
+          act.flags[systemName].party === true) :
+      game.actors.filter(
+        (act) =>
+          act.data.type === "character" &&
+          act.data.flags[systemName] &&
+          act.data.flags[systemName].party === true);
+      console.log(characters)
     return characters;
   }
 }

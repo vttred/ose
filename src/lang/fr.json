@@ -13,6 +13,7 @@
 
   "OSE.dialog.tweaks": "Ajuster",
   "OSE.dialog.partysheet": "Fiche de Groupe",
+  "OSE.dialog.partysheetplaceholder": "Ajoutez des Personnages au Groupe en les faisant glisser dans cette fenêtre.",
   "OSE.dialog.partyselect": "Choisir PJs",
   "OSE.dialog.createItem": "Créer un Objet",
   "OSE.dialog.itemType": "Type de l'Objet",
@@ -218,7 +219,7 @@
   "OSE.items.typeTag": "Tapez une liste de tags descriptifs ex. 'Mêlée,Missile (5’–10’ / 11’–20’ / 21’–30’)' puis Entrée",
   "OSE.items.enterTag": "Tags",
   "OSE.items.pattern": "Marqueur de schéma d'attaque",
-  
+
   "OSE.items.Range": "Portée",
   "OSE.items.Melee": "Mêlée",
   "OSE.items.Missile": "Distance",

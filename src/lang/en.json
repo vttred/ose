@@ -13,6 +13,7 @@
 
   "OSE.dialog.tweaks": "Tweaks",
   "OSE.dialog.partysheet": "Party Overview",
+  "OSE.dialog.partysheetplaceholder": "Add Characters to the Party by dragging and dropping them into this window.",
   "OSE.dialog.partyselect": "Select PCs",
   "OSE.dialog.createItem": "Create Item",
   "OSE.dialog.itemType": "Item type",

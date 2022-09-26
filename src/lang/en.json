@@ -19,6 +19,7 @@
   "OSE.dialog.itemType": "Item type",
   "OSE.dialog.itemName": "Item name",
   "OSE.dialog.xp.deal": "Deal XP",
+  "OSE.dialog.xp.amount": "Amount",
   "OSE.dialog.xp.label": "XP",
   "OSE.dialog.generator": "Character generator",
   "OSE.dialog.generateSaves": "Generate Saves",

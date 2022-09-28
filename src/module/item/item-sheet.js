@@ -38,7 +38,8 @@ export class OseItemSheet extends ItemSheet {
   /** @override */
   get template() {
     const path = `${OSE.systemPath()}/templates/items`;
-    return `${path}/${this.item.data.type}-sheet.html`;
+    const type = isNewerVersion(game.version, "10.264") ? this.item.type : this.item.data.type
+    return `${path}/${type}-sheet.html`;
   }
 
   /**

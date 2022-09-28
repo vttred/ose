@@ -1,3 +1,76 @@
+{{#if (isV10)}}
+<form class="{{cssClass}}" autocomplete="off">
+  <header class="sheet-header">
+    <img class="profile-img" src="{{img}}" data-edit="img" title="{{name}}" />
+    <div class="header-col">
+      <h1 class="charname">
+        <input name="name" type="text" value="{{name}}" placeholder="Name" />
+      </h1>
+      <ol class="tag-list">
+          {{#each system.manualTags as |tag|}}
+          <li class="tag" title="{{tag.title}}" data-tag="{{tag.value}}">
+            <span>{{tag.value}}</span>
+            <a class="tag-delete"><i class="fas fa-times"></i></a>
+          </li>
+          {{/each}}
+        </ol>
+    </div>  
+  </header>
+  <section class="sheet-body">
+    <div class="flexrow">
+      <div class="stats">
+        <div class="form-group">
+          <div class="form-fields">
+            <input type="text" data-action="add-tag" title="{{localize 'OSE.items.typeTag'}}"
+              placeholder="{{localize 'OSE.items.enterTag'}}" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>{{localize 'OSE.items.ArmorAC'}}</label>
+          <div class="form-fields">
+            <input type="text" name="system.ac.value" value="{{system.ac.value}}" data-dtype="Number" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>{{localize 'OSE.items.ArmorAAC'}}</label>
+          <div class="form-fields">
+            <input type="text" name="system.aac.value" value="{{system.aac.value}}" data-dtype="Number" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>{{localize 'OSE.armor.type'}}</label>
+          <div class="form-fields">
+            <select name="system.type">
+              {{#select system.type}}
+              <option value=""></option>
+              {{#each config.armor as |armor a|}}
+              <option value="{{a}}">{{armor}}</option>
+              {{/each}}
+              {{/select}}
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>{{localize 'OSE.items.Cost'}}</label>
+          <div class="form-fields">
+            <input type="text" name="system.cost" value="{{system.cost}}" data-dtype="Number" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>{{localize 'OSE.items.Weight'}}</label>
+          <div class="form-fields">
+            <input type="text" name="system.weight" value="{{system.weight}}" data-dtype="Number" />
+          </div>
+        </div>
+      </div>
+      <div class="description">
+        {{editor enrichedDescription target="system.description" button=true
+        owner=owner editable=editable async=true}}
+      </div>
+    </div>
+  </section>
+</form>
+{{else}}
 <form class="{{cssClass}}" autocomplete="off">
   <header class="sheet-header">
     <img class="profile-img" src="{{img}}" data-edit="img" title="{{name}}" />
@@ -69,3 +142,4 @@
     </div>
   </section>
 </form>
+{{/if}}

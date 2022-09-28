@@ -1,4 +1,4 @@
-import { OSE } from "./config";
+import { OSE, InventoryItemTag } from "./config";
 
 export const registerHelpers = async function () {
   // Handlebars template helpers
@@ -37,10 +37,7 @@ export const registerHelpers = async function () {
   });
 
   Handlebars.registerHelper("getTagIcon", function (tag) {
-    let idx = Object.keys(CONFIG.OSE.tags).find(
-      (k) => CONFIG.OSE.tags[k] == tag
-    );
-    return CONFIG.OSE.tag_images[idx];
+    return CONFIG.OSE.tag_images[tag as InventoryItemTag];
   });
 
   Handlebars.registerHelper("counter", function (status, value, max) {

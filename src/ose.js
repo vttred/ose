@@ -1,21 +1,21 @@
 // Import Modules
-import { OseItemSheet } from "./module/item/item-sheet.js";
-import { OseActorSheetCharacter } from "./module/actor/character-sheet.js";
-import { OseActorSheetMonster } from "./module/actor/monster-sheet.js";
-import { preloadHandlebarsTemplates } from "./module/preloadTemplates.js";
-import { OseActor } from "./module/actor/entity.js";
-import { OseItem } from "./module/item/entity.js";
-import { OSE } from "./module/config.js";
-import { registerSettings } from "./module/settings.js";
-import { registerHelpers } from "./module/helpers.js";
-import { registerFVTTModuleAPIs } from "./module/fvttModuleAPIs.js";
-import * as chat from "./module/chat.js";
-import * as treasure from "./module/treasure.js";
-import * as macros from "./module/macros.js";
-import * as party from "./module/party.js";
-import { OseCombat } from "./module/combat.js";
-import * as renderList from "./module/renderList.js";
-import { OsePartySheet } from "./module/party/party-sheet.js";
+import { OseItemSheet } from "./module/item/item-sheet";
+import { OseActorSheetCharacter } from "./module/actor/character-sheet";
+import { OseActorSheetMonster } from "./module/actor/monster-sheet";
+import { preloadHandlebarsTemplates } from "./module/preloadTemplates";
+import { OseActor } from "./module/actor/entity";
+import { OseItem } from "./module/item/entity";
+import { OSE } from "./module/config";
+import { registerSettings } from "./module/settings";
+import { registerHelpers } from "./module/helpers";
+import { registerFVTTModuleAPIs } from "./module/fvttModuleAPIs";
+import * as chat from "./module/chat";
+import * as treasure from "./module/treasure";
+import * as macros from "./module/macros";
+import * as party from "./module/party";
+import { OseCombat } from "./module/combat";
+import * as renderList from "./module/renderList";
+import { OsePartySheet } from "./module/party/party-sheet";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */

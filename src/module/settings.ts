@@ -89,3 +89,19 @@ export const registerSettings = function () {
     },
   });
 };
+
+declare global {
+  namespace ClientSettings {
+    // Include OSE settings in addition to foundry default settings
+    interface Values {
+      "ose.initiative": "individual" | "group";
+      "ose.rerollInitiative": "keep" | "reset" | "reroll";
+      "ose.ascendingAC": boolean;
+      "ose.morale": boolean;
+      "ose.encumbranceOption": "disabled" | "basic" | "detailed" | "complete";
+      "ose.significantTreasure": number;
+      "ose.languages": string;
+      "ose.applyDamageOption": "selected" | "targeted";
+    }
+  }
+}

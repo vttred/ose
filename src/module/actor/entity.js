@@ -543,6 +543,11 @@ export class OseActor extends Actor {
     });
   }
 
+  /**
+   * @param {number | string} amount
+   * @param {1 | -1} multiplier
+   * @returns
+   */
   async applyDamage(amount = 0, multiplier = 1) {
     const actorData = this?.system || this?.data?.data; //v9-compatibility
 

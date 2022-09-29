@@ -185,7 +185,7 @@ async function link() {
     } else if (!fs.existsSync(linkDirectory)) {
       console.log(`Linking dist to ${linkDirectory}.`);
       await fs.ensureDir(path.resolve(linkDirectory, ".."));
-      await fs.symlink(path.resolve(distDirectory), linkDirectory);
+      await fs.symlink(path.resolve("./"), linkDirectory);
     }
   }
 }

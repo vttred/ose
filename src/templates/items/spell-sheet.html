@@ -1,4 +1,4 @@
-{{#if}}
+{{#if (isV10)}}
 <form class="{{cssClass}}" autocomplete="off">
   <header class="sheet-header">
     <img class="profile-img" src="{{img}}" data-edit="img" title="{{name}}" />
@@ -57,7 +57,7 @@
       </div>
       <div class="description">
         {{editor enrichedDescription target="system.description" button=true
-        owner=owner editable=editable async=true}
+        owner=owner editable=editable async=true}}
       </div>
     </div>
   </section>

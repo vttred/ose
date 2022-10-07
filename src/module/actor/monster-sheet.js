@@ -303,6 +303,13 @@ export class OseActorSheetMonster extends OseActorSheet {
       actorObject.rollAppearing({ event: ev, check: check });
     });
 
+    html.find(".treasure-table a").contextmenu((ev) => {
+      const treasureTableKey = isNewerVersion(game.version, "10.264")
+        ? "system.details.treasure.table"
+        : "data.details.treasure.table"; //v9-compatibility
+      this.actor.update({ [treasureTableKey]: null });
+    });
+
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
 

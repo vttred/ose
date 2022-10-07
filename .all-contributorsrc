@@ -94,6 +94,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "wyrmisis",
+      "name": "Tim",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1731267?v=4",
+      "profile": "http://timsnyder.codes",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
@@ -101,5 +110,6 @@
   "projectOwner": "vttred",
   "repoType": "github",
   "repoHost": "https://github.com",
-  "skipCi": true
+  "skipCi": true,
+  "commitConvention": "angular"
 }

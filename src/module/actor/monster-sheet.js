@@ -155,8 +155,9 @@ export class OseActorSheetMonster extends OseActorSheet {
 
     // Settings
     data.config.morale = game.settings.get(game.system.id, "morale");
-    monsterData.details.treasure.link = TextEditor.enrichHTML(
-      monsterData.details.treasure.table
+    monsterData.details.treasure.link = await TextEditor.enrichHTML(
+      monsterData.details.treasure.table,
+      { async: true }
     );
     data.isNew = this.actor.isNew();
 
@@ -224,7 +225,7 @@ export class OseActorSheetMonster extends OseActorSheet {
         .index.filter((el) => el._id === data.id);
       link = `@Compendium[${data.pack}.${data.id}]{${tableData[0].name}}`;
     } else {
-      link = `@RollTable[${data.id}]`;
+      link = `@UUID[${data.uuid}]`;
     }
     const treasureTableKey = isNewerVersion(game.version, "10.264")
       ? "system.details.treasure.table"

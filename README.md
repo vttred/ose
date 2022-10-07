@@ -11,7 +11,7 @@
 </p>
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-10-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-11-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Installation
@@ -111,20 +111,23 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 <table>
-  <tr>
-    <td align="center"><a href="https://github.com/Godforsaken84"><img src="https://avatars.githubusercontent.com/u/100036544?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Godforsaken84</b></sub></a><br /><a href="#design-Godforsaken84" title="Design">🎨</a></td>
-    <td align="center"><a href="https://github.com/freohr"><img src="https://avatars.githubusercontent.com/u/3462951?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Stephen FAURE</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=freohr" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/engleback"><img src="https://avatars.githubusercontent.com/u/35422051?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ian Engleback</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=engleback" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/RabidOwlbear"><img src="https://avatars.githubusercontent.com/u/71675732?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Grim</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=RabidOwlbear" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/WallaceMcGregor"><img src="https://avatars.githubusercontent.com/u/17795541?v=4?s=100" width="100px;" alt=""/><br /><sub><b>WallaceMcGregor</b></sub></a><br /><a href="#translation-WallaceMcGregor" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://github.com/IGALEGOI"><img src="https://avatars.githubusercontent.com/u/97805442?v=4?s=100" width="100px;" alt=""/><br /><sub><b>IGALEGOI</b></sub></a><br /><a href="#translation-IGALEGOI" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://github.com/sanviler"><img src="https://avatars.githubusercontent.com/u/96877404?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Lorenzo Castelletta</b></sub></a><br /><a href="#translation-sanviler" title="Translation">🌍</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://github.com/HerrSquash"><img src="https://avatars.githubusercontent.com/u/97633309?v=4?s=100" width="100px;" alt=""/><br /><sub><b>herrsquash</b></sub></a><br /><a href="#translation-herrsquash" title="Translation">🌍</a></td>
-    <td align="center"><a href="http://linktr.ee/teuri"><img src="https://avatars.githubusercontent.com/u/64547748?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Igor Teuri</b></sub></a><br /><a href="#translation-igorteuri" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://github.com/hogwrassler"><img src="https://avatars.githubusercontent.com/u/110945935?v=4?s=100" width="100px;" alt=""/><br /><sub><b>hogwrassler</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=hogwrassler" title="Code">💻</a></td>
-  </tr>
+  <tbody>
+    <tr>
+      <td align="center"><a href="https://github.com/Godforsaken84"><img src="https://avatars.githubusercontent.com/u/100036544?v=4?s=100" width="100px;" alt="Godforsaken84"/><br /><sub><b>Godforsaken84</b></sub></a><br /><a href="#design-Godforsaken84" title="Design">🎨</a></td>
+      <td align="center"><a href="https://github.com/freohr"><img src="https://avatars.githubusercontent.com/u/3462951?v=4?s=100" width="100px;" alt="Stephen FAURE"/><br /><sub><b>Stephen FAURE</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=freohr" title="Code">💻</a></td>
+      <td align="center"><a href="https://github.com/engleback"><img src="https://avatars.githubusercontent.com/u/35422051?v=4?s=100" width="100px;" alt="Ian Engleback"/><br /><sub><b>Ian Engleback</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=engleback" title="Code">💻</a></td>
+      <td align="center"><a href="https://github.com/RabidOwlbear"><img src="https://avatars.githubusercontent.com/u/71675732?v=4?s=100" width="100px;" alt="Grim"/><br /><sub><b>Grim</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=RabidOwlbear" title="Code">💻</a></td>
+      <td align="center"><a href="https://github.com/WallaceMcGregor"><img src="https://avatars.githubusercontent.com/u/17795541?v=4?s=100" width="100px;" alt="WallaceMcGregor"/><br /><sub><b>WallaceMcGregor</b></sub></a><br /><a href="#translation-WallaceMcGregor" title="Translation">🌍</a></td>
+      <td align="center"><a href="https://github.com/IGALEGOI"><img src="https://avatars.githubusercontent.com/u/97805442?v=4?s=100" width="100px;" alt="IGALEGOI"/><br /><sub><b>IGALEGOI</b></sub></a><br /><a href="#translation-IGALEGOI" title="Translation">🌍</a></td>
+      <td align="center"><a href="https://github.com/sanviler"><img src="https://avatars.githubusercontent.com/u/96877404?v=4?s=100" width="100px;" alt="Lorenzo Castelletta"/><br /><sub><b>Lorenzo Castelletta</b></sub></a><br /><a href="#translation-sanviler" title="Translation">🌍</a></td>
+    </tr>
+    <tr>
+      <td align="center"><a href="https://github.com/HerrSquash"><img src="https://avatars.githubusercontent.com/u/97633309?v=4?s=100" width="100px;" alt="herrsquash"/><br /><sub><b>herrsquash</b></sub></a><br /><a href="#translation-herrsquash" title="Translation">🌍</a></td>
+      <td align="center"><a href="http://linktr.ee/teuri"><img src="https://avatars.githubusercontent.com/u/64547748?v=4?s=100" width="100px;" alt="Igor Teuri"/><br /><sub><b>Igor Teuri</b></sub></a><br /><a href="#translation-igorteuri" title="Translation">🌍</a></td>
+      <td align="center"><a href="https://github.com/hogwrassler"><img src="https://avatars.githubusercontent.com/u/110945935?v=4?s=100" width="100px;" alt="hogwrassler"/><br /><sub><b>hogwrassler</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=hogwrassler" title="Code">💻</a></td>
+      <td align="center"><a href="http://timsnyder.codes"><img src="https://avatars.githubusercontent.com/u/1731267?v=4?s=100" width="100px;" alt="Tim"/><br /><sub><b>Tim</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=wyrmisis" title="Code">💻</a></td>
+    </tr>
+  </tbody>
 </table>
 
 <!-- markdownlint-restore -->

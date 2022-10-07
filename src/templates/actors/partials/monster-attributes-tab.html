@@ -97,7 +97,7 @@
                 {{#each attackPatterns as |section pattern|}}
                 <ol class="attack-pattern">
                     {{#each section as |item|}}
-                    <li class="item-entry {{#if (or item.system.roll (eq item.type 'weapon'))}}item-rollable{{/if}}"
+                    <li class="item-entry item {{#if (or item.system.roll (eq item.type 'weapon'))}}item-rollable{{/if}}"
                         data-item-id="{{item.id}}">
                         <div class="item-header flexrow">
                             <div class="item-pattern pattern-{{pattern}}" title="{{localize 'OSE.items.pattern'}}">

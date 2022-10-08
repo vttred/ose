@@ -52,7 +52,7 @@ export class OseActorSheetMonster extends OseActorSheet {
     }    
 
     // Partition items by category
-    let [weapons, items, armors, spells, containers] = itemsData.reduce(
+    let [weapons, items, armors, spells, containers, treasures] = itemsData.reduce(
       (arr, item) => {
         const itemData = item?.system || item?.data?.data; //v9-compatibility
         // Classify items into types
@@ -74,7 +74,9 @@ export class OseActorSheetMonster extends OseActorSheet {
             arr[0].push(item);
             break;
           case "item":
-            arr[1].push(item);
+            arr[
+              (item.system || item.data.data).treasure ? 5 : 1
+            ].push(item);
             break;
           case "armor":
             arr[2].push(item);
@@ -89,7 +91,7 @@ export class OseActorSheetMonster extends OseActorSheet {
 
         return arr;
       },
-      [[], [], [], [], []]
+      [[], [], [], [], [], []]
     );
 
     // Sort spells by level
@@ -119,12 +121,7 @@ export class OseActorSheetMonster extends OseActorSheet {
       return arr;
     });
     // Assign and return
-    data.owned = {
-      weapons: weapons,
-      items: items,
-      containers: containers,
-      armors: armors,
-    };
+    data.owned = { weapons, items, containers, armors, treasures };
     
     data.attackPatterns = attackPatterns;
     // Sort items and spells alphabetically within their groups

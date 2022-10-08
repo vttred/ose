@@ -36,7 +36,7 @@ export class OseItem extends Item {
     // Rich text description
     if (isNewerVersion(game.version, "10.264")) {
       itemData.enrichedDescription = await TextEditor.enrichHTML(
-        itemData.description,
+        itemData.details?.description || itemData.description,
         { async: true }
       );
     } else {

@@ -4,5 +4,5 @@ import characterTests, {
 } from './actor/character.e2e.test.js';
 
 Hooks.on('quenchReady', async (quench) => {
-
+  quench.registerBatch(characterKey, characterTests, characterOptions);
 });

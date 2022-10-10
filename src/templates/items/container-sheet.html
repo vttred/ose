@@ -1,4 +1,4 @@
-{{#if {isV10}}}
+{{#if (isV10)}}
 <form class="{{cssClass}}" autocomplete="off">
   <header class="sheet-header">
     <img class="profile-img" src="{{img}}" data-edit="img" title="{{name}}" />
@@ -25,8 +25,13 @@
         </div>
       </div>
       <div class="description weapon-editor">
-        {{editor enrichedDescription target="system.description" button=true
-        owner=owner editable=editable async=true}}
+        {{editor system.enrichedDescription
+          target="system.description"
+          button=true
+          owner=owner
+          editable=editable
+          async=true
+        }}
       </div>
     </div>
   </section>

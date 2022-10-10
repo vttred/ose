@@ -90,13 +90,18 @@
         <div class="form-group">
           <label>{{localize 'OSE.items.Slow'}}</label>
           <div class="form-fields">
-            <input type="checkbox" name="system.slow" value="{{system.slow}}" {{checked system.slow}} data-dtype="Number" />
+            <input type="checkbox" name="system.slow" {{checked system.slow}} data-dtype="Boolean" />
           </div>
         </div>
       </div>
       <div class="description weapon-editor">
-        {{editor enrichedDescription target="system.description" button=true
-        owner=owner editable=editable async=true}}
+        {{editor system.enrichedDescription
+          target="system.description"
+          button=true
+          owner=owner
+          editable=editable
+          async=true
+        }}
       </div>
     </div>
   </section>

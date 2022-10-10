@@ -152,8 +152,9 @@ export class OseActorSheetMonster extends OseActorSheet {
 
     // Settings
     data.config.morale = game.settings.get(game.system.id, "morale");
-    monsterData.details.treasure.link = TextEditor.enrichHTML(
-      monsterData.details.treasure.table
+    monsterData.details.treasure.link = await TextEditor.enrichHTML(
+      monsterData.details.treasure.table,
+      { async: true }
     );
     data.isNew = this.actor.isNew();
 
@@ -221,7 +222,7 @@ export class OseActorSheetMonster extends OseActorSheet {
         .index.filter((el) => el._id === data.id);
       link = `@Compendium[${data.pack}.${data.id}]{${tableData[0].name}}`;
     } else {
-      link = `@RollTable[${data.id}]`;
+      link = `@UUID[${data.uuid}]`;
     }
     const treasureTableKey = isNewerVersion(game.version, "10.264")
       ? "system.details.treasure.table"
@@ -298,6 +299,13 @@ export class OseActorSheetMonster extends OseActorSheet {
       let actorObject = this.actor;
       let check = $(ev.currentTarget).closest(".check-field").data("check");
       actorObject.rollAppearing({ event: ev, check: check });
+    });
+
+    html.find(".treasure-table a").contextmenu((ev) => {
+      const treasureTableKey = isNewerVersion(game.version, "10.264")
+        ? "system.details.treasure.table"
+        : "data.details.treasure.table"; //v9-compatibility
+      this.actor.update({ [treasureTableKey]: null });
     });
 
     // Everything below here is only needed if the sheet is editable

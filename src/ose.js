@@ -17,6 +17,7 @@ import { OseCombat } from "./module/combat";
 import * as renderList from "./module/renderList";
 import { OsePartySheet } from "./module/party/party-sheet";
 import "./ose.scss";
+import './e2e';
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */

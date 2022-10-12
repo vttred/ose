@@ -23,7 +23,7 @@
     }
   ],
   "esmodules": [
-    "dist/module/ose.js"
+    "dist/ose.js"
   ],
   "styles": [
     "dist/ose.css"

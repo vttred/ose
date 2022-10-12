@@ -1,12 +1,12 @@
-const { defineConfig } = require("rollup");
-const { nodeResolve } = require("@rollup/plugin-node-resolve");
-const typescript = require("@rollup/plugin-typescript");
-const scss = require("rollup-plugin-scss");
-const { copy } = require("@web/rollup-plugin-copy");
+import { defineConfig } from "rollup";
+import { nodeResolve } from "@rollup/plugin-node-resolve";
+import typescript from "@rollup/plugin-typescript";
+import scss from "rollup-plugin-scss";
+import { copy } from "@web/rollup-plugin-copy";
 
 const staticFiles = ["lang", "packs", "templates"];
 
-module.exports = defineConfig({
+export default defineConfig({
   input: "src/ose.js",
   output: {
     dir: "dist/",

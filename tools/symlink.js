@@ -4,7 +4,7 @@ const yargs = require("yargs");
 const { hideBin } = require("yargs/helpers");
 
 /**
- * @typedef {{dataPath: string;symLinkName: string;}} FoundryConfig
+ * @typedef {{dataPath: string; symLinkName: string;}} FoundryConfig
  */
 
 const argv = yargs(hideBin(process.argv))
@@ -29,13 +29,7 @@ const linkDirectory = path.resolve(
   foundryConfig.symLinkName
 );
 
-if (argv.clean) {
-  handleProcess(removeSymlink());
-} else {
-  handleProcess(createSymlink());
-}
-
-async function createSymlink() {
+function createSymlink() {
   console.log(`Linking dist to ${linkDirectory}.`);
   const systemsDirectory = path.resolve(linkDirectory, "..");
   if (!fs.pathExistsSync(systemsDirectory)) {
@@ -50,21 +44,13 @@ async function createSymlink() {
   }
 }
 
-async function removeSymlink() {
+function removeSymlink() {
   console.log(`Removing build in ${linkDirectory}.`);
-  await fs.remove(linkDirectory);
+  fs.removeSync(linkDirectory);
 }
 
-/**
- * @param {Promise<unknown>} promise
- */
-function handleProcess(promise) {
-  promise
-    .then(() => {
-      process.exit(0);
-    })
-    .catch((e) => {
-      console.error(e);
-      process.exit(1);
-    });
+if (argv.clean) {
+  removeSymlink();
+} else {
+  createSymlink();
 }

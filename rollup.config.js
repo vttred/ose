@@ -1,6 +1,7 @@
 import { defineConfig } from "rollup";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import typescript from "@rollup/plugin-typescript";
+import { terser } from "rollup-plugin-terser";
 import scss from "rollup-plugin-scss";
 import { copy } from "@web/rollup-plugin-copy";
 
@@ -16,8 +17,10 @@ export default defineConfig({
   plugins: [
     nodeResolve(),
     typescript(),
+    terser(),
     scss({
       output: "dist/ose.css",
+      outputStyle: "compressed",
       sourceMap: true,
       watch: 'src/'
     }),

@@ -173,146 +173,146 @@ export default ({before, beforeEach, after, describe, it, expect, ...context}) =
       })
     });
 
-    // Ab02
-    describe('Ability CRUD', () => {
-      it('Create an ability on the actor', () => {})
-      it('Display an ability\'s description from the Abilities tab', () => {})
-      it('Open an actor\'s owned ability\'s sheet', () => {})
-      it('Delete an actor\'s owned ability', () => {})
-    });
+    // // Ab02
+    // describe('Ability CRUD', () => {
+    //   it('Create an ability on the actor', () => {})
+    //   it('Display an ability\'s description from the Abilities tab', () => {})
+    //   it('Open an actor\'s owned ability\'s sheet', () => {})
+    //   it('Delete an actor\'s owned ability', () => {})
+    // });
 
   });
 
-  describe('The Inventory Tab', () => {
-    const clearItems = async () => await testActor().items.clear();
-    const setUpInventory = async () => {
-      await testActor().sheet._render(true);
-      document.querySelector('.sheet.character .tabs .item[data-tab="inventory"]').click();
-      return waitForInput();
-    }
-    const tearDown = async () => {
-      await clearItems();
-      return testActor().sheet.close();
-    }
+  // describe('The Inventory Tab', () => {
+  //   const clearItems = async () => await testActor().items.clear();
+  //   const setUpInventory = async () => {
+  //     await testActor().sheet._render(true);
+  //     document.querySelector('.sheet.character .tabs .item[data-tab="inventory"]').click();
+  //     return waitForInput();
+  //   }
+  //   const tearDown = async () => {
+  //     await clearItems();
+  //     return testActor().sheet.close();
+  //   }
 
-    // In01
-    describe('Weapon CRUD', () => {
-      before(async () => {
-        await setUpInventory();
-      });
-      after(async () => {
-        await tearDown();
-      });
-      it('Create a weapon on the actor', () => {})
-      it('Display a weapon\'s description from the Inventory tab', () => {})
-      it('Equip an actor\'s owned weapon', () => {})
-      it('Open an actor\'s owned weapon\'s sheet', () => {})
-      it('Delete an actor\'s owned weapon', () => {})
-    });
+  //   // In01
+  //   describe('Weapon CRUD', () => {
+  //     before(async () => {
+  //       await setUpInventory();
+  //     });
+  //     after(async () => {
+  //       await tearDown();
+  //     });
+  //     it('Create a weapon on the actor', () => {})
+  //     it('Display a weapon\'s description from the Inventory tab', () => {})
+  //     it('Equip an actor\'s owned weapon', () => {})
+  //     it('Open an actor\'s owned weapon\'s sheet', () => {})
+  //     it('Delete an actor\'s owned weapon', () => {})
+  //   });
 
-    // In02
-    describe('Armor CRUD', () => {
-      it('Create armor on the actor', () => {})
-      it('Display an armor item\'s description from the Inventory tab', () => {})
-      it('Equip an actor\'s owned armor', () => {})
-      it('Open an actor\'s owned armor\'s sheet', () => {})
-      it('Delete an actor\'s owned armor', () => {})
-    });
+  //   // In02
+  //   describe('Armor CRUD', () => {
+  //     it('Create armor on the actor', () => {})
+  //     it('Display an armor item\'s description from the Inventory tab', () => {})
+  //     it('Equip an actor\'s owned armor', () => {})
+  //     it('Open an actor\'s owned armor\'s sheet', () => {})
+  //     it('Delete an actor\'s owned armor', () => {})
+  //   });
 
-    // In03
-    describe('Container CRUD', () => {
-      it('Create a container on the actor', () => {})
-      it('Display a container\'s description from the Inventory tab', () => {})
-      it('Open an actor\'s owned container\'s sheet', () => {})
-      it('Delete an actor\'s owned container', () => {})
-    });
+  //   // In03
+  //   describe('Container CRUD', () => {
+  //     it('Create a container on the actor', () => {})
+  //     it('Display a container\'s description from the Inventory tab', () => {})
+  //     it('Open an actor\'s owned container\'s sheet', () => {})
+  //     it('Delete an actor\'s owned container', () => {})
+  //   });
 
-    // In04
-    describe('Misc. CRUD', () => {
-      it('Create an item on the actor', () => {})
-      it('Display an item\'s description from the Inventory tab', () => {})
-      it('Open an actor\'s owned item\'s sheet', () => {})
-      it('Delete an actor\'s owned item', () => {})
-    });
+  //   // In04
+  //   describe('Misc. CRUD', () => {
+  //     it('Create an item on the actor', () => {})
+  //     it('Display an item\'s description from the Inventory tab', () => {})
+  //     it('Open an actor\'s owned item\'s sheet', () => {})
+  //     it('Delete an actor\'s owned item', () => {})
+  //   });
 
-    // In05
-    describe('Treasure CRUD', () => {
-      it('Create a treasure item on the actor', () => {})
-      it('Display a treasure item\'s description from the Inventory tab', () => {})
-      it('Open an actor\'s owned treasure item\'s sheet', () => {})
-      it('Delete an actor\'s owned treasure item', () => {})
-    });
+  //   // In05
+  //   describe('Treasure CRUD', () => {
+  //     it('Create a treasure item on the actor', () => {})
+  //     it('Display a treasure item\'s description from the Inventory tab', () => {})
+  //     it('Open an actor\'s owned treasure item\'s sheet', () => {})
+  //     it('Delete an actor\'s owned treasure item', () => {})
+  //   });
 
-    // In06
-    describe('Encumbrance', () => {
-      it('TODO: How to test each encumbrance method?', () => {})
-    })
-  });
+  //   // In06
+  //   describe('Encumbrance', () => {
+  //     it('TODO: How to test each encumbrance method?', () => {})
+  //   })
+  // });
 
-  describe('The Spells Tab', () => {
-    beforeEach(async () => {
-      // await prepareActor();
-    });
+  // describe('The Spells Tab', () => {
+  //   beforeEach(async () => {
+  //     // await prepareActor();
+  //   });
 
-    afterEach(async () => {
-      await trashChat();
-      await trashActor();
-    });
+  //   afterEach(async () => {
+  //     await trashChat();
+  //     await trashActor();
+  //   });
 
-    it('is not enabled when the character is not a spellcaster', async () => {
-      await prepareActor();
+  //   it('is not enabled when the character is not a spellcaster', async () => {
+  //     await prepareActor();
       
-      await testActor().sheet._render(true);
+  //     await testActor().sheet._render(true);
       
-      const tabButton = document.querySelector('.item[data-tab="spells"]');
-      const tabContainer = document.querySelector('.tab[data-tab="spells"]');
+  //     const tabButton = document.querySelector('.item[data-tab="spells"]');
+  //     const tabContainer = document.querySelector('.tab[data-tab="spells"]');
         
-      expect(tabContainer).to.be.null;
-      expect(tabButton).to.be.null;
+  //     expect(tabContainer).to.be.null;
+  //     expect(tabButton).to.be.null;
       
-      await testActor().sheet.close();
-    })
+  //     await testActor().sheet.close();
+  //   })
 
-    it('is enabled when the character is a spellcaster', async () => {
-      await prepareActor({
-        system: {
-          spells: {
-            enabled: true
-          }
-        }
-      });
+  //   it('is enabled when the character is a spellcaster', async () => {
+  //     await prepareActor({
+  //       system: {
+  //         spells: {
+  //           enabled: true
+  //         }
+  //       }
+  //     });
       
-      await testActor().sheet._render(true);
+  //     await testActor().sheet._render(true);
       
-      const tabButton = document.querySelector('.item[data-tab="spells"]');
-      const tabContainer = document.querySelector('.tab[data-tab="spells"]');
+  //     const tabButton = document.querySelector('.item[data-tab="spells"]');
+  //     const tabContainer = document.querySelector('.tab[data-tab="spells"]');
         
-      expect(tabContainer).not.to.be.null;
-      expect(tabButton).not.to.be.null;
+  //     expect(tabContainer).not.to.be.null;
+  //     expect(tabButton).not.to.be.null;
       
-      tabButton.click();
+  //     tabButton.click();
       
-      expect(tabContainer.classList.contains('active')).to.be.true;
+  //     expect(tabContainer.classList.contains('active')).to.be.true;
       
-      await testActor().sheet.close();
-    })
-  });
+  //     await testActor().sheet.close();
+  //   })
+  // });
 
-  describe('The Notes Tab', () => {
-    // No01
-    describe('Languages', () => {
-      it('Open the language dialog', () => {});
-      it('Add a language to the actor from the language dialog', () => {});
-      it('Delete one of the actor\'s languages', () => {});
-    })
+  // describe('The Notes Tab', () => {
+  //   // No01
+  //   describe('Languages', () => {
+  //     it('Open the language dialog', () => {});
+  //     it('Add a language to the actor from the language dialog', () => {});
+  //     it('Delete one of the actor\'s languages', () => {});
+  //   })
 
-    // No02
-    describe('Notes and Bio', () => {
-      it('Render the Bio', () => {});
-      it('Render the Notes', () => {});
-    })
+  //   // No02
+  //   describe('Notes and Bio', () => {
+  //     it('Render the Bio', () => {});
+  //     it('Render the Notes', () => {});
+  //   })
 
-  });
+  // });
 
   after(async () => {
     await trashActor();

@@ -63,6 +63,6 @@ export const registerHelpers = async function () {
 
   // helper for v9 compatibility
   Handlebars.registerHelper("isV10", function () {
-    if (isNewerVersion(game.version, "10.264")) return true;
+    return isNewerVersion(game.release.version, "10.264");
   });
 };

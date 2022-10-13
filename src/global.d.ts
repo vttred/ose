@@ -15,6 +15,7 @@ declare global {
 
   interface Game {
     ose: {
+      id: "ose",
       rollItemMacro: (itemName: string) => Promise<void>;
       oseCombat: OseCombat;
     };

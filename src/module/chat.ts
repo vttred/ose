@@ -33,6 +33,7 @@ export const addChatMessageButtons = function (msg: ChatMessage, html: JQuery) {
   // Hide blind rolls
   let blindable = html.find(".blindable");
   if (
+    // @ts-ignore need to add ChatMessage document property updates.
     msg?.blind &&
     msg?.data?.blind && //v9 compatibility
     !game.user?.isGM &&

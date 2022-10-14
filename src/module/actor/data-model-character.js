@@ -26,17 +26,14 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
 
     // @todo AC from armor is borked; no access to items yet.
     this.ac = new OseDataModelCharacterAC(
-      this.ac.mod,
       [...getItemsOfActorOfType(this.parent, 'armor', (a) => a.system.equipped)],
-      this.scores.dex.mod
+      this.ac.mod,
     );
 
     // @todo AAC from armor is borked; no access to items yet.
     this.aac = new OseDataModelCharacterAC(
-      this.aac.mod,
       getItemsOfActorOfType(this.parent, 'armor', (a) => a.system.equipped),
       this.scores.dex.mod,
-      true,
     );
 
     this.spells = new OseDataModelCharacterSpells(

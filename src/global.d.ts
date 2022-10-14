@@ -15,9 +15,17 @@ declare global {
 
   interface Game {
     ose: {
-      id: "ose",
       rollItemMacro: (itemName: string) => Promise<void>;
       oseCombat: OseCombat;
     };
+  }
+  
+  namespace Game {
+    interface SystemData<T> {
+      /**
+       * Defining game.system.id as a const
+       */
+      id: "ose";
+    }
   }
 }

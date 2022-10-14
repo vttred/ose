@@ -35,7 +35,6 @@ Hooks.once("init", async function () {
   CONFIG.OSE = OSE;
 
   game.ose = {
-    id: "ose",
     rollItemMacro: macros.rollItemMacro,
     oseCombat: OseCombat,
   };

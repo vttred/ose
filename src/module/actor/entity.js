@@ -14,11 +14,7 @@ export class OseActor extends Actor {
       const actorType = this?.type || this?.data?.type; //v9-compatibility
 
       // Compute modifiers from actor scores
-      this.computeModifiers();
       this._isSlow();
-      this.computeAC();
-      this.computeEncumbrance();
-      this.computeTreasure();
 
       // Determine Initiative
       if (game.settings.get(game.system.id, "initiative") != "group") {
@@ -564,9 +560,6 @@ export class OseActor extends Actor {
   }
 
   _isSlow() {
-    if (this.type === 'character')
-      return this.system.isSlow();
-    else {
     const actorData = this?.system || this?.data?.data; //v9-compatibility
 
     const actorItems = this?.items || this?.data?.items; //v9-compatibility
@@ -578,7 +571,6 @@ export class OseActor extends Actor {
       }
       return false;
     });
-    }
   }
 
   _calculateMovement() {

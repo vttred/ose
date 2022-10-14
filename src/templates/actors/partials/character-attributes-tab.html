@@ -177,7 +177,7 @@
                         {{localize 'OSE.movement.overland.short'}}</h4>
                     <div class="flexrow">
                         <div class="attribute-value">
-                            {{divide system.movement.base 5}}
+                            {{@root.system.movement.overland}}
                         </div>
                     </div>
                 </li>
@@ -185,7 +185,7 @@
                     <h4 class="attribute-name box-title" title="{{ localize 'OSE.movement.exploration.long' }}">
                         {{ localize "OSE.movement.exploration.short" }}</h4>
                     <div class="attribute-value flexrow">
-                        <input name="system.movement.base" type="text" value="{{system.movement.base}}" placeholder="0"
+                        <input name="system.movement.base" type="text" value="{{@root.system.movement.base}}" placeholder="0"
                             data-dtype="Number" {{#if system.config.movementAuto}}disabled{{/if}} />
                     </div>
                 </li>
@@ -194,7 +194,7 @@
                         {{localize 'OSE.movement.encounter.short'}}</h4>
                     <div class="flexrow">
                         <div class="attribute-value">
-                            {{divide system.movement.base 3}}
+                            {{system.movement.encounter}}
                         </div>
                     </div>
                 </li>

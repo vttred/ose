@@ -2,11 +2,7 @@ import OseDataModelCharacterAC from "./dataModelClasses/OseDataModelCharacterAC"
 import OseDataModelCharacterEncumbrance from "./dataModelClasses/OseDataModelCharacterEncumbrance";
 import OseDataModelCharacterMove from "./dataModelClasses/OseDataModelCharacterMove";
 import OseDataModelCharacterScores from "./dataModelClasses/OseDataModelCharacterScores";
-
-// TODO: What does the user need to edit?
-// TODO: What can be computed?
-// TODO: Any way to filter items and make them nicer to work with?
-// TODO: Any functions that absolutely *need* to be here?
+import OseDataModelCharacterSpells from "./dataModelClasses/OseDataModelCharacterSpells";
 
 const getItemsOfActorOfType = (actor, filterType, filterFn = null) =>
   actor.items
@@ -68,10 +64,6 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
       thac0: new ObjectField(),
     };
   }
-
-
-  // @TODO set up attack modifiers
-
 
   get isNew() {
     return !!Object.values(this.scores).reduce((acc, el) => acc + el.value, 0);
@@ -153,7 +145,6 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
     ).sort((a, b) => (a.sort || 0) - (b.sort || 0));
   }
 
-  // @TODO Should spells have their own class?
   get #spellList() {
     return getItemsOfActorOfType(
       this.parent,
@@ -162,7 +153,6 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
     );
   }
   
-
   get isSlow() {
     return this.weapons.every((item) =>
       !(
@@ -172,6 +162,7 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
       ));
   }
 
+  // @todo Work on this
   get init() {
     const group = game.settings.get(game.system.id, "initiative") !== "group"
     
@@ -180,67 +171,5 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
     return (group)
       ? this.initiative.value + this.initiative.mod + this.dex.init
       : 0;
-  }
-}
-
-class OseDataModelCharacterSpells {
-  #slots;
-  #spellList;
-  #enabled;
-
-  constructor({enabled, ...maxSlots}, spellList) {
-    this.#spellList = spellList;
-    this.#enabled = enabled;
-
-    const usedSlots = this.#spellList?.reduce(this.#reducedUsedSlots, {}) || {}
-
-    this.#slots = Object.keys(maxSlots || {}).reduce(
-      (list, item, idx) => this.#usedAndMaxSlots(list, item, idx, usedSlots, maxSlots),
-      {}
-    );
-  }
-  
-
-  get enabled() {
-    return this.#enabled;
-  }
-  set enabled(state) {
-    this.#enabled = state;
-  }
-
-  get spellList() {
-    const reducedSpells = (list, item) => {
-      let {lvl} = item.system;
-      let othersAtLvl = list[lvl] || [];
-      return {
-      ...list,
-      [lvl]: [ ...othersAtLvl, item ]
-    }};
-
-    return this.#spellList.reduce(reducedSpells, {})
-  }
-
-  #reducedUsedSlots(list, item) {
-    let {lvl} = item.system;
-    let usedAtLvl = list[lvl] || 0;
-    return {
-    ...list,
-    [lvl]: usedAtLvl + item.system.memorized
-  }};
-
-  #usedAndMaxSlots(list, item, idx, usedSlots, maxSlots) {
-    if (item === 'enabled') return list;
-    const lv = idx + 1;
-    const max = maxSlots[lv]?.max || 0;
-    const used = usedSlots[lv];
-
-    return {
-      ...list,
-      [lv]: {used, max}
-    }
-  }
-
-  get slots() {
-    return this.#slots;
   }
 }

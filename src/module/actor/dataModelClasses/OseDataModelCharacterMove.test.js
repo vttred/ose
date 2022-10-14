@@ -1,0 +1,1 @@
+import OseDataModelCharacterMove from "./OseDataModelCharacterMove";

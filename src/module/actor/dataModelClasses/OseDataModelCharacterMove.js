@@ -1,0 +1,96 @@
+import OseDataModelCharacterEncumbrance from "./OseDataModelCharacterEncumbrance";
+
+/**
+ * A class representing a character's move speeds.
+ */
+export default class OseDataModelCharacterMove {
+  #encumbranceVariant;
+  #encumbranceCurrent;
+  #encumbranceMax;
+  #encumbranceDelta;
+  #moveBase;
+  #autocalculate;
+  #heaviestArmor;
+
+  /**
+   * 
+   * @param {OSEDataModelCharacterEnumbrance} encumbrance An object representing the character's encumbrance values
+   * @param {boolean} shouldCalculateMovement Should the class autocalculate movement?
+   * @param {number} baseMoveRate The base move rate for the actor
+   */
+  constructor(encumbrance, shouldCalculateMovement = true, baseMoveRate = 120) {
+    this.#encumbranceVariant = game.settings.get(game.system.id, "encumbranceOption");
+    
+    this.#encumbranceCurrent = encumbrance.value;
+    this.#encumbranceMax = encumbrance.max;
+    this.#encumbranceDelta = encumbrance.max - OseDataModelCharacterEncumbrance.encumbranceCap;
+    
+    this.#autocalculate = shouldCalculateMovement;
+    this.#moveBase = baseMoveRate;
+
+    this.#heaviestArmor = encumbrance.heaviestArmor;
+  }
+
+  #speedFromBasicEnc() {
+    let significantTreasureWeight = game.settings.get(game.system.id, "significantTreasure");
+
+    const weight = this.#encumbranceCurrent;
+
+    let base = 120;
+    let heaviest = 0;
+
+    
+
+    switch (heaviest) {
+      case 0: base = 120; break;
+      case 1: base = 90; break;
+      case 2: base = 60; break;
+    }
+
+    if (weight >= this.#encumbranceMax)
+      base = 0;
+    else if (weight >= significantTreasureWeight)
+      base -= 30;
+    
+    return base
+  }
+
+  #speedFromDetailedEnc() {
+    const delta = this.#encumbranceDelta;
+    const weight = this.#encumbranceCurrent;
+    let speed = this.#moveBase;
+
+    if (weight >= this.#encumbranceMax) speed = 0;
+    else if (weight > 800 + delta) speed = this.#moveStep3;
+    else if (weight > 600 + delta) speed = this.#moveStep2;
+    else if (weight > 400 + delta) speed = this.#moveStep1;
+    
+    return speed;
+  }
+  
+  get base() {
+    let base;
+    
+    // Manual entry for movement
+    if (!this.#autocalculate || this.#encumbranceVariant === "disabled")
+      base = this.#moveBase;
+    // Detailed/Complete Encumbrance
+    if (["detailed", "complete"].includes(this.#encumbranceVariant))
+      base = this.#speedFromDetailedEnc()
+    // Basic Encumbrance
+    else if (this.#encumbranceVariant === "basic")
+      base = this.#speedFromBasicEnc()
+
+    return base;
+  }
+  set base(value) {
+    this.#moveBase = value;
+  }
+
+  get encounter() { return this.base / 3; }
+  get overland() { return this.base / 5; }
+
+  get #moveStep1() { return this.base * .75; }
+  get #moveStep2() { return this.base * .5; }
+  get #moveStep3() { return this.base * .25; }
+}

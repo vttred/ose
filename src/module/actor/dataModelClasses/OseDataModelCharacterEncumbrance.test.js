@@ -1,0 +1,1 @@
+import OseDataModelCharacterEncumbrance from "./OseDataModelCharacterEncumbrance";

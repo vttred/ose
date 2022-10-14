@@ -562,6 +562,9 @@ export class OseActorSheet extends ActorSheet {
     html.find(".inventory .item-category-title").click((event) => {
       this._toggleItemCategory(event);
     });
+    html
+      .find('.inventory .item-category-title input')
+      .click(evt => { evt.stopPropagation() })
     html.find(".inventory .category-caret").click((event) => {
       this._toggleContainedItems(event);
     });

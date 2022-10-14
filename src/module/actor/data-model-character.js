@@ -26,14 +26,18 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
 
     // @todo AC from armor is borked; no access to items yet.
     this.ac = new OseDataModelCharacterAC(
+      false,
       [...getItemsOfActorOfType(this.parent, 'armor', (a) => a.system.equipped)],
+      this.scores.dex.mod,
       this.ac.mod,
     );
 
     // @todo AAC from armor is borked; no access to items yet.
     this.aac = new OseDataModelCharacterAC(
+      true,
       getItemsOfActorOfType(this.parent, 'armor', (a) => a.system.equipped),
       this.scores.dex.mod,
+      this.aac.mod,
     );
 
     this.spells = new OseDataModelCharacterSpells(
@@ -59,7 +63,25 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
       initiative: new ObjectField(),
       hp: new ObjectField(),
       thac0: new ObjectField(),
+      initiative: new ObjectField(),
+      init: new NumberField({readonly: true}),
+      rangedMod: new NumberField({readonly: true}),
+      meleeMod: new NumberField({readonly: true}),
     };
+  }
+  
+  get meleeMod() {
+    const ascendingAcMod = game.settings.get(game.system.id, 'ascendingAC')
+      ? this.thac0.bba
+      : 0;
+    return this.scores.str.mod + this.thac0.mod.melee + ascendingAcMod;
+  }
+  
+  get rangedMod() {
+    const ascendingAcMod = game.settings.get(game.system.id, 'ascendingAC')
+      ? this.thac0.bba
+      : 0;
+    return this.scores.dex.mod + this.thac0.mod.missile + ascendingAcMod;
   }
 
   get isNew() {
@@ -166,7 +188,7 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
     // let value, mod;
 
     return (group)
-      ? this.initiative.value + this.initiative.mod + this.dex.init
+      ? (this.initiative.value || 0) + (this.initiative.mod || 0) + this.scores.dex.init
       : 0;
   }
 }

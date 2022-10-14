@@ -115,7 +115,7 @@
                         {{ localize "OSE.InitiativeShort" }}</h4>
                     <div class="attribute-value"
                         title="{{localize 'OSE.scores.dex.long'}}({{system.scores.dex.init}}) + {{localize 'OSE.Modifier'}}({{system.initiative.mod}})">
-                        {{add system.scores.dex.init system.initiative.mod}}
+                        {{system.init}}
                     </div>
                 </li>
                 {{/if}}
@@ -130,7 +130,7 @@
                     <div class="flexrow">
                         <div class="attribute-value"
                             title="{{localize 'OSE.scores.str.long'}}({{system.scores.str.mod}}) + {{localize 'OSE.Modifier'}}({{system.thac0.mod.melee}})">
-                            {{add system.scores.str.mod system.thac0.mod.melee}}
+                            {{system.meleeMod}}
                         </div>
                     </div>
                 </li>
@@ -164,7 +164,7 @@
                     <div class="flexrow">
                         <div class="attribute-value"
                             title="{{localize 'OSE.scores.dex.long'}}({{system.scores.dex.mod}}) + {{localize 'OSE.Modifier'}}({{system.thac0.mod.missile}})">
-                            {{add system.scores.dex.mod system.thac0.mod.missile}}
+                            {{system.rangedMod}}
                         </div>
                     </div>
                 </li>

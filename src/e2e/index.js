@@ -8,9 +8,16 @@ import dataModelCharacterACTests, {
   options as dataModelCharacterACOptions
 } from '../module/actor/dataModelClasses/OseDataModelCharacterAC.test.js';
 
+import dataModelCharacterScoresTests, {
+  key as dataModelCharacterScoresKey,
+  options as dataModelCharacterScoresOptions
+} from '../module/actor/dataModelClasses/OseDataModelCharacterScores.test.js';
+
 // @TODO Tests for OseDataModelCharacter* classes
 
 Hooks.on('quenchReady', async (quench) => {
   quench.registerBatch(characterKey, characterTests, characterOptions)
+  // Character data model classes
   quench.registerBatch(dataModelCharacterACKey, dataModelCharacterACTests, dataModelCharacterACOptions);
+  quench.registerBatch(dataModelCharacterScoresKey, dataModelCharacterScoresTests, dataModelCharacterScoresOptions);
 });

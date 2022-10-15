@@ -14,7 +14,6 @@ export default class OseDataModelCharacterSpells {
       {}
     );
   }
-  
 
   get enabled() {
     return this.#enabled;
@@ -36,11 +35,12 @@ export default class OseDataModelCharacterSpells {
   }
 
   #reducedUsedSlots(list, item) {
-    let {lvl} = item.system;
+    let {lvl, cast} = item.system;
+    if (isNaN(cast)) cast = 0;
     let usedAtLvl = list[lvl] || 0;
     return {
     ...list,
-    [lvl]: usedAtLvl + item.system.memorized
+    [lvl]: usedAtLvl + cast
   }};
 
   #usedAndMaxSlots(list, item, idx, usedSlots, maxSlots) {

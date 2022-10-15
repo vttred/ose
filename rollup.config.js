@@ -35,7 +35,7 @@ export default defineConfig([
     plugins: [
       nodeResolve(),
       typescript(),
-      terser(),
+      !isWatchMode && terser(),
       copy({
         patterns: staticFileFolders.map((folderName) => `${folderName}/**/*`),
         rootDir: "./src/",

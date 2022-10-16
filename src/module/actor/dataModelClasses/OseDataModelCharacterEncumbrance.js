@@ -46,8 +46,7 @@
     }, 0);
 
     this.#heaviestArmor = items.reduce((heaviest, {type, system: {type: armorType, equipped}}) => {
-      if (!type === 'armor' || !equipped) return heaviest;
-
+      if (type !== 'armor' || !equipped) return heaviest;
       if (armorType === 'light' && heaviest === OseDataModelCharacterEncumbrance.basicArmorWeight.unarmored)
         return OseDataModelCharacterEncumbrance.basicArmorWeight.light;
       else if (armorType === "heavy")

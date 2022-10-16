@@ -18,6 +18,11 @@ import dataModelCharacterSpellsTests, {
   options as dataModelCharacterSpellsOptions
 } from '../module/actor/dataModelClasses/OseDataModelCharacterSpells.test.js';
 
+import dataModelCharacterEncumbranceTests, {
+  key as dataModelCharacterEncumbranceKey,
+  options as dataModelCharacterEncumbranceOptions
+} from '../module/actor/dataModelClasses/OseDataModelCharacterEncumbrance.test.js';
+
 // @TODO Tests for OseDataModelCharacter* classes
 
 Hooks.on('quenchReady', async (quench) => {
@@ -26,4 +31,5 @@ Hooks.on('quenchReady', async (quench) => {
   quench.registerBatch(dataModelCharacterACKey, dataModelCharacterACTests, dataModelCharacterACOptions);
   quench.registerBatch(dataModelCharacterScoresKey, dataModelCharacterScoresTests, dataModelCharacterScoresOptions);
   quench.registerBatch(dataModelCharacterSpellsKey, dataModelCharacterSpellsTests, dataModelCharacterSpellsOptions);
+  quench.registerBatch(dataModelCharacterEncumbranceKey, dataModelCharacterEncumbranceTests, dataModelCharacterEncumbranceOptions);
 });

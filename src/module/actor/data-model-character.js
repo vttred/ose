@@ -14,6 +14,7 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
     this.scores = new OseDataModelCharacterScores(this.scores);
 
     this.encumbrance = new OseDataModelCharacterEncumbrance(
+      game.settings.get(game.system.id, "encumbranceOption"),
       this.encumbrance.max,
       [...this.parent.items]
     );
@@ -24,7 +25,6 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
       this.movement.base
     );
 
-    // @todo AC from armor is borked; no access to items yet.
     this.ac = new OseDataModelCharacterAC(
       false,
       [...getItemsOfActorOfType(this.parent, 'armor', (a) => a.system.equipped)],
@@ -32,7 +32,6 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
       this.ac.mod,
     );
 
-    // @todo AAC from armor is borked; no access to items yet.
     this.aac = new OseDataModelCharacterAC(
       true,
       getItemsOfActorOfType(this.parent, 'armor', (a) => a.system.equipped),

@@ -4,63 +4,67 @@ import OseDataModelCharacterEncumbrance from "./OseDataModelCharacterEncumbrance
  * A class representing a character's move speeds.
  */
 export default class OseDataModelCharacterMove {
+  static baseMoveRate = 120;
+  
   #encumbranceVariant;
   #encumbranceCurrent;
   #encumbranceMax;
   #encumbranceDelta;
+  #overTreasureLimit;
+  #overEncumbranceLimit;
   #moveBase;
   #autocalculate;
   #heaviestArmor;
 
   /**
    * 
-   * @param {OSEDataModelCharacterEnumbrance} encumbrance An object representing the character's encumbrance values
+   * @param {OseDataModelCharacterEncumbrance} encumbrance An object representing the character's encumbrance values
    * @param {boolean} shouldCalculateMovement Should the class autocalculate movement?
    * @param {number} baseMoveRate The base move rate for the actor
    */
-  constructor(encumbrance, shouldCalculateMovement = true, baseMoveRate = 120) {
-    this.#encumbranceVariant = game.settings.get(game.system.id, "encumbranceOption");
-    
+  constructor(
+    encumbrance, 
+    shouldCalculateMovement = true, 
+    base = OseDataModelCharacterMove.baseMoveRate,
+  ) {
+    this.#encumbranceVariant = encumbrance.variant;
+    this.#overTreasureLimit = encumbrance.overSignificantTreasureThreshold;
+    this.#overEncumbranceLimit = encumbrance.encumbered;
     this.#encumbranceCurrent = encumbrance.value;
     this.#encumbranceMax = encumbrance.max;
     this.#encumbranceDelta = encumbrance.max - OseDataModelCharacterEncumbrance.encumbranceCap;
-    
-    this.#autocalculate = shouldCalculateMovement;
-    this.#moveBase = baseMoveRate;
-
     this.#heaviestArmor = encumbrance.heaviestArmor;
+    this.#autocalculate = shouldCalculateMovement;
+    this.#moveBase = base;
   }
 
   #speedFromBasicEnc() {
-    let significantTreasureWeight = game.settings.get(game.system.id, "significantTreasure");
-
     const weight = this.#encumbranceCurrent;
 
-    let base = 120;
+    let base = this.#moveBase;
     let heaviest = 0;
 
-    
-
-    switch (heaviest) {
-      case 0: base = 120; break;
-      case 1: base = 90; break;
-      case 2: base = 60; break;
+    switch (this.#heaviestArmor) {
+      case 0: base = this.#moveBase;       break;
+      case 1: base = this.#moveBase * .75; break;
+      case 2: base = this.#moveBase * .50; break;
     }
 
-    if (weight >= this.#encumbranceMax)
+    if (this.#overEncumbranceLimit)
       base = 0;
-    else if (weight >= significantTreasureWeight)
+    else if (this.#overTreasureLimit)
       base -= 30;
-    
     return base
   }
 
   #speedFromDetailedEnc() {
-    const delta = this.#encumbranceDelta;
+    const delta  = this.#encumbranceDelta;
     const weight = this.#encumbranceCurrent;
+    
     let speed = this.#moveBase;
 
     if (weight >= this.#encumbranceMax) speed = 0;
+    // @TODO could this be handled with percentages?
     else if (weight > 800 + delta) speed = this.#moveStep3;
     else if (weight > 600 + delta) speed = this.#moveStep2;
     else if (weight > 400 + delta) speed = this.#moveStep1;

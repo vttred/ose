@@ -12,6 +12,9 @@ export default class OseDataModelCharacterMove {
   #encumbranceDelta;
   #overTreasureLimit;
   #overEncumbranceLimit;
+  #halfEncumbered;
+  #quarterEncumbered;
+  #eighthEncumbered;
   #moveBase;
   #autocalculate;
   #heaviestArmor;
@@ -27,20 +30,23 @@ export default class OseDataModelCharacterMove {
     shouldCalculateMovement = true, 
     base = OseDataModelCharacterMove.baseMoveRate,
   ) {
-    this.#encumbranceVariant = encumbrance.variant;
-    this.#overTreasureLimit = encumbrance.overSignificantTreasureThreshold;
-    this.#overEncumbranceLimit = encumbrance.encumbered;
-    this.#encumbranceCurrent = encumbrance.value;
-    this.#encumbranceMax = encumbrance.max;
-    this.#encumbranceDelta = encumbrance.max - OseDataModelCharacterEncumbrance.encumbranceCap;
-    this.#heaviestArmor = encumbrance.heaviestArmor;
-    this.#autocalculate = shouldCalculateMovement;
+    // Props necessary for any encumbrance variant
     this.#moveBase = base;
+    this.#autocalculate = shouldCalculateMovement;
+    this.#encumbranceVariant = encumbrance.variant;
+    this.#overEncumbranceLimit = encumbrance.encumbered;
+
+    // Non-basic encumbrance variant props
+    this.#halfEncumbered = encumbrance.atHalfEncumbered;
+    this.#quarterEncumbered = encumbrance.atQuarterEncumbered;
+    this.#eighthEncumbered = encumbrance.atEighthEncumbered;
+
+    // Basic encumbrance variant props
+    this.#overTreasureLimit = encumbrance.overSignificantTreasureThreshold;
+    this.#heaviestArmor = encumbrance.heaviestArmor;
   }
 
   #speedFromBasicEnc() {
-    const weight = this.#encumbranceCurrent;
-
     let base = this.#moveBase;
     let heaviest = 0;
 
@@ -58,34 +64,25 @@ export default class OseDataModelCharacterMove {
   }
 
   #speedFromDetailedEnc() {
-    const delta  = this.#encumbranceDelta;
-    const weight = this.#encumbranceCurrent;
-    
-    let speed = this.#moveBase;
-
-    if (weight >= this.#encumbranceMax) speed = 0;
-    // @TODO could this be handled with percentages?
-    else if (weight > 800 + delta) speed = this.#moveStep3;
-    else if (weight > 600 + delta) speed = this.#moveStep2;
-    else if (weight > 400 + delta) speed = this.#moveStep1;
-    
-    return speed;
+    if (this.#overEncumbranceLimit)    return 0;
+    else if (this.#halfEncumbered)     return this.#moveBase * .25;
+    else if (this.#quarterEncumbered)  return this.#moveBase * .50;
+    else if (this.#eighthEncumbered)   return this.#moveBase * .75;
+    else                               return this.#moveBase;
   }
   
   get base() {
-    let base;
-    
     // Manual entry for movement
     if (!this.#autocalculate || this.#encumbranceVariant === "disabled")
-      base = this.#moveBase;
+      return this.#moveBase;
     // Detailed/Complete Encumbrance
     if (["detailed", "complete"].includes(this.#encumbranceVariant))
-      base = this.#speedFromDetailedEnc()
+      return this.#speedFromDetailedEnc()
     // Basic Encumbrance
     else if (this.#encumbranceVariant === "basic")
-      base = this.#speedFromBasicEnc()
+      return this.#speedFromBasicEnc()
 
-    return base;
+    return OseDataModelCharacterMove.baseMoveRate;
   }
   set base(value) {
     this.#moveBase = value;
@@ -93,8 +90,4 @@ export default class OseDataModelCharacterMove {
 
   get encounter() { return this.base / 3; }
   get overland() { return this.base / 5; }
-
-  get #moveStep1() { return this.base * .75; }
-  get #moveStep2() { return this.base * .5; }
-  get #moveStep3() { return this.base * .25; }
 }

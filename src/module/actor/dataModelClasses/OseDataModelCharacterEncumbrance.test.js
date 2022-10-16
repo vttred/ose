@@ -18,14 +18,6 @@ export default ({
     type,
     system: {...options, weight, quantity: {value: quantity}}
   });
-  // For each encumbrance variant (disabled, basic, detailed, complete)
-    // Test for encumbrance steps
-    // Test for current encumbrance total
-      // As value
-      // As percentage
-      // As boolean -- "are we fully encumbered?"
-    // Test for maximum carry weight
-    // Test for the heaviest equipped armor
   
   describe('Disabled Encumbrance', () => {
     it('Is disabled', () => {
@@ -228,13 +220,9 @@ export default ({
     })
     it('Returns the appropriate encumbrance steps', () => {
       const enc = new OseDataModelCharacterEncumbrance('detailed');
-      const stepsToPct = OseDataModelCharacterEncumbrance
-        .encumbranceSteps
-        .map(i => toPct(
-          i,
-           OseDataModelCharacterEncumbrance.encumbranceCap
-      ))
-      expect(enc.steps).to.have.members(stepsToPct)
+      expect(enc.steps).to.have.members(
+        OseDataModelCharacterEncumbrance.encumbranceSteps
+      )
     })
     describe('Returns current carried weight', () => {
       it('As Percentage', () => {
@@ -376,13 +364,9 @@ export default ({
     })
     it('Returns the appropriate encumbrance steps', () => {
       const enc = new OseDataModelCharacterEncumbrance('complete');
-      const stepsToPct = OseDataModelCharacterEncumbrance
-        .encumbranceSteps
-        .map(i => toPct(
-          i,
-           OseDataModelCharacterEncumbrance.encumbranceCap
-      ))
-      expect(enc.steps).to.have.members(stepsToPct)
+      expect(enc.steps).to.have.members(
+        OseDataModelCharacterEncumbrance.encumbranceSteps
+      )
     })
     describe('Returns current carried weight', () => {
       it('As Percentage', () => {

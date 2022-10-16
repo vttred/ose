@@ -3,7 +3,7 @@
  */
  export default class OseDataModelCharacterEncumbrance {
   static encumbranceCap = 1600;
-  static encumbranceSteps = [800, 400, 200];
+  static encumbranceSteps = [.125, .25, .50];
   static detailedGearWeight = 80;
   static basicSignificantTreasure = 800;
   
@@ -74,7 +74,7 @@
     let steps = [];
 
     if (["complete", "detailed"].includes(this.#encumbranceVariant))
-      steps = OseDataModelCharacterEncumbrance.encumbranceSteps;
+      return OseDataModelCharacterEncumbrance.encumbranceSteps;
     else if(this.#encumbranceVariant === 'basic')
       steps = [this.#basicTreasureEncumbrance]
 
@@ -87,14 +87,33 @@
 
     return weight;
   };
+  
   get max() { return this.#max; };
   set max(value) { this.#max = value; }
-  get delta() { return this.max - OseDataModelCharacterEncumbrance.encumbranceCap; };
+
   get heaviestArmor() { return this.variant === 'basic' ? this.#heaviestArmor : null }
   get overSignificantTreasureThreshold() {
     return this.variant === 'basic'
       ? this.value >= this.#basicTreasureEncumbrance
       : null;
+  }
+  
+  get #delta() { return this.max - OseDataModelCharacterEncumbrance.encumbranceCap; };
+  get atHalfEncumbered() {
+    return this.variant === 'basic'
+      ? null
+      : this.value >= this.max * OseDataModelCharacterEncumbrance.encumbranceSteps[2] + this.#delta 
+  }
+  get atQuarterEncumbered() {
+    console.info(this.value, this.max)
+    return this.variant === 'basic'
+      ? null
+      : this.value >= this.max * OseDataModelCharacterEncumbrance.encumbranceSteps[1] + this.#delta
+  }
+  get atEighthEncumbered() {
+    return this.variant === 'basic'
+      ? null
+      : this.value >= this.max * OseDataModelCharacterEncumbrance.encumbranceSteps[0] + this.#delta 
   }
 }
 

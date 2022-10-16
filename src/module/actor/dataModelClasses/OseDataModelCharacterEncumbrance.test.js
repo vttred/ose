@@ -162,6 +162,28 @@ export default ({
             expect(enc.encumbered).to.be.false;
           })
         })
+      })
+      it('As "over significant treasure threshold" flag', () => {
+        let enc = new OseDataModelCharacterEncumbrance(
+          'basic', 
+          1600,
+          [createMockItem('item', 400, 1, {treasure: true})]
+        );
+        expect(enc.overSignificantTreasureThreshold).to.be.false;
+
+        enc = new OseDataModelCharacterEncumbrance(
+          'basic', 
+          1600,
+          [createMockItem('item', 800, 1, {treasure: true})]
+        );
+        expect(enc.overSignificantTreasureThreshold).to.be.true;
+
+        enc = new OseDataModelCharacterEncumbrance(
+          'basic', 
+          1600,
+          [createMockItem('weapon', 800, 1)]
+        );
+        expect(enc.overSignificantTreasureThreshold).to.be.false;
       });
     });
     

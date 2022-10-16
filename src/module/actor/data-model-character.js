@@ -16,7 +16,8 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
     this.encumbrance = new OseDataModelCharacterEncumbrance(
       game.settings.get(game.system.id, "encumbranceOption"),
       this.encumbrance.max,
-      [...this.parent.items]
+      [...this.parent.items],
+      game.settings.get(game.system.id, "significantTreasure"),
     );
 
     this.movement = new OseDataModelCharacterMove(

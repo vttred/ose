@@ -5,6 +5,7 @@
   static encumbranceCap = 1600;
   static encumbranceSteps = [800, 400, 200];
   static detailedGearWeight = 80;
+  static basicSignificantTreasure = 800;
   
   static basicArmorWeight = {
     unarmored: 0,
@@ -24,12 +25,14 @@
    * @param {number} max The max weight this character can carry
    * @param {*} items The items this character is carrying
    */
-  constructor(variant = 'disabled', max = OseDataModelCharacterEncumbrance.encumbranceCap, items = []) {
+  constructor(
+    variant = 'disabled', 
+    max = OseDataModelCharacterEncumbrance.encumbranceCap, 
+    items = [],
+    significantTreasure = OseDataModelCharacterEncumbrance.basicSignificantTreasure
+  ) {
     this.#encumbranceVariant = variant;
-    this.#basicTreasureEncumbrance = game.settings.get(
-      game.system.id,
-      "significantTreasure"
-    );
+    this.#basicTreasureEncumbrance = significantTreasure;
     this.#max = max;
     this.#hasAdventuringGear = !!items.filter(i => i.type === 'item' && !i.system.treasure).length;
     this.#weight = items.reduce((acc, {type, system: {treasure, quantity, weight}}) => {
@@ -55,6 +58,9 @@
     }, OseDataModelCharacterEncumbrance.basicArmorWeight.unarmored);
   }
 
+  get variant() {
+    return this.#encumbranceVariant;
+  }
   get enabled() {
     return this.#encumbranceVariant !== 'disabled'
   }
@@ -84,6 +90,11 @@
   get max() { return this.#max; };
   set max(value) { this.#max = value; }
   get delta() { return this.max - OseDataModelCharacterEncumbrance.encumbranceCap; };
-  get heaviestArmor() { return this.#heaviestArmor }
+  get heaviestArmor() { return this.variant === 'basic' ? this.#heaviestArmor : null }
+  get overSignificantTreasureThreshold() {
+    return this.variant === 'basic'
+      ? this.value >= this.#basicTreasureEncumbrance
+      : null;
+  }
 }
 

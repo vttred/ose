@@ -60,6 +60,10 @@ export const registerHelpers = async function () {
     return `${OSE.systemPath()}${relativePath}`;
   });
 
+  Handlebars.registerHelper("asset", function (relativePath) {
+    return `${OSE.assetsPath}${relativePath}`;
+  });
+
   // helper for parsing inline rolls
   Handlebars.registerHelper("parseInline", function (html) {
     return TextEditor.enrichHTML(html);

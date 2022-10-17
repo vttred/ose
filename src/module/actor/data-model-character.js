@@ -1,8 +1,8 @@
-import OseDataModelCharacterAC from "./dataModelClasses/OseDataModelCharacterAC";
-import OseDataModelCharacterEncumbrance from "./dataModelClasses/OseDataModelCharacterEncumbrance";
-import OseDataModelCharacterMove from "./dataModelClasses/OseDataModelCharacterMove";
-import OseDataModelCharacterScores from "./dataModelClasses/OseDataModelCharacterScores";
-import OseDataModelCharacterSpells from "./dataModelClasses/OseDataModelCharacterSpells";
+import OseDataModelCharacterAC from "./data-model-classes/data-model-character-ac";
+import OseDataModelCharacterEncumbrance from "./data-model-classes/data-model-character-encumbrance";
+import OseDataModelCharacterMove from "./data-model-classes/data-model-character-move";
+import OseDataModelCharacterScores from "./data-model-classes/data-model-character-scores";
+import OseDataModelCharacterSpells from "./data-model-classes/data-model-character-spells";
 
 const getItemsOfActorOfType = (actor, filterType, filterFn = null) =>
   actor.items

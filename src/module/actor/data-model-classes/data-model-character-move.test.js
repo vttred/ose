@@ -1,5 +1,5 @@
-import OseDataModelCharacterMove from "./OseDataModelCharacterMove";
-import OseDataModelCharacterEncumbrance from "./OseDataModelCharacterEncumbrance";
+import OseDataModelCharacterMove from "./data-model-character-move";
+import OseDataModelCharacterEncumbrance from "./data-model-character-encumbrance";
 
 export const key = 'ose.datamodel.character.move';
 export const options = { displayName: 'Character Data Model: Movement'}

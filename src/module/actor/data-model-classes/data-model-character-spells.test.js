@@ -1,4 +1,4 @@
-import OseDataModelCharacterSpells from "./OseDataModelCharacterSpells";
+import OseDataModelCharacterSpells from "./data-model-character-spells";
 
 export const key = 'ose.datamodel.character.spells';
 export const options = { displayName: 'Character Data Model: Spells'}

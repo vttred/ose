@@ -1,4 +1,4 @@
-import OseDataModelCharacterAC from "./OseDataModelCharacterAC";
+import OseDataModelCharacterAC from "./data-model-character-ac";
 
 export const key = 'ose.datamodel.character.ac';
 export const options = { displayName: 'Character Data Model: AC'}

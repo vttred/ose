@@ -1,4 +1,4 @@
-import OseDataModelCharacterEncumbrance from "./OseDataModelCharacterEncumbrance";
+import OseDataModelCharacterEncumbrance from "./data-model-character-encumbrance";
 
 export const key = 'ose.datamodel.character.encumbrance';
 export const options = { displayName: 'Character Data Model: Encumbrance'}

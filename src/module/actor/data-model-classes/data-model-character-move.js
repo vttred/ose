@@ -1,4 +1,4 @@
-import OseDataModelCharacterEncumbrance from "./OseDataModelCharacterEncumbrance";
+import OseDataModelCharacterEncumbrance from "./data-model-character-encumbrance";
 
 /**
  * A class representing a character's move speeds.

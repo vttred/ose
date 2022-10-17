@@ -6,27 +6,27 @@ import characterTests, {
 import dataModelCharacterACTests, {
   key as dataModelCharacterACKey,
   options as dataModelCharacterACOptions
-} from '../module/actor/dataModelClasses/OseDataModelCharacterAC.test.js';
+} from '../module/actor/data-model-classes/data-model-character-ac.test.js';
 
 import dataModelCharacterScoresTests, {
   key as dataModelCharacterScoresKey,
   options as dataModelCharacterScoresOptions
-} from '../module/actor/dataModelClasses/OseDataModelCharacterScores.test.js';
+} from '../module/actor/data-model-classes/data-model-character-scores.test.js';
 
 import dataModelCharacterSpellsTests, {
   key as dataModelCharacterSpellsKey,
   options as dataModelCharacterSpellsOptions
-} from '../module/actor/dataModelClasses/OseDataModelCharacterSpells.test.js';
+} from '../module/actor/data-model-classes/data-model-character-spells.test.js';
 
 import dataModelCharacterEncumbranceTests, {
   key as dataModelCharacterEncumbranceKey,
   options as dataModelCharacterEncumbranceOptions
-} from '../module/actor/dataModelClasses/OseDataModelCharacterEncumbrance.test.js';
+} from '../module/actor/data-model-classes/data-model-character-encumbrance.test.js';
 
 import dataModelCharacterMoveTests, {
   key as dataModelCharacterMoveKey,
   options as dataModelCharacterMoveOptions
-} from '../module/actor/dataModelClasses/OseDataModelCharacterMove.test.js';
+} from '../module/actor/data-model-classes/data-model-character-move.test.js';
 
 import dataModelCharacterTests, {
   key as dataModelCharacterKey,

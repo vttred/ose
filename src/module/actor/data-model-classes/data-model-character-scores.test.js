@@ -1,4 +1,4 @@
-import OseDataModelCharacterScores from "./OseDataModelCharacterScores";
+import OseDataModelCharacterScores from "./data-model-character-scores";
 
 export const key = 'ose.datamodel.character.scores';
 export const options = { displayName: 'Character Data Model: Ability Scores'}

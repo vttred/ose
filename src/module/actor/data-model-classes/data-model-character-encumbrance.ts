@@ -17,7 +17,7 @@ export interface CharacterEncumbrance {
  * A class to handle character encumbrance.
  */
  export default class OseDataModelCharacterEncumbrance implements CharacterEncumbrance {
-  static encumbranceCap = 1600;
+  static baseEncumbranceCap = 1600;
   static encumbranceSteps = [.125, .25, .50];
   static detailedGearWeight = 80;
   static basicSignificantTreasure = 800;
@@ -42,7 +42,7 @@ export interface CharacterEncumbrance {
    */
   constructor(
     variant = 'disabled', 
-    max = OseDataModelCharacterEncumbrance.encumbranceCap, 
+    max = OseDataModelCharacterEncumbrance.baseEncumbranceCap, 
     items: Item[] = [],
     significantTreasure = OseDataModelCharacterEncumbrance.basicSignificantTreasure
   ) {
@@ -113,7 +113,7 @@ export interface CharacterEncumbrance {
       : null;
   }
   
-  get #delta() { return this.max - OseDataModelCharacterEncumbrance.encumbranceCap; };
+  get #delta() { return this.max - OseDataModelCharacterEncumbrance.baseEncumbranceCap; };
   get atHalfEncumbered() {
     return this.variant === 'basic'
       ? null

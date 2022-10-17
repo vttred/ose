@@ -183,7 +183,7 @@ export default ({
       expect(enc.max).to.equal(setMax);
       
       enc = new OseDataModelCharacterEncumbrance('basic');
-      expect(enc.max).to.equal(OseDataModelCharacterEncumbrance.encumbranceCap);
+      expect(enc.max).to.equal(OseDataModelCharacterEncumbrance.baseEncumbranceCap);
     });
     
     it('Sets the appropriate weight class for worn armor', () => {
@@ -350,7 +350,7 @@ export default ({
       expect(enc.max).to.equal(setMax);
       
       enc = new OseDataModelCharacterEncumbrance('detailed');
-      expect(enc.max).to.equal(OseDataModelCharacterEncumbrance.encumbranceCap);
+      expect(enc.max).to.equal(OseDataModelCharacterEncumbrance.baseEncumbranceCap);
     });
   })
 
@@ -484,7 +484,7 @@ export default ({
       expect(enc.max).to.equal(setMax);
       
       enc = new OseDataModelCharacterEncumbrance('complete');
-      expect(enc.max).to.equal(OseDataModelCharacterEncumbrance.encumbranceCap);
+      expect(enc.max).to.equal(OseDataModelCharacterEncumbrance.baseEncumbranceCap);
     });
   })
   

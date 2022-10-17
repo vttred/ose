@@ -46,8 +46,7 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
     )
   }
 
-  // @TODO set up schema
-  // @todo define schema
+  // @todo define schema options; stuff like min/max values and so on.
   static defineSchema() {
     const { SchemaField, StringField, NumberField, BooleanField, ArrayField, ObjectField } = foundry.data.fields;
 
@@ -90,9 +89,6 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
   }
 
   get isNew() {
-    // return !Object
-    //   .values(this.scores)
-    //   .reduce((acc, el) => acc + el.value, 0);
     const {str, int, wis, dex, con, cha} = this.scores;
     return ![str, int, wis, dex, con, cha]
       .reduce((acc, el) => acc + el.value, 0)

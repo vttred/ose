@@ -105,7 +105,6 @@
       : this.value >= this.max * OseDataModelCharacterEncumbrance.encumbranceSteps[2] + this.#delta 
   }
   get atQuarterEncumbered() {
-    console.info(this.value, this.max)
     return this.variant === 'basic'
       ? null
       : this.value >= this.max * OseDataModelCharacterEncumbrance.encumbranceSteps[1] + this.#delta

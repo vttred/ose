@@ -1,6 +1,6 @@
-import OseDataModelCharacterMove from "./data-model-character-move";
-import OseDataModelCharacterEncumbrance from "./data-model-character-encumbrance";
-import { QuenchMethods } from "../../../e2e";
+import OseDataModelCharacterMove from "../data-model-character-move";
+import OseDataModelCharacterEncumbrance from "../data-model-character-encumbrance";
+import { QuenchMethods } from "../../../../e2e";
 
 export const key = 'ose.datamodel.character.move';
 export const options = { displayName: 'Character Data Model: Movement'}

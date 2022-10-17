@@ -1,5 +1,5 @@
-import { QuenchMethods } from "../../../e2e";
-import OseDataModelCharacterEncumbrance from "./data-model-character-encumbrance";
+import { QuenchMethods } from "../../../../e2e";
+import OseDataModelCharacterEncumbrance from "../data-model-character-encumbrance";
 
 export const key = 'ose.datamodel.character.encumbrance';
 export const options = { displayName: 'Character Data Model: Encumbrance'}
@@ -218,7 +218,7 @@ export default ({
     it('Returns the appropriate encumbrance steps', () => {
       const enc = new OseDataModelCharacterEncumbrance('detailed');
       expect(enc.steps).to.have.members(
-        OseDataModelCharacterEncumbrance.encumbranceSteps
+        Object.values(OseDataModelCharacterEncumbrance.encumbranceSteps)
       )
     })
     describe('Returns current carried weight', () => {
@@ -362,7 +362,7 @@ export default ({
     it('Returns the appropriate encumbrance steps', () => {
       const enc = new OseDataModelCharacterEncumbrance('complete');
       expect(enc.steps).to.have.members(
-        OseDataModelCharacterEncumbrance.encumbranceSteps
+        Object.values(OseDataModelCharacterEncumbrance.encumbranceSteps)
       )
     })
     describe('Returns current carried weight', () => {

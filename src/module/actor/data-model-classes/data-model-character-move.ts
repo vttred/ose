@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import OseDataModelCharacterEncumbrance, {CharacterEncumbrance} from "./data-model-character-encumbrance";
+import OseDataModelCharacterEncumbrance from "./data-model-character-encumbrance";
 
 export interface CharacterMove {
   base: number;
@@ -33,7 +33,7 @@ export default class OseDataModelCharacterMove implements CharacterMove {
    * @param {number} baseMoveRate The base move rate for the actor
    */
   constructor(
-    encumbrance: CharacterEncumbrance, 
+    encumbrance: OseDataModelCharacterEncumbrance, 
     shouldCalculateMovement = true, 
     base = OseDataModelCharacterMove.baseMoveRate,
   ) {

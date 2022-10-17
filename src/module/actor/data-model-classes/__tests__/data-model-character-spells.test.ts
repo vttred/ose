@@ -1,5 +1,5 @@
-import { QuenchMethods } from "../../../e2e";
-import OseDataModelCharacterSpells from "./data-model-character-spells";
+import { QuenchMethods } from "../../../../e2e";
+import OseDataModelCharacterSpells from "../data-model-character-spells";
 
 export const key = 'ose.datamodel.character.spells';
 export const options = { displayName: 'Character Data Model: Spells' }

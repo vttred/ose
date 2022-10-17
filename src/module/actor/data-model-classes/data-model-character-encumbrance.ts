@@ -18,7 +18,12 @@ export interface CharacterEncumbrance {
  */
  export default class OseDataModelCharacterEncumbrance implements CharacterEncumbrance {
   static baseEncumbranceCap = 1600;
-  static encumbranceSteps = [.125, .25, .50];
+  // static encumbranceSteps = [.125, .25, .50];
+  static encumbranceSteps = {
+    eighth: .125,
+    quarter: .25,
+    half: .5
+  };
   static detailedGearWeight = 80;
   static basicSignificantTreasure = 800;
   
@@ -89,7 +94,7 @@ export interface CharacterEncumbrance {
     let steps: number[] = [];
 
     if (["complete", "detailed"].includes(this.#encumbranceVariant))
-      return OseDataModelCharacterEncumbrance.encumbranceSteps;
+      return Object.values(OseDataModelCharacterEncumbrance.encumbranceSteps);
     else if(this.#encumbranceVariant === 'basic')
       steps = [this.#basicTreasureEncumbrance]
 
@@ -114,20 +119,21 @@ export interface CharacterEncumbrance {
   }
   
   get #delta() { return this.max - OseDataModelCharacterEncumbrance.baseEncumbranceCap; };
+  
   get atHalfEncumbered() {
     return this.variant === 'basic'
       ? null
-      : this.value >= this.max * OseDataModelCharacterEncumbrance.encumbranceSteps[2] + this.#delta 
+      : this.value >= this.max * OseDataModelCharacterEncumbrance.encumbranceSteps.half + this.#delta 
   }
   get atQuarterEncumbered() {
     return this.variant === 'basic'
       ? null
-      : this.value >= this.max * OseDataModelCharacterEncumbrance.encumbranceSteps[1] + this.#delta
+      : this.value >= this.max * OseDataModelCharacterEncumbrance.encumbranceSteps.quarter + this.#delta
   }
   get atEighthEncumbered() {
     return this.variant === 'basic'
       ? null
-      : this.value >= this.max * OseDataModelCharacterEncumbrance.encumbranceSteps[0] + this.#delta 
+      : this.value >= this.max * OseDataModelCharacterEncumbrance.encumbranceSteps.eighth + this.#delta 
   }
 }
 

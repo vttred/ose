@@ -1,5 +1,5 @@
-import { QuenchMethods } from "../../../e2e";
-import OseDataModelCharacterAC from "./data-model-character-ac";
+import { QuenchMethods } from "../../../../e2e";
+import OseDataModelCharacterAC from "../data-model-character-ac";
 
 export const key = 'ose.datamodel.character.ac';
 export const options = { displayName: 'Character Data Model: AC'}

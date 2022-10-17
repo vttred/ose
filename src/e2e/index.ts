@@ -1,3 +1,7 @@
+export type QuenchMethods = {
+  [s: string]: any
+}
+
 import characterTests, {
   key as characterKey,
   options as characterOptions
@@ -6,36 +10,42 @@ import characterTests, {
 import dataModelCharacterACTests, {
   key as dataModelCharacterACKey,
   options as dataModelCharacterACOptions
-} from '../module/actor/data-model-classes/data-model-character-ac.test.js';
+} from '../module/actor/data-model-classes/data-model-character-ac.test';
 
 import dataModelCharacterScoresTests, {
   key as dataModelCharacterScoresKey,
   options as dataModelCharacterScoresOptions
-} from '../module/actor/data-model-classes/data-model-character-scores.test.js';
+} from '../module/actor/data-model-classes/data-model-character-scores.test';
 
 import dataModelCharacterSpellsTests, {
   key as dataModelCharacterSpellsKey,
   options as dataModelCharacterSpellsOptions
-} from '../module/actor/data-model-classes/data-model-character-spells.test.js';
+} from '../module/actor/data-model-classes/data-model-character-spells.test';
 
 import dataModelCharacterEncumbranceTests, {
   key as dataModelCharacterEncumbranceKey,
   options as dataModelCharacterEncumbranceOptions
-} from '../module/actor/data-model-classes/data-model-character-encumbrance.test.js';
+} from '../module/actor/data-model-classes/data-model-character-encumbrance.test';
 
 import dataModelCharacterMoveTests, {
   key as dataModelCharacterMoveKey,
   options as dataModelCharacterMoveOptions
-} from '../module/actor/data-model-classes/data-model-character-move.test.js';
+} from '../module/actor/data-model-classes/data-model-character-move.test';
 
 import dataModelCharacterTests, {
   key as dataModelCharacterKey,
   options as dataModelCharacterOptions
 } from '../module/actor/data-model-character.test.js';
 
-// @TODO Tests for OseDataModelCharacter* classes
+type Quench = {
+  registerBatch: (
+    key: string,
+    tests: Function,
+    options: any
+  ) => void;
+}
 
-Hooks.on('quenchReady', async (quench) => {
+Hooks.on('quenchReady', async (quench: Quench) => {
   quench.registerBatch(characterKey, characterTests, characterOptions)
   // Character data model classes
   quench.registerBatch(dataModelCharacterACKey, dataModelCharacterACTests, dataModelCharacterACOptions);

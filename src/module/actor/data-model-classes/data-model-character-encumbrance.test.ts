@@ -1,23 +1,20 @@
+import { QuenchMethods } from "../../../e2e";
 import OseDataModelCharacterEncumbrance from "./data-model-character-encumbrance";
 
 export const key = 'ose.datamodel.character.encumbrance';
 export const options = { displayName: 'Character Data Model: Encumbrance'}
 
 export default ({
-  before,
-  beforeEach,
-  after,
   describe,
   it,
-  expect,
-  ...context
-}) => {
-  const toPct = (value, max) => Math.clamped((100 * value) / max, 0, 100); 
-  const createMockItem = (type, weight, quantity, options = {}) => new Item.implementation({
+  expect
+}: QuenchMethods) => {
+  const toPct = (value: number, max: number) => Math.clamped((100 * value) / max, 0, 100); 
+  const createMockItem = (type: string, weight: number, quantity: number, options = {}): Item => new Item.implementation({
     name: `Mock ${type} ${foundry.utils.randomID()}`,
     type,
     system: {...options, weight, quantity: {value: quantity}}
-  });
+  }) as Item;
   
   describe('Disabled Encumbrance', () => {
     it('Is disabled', () => {
@@ -35,7 +32,7 @@ export default ({
     it('Returns the appropriate encumbrance steps', () => {
       const enc = new OseDataModelCharacterEncumbrance('basic');
       const step = game.settings.get(game.system.id, 'significantTreasure');
-      const expectedSteps = [(100 * step) / enc.max];
+      const expectedSteps = [(100 * (step as number)) / enc.max];
       expect(enc.steps).to.have.members(expectedSteps)
     })
     
@@ -196,19 +193,19 @@ export default ({
       let lightUnequipped = createMockItem('armor', 0, 1, {type: 'light', equipped: false})
       let heavyUnequipped = createMockItem('armor', 0, 1, {type: 'heavy', equipped: false})
       
-      let enc = new OseDataModelCharacterEncumbrance('basic', null, [unarmored]);
+      let enc = new OseDataModelCharacterEncumbrance('basic', undefined, [unarmored]);
       expect(enc.heaviestArmor).to.equal(OseDataModelCharacterEncumbrance.basicArmorWeight.unarmored);
       
-      enc = new OseDataModelCharacterEncumbrance('basic', null, [light]);
+      enc = new OseDataModelCharacterEncumbrance('basic', undefined, [light]);
       expect(enc.heaviestArmor).to.equal(OseDataModelCharacterEncumbrance.basicArmorWeight.light);
       
-      enc = new OseDataModelCharacterEncumbrance('basic', null, [heavy]);
+      enc = new OseDataModelCharacterEncumbrance('basic', undefined, [heavy]);
       expect(enc.heaviestArmor).to.equal(OseDataModelCharacterEncumbrance.basicArmorWeight.heavy);
 
-      enc = new OseDataModelCharacterEncumbrance('basic', null, [lightUnequipped]);
+      enc = new OseDataModelCharacterEncumbrance('basic', undefined, [lightUnequipped]);
       expect(enc.heaviestArmor).to.equal(OseDataModelCharacterEncumbrance.basicArmorWeight.unarmored);
       
-      enc = new OseDataModelCharacterEncumbrance('basic', null, [light, heavyUnequipped]);
+      enc = new OseDataModelCharacterEncumbrance('basic', undefined, [light, heavyUnequipped]);
       expect(enc.heaviestArmor).to.equal(OseDataModelCharacterEncumbrance.basicArmorWeight.light);
     })
   })

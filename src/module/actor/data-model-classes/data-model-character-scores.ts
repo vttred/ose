@@ -1,7 +1,23 @@
+type incomingScore = {
+  value: number;
+  bonus: number;
+}
+
+type baseScore = incomingScore & { mod: number; }
+
+export interface CharacterScores {
+  str: baseScore & { od: number };
+  int: baseScore & { literacy: string; spoken: string; };
+  wis: baseScore;
+  dex: baseScore & { init: number };
+  con: baseScore;
+  cha: baseScore & { loyalty: number; retain: number; npc: number; };
+}
+
 /**
  * A class representing a character's ability scores
  */
-export default class OseDataModelCharacterScores {
+export default class OseDataModelCharacterScores implements CharacterScores {
   static standardAttributeMods = {
     0: -3,
     3: -3,
@@ -44,7 +60,7 @@ export default class OseDataModelCharacterScores {
     18: "OSE.NativePlus3",
   };
 
-  static valueFromTable(table, val) {
+  static valueFromTable(table: {[str:string]: any}, val: number) {
     let output;
     for (let i = 0; i <= val; i++) {
       if (table[i] != undefined) {
@@ -54,12 +70,12 @@ export default class OseDataModelCharacterScores {
     return output;
   }
 
-  #str = {};
-  #int = {};
-  #wis = {};
-  #dex = {};
-  #con = {};
-  #cha = {};
+  #str: incomingScore = { value: 0, bonus: 0 };
+  #int: incomingScore = { value: 0, bonus: 0 };
+  #wis: incomingScore = { value: 0, bonus: 0 };
+  #dex: incomingScore = { value: 0, bonus: 0 };
+  #con: incomingScore = { value: 0, bonus: 0 };
+  #cha: incomingScore = { value: 0, bonus: 0 };
 
   /**
    * 
@@ -71,7 +87,7 @@ export default class OseDataModelCharacterScores {
    * @param {string} scores.con The character's constitution
    * @param {string} scores.cha The character's charisma
    */
-  constructor({str, int, wis, dex, con, cha}) {
+  constructor({str, int, wis, dex, con, cha}: {[str:string]: {value: number; bonus: number}}) {
     this.#str = str;
     this.#int = int;
     this.#wis = wis;

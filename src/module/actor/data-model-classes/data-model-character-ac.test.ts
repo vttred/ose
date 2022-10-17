@@ -1,20 +1,17 @@
+import { QuenchMethods } from "../../../e2e";
 import OseDataModelCharacterAC from "./data-model-character-ac";
 
 export const key = 'ose.datamodel.character.ac';
 export const options = { displayName: 'Character Data Model: AC'}
 
 export default ({
-  before,
-  beforeEach,
-  after,
   describe,
   it,
-  expect,
-  ...context
-}) => {
+  expect
+}: QuenchMethods) => {
   const armorAC = 4;
   const shieldAC = 2;
-  const armor = {
+  const armor = new Item.implementation({
     name: 'Armor', 
     type: 'armor', 
     system: {
@@ -23,9 +20,9 @@ export default ({
       type: 'light',
       equipped: true
     }
-  };
+  }) as Item;
   
-  const shield = {
+  const shield = new Item.implementation({
     name: 'Shield',
     type: 'armor',
     system: {
@@ -34,11 +31,11 @@ export default ({
       type: 'shield',
       equipped: true
     } 
-  };
+  }) as Item;
   
   const itemsArmor = [armor];
-  const itemsShield = [shield];
-  const itemsBoth = [armor, shield];
+  const itemsShield = [shield] as Item[];
+  const itemsBoth = [armor, shield] as Item[];
   
   const positiveDexMod = 3;
   const negativeDexMod = -1;

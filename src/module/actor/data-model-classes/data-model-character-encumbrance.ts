@@ -1,7 +1,22 @@
+export interface CharacterEncumbrance {
+  variant: string;
+  enabled: boolean;
+  pct: number;
+  encumbered: boolean;
+  steps: number[];
+  value: number;
+  max: number;
+  atHalfEncumbered: boolean | null;
+  atQuarterEncumbered: boolean | null;
+  atEighthEncumbered: boolean | null;
+  overSignificantTreasureThreshold: boolean | null;
+  heaviestArmor: number | null;
+};
+
 /**
  * A class to handle character encumbrance.
  */
- export default class OseDataModelCharacterEncumbrance {
+ export default class OseDataModelCharacterEncumbrance implements CharacterEncumbrance {
   static encumbranceCap = 1600;
   static encumbranceSteps = [.125, .25, .50];
   static detailedGearWeight = 80;
@@ -28,14 +43,14 @@
   constructor(
     variant = 'disabled', 
     max = OseDataModelCharacterEncumbrance.encumbranceCap, 
-    items = [],
+    items: Item[] = [],
     significantTreasure = OseDataModelCharacterEncumbrance.basicSignificantTreasure
   ) {
     this.#encumbranceVariant = variant;
     this.#basicTreasureEncumbrance = significantTreasure;
     this.#max = max;
-    this.#hasAdventuringGear = !!items.filter(i => i.type === 'item' && !i.system.treasure).length;
-    this.#weight = items.reduce((acc, {type, system: {treasure, quantity, weight}}) => {
+    this.#hasAdventuringGear = !!items.filter((i: Item) => i.type === 'item' && !i.system.treasure).length;
+    this.#weight = items.reduce((acc, {type, system: {treasure, quantity, weight}}: Item) => {
       if (
         type === "item" &&
         (["complete", "disabled"].includes(variant) || treasure)
@@ -71,7 +86,7 @@
     return this.value >= this.max;
   }
   get steps() {
-    let steps = [];
+    let steps: number[] = [];
 
     if (["complete", "detailed"].includes(this.#encumbranceVariant))
       return OseDataModelCharacterEncumbrance.encumbranceSteps;

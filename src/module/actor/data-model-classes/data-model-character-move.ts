@@ -1,24 +1,31 @@
-import OseDataModelCharacterEncumbrance from "./data-model-character-encumbrance";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import OseDataModelCharacterEncumbrance, {CharacterEncumbrance} from "./data-model-character-encumbrance";
+
+export interface CharacterMove {
+  base: number;
+  encounter: number;
+  overland: number;
+}
 
 /**
  * A class representing a character's move speeds.
  */
-export default class OseDataModelCharacterMove {
+export default class OseDataModelCharacterMove implements CharacterMove {
   static baseMoveRate = 120;
   
+  #moveBase;
+  #autocalculate;
   #encumbranceVariant;
-  #encumbranceCurrent;
-  #encumbranceMax;
-  #encumbranceDelta;
-  #overTreasureLimit;
   #overEncumbranceLimit;
+
+  #heaviestArmor;
+  #overTreasureLimit;
+  
   #halfEncumbered;
   #quarterEncumbered;
   #eighthEncumbered;
-  #moveBase;
-  #autocalculate;
-  #heaviestArmor;
-
+  
   /**
    * 
    * @param {OseDataModelCharacterEncumbrance} encumbrance An object representing the character's encumbrance values
@@ -26,30 +33,29 @@ export default class OseDataModelCharacterMove {
    * @param {number} baseMoveRate The base move rate for the actor
    */
   constructor(
-    encumbrance, 
+    encumbrance: CharacterEncumbrance, 
     shouldCalculateMovement = true, 
     base = OseDataModelCharacterMove.baseMoveRate,
   ) {
     // Props necessary for any encumbrance variant
-    this.#moveBase = base;
-    this.#autocalculate = shouldCalculateMovement;
-    this.#encumbranceVariant = encumbrance.variant;
+    this.#moveBase             = base;
+    this.#autocalculate        = shouldCalculateMovement;
+    this.#encumbranceVariant   = encumbrance.variant;
     this.#overEncumbranceLimit = encumbrance.encumbered;
 
     // Non-basic encumbrance variant props
-    this.#halfEncumbered = encumbrance.atHalfEncumbered;
+    this.#halfEncumbered    = encumbrance.atHalfEncumbered;
     this.#quarterEncumbered = encumbrance.atQuarterEncumbered;
-    this.#eighthEncumbered = encumbrance.atEighthEncumbered;
+    this.#eighthEncumbered  = encumbrance.atEighthEncumbered;
 
     // Basic encumbrance variant props
     this.#overTreasureLimit = encumbrance.overSignificantTreasureThreshold;
-    this.#heaviestArmor = encumbrance.heaviestArmor;
+    this.#heaviestArmor     = encumbrance.heaviestArmor;
   }
 
   #speedFromBasicEnc() {
     let base = this.#moveBase;
-    let heaviest = 0;
-
+    
     switch (this.#heaviestArmor) {
       case 0: base = this.#moveBase;       break;
       case 1: base = this.#moveBase * .75; break;

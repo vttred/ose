@@ -1,23 +1,25 @@
 import OseDataModelCharacterMove from "./data-model-character-move";
 import OseDataModelCharacterEncumbrance from "./data-model-character-encumbrance";
+import { QuenchMethods } from "../../../e2e";
 
 export const key = 'ose.datamodel.character.move';
 export const options = { displayName: 'Character Data Model: Movement'}
 
 export default ({
-  before,
-  beforeEach,
-  after,
   describe,
   it,
-  expect,
-  ...context
-}) => {
-  const createMockItem = (type, weight, quantity, options = {}) => new Item.implementation({
+  expect
+}: QuenchMethods) => {
+  const createMockItem = (
+    type: string, 
+    weight: number, 
+    quantity: number, 
+    options = {}
+  ): Item => new Item.implementation({
     name: `Mock ${type} ${foundry.utils.randomID()}`,
     type,
     system: {...options, weight, quantity: {value: quantity}}
-  });
+  }) as Item;
   
   // Test for disabled autocalculation
   // For each encumbrance type...
@@ -104,18 +106,18 @@ export default ({
       let enc = new OseDataModelCharacterEncumbrance('detailed');
       let move = new OseDataModelCharacterMove(enc);
 
-      expect(move.base).to.equal(OseDataModelCharacterMove.baseMoveRate);
-      expect(move.encounter).to.equal(OseDataModelCharacterMove.baseMoveRate / 3);
-      expect(move.overland).to.equal(OseDataModelCharacterMove.baseMoveRate / 5);
+      expect(move.base).to.equal(expectedBase);
+      expect(move.encounter).to.equal(expectedEncounter);
+      expect(move.overland).to.equal(expectedOverland);
       
       enc = new OseDataModelCharacterEncumbrance('detailed', undefined, [
         createMockItem('item', 800, 1),
       ]);
       move = new OseDataModelCharacterMove(enc);
 
-      expect(move.base).to.equal(OseDataModelCharacterMove.baseMoveRate);
-      expect(move.encounter).to.equal(OseDataModelCharacterMove.baseMoveRate / 3);
-      expect(move.overland).to.equal(OseDataModelCharacterMove.baseMoveRate / 5);
+      expect(move.base).to.equal(expectedBase);
+      expect(move.encounter).to.equal(expectedEncounter);
+      expect(move.overland).to.equal(expectedOverland);
     })
     it('At 12.5% encumbered', () => {
       const expectedBase = OseDataModelCharacterMove.baseMoveRate * .75;
@@ -183,9 +185,9 @@ export default ({
       let enc = new OseDataModelCharacterEncumbrance('complete');
       let move = new OseDataModelCharacterMove(enc);
 
-      expect(move.base).to.equal(OseDataModelCharacterMove.baseMoveRate);
-      expect(move.encounter).to.equal(OseDataModelCharacterMove.baseMoveRate / 3);
-      expect(move.overland).to.equal(OseDataModelCharacterMove.baseMoveRate / 5);
+      expect(move.base).to.equal(expectedBase);
+      expect(move.encounter).to.equal(expectedEncounter)
+      expect(move.overland).to.equal(expectedOverland)
     })
     it('At 12.5% encumbered', () => {
       const expectedBase = OseDataModelCharacterMove.baseMoveRate * .75;

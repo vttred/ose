@@ -1,19 +1,16 @@
+import { QuenchMethods } from "../../../e2e";
 import OseDataModelCharacterScores from "./data-model-character-scores";
 
 export const key = 'ose.datamodel.character.scores';
 export const options = { displayName: 'Character Data Model: Ability Scores'}
 
 export default ({
-  before,
-  beforeEach,
-  after,
   describe,
   it,
   expect,
-  ...context
-}) => {
+}: QuenchMethods) => {
   // An array from 0-
-  const scoreSpread = Array.from(new Array(21), (el, idx) => idx);
+  const scoreSpread = Array.from(new Array(21), (_el, idx) => idx);
   const scoreKeys = ['str', 'int', 'wis', 'dex', 'con', 'cha'];
   const tables = [
     OseDataModelCharacterScores.standardAttributeMods,
@@ -22,19 +19,19 @@ export default ({
     OseDataModelCharacterScores.literacyMods,
     OseDataModelCharacterScores.spokenMods,
   ]
-  const fromTable = (tableKey, score) => OseDataModelCharacterScores.valueFromTable(tables[tableKey], score);
-  const numberToScores = (number) =>  scoreKeys.reduce(
+  const fromTable = (tableKey: number, score: number) => OseDataModelCharacterScores.valueFromTable(tables[tableKey], score);
+  const numberToScores = (number: number) =>  scoreKeys.reduce(
     (obj, key) => ({...obj, [key]: { value: number, bonus: 0 }}), {}
   )
   
-  const buildTestCases = (score, key, mod, table) => {
+  const buildTestCases = (score: number, key: string, mod: string, table: any) => {
     const scoresToUse = numberToScores(score);
     const scoresObj = new OseDataModelCharacterScores(scoresToUse);
     return it(`${score}`, () => {
       expect(scoresObj[key][mod]).to.equal(fromTable(table, score))
     })
   }
-  const buildTestCasesWithModifiers = (score, key, mod, table, added) => {
+  const buildTestCasesWithModifiers = (score: number, key: string, mod:string, table: any, added: number) => {
     const scoresToUse = numberToScores(score);
     const scoresObj = new OseDataModelCharacterScores(scoresToUse);
     return it(`${score}`, () => {
@@ -42,7 +39,7 @@ export default ({
     })
   }
   
-  const spreadToModTests = name => scoreKeys.map(
+  const spreadToModTests = (name: string) => scoreKeys.map(
     key => describe(
       `${name}: ${key}`,
       () => scoreSpread.map(

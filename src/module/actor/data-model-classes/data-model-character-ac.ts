@@ -1,7 +1,15 @@
+interface CharacterAC {
+  base:   number;
+  naked:  number;
+  shield: number;
+  value:  number;
+  mod:    number;
+}
+
 /**
  * A class to handle the nested AC/AAC props on OseDataModelCharacter.
  */
- export default class OseDataModelCharacterAC {
+ export default class OseDataModelCharacterAC implements CharacterAC {
   static baseAscending = 10;
   static baseDescending = 9;
   static propAscending = 'aac';
@@ -20,7 +28,7 @@
    * @param {number} dexMod The bonus/penalty, from -3 to +3, applied to AC.
    * @param {boolean} isAscending Is this meant to represent ascending or descending AC?
    */
-  constructor(isAscending = false, armor = [], dexMod = 0, mod = 0) {
+  constructor(isAscending = false, armor: Item[] = [], dexMod = 0, mod = 0) {
     this.#isAscending = isAscending;
     this.#armor = armor;
     this.#dexMod = dexMod;
@@ -32,10 +40,14 @@
 
   #getShieldBonus() {
     return this.#armor.find(
-      ({system: {type}}) => type === 'shield'
+      ({system: {type}}: Item) => type === 'shield'
     )?.system[this.#acProp].value || 0;
   }
 
+  /**
+   * The base AC value for a character, depending on 
+   * if we're using ascending or descending AC
+   */
   get base() {
     return (this.#isAscending)
       ? OseDataModelCharacterAC.baseAscending
@@ -62,7 +74,7 @@
    */
   get #armored() {
     const armor = this.#armor.find(
-      ({system: {type}}) => type !== 'shield'
+      ({system: {type}}: Item) => type !== 'shield'
     )?.system[this.#acProp].value;
     // Null if any falsy value but 0
     if (!armor && armor !== 0) return null;
@@ -83,7 +95,7 @@
       : base - this.shield - this.mod;
   }
   // @TODO This will need to be editable once we get to creatures
-  set value(change) { return; }
+  set value(_change: number) { return; }
   /**
    * A character's miscellaneous armor class modifier
    */

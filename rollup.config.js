@@ -17,7 +17,7 @@ const isWatchMode = !!process.env.ROLLUP_WATCH;
 /**
  * @type {import('rollup-plugin-livereload').RollupLivereloadOptions & import('livereload').CreateServerConfig}
  */
- const livereloadConfig = {
+const livereloadConfig = {
   delay: 500,
   // need to explicitly exclude the scss entry file to prevent livereload from refreshing the page when the scss changes
   // This allows for in-place css updates.
@@ -35,7 +35,7 @@ export default defineConfig([
     plugins: [
       nodeResolve(),
       typescript(),
-      terser(),
+      !isWatchMode && terser(),
       copy({
         patterns: staticFileFolders.map((folderName) => `${folderName}/**/*`),
         rootDir: "./src/",

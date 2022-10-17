@@ -188,7 +188,7 @@ export class OseCharacterCreator extends FormApplication {
     const itemData = {
       name: game.i18n.localize("OSE.items.gp.short"),
       type: "item",
-      img: "systems/ose/assets/gold.png",
+      img: `${OSE.assetsPath}/gold.png`,
       data: {
         treasure: true,
         cost: 1,

@@ -1,5 +1,10 @@
 export type OseConfig = {
+  /** Path for system dist */
   systemPath: () => string;
+  /** Root path for OSE system */
+  systemRoot: string;
+  /** Path for system assets */
+  assetsPath: string;
   scores: Record<Attribute, string>;
   scores_short: Record<Attribute, string>;
   exploration_skills: Record<ExplorationSkill, string>;
@@ -44,8 +49,14 @@ export type InventoryItemTag =
   | "charge";
 
 export const OSE: OseConfig = {
-  systemPath: () => {
-    return `/systems/${game.system.id}/dist`;
+  systemPath(): string {
+    return `${this.systemRoot}/dist`;
+  },
+  get systemRoot(): string {
+    return `/systems/${game.system.id}`
+  },
+  get assetsPath(): string {
+    return `${this.systemRoot}/assets`
   },
   scores: {
     str: "OSE.scores.str.long",
@@ -146,15 +157,33 @@ export const OSE: OseConfig = {
     charge: "OSE.items.Charge",
   },
   tag_images: {
-    melee: "systems/ose/assets/melee.png",
-    missile: "systems/ose/assets/missile.png",
-    slow: "systems/ose/assets/slow.png",
-    twohanded: "systems/ose/assets/twohanded.png",
-    blunt: "systems/ose/assets/blunt.png",
-    brace: "systems/ose/assets/brace.png",
-    splash: "systems/ose/assets/splash.png",
-    reload: "systems/ose/assets/reload.png",
-    charge: "systems/ose/assets/charge.png",
+    get melee() {
+      return `${OSE.assetsPath}/melee.png`;
+    },
+    get missile() {
+      return `${OSE.assetsPath}/missile.png`;
+    },
+    get slow() {
+      return `${OSE.assetsPath}/slow.png`;
+    },
+    get twohanded() {
+      return `${OSE.assetsPath}/twohanded.png`;
+    },
+    get blunt() {
+      return `${OSE.assetsPath}/blunt.png`;
+    },
+    get brace() {
+      return `${OSE.assetsPath}/brace.png`;
+    },
+    get splash() {
+      return `${OSE.assetsPath}/splash.png`;
+    },
+    get reload() {
+      return `${OSE.assetsPath}/reload.png`;
+    },
+    get charge() {
+      return `${OSE.assetsPath}/charge.png`;
+    },
   },
   monster_saves: {
     0: {

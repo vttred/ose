@@ -19,4 +19,13 @@ declare global {
       oseCombat: OseCombat;
     };
   }
+  
+  namespace Game {
+    interface SystemData<T> {
+      /**
+       * Defining game.system.id as a const
+       */
+      id: "ose";
+    }
+  }
 }

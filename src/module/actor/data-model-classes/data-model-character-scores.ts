@@ -18,6 +18,19 @@ export interface CharacterScores {
  * A class representing a character's ability scores
  */
 export default class OseDataModelCharacterScores implements CharacterScores {
+  /**
+   * Standard modifiers, from -3 to 3.
+   * 
+   * Applied to:
+   * - `str.mod`
+   * - `int.mod`
+   * - `wis.mod`
+   * - `dex.mod`
+   * - `con.mod`
+   * - `cha.mod`
+   * - `cha.retain` (with a +4 modifier)
+   * - `cha.loyalty` (with a +7 modifier)
+   */
   static standardAttributeMods = {
     0: -3,
     3: -3,
@@ -28,6 +41,13 @@ export default class OseDataModelCharacterScores implements CharacterScores {
     16: 2,
     18: 3,
   }
+  /**
+   * Capped modifiers, from -2 to 2.
+   * 
+   * Applied to:
+   * - `dex.init`
+   * - `cha.npc`
+   */
   static cappedAttributeMods = {
     0: -2,
     3: -2,
@@ -38,6 +58,11 @@ export default class OseDataModelCharacterScores implements CharacterScores {
     16: 1,
     18: 2,
   };
+  /**
+   * Modifier tables for the Open Door exploration skill, from 0 to 5.
+   * Applied to:
+   * - `str.od`
+   */
   static openDoorMods = {
     0: 0,
     3: 1,
@@ -46,12 +71,22 @@ export default class OseDataModelCharacterScores implements CharacterScores {
     16: 4,
     18: 5,
   };
+  /**
+   * Mapping tables for character literacy.
+   * Applied to:
+   * - `int.literacy`
+   */
   static literacyMods = {
     0: "",
     3: "OSE.Illiterate",
     6: "OSE.LiteracyBasic",
     9: "OSE.Literate",
   };
+  /**
+   * Mapping tables for character's spoken languages.
+   * Applied to:
+   * - `int.spoken`
+   */
   static spokenMods = {
     0: "OSE.NativeBroken",
     3: "OSE.Native",

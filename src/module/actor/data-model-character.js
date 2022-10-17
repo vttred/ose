@@ -49,7 +49,7 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
   // @TODO set up schema
   // @todo define schema
   static defineSchema() {
-    const { SchemaField, StringField, NumberField, ArrayField, ObjectField } = foundry.data.fields;
+    const { SchemaField, StringField, NumberField, BooleanField, ArrayField, ObjectField } = foundry.data.fields;
 
     return {
       spells: new ObjectField(),
@@ -67,25 +67,35 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
       init: new NumberField({readonly: true}),
       rangedMod: new NumberField({readonly: true}),
       meleeMod: new NumberField({readonly: true}),
+      usesAscendingAC: new BooleanField({readonly: true}),
     };
+  }
+  
+  get usesAscendingAC() {
+    return game.settings.get(game.system.id, 'ascendingAC');
   }
   
   get meleeMod() {
     const ascendingAcMod = game.settings.get(game.system.id, 'ascendingAC')
-      ? this.thac0.bba
+      ? this.thac0.bba || 0
       : 0;
-    return this.scores.str.mod + this.thac0.mod.melee + ascendingAcMod;
+    return (this.scores.str?.mod || 0) + (this.thac0?.mod?.melee || 0) + ascendingAcMod;
   }
   
   get rangedMod() {
     const ascendingAcMod = game.settings.get(game.system.id, 'ascendingAC')
-      ? this.thac0.bba
+      ? this.thac0.bba || 0
       : 0;
-    return this.scores.dex.mod + this.thac0.mod.missile + ascendingAcMod;
+    return (this.scores.dex?.mod || 0) + (this.thac0?.mod?.missile || 0) + ascendingAcMod;
   }
 
   get isNew() {
-    return !!Object.values(this.scores).reduce((acc, el) => acc + el.value, 0);
+    // return !Object
+    //   .values(this.scores)
+    //   .reduce((acc, el) => acc + el.value, 0);
+    const {str, int, wis, dex, con, cha} = this.scores;
+    return ![str, int, wis, dex, con, cha]
+      .reduce((acc, el) => acc + el.value, 0)
   }
 
   get containers() {
@@ -173,20 +183,20 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
   }
   
   get isSlow() {
-    return this.weapons.every((item) =>
-      !(
-        item.type !== "weapon" ||
-        !item.system.slow ||
-        !item.system.equipped
-      ));
+    return (!this.weapons.length)
+      ? false
+      : this.weapons.every((item) =>
+          !(
+            item.type !== "weapon" ||
+            !item.system.slow ||
+            !item.system.equipped
+          ));
   }
 
-  // @todo Work on this
+  // @todo How to test this?
   get init() {
     const group = game.settings.get(game.system.id, "initiative") !== "group"
     
-    // let value, mod;
-
     return (group)
       ? (this.initiative.value || 0) + (this.initiative.mod || 0) + this.scores.dex.init
       : 0;

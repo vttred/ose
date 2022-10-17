@@ -81,7 +81,7 @@
                 <div class="health-full" style="height:{{counter true system.hp.value system.hp.max}}%"></div>
             </div>
             <div class="health armor-class">
-                {{#if config.ascendingAC}}
+                {{#if @root.system.usesAscendingAC}}
                 <div class="health-value health-top" title="{{localize 'OSE.ArmorClass'}}">{{system.aac.value}}</div>
                 <div class="health-value health-bottom" title="{{localize 'OSE.ArmorClassNaked'}}">
                     {{system.aac.naked}}</div>

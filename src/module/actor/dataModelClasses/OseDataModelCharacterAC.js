@@ -25,7 +25,7 @@
     this.#armor = armor;
     this.#dexMod = dexMod;
     this.#mod = mod;
-    this.#acProp = (this.isAscending)
+    this.#acProp = (this.#isAscending)
       ? OseDataModelCharacterAC.propAscending
       : OseDataModelCharacterAC.propDescending;
   }
@@ -64,7 +64,6 @@
     const armor = this.#armor.find(
       ({system: {type}}) => type !== 'shield'
     )?.system[this.#acProp].value;
-    
     // Null if any falsy value but 0
     if (!armor && armor !== 0) return null;
     
@@ -78,8 +77,7 @@
    * @todo Data migration for armor with AC/AAC to act as a bonus, not an override
    */
   get value() {
-    let base = this.#armored || this.naked;
-    
+    let base = (this.#armored !== null) ? this.#armored : this.naked;
     return (this.#isAscending)
       ? base + this.shield + this.mod
       : base - this.shield - this.mod;

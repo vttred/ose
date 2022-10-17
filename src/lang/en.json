@@ -53,6 +53,7 @@
   "OSE.roll.individualInitGroup": "Initiative Rolls",
 
   "OSE.table.treasure.roll": "Roll Treasure",
+  "OSE.table.treasure.noItems": "No items",
 
   "OSE.details.name": "Name",
   "OSE.details.class": "Class",

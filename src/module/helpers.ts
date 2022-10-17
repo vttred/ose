@@ -36,8 +36,12 @@ export const registerHelpers = async function () {
     return Math.round(parseFloat(weight) / 100) / 10;
   });
 
-  Handlebars.registerHelper("getTagIcon", function (tag) {
-    return CONFIG.OSE.tag_images[tag as InventoryItemTag];
+  Handlebars.registerHelper("getTagIcon", function (tagValue: string) {
+    let tagKey = (Object.keys(CONFIG.OSE.tags) as InventoryItemTag[])
+      // find key for the tag display name who's name matches the provided tag text.
+      .find((findTagName) => CONFIG.OSE.tags[findTagName] === tagValue);
+    // if that tag key is found, return the image for the tag key
+    return tagKey ? CONFIG.OSE.tag_images[tagKey] : null;
   });
 
   Handlebars.registerHelper("counter", function (status, value, max) {
@@ -54,6 +58,10 @@ export const registerHelpers = async function () {
 
   Handlebars.registerHelper("path", function (relativePath) {
     return `${OSE.systemPath()}${relativePath}`;
+  });
+
+  Handlebars.registerHelper("asset", function (relativePath) {
+    return `${OSE.assetsPath}${relativePath}`;
   });
 
   // helper for parsing inline rolls

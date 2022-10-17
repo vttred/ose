@@ -8,12 +8,12 @@ export class OseItem extends Item {
   // Replacing default image */
   static get defaultIcons() {
     return {
-      spell: "systems/ose/assets/default/spell.png",
-      ability: "systems/ose/assets/default/ability.png",
-      armor: "systems/ose/assets/default/armor.png",
-      weapon: "systems/ose/assets/default/weapon.png",
-      item: "systems/ose/assets/default/item.png",
-      container: "systems/ose/assets/default/bag.png",
+      spell: `${OSE.assetsPath}/default/spell.png`,
+      ability: `${OSE.assetsPath}/default/ability.png`,
+      armor: `${OSE.assetsPath}/default/armor.png`,
+      weapon: `${OSE.assetsPath}/default/weapon.png`,
+      item: `${OSE.assetsPath}/default/item.png`,
+      container: `${OSE.assetsPath}/default/bag.png`,
     };
   }
 

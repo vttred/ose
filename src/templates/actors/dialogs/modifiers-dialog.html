@@ -3,10 +3,10 @@
     <label>{{localize 'OSE.scores.str.long'}}</label>
     <ol>
       <li>
-        {{localize 'OSE.Melee'}} ({{mod data.scores.str.mod}})
+        {{localize 'OSE.Melee'}} ({{mod @root.system.scores.str.mod}})
       </li>
       <li>
-        {{localize 'OSE.exploration.od.long'}} ({{data.exploration.odMod}} in 6)
+        {{localize 'OSE.exploration.od.long'}} ({{@root.system.scores.str.od}} in 6)
       </li>
     </ol>
   </div>
@@ -14,10 +14,10 @@
     <label>{{localize 'OSE.scores.int.long'}}</label>
     <ol>
       <li>
-        {{localize 'OSE.SpokenLanguages'}} ({{localize data.languages.spoken}})
+        {{localize 'OSE.SpokenLanguages'}} ({{localize @root.system.scores.int.spoken}})
       </li>
       <li>
-        {{localize 'OSE.Literacy'}} ({{localize data.languages.literacy}})
+        {{localize 'OSE.Literacy'}} ({{localize @root.system.scores.int.literacy}})
       </li>
     </ol>
   </div>
@@ -25,7 +25,7 @@
     <label>{{localize 'OSE.scores.wis.long'}}</label>
     <ol>
       <li>
-        {{localize 'OSE.saves.magic.long'}} ({{mod data.scores.wis.mod}})
+        {{localize 'OSE.saves.magic.long'}} ({{mod @root.system.scores.wis.mod}})
       </li>
     </ol>
   </div>
@@ -33,13 +33,13 @@
     <label>{{localize 'OSE.scores.dex.long'}}</label>
     <ol>
       <li>
-        {{localize 'OSE.Missile'}} ({{mod data.scores.dex.mod}})
+        {{localize 'OSE.Missile'}} ({{mod @root.system.scores.dex.mod}})
       </li>
       <li>
-        {{localize 'OSE.Initiative'}} ({{mod data.scores.dex.init}})
+        {{localize 'OSE.Initiative'}} ({{mod @root.system.scores.dex.init}})
       </li>
       <li>
-        {{localize 'OSE.ArmorClass'}} ({{mod data.scores.dex.mod}})
+        {{localize 'OSE.ArmorClass'}} ({{mod @root.system.scores.dex.mod}})
       </li>
     </ol>
   </div>
@@ -47,7 +47,7 @@
     <label>{{localize 'OSE.scores.con.long'}}</label>
     <ol>
       <li>
-        {{localize 'OSE.Health'}} ({{mod data.scores.con.mod}})
+        {{localize 'OSE.Health'}} ({{mod @root.system.scores.con.mod}})
       </li>
     </ol>
   </div>
@@ -55,13 +55,13 @@
     <label>{{localize 'OSE.scores.cha.long'}}</label>
     <ol>
       <li>
-        {{localize 'OSE.NPCReaction'}} ({{mod data.scores.cha.npc}})
+        {{localize 'OSE.NPCReaction'}} ({{mod @root.system.scores.cha.npc}})
       </li>
       <li>
-        {{localize 'OSE.RetainersMax'}} ({{add data.scores.cha.mod 4}})
+        {{localize 'OSE.RetainersMax'}} ({{add @root.system.scores.cha.mod 4}})
       </li>
       <li>
-        {{localize 'OSE.Loyalty'}} ({{add data.scores.cha.mod 7}})
+        {{localize 'OSE.Loyalty'}} ({{add @root.system.scores.cha.mod 7}})
       </li>
     </ol>
   </div>

@@ -27,7 +27,7 @@ export class OseCharacterModifiers extends FormApplication {
    * @return {Object}
    */
   getData() {
-    const data = foundry.utils.deepClone(this.object.data);
+    const data = foundry.utils.deepClone(this.object);
     data.user = game.user;
     return data;
   }

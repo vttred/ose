@@ -67,6 +67,20 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
       rangedMod: new NumberField({readonly: true}),
       meleeMod: new NumberField({readonly: true}),
       usesAscendingAC: new BooleanField({readonly: true}),
+      languages: new ObjectField(),
+      saves: new ObjectField({
+        breath:    new ObjectField({ value: new NumberField({ integer: true }) }),
+        death:     new ObjectField({ value: new NumberField({ integer: true }) }),
+        paralysis: new ObjectField({ value: new NumberField({ integer: true }) }),
+        spell:     new ObjectField({ value: new NumberField({ integer: true }) }),
+        wand:      new ObjectField({ value: new NumberField({ integer: true }) }),
+      }),
+      exploration: new ObjectField({
+        ft: new NumberField({ integer: true, positive: true }),
+        ld: new NumberField({ integer: true, positive: true }),
+        od: new NumberField({ integer: true, positive: true }),
+        sd: new NumberField({ integer: true, positive: true }),
+      })
     };
   }
   

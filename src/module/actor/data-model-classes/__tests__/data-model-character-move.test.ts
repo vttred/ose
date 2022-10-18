@@ -21,13 +21,6 @@ export default ({
     system: {...options, weight, quantity: {value: quantity}}
   }) as Item;
   
-  // Test for disabled autocalculation
-  // For each encumbrance type...
-    // For each overburdened step...
-      // Test base move speed
-      // Test overland move speed
-      // Test encounter move speed
-  
   describe('Prevent autocalculation when...', () => { 
     it('Autocalculation is off', ()  => {
       let enc = new OseDataModelCharacterEncumbrance('basic');
@@ -37,6 +30,10 @@ export default ({
     it('Encumbrance is disabled', () => {
       let enc = new OseDataModelCharacterEncumbrance('disabled');
       let move = new OseDataModelCharacterMove(enc);
+      expect(move.base).to.equal(OseDataModelCharacterMove.baseMoveRate)
+    })
+    it('Encumbrance is not provided', () => {
+      let move = new OseDataModelCharacterMove();
       expect(move.base).to.equal(OseDataModelCharacterMove.baseMoveRate)
     })
   })

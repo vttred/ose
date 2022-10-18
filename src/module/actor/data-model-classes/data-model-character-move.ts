@@ -33,7 +33,7 @@ export default class OseDataModelCharacterMove implements CharacterMove {
    * @param {number} baseMoveRate The base move rate for the actor
    */
   constructor(
-    encumbrance: OseDataModelCharacterEncumbrance, 
+    encumbrance: OseDataModelCharacterEncumbrance = new OseDataModelCharacterEncumbrance(), 
     shouldCalculateMovement = true, 
     base = OseDataModelCharacterMove.baseMoveRate,
   ) {

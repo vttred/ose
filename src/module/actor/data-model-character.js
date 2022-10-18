@@ -70,21 +70,19 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
     };
   }
   
+  // @todo This only needs to be public until
+  //       we can ditch sharing out AC/AAC.
   get usesAscendingAC() {
     return game.settings.get(game.system.id, 'ascendingAC');
   }
   
   get meleeMod() {
-    const ascendingAcMod = game.settings.get(game.system.id, 'ascendingAC')
-      ? this.thac0.bba || 0
-      : 0;
+    const ascendingAcMod = this.usesAscendingAC ? this.thac0.bba || 0 : 0;
     return (this.scores.str?.mod || 0) + (this.thac0?.mod?.melee || 0) + ascendingAcMod;
   }
   
   get rangedMod() {
-    const ascendingAcMod = game.settings.get(game.system.id, 'ascendingAC')
-      ? this.thac0.bba || 0
-      : 0;
+    const ascendingAcMod = this.usesAscendingAC ? this.thac0.bba || 0 : 0;
     return (this.scores.dex?.mod || 0) + (this.thac0?.mod?.missile || 0) + ascendingAcMod;
   }
 

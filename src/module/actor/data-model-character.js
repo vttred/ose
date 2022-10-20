@@ -60,7 +60,11 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
       movement: new ObjectField(),
       config: new ObjectField(),
       initiative: new ObjectField(),
-      hp: new ObjectField(),
+      hp: new ObjectField({
+        hd: new StringField(),
+        value: new NumberField({integer: true}),
+        max: new NumberField({integer: true})
+      }),
       thac0: new ObjectField(),
       initiative: new ObjectField(),
       init: new NumberField({readonly: true}),
@@ -80,6 +84,11 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
         ld: new NumberField({ integer: true, positive: true }),
         od: new NumberField({ integer: true, positive: true }),
         sd: new NumberField({ integer: true, positive: true }),
+      }),
+      retainer: new ObjectField({
+        enabled: new BooleanField(),
+        loyalty: new NumberField({integer: true}),
+        wage: new StringField()
       })
     };
   }

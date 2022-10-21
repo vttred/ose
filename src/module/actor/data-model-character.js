@@ -26,6 +26,8 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
       this.movement.base
     );
 
+    // @todo Once we create the new character sheet,
+    //       we shouldn't need to list both AC schemes
     this.ac = new OseDataModelCharacterAC(
       false,
       [...getItemsOfActorOfType(this.parent, 'armor', (a) => a.system.equipped)],
@@ -67,10 +69,6 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
       }),
       thac0: new ObjectField(),
       initiative: new ObjectField(),
-      init: new NumberField({readonly: true}),
-      rangedMod: new NumberField({readonly: true}),
-      meleeMod: new NumberField({readonly: true}),
-      usesAscendingAC: new BooleanField({readonly: true}),
       languages: new ObjectField(),
       saves: new ObjectField({
         breath:    new ObjectField({ value: new NumberField({ integer: true }) }),

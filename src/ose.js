@@ -46,6 +46,11 @@ Hooks.once("init", async function () {
 
   // Custom Handlebars helpers
   registerHelpers();
+  
+  // Give modules a chance to add encumbrance schemes
+  // They can do so by adding their encumbrance schemes
+  // to CONFIG.OSE.encumbranceOptions
+  Hooks.call('ose-setup-encumbrance');
 
   // Register custom system settings
   registerSettings();

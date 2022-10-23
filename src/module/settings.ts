@@ -51,12 +51,10 @@ export const registerSettings = function () {
     scope: "world",
     type: String,
     config: true,
-    choices: {
-      disabled: "OSE.Setting.EncumbranceDisabled",
-      basic: "OSE.Setting.EncumbranceBasic",
-      detailed: "OSE.Setting.EncumbranceDetailed",
-      complete: "OSE.Setting.EncumbranceComplete",
-    },
+    choices: Object.values(CONFIG.OSE.encumbranceOptions)
+      .reduce((obj: {[n:string]: string}, enc) => {
+        return {...obj, [enc.type]: enc.localizedLabel}
+      }, {}),
   });
 
   game.settings.register(game.system.id, "significantTreasure", {

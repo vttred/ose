@@ -18,9 +18,6 @@ export default class OseDataModelCharacterMove implements CharacterMove {
   #autocalculate;
   #encumbranceVariant;
   #overEncumbranceLimit;
-
-  #heaviestArmor;
-  #overTreasureLimit;
   
   #halfEncumbered;
   #quarterEncumbered;
@@ -30,7 +27,7 @@ export default class OseDataModelCharacterMove implements CharacterMove {
    * 
    * @param {OseDataModelCharacterEncumbrance} encumbrance An object representing the character's encumbrance values
    * @param {boolean} shouldCalculateMovement Should the class autocalculate movement?
-   * @param {number} baseMoveRate The base move rate for the actor
+   * @param {number} base The base move rate for the actor
    */
   constructor(
     encumbrance: OseDataModelCharacterEncumbrance = new OseDataModelCharacterEncumbrance(), 
@@ -47,29 +44,9 @@ export default class OseDataModelCharacterMove implements CharacterMove {
     this.#halfEncumbered    = encumbrance.atHalfEncumbered;
     this.#quarterEncumbered = encumbrance.atQuarterEncumbered;
     this.#eighthEncumbered  = encumbrance.atEighthEncumbered;
-
-    // Basic encumbrance variant props
-    this.#overTreasureLimit = encumbrance.overSignificantTreasureThreshold;
-    this.#heaviestArmor     = encumbrance.heaviestArmor;
   }
 
-  #speedFromBasicEnc() {
-    let base = this.#moveBase;
-    
-    switch (this.#heaviestArmor) {
-      case 0: base = this.#moveBase;       break;
-      case 1: base = this.#moveBase * .75; break;
-      case 2: base = this.#moveBase * .50; break;
-    }
-
-    if (this.#overEncumbranceLimit)
-      base = 0;
-    else if (this.#overTreasureLimit)
-      base -= 30;
-    return base
-  }
-
-  #speedFromDetailedEnc() {
+  #derivedSpeed() {
     if (this.#overEncumbranceLimit)    return 0;
     else if (this.#halfEncumbered)     return this.#moveBase * .25;
     else if (this.#quarterEncumbered)  return this.#moveBase * .50;
@@ -81,12 +58,9 @@ export default class OseDataModelCharacterMove implements CharacterMove {
     // Manual entry for movement
     if (!this.#autocalculate || this.#encumbranceVariant === "disabled")
       return this.#moveBase;
-    // Detailed/Complete Encumbrance
-    if (["detailed", "complete"].includes(this.#encumbranceVariant))
-      return this.#speedFromDetailedEnc()
-    // Basic Encumbrance
-    else if (this.#encumbranceVariant === "basic")
-      return this.#speedFromBasicEnc()
+    // Automatic calculation for movement
+    else
+      return this.#derivedSpeed()
 
     return OseDataModelCharacterMove.baseMoveRate;
   }

@@ -1,80 +1,82 @@
 import { QuenchMethods } from "../../../../e2e";
 import OseDataModelCharacterEncumbrance from "../data-model-character-encumbrance";
+import EncumbranceBasic from '../data-model-character-encumbrance-basic';
+import EncumbranceDisabled from '../data-model-character-encumbrance-disabled';
+import EncumbranceDetailed from '../data-model-character-encumbrance-detailed';
+import EncumbranceComplete from '../data-model-character-encumbrance-complete';
 
 export const key = 'ose.datamodel.character.encumbrance';
-export const options = { displayName: 'Character Data Model: Encumbrance'}
+export const options = { displayName: 'Character Data Model: Encumbrance' }
 
 export default ({
   describe,
   it,
   expect
 }: QuenchMethods) => {
-  const toPct = (value: number, max: number) => Math.clamped((100 * value) / max, 0, 100); 
+  const toPct = (value: number, max: number) => Math.clamped((100 * value) / max, 0, 100);
   const createMockItem = (type: string, weight: number, quantity: number, options = {}): Item => new Item.implementation({
     name: `Mock ${type} ${foundry.utils.randomID()}`,
     type,
-    system: {...options, weight, quantity: {value: quantity}}
+    system: { ...options, weight, quantity: { value: quantity } }
   }) as Item;
-  
+
   describe('Disabled Encumbrance', () => {
     it('Is disabled', () => {
-      const enc = new OseDataModelCharacterEncumbrance();
+      let enc = new OseDataModelCharacterEncumbrance();
+      expect(enc.enabled).to.be.false;
+      
+      enc = new EncumbranceDisabled();
       expect(enc.enabled).to.be.false;
     })
   })
-  
+
   describe('Basic Encumbrance', () => {
     it('Is enabled', () => {
-      const enc = new OseDataModelCharacterEncumbrance('basic');
+      const enc = new EncumbranceBasic();
       expect(enc.enabled).to.be.true;
     })
-  
+
     it('Returns the appropriate encumbrance steps', () => {
-      const enc = new OseDataModelCharacterEncumbrance('basic');
+      const enc = new EncumbranceBasic();
       const step = game.settings.get(game.system.id, 'significantTreasure');
       const expectedSteps = [(100 * (step as number)) / enc.max];
       expect(enc.steps).to.have.members(expectedSteps)
     })
-    
+
     describe('Returns current carried weight', () => {
       it('As Percentage', () => {
         const max = 1600;
         const pct25 = 400;
         const pct50 = 800;
         const pct75 = 1200;
-        
-        let enc = new OseDataModelCharacterEncumbrance(
-          'basic', 
+
+        let enc = new EncumbranceBasic(
           max,
-          [createMockItem('item', pct25, 1, {treasure: true})]
+          [createMockItem('item', pct25, 1, { treasure: true })]
         );
         expect(enc.pct).to.equal(toPct(pct25, max));
-        
-        enc = new OseDataModelCharacterEncumbrance(
-          'basic', 
+
+        enc = new EncumbranceBasic(
           max,
-          [createMockItem('item', pct50, 1, {treasure: true})]
+          [createMockItem('item', pct50, 1, { treasure: true })]
         );
         expect(enc.pct).to.equal(toPct(pct50, max));
-        
-        enc = new OseDataModelCharacterEncumbrance(
-          'basic', 
+
+        enc = new EncumbranceBasic(
           max,
-          [createMockItem('item', pct75, 1, {treasure: true})]
+          [createMockItem('item', pct75, 1, { treasure: true })]
         );
         expect(enc.pct).to.equal(toPct(pct75, max));
-        
-        enc = new OseDataModelCharacterEncumbrance(
-          'basic', 
+
+        enc = new EncumbranceBasic(
           max,
-          [createMockItem('item', max, 1, {treasure: true})]
+          [createMockItem('item', max, 1, { treasure: true })]
         );
         expect(enc.pct).to.equal(100);
-        
-        enc = new OseDataModelCharacterEncumbrance(
-          'basic', 
+
+        enc = new EncumbranceBasic(
           max,
-          [createMockItem('item', max, 1, {treasure: false})]
+          [createMockItem('item', max, 1, { treasure: false })]
         );
         expect(enc.pct).to.equal(0);
       })
@@ -83,55 +85,48 @@ export default ({
         const pct25 = 400;
         const pct50 = 800;
         const pct75 = 1200;
-        
-        let enc = new OseDataModelCharacterEncumbrance(
-          'basic', 
+
+        let enc = new EncumbranceBasic(
           max,
-          [createMockItem('item', pct25, 1, {treasure: true})]
+          [createMockItem('item', pct25, 1, { treasure: true })]
         );
         expect(enc.value).to.equal(pct25);
-        
-        enc = new OseDataModelCharacterEncumbrance(
-          'basic', 
+
+        enc = new EncumbranceBasic(
           max,
-          [createMockItem('item', pct50, 1, {treasure: true})]
+          [createMockItem('item', pct50, 1, { treasure: true })]
         );
         expect(enc.value).to.equal(pct50);
-        
-        enc = new OseDataModelCharacterEncumbrance(
-          'basic', 
+
+        enc = new EncumbranceBasic(
           max,
-          [createMockItem('item', pct75, 1, {treasure: true})]
+          [createMockItem('item', pct75, 1, { treasure: true })]
         );
         expect(enc.value).to.equal(pct75);
-        
-        enc = new OseDataModelCharacterEncumbrance(
-          'basic', 
+
+        enc = new EncumbranceBasic(
           max,
-          [createMockItem('item', max, 1, {treasure: true})]
+          [createMockItem('item', max, 1, { treasure: true })]
         );
         expect(enc.value).to.equal(max);
-        
-        enc = new OseDataModelCharacterEncumbrance(
-          'basic', 
+
+        enc = new EncumbranceBasic(
           max,
-          [createMockItem('item', max, 1, {treasure: false})]
+          [createMockItem('item', max, 1, { treasure: false })]
         );
         expect(enc.value).to.equal(0);
       })
       describe('As fully encumbered flag', () => {
         it('Encumbered at full load', () => {
-          const enc = new OseDataModelCharacterEncumbrance(
-            'basic', 
+          const enc = new EncumbranceBasic(
             1600,
-            [createMockItem('item', 1600, 1, {treasure: true})]
+            [createMockItem('item', 1600, 1, { treasure: true })]
           );
           expect(enc.encumbered).to.be.true;
         })
         describe('Not encumbered', () => {
           it('from non-treasure items', () => {
-            const enc = new OseDataModelCharacterEncumbrance(
-              'basic', 
+            const enc = new EncumbranceBasic(
               1600,
               [
                 createMockItem('weapon', 1600, 1),
@@ -143,80 +138,53 @@ export default ({
             expect(enc.encumbered).to.be.false;
           })
           it('from a partial load', () => {
-            const enc = new OseDataModelCharacterEncumbrance(
-              'basic', 
+            const enc = new EncumbranceBasic(
               1600,
-              [createMockItem('item', 400, 1, {treasure: true})]
+              [createMockItem('item', 400, 1, { treasure: true })]
             );
             expect(enc.encumbered).to.be.false;
           })
         })
       })
       it('As "over significant treasure threshold" flag', () => {
-        let enc = new OseDataModelCharacterEncumbrance(
-          'basic', 
+        let enc = new EncumbranceBasic(
           1600,
-          [createMockItem('item', 400, 1, {treasure: true})]
+          [createMockItem('item', 400, 1, { treasure: true })]
         );
         expect(enc.overSignificantTreasureThreshold).to.be.false;
 
-        enc = new OseDataModelCharacterEncumbrance(
-          'basic', 
+        enc = new EncumbranceBasic(
           1600,
-          [createMockItem('item', 800, 1, {treasure: true})]
+          [createMockItem('item', 800, 1, { treasure: true })]
         );
         expect(enc.overSignificantTreasureThreshold).to.be.true;
 
-        enc = new OseDataModelCharacterEncumbrance(
-          'basic', 
+        enc = new EncumbranceBasic(
           1600,
           [createMockItem('weapon', 800, 1)]
         );
         expect(enc.overSignificantTreasureThreshold).to.be.false;
       });
     });
-    
+
     it('Returns max carry weight', () => {
       const setMax = 2000;
-      
-      let enc = new OseDataModelCharacterEncumbrance('basic', setMax);
+
+      let enc = new EncumbranceBasic(setMax);
       expect(enc.max).to.equal(setMax);
-      
-      enc = new OseDataModelCharacterEncumbrance('basic');
+
+      enc = new EncumbranceBasic();
       expect(enc.max).to.equal(OseDataModelCharacterEncumbrance.baseEncumbranceCap);
     });
-    
-    it('Sets the appropriate weight class for worn armor', () => {
-      let unarmored = createMockItem('armor', 0, 1, {type: 'unarmored', equipped: true})
-      let light = createMockItem('armor', 0, 1, {type: 'light', equipped: true})
-      let heavy = createMockItem('armor', 0, 1, {type: 'heavy', equipped: true})
-      let lightUnequipped = createMockItem('armor', 0, 1, {type: 'light', equipped: false})
-      let heavyUnequipped = createMockItem('armor', 0, 1, {type: 'heavy', equipped: false})
-      
-      let enc = new OseDataModelCharacterEncumbrance('basic', undefined, [unarmored]);
-      expect(enc.heaviestArmor).to.equal(OseDataModelCharacterEncumbrance.basicArmorWeight.unarmored);
-      
-      enc = new OseDataModelCharacterEncumbrance('basic', undefined, [light]);
-      expect(enc.heaviestArmor).to.equal(OseDataModelCharacterEncumbrance.basicArmorWeight.light);
-      
-      enc = new OseDataModelCharacterEncumbrance('basic', undefined, [heavy]);
-      expect(enc.heaviestArmor).to.equal(OseDataModelCharacterEncumbrance.basicArmorWeight.heavy);
-
-      enc = new OseDataModelCharacterEncumbrance('basic', undefined, [lightUnequipped]);
-      expect(enc.heaviestArmor).to.equal(OseDataModelCharacterEncumbrance.basicArmorWeight.unarmored);
-      
-      enc = new OseDataModelCharacterEncumbrance('basic', undefined, [light, heavyUnequipped]);
-      expect(enc.heaviestArmor).to.equal(OseDataModelCharacterEncumbrance.basicArmorWeight.light);
-    })
   })
-  
+
   describe('Detailed Encumbrance', () => {
     it('Is enabled', () => {
-      const enc = new OseDataModelCharacterEncumbrance('detailed');
+      const enc = new EncumbranceDetailed();
       expect(enc.enabled).to.be.true;
     })
     it('Returns the appropriate encumbrance steps', () => {
-      const enc = new OseDataModelCharacterEncumbrance('detailed');
+      const enc = new EncumbranceDetailed();
       expect(enc.steps).to.have.members(
         Object.values(OseDataModelCharacterEncumbrance.encumbranceSteps)
       )
@@ -227,42 +195,37 @@ export default ({
         const pct25 = 400;
         const pct50 = 800;
         const pct75 = 1200;
-        
-        let enc = new OseDataModelCharacterEncumbrance(
-          'detailed', 
+
+        let enc = new EncumbranceDetailed(
           max,
-          [createMockItem('item', pct25, 1, {treasure: true})]
+          [createMockItem('item', pct25, 1, { treasure: true })]
         );
         expect(enc.pct).to.equal(toPct(pct25, max));
-        
-        enc = new OseDataModelCharacterEncumbrance(
-          'detailed', 
+
+        enc = new EncumbranceDetailed(
           max,
-          [createMockItem('item', pct50, 1, {treasure: true})]
+          [createMockItem('item', pct50, 1, { treasure: true })]
         );
         expect(enc.pct).to.equal(toPct(pct50, max));
-        
-        enc = new OseDataModelCharacterEncumbrance(
-          'detailed', 
+
+        enc = new EncumbranceDetailed(
           max,
-          [createMockItem('item', pct75, 1, {treasure: true})]
+          [createMockItem('item', pct75, 1, { treasure: true })]
         );
         expect(enc.pct).to.equal(toPct(pct75, max));
-        
-        enc = new OseDataModelCharacterEncumbrance(
-          'detailed', 
+
+        enc = new EncumbranceDetailed(
           max,
-          [createMockItem('item', max, 1, {treasure: true})]
+          [createMockItem('item', max, 1, { treasure: true })]
         );
         expect(enc.pct).to.equal(100);
-        
-        enc = new OseDataModelCharacterEncumbrance(
-          'detailed', 
+
+        enc = new EncumbranceDetailed(
           max,
-          [createMockItem('item', max, 1, {treasure: false})]
+          [createMockItem('item', max, 1, { treasure: false })]
         );
         expect(enc.pct).to.equal(toPct(
-          OseDataModelCharacterEncumbrance.detailedGearWeight,
+          EncumbranceDetailed.gearWeight,
           max
         ));
       })
@@ -271,58 +234,51 @@ export default ({
         const pct25 = 400;
         const pct50 = 800;
         const pct75 = 1200;
-        
-        let enc = new OseDataModelCharacterEncumbrance(
-          'detailed', 
+
+        let enc = new EncumbranceDetailed(
           max,
-          [createMockItem('item', pct25, 1, {treasure: true})]
+          [createMockItem('item', pct25, 1, { treasure: true })]
         );
         expect(enc.value).to.equal(pct25);
-        
-        enc = new OseDataModelCharacterEncumbrance(
-          'detailed', 
+
+        enc = new EncumbranceDetailed(
           max,
-          [createMockItem('item', pct50, 1, {treasure: true})]
+          [createMockItem('item', pct50, 1, { treasure: true })]
         );
         expect(enc.value).to.equal(pct50);
-        
-        enc = new OseDataModelCharacterEncumbrance(
-          'detailed', 
+
+        enc = new EncumbranceDetailed(
           max,
-          [createMockItem('item', pct75, 1, {treasure: true})]
+          [createMockItem('item', pct75, 1, { treasure: true })]
         );
         expect(enc.value).to.equal(pct75);
-        
-        enc = new OseDataModelCharacterEncumbrance(
-          'detailed', 
+
+        enc = new EncumbranceDetailed(
           max,
-          [createMockItem('item', max, 1, {treasure: true})]
+          [createMockItem('item', max, 1, { treasure: true })]
         );
         expect(enc.value).to.equal(max);
-        
-        enc = new OseDataModelCharacterEncumbrance(
-          'detailed', 
+
+        enc = new EncumbranceDetailed(
           max,
-          [createMockItem('item', max, 1, {treasure: false})]
+          [createMockItem('item', max, 1, { treasure: false })]
         );
         expect(enc.value).to.equal(
-          OseDataModelCharacterEncumbrance.detailedGearWeight,
+          EncumbranceDetailed.gearWeight,
         );
-      
+
       })
       describe('As fully encumbered flag', () => {
         it('Encumbered at full load', () => {
-          const enc = new OseDataModelCharacterEncumbrance(
-            'detailed', 
+          const enc = new EncumbranceDetailed(
             1600,
-            [createMockItem('item', 1600, 1, {treasure: true})]
+            [createMockItem('item', 1600, 1, { treasure: true })]
           );
           expect(enc.encumbered).to.be.true;
         })
         describe('Not encumbered', () => {
           it('from non-treasure items', () => {
-            const enc = new OseDataModelCharacterEncumbrance(
-              'detailed', 
+            const enc = new EncumbranceDetailed(
               1600,
               [
                 createMockItem('item', 1600, 1)
@@ -332,35 +288,34 @@ export default ({
             expect(enc.value).to.equal(80);
           })
           it('from a partial load', () => {
-            const enc = new OseDataModelCharacterEncumbrance(
-              'detailed', 
+            const enc = new EncumbranceDetailed(
               1600,
-              [createMockItem('item', 400, 1, {treasure: true})]
+              [createMockItem('item', 400, 1, { treasure: true })]
             );
             expect(enc.encumbered).to.be.false;
           })
         })
       });
     })
-      
+
     it('Returns max carry weight', () => {
       const setMax = 2000;
-      
-      let enc = new OseDataModelCharacterEncumbrance('detailed', setMax);
+
+      let enc = new EncumbranceDetailed( setMax);
       expect(enc.max).to.equal(setMax);
-      
-      enc = new OseDataModelCharacterEncumbrance('detailed');
+
+      enc = new EncumbranceDetailed();
       expect(enc.max).to.equal(OseDataModelCharacterEncumbrance.baseEncumbranceCap);
     });
   })
 
   describe('Complete Encumbrance', () => {
     it('Is enabled', () => {
-      const enc = new OseDataModelCharacterEncumbrance('complete');
+      const enc = new EncumbranceComplete();
       expect(enc.enabled).to.be.true;
     })
     it('Returns the appropriate encumbrance steps', () => {
-      const enc = new OseDataModelCharacterEncumbrance('complete');
+      const enc = new EncumbranceComplete();
       expect(enc.steps).to.have.members(
         Object.values(OseDataModelCharacterEncumbrance.encumbranceSteps)
       )
@@ -371,39 +326,34 @@ export default ({
         const pct25 = 400;
         const pct50 = 800;
         const pct75 = 1200;
-        
-        let enc = new OseDataModelCharacterEncumbrance(
-          'complete', 
+
+        let enc = new EncumbranceComplete(
           max,
-          [createMockItem('item', pct25, 1, {treasure: true})]
+          [createMockItem('item', pct25, 1, { treasure: true })]
         );
         expect(enc.pct).to.equal(toPct(pct25, max));
-        
-        enc = new OseDataModelCharacterEncumbrance(
-          'complete', 
+
+        enc = new EncumbranceComplete(
           max,
-          [createMockItem('item', pct50, 1, {treasure: true})]
+          [createMockItem('item', pct50, 1, { treasure: true })]
         );
         expect(enc.pct).to.equal(toPct(pct50, max));
-        
-        enc = new OseDataModelCharacterEncumbrance(
-          'complete', 
+
+        enc = new EncumbranceComplete(
           max,
-          [createMockItem('item', pct75, 1, {treasure: true})]
+          [createMockItem('item', pct75, 1, { treasure: true })]
         );
         expect(enc.pct).to.equal(toPct(pct75, max));
-        
-        enc = new OseDataModelCharacterEncumbrance(
-          'complete', 
+
+        enc = new EncumbranceComplete(
           max,
-          [createMockItem('item', max, 1, {treasure: true})]
+          [createMockItem('item', max, 1, { treasure: true })]
         );
         expect(enc.pct).to.equal(100);
-        
-        enc = new OseDataModelCharacterEncumbrance(
-          'complete', 
+
+        enc = new EncumbranceComplete(
           max,
-          [createMockItem('item', max, 1, {treasure: false})]
+          [createMockItem('item', max, 1, { treasure: false })]
         );
         expect(enc.pct).to.equal(100);
       })
@@ -412,101 +362,71 @@ export default ({
         const pct25 = 400;
         const pct50 = 800;
         const pct75 = 1200;
-        
-        let enc = new OseDataModelCharacterEncumbrance(
-          'complete', 
+
+        let enc = new EncumbranceComplete(
           max,
-          [createMockItem('item', pct25, 1, {treasure: true})]
+          [createMockItem('item', pct25, 1, { treasure: true })]
         );
         expect(enc.value).to.equal(pct25);
-        
-        enc = new OseDataModelCharacterEncumbrance(
-          'complete', 
+
+        enc = new EncumbranceComplete(
           max,
-          [createMockItem('item', pct50, 1, {treasure: true})]
+          [createMockItem('item', pct50, 1, { treasure: true })]
         );
         expect(enc.value).to.equal(pct50);
-        
-        enc = new OseDataModelCharacterEncumbrance(
-          'complete', 
+
+        enc = new EncumbranceComplete(
           max,
-          [createMockItem('item', pct75, 1, {treasure: true})]
+          [createMockItem('item', pct75, 1, { treasure: true })]
         );
         expect(enc.value).to.equal(pct75);
-        
-        enc = new OseDataModelCharacterEncumbrance(
-          'complete', 
+
+        enc = new EncumbranceComplete(
           max,
-          [createMockItem('item', max, 1, {treasure: true})]
+          [createMockItem('item', max, 1, { treasure: true })]
         );
         expect(enc.value).to.equal(max);
-        
-        enc = new OseDataModelCharacterEncumbrance(
-          'complete', 
+
+        enc = new EncumbranceComplete(
           max,
-          [createMockItem('item', max, 1, {treasure: false})]
+          [createMockItem('item', max, 1, { treasure: false })]
         );
         expect(enc.value).to.equal(max);
-      
+
       })
       describe('As fully encumbered flag', () => {
         it('Encumbered at full load', () => {
-          let enc = new OseDataModelCharacterEncumbrance(
-            'complete', 
+          let enc = new EncumbranceComplete(
             1600,
-            [createMockItem('item', 1600, 1, {treasure: true})]
+            [createMockItem('item', 1600, 1, { treasure: true })]
           );
           expect(enc.encumbered).to.be.true;
-          enc = new OseDataModelCharacterEncumbrance(
-            'complete', 
+          enc = new EncumbranceComplete(
             1600,
-            [createMockItem('item', 1600, 1, {treasure: false})]
+            [createMockItem('item', 1600, 1, { treasure: false })]
           );
           expect(enc.encumbered).to.be.true;
         })
         describe('Not encumbered', () => {
           it('from a partial load', () => {
-            const enc = new OseDataModelCharacterEncumbrance(
-              'complete', 
+            const enc = new EncumbranceComplete(
               1600,
-              [createMockItem('item', 400, 1, {treasure: true})]
+              [createMockItem('item', 400, 1, { treasure: true })]
             );
             expect(enc.encumbered).to.be.false;
           })
         })
       });
     })
-      
+
     it('Returns max carry weight', () => {
       const setMax = 2000;
-      
-      let enc = new OseDataModelCharacterEncumbrance('complete', setMax);
+
+      let enc = new EncumbranceComplete(setMax);
       expect(enc.max).to.equal(setMax);
-      
-      enc = new OseDataModelCharacterEncumbrance('complete');
+
+      enc = new EncumbranceComplete();
       expect(enc.max).to.equal(OseDataModelCharacterEncumbrance.baseEncumbranceCap);
     });
   })
-  
-  // describe('Complete Encumbrance', () => {
-  //   it('Is enabled', () => {
-  //     const enc = new OseDataModelCharacterEncumbrance('complete');
-  //     expect(enc.enabled).to.be.true;
-  //   })
-  //   describe('Recognizes being over carry limit', () => {})
-  //   describe('Returns the appropriate encumbrance steps', () => {})
-  //   describe('Returns current carried weight', () => {
-  //     describe('As Percentage', () => {
-        
-  //     })
-  //     describe('As Value', () => {
-      
-  //     })
-  //     describe('As fully encumbered flag', () => {
-      
-  //     });
-  //   })
-  //   describe('Returns max carry weight', () => {})
-  // })
-  
 }

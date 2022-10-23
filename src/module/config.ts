@@ -1,3 +1,8 @@
+import OseDataModelCharacterEncumbranceBasic from "./actor/data-model-classes/data-model-character-encumbrance-basic";
+import OseDataModelCharacterEncumbranceComplete from "./actor/data-model-classes/data-model-character-encumbrance-complete";
+import OseDataModelCharacterEncumbranceDetailed from "./actor/data-model-classes/data-model-character-encumbrance-detailed";
+import OseDataModelCharacterEncumbranceDisabled from "./actor/data-model-classes/data-model-character-encumbrance-disabled";
+
 export type OseConfig = {
   /** Path for system dist */
   systemPath: () => string;
@@ -5,6 +10,12 @@ export type OseConfig = {
   systemRoot: string;
   /** Path for system assets */
   assetsPath: string;
+  /** @todo How do I set this type? */
+  encumbrance: unknown;
+  /** @todo How do I set this type? */
+  encumbranceOptions: {
+    [name: string]: unknown;
+  }
   scores: Record<Attribute, string>;
   scores_short: Record<Attribute, string>;
   exploration_skills: Record<ExplorationSkill, string>;
@@ -57,6 +68,16 @@ export const OSE: OseConfig = {
   },
   get assetsPath(): string {
     return `${this.systemRoot}/assets`
+  },
+  get encumbrance() {
+    const variant = game.settings.get(game.system.id, 'encumbranceOption')
+    return this.encumbranceOptions[variant] || this.encumbranceOptions.disabled;
+  },
+  encumbranceOptions: {
+    basic: OseDataModelCharacterEncumbranceBasic,
+    detailed: OseDataModelCharacterEncumbranceDetailed,
+    complete: OseDataModelCharacterEncumbranceComplete,
+    disabled: OseDataModelCharacterEncumbranceDisabled,
   },
   scores: {
     str: "OSE.scores.str.long",

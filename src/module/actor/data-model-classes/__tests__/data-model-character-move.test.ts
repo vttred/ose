@@ -1,5 +1,8 @@
 import OseDataModelCharacterMove from "../data-model-character-move";
 import OseDataModelCharacterEncumbrance from "../data-model-character-encumbrance";
+import EncumbranceBasic from '../data-model-character-encumbrance-basic';
+import EncumbranceDetailed from '../data-model-character-encumbrance-detailed';
+import EncumbranceComplete from '../data-model-character-encumbrance-complete';
 import { QuenchMethods } from "../../../../e2e";
 
 export const key = 'ose.datamodel.character.move';
@@ -23,7 +26,7 @@ export default ({
   
   describe('Prevent autocalculation when...', () => { 
     it('Autocalculation is off', ()  => {
-      let enc = new OseDataModelCharacterEncumbrance('basic');
+      let enc = new EncumbranceBasic();
       let move = new OseDataModelCharacterMove(enc, false);
       expect(move.base).to.equal(OseDataModelCharacterMove.baseMoveRate)
     })
@@ -40,11 +43,11 @@ export default ({
   
   describe('Correctly calculates from Basic Encumbrance', () => {
     it('While unarmored', () => {
-      let enc = new OseDataModelCharacterEncumbrance('basic');
+      let enc = new EncumbranceBasic();
       let move = new OseDataModelCharacterMove(enc);
       expect(move.base).to.equal(OseDataModelCharacterMove.baseMoveRate)
 
-      enc = new OseDataModelCharacterEncumbrance('basic', undefined, [
+      enc = new EncumbranceBasic(undefined, [
         createMockItem('armor', 100, 1, {type: 'unarmored', equipped: true}),
         createMockItem('armor', 100, 1, {type: 'light', equipped: false}),
         createMockItem('armor', 100, 1, {type: 'heavy', equipped: false})
@@ -55,7 +58,7 @@ export default ({
       expect(move.overland).to.equal(OseDataModelCharacterMove.baseMoveRate / 5)
     })
     it('While lightly armored', () => {
-      const enc = new OseDataModelCharacterEncumbrance('basic', undefined, [
+      const enc = new EncumbranceBasic(undefined, [
         createMockItem('armor', 100, 1, {type: 'unarmored', equipped: false}),
         createMockItem('armor', 100, 1, {type: 'light', equipped: true}),
         createMockItem('armor', 100, 1, {type: 'heavy', equipped: false})
@@ -66,7 +69,7 @@ export default ({
       expect(move.overland).to.equal(OseDataModelCharacterMove.baseMoveRate * .75 / 5)
     })
     it('While heavily armored', () => {
-      const enc = new OseDataModelCharacterEncumbrance('basic', undefined, [
+      const enc = new EncumbranceBasic(undefined, [
         createMockItem('armor', 100, 1, {type: 'unarmored', equipped: false}),
         createMockItem('armor', 100, 1, {type: 'light', equipped: false}),
         createMockItem('armor', 100, 1, {type: 'heavy', equipped: true})
@@ -77,16 +80,16 @@ export default ({
       expect(move.overland).to.equal(OseDataModelCharacterMove.baseMoveRate * .5 / 5)
     })
     it('While carrying a significant amount of treasure', () => {
-      let enc = new OseDataModelCharacterEncumbrance('basic', undefined, [
-        createMockItem('item', OseDataModelCharacterEncumbrance.basicSignificantTreasure - 1, 1, {treasure: true}),
+      let enc = new EncumbranceBasic(undefined, [
+        createMockItem('item', EncumbranceBasic.significantTreasure - 1, 1, {treasure: true}),
       ]);
       let move = new OseDataModelCharacterMove(enc);
       expect(move.base).to.equal(OseDataModelCharacterMove.baseMoveRate)
       expect(move.encounter).to.equal(OseDataModelCharacterMove.baseMoveRate / 3)
       expect(move.overland).to.equal(OseDataModelCharacterMove.baseMoveRate / 5)
 
-      enc = new OseDataModelCharacterEncumbrance('basic', undefined, [
-        createMockItem('item', OseDataModelCharacterEncumbrance.basicSignificantTreasure, 1, {treasure: true}),
+      enc = new EncumbranceBasic(undefined, [
+        createMockItem('item', EncumbranceBasic.significantTreasure, 1, {treasure: true}),
       ]);
       move = new OseDataModelCharacterMove(enc);
       expect(move.base).to.equal(OseDataModelCharacterMove.baseMoveRate - 30)
@@ -100,14 +103,14 @@ export default ({
       const expectedEncounter = expectedBase / 3;
       const expectedOverland = expectedBase / 5;
       
-      let enc = new OseDataModelCharacterEncumbrance('detailed');
+      let enc = new EncumbranceDetailed();
       let move = new OseDataModelCharacterMove(enc);
 
       expect(move.base).to.equal(expectedBase);
       expect(move.encounter).to.equal(expectedEncounter);
       expect(move.overland).to.equal(expectedOverland);
       
-      enc = new OseDataModelCharacterEncumbrance('detailed', undefined, [
+      enc = new EncumbranceDetailed(undefined, [
         createMockItem('item', 800, 1),
       ]);
       move = new OseDataModelCharacterMove(enc);
@@ -121,7 +124,7 @@ export default ({
       const expectedEncounter = expectedBase / 3;
       const expectedOverland = expectedBase / 5;
       
-      let enc = new OseDataModelCharacterEncumbrance('detailed', undefined, [
+      let enc = new EncumbranceDetailed(undefined, [
         createMockItem('item', OseDataModelCharacterEncumbrance.baseEncumbranceCap * .125, 1, {treasure: true}),
       ]);
       let move = new OseDataModelCharacterMove(enc);
@@ -135,7 +138,7 @@ export default ({
       const expectedEncounter = expectedBase / 3;
       const expectedOverland = expectedBase / 5;
       
-      let enc = new OseDataModelCharacterEncumbrance('detailed', undefined, [
+      let enc = new EncumbranceDetailed(undefined, [
         createMockItem('item', OseDataModelCharacterEncumbrance.baseEncumbranceCap * .25, 1, {treasure: true}),
       ]);
       let move = new OseDataModelCharacterMove(enc);
@@ -149,7 +152,7 @@ export default ({
       const expectedEncounter = expectedBase / 3;
       const expectedOverland = expectedBase / 5;
       
-      let enc = new OseDataModelCharacterEncumbrance('detailed', undefined, [
+      let enc = new EncumbranceDetailed(undefined, [
         createMockItem('item', OseDataModelCharacterEncumbrance.baseEncumbranceCap * .75, 1, {treasure: true}),
       ]);
       let move = new OseDataModelCharacterMove(enc);
@@ -163,7 +166,7 @@ export default ({
       const expectedEncounter = 0;
       const expectedOverland = 0;
       
-      let enc = new OseDataModelCharacterEncumbrance('detailed', undefined, [
+      let enc = new EncumbranceDetailed(undefined, [
         createMockItem('item', OseDataModelCharacterEncumbrance.baseEncumbranceCap, 1, {treasure: true}),
       ]);
       let move = new OseDataModelCharacterMove(enc);
@@ -179,7 +182,7 @@ export default ({
       const expectedEncounter = expectedBase / 3;
       const expectedOverland = expectedBase / 5;
       
-      let enc = new OseDataModelCharacterEncumbrance('complete');
+      let enc = new EncumbranceComplete();
       let move = new OseDataModelCharacterMove(enc);
 
       expect(move.base).to.equal(expectedBase);
@@ -191,7 +194,7 @@ export default ({
       const expectedEncounter = expectedBase / 3;
       const expectedOverland = expectedBase / 5;
       
-      let enc = new OseDataModelCharacterEncumbrance('complete', undefined, [
+      let enc = new EncumbranceComplete(undefined, [
         createMockItem('item', OseDataModelCharacterEncumbrance.baseEncumbranceCap * .125, 1),
       ]);
       let move = new OseDataModelCharacterMove(enc);
@@ -205,7 +208,7 @@ export default ({
       const expectedEncounter = expectedBase / 3;
       const expectedOverland = expectedBase / 5;
       
-      let enc = new OseDataModelCharacterEncumbrance('complete', undefined, [
+      let enc = new EncumbranceComplete(undefined, [
         createMockItem('item', OseDataModelCharacterEncumbrance.baseEncumbranceCap * .25, 1),
       ]);
       let move = new OseDataModelCharacterMove(enc);
@@ -219,7 +222,7 @@ export default ({
       const expectedEncounter = expectedBase / 3;
       const expectedOverland = expectedBase / 5;
       
-      let enc = new OseDataModelCharacterEncumbrance('complete', undefined, [
+      let enc = new EncumbranceComplete(undefined, [
         createMockItem('item', OseDataModelCharacterEncumbrance.baseEncumbranceCap * .75, 1),
       ]);
       let move = new OseDataModelCharacterMove(enc);
@@ -233,7 +236,7 @@ export default ({
       const expectedEncounter = 0;
       const expectedOverland = 0;
       
-      let enc = new OseDataModelCharacterEncumbrance('complete', undefined, [
+      let enc = new EncumbranceComplete(undefined, [
         createMockItem('item', OseDataModelCharacterEncumbrance.baseEncumbranceCap, 1),
       ]);
       let move = new OseDataModelCharacterMove(enc);

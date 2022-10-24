@@ -8,27 +8,31 @@ export class OseActor extends Actor {
 
   prepareData() {
     super.prepareData();
-    const data = this?.system || this?.data?.data; //v9-compatibility
+    if (this.type !== 'character') {
+      const data = this?.system || this?.data?.data; //v9-compatibility
 
-    const actorType = this?.type || this?.data?.type; //v9-compatibility
+      const actorType = this?.type || this?.data?.type; //v9-compatibility
 
-    // Compute modifiers from actor scores
-    this.computeModifiers();
-    this._isSlow();
-    this.computeAC();
-    this.computeEncumbrance();
-    this.computeTreasure();
+      // Compute modifiers from actor scores
+      this._isSlow();
 
-    // Determine Initiative
-    if (game.settings.get(game.system.id, "initiative") != "group") {
-      data.initiative.value = data.initiative.mod;
-      if (actorType === "character") {
-        data.initiative.value += data.scores.dex.init;
+      // Determine Initiative
+      if (game.settings.get(game.system.id, "initiative") != "group") {
+        data.initiative.value = data.initiative.mod;
+        if (actorType === "character") {
+          data.initiative.value += data.scores.dex.init;
+        }
+      } else {
+        data.initiative.value = 0;
       }
-    } else {
-      data.initiative.value = 0;
+      data.movement.encounter = Math.floor(data.movement.base / 3);
     }
-    data.movement.encounter = Math.floor(data.movement.base / 3);
+  }
+
+  prepareDerivedData() {
+    // @TODO Once the monster data model is done, this can go
+    if (this.type === 'character')
+      this.system.prepareDerivedData?.();
   }
 
   static async update(data, options = {}) {
@@ -96,11 +100,7 @@ export class OseActor extends Actor {
 
     const actorType = this?.type || this?.data?.type; //v9-compatibility
     if (actorType == "character") {
-      let ct = 0;
-      Object.values(data.scores).forEach((el) => {
-        ct += el.value;
-      });
-      return ct == 0 ? true : false;
+      return this.system.isNew;
     } else if (actorType == "monster") {
       let ct = 0;
       Object.values(data.saves).forEach((el) => {
@@ -549,28 +549,14 @@ export class OseActor extends Actor {
    * @returns
    */
   async applyDamage(amount = 0, multiplier = 1) {
-    const actorData = this?.system || this?.data?.data; //v9-compatibility
-
     amount = Math.floor(parseInt(amount) * multiplier);
-    const hp = actorData.hp;
 
-    // Remaining goes to health
-    const dh = Math.clamped(hp.value - amount, 0, hp.max);
+    const {value, max} = this.system.hp;
 
     // Update the Actor
     return this.update({
-      "data.hp.value": dh,
+      "system.hp.value": Math.clamped(value - amount, 0, max)
     });
-  }
-
-  static _valueFromTable(table, val) {
-    let output;
-    for (let i = 0; i <= val; i++) {
-      if (table[i] != undefined) {
-        output = table[i];
-      }
-    }
-    return output;
   }
 
   _isSlow() {
@@ -587,73 +573,9 @@ export class OseActor extends Actor {
     });
   }
 
-  computeEncumbrance() {
-    const actorType = this?.type || this?.data?.type; //v9-compatibility
-
-    const actorData = this?.system || this?.data?.data; //v9-compatibility
-
-    const actorItems = this?.items || this?.data?.items; //v9-compatibility
-
-    if (actorType != "character") {
-      return;
-    }
-
-    const option = game.settings.get(game.system.id, "encumbranceOption");
-    const items = [...actorItems.values()];
-    // Compute encumbrance
-    const hasAdventuringGear = items.some((item) => {
-      const itemData = item?.system || item?.data?.data; //v9-compatiblity
-      return item.type === "item" && !itemData.treasure;
-    });
-
-    let totalWeight = items.reduce((acc, item) => {
-      const itemData = item?.system || item?.data?.data; //v9-compatiblity
-      if (
-        item.type === "item" &&
-        (["complete", "disabled"].includes(option) || itemData.treasure)
-      ) {
-        return acc + itemData.quantity.value * itemData.weight;
-      }
-      if (
-        ["weapon", "armor", "container"].includes(item.type) &&
-        option !== "basic"
-      ) {
-        return acc + itemData.weight;
-      }
-      return acc;
-    }, 0);
-
-    if (option === "detailed" && hasAdventuringGear) totalWeight += 80;
-
-    // Compute weight thresholds
-    const max = actorData.encumbrance.max;
-    const basicSignificantEncumbrance = game.settings.get(
-      game.system.id,
-      "significantTreasure"
-    );
-
-    const steps = ["detailed", "complete"].includes(option)
-      ? [400, 600, 800]
-      : option === "basic"
-      ? [basicSignificantEncumbrance]
-      : [];
-
-    const percentSteps = steps.map((s) => (100 * s) / max);
-
-    actorData.encumbrance = {
-      pct: Math.clamped((100 * parseFloat(totalWeight)) / max, 0, 100),
-      max: max,
-      encumbered: totalWeight > actorData.encumbrance.max,
-      value: totalWeight,
-      steps: percentSteps,
-    };
-
-    if (actorData.config.movementAuto && option != "disabled") {
-      this._calculateMovement();
-    }
-  }
-
   _calculateMovement() {
+    if (actor.type === 'character') return;
+    
     const actorData = this?.system || this?.data?.data; //v9-compatibility
 
     const actorItems = this?.items || this?.data?.items; //v9-compatibility
@@ -707,165 +629,5 @@ export class OseActor extends Actor {
         actorData.movement.base -= 30;
       }
     }
-  }
-
-  computeTreasure() {
-    const actorType = this?.type || this?.data?.type; //v9-compatibility
-
-    if (actorType != "character") {
-      return;
-    }
-
-    const actorData = this?.system || this?.data?.data; //v9-compatibility
-    const actorItems = this?.items || this?.data?.items; //v9-compatibility
-
-    // Compute treasure
-    let total = 0;
-    let treasure = actorItems.filter((i) => {
-      const itemData = i?.system || i?.data.data; //v9-compatibility
-      i.type == "item" && itemData.treasure;
-    });
-    treasure.forEach((item) => {
-      total += item.data.data.quantity.value * item.data.data.cost;
-    });
-    actorData.treasure = Math.round(total * 100) / 100.0;
-  }
-
-  computeAC() {
-    const actorType = this?.type || this?.data?.type; //v9-compatibility
-
-    if (actorType != "character") {
-      return;
-    }
-    const actorData = this?.system || this?.data?.data; //v9-compatibility
-    const actorItems = this?.items || this?.data?.data; //v9-compatibility
-
-    // Compute AC
-    let baseAc = 9;
-    let baseAac = 10;
-    let AcShield = 0;
-    let AacShield = 0;
-
-    actorData.aac.naked = baseAac + actorData.scores.dex.mod;
-    actorData.ac.naked = baseAc - actorData.scores.dex.mod;
-    const armors = actorItems.filter((i) => i.type == "armor");
-    armors.forEach((a) => {
-      const armorData = a?.system || a?.data?.data; //v9-compatibility
-      if (!armorData.equipped) return;
-      if (armorData.type == "shield") {
-        AcShield = armorData.ac.value;
-        AacShield = armorData.aac.value;
-        return;
-      }
-      baseAc = armorData.ac.value;
-      baseAac = armorData.aac.value;
-    });
-    actorData.aac.value =
-      baseAac + actorData.scores.dex.mod + AacShield + actorData.aac.mod;
-    actorData.ac.value =
-      baseAc - actorData.scores.dex.mod - AcShield - actorData.ac.mod;
-    actorData.ac.shield = AcShield;
-    actorData.aac.shield = AacShield;
-  }
-
-  computeModifiers() {
-    const actorData = this?.system || this?.data?.data; //v9-compatibility
-    const actorType = this?.type || this?.data?.type;
-
-    if (actorType != "character") {
-      return;
-    }
-
-    const standard = {
-      0: -3,
-      3: -3,
-      4: -2,
-      6: -1,
-      9: 0,
-      13: 1,
-      16: 2,
-      18: 3,
-    };
-    actorData.scores.str.mod = OseActor._valueFromTable(
-      standard,
-      actorData.scores.str.value
-    );
-    actorData.scores.int.mod = OseActor._valueFromTable(
-      standard,
-      actorData.scores.int.value
-    );
-    actorData.scores.dex.mod = OseActor._valueFromTable(
-      standard,
-      actorData.scores.dex.value
-    );
-    actorData.scores.cha.mod = OseActor._valueFromTable(
-      standard,
-      actorData.scores.cha.value
-    );
-    actorData.scores.wis.mod = OseActor._valueFromTable(
-      standard,
-      actorData.scores.wis.value
-    );
-    actorData.scores.con.mod = OseActor._valueFromTable(
-      standard,
-      actorData.scores.con.value
-    );
-
-    const capped = {
-      0: -2,
-      3: -2,
-      4: -1,
-      6: -1,
-      9: 0,
-      13: 1,
-      16: 1,
-      18: 2,
-    };
-    actorData.scores.dex.init = OseActor._valueFromTable(
-      capped,
-      actorData.scores.dex.value
-    );
-    actorData.scores.cha.npc = OseActor._valueFromTable(
-      capped,
-      actorData.scores.cha.value
-    );
-    actorData.scores.cha.retain = actorData.scores.cha.mod + 4;
-    actorData.scores.cha.loyalty = actorData.scores.cha.mod + 7;
-
-    const od = {
-      0: 0,
-      3: 1,
-      9: 2,
-      13: 3,
-      16: 4,
-      18: 5,
-    };
-    actorData.exploration.odMod = OseActor._valueFromTable(
-      od,
-      actorData.scores.str.value
-    );
-
-    const literacy = {
-      0: "",
-      3: "OSE.Illiterate",
-      6: "OSE.LiteracyBasic",
-      9: "OSE.Literate",
-    };
-    actorData.languages.literacy = OseActor._valueFromTable(
-      literacy,
-      actorData.scores.int.value
-    );
-
-    const spoken = {
-      0: "OSE.NativeBroken",
-      3: "OSE.Native",
-      13: "OSE.NativePlus1",
-      16: "OSE.NativePlus2",
-      18: "OSE.NativePlus3",
-    };
-    actorData.languages.spoken = OseActor._valueFromTable(
-      spoken,
-      actorData.scores.int.value
-    );
   }
 }

@@ -24,15 +24,15 @@
     <div class="field-long flexrow">
       <input
         type="text"
-        value="{{lookup @root.slots.used @key}}"
-        name="data.spells.{{id}}.value"
+        value="{{lookup (lookup @root.system.spells.slots @key) 'used'}}"
+        name="system.spells.{{id}}.value"
         data-dtype="Number"
         placeholder="0"
-        disabled
+        readonly
         title="{{localize 'OSE.spells.MemorizedSlotsHint'}}"
       />/<input
         type="text"
-        value="{{lookup (lookup @root.system.spells @key) 'max'}}"
+        value="{{lookup (lookup @root.system.spells.slots @key) 'max'}}"
         name="system.spells.{{id}}.max"
         data-dtype="Number"
         placeholder="0"
@@ -61,7 +61,7 @@
         <div class="field-long memorize flexrow">
           <input
             type="text"
-            value="{{item.data.data.cast}}"
+            value="{{system.cast}}"
             data-dtype="Number"
             placeholder="0"
             data-field="cast"
@@ -70,7 +70,7 @@
           /
           <input
             type="text"
-            value="{{item.data.data.memorized}}"
+            value="{{system.memorized}}"
             data-field="memorize"
             data-dtype="Number"
             placeholder="0"

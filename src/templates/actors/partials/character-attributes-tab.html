@@ -81,7 +81,7 @@
                 <div class="health-full" style="height:{{counter true system.hp.value system.hp.max}}%"></div>
             </div>
             <div class="health armor-class">
-                {{#if config.ascendingAC}}
+                {{#if @root.system.usesAscendingAC}}
                 <div class="health-value health-top" title="{{localize 'OSE.ArmorClass'}}">{{system.aac.value}}</div>
                 <div class="health-value health-bottom" title="{{localize 'OSE.ArmorClassNaked'}}">
                     {{system.aac.naked}}</div>
@@ -115,7 +115,7 @@
                         {{ localize "OSE.InitiativeShort" }}</h4>
                     <div class="attribute-value"
                         title="{{localize 'OSE.scores.dex.long'}}({{system.scores.dex.init}}) + {{localize 'OSE.Modifier'}}({{system.initiative.mod}})">
-                        {{add system.scores.dex.init system.initiative.mod}}
+                        {{system.init}}
                     </div>
                 </li>
                 {{/if}}
@@ -130,7 +130,7 @@
                     <div class="flexrow">
                         <div class="attribute-value"
                             title="{{localize 'OSE.scores.str.long'}}({{system.scores.str.mod}}) + {{localize 'OSE.Modifier'}}({{system.thac0.mod.melee}})">
-                            {{add system.scores.str.mod system.thac0.mod.melee}}
+                            {{system.meleeMod}}
                         </div>
                     </div>
                 </li>
@@ -164,7 +164,7 @@
                     <div class="flexrow">
                         <div class="attribute-value"
                             title="{{localize 'OSE.scores.dex.long'}}({{system.scores.dex.mod}}) + {{localize 'OSE.Modifier'}}({{system.thac0.mod.missile}})">
-                            {{add system.scores.dex.mod system.thac0.mod.missile}}
+                            {{system.rangedMod}}
                         </div>
                     </div>
                 </li>
@@ -177,7 +177,7 @@
                         {{localize 'OSE.movement.overland.short'}}</h4>
                     <div class="flexrow">
                         <div class="attribute-value">
-                            {{divide system.movement.base 5}}
+                            {{@root.system.movement.overland}}
                         </div>
                     </div>
                 </li>
@@ -185,7 +185,7 @@
                     <h4 class="attribute-name box-title" title="{{ localize 'OSE.movement.exploration.long' }}">
                         {{ localize "OSE.movement.exploration.short" }}</h4>
                     <div class="attribute-value flexrow">
-                        <input name="system.movement.base" type="text" value="{{system.movement.base}}" placeholder="0"
+                        <input name="system.movement.base" type="text" value="{{@root.system.movement.base}}" placeholder="0"
                             data-dtype="Number" {{#if system.config.movementAuto}}disabled{{/if}} />
                     </div>
                 </li>
@@ -194,7 +194,7 @@
                         {{localize 'OSE.movement.encounter.short'}}</h4>
                     <div class="flexrow">
                         <div class="attribute-value">
-                            {{divide system.movement.base 3}}
+                            {{system.movement.encounter}}
                         </div>
                     </div>
                 </li>

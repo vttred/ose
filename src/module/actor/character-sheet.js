@@ -41,84 +41,23 @@ export class OseActorSheetCharacter extends OseActorSheet {
    * @private
    */
   _prepareItems(data) {
-    const actorItems = this.actor?.items || this.actor?.data?.items; //v9-compatibility
-    const containerContents = {};
-    // Partition items by category
-    let [containers, treasures, items, weapons, armors, abilities, spells] =
-      actorItems.reduce(
-        (arr, item) => {
-          const itemData = item?.system || item?.data?.data; //v9-compatibility
-          // Classify items into types
-          const containerId = itemData.containerId;
-          if (containerId) {
-            containerContents[containerId] = [
-              ...(containerContents[containerId] || []),
-              item,
-            ];
-          } else if (item.type === "container") arr[0].push(item);
-          else if (item.type === "item" && itemData.treasure) arr[1].push(item);
-          else if (item.type === "item") arr[2].push(item);
-          else if (item.type === "weapon") arr[3].push(item);
-          else if (item.type === "armor") arr[4].push(item);
-          else if (item.type === "ability") arr[5].push(item);
-          else if (item.type === "spell") arr[6].push(item);
-          return arr;
-        },
-        [[], [], [], [], [], [], []]
-      );
-    // Sort spells by level
-    var sortedSpells = {};
-    var slots = {};
-    for (var i = 0; i < spells.length; i++) {
-      const lvl = isNewerVersion(game.version, "10.264")
-        ? spells[i].system.lvl
-        : spells[i].data.data.lvl;
-      if (!sortedSpells[lvl]) sortedSpells[lvl] = [];
-      if (!slots[lvl]) slots[lvl] = 0;
-      slots[lvl] += isNewerVersion(game.version, "10.264")
-        ? spells[i].system.memorized
-        : spells[i].data.data.memorized;
-      sortedSpells[lvl].push(spells[i]);
-    }
-    data.slots = {
-      used: slots,
-    };
-    containers.map((container, key, arr) => {
-      const arrayItemData = isNewerVersion(game.version, "10.264")
-        ? arr[key]?.system
-        : arr[key]?.data?.data; //v9-compatibility
-      arrayItemData.itemIds = containerContents[container.id] || [];
-      arrayItemData.totalWeight = containerContents[container.id]?.reduce(
-        (acc, item) => {
-          const containedItemData = isNewerVersion(game.version, "10.264")
-            ? item?.system
-            : item?.data?.data; // v9-compatibility
-          return (
-            acc +
-            containedItemData.weight * (containedItemData.quantity?.value || 1)
-          );
-        },
-        0
-      );
-      return arr;
-    });
-
     // Assign and return
     data.owned = {
-      items: items,
-      armors: armors,
-      weapons: weapons,
-      treasures: treasures,
-      containers: containers,
+      items: this.actor.system.items,
+      armors: this.actor.system.armor,
+      weapons: this.actor.system.weapons,
+      treasures: this.actor.system.treasures,
+      containers: this.actor.system.containers,
     };
-    data.containers = containers;
-    data.abilities = abilities;
-    data.spells = sortedSpells;
+    data.containers = this.actor.system.containers;
+    data.abilities = this.actor.system.abilities;
+    data.spells = this.actor.system.spells.spellList;
+    data.slots = this.actor.system.spellSlots;
 
     // Sort by sort order (see ActorSheet)
     [
       ...Object.values(data.owned),
-      ...Object.values(data.spells),
+      ...Object.values(data?.spells?.spellList || {}),
       data.abilities,
     ].forEach((o) => o.sort((a, b) => (a.sort || 0) - (b.sort || 0)));
   }
@@ -139,16 +78,14 @@ export class OseActorSheetCharacter extends OseActorSheet {
     // Prepare owned items
     this._prepareItems(data);
 
-    if (isNewerVersion(game.version, "10.264")) {
-      data.enrichedBiography = await TextEditor.enrichHTML(
-        this.object.system.details.biography,
-        { async: true }
-      );
-      data.enrichedNotes = await TextEditor.enrichHTML(
-        this.object.system.details.notes,
-        { async: true }
-      );
-    }
+    data.enrichedBiography = await TextEditor.enrichHTML(
+      this.object.system.details.biography,
+      { async: true }
+    );
+    data.enrichedNotes = await TextEditor.enrichHTML(
+      this.object.system.details.notes,
+      { async: true }
+    );
     return data;
   }
 
@@ -156,10 +93,10 @@ export class OseActorSheetCharacter extends OseActorSheet {
     let choices = CONFIG.OSE.languages;
 
     let templateData = { choices: choices },
-      dlg = await renderTemplate(
-        `${OSE.systemPath()}/templates/actors/dialogs/lang-create.html`,
-        templateData
-      );
+        dlg = await renderTemplate(
+          `${OSE.systemPath()}/templates/actors/dialogs/lang-create.html`,
+          templateData
+        );
     //Create Dialog window
     return new Promise((resolve) => {
       new Dialog({

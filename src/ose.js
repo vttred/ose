@@ -18,6 +18,8 @@ import * as renderList from "./module/renderList";
 import { OsePartySheet } from "./module/party/party-sheet";
 import './e2e';
 
+import OseDataModelCharacter from './module/actor/data-model-character';
+
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
 /* -------------------------------------------- */
@@ -44,6 +46,11 @@ Hooks.once("init", async function () {
 
   // Custom Handlebars helpers
   registerHelpers();
+  
+  // Give modules a chance to add encumbrance schemes
+  // They can do so by adding their encumbrance schemes
+  // to CONFIG.OSE.encumbranceOptions
+  Hooks.call('ose-setup-encumbrance');
 
   // Register custom system settings
   registerSettings();
@@ -53,6 +60,8 @@ Hooks.once("init", async function () {
 
   CONFIG.Actor.documentClass = OseActor;
   CONFIG.Item.documentClass = OseItem;
+
+  CONFIG.Actor.systemDataModels['character'] = OseDataModelCharacter;
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);

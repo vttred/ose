@@ -93,10 +93,10 @@ export class OseActorSheetCharacter extends OseActorSheet {
     let choices = CONFIG.OSE.languages;
 
     let templateData = { choices: choices },
-        dlg = await renderTemplate(
-          `${OSE.systemPath()}/templates/actors/dialogs/lang-create.html`,
-          templateData
-        );
+      dlg = await renderTemplate(
+        `${OSE.systemPath()}/templates/actors/dialogs/lang-create.html`,
+        templateData
+      );
     //Create Dialog window
     return new Promise((resolve) => {
       new Dialog({
@@ -123,7 +123,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
   }
 
   _pushLang(table) {
-    const data = this.actor.data.data;
+    const data = this.actor.system;
     let update = data[table]; //V10 compatibility
     this._chooseLang().then((dialogInput) => {
       const name = CONFIG.OSE.languages[dialogInput.choice];
@@ -140,7 +140,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
   }
 
   _popLang(table, lang) {
-    const data = this.actor.data.data;
+    const data = this.actor.system;
     let update = data[table].value.filter((el) => el != lang);
     let newData = {};
     newData[table] = { value: update };

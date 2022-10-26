@@ -15,7 +15,7 @@ export async function createOseMacro(data, slot) {
     return ui.notifications.warn(
       game.i18.localize("OSE.warn.macrosOnlyForOwnedItems")
     );
-  const item = data.data;
+  const item = data;
 
   // Create the macro command
   const command = `game.ose.rollItemMacro("${item.name}");`;

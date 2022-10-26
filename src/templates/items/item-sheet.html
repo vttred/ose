@@ -1,4 +1,3 @@
-{{#if (isV10)}}
 <form class="{{cssClass}}" autocomplete="off">
   <header class="sheet-header">
     <img class="profile-img" src="{{img}}" data-edit="img" title="{{name}}" />
@@ -82,106 +81,9 @@
         </div>
       </div>
       <div class="description weapon-editor">
-        {{editor system.enrichedDescription
-          target="system.details.description"
-          button=true
-          owner=owner
-          editable=editable
-          async=true
-        }}
+        {{editor system.enrichedDescription target="system.details.description"
+        button=true owner=owner editable=editable async=true }}
       </div>
     </div>
   </section>
 </form>
-{{else}}
-<form class="{{cssClass}}" autocomplete="off">
-  <header class="sheet-header">
-    <img class="profile-img" src="{{img}}" data-edit="img" title="{{name}}" />
-    <div class="header-col">
-      <h1 class="charname">
-        <input name="name" type="text" value="{{name}}" placeholder="Name" />
-      </h1>
-      <ol class="tag-list">
-        {{#each data.manualTags as |tag|}}
-        <li class="tag" title="{{tag.title}}" data-tag="{{tag.value}}">
-          <span>{{tag.value}}</span>
-          <a class="tag-delete"><i class="fas fa-times"></i></a>
-        </li>
-        {{/each}}
-      </ol>
-    </div>
-  </header>
-  <section class="sheet-body">
-    <div class="flexrow">
-      <div class="stats">
-        <div class="form-group">
-          <div class="form-fields">
-            <input
-              type="text"
-              data-action="add-tag"
-              title="{{localize 'OSE.items.typeTag'}}"
-              placeholder="{{localize 'OSE.items.enterTag'}}"
-            />
-          </div>
-        </div>
-        <div class="form-group">
-          <label>{{localize 'OSE.items.Quantity'}}</label>
-          <div class="form-fields">
-            <input
-              type="text"
-              name="data.quantity.value"
-              value="{{data.quantity.value}}"
-              data-dtype="Number"
-            />/<input
-              type="text"
-              name="data.quantity.max"
-              value="{{data.quantity.max}}"
-              data-dtype="Number"
-            />
-          </div>
-        </div>
-        <div class="form-group">
-          <label>{{localize 'OSE.items.Treasure'}}</label>
-          <div class="form-fields">
-            <input
-              type="checkbox"
-              name="data.treasure"
-              value="{{data.treasure}}"
-              {{checked
-              data.treasure}}
-              data-dtype="Boolean"
-            />
-          </div>
-        </div>
-        <div class="form-group">
-          <label>{{localize 'OSE.items.Cost'}}</label>
-          <div class="form-fields">
-            <input
-              type="text"
-              name="data.cost"
-              value="{{data.cost}}"
-              data-dtype="Number"
-            />
-          </div>
-        </div>
-        <div class="form-group">
-          <label>{{localize 'OSE.items.Weight'}}</label>
-          <div class="form-fields">
-            <input
-              type="text"
-              name="data.weight"
-              value="{{data.weight}}"
-              data-dtype="Number"
-            />
-          </div>
-        </div>
-      </div>
-      <div class="description weapon-editor">
-        {{editor content=data.details.biography
-        target="data.details.biography" button=true owner=owner
-        editable=editable }}
-      </div>
-    </div>
-  </section>
-</form>
-{{/if}}

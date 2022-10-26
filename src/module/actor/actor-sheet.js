@@ -277,7 +277,6 @@ export class OseActorSheet extends ActorSheet {
     const targetItem = this.object.items.get(targetEl?.dataset?.itemId);
     let targetIsContainer = targetItem?.type == "container" ? true : false;
     const exists = this.object.items.get(item.id) ? true : false;
-    console.log(exists);
 
     if (targetIsContainer) {
       return this._onContainerItemAdd(item, targetItem);

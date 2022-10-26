@@ -12,7 +12,6 @@ export class OseParty {
         act.flags[systemName] &&
         act.flags[systemName].party === true
     );
-    console.log(characters);
     return characters;
   }
 }

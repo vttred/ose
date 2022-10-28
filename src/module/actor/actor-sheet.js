@@ -122,13 +122,11 @@ export class OseActorSheet extends ActorSheet {
    */
   _useConsumable(event, decrement) {
     const item = this._getItemFromActor(event);
-    const itemData = item?.system;
-
-    if (decrement) {
-      item.update({ "system.quantity.value": itemData.quantity.value - 1 });
-    } else {
-      item.update({ "system.quantity.value": itemData.quantity.value + 1 });
-    }
+    if (!item) return null;
+    let {
+      quantity: { value: quantity },
+    } = item.system;
+    item.update({ "system.quantity.value": decrement ? --quantity : ++quantity });
   }
 
   async _onSpellChange(event) {
@@ -187,7 +185,6 @@ export class OseActorSheet extends ActorSheet {
     let element = event.currentTarget;
     let attack = element.parentElement.parentElement.dataset.attack;
     const rollData = {
-      actor: this,
       roll: {},
     };
     actorObject.targetAttack(rollData, attack, {

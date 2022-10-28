@@ -61,7 +61,7 @@
               <i class="fas fa-crosshairs"></i>
               {{e.system.thac0.bba}}
             </div>
-            {{/unless}} {{#if (eq e.data.type 'character')}}
+            {{/unless}} {{#if (eq e.type 'character')}}
             <div class="field-short" title="{{localize 'OSE.Melee'}}">
               <i class="fas fa-fist-raised"></i>
               {{add e.system.scores.str.mod e.system.thac0.mod.melee}}
@@ -83,7 +83,7 @@
                 >{{e.system.movement.base}}</sub
               >
             </div>
-            {{#if (eq e.data.type 'character')}}
+            {{#if (eq e.type 'character')}}
             <div class="field-short flex2">
               <i
                 class="fas fa-weight-hanging"
@@ -99,7 +99,7 @@
               <span title="{{lookup @root.config.saves_long i}}"
                 >{{lookup @root.config.saves_short i}} {{s.value}}</span
               >
-              {{/each}} {{#if (eq e.data.type 'character')}}<span
+              {{/each}} {{#if (eq e.type 'character')}}<span
                 ><i
                   class="fas fa-magic"
                   title="{{localize 'OSE.saves.magic.long'}}"

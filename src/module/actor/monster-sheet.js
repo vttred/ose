@@ -123,7 +123,7 @@ export class OseActorSheetMonster extends OseActorSheet {
     // Sort items and spells alphabetically within their groups
     data.spells = sortedSpells;
     [...Object.values(data.owned), ...Object.values(data.spells)].forEach((o) =>
-      o.sort((a, b) => a.data.name.localeCompare(b.data.name))
+      o.sort((a, b) => a.name.localeCompare(b.name))
     );
 
     // Within each attack pattern, weapons come before abilities,
@@ -131,8 +131,8 @@ export class OseActorSheetMonster extends OseActorSheet {
     Object.values(data.attackPatterns).forEach((o) =>
       o.sort(
         (a, b) =>
-          b.data.type.localeCompare(a.data.type) ||
-          a.data.name.localeCompare(b.data.name)
+          b.type.localeCompare(a.type) ||
+          a.name.localeCompare(b.name)
       )
     );
   }
@@ -249,11 +249,11 @@ export class OseActorSheetMonster extends OseActorSheet {
 
     if (event.target.dataset.field === "value") {
       return item.update({
-        "data.counter.value": parseInt(event.target.value),
+        "system.counter.value": parseInt(event.target.value),
       });
     } else if (event.target.dataset.field === "max") {
       return item.update({
-        "data.counter.max": parseInt(event.target.value),
+        "system.counter.max": parseInt(event.target.value),
       });
     }
   }
@@ -271,7 +271,7 @@ export class OseActorSheetMonster extends OseActorSheet {
       index++;
     }
     item.update({
-      "data.pattern": colors[index],
+      "system.pattern": colors[index],
     });
   }
 

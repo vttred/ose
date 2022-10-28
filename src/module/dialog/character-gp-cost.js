@@ -67,7 +67,7 @@ export class OseCharacterGpCost extends FormApplication {
     const newGP = gp.system.quantity.value - totalCost;
     if (newGP >= 0) {
       this.object.updateEmbeddedDocuments("Item", [
-        { _id: gp.id, "data.quantity.value": newGP },
+        { _id: gp.id, "system.quantity.value": newGP },
       ]);
     } else {
       ui.notifications.error(game.i18n.localize("OSE.error.notEnoughGP"));

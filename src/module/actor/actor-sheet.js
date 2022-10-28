@@ -108,7 +108,7 @@ export class OseActorSheet extends ActorSheet {
     if (item.type === "container" && itemData.itemIds) {
       const containedItems = itemData.itemIds;
       const updateData = containedItems.reduce((acc, val) => {
-        acc.push({ _id: val.id, "data.containerId": "" });
+        acc.push({ _id: val.id, "system.containerId": "" });
         return acc;
       }, []);
 
@@ -125,9 +125,9 @@ export class OseActorSheet extends ActorSheet {
     const itemData = item?.system;
 
     if (decrement) {
-      item.update({ "data.quantity.value": itemData.quantity.value - 1 });
+      item.update({ "system.quantity.value": itemData.quantity.value - 1 });
     } else {
-      item.update({ "data.quantity.value": itemData.quantity.value + 1 });
+      item.update({ "system.quantity.value": itemData.quantity.value + 1 });
     }
   }
 
@@ -135,10 +135,10 @@ export class OseActorSheet extends ActorSheet {
     event.preventDefault();
     const item = this._getItemFromActor(event);
     if (event.target.dataset.field == "cast") {
-      return item.update({ "data.cast": parseInt(event.target.value) });
+      return item.update({ "system.cast": parseInt(event.target.value) });
     } else if (event.target.dataset.field == "memorize") {
       return item.update({
-        "data.memorized": parseInt(event.target.value),
+        "system.memorized": parseInt(event.target.value),
       });
     }
   }
@@ -153,7 +153,7 @@ export class OseActorSheet extends ActorSheet {
       const itemData = item?.system;
       item.update({
         _id: item.id,
-        "data.cast": itemData.memorized,
+        "system.cast": itemData.memorized,
       });
     });
   }
@@ -212,13 +212,13 @@ export class OseActorSheet extends ActorSheet {
       targetData.containerId === ""
     ) {
       this.actor.updateEmbeddedDocuments("Item", [
-        { _id: source.id, "data.containerId": target.id },
+        { _id: source.id, "system.containerId": target.id },
       ]);
       return;
     }
-    if (source?.data.containerId !== "") {
+    if (source?.system.containerId !== "") {
       this.actor.updateEmbeddedDocuments("Item", [
-        { _id: source.id, "data.containerId": "" },
+        { _id: source.id, "system.containerId": "" },
       ]);
     }
 
@@ -407,11 +407,11 @@ export class OseActorSheet extends ActorSheet {
 
     if (event.target.dataset.field === "value") {
       return item.update({
-        "data.quantity.value": parseInt(event.target.value),
+        "system.quantity.value": parseInt(event.target.value),
       });
     } else if (event.target.dataset.field === "max") {
       return item.update({
-        "data.quantity.max": parseInt(event.target.value),
+        "system.quantity.max": parseInt(event.target.value),
       });
     }
   }

@@ -80,7 +80,7 @@ export class OseItem extends Item {
   }
 
   rollWeapon(options = {}) {
-    let isNPC = this.actor.data.type != "character";
+    let isNPC = this.actor.type != "character";
     const targets = 5;
     const itemData = this?.system;
 

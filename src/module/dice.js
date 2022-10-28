@@ -154,7 +154,7 @@ export class OseDice {
 
     const targetAc = data.roll.target ? targetActorData.ac.value : 9;
     const targetAac = data.roll.target ? targetActorData.aac.value : 0;
-    result.victim = data.roll.target ? data.roll.target.data.name : null;
+    result.victim = data.roll.target ? data.roll.target.name : null;
 
     if (game.settings.get(game.system.id, "ascendingAC")) {
       if (

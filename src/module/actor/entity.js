@@ -122,8 +122,8 @@ export class OseActor extends Actor {
       thac0 = CONFIG.OSE.monster_thac0[k];
     });
     this.update({
-      "data.thac0.value": thac0,
-      "data.saves": {
+      "system.thac0.value": thac0,
+      "system.saves": {
         death: {
           value: saves.d,
         },

@@ -46,10 +46,16 @@ export class OseItemSheet extends ItemSheet {
    * Prepare data for rendering the Item sheet
    * The prepared data object contains both the actor data as well as additional sheet options
    */
-  getData() {
+  async getData() {
     const data = super.getData().data;
     data.editable = this.document.sheet.isEditable;
     data.config = CONFIG.OSE;
+    data.enriched = {
+      description: await TextEditor.enrichHTML(
+        this.item.system?.description || this.item.system?.details?.description || "",
+        {async: true}
+      )
+    }
     return data;
   }
 

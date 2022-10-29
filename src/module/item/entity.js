@@ -29,22 +29,11 @@ export class OseItem extends Item {
   }
 
   async prepareDerivedData() {
-    const itemData = this?.system || this?.data?.data; //v9-compatibility
-    itemData.autoTags = this.getAutoTagList();
-    itemData.manualTags = itemData.tags;
-
     // Rich text description
-    if (isNewerVersion(game.version, "10.264")) {
-      itemData.enrichedDescription = await TextEditor.enrichHTML(
-        itemData.details?.description || itemData.description,
-        { async: true }
-      );
-    } else {
-      itemData.description = TextEditor.enrichHTML(
-        itemData.description,
-        htmlOptions
-      );
-    }
+    this.system.enrichedDescription = await TextEditor.enrichHTML(
+      this.system.details?.description || this.system.description,
+      { async: true }
+    );
   }
 
   static chatListeners(html) {
@@ -170,85 +159,9 @@ export class OseItem extends Item {
     });
   }
 
-  _getRollTag(data) {
-    if (data.roll) {
-      const roll = `${data.roll}${
-        data.rollTarget ? CONFIG.OSE.roll_type[data.rollType] : ""
-      }${data.rollTarget ? data.rollTarget : ""}`;
-      return {
-        label: `${game.i18n.localize("OSE.items.Roll")} ${roll}`,
-      };
-    } else {
-      return;
-    }
-  }
-
-  _getSaveTag(data) {
-    if (data.save) {
-      return {
-        label: CONFIG.OSE.saves_long[data.save],
-        icon: "fa-skull",
-      };
-    } else {
-      return;
-    }
-  }
-
-  getAutoTagList() {
-    const tagList = [];
-    const data = this?.system || this?.data?.data; //v9-compatibility
-    const itemType = this?.type || this?.data?.type; //v9-compatibility
-
-    switch (itemType) {
-      case "container":
-      case "item":
-        break;
-      case "weapon":
-        tagList.push({ label: data.damage, icon: "fa-tint" });
-        if (data.missile) {
-          tagList.push({
-            label: `${data.range.short}/${data.range.medium}/${data.range.long}`,
-            icon: "fa-bullseye",
-          });
-        }
-
-        // Push manual tags
-        data.tags.forEach((t) => {
-          tagList.push({ label: t.value });
-        });
-        break;
-      case "armor":
-        tagList.push({ label: CONFIG.OSE.armor[data.type], icon: "fa-tshirt" });
-        break;
-      case "spell":
-        tagList.push(
-          { label: data.class },
-          { label: data.range },
-          { label: data.duration }
-        );
-        break;
-      case "ability":
-        const reqs = data.requirements.split(",");
-        reqs.forEach((req) => tagList.push({ label: req }));
-        break;
-    }
-
-    const rollTag = this._getRollTag(data);
-    if (rollTag) {
-      tagList.push(rollTag);
-    }
-
-    const saveTag = this._getSaveTag(data);
-    if (saveTag) {
-      tagList.push(saveTag);
-    }
-
-    return tagList;
-  }
-
   pushManualTag(values) {
-    const data = this?.system || this?.data?.data; //v9-compatibility
-
+    const data = this?.system || this?.data?.data; //v9-compatibilit
+    
     let update = [];
     if (data.tags) {
       update = data.tags;
@@ -279,13 +192,13 @@ export class OseItem extends Item {
             newData.missile = true;
             break;
         }
-        update.push({ title: title, value: val });
+        update.push({ title: title, value: val, label: val });
       });
     } else {
       update = values;
     }
     newData.tags = update;
-    return this.update({ data: newData });
+    return this.update({ system: newData });
   }
 
   popManualTag(value) {

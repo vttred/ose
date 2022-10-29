@@ -205,20 +205,19 @@ export class OseActorSheet extends ActorSheet {
     const targetId = dropTarget ? dropTarget.dataset.itemId : null;
     const target = siblings.find((s) => s.data._id === targetId);
     const targetData = target?.system || target?.data?.data; //v9-compatibility
-
     // Dragging items into a container
     if (
       (target?.type === "container" || target?.data?.type === "container") &&
       targetData.containerId === ""
     ) {
       this.actor.updateEmbeddedDocuments("Item", [
-        { _id: source.id, "data.containerId": target.id },
+        { _id: source.id, "system.containerId": target.id },
       ]);
       return;
     }
     if (source?.data.containerId !== "") {
       this.actor.updateEmbeddedDocuments("Item", [
-        { _id: source.id, "data.containerId": "" },
+        { _id: source.id, "system.containerId": "" },
       ]);
     }
 
@@ -271,32 +270,24 @@ export class OseActorSheet extends ActorSheet {
     );
   }
   async _onDropItem(event, data){
-    const v10 = isNewerVersion(game.version, "10.264");
     const item = await Item.implementation.fromDropData(data);
-    const itemContainer = v10 ? this.object.items.get(item?.system?.containerId) : this.object.items.get(item?.data?.data?.containerId);
+    const isContainer = this.actor.items.get(item.system.containerId);
+    
+    if (isContainer)
+      return this._onContainerItemRemove(item, isContainer);
+    
     const itemData = item.toObject();
-    const targetEl = event.target.closest('.item')
-    const targetItem = this.object.items.get(targetEl?.dataset?.itemId)
-    let targetIsContainer
-    if(v10) targetIsContainer = targetItem?.type == 'container' ? true : false;
-    if(v10) targetIsContainer = targetItem?.data?.type == 'container' ? true : false;
-    const exists = this.object.items.get(item.id) ? true : false;
-    console.log(exists)
+    const {itemId: targetId} = event.target.closest('.item').dataset;
+    const targetItem = this.actor.items.get(targetId)
+    const targetIsContainer = targetItem?.type === 'container'
 
+    if (targetIsContainer)
+      return this._onContainerItemAdd(item, targetItem);
 
-    if(targetIsContainer){
-      return this._onContainerItemAdd(item, targetItem)
-    }  else if (itemContainer){
-      this._onContainerItemRemove(item, itemContainer)
-
-    } else{
-      if(!exists){
-      return this._onDropItemCreate([itemData])
-      }
-    }
+    const exists = !!this.actor.items.get(item.id);
     
-    
-    
+    if (!exists)
+      return this._onDropItemCreate([itemData]);
   }
   async _onContainerItemRemove(item, container){
     const v10 = isNewerVersion(game.version, "10.264");
@@ -425,17 +416,10 @@ export class OseActorSheet extends ActorSheet {
     event.preventDefault();
     const header = event.currentTarget;
     const type = header.dataset.type;
-
-    // item creation helper func
-    const createItem = function (type, name) {
-      const itemData = {
-        name: name ? name : `New ${type.capitalize()}`,
-        type: type,
-        data: header.dataset,
-      };
-      delete itemData.data["type"];
-      return itemData;
-    };
+    const createItem = (type, name) => ({
+      name: name ? name : `New ${type.capitalize()}`,
+      type: type,
+    });
 
     // Getting back to main logic
     if (type === "choice") {
@@ -444,10 +428,8 @@ export class OseActorSheet extends ActorSheet {
         const itemData = createItem(dialogInput.type, dialogInput.name);
         this.actor.createEmbeddedDocuments("Item", [itemData], {});
       });
-    } else {
-      const itemData = createItem(type);
-      return this.actor.createEmbeddedDocuments("Item", [itemData], {});
-    }
+    } else
+      return this.actor.createEmbeddedDocuments("Item", [createItem(type)], {});
   }
 
   async _updateItemQuantity(event) {

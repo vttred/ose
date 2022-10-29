@@ -44,7 +44,7 @@
         <div class="form-group">
           <label>{{localize 'OSE.items.BlindRoll'}}</label>
           <div class="form-fields">
-            <input type="checkbox" name="system.blindroll" value="{{system.blindroll}}" {{checked system.blindroll}}  data-dtype="Number"/>
+            <input type="checkbox" name="system.blindroll" value="{{system.blindroll}}" {{checked system.blindroll}}  data-dtype="Boolean"/>
           </div>
         </div>
         <div class="form-group">
@@ -61,8 +61,8 @@
           </div>
         </div>
       </div>
-      <div class="description">
-        {{editor system.enrichedDescription
+      <div class="description">{{log this}}
+        {{editor enriched.description
           target="system.description"
           button=true
           owner=owner

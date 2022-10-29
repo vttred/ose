@@ -5,7 +5,10 @@
     {{#if tag.icon}}
     <i class="fas {{tag.icon}}"></i>
     {{/if}}
-    {{tag.label~}}
+    {{#if tag.image}}
+    <img src="{{tag.image}}" title="{{tag.title}}"/>
+    {{/if}}
+    {{localize tag.label~}}
   </li>
   {{/if}}
   {{/each}}

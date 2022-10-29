@@ -7,7 +7,7 @@
         <input name="name" type="text" value="{{name}}" placeholder="Name" />
       </h1>
       <ol class="tag-list">
-        {{#each system.manualTags as |tag|}}
+        {{#each @root.system.tags as |tag|}}
         <li class="tag" title="{{tag.title}}" data-tag="{{tag.value}}">
           <span>{{tag.value}}</span>
           <a class="tag-delete"><i class="fas fa-times"></i></a>
@@ -82,7 +82,7 @@
         </div>
       </div>
       <div class="description weapon-editor">
-        {{editor system.enrichedDescription
+        {{editor enriched.description
           target="system.details.description"
           button=true
           owner=owner

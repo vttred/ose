@@ -1,7 +1,3 @@
-export type QuenchMethods = {
-  [s: string]: any
-}
-
 import characterTests, {
   key as characterKey,
   options as characterOptions
@@ -37,6 +33,10 @@ import dataModelCharacterTests, {
   options as dataModelCharacterOptions
 } from '../module/actor/data-model-character.test.js';
 
+export type QuenchMethods = {
+  [s: string]: any
+}
+
 type Quench = {
   registerBatch: (
     key: string,
@@ -55,3 +55,4 @@ Hooks.on('quenchReady', async (quench: Quench) => {
   quench.registerBatch(dataModelCharacterMoveKey, dataModelCharacterMoveTests, dataModelCharacterMoveOptions);
   quench.registerBatch(dataModelCharacterKey, dataModelCharacterTests, dataModelCharacterOptions);
 });
+

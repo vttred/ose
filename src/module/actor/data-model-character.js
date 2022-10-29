@@ -121,38 +121,13 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
   }
 
   get containers() {
-    const containerContent = this.parent.items
-      .filter(({ system: { containerId } }) => containerId)
-      .reduce((obj, item) => {
-        const { containerId } = item.system;
-
-        return {
-          ...obj,
-          [containerId]: obj[containerId] ? [...obj[containerId], item] : [item]
-        }
-      }, {});
-
-    const containers = getItemsOfActorOfType(
+    return getItemsOfActorOfType(
       this.parent,
       'container',
       ({ system: { containerId } }) => !containerId
     );
-
-    const reducedWeight = (acc, { system: { weight, quantity } }) => (
-      acc + weight * (quantity?.value || 1)
-    );
-
-    const mapItemsToContainer = (container, key) => ({
-      ...container,
-      system: {
-        ...container.system,
-        itemIds: containerContent[container.id] || [],
-        totalWeight: containerContent[container.id]?.reduce(reducedWeight, 0)
-      }
-    });
-
-    return containers.map(mapItemsToContainer);
   }
+
   get treasures() {
     return getItemsOfActorOfType(
       this.parent,

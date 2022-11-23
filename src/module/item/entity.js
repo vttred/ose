@@ -86,7 +86,7 @@ export class OseItem extends Item {
 
     let type = isNPC ? "attack" : "melee";
     const rollData = {
-      item: this,
+      item: this._source,
       actor: this.actor,
       roll: {
         save: itemData.save,
@@ -139,7 +139,7 @@ export class OseItem extends Item {
 
     const newData = {
       actor: this.actor,
-      item: this,
+      item: this._source,
       roll: {
         type: type,
         target: data.rollTarget,
@@ -334,7 +334,7 @@ export class OseItem extends Item {
     const templateData = {
       actor: this.actor,
       tokenId: token ? `${token.parent.id}.${token.id}` : null,
-      item: this,
+      item: this._source,
       data: await this.getChatData(),
       labels: this.labels,
       isHealing: this.isHealing,

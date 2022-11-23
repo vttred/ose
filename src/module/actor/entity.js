@@ -9,9 +9,9 @@ export class OseActor extends Actor {
   prepareData() {
     super.prepareData();
     if (this.type !== "character") {
-      const data = this?.system;
+      const data = this.system;
 
-      const actorType = this?.type;
+      const actorType = this.type;
 
       // Compute modifiers from actor scores
       this._isSlow();
@@ -65,8 +65,8 @@ export class OseActor extends Actor {
   /*  Socket Listeners and Handlers
     /* -------------------------------------------- */
   getExperience(value, options = {}) {
-    const actorData = this?.system;
-    const actorType = this?.type;
+    const actorData = this.system;
+    const actorType = this.type;
     // @TODO this seems like not the best spot for defining the xpKey const
     const xpKey = "system.details.xp.value";
 
@@ -77,7 +77,7 @@ export class OseActor extends Actor {
       value + (actorData.details.xp.bonus * value) / 100
     );
     return this.update({
-      "system.details.xp.value": modified + actorData.details.xp.value,
+      [xpKey]: modified + actorData.details.xp.value,
     }).then(() => {
       const speaker = ChatMessage.getSpeaker({ actor: this });
       ChatMessage.create({
@@ -91,9 +91,9 @@ export class OseActor extends Actor {
   }
 
   isNew() {
-    const data = this?.system;
+    const data = this.system;
 
-    const actorType = this?.type;
+    const actorType = this.type;
     if (actorType == "character") {
       return this.system.isNew;
     } else if (actorType == "monster") {
@@ -148,7 +148,7 @@ export class OseActor extends Actor {
   /* -------------------------------------------- */
 
   rollHP(options = {}) {
-    const actorData = this?.system;
+    const actorData = this.system;
     let roll = new Roll(actorData.hp.hd).roll({ async: false });
     return this.update({
       data: {
@@ -163,8 +163,8 @@ export class OseActor extends Actor {
   rollSave(save, options = {}) {
     const label = game.i18n.localize(`OSE.saves.${save}.long`);
     const rollParts = ["1d20"];
-    const actorData = this?.system;
-    const actorType = this?.type;
+    const actorData = this.system;
+    const actorType = this.type;
 
     const data = {
       actor: this,
@@ -195,7 +195,7 @@ export class OseActor extends Actor {
   }
 
   rollMorale(options = {}) {
-    const actorData = this?.system;
+    const actorData = this.system;
 
     const rollParts = ["2d6"];
 
@@ -223,7 +223,7 @@ export class OseActor extends Actor {
     const label = game.i18n.localize(`OSE.roll.loyalty`);
     const rollParts = ["2d6"];
 
-    const actorData = this?.system;
+    const actorData = this.system;
 
     const data = {
       actor: this,
@@ -288,11 +288,11 @@ export class OseActor extends Actor {
   }
 
   rollCheck(score, options = {}) {
-    const actorType = this?.type;
+    const actorType = this.type;
 
     if (actorType !== "character") return;
 
-    const actorData = this?.system;
+    const actorData = this.system;
 
     const label = game.i18n.localize(`OSE.scores.${score}.long`);
     const rollParts = ["1d20"];
@@ -325,9 +325,9 @@ export class OseActor extends Actor {
   }
 
   rollHitDice(options = {}) {
-    const actorType = this?.type;
+    const actorType = this.type;
 
-    const actorData = this?.system;
+    const actorData = this.system;
 
     const label = game.i18n.localize(`OSE.roll.hd`);
     const rollParts = [actorData.hp.hd];
@@ -355,10 +355,10 @@ export class OseActor extends Actor {
   }
 
   rollAppearing(options = {}) {
-    const actorType = this?.type;
+    const actorType = this.type;
     if (actorType !== "monster") return;
 
-    const actorData = this?.system;
+    const actorData = this.system;
 
     const rollParts = [];
     let label = "";
@@ -391,9 +391,9 @@ export class OseActor extends Actor {
   }
 
   rollExploration(expl, options = {}) {
-    const actorType = this?.type;
+    const actorType = this.type;
     if (actorType !== "character") return;
-    const actorData = this?.system;
+    const actorData = this.system;
 
     const label = game.i18n.localize(`OSE.exploration.${expl}.long`);
     const rollParts = ["1d6"];
@@ -427,7 +427,7 @@ export class OseActor extends Actor {
   }
 
   rollDamage(attData, options = {}) {
-    const data = this?.system;
+    const data = this.system;
 
     const rollData = {
       actor: this,
@@ -476,7 +476,7 @@ export class OseActor extends Actor {
   }
 
   rollAttack(attData, options = {}) {
-    const data = this?.system;
+    const data = this.system;
 
     const rollParts = ["1d20"];
     const dmgParts = [];
@@ -556,9 +556,9 @@ export class OseActor extends Actor {
   }
 
   _isSlow() {
-    const actorData = this?.system;
+    const actorData = this.system;
 
-    const actorItems = this?.items;
+    const actorItems = this.items;
 
     actorData.isSlow = ![...actorItems.values()].every((item) => {
       const itemData = item?.system;
@@ -572,9 +572,9 @@ export class OseActor extends Actor {
   _calculateMovement() {
     if (actor.type === "character") return;
 
-    const actorData = this?.system;
+    const actorData = this.system;
 
-    const actorItems = this?.items;
+    const actorItems = this.items;
 
     const option = game.settings.get(game.system.id, "encumbranceOption");
     const weight = actorData.encumbrance.value;

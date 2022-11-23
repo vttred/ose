@@ -29,7 +29,7 @@ export class OseItem extends Item {
   }
 
   async prepareDerivedData() {
-    const itemData = this?.system;
+    const itemData = this.system;
     itemData.autoTags = this.getAutoTagList();
     itemData.manualTags = itemData.tags;
 
@@ -53,9 +53,9 @@ export class OseItem extends Item {
   }
 
   async getChatData(htmlOptions) {
-    const itemType = this?.type;
+    const itemType = this.type;
 
-    const itemData = this?.system;
+    const itemData = this.system;
 
     // Item properties
     const props = [];
@@ -82,7 +82,7 @@ export class OseItem extends Item {
   rollWeapon(options = {}) {
     let isNPC = this.actor.type != "character";
     const targets = 5;
-    const itemData = this?.system;
+    const itemData = this.system;
 
     let type = isNPC ? "attack" : "melee";
     const rollData = {
@@ -126,7 +126,7 @@ export class OseItem extends Item {
   }
 
   async rollFormula(options = {}) {
-    const data = this?.system;
+    const data = this.system;
 
     if (!data.roll) {
       throw new Error("This Item does not have a formula to roll!");
@@ -160,7 +160,7 @@ export class OseItem extends Item {
   }
 
   spendSpell() {
-    const itemData = this?.system;
+    const itemData = this.system;
     this.update({
       data: {
         cast: itemData.cast - 1,
@@ -196,8 +196,8 @@ export class OseItem extends Item {
 
   getAutoTagList() {
     const tagList = [];
-    const data = this?.system;
-    const itemType = this?.type;
+    const data = this.system;
+    const itemType = this.type;
 
     switch (itemType) {
       case "container":
@@ -247,7 +247,7 @@ export class OseItem extends Item {
   }
 
   pushManualTag(values) {
-    const data = this?.system;
+    const data = this.system;
 
     let update = [];
     if (data.tags) {
@@ -289,7 +289,7 @@ export class OseItem extends Item {
   }
 
   popManualTag(value) {
-    const itemData = this?.system;
+    const itemData = this.system;
 
     const tags = itemData.tags;
     if (!tags) return;
@@ -302,7 +302,7 @@ export class OseItem extends Item {
   }
 
   roll(options = {}) {
-    const itemData = this?.system;
+    const itemData = this.system;
     switch (this.type) {
       case "weapon":
         this.rollWeapon(options);
@@ -328,7 +328,7 @@ export class OseItem extends Item {
    * @return {Promise}
    */
   async show() {
-    const itemType = this?.type;
+    const itemType = this.type;
     // Basic template rendering data
     const token = this.actor.token; //v10: prototypeToken?
     const templateData = {

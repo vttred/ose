@@ -77,7 +77,7 @@ export class OseActor extends Actor {
       value + (actorData.details.xp.bonus * value) / 100
     );
     return this.update({
-      [xpKey]: modified + actorData.details.xp.value,
+      "system.details.xp.value": modified + actorData.details.xp.value,
     }).then(() => {
       const speaker = ChatMessage.getSpeaker({ actor: this });
       ChatMessage.create({

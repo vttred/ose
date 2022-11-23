@@ -222,9 +222,7 @@ export class OseActorSheetMonster extends OseActorSheet {
     } else {
       link = `@UUID[${data.uuid}]`;
     }
-    // @TODO: isn't there a better place for defining this treasureTableKey const
-    const treasureTableKey = "system.details.treasure.table";
-    this.actor.update({ [treasureTableKey]: link });
+    this.actor.update({ 'system.details.treasure.table': link });
   }
 
   /* -------------------------------------------- */
@@ -299,8 +297,7 @@ export class OseActorSheetMonster extends OseActorSheet {
     });
 
     html.find(".treasure-table a").contextmenu((ev) => {
-      const treasureTableKey = "system.details.treasure.table";
-      this.actor.update({ [treasureTableKey]: null });
+      this.actor.update({ 'system.details.treasure.table': null });
     });
 
     // Everything below here is only needed if the sheet is editable

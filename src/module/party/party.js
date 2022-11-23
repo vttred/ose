@@ -1,3 +1,5 @@
+import {OSE} from '../config';
+
 export class OseParty {
   /**
    * @public
@@ -5,12 +7,11 @@ export class OseParty {
    * @return {OseActor[]}
    */
   static get currentParty() {
-    const systemName = game.system.id == "ose" ? game.system.id : "ose-dev";
     const characters = game.actors.filter(
       (act) =>
         act.type === "character" &&
-        act.flags[systemName] &&
-        act.flags[systemName].party === true
+        act.flags[OSE.systemName] &&
+        act.flags[OSE.systemName].party === true
     );
     return characters;
   }

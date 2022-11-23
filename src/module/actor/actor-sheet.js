@@ -126,7 +126,9 @@ export class OseActorSheet extends ActorSheet {
     let {
       quantity: { value: quantity },
     } = item.system;
-    item.update({ "system.quantity.value": decrement ? --quantity : ++quantity });
+    item.update({
+      "system.quantity.value": decrement ? --quantity : ++quantity,
+    });
   }
 
   async _onSpellChange(event) {
@@ -184,7 +186,7 @@ export class OseActorSheet extends ActorSheet {
     let actorObject = this.actor;
     let element = event.currentTarget;
     let attack = element.parentElement.parentElement.dataset.attack;
-    actorObject.targetAttack({roll:{}}, attack, {
+    actorObject.targetAttack({ roll: {} }, attack, {
       type: attack,
       skipDialog: event.ctrlKey || event.metaKey,
     });
@@ -323,13 +325,12 @@ export class OseActorSheet extends ActorSheet {
     if (!container) {
       return this.actor.createEmbeddedDocuments("Item", itemData);
     }
-    if (container) {
-      let itemIds = container.system.itemIds;
-      itemIds.push(itemData.id);
-      const item = this.actor.items.get(itemData[0]._id);
-      await item.update({ system: { containerId: container.id } });
-      await container.update({ system: { itemIds: itemIds } });
-    }
+
+    let itemIds = container.system.itemIds;
+    itemIds.push(itemData.id);
+    const item = this.actor.items.get(itemData[0]._id);
+    await item.update({ system: { containerId: container.id } });
+    await container.update({ system: { itemIds: itemIds } });
   }
 
   /* -------------------------------------------- */
@@ -507,8 +508,8 @@ export class OseActorSheet extends ActorSheet {
     html.find(".inventory .item-category-title").click((event) => {
       this._toggleItemCategory(event);
     });
-    html.find(".inventory .item-category-title input").click((evt) => {
-      evt.stopPropagation();
+    html.find(".inventory .item-category-title input").click((event) => {
+      event.stopPropagation();
     });
     html.find(".inventory .category-caret").click((event) => {
       this._toggleContainedItems(event);

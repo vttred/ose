@@ -227,18 +227,13 @@ export class OseActorSheetMonster extends OseActorSheet {
 
   /* -------------------------------------------- */
   async _resetAttacks(event) {
-    const monsterItems = this.actor?.items;
-    const weapons = monsterItems.filter((i) => i.type === "weapon");
-    for (let wp of weapons) {
-      const item = this.actor.items.get(wp.id);
-      await item.update({
-        data: {
-          counter: {
-            value: parseInt(wp.system.counter.max),
-          },
-        },
-      });
-    }
+    return Promise.all(
+      this.actor.items
+        .filter(i => i.type === 'weapon')
+        .map(weapon => weapon.update({
+          'system.counter.value': parseInt(weapon.system.counter.max)
+        }))
+    )
   }
 
   async _updateAttackCounter(event) {

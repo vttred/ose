@@ -34,7 +34,7 @@ export const registerFVTTModuleAPIs = () => {
         abbreviation: "{#}GP",
         data: {
           item: {
-            "name": "Cold Coins",
+            "name": "Gold Pieces",
             "type": "item",
             "img": "systems/ose/assets/gold.png",
             "system": {

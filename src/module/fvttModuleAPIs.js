@@ -34,7 +34,7 @@ export const registerFVTTModuleAPIs = () => {
         abbreviation: "{#}GP",
         data: {
           item: {
-            "name": "Gold Pieces",
+            "name": game.i18n.localize("OSE.items.gp.long"),
             "type": "item",
             "img": "systems/ose/assets/gold.png",
             "system": {

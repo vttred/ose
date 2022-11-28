@@ -54,7 +54,7 @@ export class OseCharacterGpCost extends FormApplication {
     // Generate gold
     const totalCost = await this._getTotalCost(await this.getData());
     const gp = await this.object.items.find((item) => {
-      itemData = item?.system;
+      itemData = item.system;
       return (
         (item.name === game.i18n.localize("OSE.items.gp.short") ||
           item.name === "GP") && // legacy behavior used GP, even for other languages
@@ -105,7 +105,7 @@ export class OseCharacterGpCost extends FormApplication {
     let total = 0;
     const physical = ["item", "container", "weapon", "armor"];
     data.items.forEach((item) => {
-      const itemData = item?.system;
+      const itemData = item.system;
       if (
         physical.some((itemType) => item.type === itemType) &&
         !itemData.treasure

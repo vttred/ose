@@ -200,6 +200,7 @@ export class OseActorSheet extends ActorSheet {
     const dropTarget = event.target.closest("[data-item-id]");
     const targetId = dropTarget ? dropTarget.dataset.itemId : null;
     const target = siblings.find((s) => s.data._id === targetId);
+    if (!target) throw new Error("Couldn't drop near "+ event.target);
     const targetData = target?.system;
 
     // Dragging items into a container

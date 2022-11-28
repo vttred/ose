@@ -72,11 +72,11 @@ export class OseItemSheet extends ItemSheet {
       this.object.popManualTag(value);
     });
     html.find("a.melee-toggle").click(() => {
-      this.object.update({ data: { melee: !this.object.system.melee } });
+      this.object.update({ 'system.melee': !this.object.system.melee });
     });
 
     html.find("a.missile-toggle").click(() => {
-      this.object.update({ data: { missile: !this.object.system.missile } });
+      this.object.update({ 'system.missile': !this.object.system.missile })
     });
 
     super.activateListeners(html);

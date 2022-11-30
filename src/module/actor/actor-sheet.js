@@ -286,7 +286,7 @@ export class OseActorSheet extends ActorSheet {
     }
   }
   async _onContainerItemRemove(item, container) {
-    let newList = container.system.itemIds.filter((i) => i.id != item.id);
+    const newList = container.system.itemIds.filter((s) => s != item.id);
     const itemObj = this.object.items.get(item.id);
     await container.update({ system: { itemIds: newList } });
     await itemObj.update({ system: { containerId: "" } });

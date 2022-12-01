@@ -218,7 +218,7 @@ export class OseActorSheetMonster extends OseActorSheet {
       let tableData = game.packs
         .get(data.pack)
         .index.filter((el) => el._id === data.id);
-      link = `@Compendium[${data.pack}.${data.id}]{${tableData[0].name}}`;
+      link = `@UUID[${data.uuid}]{${tableData[0].name}}`;
     } else {
       link = `@UUID[${data.uuid}]`;
     }

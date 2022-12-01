@@ -13,11 +13,11 @@
     {{/if}}
   </div>
   <div class="body party-members">
-    {{#if user.isGM}} {{#if (eq partyActors.length 0)}}
+    {{#if (and user.isGM (eq partyActors.length 0))}}
     <div class="drag-drop-placeholder">
       <p>{{localize 'OSE.dialog.partysheetplaceholder'}}</p>
     </div>
-    {{/if}} {{/if}}
+    {{/if}}
     <ol class="actor-list">
       {{#each partyActors as |e|}}
       <li class="actor flexrow" data-actor-id="{{e.id}}">

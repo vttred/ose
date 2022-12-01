@@ -171,7 +171,7 @@ export class OseActorSheetMonster extends OseActorSheet {
   async generateSave() {
     let choices = CONFIG.OSE.monster_saves;
 
-    let templateData = { choices: choices },
+    let templateData = { choices },
       dlg = await renderTemplate(
         `${OSE.systemPath()}/templates/actors/dialogs/monster-saves.html`,
         templateData

@@ -92,7 +92,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
   async _chooseLang() {
     let choices = CONFIG.OSE.languages;
 
-    let templateData = { choices: choices },
+    let templateData = { choices },
       dlg = await renderTemplate(
         `${OSE.systemPath()}/templates/actors/dialogs/lang-create.html`,
         templateData

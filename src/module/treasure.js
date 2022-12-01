@@ -51,20 +51,21 @@ export const augmentTable = (table, html, data) => {
   });
 };
 
-function drawTreasure(table, data) {
-  const percent = (chance) => {
-    const roll = new Roll("1d100");
-    roll.evaluate({ async: false });
-    return roll.total <= chance;
-  };
+async function percentageRoll (chance) {
+  const roll = new Roll("1d100");
+  roll.evaluate({ async: true });
+  return roll.total <= chance;
+};
+
+async function drawTreasure(table, data) {
   data.treasure = {};
   if (table.getFlag(game.system.id, "treasure")) {
     table.results.forEach((r) => {
-      if (percent(r.data.weight)) {
-        const text = r.getChatText(r);
+      if (percentageRoll(r.data.weight)) {
+        const text = r.getChatText();
         data.treasure[r.id] = {
           img: r.data.img,
-          text: TextEditor.enrichHTML(text),
+          text: TextEditor.enrichHTML(text, {async:true}),
         };
         if (
           r.data.type === CONST.TABLE_RESULT_TYPES.DOCUMENT &&

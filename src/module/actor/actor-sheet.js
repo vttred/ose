@@ -299,8 +299,7 @@ export class OseActorSheet extends ActorSheet {
     const itemObj = this.object.items.get(item.id);
     const alreadyExists = container.system.itemIds.find((i) => i.id == item.id);
     if (!alreadyExists) {
-      const newList = [...container.system.itemIds];
-      newList.push(item.id);
+      const newList = [...container.system.itemIds, item.id];
       await container.update({ system: { itemIds: newList } });
       await itemObj.update({ system: { containerId: container.id } });
     }

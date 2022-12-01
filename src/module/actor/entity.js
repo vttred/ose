@@ -337,7 +337,7 @@ export class OseActor extends Actor {
     const label = game.i18n.localize(`OSE.roll.hd`);
     const rollParts = [actorData.hp.hd];
     if (actorType == "character") {
-      rollParts.push(actorData.scores.con.mod);
+      rollParts.push(actorData.scores.con.mod*actorData.details.level);
     }
 
     const data = {

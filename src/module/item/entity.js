@@ -192,7 +192,8 @@ export class OseItem extends Item {
             newData.missile = true;
             break;
         }
-        update.push({ title: title, value: val, label: val });
+        if (!newData.melee && !newData.slow && !newData.missile)
+          update.push({ title: title, value: val, label: val });
       });
     } else {
       update = values;

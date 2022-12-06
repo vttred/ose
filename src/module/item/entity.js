@@ -257,7 +257,7 @@ export class OseItem extends Item {
       hasSave: this.hasSave,
       config: CONFIG.OSE,
     };
-    templateData.data.properties = this.getAutoTagList();
+    templateData.data.properties = this.system.autoTags;
 
     // Render the chat card template
     const template = `${OSE.systemPath()}/templates/chat/item-card.html`;

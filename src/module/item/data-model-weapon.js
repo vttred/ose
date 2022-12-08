@@ -69,6 +69,20 @@ export default class OseDataModelWeapon extends foundry.abstract.DataModel {
 			!tagNames.includes(value)
 		)
 	}
+	/**
+   * Icons that display in the inventory grid's weapon row, under "Qualities"
+	 */
+	get qualities() {
+		return [
+			...this.autoTags
+				.filter(t => !!t.image)
+				.map(t => ({
+				...t,
+				title: t.label
+			})),
+			...this.manualTags
+		];
+	}
 
 
 	get autoTags() {

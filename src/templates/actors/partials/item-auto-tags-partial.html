@@ -5,9 +5,9 @@
     {{#if tag.icon}}
     <i class="fas {{tag.icon}}"></i>
     {{/if}}
-    {{#if tag.image}}
+    {{#unless tag.icon}}{{#if tag.image}}
     <img src="{{tag.image}}" title="{{tag.title}}"/>
-    {{/if}}
+    {{/if}}{{/unless}}
     {{localize tag.label~}}
   </li>
   {{/if}}

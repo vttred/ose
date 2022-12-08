@@ -180,31 +180,31 @@ export const OSE: OseConfig = {
   },
   auto_tags: {
 		get melee() {
-			 return ({ label: CONFIG.OSE.tags.melee, icon: 'fa-sword' })
+			 return ({ label: CONFIG.OSE.tags.melee, image: `${CONFIG.OSE.assetsPath}/melee.png`,icon: 'fa-sword',  })
 		},
 		get missile() {
-			 return ({ label: CONFIG.OSE.tags.missile, icon: 'fa-bow-arrow' })
+			 return ({ label: CONFIG.OSE.tags.missile, image: `${CONFIG.OSE.assetsPath}/missile.png`,icon: 'fa-bow-arrow' })
 		},
 		get slow() {
-			 return ({ label: CONFIG.OSE.tags.slow, icon: 'fa-weight-hanging' })
+			 return ({ label: CONFIG.OSE.tags.slow, image: `${CONFIG.OSE.assetsPath}/slow.png`,icon: 'fa-weight-hanging' })
 		},
 		get twohanded() {
-			 return ({ label: CONFIG.OSE.tags.twohanded, icon: 'fa-hands-holding' })
+			 return ({ label: CONFIG.OSE.tags.twohanded, image: `${CONFIG.OSE.assetsPath}/twohanded.png`,icon: 'fa-hands-holding' })
 		},
 		get blunt() {
-			 return ({ label: CONFIG.OSE.tags.blunt, icon: 'fa-hammer-crash' })
+			 return ({ label: CONFIG.OSE.tags.blunt, image: `${CONFIG.OSE.assetsPath}/blunt.png`,icon: 'fa-hammer-crash' })
 		},
 		get brace() {
-			 return ({ label: CONFIG.OSE.tags.brace, icon: 'fa-block-brick' })
+			 return ({ label: CONFIG.OSE.tags.brace, image: `${CONFIG.OSE.assetsPath}/brace.png`,icon: 'fa-block-brick' })
 		},
 		get splash() {
-			 return ({ label: CONFIG.OSE.tags.splash, icon: 'fa-burst' })
+			 return ({ label: CONFIG.OSE.tags.splash, image: `${CONFIG.OSE.assetsPath}/splash.png`,icon: 'fa-burst' })
 		},
 		get reload() {
-			 return ({ label: CONFIG.OSE.tags.reload, icon: 'fa-gear' })
+			 return ({ label: CONFIG.OSE.tags.reload, image: `${CONFIG.OSE.assetsPath}/reload.png`,icon: 'fa-gear' })
 		},
 		get charge() {
-			 return ({ label: CONFIG.OSE.tags.charge, icon: 'fa-person-running' })
+			 return ({ label: CONFIG.OSE.tags.charge, image: `${CONFIG.OSE.assetsPath}/charge.png`,icon: 'fa-person-running' })
 		}
   },
   tag_images: {

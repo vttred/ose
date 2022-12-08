@@ -23,11 +23,10 @@
         ></div>
         <h4 class="item-name" title="{{item.name}}">{{item.name~}}</h4>
         <div class="tag-row icon-row">
-          {{#each item.system.manualTags as |tag|}} {{#if (getTagIcon
-          tag.value)}}
+          {{#each item.system.qualities as |tag|}} {{#if tag.image}}
           <img
             title="{{tag.title}}"
-            src="{{getTagIcon tag.value}}"
+            src="{{tag.image}}"
             width="24"
             height="24"
           />

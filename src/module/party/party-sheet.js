@@ -119,12 +119,12 @@ export class OsePartySheet extends FormApplication {
     folder.children.forEach((folder) => this._recursiveAddFolder(folder));
   }
 
-  _onDropFolder(event, data) {
+  async _onDropFolder(event, data) {
     if (data.documentName !== "Actor") {
       return;
     }
 
-    const folder = game.folders.get(data.id);
+    const folder = await fromUuid(data.uuid);
     if (!folder) return;
 
     this._recursiveAddFolder(folder);

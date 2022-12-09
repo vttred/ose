@@ -131,15 +131,10 @@ export class OsePartySheet extends FormApplication {
   }
 
   /* - Dragging from the Party Sheet - */
-  _onDragStart(event) {
+  async _onDragStart(event) {
     try {
-      const actorId = event.currentTarget.dataset.actorId;
-
-      const dragData = {
-        id: actorId,
-        type: "Actor",
-      };
-
+      const { uuid } = event.currentTarget.dataset
+      const dragData = (await fromUuid(uuid)).toDragData();
       // Set data transfer
       event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
     } catch (error) {

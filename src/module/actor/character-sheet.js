@@ -53,7 +53,13 @@ export class OseActorSheetCharacter extends OseActorSheet {
     data.abilities = this.actor.system.abilities;
     data.spells = this.actor.system.spells.spellList;
     data.slots = this.actor.system.spellSlots;
-
+    
+    // These values are getters that aren't getting
+    // cloned when `this.actor.system` is cloned
+    data.system.meleeMod = this.actor.system.meleeMod;
+    data.system.rangedMod = this.actor.system.rangedMod;
+    data.system.init = this.actor.system.init;
+    
     // Sort by sort order (see ActorSheet)
     [
       ...Object.values(data.owned),

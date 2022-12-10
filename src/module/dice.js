@@ -150,14 +150,11 @@ export class OseDice {
       total: roll.total,
     };
     result.target = data.roll.thac0;
-    let targetActorData =
-      data.roll.target?.actor?.system ||
-      data.roll.target?.actor?.data?.data ||
-      null; //v9-compatibility
+    let targetActorData = data.roll.target?.actor?.system || null;
 
     const targetAc = data.roll.target ? targetActorData.ac.value : 9;
-    const targetAac = data.roll.target ? targetActorData.aac.value : 0;
-    result.victim = data.roll.target ? data.roll.target.data.name : null;
+    const targetAac = data.roll.target ? targetActorData.aac.value : 10;
+    result.victim = data.roll.target ? data.roll.target.name : null;
 
     if (game.settings.get(game.system.id, "ascendingAC")) {
       if (

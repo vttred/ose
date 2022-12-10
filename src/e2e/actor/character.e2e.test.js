@@ -7,7 +7,6 @@ export const options = {
 
 export default ({before, beforeEach, after, describe, it, expect, ...context}) => {
   const testCharacterName = 'Quench Test Character';
-  const inputDelay = 100;
   const prepareActor = async (data) => {
     await trashChat();
     await trashActor();

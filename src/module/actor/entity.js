@@ -8,10 +8,10 @@ export class OseActor extends Actor {
 
   prepareData() {
     super.prepareData();
-    if (this.type !== 'character') {
-      const data = this?.system || this?.data?.data; //v9-compatibility
+    if (this.type !== "character") {
+      const data = this.system;
 
-      const actorType = this?.type || this?.data?.type; //v9-compatibility
+      const actorType = this.type;
 
       // Compute modifiers from actor scores
       this._isSlow();
@@ -31,14 +31,10 @@ export class OseActor extends Actor {
 
   prepareDerivedData() {
     // @TODO Once the monster data model is done, this can go
-    if (this.type === 'character')
-      this.system.prepareDerivedData?.();
+    if (this.type === "character") this.system.prepareDerivedData?.();
   }
 
   static async update(data, options = {}) {
-    //v9-compatibility
-    data = isNewerVersion(game.version, "10.264") ? data : data.data;
-
     // Compute AAC from AC
     if (data?.ac?.value) {
       data.aac = { value: 19 - data.ac.value };
@@ -69,11 +65,10 @@ export class OseActor extends Actor {
   /*  Socket Listeners and Handlers
     /* -------------------------------------------- */
   getExperience(value, options = {}) {
-    const actorData = this?.system || this?.data?.data; //v9-compatibility
-    const actorType = this?.type || this?.data?.type; //v9-compatibility
-    const xpKey = isNewerVersion(game.version, "10.264")
-      ? "system.details.xp.value"
-      : "data.details.xp.value"; //v9-compatibility
+    const actorData = this.system;
+    const actorType = this.type;
+    // @TODO this seems like not the best spot for defining the xpKey const
+    const xpKey = "system.details.xp.value";
 
     if (actorType !== "character") {
       return;
@@ -96,9 +91,9 @@ export class OseActor extends Actor {
   }
 
   isNew() {
-    const data = this?.system || this?.data?.data; //v9-compatibility
+    const data = this.system;
 
-    const actorType = this?.type || this?.data?.type; //v9-compatibility
+    const actorType = this.type;
     if (actorType == "character") {
       return this.system.isNew;
     } else if (actorType == "monster") {
@@ -127,8 +122,8 @@ export class OseActor extends Actor {
       thac0 = CONFIG.OSE.monster_thac0[k];
     });
     this.update({
-      "data.thac0.value": thac0,
-      "data.saves": {
+      "system.thac0.value": thac0,
+      "system.saves": {
         death: {
           value: saves.d,
         },
@@ -153,7 +148,7 @@ export class OseActor extends Actor {
   /* -------------------------------------------- */
 
   rollHP(options = {}) {
-    const actorData = this?.system || this?.data?.data; //v9-compatibility
+    const actorData = this.system;
     let roll = new Roll(actorData.hp.hd).roll({ async: false });
     return this.update({
       data: {
@@ -168,11 +163,11 @@ export class OseActor extends Actor {
   rollSave(save, options = {}) {
     const label = game.i18n.localize(`OSE.saves.${save}.long`);
     const rollParts = ["1d20"];
-    const actorData = this?.system || this?.data?.data; //v9-compatibility
-    const actorType = this?.type || this?.data?.type; //v9-compatibility
+    const actorData = this.system;
+    const actorType = this.type;
 
     const data = {
-      actor: isNewerVersion(game.version, "10.264") ? this : this.data, //v9-compatibility
+      actor: this,
       roll: {
         type: "above",
         target: actorData.saves[save].value,
@@ -200,12 +195,12 @@ export class OseActor extends Actor {
   }
 
   rollMorale(options = {}) {
-    const actorData = this?.system || this?.data?.data; //v9-compatibility
+    const actorData = this.system;
 
     const rollParts = ["2d6"];
 
     const data = {
-      actor: isNewerVersion(game.version, "10.264") ? this : this.data, //v9-compatibility
+      actor: this,
       roll: {
         type: "below",
         target: actorData.details.morale,
@@ -228,10 +223,10 @@ export class OseActor extends Actor {
     const label = game.i18n.localize(`OSE.roll.loyalty`);
     const rollParts = ["2d6"];
 
-    const actorData = this?.system || this?.data?.data; //v9-compatibility
+    const actorData = this.system;
 
     const data = {
-      actor: isNewerVersion(game.version, "10.264") ? this : this.data, //v9-compatibility
+      actor: this,
       roll: {
         type: "below",
         target: actorData.retainer.loyalty,
@@ -254,24 +249,24 @@ export class OseActor extends Actor {
     const rollParts = ["2d6"];
 
     const data = {
-      actor: isNewerVersion(game.version, "10.264") ? this : this.data, //v9-compatibility
+      actor: this,
       roll: {
         type: "table",
         table: {
           2: game.i18n.format("OSE.reaction.Hostile", {
-            name: this.data.name,
+            name: this.name,
           }),
           3: game.i18n.format("OSE.reaction.Unfriendly", {
-            name: this.data.name,
+            name: this.name,
           }),
           6: game.i18n.format("OSE.reaction.Neutral", {
-            name: this.data.name,
+            name: this.name,
           }),
           9: game.i18n.format("OSE.reaction.Indifferent", {
-            name: this.data.name,
+            name: this.name,
           }),
           12: game.i18n.format("OSE.reaction.Friendly", {
-            name: this.data.name,
+            name: this.name,
           }),
         },
       },
@@ -293,17 +288,17 @@ export class OseActor extends Actor {
   }
 
   rollCheck(score, options = {}) {
-    const actorType = this?.type || this?.data?.type; //v9-compatibility
+    const actorType = this.type;
 
     if (actorType !== "character") return;
 
-    const actorData = this?.system || this?.data?.data; //v9-compatibility
+    const actorData = this.system;
 
     const label = game.i18n.localize(`OSE.scores.${score}.long`);
     const rollParts = ["1d20"];
 
     const data = {
-      actor: isNewerVersion(game.version, "10.264") ? this : this.data, //v9-compatibility
+      actor: this,
       roll: {
         type: "check",
         target: actorData.scores[score].value,
@@ -330,18 +325,18 @@ export class OseActor extends Actor {
   }
 
   rollHitDice(options = {}) {
-    const actorType = this?.type || this?.data?.type; //v9-compatibility
+    const actorType = this.type;
 
-    const actorData = this?.system || this?.data?.data; //v9-compatibility
+    const actorData = this.system;
 
     const label = game.i18n.localize(`OSE.roll.hd`);
     const rollParts = [actorData.hp.hd];
     if (actorType == "character") {
-      rollParts.push(actorData.scores.con.mod);
+      rollParts.push(actorData.scores.con.mod*actorData.details.level);
     }
 
     const data = {
-      actor: isNewerVersion(game.version, "10.264") ? this : this.data, //v9-compatibility
+      actor: this,
       roll: {
         type: "hitdice",
       },
@@ -360,10 +355,10 @@ export class OseActor extends Actor {
   }
 
   rollAppearing(options = {}) {
-    const actorType = this?.type || this?.data?.type; //v9-compatibility
+    const actorType = this.type;
     if (actorType !== "monster") return;
 
-    const actorData = this?.system || this?.data?.data; //v9-compatibility
+    const actorData = this.system;
 
     const rollParts = [];
     let label = "";
@@ -375,7 +370,7 @@ export class OseActor extends Actor {
       label = "(1)";
     }
     const data = {
-      actor: isNewerVersion(game.version, "10.264") ? this : this.data, //v9-compatibility
+      actor: this,
       roll: {
         type: {
           type: "appearing",
@@ -396,15 +391,15 @@ export class OseActor extends Actor {
   }
 
   rollExploration(expl, options = {}) {
-    const actorType = this?.type || this?.data?.type; //v9-compatibility
+    const actorType = this.type;
     if (actorType !== "character") return;
-    const actorData = this?.system || this?.data?.data; //v9-compatibility
+    const actorData = this.system;
 
     const label = game.i18n.localize(`OSE.exploration.${expl}.long`);
     const rollParts = ["1d6"];
 
     const data = {
-      actor: isNewerVersion(game.version, "10.264") ? this : this.data, //v9-compatibility
+      actor: this,
       roll: {
         type: "below",
         target: actorData.exploration[expl],
@@ -416,7 +411,8 @@ export class OseActor extends Actor {
     };
 
     let skip =
-      options.fastForward || (options.event && (options.event.ctrlKey || options.event.metaKey));
+      options.fastForward ||
+      (options.event && (options.event.ctrlKey || options.event.metaKey));
 
     // Roll and return
     return OseDice.Roll({
@@ -431,10 +427,10 @@ export class OseActor extends Actor {
   }
 
   rollDamage(attData, options = {}) {
-    const data = this?.system || this?.data?.data; //v9-compatibility
+    const data = this.system;
 
     const rollData = {
-      actor: isNewerVersion(game.version, "10.264") ? this : this.data, //v9-compatibility
+      actor: this,
       item: attData.item,
       roll: {
         type: "damage",
@@ -480,12 +476,12 @@ export class OseActor extends Actor {
   }
 
   rollAttack(attData, options = {}) {
-    const data = this?.system || this?.data?.data; //v9-compatibility
+    const data = this.system;
 
     const rollParts = ["1d20"];
     const dmgParts = [];
     let label = game.i18n.format("OSE.roll.attacks", {
-      name: this.data.name,
+      name: this.name,
     });
     if (!attData.item) {
       dmgParts.push("1d6");
@@ -519,7 +515,7 @@ export class OseActor extends Actor {
       dmgParts.push(data.scores.str.mod);
     }
     const rollData = {
-      actor: isNewerVersion(game.version, "10.264") ? this : this.data, //v9-compatibility
+      actor: this,
       item: attData.item,
       itemId: attData.item?._id,
       roll: {
@@ -551,21 +547,21 @@ export class OseActor extends Actor {
   async applyDamage(amount = 0, multiplier = 1) {
     amount = Math.floor(parseInt(amount) * multiplier);
 
-    const {value, max} = this.system.hp;
+    const { value, max } = this.system.hp;
 
     // Update the Actor
     return this.update({
-      "system.hp.value": Math.clamped(value - amount, 0, max)
+      "system.hp.value": Math.clamped(value - amount, 0, max),
     });
   }
 
   _isSlow() {
-    const actorData = this?.system || this?.data?.data; //v9-compatibility
+    const actorData = this.system;
 
-    const actorItems = this?.items || this?.data?.items; //v9-compatibility
+    const actorItems = this.items;
 
     actorData.isSlow = ![...actorItems.values()].every((item) => {
-      const itemData = item?.system || item?.data?.data; // v9-compatibility
+      const itemData = item?.system;
       if (item.type !== "weapon" || !itemData.slow || !itemData.equipped) {
         return true;
       }
@@ -574,11 +570,11 @@ export class OseActor extends Actor {
   }
 
   _calculateMovement() {
-    if (actor.type === 'character') return;
-    
-    const actorData = this?.system || this?.data?.data; //v9-compatibility
+    if (actor.type === "character") return;
 
-    const actorItems = this?.items || this?.data?.items; //v9-compatibility
+    const actorData = this.system;
+
+    const actorItems = this.items;
 
     const option = game.settings.get(game.system.id, "encumbranceOption");
     const weight = actorData.encumbrance.value;
@@ -599,7 +595,7 @@ export class OseActor extends Actor {
       const armors = actorItems.filter((i) => i.type === "armor");
       let heaviest = 0;
       armors.forEach((a) => {
-        const armorData = a?.system || a?.data?.data; //v9-compatibility
+        const armorData = a?.system;
         const weight = armorData.type;
         const equipped = armorData.equipped;
         if (equipped) {

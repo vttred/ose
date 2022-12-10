@@ -13,6 +13,9 @@
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-12-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
+[![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2Fose&colorB=4aa94a)](https://forge-vtt.com/bazaar#package=ose)
+[![Foundry Hub Endorsements](https://img.shields.io/endpoint?logoColor=white&url=https%3A%2F%2Fwww.foundryvtt-hub.com%2Fwp-json%2Fhubapi%2Fv1%2Fpackage%2Fose%2Fshield%2Fendorsements)](https://www.foundryvtt-hub.com/package/ose/)
+[![Foundry Hub Comments](https://img.shields.io/endpoint?logoColor=white&url=https%3A%2F%2Fwww.foundryvtt-hub.com%2Fwp-json%2Fhubapi%2Fv1%2Fpackage%2Fose%2Fshield%2Fcomments)](https://www.foundryvtt-hub.com/package/ose/)
 
 ## Installation
 
@@ -68,6 +71,12 @@ Any feedback is deeply appreciated. Please browse the [open issues](https://gith
 If you're a developer, look for our [CONTRIBUTING.md](/CONTRIBUTING.md) file.
 
 If you speak a non-English language, [Join the ose project on Crowdin](https://crowdin.com/project/ose).
+
+### Language Support Chart
+
+[![Language support chart](https://badges.awesome-crowdin.com/translation-15191204-504892.png)](https://crowdin.com/project/ose)
+
+Above is a list of all languages we need help supporting. The ones with shorter bars need your help by submitting a few more words and phrases for full language support. The ones with green bar segments need your help by proofreading submitted words and phrases.
 
 ## Open Game Content Used Under License
 

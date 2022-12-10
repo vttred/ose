@@ -35,7 +35,6 @@ export const addChatMessageButtons = function (msg: ChatMessage, html: JQuery) {
   if (
     // @ts-ignore need to add ChatMessage document property updates.
     msg?.blind &&
-    msg?.data?.blind && //v9 compatibility
     !game.user?.isGM &&
     blindable &&
     blindable.data("blind") === true

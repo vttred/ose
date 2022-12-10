@@ -65,7 +65,7 @@ export class OsePartyXP extends FormApplication {
     const baseXpShare = parseFloat(totalXP) / currentParty.length;
 
     currentParty.forEach((a) => {
-      const actorData = a?.system || a?.data.data; //v9-compatibility
+      const actorData = a?.system;
       const xpShare = Math.floor(
         (actorData.details.xp.share / 100) * baseXpShare
       );

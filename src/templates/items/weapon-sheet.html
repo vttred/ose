@@ -1,4 +1,3 @@
-{{#if (isV10)}}
 <form class="{{cssClass}}" autocomplete="off">
   <header class="sheet-header">
     <img class="profile-img" src="{{img}}" data-edit="img" title="{{name}}" />
@@ -9,17 +8,29 @@
         </h1>
         <div class="details">
           <div class="form-group">
-            <label title="{{localize 'OSE.items.Cost'}}"><i class="fas
-                fa-circle"></i></label>
+            <label title="{{localize 'OSE.items.Cost'}}"
+              ><i class="fas fa-circle"></i
+            ></label>
             <div class="form-fields">
-              <input type="text" name="system.cost" value="{{system.cost}}" data-dtype="Number" />
+              <input
+                type="text"
+                name="system.cost"
+                value="{{system.cost}}"
+                data-dtype="Number"
+              />
             </div>
           </div>
           <div class="form-group">
-            <label title="{{localize 'OSE.items.Weight'}}"><i class="fas
-                fa-weight-hanging"></i></label>
+            <label title="{{localize 'OSE.items.Weight'}}"
+              ><i class="fas fa-weight-hanging"></i
+            ></label>
             <div class="form-fields">
-              <input type="text" name="system.weight" value="{{system.weight}}" data-dtype="Number" />
+              <input
+                type="text"
+                name="system.weight"
+                value="{{system.weight}}"
+                data-dtype="Number"
+              />
             </div>
           </div>
         </div>
@@ -39,38 +50,76 @@
       <div class="stats">
         <div class="form-group">
           <div class="form-fields">
-            <input type="text" data-action="add-tag" title="{{localize 'OSE.items.typeTag'}}"
-              placeholder="{{localize 'OSE.items.enterTag'}}" />
+            <input
+              type="text"
+              data-action="add-tag"
+              title="{{localize 'OSE.items.typeTag'}}"
+              placeholder="{{localize 'OSE.items.enterTag'}}"
+            />
           </div>
         </div>
         <div class="form-group block-input">
           <label>{{localize 'OSE.items.Damage'}}</label>
           <div class="form-fields">
-            <input type="text" name="system.damage" value="{{system.damage}}" data-dtype="String" />
+            <input
+              type="text"
+              name="system.damage"
+              value="{{system.damage}}"
+              data-dtype="String"
+            />
           </div>
         </div>
         <div class="form-group">
-          <label title="{{localize 'OSE.items.AtkBonus'}}">{{localize
-            'OSE.items.Bonus'}}</label>
+          <label title="{{localize 'OSE.items.AtkBonus'}}"
+            >{{localize 'OSE.items.Bonus'}}</label
+          >
           <div class="form-fields">
-            <input type="text" name="system.bonus" value="{{system.bonus}}" data-dtype="Number" />
+            <input
+              type="text"
+              name="system.bonus"
+              value="{{system.bonus}}"
+              data-dtype="Number"
+            />
           </div>
         </div>
         <div class="form-group attack-type">
-          <a title="{{localize 'OSE.items.Melee'}}" class="melee-toggle {{#if
-            system.melee}}active{{/if}}"><i class="fas fa-fist-raised"></i></a>
-          <a title="{{localize 'OSE.items.Missile'}}" class="missile-toggle
-            {{#if system.missile}}active{{/if}}"><i class="fas fa-bullseye"></i></a>
+          <a
+            title="{{localize 'OSE.items.Melee'}}"
+            class="melee-toggle {{#if
+            system.melee}}active{{/if}}"
+            ><i class="fas fa-fist-raised"></i
+          ></a>
+          <a
+            title="{{localize 'OSE.items.Missile'}}"
+            class="missile-toggle
+            {{#if system.missile}}active{{/if}}"
+            ><i class="fas fa-bullseye"></i
+          ></a>
         </div>
         {{#if system.missile}}
         <div class="form-group block-input">
           <label>{{localize 'OSE.items.Range'}}</label>
           <div class="form-fields range">
-            <input type="text" name="system.range.short" value="{{system.range.short}}" data-dtype="Number" />
+            <input
+              type="text"
+              name="system.range.short"
+              value="{{system.range.short}}"
+              data-dtype="Number"
+            />
             <div class="sep"></div>
-            <input type="text" name="system.range.medium" value="{{system.range.medium}}" data-dtype="Number" />
+            <input
+              type="text"
+              name="system.range.medium"
+              value="{{system.range.medium}}"
+              data-dtype="Number"
+            />
             <div class="sep"></div>
-            <input type="text" name="system.range.long" value="{{system.range.long}}" data-dtype="Number" />
+            <input
+              type="text"
+              name="system.range.long"
+              value="{{system.range.long}}"
+              data-dtype="Number"
+            />
           </div>
         </div>
         {{/if}}
@@ -82,133 +131,27 @@
               <option value=""></option>
               {{#each config.saves_short as |save a|}}
               <option value="{{a}}">{{save}}</option>
-              {{/each}}
-              {{/select}}
+              {{/each}} {{/select}}
             </select>
           </div>
         </div>
         <div class="form-group">
           <label>{{localize 'OSE.items.Slow'}}</label>
           <div class="form-fields">
-            <input type="checkbox" name="system.slow" {{checked system.slow}} data-dtype="Boolean" />
+            <input
+              type="checkbox"
+              name="system.slow"
+              {{checked
+              system.slow}}
+              data-dtype="Boolean"
+            />
           </div>
         </div>
       </div>
       <div class="description weapon-editor">
-        {{editor system.enrichedDescription
-          target="system.description"
-          button=true
-          owner=owner
-          editable=editable
-          async=true
-        }}
+        {{editor system.enrichedDescription target="system.description"
+        button=true owner=owner editable=editable async=true }}
       </div>
     </div>
   </section>
 </form>
-{{else}}
-<form class="{{cssClass}}" autocomplete="off">
-  <header class="sheet-header">
-    <img class="profile-img" src="{{img}}" data-edit="img" title="{{name}}" />
-    <div class="header-col">
-      <div class="flexrow">
-        <h1 class="charname">
-          <input name="name" type="text" value="{{name}}" placeholder="Name" />
-        </h1>
-        <div class="details">
-          <div class="form-group">
-            <label title="{{localize 'OSE.items.Cost'}}"><i class="fas
-                fa-circle"></i></label>
-            <div class="form-fields">
-              <input type="text" name="data.cost" value="{{data.cost}}" data-dtype="Number" />
-            </div>
-          </div>
-          <div class="form-group">
-            <label title="{{localize 'OSE.items.Weight'}}"><i class="fas
-                fa-weight-hanging"></i></label>
-            <div class="form-fields">
-              <input type="text" name="data.weight" value="{{data.weight}}" data-dtype="Number" />
-            </div>
-          </div>
-        </div>
-      </div>
-      <ol class="tag-list">
-        {{#each data.manualTags as |tag|}}
-        <li class="tag" title="{{tag.title}}" data-tag="{{tag.value}}">
-          <span>{{tag.value}}</span>
-          <a class="tag-delete"><i class="fas fa-times"></i></a>
-        </li>
-        {{/each}}
-      </ol>
-    </div>
-  </header>
-  <section class="sheet-body">
-    <div class="flexrow">
-      <div class="stats">
-        <div class="form-group">
-          <div class="form-fields">
-            <input type="text" data-action="add-tag" title="{{localize 'OSE.items.typeTag'}}"
-              placeholder="{{localize 'OSE.items.enterTag'}}" />
-          </div>
-        </div>
-        <div class="form-group block-input">
-          <label>{{localize 'OSE.items.Damage'}}</label>
-          <div class="form-fields">
-            <input type="text" name="data.damage" value="{{data.damage}}" data-dtype="String" />
-          </div>
-        </div>
-        <div class="form-group">
-          <label title="{{localize 'OSE.items.AtkBonus'}}">{{localize
-            'OSE.items.Bonus'}}</label>
-          <div class="form-fields">
-            <input type="text" name="data.bonus" value="{{data.bonus}}" data-dtype="Number" />
-          </div>
-        </div>
-        <div class="form-group attack-type">
-          <a title="{{localize 'OSE.items.Melee'}}" class="melee-toggle {{#if
-            data.melee}}active{{/if}}"><i class="fas fa-fist-raised"></i></a>
-          <a title="{{localize 'OSE.items.Missile'}}" class="missile-toggle
-            {{#if data.missile}}active{{/if}}"><i class="fas fa-bullseye"></i></a>
-        </div>
-        {{#if data.missile}}
-        <div class="form-group block-input">
-          <label>{{localize 'OSE.items.Range'}}</label>
-          <div class="form-fields range">
-            <input type="text" name="data.range.short" value="{{data.range.short}}" data-dtype="Number" />
-            <div class="sep"></div>
-            <input type="text" name="data.range.medium" value="{{data.range.medium}}" data-dtype="Number" />
-            <div class="sep"></div>
-            <input type="text" name="data.range.long" value="{{data.range.long}}" data-dtype="Number" />
-          </div>
-        </div>
-        {{/if}}
-        <div class="form-group">
-          <label>{{localize 'OSE.spells.Save'}}</label>
-          <div class="form-fields">
-            <select name="data.save">
-              {{#select data.save}}
-              <option value=""></option>
-              {{#each config.saves_short as |save a|}}
-              <option value="{{a}}">{{save}}</option>
-              {{/each}}
-              {{/select}}
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label>{{localize 'OSE.items.Slow'}}</label>
-          <div class="form-fields">
-            <input type="checkbox" name="data.slow" value="{{data.slow}}" {{checked data.slow}} data-dtype="Number" />
-          </div>
-        </div>
-      </div>
-      <div class="description weapon-editor">
-        {{editor content=data.description target="data.description" button=true
-        owner=owner editable=editable}}
-        
-      </div>
-    </div>
-  </section>
-</form>
-
-{{/if}}

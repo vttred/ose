@@ -62,7 +62,7 @@
               value="{{system.blindroll}}"
               {{checked
               system.blindroll}}
-              data-dtype="Number"
+              data-dtype="Boolean"
             />
           </div>
         </div>
@@ -80,8 +80,13 @@
         </div>
       </div>
       <div class="description">
-        {{editor system.enrichedDescription target="system.description"
-        button=true owner=owner editable=editable async=true }}
+        {{editor enriched.description
+          target="system.description"
+          button=true
+          owner=owner
+          editable=editable
+          async=true
+        }}
       </div>
     </div>
   </section>

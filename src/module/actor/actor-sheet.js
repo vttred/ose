@@ -266,24 +266,25 @@ export class OseActorSheet extends ActorSheet {
       })
     );
   }
-  async _onDropItem(event, data) {
+  async _onDropItem(event, data){
     const item = await Item.implementation.fromDropData(data);
-    const itemContainer = this.object.items.get(item?.system?.containerId);
+    const isContainer = this.actor.items.get(item.system.containerId);
+    
+    if (isContainer)
+      return this._onContainerItemRemove(item, isContainer);
+    
     const itemData = item.toObject();
-    const targetEl = event.target.closest(".item");
-    const targetItem = this.object.items.get(targetEl?.dataset?.itemId);
-    let targetIsContainer = targetItem?.type == "container" ? true : false;
-    const exists = this.object.items.get(item.id) ? true : false;
+    const {itemId: targetId} = event.target.closest('.item').dataset;
+    const targetItem = this.actor.items.get(targetId)
+    const targetIsContainer = targetItem?.type === 'container'
 
-    if (targetIsContainer) {
+    if (targetIsContainer)
       return this._onContainerItemAdd(item, targetItem);
-    } else if (itemContainer) {
-      this._onContainerItemRemove(item, itemContainer);
-    } else {
-      if (!exists) {
-        return this._onDropItemCreate([itemData]);
-      }
-    }
+
+    const exists = !!this.actor.items.get(item.id);
+    
+    if (!exists)
+      return this._onDropItemCreate([itemData]);
   }
   async _onContainerItemRemove(item, container) {
     const newList = container.system.itemIds.filter((s) => s != item.id);
@@ -371,17 +372,10 @@ export class OseActorSheet extends ActorSheet {
     event.preventDefault();
     const header = event.currentTarget;
     const type = header.dataset.type;
-
-    // item creation helper func
-    const createItem = function (type, name) {
-      const itemData = {
-        name: name ? name : `New ${type.capitalize()}`,
-        type: type,
-        data: header.dataset,
-      };
-      delete itemData.data["type"];
-      return itemData;
-    };
+    const createItem = (type, name) => ({
+      name: name ? name : `New ${type.capitalize()}`,
+      type: type,
+    });
 
     // Getting back to main logic
     if (type === "choice") {
@@ -390,10 +384,8 @@ export class OseActorSheet extends ActorSheet {
         const itemData = createItem(dialogInput.type, dialogInput.name);
         this.actor.createEmbeddedDocuments("Item", [itemData], {});
       });
-    } else {
-      const itemData = createItem(type);
-      return this.actor.createEmbeddedDocuments("Item", [itemData], {});
-    }
+    } else
+      return this.actor.createEmbeddedDocuments("Item", [createItem(type)], {});
   }
 
   async _updateItemQuantity(event) {

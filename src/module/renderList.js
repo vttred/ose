@@ -2,7 +2,7 @@ import { OseItem } from "./item/entity";
 import { OSE } from "./config";
 
 export const RenderCompendium = async function (object, html, d) {
-  if (object.documentName != "Item") {
+  if (object.metadata.type != "Item") {
     return;
   }
   const render = html[0].querySelectorAll(".item");
@@ -15,7 +15,7 @@ export const RenderCompendium = async function (object, html, d) {
     const tagTemplate = $.parseHTML(
       await renderTemplate(
         `${OSE.systemPath()}/templates/actors/partials/item-auto-tags-partial.html`,
-        { tags: OseItem.prototype.getAutoTagList.call(element) }
+        { tags: element.system.autoTags }
       )
     );
 
@@ -39,7 +39,7 @@ export const RenderDirectory = async function (object, html) {
     const tagTemplate = $.parseHTML(
       await renderTemplate(
         `${OSE.systemPath()}/templates/actors/partials/item-auto-tags-partial.html`,
-        { tags: OseItem.prototype.getAutoTagList.call(foundryDocument) }
+        { tags: foundryDocument.system.autoTags || []}
       )
     );
     $(item).append(tagTemplate);

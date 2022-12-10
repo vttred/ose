@@ -29,22 +29,11 @@ export class OseItem extends Item {
   }
 
   async prepareDerivedData() {
-    const itemData = this.system;
-    itemData.autoTags = this.getAutoTagList();
-    itemData.manualTags = itemData.tags;
-
     // Rich text description
-    if (isNewerVersion(game.version, "10.264")) {
-      itemData.enrichedDescription = await TextEditor.enrichHTML(
-        itemData.details?.description || itemData.description,
-        { async: true }
-      );
-    } else {
-      itemData.description = TextEditor.enrichHTML(
-        itemData.description,
-        htmlOptions
-      );
-    }
+    this.system.enrichedDescription = await TextEditor.enrichHTML(
+      this.system.details?.description || this.system.description,
+      { async: true }
+    );
   }
 
   static chatListeners(html) {
@@ -247,8 +236,7 @@ export class OseItem extends Item {
   }
 
   pushManualTag(values) {
-    const data = this.system;
-
+    const data = this?.system;
     let update = [];
     if (data.tags) {
       update = data.tags;
@@ -279,13 +267,14 @@ export class OseItem extends Item {
             newData.missile = true;
             break;
         }
-        update.push({ title: title, value: val });
+        if (!newData.melee && !newData.slow && !newData.missile)
+          update.push({ title: title, value: val, label: val });
       });
     } else {
       update = values;
     }
     newData.tags = update;
-    return this.update({ data: newData });
+    return this.update({ system: newData });
   }
 
   popManualTag(value) {
@@ -343,7 +332,7 @@ export class OseItem extends Item {
       hasSave: this.hasSave,
       config: CONFIG.OSE,
     };
-    templateData.data.properties = this.getAutoTagList();
+    templateData.data.properties = this.system.autoTags;
 
     // Render the chat card template
     const template = `${OSE.systemPath()}/templates/chat/item-card.html`;

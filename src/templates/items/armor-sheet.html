@@ -6,14 +6,14 @@
         <input name="name" type="text" value="{{name}}" placeholder="Name" />
       </h1>
       <ol class="tag-list">
-        {{#each system.manualTags as |tag|}}
-        <li class="tag" title="{{tag.title}}" data-tag="{{tag.value}}">
-          <span>{{tag.value}}</span>
-          <a class="tag-delete"><i class="fas fa-times"></i></a>
-        </li>
-        {{/each}}
-      </ol>
-    </div>
+          {{#each @root.system.tags as |tag|}}
+          <li class="tag" title="{{tag.title}}" data-tag="{{tag.value}}">
+            <span>{{tag.value}}</span>
+            <a class="tag-delete"><i class="fas fa-times"></i></a>
+          </li>
+          {{/each}}
+        </ol>
+    </div>  
   </header>
   <section class="sheet-body">
     <div class="flexrow">
@@ -58,7 +58,8 @@
               <option value=""></option>
               {{#each config.armor as |armor a|}}
               <option value="{{a}}">{{armor}}</option>
-              {{/each}} {{/select}}
+              {{/each}}
+              {{/select}}
             </select>
           </div>
         </div>

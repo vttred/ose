@@ -34,8 +34,13 @@
         </div>
       </div>
       <div class="description weapon-editor">
-        {{editor system.enrichedDescription target="system.description"
-        button=true owner=owner editable=editable async=true }}
+        {{editor enriched.description
+          target="system.description"
+          button=true
+          owner=owner
+          editable=editable
+          async=true
+        }}
       </div>
     </div>
   </section>

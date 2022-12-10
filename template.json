@@ -210,8 +210,8 @@
     },
     "armor": {
       "templates": ["common", "physical", "equippable"],
-      "ac": 9,
-      "aac": 10,
+      "ac": { "value": 9},
+      "aac": { "value": 10 },
       "type": "light"
     },
     "spell": {

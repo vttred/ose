@@ -2,36 +2,8 @@ import { OseDice } from "../dice";
 import { OseItem } from "../item/entity";
 
 export class OseActor extends Actor {
-  /**
-   * Extends data from base Actor class
-   */
-
-  prepareData() {
-    super.prepareData();
-    if (this.type !== "character") {
-      const data = this.system;
-
-      const actorType = this.type;
-
-      // Compute modifiers from actor scores
-      this._isSlow();
-
-      // Determine Initiative
-      if (game.settings.get(game.system.id, "initiative") != "group") {
-        data.initiative.value = data.initiative.mod;
-        if (actorType === "character") {
-          data.initiative.value += data.scores.dex.init;
-        }
-      } else {
-        data.initiative.value = 0;
-      }
-      data.movement.encounter = Math.floor(data.movement.base / 3);
-    }
-  }
-
   prepareDerivedData() {
-    // @TODO Once the monster data model is done, this can go
-    if (this.type === "character") this.system.prepareDerivedData?.();
+    this.system.prepareDerivedData?.();
   }
 
   static async update(data, options = {}) {
@@ -91,21 +63,13 @@ export class OseActor extends Actor {
   }
 
   isNew() {
-    const data = this.system;
-
-    const actorType = this.type;
-    if (actorType == "character") {
-      return this.system.isNew;
-    } else if (actorType == "monster") {
-      let ct = 0;
-      Object.values(data.saves).forEach((el) => {
-        ct += el.value;
-      });
-      return ct == 0 ? true : false;
-    }
+    return this.system.isNew;
   }
 
   generateSave(hd) {
+    hd = (!hd.includes('+')) ? parseInt(hd) : parseInt(hd) + 1;
+    
+    // Compute saves
     let saves = {};
     for (let i = 0; i <= hd; i++) {
       let tmp = CONFIG.OSE.monster_saves[i];
@@ -113,16 +77,18 @@ export class OseActor extends Actor {
         saves = tmp;
       }
     }
+    
     // Compute Thac0
     let thac0 = 20;
     Object.keys(CONFIG.OSE.monster_thac0).forEach((k) => {
-      if (parseInt(hd) < parseInt(k)) {
+      if (hd < parseInt(k))
         return;
-      }
       thac0 = CONFIG.OSE.monster_thac0[k];
     });
+    
     this.update({
       "system.thac0.value": thac0,
+      "system.thac0.bba": 19 - thac0,
       "system.saves": {
         death: {
           value: saves.d,
@@ -147,17 +113,9 @@ export class OseActor extends Actor {
   /*  Rolls                                       */
   /* -------------------------------------------- */
 
-  rollHP(options = {}) {
-    const actorData = this.system;
-    let roll = new Roll(actorData.hp.hd).roll({ async: false });
-    return this.update({
-      data: {
-        hp: {
-          max: roll.total,
-          value: roll.total,
-        },
-      },
-    });
+  async rollHP(options = {}) {
+    let {total} = await new Roll(this.system.hp.hd).roll({ async: true });
+    return this.update({ 'system.hp': {max: total, value: total}});
   }
 
   rollSave(save, options = {}) {
@@ -489,7 +447,7 @@ export class OseActor extends Actor {
       label = game.i18n.format("OSE.roll.attacksWith", {
         name: attData.item.name,
       });
-      dmgParts.push(attData.item.data.damage);
+      dmgParts.push(attData.item.system.damage);
     }
 
     let ascending = game.settings.get(game.system.id, "ascendingAC");
@@ -507,8 +465,8 @@ export class OseActor extends Actor {
         data.thac0.mod.melee.toString()
       );
     }
-    if (attData.item && attData.item.data.bonus) {
-      rollParts.push(attData.item.data.bonus);
+    if (attData.item && attData.item.system.bonus) {
+      rollParts.push(attData.item.system.bonus);
     }
     let thac0 = data.thac0.value;
     if (options.type == "melee") {
@@ -553,77 +511,5 @@ export class OseActor extends Actor {
     return this.update({
       "system.hp.value": Math.clamped(value - amount, 0, max),
     });
-  }
-
-  _isSlow() {
-    const actorData = this.system;
-
-    const actorItems = this.items;
-
-    actorData.isSlow = ![...actorItems.values()].every((item) => {
-      const itemData = item?.system;
-      if (item.type !== "weapon" || !itemData.slow || !itemData.equipped) {
-        return true;
-      }
-      return false;
-    });
-  }
-
-  _calculateMovement() {
-    if (actor.type === "character") return;
-
-    const actorData = this.system;
-
-    const actorItems = this.items;
-
-    const option = game.settings.get(game.system.id, "encumbranceOption");
-    const weight = actorData.encumbrance.value;
-    const delta = actorData.encumbrance.max - 1600;
-    if (["detailed", "complete"].includes(option)) {
-      if (weight >= actorData.encumbrance.max) {
-        actorData.movement.base = 0;
-      } else if (weight > 800 + delta) {
-        actorData.movement.base = 30;
-      } else if (weight > 600 + delta) {
-        actorData.movement.base = 60;
-      } else if (weight > 400 + delta) {
-        actorData.movement.base = 90;
-      } else {
-        actorData.movement.base = 120;
-      }
-    } else if (option === "basic") {
-      const armors = actorItems.filter((i) => i.type === "armor");
-      let heaviest = 0;
-      armors.forEach((a) => {
-        const armorData = a?.system;
-        const weight = armorData.type;
-        const equipped = armorData.equipped;
-        if (equipped) {
-          if (weight === "light" && heaviest === 0) {
-            heaviest = 1;
-          } else if (weight === "heavy") {
-            heaviest = 2;
-          }
-        }
-      });
-      switch (heaviest) {
-        case 0:
-          actorData.movement.base = 120;
-          break;
-        case 1:
-          actorData.movement.base = 90;
-          break;
-        case 2:
-          actorData.movement.base = 60;
-          break;
-      }
-      if (weight >= actorData.encumbrance.max) {
-        actorData.movement.base = 0;
-      } else if (
-        weight >= game.settings.get(game.system.id, "significantTreasure")
-      ) {
-        actorData.movement.base -= 30;
-      }
-    }
   }
 }

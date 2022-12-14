@@ -10,7 +10,8 @@
     "unlink": "node ./tools/symlink.js -c",
     "lint": "npm run lint:js && npm run lint:css",
     "lint:js": "eslint",
-    "lint:css": "echo 'No CSS linting until we switch to PostCSS!'"
+    "lint:css": "echo 'No CSS linting until we switch to PostCSS!'",
+    "fix:js": "eslint src --fix" 
   },
   "author": "",
   "license": "",

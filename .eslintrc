@@ -12,7 +12,8 @@
 	"env": {
 		"browser": true
 	},
-	rules: {
+	"ignorePatterns": ["**/lang/**/*.json", "**/*.d.ts"],
+	"rules": {
 		"jsdoc/check-access": 1, // Recommended
 		"jsdoc/check-alignment": 1, // Recommended
 		"jsdoc/check-line-alignment": 1,
@@ -50,10 +51,42 @@
 		"jsdoc/tag-lines": 1, // Recommended
 		"jsdoc/valid-types": 1 // Recommended
 	},
-	parserOptions: {
-        ecmaVersion: 2018,
+	"parserOptions": {
+        ecmaVersion: 2020,
         sourceType: "module",
         project: "./tsconfig.json",
     },
-	parser: "@typescript-eslint/parser",
+	"parser": "@typescript-eslint/parser",
+	"globals": {
+		"game": "readonly",
+		"foundry": "readonly",
+		"CONFIG": "readonly",
+		"CONST": "readonly",
+		"Hooks": "readonly",
+		"Item": "readonly",
+		"Items": "readonly",
+		"ItemDirectory": "readonly",
+		"ItemSheet": "readonly",
+		"Actor": "readonly",
+		"Actors": "readonly",
+		"ActorDirectory": "readonly",
+		"ActorSheet": "readonly",
+		"Token": "readonly",
+		"Macro": "readonly",
+		"Settings": "readonly",
+		"FormApplication": "readonly",
+		"FrameViewer": "readonly",
+		"ChatMessage": "readonly",
+		"TextEditor": "readonly",
+		"Roll": "readonly",
+		"$": "readonly",
+		"Dialog": "readonly",
+		"renderTemplate": "readonly",
+		"canvas": "readonly",
+		"ui": "readonly",
+		"isNewerVersion": "readonly",
+		"fromUuid": "readonly",
+		"fromUuidSync": "readonly",
+		"PoolTerm": "readonly",
+	}
 }

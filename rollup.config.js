@@ -5,6 +5,7 @@ import { terser } from "rollup-plugin-terser";
 import scss from "rollup-plugin-scss";
 import { copy } from "@web/rollup-plugin-copy";
 import livereload from "rollup-plugin-livereload";
+import eslint from "@rollup/plugin-eslint";
 
 const staticFileFolders = ["lang", "packs", "templates"];
 
@@ -35,6 +36,7 @@ export default defineConfig([
     plugins: [
       nodeResolve(),
       typescript(),
+      eslint(),
       !isWatchMode && terser(),
       copy({
         patterns: staticFileFolders.map((folderName) => `${folderName}/**/*`),

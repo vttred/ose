@@ -262,24 +262,27 @@ export default class OseActorSheet extends ActorSheet {
       })
     );
   }
-
-  async _onDropItem(event, data) {
+  async _onDropItem(event, data){
     const item = await Item.implementation.fromDropData(data);
     const itemData = item.toObject();
 
     const exists = !!this.actor.items.get(item.id);
-
-    if (!exists) return this._onDropItemCreate([itemData]);
-
+    
+    if (!exists)
+      return this._onDropItemCreate([itemData]);
+    
     const isContainer = this.actor.items.get(item.system.containerId);
+    
+    if (isContainer)
+      return this._onContainerItemRemove(item, isContainer);
+    
+    const {itemId: targetId} = event.target.closest('.item').dataset;
+    const targetItem = this.actor.items.get(targetId)
+    const targetIsContainer = targetItem?.type === 'container'
 
-    if (isContainer) return this._onContainerItemRemove(item, isContainer);
+    if (targetIsContainer)
+      return this._onContainerItemAdd(item, targetItem);
 
-    const { itemId: targetId } = event.target.closest(".item").dataset;
-    const targetItem = this.actor.items.get(targetId);
-    const targetIsContainer = targetItem?.type === "container";
-
-    if (targetIsContainer) return this._onContainerItemAdd(item, targetItem);
   }
 
   async _onContainerItemRemove(item, container) {

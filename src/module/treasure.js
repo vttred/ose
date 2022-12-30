@@ -64,7 +64,7 @@ function drawTreasure(table, data) {
         const text = r.getChatText(r);
         data.treasure[r.id] = {
           img: r.data.img,
-          text: TextEditor.enrichHTML(text),
+          text: TextEditor.enrichHTML(text, {async:false}),
         };
         if (
           r.data.type === CONST.TABLE_RESULT_TYPES.DOCUMENT &&
@@ -78,7 +78,7 @@ function drawTreasure(table, data) {
   } else {
     const results = table.evaluate({ async: false }).results;
     results.forEach((s) => {
-      const text = TextEditor.enrichHTML(table._getResultChatText(s));
+      const text = TextEditor.enrichHTML(table._getResultChatText(s), {async:false});
       data.treasure[s.id] = { img: s.data.img, text: text };
     });
   }

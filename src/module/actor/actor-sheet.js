@@ -164,7 +164,7 @@ export class OseActorSheet extends ActorSheet {
     if (item.type == "weapon") {
       if (this.actor.type === "monster") {
         item.update({
-          data: { counter: { value: itemData.counter.value - 1 } },
+          'system.counter.value': itemData.counter.value - 1
         });
       }
       item.rollWeapon({ skipDialog: event.ctrlKey || event.metaKey });

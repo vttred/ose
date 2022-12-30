@@ -369,6 +369,7 @@
     {{/each}}
   </ol>
 </section>
+{{#unless (eq @root.system.encumbrance.variant 'disabled')}}
 <section>
   {{#with @root.system.encumbrance}}
   <div class="encumbrance {{#if encumbered}}encumbered{{/if}}">
@@ -381,3 +382,4 @@
   </div>
   {{/with}}
 </section>
+{{/unless}}

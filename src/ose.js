@@ -19,6 +19,7 @@ import { OsePartySheet } from "./module/party/party-sheet";
 import './e2e';
 
 import OseDataModelCharacter from './module/actor/data-model-character';
+import OseDataModelMonster from './module/actor/data-model-monster';
 import OseDataModelWeapon from './module/item/data-model-weapon';
 import OseDataModelArmor from './module/item/data-model-armor';
 import OseDataModelItem from './module/item/data-model-item';
@@ -36,7 +37,7 @@ Hooks.once("init", async function () {
    * @type {String}
    */
   CONFIG.Combat.initiative = {
-    formula: "1d6 + @initiative.value",
+    formula: "1d6 + @init",
     decimals: 2,
   };
 
@@ -67,7 +68,10 @@ Hooks.once("init", async function () {
   CONFIG.Actor.documentClass = OseActor;
   CONFIG.Item.documentClass = OseItem;
 
-  CONFIG.Actor.systemDataModels['character'] = OseDataModelCharacter;
+  CONFIG.Actor.systemDataModels = {
+    character: OseDataModelCharacter,
+    monster: OseDataModelMonster,
+  }
   CONFIG.Item.systemDataModels = {
     weapon: OseDataModelWeapon,
     armor: OseDataModelArmor,

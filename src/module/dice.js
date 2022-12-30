@@ -199,6 +199,13 @@ export class OseDice {
     speaker = null,
     form = null,
   } = {}) {
+    if (!data.roll.dmg.filter(v => v !== '').length) {
+      /**
+       * @todo should this error be localized?
+       */
+      ui.notifications.error('Attack has no damage dice terms; be sure to set the attack\'s damage');
+      return;
+    }
     const template = `${OSE.systemPath()}/templates/chat/roll-attack.html`;
     let chatData = {
       user: game.user.id,

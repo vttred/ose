@@ -268,12 +268,18 @@ export class OseActorSheet extends ActorSheet {
   }
   async _onDropItem(event, data){
     const item = await Item.implementation.fromDropData(data);
+    const itemData = item.toObject();
+
+    const exists = !!this.actor.items.get(item.id);
+    
+    if (!exists)
+      return this._onDropItemCreate([itemData]);
+    
     const isContainer = this.actor.items.get(item.system.containerId);
     
     if (isContainer)
       return this._onContainerItemRemove(item, isContainer);
     
-    const itemData = item.toObject();
     const {itemId: targetId} = event.target.closest('.item').dataset;
     const targetItem = this.actor.items.get(targetId)
     const targetIsContainer = targetItem?.type === 'container'
@@ -281,10 +287,6 @@ export class OseActorSheet extends ActorSheet {
     if (targetIsContainer)
       return this._onContainerItemAdd(item, targetItem);
 
-    const exists = !!this.actor.items.get(item.id);
-    
-    if (!exists)
-      return this._onDropItemCreate([itemData]);
   }
   async _onContainerItemRemove(item, container) {
     const newList = container.system.itemIds.filter((s) => s != item.id);

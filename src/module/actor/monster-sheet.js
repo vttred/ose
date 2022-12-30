@@ -42,7 +42,7 @@ export class OseActorSheetMonster extends OseActorSheet {
       weapons: this.actor.system.weapons,
       items: this.actor.system.items,
       containers: this.actor.system.containers,
-      armors: this.actor.system.armors,
+      armors: this.actor.system.armor,
       treasures: this.actor.system.treasures,
     };
 

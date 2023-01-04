@@ -29,7 +29,7 @@ jobs:
 
       # Get dev dependencies for the package, including Gulp and Rollup
       - name: Install dev dependencies
-        run: npm ci --cache .npm --prefer-offline --ignore-scripts
+        run: npm ci #--cache .npm --prefer-offline --ignore-scripts
 
       # Create a build using Gulp build script
       - name: Run Gulp build script

@@ -56,6 +56,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
     
     // These values are getters that aren't getting
     // cloned when `this.actor.system` is cloned
+    data.system.usesAscendingAC = this.actor.system.usesAscendingAC;
     data.system.meleeMod = this.actor.system.meleeMod;
     data.system.rangedMod = this.actor.system.rangedMod;
     data.system.init = this.actor.system.init;

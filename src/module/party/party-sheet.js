@@ -115,7 +115,7 @@ export class OsePartySheet extends FormApplication {
   }
 
   _recursiveAddFolder(folder) {
-    folder.content.forEach((actor) => this._addActorToParty(actor));
+    folder.contents.forEach((actor) => this._addActorToParty(actor));
     folder.children.forEach((folder) => this._recursiveAddFolder(folder));
   }
 

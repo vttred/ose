@@ -10,8 +10,8 @@ export class OseParty {
     const characters = game.actors.filter(
       (act) =>
         act.type === "character" &&
-        act.flags[OSE.systemName] &&
-        act.flags[OSE.systemName].party === true
+        act.flags[game.system.id] &&
+        act.flags[game.system.id].party === true
     );
     return characters;
   }

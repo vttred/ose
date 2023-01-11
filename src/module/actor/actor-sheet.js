@@ -373,7 +373,7 @@ export class OseActorSheet extends ActorSheet {
   _createItem(event) {
     event.preventDefault();
     const header = event.currentTarget;
-    const type = header.dataset.type;
+    const { treasure, type } = header.dataset;
     const createItem = (type, name) => ({
       name: name ? name : `New ${type.capitalize()}`,
       type: type,
@@ -386,8 +386,11 @@ export class OseActorSheet extends ActorSheet {
         const itemData = createItem(dialogInput.type, dialogInput.name);
         this.actor.createEmbeddedDocuments("Item", [itemData], {});
       });
-    } else
-      return this.actor.createEmbeddedDocuments("Item", [createItem(type)], {});
+    } else {
+      const itemData = createItem(type);
+      if (treasure) itemData.system = { treasure: true }
+      return this.actor.createEmbeddedDocuments("Item", [itemData], {});
+    }
   }
 
   async _updateItemQuantity(event) {

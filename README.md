@@ -59,7 +59,7 @@ It's always appreciated when users [submit an issue](https://github.com/vttred/o
 
 - The **#dnd-other** channel in the [official Foundry VTT Discord server](https://discord.gg/foundryvtt)
 - The **#ose-virtual-tabletop** channel in the [official Necrotic Gnome Discord server](https://discord.gg/YprM5nq)
-- There is a Discord server for Unofficial Old-School Essentials on Foundry VTT. Please ask for the invite link in one of the above places. We are sensitive to the possibility of spam and phishing attacks, so we do not post it on GitHub directly. This space is subject to the [VTT Red Code of Conduct](/CODE_OF_CONDUCT.md).
+- There is a Discord server for Unofficial Old-School Essentials on Foundry VTT. You can find it on this repo's [New Issue](https://github.com/vttred/ose/issues/new/choose) page.
 - There are [unofficial Foundry VTT user communities for many other languages](https://www.foundryvtt-hub.com/links/#internationaldiscords) if you'd prefer to discuss Foundry VTT in another language. Keep in mind that it's unlikely you'll find answers to your questions about a less popular game system like Old-School Essentials, but they are good for asking questions about Foundry VTT in general.
 - The [/r/FoundryVTT community on Reddit](https://reddit.com/r/FoundryVTT) may also have answers to your Foundry VTT questions, but it is another general Foundry VTT user community that may not have many users with specific knowledge about OSE. Be sure to write `[OSE]` in your post subject and select `FVTT Question` from the "Flair" menu.
 

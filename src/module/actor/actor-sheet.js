@@ -389,7 +389,7 @@ export default class OseActorSheet extends ActorSheet {
       });
     } else {
       const itemData = createItem(type);
-      if (treasure) itemData.system = { treasure: true };
+      if (treasure) itemData.system = { treasure: true }
       return this.actor.createEmbeddedDocuments("Item", [itemData], {});
     }
   }

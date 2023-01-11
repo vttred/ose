@@ -52,7 +52,7 @@ export class OseItemSheet extends ItemSheet {
     data.config = CONFIG.OSE;
     data.enriched = {
       description: await TextEditor.enrichHTML(
-        this.item.system?.description || this.item.system?.details?.description || "",
+        this.item.system?.description || "",
         {async: true}
       )
     }

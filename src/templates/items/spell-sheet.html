@@ -13,50 +13,79 @@
         <div class="form-group">
           <label>{{localize 'OSE.spells.Level'}}</label>
           <div class="form-fields">
-            <input type="text" name="data.lvl" value="{{data.lvl}}" data-dtype="Number" />
+            <input
+              type="text"
+              name="system.lvl"
+              value="{{system.lvl}}"
+              data-dtype="Number"
+            />
           </div>
         </div>
         <div class="form-group block-input">
           <label>{{localize 'OSE.spells.Class'}}</label>
           <div class="form-fields">
-            <input type="text" name="data.class" value="{{data.class}}" data-dtype="String" />
+            <input
+              type="text"
+              name="system.class"
+              value="{{system.class}}"
+              data-dtype="String"
+            />
           </div>
         </div>
         <div class="form-group block-input">
           <label>{{localize 'OSE.spells.Duration'}}</label>
           <div class="form-fields">
-            <input type="text" name="data.duration" value="{{data.duration}}" data-dtype="String" />
+            <input
+              type="text"
+              name="system.duration"
+              value="{{system.duration}}"
+              data-dtype="String"
+            />
           </div>
         </div>
         <div class="form-group block-input">
           <label>{{localize 'OSE.spells.Range'}}</label>
           <div class="form-fields">
-            <input type="text" name="data.range" value="{{data.range}}" data-dtype="String" />
+            <input
+              type="text"
+              name="system.range"
+              value="{{system.range}}"
+              data-dtype="String"
+            />
           </div>
         </div>
         <div class="form-group">
           <label>{{localize 'OSE.spells.Save'}}</label>
           <div class="form-fields">
-            <select name="data.save">
-              {{#select data.save}}
+            <select name="system.save">
+              {{#select system.save}}
               <option value=""></option>
               {{#each config.saves_short as |save a|}}
               <option value="{{a}}">{{save}}</option>
-              {{/each}}
-              {{/select}}
+              {{/each}} {{/select}}
             </select>
           </div>
         </div>
         <div class="form-group block-input">
           <label>{{localize 'OSE.items.Roll'}}</label>
           <div class="form-fields">
-            <input type="text" name="data.roll" value="{{data.roll}}" data-dtype="String" />
+            <input
+              type="text"
+              name="system.roll"
+              value="{{system.roll}}"
+              data-dtype="String"
+            />
           </div>
         </div>
       </div>
       <div class="description">
-        {{editor content=data.description target="data.description" button=true
-        owner=owner editable=editable}}
+        {{editor enriched.description
+          target="system.description"
+          button=true
+          owner=owner
+          editable=editable
+          async=true
+        }}
       </div>
     </div>
   </section>

@@ -1,6 +1,6 @@
 <div class="ose chat-card treasure-card">
   <header class="card-header flexrow">
-    <img src="systems/ose/assets/treasure.png" title="{{table.name}}" width="36" height="36" />
+    <img src="{{asset '/treasure.png'}}" title="{{table.name}}" width="36" height="36" />
     <h3>{{table.name}}</h3>
   </header>
   <div class="card-content">
@@ -20,6 +20,8 @@
           </ol>
         </div>
       </li>
+      {{else}}
+      <li>{{localize "OSE.table.treasure.noItems"}}</li>
       {{/each}}
     </ol>
   </div>

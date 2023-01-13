@@ -1,15 +1,15 @@
+import { OseActor } from "./actor/entity";
+
 /**
  * This function is used to hook into the Chat Log context menu to add additional options to each message
  * These options make it easy to conveniently apply damage to controlled tokens based on the value of a Roll
- *
- * @param {HTMLElement} html    The Chat Message being rendered
- * @param {Array} options       The Array of Context Menu options
- *
- * @return {Array}              The extended options Array including new context choices
  */
-export const addChatMessageContextOptions = function (html, options) {
-  let canApply = (li) =>
-    canvas.tokens.controlled.length && li.find(".dice-roll").length;
+export const addChatMessageContextOptions = function (
+  _: JQuery,
+  options: ContextMenuEntry[]
+) {
+  let canApply: ContextMenuEntry["condition"] = (li) =>
+    !!canvas.tokens?.controlled.length && !!li.find(".dice-roll").length;
   options.push(
     {
       name: game.i18n.localize("OSE.messages.applyDamage"),
@@ -29,12 +29,13 @@ export const addChatMessageContextOptions = function (html, options) {
 
 /* -------------------------------------------- */
 
-export const addChatMessageButtons = function (msg, html, data) {
+export const addChatMessageButtons = function (msg: ChatMessage, html: JQuery) {
   // Hide blind rolls
   let blindable = html.find(".blindable");
   if (
-    msg.data.blind &&
-    !game.user.isGM &&
+    // @ts-ignore need to add ChatMessage document property updates.
+    msg?.blind &&
+    !game.user?.isGM &&
     blindable &&
     blindable.data("blind") === true
   ) {
@@ -45,14 +46,12 @@ export const addChatMessageButtons = function (msg, html, data) {
   // Buttons
   let roll = html.find(".damage-roll");
   if (roll.length > 0) {
-    let total = roll.find(".dice-total");
-    let value = total.text();
     roll.append(
       $(
         `<div class="dice-damage"><button type="button" data-action="apply-damage"><i class="fas fa-tint"></i></button></div>`
       )
     );
-    roll.find('button[data-action="apply-damage"]').click((ev) => {
+    roll.find('button[data-action="apply-damage"]').on("click", (ev) => {
       ev.preventDefault();
       applyChatCardDamage(roll, 1);
     });
@@ -67,17 +66,19 @@ export const addChatMessageButtons = function (msg, html, data) {
  * @param {Number} multiplier   A damage multiplier to apply to the rolled damage.
  * @return {Promise}
  */
-function applyChatCardDamage(roll, multiplier) {
+function applyChatCardDamage(roll: JQuery, multiplier: 1 | -1) {
   const amount = roll.find(".dice-total").last().text();
-  const dmgTgt = game.settings.get("ose", "applyDamageOption");
+  const dmgTgt = game.settings.get(game.system.id, "applyDamageOption");
   if (dmgTgt === `targeted`) {
-    game.user.targets.forEach(async (t) => {
-      if (game.user.isGM) return await t.actor.applyDamage(amount, multiplier);
+    game.user?.targets.forEach(async (t) => {
+      if (game.user?.isGM && t.actor instanceof OseActor)
+        await t.actor.applyDamage(amount, multiplier);
     });
   }
   if (dmgTgt === `selected`) {
-    canvas.tokens.controlled.forEach(async (t) => {
-      if (game.user.isGM) return await t.actor.applyDamage(amount, multiplier);
+    canvas.tokens?.controlled.forEach(async (t) => {
+      if (game.user?.isGM && t.actor instanceof OseActor)
+        await t.actor.applyDamage(amount, multiplier);
     });
   }
 }

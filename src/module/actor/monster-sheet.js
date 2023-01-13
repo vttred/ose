@@ -37,109 +37,44 @@ export class OseActorSheetMonster extends OseActorSheet {
    * @private
    */
   _prepareItems(data) {
-    const itemsData = this.actor.data.items;
-    const containerContents = {};
-    const attackPatterns = {};
-
-    // Partition items by category
-    let [weapons, items, armors, spells, containers] = itemsData.reduce(
-      (arr, item) => {
-        // Classify items into types
-        const containerId = item?.data?.data?.containerId;
-        if (containerId) {
-          containerContents[containerId] = [
-            ...(containerContents[containerId] || []),
-            item,
-          ];
-          return arr;
-        }
-        // Grab attack groups
-        if (["weapon", "ability"].includes(item.type)) {
-          if (attackPatterns[item.data.data.pattern] === undefined)
-            attackPatterns[item.data.data.pattern] = [];
-          attackPatterns[item.data.data.pattern].push(item);
-        }
-        // Classify items into types
-        switch (item.type) {
-          case "weapon":
-            arr[0].push(item);
-            break;
-          case "item":
-            arr[1].push(item);
-            break;
-          case "armor":
-            arr[2].push(item);
-            break;
-          case "spell":
-            arr[3].push(item);
-            break;
-          case "container":
-            arr[4].push(item);
-            break;
-        }
-
-        return arr;
-      },
-      [[], [], [], [], []]
-    );
-
-    // Sort spells by level
-    var sortedSpells = {};
-    var slots = {};
-    for (var i = 0; i < spells.length; i++) {
-      let lvl = spells[i].data.data.lvl;
-      if (!sortedSpells[lvl]) sortedSpells[lvl] = [];
-      if (!slots[lvl]) slots[lvl] = 0;
-      slots[lvl] += spells[i].data.data.memorized;
-      sortedSpells[lvl].push(spells[i]);
-    }
-    data.slots = {
-      used: slots,
-    };
-    containers.map((container, key, arr) => {
-      arr[key].data.data.itemIds = containerContents[container.id] || [];
-      arr[key].data.data.totalWeight = containerContents[container.id]?.reduce(
-        (acc, item) => {
-          return (
-            acc +
-            item.data?.data?.weight * (item.data?.data?.quantity?.value || 1)
-          );
-        },
-        0
-      );
-      return arr;
-    });
     // Assign and return
     data.owned = {
-      weapons: weapons,
-      items: items,
-      containers: containers,
-      armors: armors,
+      weapons: this.actor.system.weapons,
+      items: this.actor.system.items,
+      containers: this.actor.system.containers,
+      armors: this.actor.system.armor,
+      treasures: this.actor.system.treasures,
     };
-    data.attackPatterns = attackPatterns;
-    data.spells = sortedSpells;
-    [
-      ...Object.values(data.attackPatterns),
-      ...Object.values(data.owned),
-      ...Object.values(data.spells),
-    ].forEach((o) => o.sort((a, b) => (a.data.sort || 0) - (b.data.sort || 0)));
+
+    data.attackPatterns = this.actor.system.attackPatterns;
+    data.spells = this.actor.system.spells.spellList;
   }
 
   /**
    * Prepare data for rendering the Actor sheet
    * The prepared data object contains both the actor data as well as additional sheet options
    */
-  getData() {
+  async getData() {
     const data = super.getData();
     // Prepare owned items
     this._prepareItems(data);
 
+    const monsterData = data?.system;
+
     // Settings
-    data.config.morale = game.settings.get("ose", "morale");
-    data.data.details.treasure.link = TextEditor.enrichHTML(
-      data.data.details.treasure.table
+    data.config.morale = game.settings.get(game.system.id, "morale");
+    monsterData.details.treasure.link = await TextEditor.enrichHTML(
+      monsterData.details.treasure.table,
+      { async: true }
     );
     data.isNew = this.actor.isNew();
+
+    if (isNewerVersion(game.version, "10.264")) {
+      data.enrichedBiography = await TextEditor.enrichHTML(
+        this.object.system.details.biography,
+        { async: true }
+      );
+    }
     return data;
   }
 
@@ -149,7 +84,7 @@ export class OseActorSheetMonster extends OseActorSheet {
   async generateSave() {
     let choices = CONFIG.OSE.monster_saves;
 
-    let templateData = { choices: choices },
+    let templateData = { choices },
       dlg = await renderTemplate(
         `${OSE.systemPath()}/templates/actors/dialogs/monster-saves.html`,
         templateData
@@ -196,26 +131,22 @@ export class OseActorSheetMonster extends OseActorSheet {
       let tableData = game.packs
         .get(data.pack)
         .index.filter((el) => el._id === data.id);
-      link = `@Compendium[${data.pack}.${data.id}]{${tableData[0].name}}`;
+      link = `@UUID[${data.uuid}]{${tableData[0].name}}`;
     } else {
-      link = `@RollTable[${data.id}]`;
+      link = `@UUID[${data.uuid}]`;
     }
-    this.actor.update({ "data.details.treasure.table": link });
+    this.actor.update({ 'system.details.treasure.table': link });
   }
 
   /* -------------------------------------------- */
   async _resetAttacks(event) {
-    const weapons = this.actor.data.items.filter((i) => i.type === "weapon");
-    for (let wp of weapons) {
-      const item = this.actor.items.get(wp.id);
-      await item.update({
-        data: {
-          counter: {
-            value: parseInt(wp.data.data.counter.max),
-          },
-        },
-      });
-    }
+    return Promise.all(
+      this.actor.items
+        .filter(i => i.type === 'weapon')
+        .map(weapon => weapon.update({
+          'system.counter.value': parseInt(weapon.system.counter.max)
+        }))
+    )
   }
 
   async _updateAttackCounter(event) {
@@ -224,19 +155,21 @@ export class OseActorSheetMonster extends OseActorSheet {
 
     if (event.target.dataset.field === "value") {
       return item.update({
-        "data.counter.value": parseInt(event.target.value),
+        "system.counter.value": parseInt(event.target.value),
       });
     } else if (event.target.dataset.field === "max") {
       return item.update({
-        "data.counter.max": parseInt(event.target.value),
+        "system.counter.max": parseInt(event.target.value),
       });
     }
   }
 
   _cycleAttackPatterns(event) {
     const item = super._getItemFromActor(event);
-    let currentColor = item.data.data.pattern;
+    let currentColor = item.system.pattern;
+    // Attack patterns include all OSE colors and transparent
     let colors = Object.keys(CONFIG.OSE.colors);
+    colors.push("transparent");
     let index = colors.indexOf(currentColor);
     if (index + 1 == colors.length) {
       index = 0;
@@ -244,7 +177,7 @@ export class OseActorSheetMonster extends OseActorSheet {
       index++;
     }
     item.update({
-      "data.pattern": colors[index],
+      "system.pattern": colors[index],
     });
   }
 
@@ -269,6 +202,10 @@ export class OseActorSheetMonster extends OseActorSheet {
       let actorObject = this.actor;
       let check = $(ev.currentTarget).closest(".check-field").data("check");
       actorObject.rollAppearing({ event: ev, check: check });
+    });
+
+    html.find(".treasure-table a").contextmenu((ev) => {
+      this.actor.update({ 'system.details.treasure.table': null });
     });
 
     // Everything below here is only needed if the sheet is editable

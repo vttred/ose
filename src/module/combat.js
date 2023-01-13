@@ -17,7 +17,8 @@ export class OseCombat {
     // Check groups
     data.combatants = [];
     let groups = {};
-    combat.data.combatants.forEach((cbt) => {
+    let combatants = combat?.combatants;
+    combatants.forEach((cbt) => {
       const group = cbt.getFlag(game.system.id, "group");
       groups[group] = { present: true };
       data.combatants.push(cbt);
@@ -40,7 +41,8 @@ export class OseCombat {
         if (!data.combatants[i].actor) {
           return;
         }
-        if (data.combatants[i].actor.data.data.isSlow) {
+        let actorData = data.combatants[i].actor?.system;
+        if (actorData.isSlow) {
           await data.combatants[i].update({
             initiative: OseCombat.STATUS_SLOW,
           });
@@ -58,19 +60,23 @@ export class OseCombat {
   }
 
   static async resetInitiative(combat, data) {
-    let reroll = game.settings.get("ose", "rerollInitiative");
+    let reroll = game.settings.get(game.system.id, "rerollInitiative");
     if (!["reset", "reroll"].includes(reroll)) {
       return;
     }
     combat.resetAll();
-    
   }
 
   static async individualInitiative(combat, data) {
     let updates = [];
     let rolls = [];
-    for (let i = 0; i < combat.data.combatants.size; i++) {
-      let c = combat.data.combatants.contents[i];
+    let combatants = combat?.combatants;
+    for (let i = 0; i < combatants.size; i++) {
+      let c = combatants.contents[i];
+      //check if actor initiative has already been set for this round
+      if (c?.initiative) {
+        continue;
+      }
       // This comes from foundry.js, had to remove the update turns thing
       // Roll initiative
       const cf = await c._getInitiativeFormula(c);
@@ -94,7 +100,7 @@ export class OseCombat {
       );
       //add initiative value to update
       //check if actor is slow
-      let value = cbt.actor.data.data.isSlow
+      let value = cbt.actor?.system?.isSlow
         ? OseCombat.STATUS_SLOW
         : roll.total;
       //check if actor is defeated
@@ -163,7 +169,7 @@ export class OseCombat {
     });
     OseCombat.announceListener(html);
 
-    let init = game.settings.get("ose", "initiative") === "group";
+    let init = game.settings.get(game.system.id, "initiative") === "group";
     if (!init) {
       return;
     }
@@ -195,9 +201,10 @@ export class OseCombat {
   }
 
   static updateCombatant(combatant, data) {
-    let init = game.settings.get("ose", "initiative");
+    let init = game.settings.get(game.system.id, "initiative");
     // Why do you reroll ?
-    if (combatant.actor.data.data.isSlow) {
+    const actorData = combatant.actor?.system;
+    if (actorData.isSlow) {
       data.initiative = -789;
       return;
     }
@@ -281,7 +288,8 @@ export class OseCombat {
   static addCombatant(combat, data, options, id) {
     let token = canvas.tokens.get(data.tokenId);
     let color = "black";
-    switch (token.data.disposition) {
+    let disposition = token?.disposition || token?.data?.disposition;
+    switch (disposition) {
       case -1:
         color = "red";
         break;
@@ -297,7 +305,7 @@ export class OseCombat {
         group: color,
       },
     };
-    combat.data.update({ flags: { ose: { group: color } } });
+    combat.updateSource({ flags: { ose: { group: color } } });
   }
 
   static activateCombatant(li) {
@@ -318,8 +326,8 @@ export class OseCombat {
   }
 
   static async preUpdateCombat(combat, data, diff, id) {
-    let init = game.settings.get("ose", "initiative");
-    let reroll = game.settings.get("ose", "rerollInitiative");
+    let init = game.settings.get(game.system.id, "initiative");
+    let reroll = game.settings.get(game.system.id, "rerollInitiative");
     if (!data.round) {
       return;
     }

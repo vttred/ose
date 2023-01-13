@@ -8,12 +8,12 @@ export class OseItem extends Item {
   // Replacing default image */
   static get defaultIcons() {
     return {
-      spell: "systems/ose/assets/default/spell.png",
-      ability: "systems/ose/assets/default/ability.png",
-      armor: "systems/ose/assets/default/armor.png",
-      weapon: "systems/ose/assets/default/weapon.png",
-      item: "systems/ose/assets/default/item.png",
-      container: "systems/ose/assets/default/bag.png",
+      spell: `${OSE.assetsPath}/default/spell.png`,
+      ability: `${OSE.assetsPath}/default/ability.png`,
+      armor: `${OSE.assetsPath}/default/armor.png`,
+      weapon: `${OSE.assetsPath}/default/weapon.png`,
+      item: `${OSE.assetsPath}/default/item.png`,
+      container: `${OSE.assetsPath}/default/bag.png`,
     };
   }
 
@@ -28,9 +28,12 @@ export class OseItem extends Item {
     super.prepareData();
   }
 
-  prepareDerivedData() {
-    this.data.data.autoTags = this.getAutoTagList();
-    this.data.data.manualTags = this.data.data.tags;
+  async prepareDerivedData() {
+    // Rich text description
+    this.system.enrichedDescription = await TextEditor.enrichHTML(
+      this.system.details?.description || this.system.description,
+      { async: true }
+    );
   }
 
   static chatListeners(html) {
@@ -38,45 +41,49 @@ export class OseItem extends Item {
     html.on("click", ".item-name", this._onChatCardToggleContent.bind(this));
   }
 
-  getChatData(htmlOptions) {
-    const data = duplicate(this.data.data);
+  async getChatData(htmlOptions) {
+    const itemType = this.type;
 
-    // Rich text description
-    data.description = TextEditor.enrichHTML(data.description, htmlOptions);
+    const itemData = this.system;
 
     // Item properties
     const props = [];
 
-    if (this.data.type == "weapon") {
-      data.tags.forEach((t) => props.push(t.value));
+    if (itemType == "weapon") {
+      itemData.tags.forEach((t) => props.push(t.value));
     }
-    if (this.data.type == "spell") {
-      props.push(`${data.class} ${data.lvl}`, data.range, data.duration);
+    if (itemType == "spell") {
+      props.push(
+        `${itemData.class} ${itemData.lvl}`,
+        itemData.range,
+        itemData.duration
+      );
     }
-    if (data.hasOwnProperty("equipped")) {
-      props.push(data.equipped ? "Equipped" : "Not Equipped");
+    if (itemData.hasOwnProperty("equipped")) {
+      props.push(itemData.equipped ? "Equipped" : "Not Equipped");
     }
 
     // Filter properties and return
-    data.properties = props.filter((p) => !!p);
-    return data;
+    itemData.properties = props.filter((p) => !!p);
+    return itemData;
   }
 
   rollWeapon(options = {}) {
-    let isNPC = this.actor.data.type != "character";
+    let isNPC = this.actor.type != "character";
     const targets = 5;
-    const data = this.data.data;
+    const itemData = this.system;
+
     let type = isNPC ? "attack" : "melee";
     const rollData = {
-      item: this.data,
-      actor: this.actor.data,
+      item: this._source,
+      actor: this.actor,
       roll: {
-        save: this.data.data.save,
+        save: itemData.save,
         target: null,
       },
     };
 
-    if (data.missile && data.melee && !isNPC) {
+    if (itemData.missile && itemData.melee && !isNPC) {
       // Dialog
       new Dialog({
         title: "Choose Attack Range",
@@ -100,7 +107,7 @@ export class OseItem extends Item {
         default: "melee",
       }).render(true);
       return true;
-    } else if (data.missile && !isNPC) {
+    } else if (itemData.missile && !isNPC) {
       type = "missile";
     }
     this.actor.targetAttack(rollData, type, options);
@@ -108,7 +115,8 @@ export class OseItem extends Item {
   }
 
   async rollFormula(options = {}) {
-    const data = this.data.data;
+    const data = this.system;
+
     if (!data.roll) {
       throw new Error("This Item does not have a formula to roll!");
     }
@@ -119,8 +127,8 @@ export class OseItem extends Item {
     let type = data.rollType;
 
     const newData = {
-      actor: this.actor.data,
-      item: this.data,
+      actor: this.actor,
+      item: this._source,
       roll: {
         type: type,
         target: data.rollTarget,
@@ -141,9 +149,10 @@ export class OseItem extends Item {
   }
 
   spendSpell() {
+    const itemData = this.system;
     this.update({
       data: {
-        cast: this.data.data.cast - 1,
+        cast: itemData.cast - 1,
       },
     }).then(() => {
       this.show({ skipDialog: true });
@@ -176,9 +185,10 @@ export class OseItem extends Item {
 
   getAutoTagList() {
     const tagList = [];
-    const data = this.data.data;
+    const data = this.system;
+    const itemType = this.type;
 
-    switch (this.data.type) {
+    switch (itemType) {
       case "container":
       case "item":
         break;
@@ -226,10 +236,10 @@ export class OseItem extends Item {
   }
 
   pushManualTag(values) {
-    const data = this.data.data;
+    const data = this?.system;
     let update = [];
     if (data.tags) {
-      update = duplicate(data.tags);
+      update = data.tags;
     }
     let newData = {};
     var regExp = /\(([^)]+)\)/;
@@ -257,17 +267,20 @@ export class OseItem extends Item {
             newData.missile = true;
             break;
         }
-        update.push({ title: title, value: val });
+        if (!newData.melee && !newData.slow && !newData.missile)
+          update.push({ title: title, value: val, label: val });
       });
     } else {
       update = values;
     }
     newData.tags = update;
-    return this.update({ data: newData });
+    return this.update({ system: newData });
   }
 
   popManualTag(value) {
-    const tags = this.data.data.tags;
+    const itemData = this.system;
+
+    const tags = itemData.tags;
     if (!tags) return;
 
     let update = tags.filter((el) => el.value != value);
@@ -278,6 +291,7 @@ export class OseItem extends Item {
   }
 
   roll(options = {}) {
+    const itemData = this.system;
     switch (this.type) {
       case "weapon":
         this.rollWeapon(options);
@@ -286,7 +300,7 @@ export class OseItem extends Item {
         this.spendSpell(options);
         break;
       case "ability":
-        if (this.data.data.roll) {
+        if (itemData.roll) {
           this.rollFormula();
         } else {
           this.show();
@@ -303,21 +317,22 @@ export class OseItem extends Item {
    * @return {Promise}
    */
   async show() {
+    const itemType = this.type;
     // Basic template rendering data
-    const token = this.actor.token;
+    const token = this.actor.token; //v10: prototypeToken?
     const templateData = {
       actor: this.actor,
       tokenId: token ? `${token.parent.id}.${token.id}` : null,
-      item: foundry.utils.duplicate(this.data),
-      data: this.getChatData(),
+      item: this._source,
+      data: await this.getChatData(),
       labels: this.labels,
       isHealing: this.isHealing,
       hasDamage: this.hasDamage,
-      isSpell: this.data.type === "spell",
+      isSpell: itemType === "spell",
       hasSave: this.hasSave,
       config: CONFIG.OSE,
     };
-    templateData.data.properties = this.getAutoTagList();
+    templateData.data.properties = this.system.autoTags;
 
     // Render the chat card template
     const template = `${OSE.systemPath()}/templates/chat/item-card.html`;

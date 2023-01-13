@@ -2,21 +2,21 @@
   <div class="form-group">
     <label for="spellcaster">{{localize "OSE.Spellcaster"}}</label>
     <div class="form-fields">
-      <input type="checkbox" name="data.spells.enabled" id="spellcaster" {{checked data.spells.enabled}}
+      <input type="checkbox" name="system.spells.enabled" id="spellcaster" {{checked @root.system.spells.enabled}}
         data-dtype="Boolean" />
     </div>
   </div>
   <div class="form-group">
     <label for="retainer">{{localize "OSE.Retainer"}}</label>
     <div class="form-fields">
-      <input type="checkbox" name="data.retainer.enabled" id="retainer" {{checked data.retainer.enabled}}
+      <input type="checkbox" name="system.retainer.enabled" id="retainer" {{checked @root.system.retainer.enabled}}
         data-dtype="Boolean" />
     </div>
   </div>
   <div class="form-group">
     <label>{{localize "OSE.InitiativeBonus"}}</label>
     <div class="form-fields">
-      <input type="text" name="data.initiative.mod" id="initiative" value="{{data.initiative.mod}}"
+      <input type="text" name="system.initiative.mod" id="initiative" value="{{@root.system.initiative.mod}}"
         data-dtype="Number" />
     </div>
   </div>
@@ -24,34 +24,34 @@
   <div class="form-group">
     <label>{{localize "OSE.details.experience.next"}}</label>
     <div class="form-fields">
-      <input type="text" name="data.details.xp.next" id="experiencenext" value="{{data.details.xp.next}}"
+      <input type="text" name="system.details.xp.next" id="experiencenext" value="{{@root.system.details.xp.next}}"
         data-dtype="Number" />
     </div>
   </div>
   <div class="form-group">
     <label>{{localize "OSE.details.experience.bonus"}} (%)</label>
     <div class="form-fields">
-      <input type="text" name="data.details.xp.bonus" id="experience" value="{{data.details.xp.bonus}}"
+      <input type="text" name="system.details.xp.bonus" id="experience" value="{{@root.system.details.xp.bonus}}"
         data-dtype="Number" />
     </div>
   </div>
   <div class="form-group">
     <label>{{localize "OSE.details.experience.share"}} (%)</label>
     <div class="form-fields">
-      <input type="text" name="data.details.xp.share" id="experience-share" value="{{data.details.xp.share}}"
+      <input type="text" name="system.details.xp.share" id="experience-share" value="{{@root.system.details.xp.share}}"
         data-dtype="Number" />
     </div>
   </div>
   <div class="form-group">
     <label>{{localize "OSE.MeleeBonus"}}</label>
     <div class="form-fields">
-      <input type="text" name="data.thac0.mod.melee" id="melee" value="{{data.thac0.mod.melee}}" data-dtype="Number" />
+      <input type="text" name="system.thac0.mod.melee" id="melee" value="{{@root.system.thac0.mod.melee}}" data-dtype="Number" />
     </div>
   </div>
   <div class="form-group">
     <label>{{localize "OSE.MissileBonus"}}</label>
     <div class="form-fields">
-      <input type="text" name="data.thac0.mod.missile" id="missile" value="{{data.thac0.mod.missile}}"
+      <input type="text" name="system.thac0.mod.missile" id="missile" value="{{@root.system.thac0.mod.missile}}"
         data-dtype="Number" />
     </div>
   </div>
@@ -59,23 +59,23 @@
     <label>{{localize "OSE.ArmorClassBonus"}}</label>
     <div class="form-fields">
       {{#if config.ascendingAC}}
-      <input type="text" name="data.aac.mod" id="ac" value="{{data.aac.mod}}" data-dtype="Number" />
+      <input type="text" name="system.aac.mod" id="ac" value="{{@root.system.aac.mod}}" data-dtype="Number" />
       {{else}}
-      <input type="text" name="data.ac.mod" id="ac" value="{{data.ac.mod}}" data-dtype="Number" />
+      <input type="text" name="system.ac.mod" id="ac" value="{{@root.system.ac.mod}}" data-dtype="Number" />
       {{/if}}
     </div>
   </div>
   <div class="form-group">
     <label>{{localize "OSE.Encumbrance"}}</label>
     <div class="form-fields">
-      <input type="text" name="data.encumbrance.max" id="encumbrance" value="{{data.encumbrance.max}}"
+      <input type="text" name="system.encumbrance.max" id="encumbrance" value="{{@root.system.encumbrance.max}}"
         data-dtype="Number" {{#unless user.isGM}}disabled{{/unless}} />
     </div>
   </div>
   <div class="form-group">
     <label for="movementAuto">{{localize "OSE.Setting.MovementAuto"}}</label>
     <div class="form-fields">
-      <input type="checkbox" name="data.config.movementAuto" id="movementAuto" {{checked data.config.movementAuto}}
+      <input type="checkbox" name="system.config.movementAuto" id="movementAuto" {{checked data.config.movementAuto}}
         data-dtype="Boolean" {{#unless user.isGM}}disabled{{/unless}} />
     </div>
   </div>
@@ -83,7 +83,7 @@
   <div class="form-group">
     <label for="enableInventory">{{localize "OSE.Setting.EnableInventory"}}</label>
     <div class="form-fields">
-      <input type="checkbox" name="data.config.enableInventory" id="enableInventory" {{checked data.config.enableInventory}}
+      <input type="checkbox" name="system.config.enableInventory" id="enableInventory" {{checked data.config.enableInventory}}
         data-dtype="Boolean" {{#unless user.isGM}}disabled{{/unless}} />
     </div>
   </div>

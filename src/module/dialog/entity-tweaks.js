@@ -33,7 +33,7 @@ export class OseEntityTweaks extends FormApplication {
     data.user = game.user;
     data.config = {
       ...CONFIG.OSE,
-      ascendingAC: game.settings.get("ose", "ascendingAC"),
+      ascendingAC: game.settings.get(game.system.id, "ascendingAC"),
     };
     return data;
   }
@@ -54,8 +54,8 @@ export class OseEntityTweaks extends FormApplication {
   async _updateObject(event, formData) {
     event.preventDefault();
     // Update the actor
-    this.object.update(formData);
+    await this.object.update(formData);
     // Re-draw the updated sheet
-    this.object.sheet.render(true);
+    await this.object.sheet._render(true);
   }
 }

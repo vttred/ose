@@ -14,9 +14,9 @@ export class OseActorSheet extends ActorSheet {
 
     data.config = {
       ...CONFIG.OSE,
-      ascendingAC: game.settings.get("ose", "ascendingAC"),
-      initiative: game.settings.get("ose", "initiative") != "group",
-      encumbrance: game.settings.get("ose", "encumbranceOption"),
+      ascendingAC: game.settings.get(game.system.id, "ascendingAC"),
+      initiative: game.settings.get(game.system.id, "initiative") != "group",
+      encumbrance: game.settings.get(game.system.id, "encumbranceOption"),
     };
     data.isNew = this.actor.isNew();
 
@@ -25,9 +25,9 @@ export class OseActorSheet extends ActorSheet {
 
   activateEditor(name, options, initialContent) {
     // remove some controls to the editor as the space is lacking
-    if (name == "data.details.description") {
-      options.toolbar = "styleselect bullist hr table removeFormat save";
-    }
+    // if (name == "data.details.description") {
+    //   options.toolbar = "styleselect bullist hr table removeFormat save";
+    // }
     super.activateEditor(name, options, initialContent);
   }
 
@@ -84,14 +84,13 @@ export class OseActorSheet extends ActorSheet {
 
   _toggleItemSummary(event) {
     event.preventDefault();
-    const summary = $(event.currentTarget)
-      .closest(".item-header")
-      .next(".item-summary");
-
-    if (summary.css("display") === "none") {
-      summary.slideDown(200);
+    const itemSummary = event.currentTarget
+      .closest(".item-entry.item")
+      .querySelector(".item-summary");
+    if (itemSummary.style.display === "") {
+      itemSummary.style.display = "block";
     } else {
-      summary.slideUp(200);
+      itemSummary.style.display = "";
     }
   }
 
@@ -103,12 +102,13 @@ export class OseActorSheet extends ActorSheet {
 
   async _removeItemFromActor(event) {
     const item = this._getItemFromActor(event);
+    const itemData = item?.system;
     const itemDisplay = event.currentTarget.closest(".item-entry");
 
-    if (item.type === "container" && item.data.data.itemIds) {
-      const containedItems = item.data.data.itemIds;
+    if (item.type === "container" && itemData.itemIds) {
+      const containedItems = itemData.itemIds;
       const updateData = containedItems.reduce((acc, val) => {
-        acc.push({ _id: val.id, "data.containerId": "" });
+        acc.push({ _id: val.id, "system.containerId": "" });
         return acc;
       }, []);
 
@@ -122,22 +122,23 @@ export class OseActorSheet extends ActorSheet {
    */
   _useConsumable(event, decrement) {
     const item = this._getItemFromActor(event);
-
-    if (decrement) {
-      item.update({ "data.quantity.value": item.data.data.quantity.value - 1 });
-    } else {
-      item.update({ "data.quantity.value": item.data.data.quantity.value + 1 });
-    }
+    if (!item) return null;
+    let {
+      quantity: { value: quantity },
+    } = item.system;
+    item.update({
+      "system.quantity.value": decrement ? --quantity : ++quantity,
+    });
   }
 
   async _onSpellChange(event) {
     event.preventDefault();
     const item = this._getItemFromActor(event);
     if (event.target.dataset.field == "cast") {
-      return item.update({ "data.cast": parseInt(event.target.value) });
+      return item.update({ "system.cast": parseInt(event.target.value) });
     } else if (event.target.dataset.field == "memorize") {
       return item.update({
-        "data.memorized": parseInt(event.target.value),
+        "system.memorized": parseInt(event.target.value),
       });
     }
   }
@@ -149,19 +150,21 @@ export class OseActorSheet extends ActorSheet {
     spells.each((_, el) => {
       let itemId = el.dataset.itemId;
       const item = this.actor.items.get(itemId);
+      const itemData = item?.system;
       item.update({
         _id: item.id,
-        "data.cast": item.data.data.memorized,
+        "system.cast": itemData.memorized,
       });
     });
   }
 
   async _rollAbility(event) {
     const item = this._getItemFromActor(event);
+    const itemData = item?.system;
     if (item.type == "weapon") {
-      if (this.actor.data.type === "monster") {
+      if (this.actor.type === "monster") {
         item.update({
-          data: { counter: { value: item.data.data.counter.value - 1 } },
+          'system.counter.value': itemData.counter.value - 1
         });
       }
       item.rollWeapon({ skipDialog: event.ctrlKey || event.metaKey });
@@ -183,11 +186,7 @@ export class OseActorSheet extends ActorSheet {
     let actorObject = this.actor;
     let element = event.currentTarget;
     let attack = element.parentElement.parentElement.dataset.attack;
-    const rollData = {
-      actor: this.data,
-      roll: {},
-    };
-    actorObject.targetAttack(rollData, attack, {
+    actorObject.targetAttack({ roll: {} }, attack, {
       type: attack,
       skipDialog: event.ctrlKey || event.metaKey,
     });
@@ -201,20 +200,22 @@ export class OseActorSheet extends ActorSheet {
     const dropTarget = event.target.closest("[data-item-id]");
     const targetId = dropTarget ? dropTarget.dataset.itemId : null;
     const target = siblings.find((s) => s.data._id === targetId);
+    if (!target) throw new Error("Couldn't drop near "+ event.target);
+    const targetData = target?.system;
 
     // Dragging items into a container
     if (
-      target?.data.type === "container" &&
-      target?.data.data.containerId === ""
+      (target?.type === "container" || target?.data?.type === "container") &&
+      targetData.containerId === ""
     ) {
       this.actor.updateEmbeddedDocuments("Item", [
-        { _id: source.id, "data.containerId": target.id },
+        { _id: source.id, "system.containerId": target.id },
       ]);
       return;
     }
-    if (source?.data.containerId !== "") {
+    if (source?.system.containerId !== "") {
       this.actor.updateEmbeddedDocuments("Item", [
-        { _id: source.id, "data.containerId": "" },
+        { _id: source.id, "system.containerId": "" },
       ]);
     }
 
@@ -238,10 +239,10 @@ export class OseActorSheet extends ActorSheet {
     if (li.dataset.itemId) {
       const item = this.actor.items.get(li.dataset.itemId);
       dragData.type = "Item";
-      dragData.data = item.data;
-      if (item.data.type === "container" && item.data.data.itemIds.length) {
+      dragData.data = item;
+      if (item.type === "container" && item.system.itemIds.length) {
         //otherwise JSON.stringify will quadruple stringify for some reason
-        itemIdsArray = item.data.data.itemIds;
+        itemIdsArray = item.system.itemIds;
       }
     }
 
@@ -265,23 +266,74 @@ export class OseActorSheet extends ActorSheet {
       })
     );
   }
+  async _onDropItem(event, data){
+    const item = await Item.implementation.fromDropData(data);
+    const itemData = item.toObject();
 
-  async _onDropItemCreate(itemData) {
+    const exists = !!this.actor.items.get(item.id);
+    
+    if (!exists)
+      return this._onDropItemCreate([itemData]);
+    
+    const isContainer = this.actor.items.get(item.system.containerId);
+    
+    if (isContainer)
+      return this._onContainerItemRemove(item, isContainer);
+    
+    const {itemId: targetId} = event.target.closest('.item').dataset;
+    const targetItem = this.actor.items.get(targetId)
+    const targetIsContainer = targetItem?.type === 'container'
+
+    if (targetIsContainer)
+      return this._onContainerItemAdd(item, targetItem);
+
+  }
+  async _onContainerItemRemove(item, container) {
+    const newList = container.system.itemIds.filter((s) => s != item.id);
+    const itemObj = this.object.items.get(item.id);
+    await container.update({ system: { itemIds: newList } });
+    await itemObj.update({ system: { containerId: "" } });
+  }
+  async _onContainerItemAdd(item, target) {
+    const itemData = item.toObject();
+    const container = this.object.items.get(target.id);
+
+    const containerId = container.id;
+    const itemObj = this.object.items.get(item.id);
+    const alreadyExists = container.system.itemIds.find((i) => i.id == item.id);
+    if (!alreadyExists) {
+      const newList = [...container.system.itemIds, item.id];
+      await container.update({ system: { itemIds: newList } });
+      await itemObj.update({ system: { containerId: container.id } });
+    }
+  }
+  async _onDropItemCreate(itemData, container = false) {
     //override to fix hidden items because their original containers don't exist on this actor
     itemData = itemData instanceof Array ? itemData : [itemData];
     itemData.forEach((item) => {
-      if (item.data.containerId && item.data.containerId !== "")
-        item.data.containerId = "";
-      if (item.type === "container" && typeof item.data.itemIds === "string") {
+      if (item.system.containerId && item.system.containerId !== "")
+        item.system.containerId = "";
+      if (
+        item.type === "container" &&
+        typeof item.system.itemIds === "string"
+      ) {
         //itemIds was double stringified to fix strange behavior with stringify blanking our Arrays
-        const containedItems = JSON.parse(item.data.itemIds);
+        const containedItems = JSON.parse(item.system.itemIds);
         containedItems.forEach((containedItem) => {
-          containedItem.data.containerId = "";
+          containedItem.system.containerId = "";
         });
         itemData.push(...containedItems);
       }
     });
-    return this.actor.createEmbeddedDocuments("Item", itemData);
+    if (!container) {
+      return this.actor.createEmbeddedDocuments("Item", itemData);
+    }
+
+    let itemIds = container.system.itemIds;
+    itemIds.push(itemData.id);
+    const item = this.actor.items.get(itemData[0]._id);
+    await item.update({ system: { containerId: container.id } });
+    await container.update({ system: { itemIds: itemIds } });
   }
 
   /* -------------------------------------------- */
@@ -321,18 +373,11 @@ export class OseActorSheet extends ActorSheet {
   _createItem(event) {
     event.preventDefault();
     const header = event.currentTarget;
-    const type = header.dataset.type;
-
-    // item creation helper func
-    const createItem = function (type, name) {
-      const itemData = {
-        name: name ? name : `New ${type.capitalize()}`,
-        type: type,
-        data: duplicate(header.dataset),
-      };
-      delete itemData.data["type"];
-      return itemData;
-    };
+    const { treasure, type } = header.dataset;
+    const createItem = (type, name) => ({
+      name: name ? name : `New ${type.capitalize()}`,
+      type: type,
+    });
 
     // Getting back to main logic
     if (type === "choice") {
@@ -343,6 +388,7 @@ export class OseActorSheet extends ActorSheet {
       });
     } else {
       const itemData = createItem(type);
+      if (treasure) itemData.system = { treasure: true }
       return this.actor.createEmbeddedDocuments("Item", [itemData], {});
     }
   }
@@ -353,11 +399,11 @@ export class OseActorSheet extends ActorSheet {
 
     if (event.target.dataset.field === "value") {
       return item.update({
-        "data.quantity.value": parseInt(event.target.value),
+        "system.quantity.value": parseInt(event.target.value),
       });
     } else if (event.target.dataset.field === "max") {
       return item.update({
-        "data.quantity.max": parseInt(event.target.value),
+        "system.quantity.max": parseInt(event.target.value),
       });
     }
   }
@@ -458,6 +504,9 @@ export class OseActorSheet extends ActorSheet {
 
     html.find(".inventory .item-category-title").click((event) => {
       this._toggleItemCategory(event);
+    });
+    html.find(".inventory .item-category-title input").click((event) => {
+      event.stopPropagation();
     });
     html.find(".inventory .category-caret").click((event) => {
       this._toggleContainedItems(event);

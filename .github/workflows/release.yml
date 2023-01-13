@@ -12,12 +12,12 @@ jobs:
       - name: Checkout repository to add to workspace
         uses: actions/checkout@v2
 
-      - name: Setup Node.js version 14
+      - name: Setup Node.js version 16
         uses: actions/setup-node@v2
         with:
           node-version: "16"
 
-      # Caching to improve build speed
+      # # Caching to improve build speed
       - name: Enable caching for Node.js modules
         uses: actions/cache@v2
         with:
@@ -29,7 +29,7 @@ jobs:
 
       # Get dev dependencies for the package, including Gulp and Rollup
       - name: Install dev dependencies
-        run: npm ci --cache .npm --prefer-offline
+        run: npm ci #--cache .npm --prefer-offline --ignore-scripts
 
       # Create a build using Gulp build script
       - name: Run Gulp build script
@@ -43,6 +43,9 @@ jobs:
         with:
           files: "system.json"
         env:
+          name: ose
+          id: ose
+          title: "Old-School Essentials"
           version: ${{github.event.release.tag_name}}
           url: https://github.com/${{github.repository}}
           manifest: https://github.com/${{github.repository}}/releases/latest/download/system.json

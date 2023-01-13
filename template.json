@@ -142,6 +142,7 @@
         "biography": "",
         "alignment": "",
         "xp": 0,
+        "specialAbilities": 0,
         "treasure": {
           "table": "",
           "type": ""
@@ -209,8 +210,8 @@
     },
     "armor": {
       "templates": ["common", "physical", "equippable"],
-      "ac": 9,
-      "aac": 10,
+      "ac": { "value": 9},
+      "aac": { "value": 10 },
       "type": "light"
     },
     "spell": {
@@ -225,7 +226,7 @@
     },
     "ability": {
       "templates": ["common", "rollable"],
-      "pattern": "white",
+      "pattern": "transparent",
       "requirements": "",
       "roll": "",
       "rollType": "result",

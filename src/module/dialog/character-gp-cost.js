@@ -54,19 +54,20 @@ export class OseCharacterGpCost extends FormApplication {
     // Generate gold
     const totalCost = await this._getTotalCost(await this.getData());
     const gp = await this.object.items.find((item) => {
+      itemData = item.system;
       return (
         (item.name === game.i18n.localize("OSE.items.gp.short") ||
           item.name === "GP") && // legacy behavior used GP, even for other languages
-        item.data.data.treasure
+        itemData.treasure
       );
     });
     if (!gp) {
       ui.notifications.error(game.i18n.localize("OSE.error.noGP"));
     }
-    const newGP = gp.data.data.quantity.value - totalCost;
+    const newGP = gp.system.quantity.value - totalCost;
     if (newGP >= 0) {
       this.object.updateEmbeddedDocuments("Item", [
-        { _id: gp.id, "data.quantity.value": newGP },
+        { _id: gp.id, "system.quantity.value": newGP },
       ]);
     } else {
       ui.notifications.error(game.i18n.localize("OSE.error.notEnoughGP"));
@@ -104,12 +105,13 @@ export class OseCharacterGpCost extends FormApplication {
     let total = 0;
     const physical = ["item", "container", "weapon", "armor"];
     data.items.forEach((item) => {
+      const itemData = item.system;
       if (
         physical.some((itemType) => item.type === itemType) &&
-        !item.data.treasure
+        !itemData.treasure
       )
-        if (item.data.quantity.max) total += item.data.cost;
-        else total += item.data.cost * item.data.quantity.value;
+        if (itemData.quantity.max) total += itemData.cost;
+        else total += itemData.cost * itemData.quantity.value;
     });
     return total;
   }

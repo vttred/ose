@@ -51,7 +51,7 @@ export class OsePartySheet extends FormApplication {
    */
   getData() {
     const settings = {
-      ascending: game.settings.get("ose", "ascendingAC"),
+      ascending: game.settings.get(game.system.id, "ascendingAC"),
     };
 
     let data = {
@@ -61,10 +61,12 @@ export class OsePartySheet extends FormApplication {
       user: game.user,
       settings: settings,
     };
+
     return data;
   }
 
   async _addActorToParty(actor) {
+
     if (actor.type !== "character") {
       return;
     }
@@ -83,7 +85,6 @@ export class OsePartySheet extends FormApplication {
   /* - Adding to the Party Sheet -*/
   _onDrop(event) {
     event.preventDefault();
-
     // WIP Drop Items
     let data;
     try {
@@ -91,6 +92,7 @@ export class OsePartySheet extends FormApplication {
 
       switch (data.type) {
         case "Actor":
+
           return this._onDropActor(event, data);
         case "Folder":
           return this._onDropFolder(event, data);
@@ -100,43 +102,39 @@ export class OsePartySheet extends FormApplication {
     }
   }
 
-  _onDropActor(event, data) {
+  async _onDropActor(event, data) {
+   
     if (data.type !== "Actor") {
       return;
     }
 
     const actors = game.actors;
-    let droppedActor = actors.find((actor) => actor.id === data.id);
+    let droppedActor = await fromUuid(data.uuid);
 
     this._addActorToParty(droppedActor);
   }
 
   _recursiveAddFolder(folder) {
-    folder.content.forEach((actor) => this._addActorToParty(actor));
+    folder.contents.forEach((actor) => this._addActorToParty(actor));
     folder.children.forEach((folder) => this._recursiveAddFolder(folder));
   }
 
-  _onDropFolder(event, data) {
+  async _onDropFolder(event, data) {
     if (data.documentName !== "Actor") {
       return;
     }
 
-    const folder = game.folders.get(data.id);
+    const folder = await fromUuid(data.uuid);
     if (!folder) return;
 
     this._recursiveAddFolder(folder);
   }
 
   /* - Dragging from the Party Sheet - */
-  _onDragStart(event) {
+  async _onDragStart(event) {
     try {
-      const actorId = event.currentTarget.dataset.actorId;
-
-      const dragData = {
-        id: actorId,
-        type: "Actor",
-      };
-
+      const { uuid } = event.currentTarget.dataset
+      const dragData = (await fromUuid(uuid)).toDragData();
       // Set data transfer
       event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
     } catch (error) {

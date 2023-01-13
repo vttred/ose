@@ -127,6 +127,21 @@
     width: 100%;
     flex-grow: 1;
   }
+
+  .drag-drop-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    p {
+      text-align: center;
+      width: 90%;
+      color: $colorTan;
+    }
+  }
+
   .actor-list {
     margin: 0;
     overflow: auto;

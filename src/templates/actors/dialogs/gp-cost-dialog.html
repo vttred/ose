@@ -10,7 +10,7 @@
           ></div>
           <h4 class="item-name" title="{{item.name}}">{{item.name~}}</h4>
             <div class="field-short">
-              {{item.data.data.cost}}
+              {{item.system.cost}}
             </div>
           </div>
         </li>
@@ -26,7 +26,7 @@
             ></div>
             <h4 class="item-name" title="{{item.name}}">{{item.name~}}</h4>
               <div class="field-short">
-                {{item.data.data.cost}}
+                {{item.system.cost}}
               </div>
             </div>
           </li>
@@ -42,11 +42,11 @@
             ></div>
             <h4 class="item-name" title="{{bag.name}}">{{bag.name~}}</h4>
               <div class="field-short">
-                {{bag.data.data.cost}}
+                {{bag.system.cost}}
               </div>
             </div>
           </li>
-        {{#each bag.data.data.itemIds as |item|}}
+        {{#each bag.system.itemIds as |item|}}
         <ol>
         <li class="item-entry item" data-item-id="{{item.id}}">
             <div class="item-header flexrow">
@@ -56,7 +56,7 @@
             ></div>
             <h4 class="item-name" title="{{item.name}}">{{item.name~}}</h4>
               <div class="field-short">
-                {{item.data.data.cost}}
+                {{item.system.cost}}
               </div>
             </div>
           </li>
@@ -74,7 +74,7 @@
             ></div>
             <h4 class="item-name" title="{{item.name}}">{{item.name~}}</h4>
               <div class="field-short">
-                {{item.data.data.cost}}
+                {{item.system.cost}}
               </div>
             </div>
           </li>

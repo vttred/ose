@@ -1,21 +1,31 @@
 // Import Modules
-import { OseItemSheet } from "./module/item/item-sheet.js";
-import { OseActorSheetCharacter } from "./module/actor/character-sheet.js";
-import { OseActorSheetMonster } from "./module/actor/monster-sheet.js";
-import { preloadHandlebarsTemplates } from "./module/preloadTemplates.js";
-import { OseActor } from "./module/actor/entity.js";
-import { OseItem } from "./module/item/entity.js";
-import { OSE } from "./module/config.js";
-import { registerSettings } from "./module/settings.js";
-import { registerHelpers } from "./module/helpers.js";
-import { registerFVTTModuleAPIs } from "./module/fvttModuleAPIs.js";
-import * as chat from "./module/chat.js";
-import * as treasure from "./module/treasure.js";
-import * as macros from "./module/macros.js";
-import * as party from "./module/party.js";
-import { OseCombat } from "./module/combat.js";
-import * as renderList from "./module/renderList.js";
-import { OsePartySheet } from "./module/party/party-sheet.js";
+import { OseItemSheet } from "./module/item/item-sheet";
+import { OseActorSheetCharacter } from "./module/actor/character-sheet";
+import { OseActorSheetMonster } from "./module/actor/monster-sheet";
+import { preloadHandlebarsTemplates } from "./module/preloadTemplates";
+import { OseActor } from "./module/actor/entity";
+import { OseItem } from "./module/item/entity";
+import { OSE } from "./module/config";
+import { registerSettings } from "./module/settings";
+import { registerHelpers } from "./module/helpers";
+import { registerFVTTModuleAPIs } from "./module/fvttModuleAPIs";
+import * as chat from "./module/chat";
+import * as treasure from "./module/treasure";
+import * as macros from "./module/macros";
+import * as party from "./module/party";
+import { OseCombat } from "./module/combat";
+import * as renderList from "./module/renderList";
+import { OsePartySheet } from "./module/party/party-sheet";
+import './e2e';
+
+import OseDataModelCharacter from './module/actor/data-model-character';
+import OseDataModelMonster from './module/actor/data-model-monster';
+import OseDataModelWeapon from './module/item/data-model-weapon';
+import OseDataModelArmor from './module/item/data-model-armor';
+import OseDataModelItem from './module/item/data-model-item';
+import OseDataModelSpell from './module/item/data-model-spell';
+import OseDataModelAbility  from './module/item/data-model-ability';
+import OseDataModelContainer from './module/item/data-model-container';
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -27,7 +37,7 @@ Hooks.once("init", async function () {
    * @type {String}
    */
   CONFIG.Combat.initiative = {
-    formula: "1d6 + @initiative.value",
+    formula: "1d6 + @init",
     decimals: 2,
   };
 
@@ -43,6 +53,11 @@ Hooks.once("init", async function () {
 
   // Custom Handlebars helpers
   registerHelpers();
+  
+  // Give modules a chance to add encumbrance schemes
+  // They can do so by adding their encumbrance schemes
+  // to CONFIG.OSE.encumbranceOptions
+  Hooks.call('ose-setup-encumbrance');
 
   // Register custom system settings
   registerSettings();
@@ -53,21 +68,34 @@ Hooks.once("init", async function () {
   CONFIG.Actor.documentClass = OseActor;
   CONFIG.Item.documentClass = OseItem;
 
+  CONFIG.Actor.systemDataModels = {
+    character: OseDataModelCharacter,
+    monster: OseDataModelMonster,
+  }
+  CONFIG.Item.systemDataModels = {
+    weapon: OseDataModelWeapon,
+    armor: OseDataModelArmor,
+    item: OseDataModelItem,
+    spell: OseDataModelSpell,
+    ability: OseDataModelAbility,
+    container: OseDataModelContainer,
+  }
+
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet("ose", OseActorSheetCharacter, {
+  Actors.registerSheet(game.system.id, OseActorSheetCharacter, {
     types: ["character"],
     makeDefault: true,
     label: "OSE.SheetClassCharacter",
   });
-  Actors.registerSheet("ose", OseActorSheetMonster, {
+  Actors.registerSheet(game.system.id, OseActorSheetMonster, {
     types: ["monster"],
     makeDefault: true,
     label: "OSE.SheetClassMonster",
   });
 
   Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet("ose", OseItemSheet, {
+  Items.registerSheet(game.system.id, OseItemSheet, {
     makeDefault: true,
     label: "OSE.SheetClassItem",
   });
@@ -96,7 +124,7 @@ Hooks.once("setup", function () {
   }
 
   // Custom languages
-  const languages = game.settings.get("ose", "languages");
+  const languages = game.settings.get(game.system.id, "languages");
   if (languages != "") {
     const langArray = languages.split(",");
     langArray.forEach((l, i) => (langArray[i] = l.trim()));
@@ -133,7 +161,7 @@ Hooks.on("renderSidebarTab", async (object, html) => {
     const styling =
       "border:none;margin-right:2px;vertical-align:middle;margin-bottom:5px";
     $(
-      `<button data-action="userguide"><img src='systems/ose/assets/dragon.png' width='16' height='16' style='${styling}'/>Old School Guide</button>`
+      `<button type="button" data-action="userguide"><img src='${OSE.assetsPath}/dragon.png' width='16' height='16' style='${styling}'/>Old School Guide</button>`
     ).insertAfter(docs);
     html.find('button[data-action="userguide"]').click((ev) => {
       new FrameViewer("https://vttred.github.io/ose", {
@@ -144,7 +172,7 @@ Hooks.on("renderSidebarTab", async (object, html) => {
 });
 
 Hooks.on("preCreateCombatant", (combat, data, options, id) => {
-  let init = game.settings.get("ose", "initiative");
+  let init = game.settings.get(game.system.id, "initiative");
   if (init == "group") {
     OseCombat.addCombatant(combat, data, options, id);
   }

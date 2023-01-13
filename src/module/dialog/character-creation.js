@@ -28,7 +28,7 @@ export class OseCharacterCreator extends FormApplication {
    * @return {Object}
    */
   getData() {
-    let data = foundry.utils.deepClone(this.object.data);
+    let data = foundry.utils.deepClone(this.object);
     data.user = game.user;
     data.config = CONFIG.OSE;
     this.counters = {
@@ -178,7 +178,7 @@ export class OseCharacterCreator extends FormApplication {
     event,
     { updateData = null, preventClose = false, preventRender = false } = {}
   ) {
-    updateData = { ...updateData, data: { scores: this.scores } };
+    updateData = { ...updateData, system: { scores: this.scores } };
     super._onSubmit(event, {
       updateData: updateData,
       preventClose: preventClose,
@@ -188,7 +188,7 @@ export class OseCharacterCreator extends FormApplication {
     const itemData = {
       name: game.i18n.localize("OSE.items.gp.short"),
       type: "item",
-      img: "systems/ose/assets/gold.png",
+      img: `${OSE.assetsPath}/gold.png`,
       data: {
         treasure: true,
         cost: 1,

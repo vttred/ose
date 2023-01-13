@@ -19,8 +19,7 @@
             ></div>
             <h4 class="item-name" title="{{item.name}}">{{item.name~}}</h4>
             <div class="field-short">
-              {{localize "OSE.items.Quantity"}}
-              {{item.data.data.quantity.value}}
+              {{localize "OSE.items.Quantity"}} {{item.system.quantity.value}}
             </div>
           </div>
           <div class="item-summary">
@@ -43,8 +42,7 @@
             ></div>
             <h4 class="item-name" title="{{item.name}}">{{item.name~}}</h4>
             <div class="field-short">
-              {{localize "OSE.items.Quantity"}}
-              {{item.data.data.quantity.value}}
+              {{localize "OSE.items.Quantity"}} {{item.system.quantity.value}}
             </div>
           </div>
           <div class="item-summary">
@@ -68,7 +66,7 @@
             ></div>
             <h4 class="item-name" title="{{bag.name}}">{{bag.name~}}</h4>
             <div class="field-short">
-              {{localize "OSE.items.Quantity"}} {{bag.data.data.quantity.value}}
+              {{localize "OSE.items.Quantity"}} {{bag.system.quantity.value}}
             </div>
           </div>
           <div class="item-summary">
@@ -76,7 +74,7 @@
             item=bag}}
           </div>
           <ol class="item-list contained-items">
-            {{#each bag.data.data.itemIds as |item|}}
+            {{#each bag.system.itemIds as |item|}}
             <li class="item-entry item" data-item-id="{{item.id}}">
               <div class="item-header flexrow">
                 <div
@@ -86,7 +84,7 @@
                 <h4 class="item-name" title="{{item.name}}">{{item.name~}}</h4>
                 <div class="field-short">
                   {{localize "OSE.items.Quantity"}}
-                  {{item.data.data.quantity.value}}
+                  {{item.system.quantity.value}}
                 </div>
               </div>
               <div class="item-summary">
@@ -113,8 +111,7 @@
             ></div>
             <h4 class="item-name" title="{{item.name}}">{{item.name~}}</h4>
             <div class="field-short">
-              {{localize "OSE.items.Quantity"}}
-              {{item.data.data.quantity.value}}
+              {{localize "OSE.items.Quantity"}} {{item.system.quantity.value}}
             </div>
           </div>
           <div class="item-summary">
@@ -138,8 +135,7 @@
             ></div>
             <h4 class="item-name" title="{{item.name}}">{{item.name~}}</h4>
             <div class="field-short">
-              {{localize "OSE.items.Quantity"}}
-              {{item.data.data.quantity.value}}
+              {{localize "OSE.items.Quantity"}} {{item.system.quantity.value}}
             </div>
           </div>
           <div class="item-summary">

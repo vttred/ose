@@ -9,11 +9,11 @@
     <a class="item" data-tab="attributes">
       {{localize "OSE.category.attributes"}}
     </a>
-    {{#if data.config.enableInventory}}
+    {{#if system.config.enableInventory}}
     <a class="item" data-tab="inventory">
       {{localize "OSE.category.inventory"}}
     </a>
-    {{/if}} {{#if data.spells.enabled}}
+    {{/if}} {{#if system.spells.enabled}}
     <a class="item" data-tab="spells"> {{localize "OSE.category.spells"}} </a>
     {{/if}}
     <a class="item" data-tab="notes"> {{localize "OSE.category.notes"}} </a>
@@ -24,11 +24,11 @@
     <div class="tab" data-group="primary" data-tab="attributes">
       {{> (path "/templates/actors/partials/monster-attributes-tab.html") }}
     </div>
-    {{#if data.config.enableInventory}}
+    {{#if system.config.enableInventory}}
     <div class="tab" data-group="primary" data-tab="inventory">
       {{> (path "/templates/actors/partials/character-inventory-tab.html") }}
     </div>
-    {{/if}} {{#if data.spells.enabled}}
+    {{/if}} {{#if system.spells.enabled }}
     <div class="tab" data-group="primary" data-tab="spells">
       {{> (path "/templates/actors/partials/character-spells-tab.html") }}
     </div>
@@ -37,9 +37,8 @@
       <div class="inventory">
         <div class="item-category-title">{{localize "OSE.category.notes"}}</div>
         <div class="resizable-editor" data-editor-size="320">
-          {{editor content=data.details.biography
-          target="data.details.biography" button=true owner=owner
-          editable=editable}}
+          {{editor enrichedBiography target="system.details.biography"
+          button=true editable=editable async=true}}
         </div>
       </div>
     </div>

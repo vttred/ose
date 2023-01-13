@@ -65,8 +65,9 @@ export class OsePartyXP extends FormApplication {
     const baseXpShare = parseFloat(totalXP) / currentParty.length;
 
     currentParty.forEach((a) => {
+      const actorData = a?.system;
       const xpShare = Math.floor(
-        (a.data.data.details.xp.share / 100) * baseXpShare
+        (actorData.details.xp.share / 100) * baseXpShare
       );
       html.find(`li[data-actor-id='${a.id}'] input`).val(xpShare);
     });

@@ -85,6 +85,42 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "hogwrassler",
+      "name": "hogwrassler",
+      "avatar_url": "https://avatars.githubusercontent.com/u/110945935?v=4",
+      "profile": "https://github.com/hogwrassler",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "wyrmisis",
+      "name": "Tim",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1731267?v=4",
+      "profile": "http://timsnyder.codes",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "maschill92",
+      "name": "Michael Schilling",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4692066?v=4",
+      "profile": "https://github.com/maschill92",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Haxxer",
+      "name": "Adam Oresten",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12858387?v=4",
+      "profile": "http://adamoresten.com",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
@@ -92,5 +128,6 @@
   "projectOwner": "vttred",
   "repoType": "github",
   "repoHost": "https://github.com",
-  "skipCi": true
+  "skipCi": true,
+  "commitConvention": "angular"
 }

@@ -41,76 +41,32 @@ export class OseActorSheetCharacter extends OseActorSheet {
    * @private
    */
   _prepareItems(data) {
-    const itemsData = this.actor.data.items;
-    const containerContents = {};
-    // Partition items by category
-    let [containers, treasures, items, weapons, armors, abilities, spells] =
-      itemsData.reduce(
-        (arr, item) => {
-          // Classify items into types
-          const containerId = item?.data?.data?.containerId;
-          if (containerId) {
-            containerContents[containerId] = [
-              ...(containerContents[containerId] || []),
-              item,
-            ];
-          } else if (item.type === "container") arr[0].push(item);
-          else if (item.type === "item" && item?.data?.data?.treasure)
-            arr[1].push(item);
-          else if (item.type === "item") arr[2].push(item);
-          else if (item.type === "weapon") arr[3].push(item);
-          else if (item.type === "armor") arr[4].push(item);
-          else if (item.type === "ability") arr[5].push(item);
-          else if (item.type === "spell") arr[6].push(item);
-          return arr;
-        },
-        [[], [], [], [], [], [], []]
-      );
-    // Sort spells by level
-    var sortedSpells = {};
-    var slots = {};
-    for (var i = 0; i < spells.length; i++) {
-      const lvl = spells[i].data.data.lvl;
-      if (!sortedSpells[lvl]) sortedSpells[lvl] = [];
-      if (!slots[lvl]) slots[lvl] = 0;
-      slots[lvl] += spells[i].data.data.memorized;
-      sortedSpells[lvl].push(spells[i]);
-    }
-    data.slots = {
-      used: slots,
-    };
-    containers.map((container, key, arr) => {
-      arr[key].data.data.itemIds = containerContents[container.id] || [];
-      arr[key].data.data.totalWeight = containerContents[container.id]?.reduce(
-        (acc, item) => {
-          return (
-            acc +
-            item.data?.data?.weight * (item.data?.data?.quantity?.value || 1)
-          );
-        },
-        0
-      );
-      return arr;
-    });
-
     // Assign and return
     data.owned = {
-      items: items,
-      armors: armors,
-      weapons: weapons,
-      treasures: treasures,
-      containers: containers,
+      items: this.actor.system.items,
+      armors: this.actor.system.armor,
+      weapons: this.actor.system.weapons,
+      treasures: this.actor.system.treasures,
+      containers: this.actor.system.containers,
     };
-    data.containers = containers;
-    data.abilities = abilities;
-    data.spells = sortedSpells;
-
+    data.containers = this.actor.system.containers;
+    data.abilities = this.actor.system.abilities;
+    data.spells = this.actor.system.spells.spellList;
+    data.slots = this.actor.system.spellSlots;
+    
+    // These values are getters that aren't getting
+    // cloned when `this.actor.system` is cloned
+    data.system.usesAscendingAC = this.actor.system.usesAscendingAC;
+    data.system.meleeMod = this.actor.system.meleeMod;
+    data.system.rangedMod = this.actor.system.rangedMod;
+    data.system.init = this.actor.system.init;
+    
     // Sort by sort order (see ActorSheet)
     [
       ...Object.values(data.owned),
-      ...Object.values(data.spells),
+      ...Object.values(data?.spells?.spellList || {}),
       data.abilities,
-    ].forEach((o) => o.sort((a, b) => (a.data.sort || 0) - (b.data.sort || 0)));
+    ].forEach((o) => o.sort((a, b) => (a.sort || 0) - (b.sort || 0)));
   }
 
   generateScores() {
@@ -124,17 +80,26 @@ export class OseActorSheetCharacter extends OseActorSheet {
    * Prepare data for rendering the Actor sheet
    * The prepared data object contains both the actor data as well as additional sheet options
    */
-  getData() {
+  async getData() {
     const data = super.getData();
     // Prepare owned items
     this._prepareItems(data);
+
+    data.enrichedBiography = await TextEditor.enrichHTML(
+      this.object.system.details.biography,
+      { async: true }
+    );
+    data.enrichedNotes = await TextEditor.enrichHTML(
+      this.object.system.details.notes,
+      { async: true }
+    );
     return data;
   }
 
   async _chooseLang() {
     let choices = CONFIG.OSE.languages;
 
-    let templateData = { choices: choices },
+    let templateData = { choices },
       dlg = await renderTemplate(
         `${OSE.systemPath()}/templates/actors/dialogs/lang-create.html`,
         templateData
@@ -165,8 +130,8 @@ export class OseActorSheetCharacter extends OseActorSheet {
   }
 
   _pushLang(table) {
-    const data = this.actor.data.data;
-    let update = duplicate(data[table]);
+    const data = this.actor.system;
+    let update = data[table]; //V10 compatibility
     this._chooseLang().then((dialogInput) => {
       const name = CONFIG.OSE.languages[dialogInput.choice];
       if (update.value) {
@@ -182,7 +147,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
   }
 
   _popLang(table, lang) {
-    const data = this.actor.data.data;
+    const data = this.actor.system;
     let update = data[table].value.filter((el) => el != lang);
     let newData = {};
     newData[table] = { value: update };
@@ -276,7 +241,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
       const item = this.actor.items.get(li.data("itemId"));
       await item.update({
         data: {
-          equipped: !item.data.data.equipped,
+          equipped: !item.system.equipped,
         },
       });
     });

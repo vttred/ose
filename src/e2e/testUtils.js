@@ -1,4 +1,4 @@
-const inputDelay = 100;
+const inputDelay = 120;
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms)); 
 

@@ -53,7 +53,14 @@ export class OseActorSheetCharacter extends OseActorSheet {
     data.abilities = this.actor.system.abilities;
     data.spells = this.actor.system.spells.spellList;
     data.slots = this.actor.system.spellSlots;
-
+    
+    // These values are getters that aren't getting
+    // cloned when `this.actor.system` is cloned
+    data.system.usesAscendingAC = this.actor.system.usesAscendingAC;
+    data.system.meleeMod = this.actor.system.meleeMod;
+    data.system.rangedMod = this.actor.system.rangedMod;
+    data.system.init = this.actor.system.init;
+    
     // Sort by sort order (see ActorSheet)
     [
       ...Object.values(data.owned),
@@ -92,11 +99,11 @@ export class OseActorSheetCharacter extends OseActorSheet {
   async _chooseLang() {
     let choices = CONFIG.OSE.languages;
 
-    let templateData = { choices: choices },
-        dlg = await renderTemplate(
-          `${OSE.systemPath()}/templates/actors/dialogs/lang-create.html`,
-          templateData
-        );
+    let templateData = { choices },
+      dlg = await renderTemplate(
+        `${OSE.systemPath()}/templates/actors/dialogs/lang-create.html`,
+        templateData
+      );
     //Create Dialog window
     return new Promise((resolve) => {
       new Dialog({
@@ -123,7 +130,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
   }
 
   _pushLang(table) {
-    const data = this.actor.data.data;
+    const data = this.actor.system;
     let update = data[table]; //V10 compatibility
     this._chooseLang().then((dialogInput) => {
       const name = CONFIG.OSE.languages[dialogInput.choice];
@@ -140,7 +147,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
   }
 
   _popLang(table, lang) {
-    const data = this.actor.data.data;
+    const data = this.actor.system;
     let update = data[table].value.filter((el) => el != lang);
     let newData = {};
     newData[table] = { value: update };

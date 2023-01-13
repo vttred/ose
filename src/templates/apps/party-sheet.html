@@ -2,22 +2,25 @@
   <div class="actor header flexrow item-controls">
     <div id="empty"></div>
     {{#if user.isGM}}
-    <button id="deal-xp" class="item-control" type="button" title="{{localize 'OSE.dialog.xp.deal'}}">
+    <button
+      id="deal-xp"
+      class="item-control"
+      type="button"
+      title="{{localize 'OSE.dialog.xp.deal'}}"
+    >
       {{localize 'OSE.dialog.xp.label'}}
     </button>
     {{/if}}
   </div>
   <div class="body party-members">
-    {{#if user.isGM}}
-    {{#if (eq partyActors.length 0)}}
+    {{#if (and user.isGM (eq partyActors.length 0))}}
     <div class="drag-drop-placeholder">
       <p>{{localize 'OSE.dialog.partysheetplaceholder'}}</p>
     </div>
     {{/if}}
-    {{/if}}
     <ol class="actor-list">
       {{#each partyActors as |e|}}
-      <li class="actor flexrow" data-actor-id="{{e.id}}">
+      <li class="actor flexrow" data-actor-id="{{e.id}}" data-uuid="{{e.uuid}}">
         <div class="field-img">
           <img src="{{e.img}}" />
           <div class="img-btns flexrow">
@@ -34,14 +37,16 @@
             <div title="{{e.name}}" class="field-name flex2">{{e.name}}</div>
             <div class="field-long" title="{{localize 'OSE.Health'}}">
               <i class="fas fa-heart"></i>
-              {{e.data.data.hp.value}}/{{e.data.data.hp.max}}
+              {{e.system.hp.value}}/{{e.system.hp.max}}
             </div>
             <div class="field-short" title="{{localize 'OSE.ArmorClass'}}">
               <i class="fas fa-shield-alt"></i>
-              {{#if @root.settings.ascending}}<strong>{{e.data.data.aac.value}}</strong>
-              <sub>{{e.data.data.aac.naked}}</sub>
-              {{else}}<strong>{{e.data.data.ac.value}}</strong>
-              <sub>{{e.data.data.ac.naked}}</sub>
+              {{#if @root.settings.ascending}}<strong
+                >{{e.system.aac.value}}</strong
+              >
+              <sub>{{e.system.aac.naked}}</sub>
+              {{else}}<strong>{{e.system.ac.value}}</strong>
+              <sub>{{e.system.ac.naked}}</sub>
               {{/if}}
             </div>
           </div>
@@ -49,42 +54,58 @@
             {{#unless @root.settings.ascending}}
             <div class="field-short" title="{{localize 'OSE.Thac0'}}">
               <i class="fas fa-crosshairs"></i>
-              {{e.data.data.thac0.value}}
+              {{e.system.thac0.value}}
             </div>
             {{else}}
             <div class="field-short" title="{{localize 'OSE.AB'}}">
               <i class="fas fa-crosshairs"></i>
-              {{e.data.data.thac0.bba}}
+              {{e.system.thac0.bba}}
             </div>
-            {{/unless}} {{#if (eq e.data.type 'character')}}
+            {{/unless}} {{#if (eq e.type 'character')}}
             <div class="field-short" title="{{localize 'OSE.Melee'}}">
               <i class="fas fa-fist-raised"></i>
-              {{add e.data.data.scores.str.mod e.data.data.thac0.mod.melee}}
+              {{add e.system.scores.str.mod e.system.thac0.mod.melee}}
             </div>
             <div class="field-short" title="{{localize 'OSE.Missile'}}">
               <i class="fas fa-bullseye"></i>
-              {{add e.data.data.scores.dex.mod e.data.data.thac0.mod.missile}}
+              {{add e.system.scores.dex.mod e.system.thac0.mod.missile}}
             </div>
             {{/if}}
             <div class="field-short flex2">
-              <i class="fas fa-shoe-prints" title="{{localize 'OSE.movement.base'}}"></i>
-              <span title="{{localize 'OSE.movement.encounter.long'}}">{{e.data.data.movement.encounter}}</span>
-              <sub title="{{localize 'OSE.movement.exploration.long'}}">{{e.data.data.movement.base}}</sub>
+              <i
+                class="fas fa-shoe-prints"
+                title="{{localize 'OSE.movement.base'}}"
+              ></i>
+              <span title="{{localize 'OSE.movement.encounter.long'}}"
+                >{{e.system.movement.encounter}}</span
+              >
+              <sub title="{{localize 'OSE.movement.exploration.long'}}"
+                >{{e.system.movement.base}}</sub
+              >
             </div>
-            {{#if (eq e.data.type 'character')}}
+            {{#if (eq e.type 'character')}}
             <div class="field-short flex2">
-              <i class="fas fa-weight-hanging" title="{{localize 'OSE.Encumbrance'}}"></i>
-              {{roundWeight e.data.data.encumbrance.value}}k
+              <i
+                class="fas fa-weight-hanging"
+                title="{{localize 'OSE.Encumbrance'}}"
+              ></i>
+              {{roundWeight e.system.encumbrance.value}}k
             </div>
             {{/if}}
           </div>
           <div class="flexrow field-row">
             <div class="field-longer flexrow">
-              {{#each e.data.data.saves as |s i|}}
-              <span title="{{lookup @root.config.saves_long i}}">{{lookup @root.config.saves_short i}}
-                {{s.value}}</span>
-              {{/each}} {{#if (eq e.data.type 'character')}}<span><i class="fas fa-magic"
-                  title="{{localize 'OSE.saves.magic.long'}}"></i>{{mod e.data.data.scores.wis.mod}}</span>{{/if}}
+              {{#each e.system.saves as |s i|}}
+              <span title="{{lookup @root.config.saves_long i}}"
+                >{{lookup @root.config.saves_short i}} {{s.value}}</span
+              >
+              {{/each}} {{#if (eq e.type 'character')}}<span
+                ><i
+                  class="fas fa-magic"
+                  title="{{localize 'OSE.saves.magic.long'}}"
+                ></i
+                >{{mod e.system.scores.wis.mod}}</span
+              >{{/if}}
             </div>
           </div>
         </div>

@@ -50,7 +50,7 @@ export default class OseDataModelCharacterSpells implements CharacterSpells {
       let othersAtLvl = list[lvl] || [];
       return {
       ...list,
-      [lvl]: [ ...othersAtLvl, item ]
+      [lvl]: [ ...othersAtLvl, item ].sort((a, b) => a.name.localeCompare(b.name))
     }};
 
     return this.#spellList.reduce(reducedSpells, {})

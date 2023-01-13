@@ -37,106 +37,17 @@ export class OseActorSheetMonster extends OseActorSheet {
    * @private
    */
   _prepareItems(data) {
-    const itemsData = this.actor?.items || this.actor?.data?.items; //v9-compatibility
-    const containerContents = {};
-    const attackPatterns = {
-    };
-
-    let colors = Object.keys(CONFIG.OSE.colors);
-    colors.push("transparent");
-
-    // Set up attack patterns in specific order
-    for (var i = 0; i < colors.length; i++)
-    {
-      attackPatterns[colors[i]] = [];
-    }    
-
-    // Partition items by category
-    let [weapons, items, armors, spells, containers, treasures] = itemsData.reduce(
-      (arr, item) => {
-        const itemData = item?.system || item?.data?.data; //v9-compatibility
-        // Classify items into types
-        const containerId = itemData.containerId;
-        if (containerId) {
-          containerContents[containerId] = [
-            ...(containerContents[containerId] || []),
-            item,
-          ];
-          return arr;
-        }
-        // Add Items to their respective attack groups
-        if (["weapon", "ability"].includes(item.type)) {
-          attackPatterns[item.data.data.pattern].push(item);
-        }
-        // Classify items into types
-        switch (item.type) {
-          case "weapon":
-            arr[0].push(item);
-            break;
-          case "item":
-            arr[
-              (item.system || item.data.data).treasure ? 5 : 1
-            ].push(item);
-            break;
-          case "armor":
-            arr[2].push(item);
-            break;
-          case "spell":
-            arr[3].push(item);
-            break;
-          case "container":
-            arr[4].push(item);
-            break;
-        }
-
-        return arr;
-      },
-      [[], [], [], [], [], []]
-    );
-
-    // Sort spells by level
-    var sortedSpells = {};
-    var slots = {};
-    for (var i = 0; i < spells.length; i++) {
-      let lvl = spells[i].data.data.lvl;
-      if (!sortedSpells[lvl]) sortedSpells[lvl] = [];
-      if (!slots[lvl]) slots[lvl] = 0;
-      slots[lvl] += spells[i].data.data.memorized;
-      sortedSpells[lvl].push(spells[i]);
-    }
-    data.slots = {
-      used: slots,
-    };
-    containers.map((container, key, arr) => {
-      arr[key].data.data.itemIds = containerContents[container.id] || [];
-      arr[key].data.data.totalWeight = containerContents[container.id]?.reduce(
-        (acc, item) => {
-          return (
-            acc +
-            item.data?.data?.weight * (item.data?.data?.quantity?.value || 1)
-          );
-        },
-        0
-      );
-      return arr;
-    });
     // Assign and return
-    data.owned = { weapons, items, containers, armors, treasures };
-    
-    data.attackPatterns = attackPatterns;
-    // Sort items and spells alphabetically within their groups
-    data.spells = sortedSpells;
-    [
-      ...Object.values(data.owned),
-      ...Object.values(data.spells),
-    ].forEach((o) => o.sort((a, b) => a.data.name.localeCompare(b.data.name)));
+    data.owned = {
+      weapons: this.actor.system.weapons,
+      items: this.actor.system.items,
+      containers: this.actor.system.containers,
+      armors: this.actor.system.armor,
+      treasures: this.actor.system.treasures,
+    };
 
-    // Within each attack pattern, weapons come before abilities, 
-    // and are then alphabetized
-    Object.values(data.attackPatterns).forEach(
-        (o) => o.sort((a, b) => 
-        b.data.type.localeCompare(a.data.type) || a.data.name.localeCompare(b.data.name))
-    );
+    data.attackPatterns = this.actor.system.attackPatterns;
+    data.spells = this.actor.system.spells.spellList;
   }
 
   /**
@@ -148,7 +59,7 @@ export class OseActorSheetMonster extends OseActorSheet {
     // Prepare owned items
     this._prepareItems(data);
 
-    const monsterData = data?.system || data?.data; //v9-compatibility
+    const monsterData = data?.system;
 
     // Settings
     data.config.morale = game.settings.get(game.system.id, "morale");
@@ -173,7 +84,7 @@ export class OseActorSheetMonster extends OseActorSheet {
   async generateSave() {
     let choices = CONFIG.OSE.monster_saves;
 
-    let templateData = { choices: choices },
+    let templateData = { choices },
       dlg = await renderTemplate(
         `${OSE.systemPath()}/templates/actors/dialogs/monster-saves.html`,
         templateData
@@ -220,30 +131,22 @@ export class OseActorSheetMonster extends OseActorSheet {
       let tableData = game.packs
         .get(data.pack)
         .index.filter((el) => el._id === data.id);
-      link = `@Compendium[${data.pack}.${data.id}]{${tableData[0].name}}`;
+      link = `@UUID[${data.uuid}]{${tableData[0].name}}`;
     } else {
       link = `@UUID[${data.uuid}]`;
     }
-    const treasureTableKey = isNewerVersion(game.version, "10.264")
-      ? "system.details.treasure.table"
-      : "data.details.treasure.table"; //v9-compatibility
-    this.actor.update({ [treasureTableKey]: link });
+    this.actor.update({ 'system.details.treasure.table': link });
   }
 
   /* -------------------------------------------- */
   async _resetAttacks(event) {
-    const monsterItems = this.actor?.items || this.actor?.data?.items; //v9-compatiblity
-    const weapons = monsterItems.filter((i) => i.type === "weapon");
-    for (let wp of weapons) {
-      const item = this.actor.items.get(wp.id);
-      await item.update({
-        data: {
-          counter: {
-            value: parseInt(wp.data.data.counter.max),
-          },
-        },
-      });
-    }
+    return Promise.all(
+      this.actor.items
+        .filter(i => i.type === 'weapon')
+        .map(weapon => weapon.update({
+          'system.counter.value': parseInt(weapon.system.counter.max)
+        }))
+    )
   }
 
   async _updateAttackCounter(event) {
@@ -252,18 +155,18 @@ export class OseActorSheetMonster extends OseActorSheet {
 
     if (event.target.dataset.field === "value") {
       return item.update({
-        "data.counter.value": parseInt(event.target.value),
+        "system.counter.value": parseInt(event.target.value),
       });
     } else if (event.target.dataset.field === "max") {
       return item.update({
-        "data.counter.max": parseInt(event.target.value),
+        "system.counter.max": parseInt(event.target.value),
       });
     }
   }
 
   _cycleAttackPatterns(event) {
     const item = super._getItemFromActor(event);
-    let currentColor = item.data.data.pattern;
+    let currentColor = item.system.pattern;
     // Attack patterns include all OSE colors and transparent
     let colors = Object.keys(CONFIG.OSE.colors);
     colors.push("transparent");
@@ -274,7 +177,7 @@ export class OseActorSheetMonster extends OseActorSheet {
       index++;
     }
     item.update({
-      "data.pattern": colors[index],
+      "system.pattern": colors[index],
     });
   }
 
@@ -302,10 +205,7 @@ export class OseActorSheetMonster extends OseActorSheet {
     });
 
     html.find(".treasure-table a").contextmenu((ev) => {
-      const treasureTableKey = isNewerVersion(game.version, "10.264")
-        ? "system.details.treasure.table"
-        : "data.details.treasure.table"; //v9-compatibility
-      this.actor.update({ [treasureTableKey]: null });
+      this.actor.update({ 'system.details.treasure.table': null });
     });
 
     // Everything below here is only needed if the sheet is editable

@@ -112,6 +112,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "Haxxer",
+      "name": "Adam Oresten",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12858387?v=4",
+      "profile": "http://adamoresten.com",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

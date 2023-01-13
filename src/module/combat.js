@@ -17,7 +17,7 @@ export class OseCombat {
     // Check groups
     data.combatants = [];
     let groups = {};
-    let combatants = combat?.combatants || combat?.data?.combatants; //v9-compatibility
+    let combatants = combat?.combatants;
     combatants.forEach((cbt) => {
       const group = cbt.getFlag(game.system.id, "group");
       groups[group] = { present: true };
@@ -41,9 +41,7 @@ export class OseCombat {
         if (!data.combatants[i].actor) {
           return;
         }
-        let actorData =
-          data.combatants[i].actor?.system ||
-          data.combatants[i].actor?.data?.data;
+        let actorData = data.combatants[i].actor?.system;
         if (actorData.isSlow) {
           await data.combatants[i].update({
             initiative: OseCombat.STATUS_SLOW,
@@ -72,9 +70,13 @@ export class OseCombat {
   static async individualInitiative(combat, data) {
     let updates = [];
     let rolls = [];
-    let combatants = combat?.combatants || combat?.data?.data; //v9-compatibility
+    let combatants = combat?.combatants;
     for (let i = 0; i < combatants.size; i++) {
       let c = combatants.contents[i];
+      //check if actor initiative has already been set for this round
+      if (c?.initiative) {
+        continue;
+      }
       // This comes from foundry.js, had to remove the update turns thing
       // Roll initiative
       const cf = await c._getInitiativeFormula(c);
@@ -98,10 +100,9 @@ export class OseCombat {
       );
       //add initiative value to update
       //check if actor is slow
-      let value =
-        cbt.actor?.system?.isSlow || cbt.actor?.data?.data?.isSlow //v9-compatibility
-          ? OseCombat.STATUS_SLOW
-          : roll.total;
+      let value = cbt.actor?.system?.isSlow
+        ? OseCombat.STATUS_SLOW
+        : roll.total;
       //check if actor is defeated
       if (combat.settings.skipDefeated && cbt.isDefeated) {
         value = OseCombat.STATUS_DIZZY;
@@ -202,7 +203,7 @@ export class OseCombat {
   static updateCombatant(combatant, data) {
     let init = game.settings.get(game.system.id, "initiative");
     // Why do you reroll ?
-    const actorData = combatant.actor?.system || combatant.actor?.data?.data;
+    const actorData = combatant.actor?.system;
     if (actorData.isSlow) {
       data.initiative = -789;
       return;

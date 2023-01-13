@@ -38,7 +38,7 @@ export class OseItemSheet extends ItemSheet {
   /** @override */
   get template() {
     const path = `${OSE.systemPath()}/templates/items`;
-    const type = isNewerVersion(game.version, "10.264") ? this.item.type : this.item.data.type
+    const type = isNewerVersion(game.version, "10.264") ? this.item.type : this.item.type
     return `${path}/${type}-sheet.html`;
   }
 
@@ -46,10 +46,16 @@ export class OseItemSheet extends ItemSheet {
    * Prepare data for rendering the Item sheet
    * The prepared data object contains both the actor data as well as additional sheet options
    */
-  getData() {
+  async getData() {
     const data = super.getData().data;
     data.editable = this.document.sheet.isEditable;
     data.config = CONFIG.OSE;
+    data.enriched = {
+      description: await TextEditor.enrichHTML(
+        this.item.system?.description || "",
+        {async: true}
+      )
+    }
     return data;
   }
 
@@ -72,11 +78,11 @@ export class OseItemSheet extends ItemSheet {
       this.object.popManualTag(value);
     });
     html.find("a.melee-toggle").click(() => {
-      this.object.update({ data: { melee: !this.object.data.data.melee } });
+      this.object.update({ 'system.melee': !this.object.system.melee });
     });
 
     html.find("a.missile-toggle").click(() => {
-      this.object.update({ data: { missile: !this.object.data.data.missile } });
+      this.object.update({ 'system.missile': !this.object.system.missile })
     });
 
     super.activateListeners(html);

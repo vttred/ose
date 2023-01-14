@@ -181,6 +181,8 @@
   "OSE.Setting.applyDamageOptionHint": "El(los) token(s) a los que se le aplicará el daño de una tirada de ataque",
   "OSE.Setting.damageSelected": "Seleccionado",
   "OSE.Setting.damageTarget": "Objetivo",
+  "OSE.Setting.InvertedCtrlBehavior": "Invertir rollo Ctrl/Meta-tecla",
+  "OSE.Setting.InvertedCtrlBehaviorHint": "Invierte el comportamiento para mantener presionadas las teclas Ctrl/Meta al hacer clic en un rollo.",
   "OSE.items.Equip": "Equipar",
   "OSE.items.Unequip": "Desequipar",
   "OSE.items.Misc": "Misc",

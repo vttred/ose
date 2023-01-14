@@ -134,7 +134,13 @@ export class OseActor extends Actor {
       details: game.i18n.format("OSE.roll.details.save", { save: label }),
     };
 
-    let skip = options?.event?.ctrlKey || options.fastForward;
+    const invertedCtrlBehavior = game.settings.get(game.system.id, "invertedCtrlBehavior");
+    let skip = 
+      options.fastForward ||
+      invertedCtrlBehavior ? 
+        !(options.event && (options.event.ctrlKey || options.event.metaKey))
+        :
+        (options.event && (options.event.ctrlKey || options.event.metaKey));
 
     const rollMethod =
       actorType === "character" ? OseDice.RollSave : OseDice.Roll;
@@ -267,7 +273,13 @@ export class OseActor extends Actor {
       }),
     };
 
-    let skip = options?.event?.ctrlKey || options.fastForward;
+    const invertedCtrlBehavior = game.settings.get(game.system.id, "invertedCtrlBehavior");
+    let skip = 
+      options.fastForward ||
+      invertedCtrlBehavior ? 
+        !(options.event && (options.event.ctrlKey || options.event.metaKey))
+        :
+        (options.event && (options.event.ctrlKey || options.event.metaKey));
 
     // Roll and return
     return OseDice.Roll({
@@ -368,9 +380,13 @@ export class OseActor extends Actor {
       }),
     };
 
-    let skip =
+    const invertedCtrlBehavior = game.settings.get(game.system.id, "invertedCtrlBehavior");
+    let skip = 
       options.fastForward ||
-      (options.event && (options.event.ctrlKey || options.event.metaKey));
+      invertedCtrlBehavior ? 
+        !(options.event && (options.event.ctrlKey || options.event.metaKey))
+        :
+        (options.event && (options.event.ctrlKey || options.event.metaKey));
 
     // Roll and return
     return OseDice.Roll({

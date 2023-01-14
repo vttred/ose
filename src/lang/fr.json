@@ -191,6 +191,8 @@
   "OSE.Setting.Languages": "Langues",
   "OSE.Setting.LanguagesHint": "Entrez une liste des Langues de l'univers séparée par des virgules",
   "OSE.Setting.EnableInventory": "Afficher l'inventaire",
+  "OSE.Setting.InvertedCtrlBehavior": "Inverser le rouleau Ctrl/Méta-clé",
+  "OSE.Setting.InvertedCtrlBehaviorHint": "Inverse le comportement consistant à maintenir Ctrl/Meta enfoncé lorsque vous cliquez sur un rouleau.",
 
   "OSE.items.Equip": "Equiper",
   "OSE.items.Unequip": "Déséquiper",

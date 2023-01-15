@@ -108,7 +108,7 @@ export class OseActorSheet extends ActorSheet {
     if (item.type === "container" && itemData.itemIds) {
       const containedItems = itemData.itemIds;
       const updateData = containedItems.reduce((acc, val) => {
-        acc.push({ _id: val.id, "system.containerId": "" });
+        acc.push({ _id: val, "system.containerId": "" });
         return acc;
       }, []);
 

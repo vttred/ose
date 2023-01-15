@@ -24,6 +24,8 @@
   "OSE.dialog.generateScore": "Rolou {score} ({count})",
   "OSE.dialog.shoppingCart": "Lista de Compras",
   "OSE.dialog.purchaseFor": "Comprar por {totalCost}PO",
+  "OSE.dialog.deleteContainer": "Excluir contêiner?",
+  "OSE.dialog.confirmDeleteContainer": "Tem certeza de que deseja excluir o contêiner?",
   "OSE.Formula": "Fórmula",
   "OSE.SitMod": "Modificador Situacional",
   "OSE.Modifier": "Modificador",

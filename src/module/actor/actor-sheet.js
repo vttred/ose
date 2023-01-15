@@ -533,8 +533,39 @@ export class OseActorSheet extends ActorSheet {
       item.sheet.render(true);
     });
 
-    html.find(".item-delete").click((event) => {
-      this._removeItemFromActor(event);
+    html.find(".item-delete").click(async (event) => {
+      const item = this._getItemFromActor(event);
+      const itemData = item?.system;
+
+      if (item.type === "container" && itemData.itemIds.length > 0) {
+        // Create dialog
+        let templateData = { types:["ok", "cancel"] },
+          dlg = await renderTemplate(
+            `${OSE.systemPath()}/templates/items/delete-container.html`,
+            templateData
+          );
+  
+        const confirmation = new Dialog({
+          title: game.i18n.localize("OSE.dialog.deleteContainer"),
+          content: dlg,
+          buttons: {
+            ok: {
+              label: game.i18n.localize("OSE.Ok"),
+              icon: '<i class="fas fa-check"></i>',
+              callback: () => {
+                this._removeItemFromActor(event);
+              }
+            },
+            cancel: {
+              icon: '<i class="fas fa-times"></i>',
+              label: game.i18n.localize("OSE.Cancel"),
+            },
+          },
+          default: "cancel"
+        }).render(true);
+      } else {
+        this._removeItemFromActor(event);
+      }
     });
 
     html

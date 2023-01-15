@@ -25,6 +25,8 @@
   "OSE.dialog.generateSaves": "Générer les Sauvegardes",
   "OSE.dialog.generateScores": "Générer les Scores",
   "OSE.dialog.generateScore": "Création: {score} ({count})",
+  "OSE.dialog.deleteContainer": "Supprimer le conteneur?",
+  "OSE.dialog.confirmDeleteContainer": "Voulez-vous vraiment supprimer le conteneur?",
 
   "OSE.Formula": "Formule",
   "OSE.SitMod": "Mod. de situation",

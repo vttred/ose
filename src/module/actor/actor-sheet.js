@@ -1,5 +1,6 @@
 import { OseEntityTweaks } from "../dialog/entity-tweaks";
 import { OSE } from "../config";
+import { skipRollDialogCheck } from "../behaviourHelpers";
 
 export class OseActorSheet extends ActorSheet {
   constructor(...args) {
@@ -167,11 +168,11 @@ export class OseActorSheet extends ActorSheet {
           'system.counter.value': itemData.counter.value - 1
         });
       }
-      item.rollWeapon({ skipDialog: event.ctrlKey || event.metaKey });
+      item.rollWeapon({ skipDialog: skipRollDialogCheck(event) });
     } else if (item.type == "spell") {
-      item.spendSpell({ skipDialog: event.ctrlKey || event.metaKey });
+      item.spendSpell({ skipDialog: skipRollDialogCheck(event)});
     } else {
-      item.rollFormula({ skipDialog: event.ctrlKey || event.metaKey });
+      item.rollFormula({ skipDialog: skipRollDialogCheck(event) });
     }
   }
 
@@ -188,7 +189,7 @@ export class OseActorSheet extends ActorSheet {
     let attack = element.parentElement.parentElement.dataset.attack;
     actorObject.targetAttack({ roll: {} }, attack, {
       type: attack,
-      skipDialog: event.ctrlKey || event.metaKey,
+      skipDialog: skipRollDialogCheck(event),
     });
   }
 

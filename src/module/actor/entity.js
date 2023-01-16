@@ -1,3 +1,4 @@
+import { skipRollDialogCheck } from "../behaviourHelpers";
 import { OseDice } from "../dice";
 import { OseItem } from "../item/entity";
 
@@ -31,15 +32,6 @@ export class OseActor extends Actor {
       }
     });
     return super.createEmbeddedDocuments(embeddedName, data, context);
-  }
-
-  skipRollDialogCheck(options) {
-    const invertedCtrlBehavior = game.settings.get(game.system.id, "invertedCtrlBehavior");
-    return options.fastForward ||
-      invertedCtrlBehavior ? 
-        !(options.event && (options.event.ctrlKey || options.event.metaKey))
-        :
-        (options.event && (options.event.ctrlKey || options.event.metaKey));
   }
 
   /* -------------------------------------------- */
@@ -151,7 +143,7 @@ export class OseActor extends Actor {
       event: options.event,
       parts: rollParts,
       data: data,
-      skipDialog: this.skipRollDialogCheck(options),
+      skipDialog: (options.fastForward || skipRollDialogCheck(options.event)),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: game.i18n.format("OSE.roll.save", { save: label }),
       title: game.i18n.format("OSE.roll.save", { save: label }),
@@ -242,7 +234,7 @@ export class OseActor extends Actor {
       event: options.event,
       parts: rollParts,
       data: data,
-      skipDialog: this.skipRollDialogCheck(options),
+      skipDialog: (options.fastForward || skipRollDialogCheck(options.event)),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: game.i18n.localize("OSE.reaction.check"),
       title: game.i18n.localize("OSE.reaction.check"),
@@ -276,7 +268,7 @@ export class OseActor extends Actor {
       event: options.event,
       parts: rollParts,
       data: data,
-      skipDialog: this.skipRollDialogCheck(options),
+      skipDialog: (options.fastForward || skipRollDialogCheck(options.event)),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: game.i18n.format("OSE.roll.attribute", { attribute: label }),
       title: game.i18n.format("OSE.roll.attribute", { attribute: label }),
@@ -375,7 +367,7 @@ export class OseActor extends Actor {
       event: options.event,
       parts: rollParts,
       data: data,
-      skipDialog: this.skipRollDialogCheck(options),
+      skipDialog: (options.fastForward || skipRollDialogCheck(options.event)),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: game.i18n.format("OSE.roll.exploration", { exploration: label }),
       title: game.i18n.format("OSE.roll.exploration", { exploration: label }),

@@ -33,6 +33,15 @@ export class OseActor extends Actor {
     return super.createEmbeddedDocuments(embeddedName, data, context);
   }
 
+  skipRollDialogCheck(options) {
+    const invertedCtrlBehavior = game.settings.get(game.system.id, "invertedCtrlBehavior");
+    return options.fastForward ||
+      invertedCtrlBehavior ? 
+        !(options.event && (options.event.ctrlKey || options.event.metaKey))
+        :
+        (options.event && (options.event.ctrlKey || options.event.metaKey));
+  }
+
   /* -------------------------------------------- */
   /*  Socket Listeners and Handlers
     /* -------------------------------------------- */
@@ -134,14 +143,6 @@ export class OseActor extends Actor {
       details: game.i18n.format("OSE.roll.details.save", { save: label }),
     };
 
-    const invertedCtrlBehavior = game.settings.get(game.system.id, "invertedCtrlBehavior");
-    let skip = 
-      options.fastForward ||
-      invertedCtrlBehavior ? 
-        !(options.event && (options.event.ctrlKey || options.event.metaKey))
-        :
-        (options.event && (options.event.ctrlKey || options.event.metaKey));
-
     const rollMethod =
       actorType === "character" ? OseDice.RollSave : OseDice.Roll;
 
@@ -150,7 +151,7 @@ export class OseActor extends Actor {
       event: options.event,
       parts: rollParts,
       data: data,
-      skipDialog: skip,
+      skipDialog: this.skipRollDialogCheck(options),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: game.i18n.format("OSE.roll.save", { save: label }),
       title: game.i18n.format("OSE.roll.save", { save: label }),
@@ -236,15 +237,12 @@ export class OseActor extends Actor {
       },
     };
 
-    let skip =
-      options.event && (options.event.ctrlKey || options.event.metaKey);
-
     // Roll and return
     return OseDice.Roll({
       event: options.event,
       parts: rollParts,
       data: data,
-      skipDialog: skip,
+      skipDialog: this.skipRollDialogCheck(options),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: game.i18n.localize("OSE.reaction.check"),
       title: game.i18n.localize("OSE.reaction.check"),
@@ -273,20 +271,12 @@ export class OseActor extends Actor {
       }),
     };
 
-    const invertedCtrlBehavior = game.settings.get(game.system.id, "invertedCtrlBehavior");
-    let skip = 
-      options.fastForward ||
-      invertedCtrlBehavior ? 
-        !(options.event && (options.event.ctrlKey || options.event.metaKey))
-        :
-        (options.event && (options.event.ctrlKey || options.event.metaKey));
-
     // Roll and return
     return OseDice.Roll({
       event: options.event,
       parts: rollParts,
       data: data,
-      skipDialog: skip,
+      skipDialog: this.skipRollDialogCheck(options),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: game.i18n.format("OSE.roll.attribute", { attribute: label }),
       title: game.i18n.format("OSE.roll.attribute", { attribute: label }),
@@ -380,20 +370,12 @@ export class OseActor extends Actor {
       }),
     };
 
-    const invertedCtrlBehavior = game.settings.get(game.system.id, "invertedCtrlBehavior");
-    let skip = 
-      options.fastForward ||
-      invertedCtrlBehavior ? 
-        !(options.event && (options.event.ctrlKey || options.event.metaKey))
-        :
-        (options.event && (options.event.ctrlKey || options.event.metaKey));
-
     // Roll and return
     return OseDice.Roll({
       event: options.event,
       parts: rollParts,
       data: data,
-      skipDialog: skip,
+      skipDialog: this.skipRollDialogCheck(options),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: game.i18n.format("OSE.roll.exploration", { exploration: label }),
       title: game.i18n.format("OSE.roll.exploration", { exploration: label }),

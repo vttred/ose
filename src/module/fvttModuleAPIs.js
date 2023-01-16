@@ -23,8 +23,10 @@ export const registerFVTTModuleAPIs = () => {
         }
       ],
 
+      "UNSTACKABLE_ITEM_TYPES": ["weapon", "armor", "container"],
+
       // Item similarities determines how item piles detect similarities and differences in the system
-      "ITEM_SIMILARITIES": ["name", "type"],
+      "ITEM_SIMILARITIES": ["name", "type", "system.treasure"],
 
       // Currencies in item piles is a versatile system that can accept actor attributes (a number field on the actor's sheet) or items (actual items in their inventory)
       // In the case of attributes, the path is relative to the "actor.system"

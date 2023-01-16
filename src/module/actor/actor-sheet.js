@@ -538,31 +538,12 @@ export class OseActorSheet extends ActorSheet {
       const itemData = item?.system;
 
       if (item.type === "container" && itemData.itemIds.length > 0) {
-        // Create dialog
-        let templateData = { types:["ok", "cancel"] },
-          dlg = await renderTemplate(
-            `${OSE.systemPath()}/templates/items/delete-container.html`,
-            templateData
-          );
-  
-        const confirmation = new Dialog({
+        Dialog.confirm({
           title: game.i18n.localize("OSE.dialog.deleteContainer"),
-          content: dlg,
-          buttons: {
-            ok: {
-              label: game.i18n.localize("OSE.Ok"),
-              icon: '<i class="fas fa-check"></i>',
-              callback: () => {
-                this._removeItemFromActor(event);
-              }
-            },
-            cancel: {
-              icon: '<i class="fas fa-times"></i>',
-              label: game.i18n.localize("OSE.Cancel"),
-            },
-          },
-          default: "cancel"
-        }).render(true);
+          content: game.i18n.localize("OSE.dialog.confirmDeleteContainer"),
+          yes: () => { this._removeItemFromActor(event); },
+          defaultYes: false
+        })
       } else {
         this._removeItemFromActor(event);
       }

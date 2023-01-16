@@ -533,7 +533,7 @@ export class OseActorSheet extends ActorSheet {
       item.sheet.render(true);
     });
 
-    html.find(".item-delete").click(async (event) => {
+    html.find(".item-delete").click((event) => {
       const item = this._getItemFromActor(event);
       const itemData = item?.system;
 

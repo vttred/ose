@@ -5,8 +5,6 @@ export const options = {
   displayName: 'The Character Sheet'
 };
 
-// TODO: Write Monster roll tests
-
 /**
  * If there are dialogs, close them.
  * @returns {Promise} the promise from closing dialogs

@@ -536,7 +536,7 @@ export class OseActorSheet extends ActorSheet {
     html.find(".item-delete").click((event) => {
       const item = this._getItemFromActor(event);
 
-      if (item.type !== "container" || !item?.system?.itemIds?.length > 0)
+      if (item?.type !== "container" || !item?.system?.itemIds?.length > 0)
         return this._removeItemFromActor(event);
 
       Dialog.confirm({

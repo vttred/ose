@@ -227,24 +227,24 @@ export class OseActorSheet extends ActorSheet {
     let itemIdsArray = [];
     if (event.target.classList.contains("content-link")) return;
 
-    // Create drag data
-    const dragData = {
-      actorId: this.actor.id,
-      sceneId: this.actor.isToken ? canvas.scene?.id : null,
-      tokenId: this.actor.isToken ? this.actor.token.id : null,
-      pack: this.actor.pack,
-    };
+    let dragData;
 
     // Owned Items
     if (li.dataset.itemId) {
       const item = this.actor.items.get(li.dataset.itemId);
-      dragData.type = "Item";
-      dragData.data = item;
+      dragData = item.toDragData();
+      dragData.type = "Item"; 
       if (item.type === "container" && item.system.itemIds.length) {
         //otherwise JSON.stringify will quadruple stringify for some reason
         itemIdsArray = item.system.itemIds;
       }
     }
+
+    // Create drag data
+    dragData.actorId = this.actor.id;
+    dragData.sceneId = this.actor.isToken ? canvas.scene?.id : null;
+    dragData.tokenId = this.actor.isToken ? this.actor.token.id : null;
+    dragData.pack = this.actor.pack;
 
     // Active Effect
     if (li.dataset.effectId) {

@@ -181,6 +181,8 @@
   "OSE.Setting.applyDamageOptionHint": "Auf welche(n) Token bei einem Angriffswurf Schaden angewendet werden soll",
   "OSE.Setting.damageSelected": "Ausgewählt",
   "OSE.Setting.damageTarget": "Ziel",
+  "OSE.Setting.InvertedCtrlBehavior": "Roll umkehren Ctrl/Meta-Taste",
+  "OSE.Setting.InvertedCtrlBehaviorHint": "Kehrt das Verhalten beim Halten von Ctrl/Meta beim Klicken auf eine Rolle um.",
   "OSE.items.Equip": "Ausrüsten",
   "OSE.items.Unequip": "Unausgerüsten",
   "OSE.items.Misc": "Sonstiges",

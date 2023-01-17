@@ -180,6 +180,8 @@
   "OSE.Setting.applyDamageOptionHint": "Token ai quali applicare i danni in arrivo",
   "OSE.Setting.damageSelected": "Token Selezionato",
   "OSE.Setting.damageTarget": "Token Bersaglio",
+  "OSE.Setting.InvertedCtrlBehavior": "Inverti Roll Ctrl/Meta-tasto",
+  "OSE.Setting.InvertedCtrlBehaviorHint": "Inverte il comportamento tenendo premuto Ctrl/Meta quando si fa clic su un rotolo.",
   "OSE.items.Equip": "Indossa o Impugna",
   "OSE.items.Unequip": "Togli o Riponi",
   "OSE.items.Misc": "Altro",

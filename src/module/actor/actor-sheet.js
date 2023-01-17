@@ -548,11 +548,9 @@ export default class OseActorSheet extends ActorSheet {
       Dialog.confirm({
         title: game.i18n.localize("OSE.dialog.deleteContainer"),
         content: game.i18n.localize("OSE.dialog.confirmDeleteContainer"),
-        yes: () => {
-          this._removeItemFromActor(event);
-        },
-        defaultYes: false,
-      });
+        yes: () => { this._removeItemFromActor(event); },
+        defaultYes: false
+      })
     });
 
     html

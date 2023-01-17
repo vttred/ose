@@ -10,30 +10,18 @@ export const options = {
 
 /**
  * If there are dialogs, close them.
- *
  * @returns {Promise} the promise from closing dialogs
  */
 export const closeRollDialog = async () => {
-  const openDialogs = Object.values(ui.windows).filter((o) =>
-    o.options.classes.includes("dialog")
-  );
+  const openDialogs = Object.values(ui.windows).filter(o => o.options.classes.indexOf('dialog') > -1);
 
   openDialogs?.forEach(async (o) => {
     await o.close();
-  });
-};
+  }) 
+}
 
-export default ({
-  before,
-  beforeEach,
-  after,
-  afterEach,
-  describe,
-  it,
-  expect,
-  ...context
-}) => {
-  const testCharacterName = "Quench Test Character";
+export default ({before, beforeEach, after, afterEach, describe, it, expect, ...context}) => {
+  const testCharacterName = 'Quench Test Character';
   const prepareActor = async (data) => {
     await trashChat();
     await trashActor();
@@ -67,6 +55,20 @@ export default ({
     await waitForInput();
     expect(game.messages.size).to.equal(1);
   };
+
+  const rollNoModsSkipDialog = async (key, rollFn) => {
+    const ctrl_down = new KeyboardEvent('keydown', {ctrlKey: true});
+    await testActor()[rollFn](key, {event: ctrl_down});
+    await waitForInput();
+    expect(game.messages.size).to.equal(1);
+  }
+
+  const rollNoModsSkipDialogMeta = async (key, rollFn) => {
+    const meta_down = new KeyboardEvent('keydown', {metaKey: true});
+    await testActor()[rollFn](key, {event: meta_down});
+    await waitForInput();
+    expect(game.messages.size).to.equal(1);
+  }
 
   const rollMods = async (key, rollFn) => {
     testActor()[rollFn](key);
@@ -128,51 +130,89 @@ export default ({
     expect(game.messages.size).to.equal(1);
   };
 
+  const rollInvertCtrlNoDialog = async (key, rollFn) => {
+    await testActor()[rollFn](key, {fastForward: false});
+    await waitForInput();
+    
+    expect(game.messages.size).to.equal(1);
+  }
+
+  const rollInvertCtrlDialog = async (key, rollFn) => {
+    const ctrl_down = new KeyboardEvent('keydown', {ctrlKey: true});
+    testActor()[rollFn](key, {event: ctrl_down});
+
+    await waitForInput();
+
+    const dialog = document.querySelector('.roll-dialog.ose');
+    expect(dialog).not.equal(null)
+
+    dialog.closest('.window-content').querySelector('.dialog-button.ok').click();
+
+    await waitForInput();
+    expect(game.messages.size).to.equal(1);
+  }
+
+  const rollInvertCtrlDialogMeta = async (key, rollFn) => {
+    const meta_down = new KeyboardEvent('keydown', {metaKey: true});
+    testActor()[rollFn](key, {event: meta_down});
+
+    await waitForInput();
+
+    const dialog = document.querySelector('.roll-dialog.ose');
+    expect(dialog).not.equal(null)
+
+    dialog.closest('.window-content').querySelector('.dialog-button.ok').click();
+
+    await waitForInput();
+    expect(game.messages.size).to.equal(1);
+  }
+
   const canRoll = (key, rollFn) => {
     before(async () => {
       await game.settings.set(game.system.id, "invertedCtrlBehavior", false);
-    });
+    })
 
     beforeEach(async () => {
       await trashChat();
-    });
+    })
 
     afterEach(async () => {
       await closeRollDialog();
-    });
-    it("With no modifiers", async () => {
+    })
+    it('With no modifiers', async () => {
       await rollNoMods(key, rollFn);
-    });
-    it("Skipping dialog, holding ctrl", async () => {
+    })
+    it('Skipping dialog, holding ctrl', async () => {
       await rollNoModsSkipDialog(key, rollFn);
-    });
-    it("Skipping dialog, holding meta", async () => {
+    })
+    it('Skipping dialog, holding meta', async () => {
       await rollNoModsSkipDialogMeta(key, rollFn);
-    });
-    it("With modifiers", async () => {
+    })
+    it('With modifiers', async () => {
       await rollMods(key, rollFn);
-    });
+    })
 
-    describe("Inverted Ctrl behavior", () => {
+    describe('Inverted Ctrl behavior', () => {
       before(async () => {
         await game.settings.set(game.system.id, "invertedCtrlBehavior", true);
-      });
+      })
 
       after(async () => {
         await game.settings.set(game.system.id, "invertedCtrlBehavior", false);
-      });
-
-      it("Inverted ctrl behavior without dialog", async () => {
+      })
+      
+      it('Inverted ctrl behavior without dialog', async() => {
         await rollInvertCtrlNoDialog(key, rollFn);
-      });
-      it("Inverted ctrl behavior with dialog, ctrl key", async () => {
+      })
+      it('Inverted ctrl behavior with dialog, ctrl key', async() => {
         await rollInvertCtrlDialog(key, rollFn);
-      });
-      it("Inverted ctrl behavior with dialog, meta key", async () => {
+      })
+      it('Inverted ctrl behavior with dialog, meta key', async() => {
         await rollInvertCtrlDialogMeta(key, rollFn);
-      });
-    });
-  };
+      })
+    })
+
+  }
 
   before(async () => {
     await trashChat();

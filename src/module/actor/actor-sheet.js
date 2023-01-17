@@ -1,9 +1,12 @@
-/**
- * @file The base class we use for Character and Monster sheets. Shared behavior goes here!
- */
+import { OseEntityTweaks } from "../dialog/entity-tweaks";
+import { OSE } from "../config";
 import { skipRollDialogCheck } from "../behaviourHelpers";
-import OSE from "../config";
-import OseEntityTweaks from "../dialog/entity-tweaks";
+
+export class OseActorSheet extends ActorSheet {
+  constructor(...args) {
+    super(...args);
+  }
+  /* -------------------------------------------- */
 
 export default class OseActorSheet extends ActorSheet {
   getData() {
@@ -164,7 +167,7 @@ export default class OseActorSheet extends ActorSheet {
       }
       item.rollWeapon({ skipDialog: skipRollDialogCheck(event) });
     } else if (item.type == "spell") {
-      item.spendSpell({ skipDialog: skipRollDialogCheck(event) });
+      item.spendSpell({ skipDialog: skipRollDialogCheck(event)});
     } else {
       item.rollFormula({ skipDialog: skipRollDialogCheck(event) });
     }

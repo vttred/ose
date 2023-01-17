@@ -535,18 +535,16 @@ export class OseActorSheet extends ActorSheet {
 
     html.find(".item-delete").click((event) => {
       const item = this._getItemFromActor(event);
-      const itemData = item?.system;
 
-      if (item.type === "container" && itemData.itemIds.length > 0) {
-        Dialog.confirm({
-          title: game.i18n.localize("OSE.dialog.deleteContainer"),
-          content: game.i18n.localize("OSE.dialog.confirmDeleteContainer"),
-          yes: () => { this._removeItemFromActor(event); },
-          defaultYes: false
-        })
-      } else {
-        this._removeItemFromActor(event);
-      }
+      if (item.type !== "container" || !item?.system?.itemIds?.length > 0)
+        return this._removeItemFromActor(event);
+
+      Dialog.confirm({
+        title: game.i18n.localize("OSE.dialog.deleteContainer"),
+        content: game.i18n.localize("OSE.dialog.confirmDeleteContainer"),
+        yes: () => { this._removeItemFromActor(event); },
+        defaultYes: false
+      })
     });
 
     html

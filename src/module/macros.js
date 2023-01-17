@@ -11,11 +11,11 @@
  */
 export async function createOseMacro(data, slot) {
   if (data.type !== "Item") return;
-  if (!("data" in data))
+  if (!("item" in data))
     return ui.notifications.warn(
       game.i18.localize("OSE.warn.macrosOnlyForOwnedItems")
     );
-  const item = data.data;
+  const item = data.item;
 
   // Create the macro command
   const command = `game.ose.rollItemMacro("${item.name}");`;

@@ -233,6 +233,7 @@ export class OseActorSheet extends ActorSheet {
     if (li.dataset.itemId) {
       const item = this.actor.items.get(li.dataset.itemId);
       dragData = item.toDragData();
+      dragData.item = item;
       dragData.type = "Item"; 
       if (item.type === "container" && item.system.itemIds.length) {
         //otherwise JSON.stringify will quadruple stringify for some reason

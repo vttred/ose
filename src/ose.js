@@ -133,9 +133,11 @@ Hooks.once("setup", function () {
 });
 
 Hooks.once("ready", async () => {
-  Hooks.on("hotbarDrop", (bar, data, slot) =>
-    macros.createOseMacro(data, slot)
-  );
+  Hooks.on("hotbarDrop", (bar, data, slot) => {
+    macros.createOseMacro(data, slot);
+    // Returning false to stop the rest of hotbarDrop handling.
+    return false;
+  });
 });
 
 // License info

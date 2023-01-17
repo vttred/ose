@@ -24,6 +24,8 @@
   "OSE.dialog.generateScore": "Würfeln {score} ({count})",
   "OSE.dialog.shoppingCart": "Einkaufswagen",
   "OSE.dialog.purchaseFor": "Einkauf für {totalCost}GP",
+  "OSE.dialog.deleteContainer": "Container löschen?",
+  "OSE.dialog.confirmDeleteContainer": "Möchten Sie den Container wirklich löschen?",
   "OSE.Formula": "Formel",
   "OSE.SitMod": "Situationsmodifikator",
   "OSE.Modifier": "Modifikator",

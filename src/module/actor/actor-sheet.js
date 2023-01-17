@@ -109,7 +109,7 @@ export class OseActorSheet extends ActorSheet {
     if (item.type === "container" && itemData.itemIds) {
       const containedItems = itemData.itemIds;
       const updateData = containedItems.reduce((acc, val) => {
-        acc.push({ _id: val.id, "system.containerId": "" });
+        acc.push({ _id: val, "system.containerId": "" });
         return acc;
       }, []);
 
@@ -535,7 +535,17 @@ export class OseActorSheet extends ActorSheet {
     });
 
     html.find(".item-delete").click((event) => {
-      this._removeItemFromActor(event);
+      const item = this._getItemFromActor(event);
+
+      if (item?.type !== "container" || !item?.system?.itemIds?.length > 0)
+        return this._removeItemFromActor(event);
+
+      Dialog.confirm({
+        title: game.i18n.localize("OSE.dialog.deleteContainer"),
+        content: game.i18n.localize("OSE.dialog.confirmDeleteContainer"),
+        yes: () => { this._removeItemFromActor(event); },
+        defaultYes: false
+      })
     });
 
     html

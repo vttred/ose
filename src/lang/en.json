@@ -27,6 +27,8 @@
   "OSE.dialog.generateScore": "Rolling {score} ({count})",
   "OSE.dialog.shoppingCart": "Shopping Cart",
   "OSE.dialog.purchaseFor": "Purchase for {totalCost}GP",
+  "OSE.dialog.deleteContainer": "Delete container?",
+  "OSE.dialog.confirmDeleteContainer": "Are you sure you want to delete the container?",
 
   "OSE.Formula": "Formula",
   "OSE.SitMod": "Situational Modifier",

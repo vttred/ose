@@ -24,6 +24,8 @@
   "OSE.dialog.generateScore": "Tiro per {score} ({count})",
   "OSE.dialog.shoppingCart": "Carrello",
   "OSE.dialog.purchaseFor": "Compra per {totalCost}MO",
+  "OSE.dialog.deleteContainer": "Eliminare il contenitore?",
+  "OSE.dialog.confirmDeleteContainer": "Sei sicuro di voler eliminare il contenitore?",
   "OSE.Formula": "Formula",
   "OSE.SitMod": "Modificatore di Circostanza",
   "OSE.Modifier": "Modificatore",

@@ -130,6 +130,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "adn770",
+      "name": "Josep Torra",
+      "avatar_url": "https://avatars.githubusercontent.com/u/113786?v=4",
+      "profile": "https://github.com/adn770",
+      "contributions": [
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 7,

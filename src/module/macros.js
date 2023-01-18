@@ -11,11 +11,11 @@
  */
 export async function createOseMacro(data, slot) {
   if (data.type !== "Item") return;
-  if (!("data" in data))
+  if ( data.uuid.indexOf("Item.") <= 0 )
     return ui.notifications.warn(
-      game.i18.localize("OSE.warn.macrosOnlyForOwnedItems")
+      game.i18n.localize("OSE.warn.macrosOnlyForOwnedItems")
     );
-  const item = data.data;
+  const item = data.item;
 
   // Create the macro command
   const command = `game.ose.rollItemMacro("${item.name}");`;
@@ -45,6 +45,10 @@ export async function createOseMacro(data, slot) {
  */
 export function rollItemMacro(itemName) {
   const speaker = ChatMessage.getSpeaker();
+  // Active actor, or inactive actor + token on scene allowed
+  if (!(speaker.actor && speaker.scene)) 
+    return ui.notifications.warn(game.i18n.localize("OSE.warn.macrosNoTokenOwnedInScene"));
+
   let actor;
   if (speaker.token) actor = game.actors.tokens[speaker.token];
   if (!actor) actor = game.actors.get(speaker.actor);
@@ -60,7 +64,7 @@ export function rollItemMacro(itemName) {
     );
   } else if (items.length === 0) {
     return ui.notifications.error(
-      game.i18n.format("OSE.warn.noItemWithName", {
+      game.i18n.format("OSE.error.noItemWithName", {
         actorName: actor.name,
         itemName: itemName,
       })

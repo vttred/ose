@@ -24,7 +24,7 @@ export default ({ before, beforeEach, after, describe, it, expect, assert, ...co
     const trashMacro = () => (game.macros.size)
         ? game.macros.documentClass.deleteDocuments([], { deleteAll: true })
         : null;
-    const createItem = async (type) => { return testActor()?.createEmbeddedDocuments("Item", [{ 'type': type, 'name': `Test ${type}` }]) };
+    const createItem = (type) => { return testActor()?.createEmbeddedDocuments("Item", [{ 'type': type, 'name': `Test ${type}` }]) };
 
     const createItemMacroData = (item) => {
         const dragData = item.toDragData();
@@ -33,21 +33,18 @@ export default ({ before, beforeEach, after, describe, it, expect, assert, ...co
         return dragData
     };
 
-    const checkMacroCreation = (slot) => {
-        const macro = game.user.getHotbarMacros()[slot];
-        return (macro.macro?.command?.indexOf("game.ose.rollItemMacro") >= 0)
-    };
-
-    const canCreate = async("type") => {
+    const canCreate = async (type) => {
         expect(game.macros.size).equal(0)
+
         await createItem(type);
         const item = testActor().items.contents[0];
         const data = createItemMacroData(item);
         const macro = await createOseMacro(data, 1);
         await waitForInput();
         expect(game.macros.size).equal(1)
-        const macroCheck = checkMacroCreation(0);
-        assert(checkMacroCreation(0))
+
+        const createdMacro = game.user.getHotbarMacros()[0];
+        expect(createdMacro?.macro?.command.indexOf("game.ose.rollItemMacro")).not.equal(-1)
     }
 
     before(async () => {
@@ -69,7 +66,7 @@ export default ({ before, beforeEach, after, describe, it, expect, assert, ...co
             await trashMacro();
         })
 
-        it('Create spell macro', () => { canCreate("weapon") })
-        it('Create spell macro', () => { canCreate("spell") })
+        it('Create spell macro', async () => { await canCreate("weapon") })
+        it('Create spell macro', async () => { await canCreate("spell") })
     })
 };

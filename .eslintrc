@@ -49,7 +49,10 @@
 		"jsdoc/require-yields": 1, // Recommended
 		"jsdoc/require-yields-check": 1, // Recommended
 		"jsdoc/tag-lines": 1, // Recommended
-		"jsdoc/valid-types": 1 // Recommended
+		"jsdoc/valid-types": 1, // Recommended
+		"ecmascript-compat/compat": "off", // Disabled because core uses async
+		"unicorn/no-array-reduce": "off", // Disabled because Array#reduce is helpful
+		"no-secrets/no-secrets": "off" // Disabled because of string entropy
 	},
 	"parserOptions": {
         ecmaVersion: 2020,

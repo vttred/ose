@@ -1,6 +1,7 @@
 {
 	"plugins": [
-		"jsdoc"
+		"jsdoc",
+		"prettier"
 	],
 	"extends": [
 		"airbnb",
@@ -8,12 +9,14 @@
 		"adjunct",
 		"plugin:promise/recommended",
 		"plugin:ecmascript-compat/recommended",
+		"prettier"
 	],
 	"env": {
 		"browser": true
 	},
 	"ignorePatterns": ["**/lang/**/*.json", "**/*.d.ts"],
 	"rules": {
+		"prettier/prettier": ["error"],
 		"jsdoc/check-access": 1, // Recommended
 		"jsdoc/check-alignment": 1, // Recommended
 		"jsdoc/check-line-alignment": 1,
@@ -52,7 +55,7 @@
 		"jsdoc/valid-types": 1, // Recommended
 		"ecmascript-compat/compat": "off", // Disabled because core uses async
 		"unicorn/no-array-reduce": "off", // Disabled because Array#reduce is helpful
-		"no-secrets/no-secrets": "off" // Disabled because of string entropy
+		"no-secrets/no-secrets": "off", // Disabled because of string entropy
 	},
 	"parserOptions": {
         ecmaVersion: 2020,

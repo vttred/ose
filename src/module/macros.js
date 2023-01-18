@@ -11,7 +11,7 @@
  */
 export async function createOseMacro(data, slot) {
   if (data.type !== "Item") return;
-  if (!(!(data.tokenId && data.sceneId) || data.uuid.indexOf("Actor") < 0 ))
+  if ( data.uuid.indexOf("Item.") <= 0 )
     return ui.notifications.warn(
       game.i18n.localize("OSE.warn.macrosOnlyForOwnedItems")
     );

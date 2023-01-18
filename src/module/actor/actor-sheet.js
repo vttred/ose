@@ -1,5 +1,6 @@
 import { OseEntityTweaks } from "../dialog/entity-tweaks";
 import { OSE } from "../config";
+import { skipRollDialogCheck } from "../behaviourHelpers";
 
 export class OseActorSheet extends ActorSheet {
   constructor(...args) {
@@ -108,7 +109,7 @@ export class OseActorSheet extends ActorSheet {
     if (item.type === "container" && itemData.itemIds) {
       const containedItems = itemData.itemIds;
       const updateData = containedItems.reduce((acc, val) => {
-        acc.push({ _id: val.id, "system.containerId": "" });
+        acc.push({ _id: val, "system.containerId": "" });
         return acc;
       }, []);
 
@@ -167,11 +168,11 @@ export class OseActorSheet extends ActorSheet {
           'system.counter.value': itemData.counter.value - 1
         });
       }
-      item.rollWeapon({ skipDialog: event.ctrlKey || event.metaKey });
+      item.rollWeapon({ skipDialog: skipRollDialogCheck(event) });
     } else if (item.type == "spell") {
-      item.spendSpell({ skipDialog: event.ctrlKey || event.metaKey });
+      item.spendSpell({ skipDialog: skipRollDialogCheck(event)});
     } else {
-      item.rollFormula({ skipDialog: event.ctrlKey || event.metaKey });
+      item.rollFormula({ skipDialog: skipRollDialogCheck(event) });
     }
   }
 
@@ -188,7 +189,7 @@ export class OseActorSheet extends ActorSheet {
     let attack = element.parentElement.parentElement.dataset.attack;
     actorObject.targetAttack({ roll: {} }, attack, {
       type: attack,
-      skipDialog: event.ctrlKey || event.metaKey,
+      skipDialog: skipRollDialogCheck(event),
     });
   }
 
@@ -534,7 +535,17 @@ export class OseActorSheet extends ActorSheet {
     });
 
     html.find(".item-delete").click((event) => {
-      this._removeItemFromActor(event);
+      const item = this._getItemFromActor(event);
+
+      if (item?.type !== "container" || !item?.system?.itemIds?.length > 0)
+        return this._removeItemFromActor(event);
+
+      Dialog.confirm({
+        title: game.i18n.localize("OSE.dialog.deleteContainer"),
+        content: game.i18n.localize("OSE.dialog.confirmDeleteContainer"),
+        yes: () => { this._removeItemFromActor(event); },
+        defaultYes: false
+      })
     });
 
     html

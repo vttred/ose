@@ -2,28 +2,26 @@
  * @file The entry point for the OSE system
  *       We should handle most of our setup here.
  */
-
-// Import Modules
-import './e2e';
-
 import { OseActorSheetCharacter } from "./module/actor/character-sheet";
-import OseDataModelCharacter from './module/actor/data-model-character';
-import OseDataModelMonster from './module/actor/data-model-monster';
+import OseDataModelCharacter from "./module/actor/data-model-character";
+import OseDataModelMonster from "./module/actor/data-model-monster";
 import { OseActor } from "./module/actor/entity";
 import { OseActorSheetMonster } from "./module/actor/monster-sheet";
+
+import OseDataModelAbility from "./module/item/data-model-ability";
+import OseDataModelArmor from "./module/item/data-model-armor";
+import OseDataModelContainer from "./module/item/data-model-container";
+import OseDataModelItem from "./module/item/data-model-item";
+import OseDataModelSpell from "./module/item/data-model-spell";
+import OseDataModelWeapon from "./module/item/data-model-weapon";
+import { OseItem } from "./module/item/entity";
+import { OseItemSheet } from "./module/item/item-sheet";
+
 import * as chat from "./module/chat";
 import { OseCombat } from "./module/combat";
 import { OSE } from "./module/config";
 import { registerFVTTModuleAPIs } from "./module/fvttModuleAPIs";
 import { registerHelpers } from "./module/helpers";
-import OseDataModelAbility  from './module/item/data-model-ability';
-import OseDataModelArmor from './module/item/data-model-armor';
-import OseDataModelContainer from './module/item/data-model-container';
-import OseDataModelItem from './module/item/data-model-item';
-import OseDataModelSpell from './module/item/data-model-spell';
-import OseDataModelWeapon from './module/item/data-model-weapon';
-import { OseItem } from "./module/item/entity";
-import { OseItemSheet } from "./module/item/item-sheet";
 import * as macros from "./module/macros";
 import * as party from "./module/party";
 import { OsePartySheet } from "./module/party/party-sheet";
@@ -32,6 +30,8 @@ import * as renderList from "./module/renderList";
 import { registerSettings } from "./module/settings";
 import * as treasure from "./module/treasure";
 
+import "./e2e";
+
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
 /* -------------------------------------------- */
@@ -39,7 +39,7 @@ import * as treasure from "./module/treasure";
 Hooks.once("init", async () => {
   /**
    * Set an initiative formula for the system
-   * 
+   *
    * @type {string}
    */
   CONFIG.Combat.initiative = {
@@ -59,11 +59,11 @@ Hooks.once("init", async () => {
 
   // Custom Handlebars helpers
   registerHelpers();
-  
+
   // Give modules a chance to add encumbrance schemes
   // They can do so by adding their encumbrance schemes
   // to CONFIG.OSE.encumbranceOptions
-  Hooks.call('ose-setup-encumbrance');
+  Hooks.call("ose-setup-encumbrance");
 
   // Register custom system settings
   registerSettings();
@@ -77,7 +77,7 @@ Hooks.once("init", async () => {
   CONFIG.Actor.systemDataModels = {
     character: OseDataModelCharacter,
     monster: OseDataModelMonster,
-  }
+  };
   CONFIG.Item.systemDataModels = {
     weapon: OseDataModelWeapon,
     armor: OseDataModelArmor,
@@ -85,7 +85,7 @@ Hooks.once("init", async () => {
     spell: OseDataModelSpell,
     ability: OseDataModelAbility,
     container: OseDataModelContainer,
-  }
+  };
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
@@ -114,27 +114,20 @@ Hooks.once("init", async () => {
  */
 Hooks.once("setup", () => {
   // Localize CONFIG objects once up-front
-  [
-    "saves_short",
-    "saves_long",
-    "scores",
-    "armor",
-    "colors",
-    "tags",
-  ].forEach((o) => {
-    CONFIG.OSE[o] = Object.entries(CONFIG.OSE[o]).reduce((obj, e) => {
-      const localized = {...obj}
-      localized[e[0]] = game.i18n.localize(e[1]);
-      return localized;
-    }, {});
-  });
+  ["saves_short", "saves_long", "scores", "armor", "colors", "tags"].forEach(
+    (o) => {
+      CONFIG.OSE[o] = Object.entries(CONFIG.OSE[o]).reduce((obj, e) => {
+        const localized = { ...obj };
+        localized[e[0]] = game.i18n.localize(e[1]);
+        return localized;
+      }, {});
+    }
+  );
 
   // Custom languages
   const languages = game.settings.get(game.system.id, "languages");
   if (languages !== "") {
-    const langArray = languages
-      .split(",")
-      .map(s => s.trim());
+    const langArray = languages.split(",").map((s) => s.trim());
     CONFIG.OSE.languages = langArray;
   }
 });

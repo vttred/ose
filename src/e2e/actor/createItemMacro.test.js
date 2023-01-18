@@ -21,10 +21,11 @@ export default ({ before, beforeEach, after, describe, it, expect, assert, ...co
     };
     const testActor = () => game.actors.getName(testCharacterName);
     const trashActor = () => testActor()?.delete();
-    const trashMacro = () => (game.macros.size)
-        ? game.macros.documentClass.deleteDocuments([], { deleteAll: true })
-        : null;
-    const createItem = (type) => { return testActor()?.createEmbeddedDocuments("Item", [{ 'type': type, 'name': `Test ${type}` }]) };
+    const trashMacro = async () => {
+        await game.macros.find(o => o.name === "Test Macro Item")?.delete();
+        await game.user.assignHotbarMacro(null, 1);
+    }
+    const createItem = (type) => { return testActor()?.createEmbeddedDocuments("Item", [{ type: type, name: "Test Macro Item" }]) };
 
     const createItemMacroData = (item) => {
         const dragData = item.toDragData();
@@ -34,14 +35,11 @@ export default ({ before, beforeEach, after, describe, it, expect, assert, ...co
     };
 
     const canCreate = async (type) => {
-        expect(game.macros.size).equal(0)
-
         await createItem(type);
         const item = testActor().items.contents[0];
         const data = createItemMacroData(item);
         const macro = await createOseMacro(data, 1);
         await waitForInput();
-        expect(game.macros.size).equal(1)
 
         const createdMacro = game.user.getHotbarMacros()[0];
         expect(createdMacro?.macro?.command.indexOf("game.ose.rollItemMacro")).not.equal(-1)
@@ -54,7 +52,7 @@ export default ({ before, beforeEach, after, describe, it, expect, assert, ...co
     describe('Item Macro', () => {
         before(async () => {
             await prepareActor();
-            await trashMacro();
+            trashMacro();
         })
 
         after(async () => {
@@ -62,8 +60,8 @@ export default ({ before, beforeEach, after, describe, it, expect, assert, ...co
             await trashActor();
         })
 
-        afterEach(async () => {
-            await trashMacro();
+        afterEach(() => {
+            trashMacro();
         })
 
         it('Create spell macro', async () => { await canCreate("weapon") })

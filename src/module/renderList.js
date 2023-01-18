@@ -33,7 +33,7 @@ export const RenderDirectory = async function (object, html) {
 
   render.forEach(async function (item) {
     const foundryDocument = content.find(
-      (e) => e.id == item.dataset.documentId
+      (e) => e.id === item.dataset.documentId
     );
 
     const tagTemplate = $.parseHTML(

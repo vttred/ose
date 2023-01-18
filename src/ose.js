@@ -173,7 +173,7 @@ Hooks.on("renderSidebarTab", async (object, html) => {
 
 Hooks.on("preCreateCombatant", (combat, data, options, id) => {
   let init = game.settings.get(game.system.id, "initiative");
-  if (init == "group") {
+  if (init === "group") {
     OseCombat.addCombatant(combat, data, options, id);
   }
 });

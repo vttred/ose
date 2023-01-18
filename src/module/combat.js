@@ -96,7 +96,7 @@ export class OseCombat {
       let roll = rollArr[i];
       //get combatant
       let cbt = game.combats.viewed.combatants.find(
-        (c) => c.id == updates[i]._id
+        (c) => c.id === updates[i]._id
       );
       //add initiative value to update
       //check if actor is slow
@@ -135,11 +135,11 @@ export class OseCombat {
   static format(object, html, user) {
     html.find(".initiative").each((_, span) => {
       span.innerHTML =
-        span.innerHTML == `${OseCombat.STATUS_SLOW}`
+        span.innerHTML === `${OseCombat.STATUS_SLOW}`
           ? '<i class="fas fa-weight-hanging"></i>'
           : span.innerHTML;
       span.innerHTML =
-        span.innerHTML == `${OseCombat.STATUS_DIZZY}`
+        span.innerHTML === `${OseCombat.STATUS_DIZZY}`
           ? '<i class="fas fa-dizzy"></i>'
           : span.innerHTML;
     });
@@ -208,7 +208,7 @@ export class OseCombat {
       data.initiative = -789;
       return;
     }
-    if (data.initiative && init == "group") {
+    if (data.initiative && init === "group") {
       let groupInit = data.initiative;
       const cmbtGroup = combatant.getFlag(game.system.id, "group");
       // Check if there are any members of the group with init
@@ -218,7 +218,7 @@ export class OseCombat {
           ct.initiative &&
           ct.initiative != "-789.00" &&
           ct.id != data.id &&
-          group == cmbtGroup
+          group === cmbtGroup
         ) {
           // Set init
           if (game.user.isGM) {
@@ -259,7 +259,7 @@ export class OseCombat {
       let currentColor = ev.currentTarget.style.color;
       let colors = Object.keys(CONFIG.OSE.colors);
       let index = colors.indexOf(currentColor);
-      if (index + 1 == colors.length) {
+      if (index + 1 === colors.length) {
         index = 0;
       } else {
         index++;

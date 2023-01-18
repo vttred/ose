@@ -171,7 +171,7 @@ export class OseActorSheetMonster extends OseActorSheet {
     let colors = Object.keys(CONFIG.OSE.colors);
     colors.push("transparent");
     let index = colors.indexOf(currentColor);
-    if (index + 1 == colors.length) {
+    if (index + 1 === colors.length) {
       index = 0;
     } else {
       index++;

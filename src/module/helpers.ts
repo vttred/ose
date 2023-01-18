@@ -3,7 +3,7 @@ import { OSE, InventoryItemTag } from "./config";
 export const registerHelpers = async function () {
   // Handlebars template helpers
   Handlebars.registerHelper("eq", function (a, b) {
-    return a == b;
+    return a === b;
   });
 
   Handlebars.registerHelper("mod", function (val) {

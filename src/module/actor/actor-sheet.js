@@ -25,7 +25,7 @@ export class OseActorSheet extends ActorSheet {
 
   activateEditor(name, options, initialContent) {
     // remove some controls to the editor as the space is lacking
-    // if (name == "data.details.description") {
+    // if (name === "data.details.description") {
     //   options.toolbar = "styleselect bullist hr table removeFormat save";
     // }
     super.activateEditor(name, options, initialContent);
@@ -134,9 +134,9 @@ export class OseActorSheet extends ActorSheet {
   async _onSpellChange(event) {
     event.preventDefault();
     const item = this._getItemFromActor(event);
-    if (event.target.dataset.field == "cast") {
+    if (event.target.dataset.field === "cast") {
       return item.update({ "system.cast": parseInt(event.target.value) });
-    } else if (event.target.dataset.field == "memorize") {
+    } else if (event.target.dataset.field === "memorize") {
       return item.update({
         "system.memorized": parseInt(event.target.value),
       });
@@ -161,14 +161,14 @@ export class OseActorSheet extends ActorSheet {
   async _rollAbility(event) {
     const item = this._getItemFromActor(event);
     const itemData = item?.system;
-    if (item.type == "weapon") {
+    if (item.type === "weapon") {
       if (this.actor.type === "monster") {
         item.update({
           'system.counter.value': itemData.counter.value - 1
         });
       }
       item.rollWeapon({ skipDialog: event.ctrlKey || event.metaKey });
-    } else if (item.type == "spell") {
+    } else if (item.type === "spell") {
       item.spendSpell({ skipDialog: event.ctrlKey || event.metaKey });
     } else {
       item.rollFormula({ skipDialog: event.ctrlKey || event.metaKey });
@@ -300,7 +300,7 @@ export class OseActorSheet extends ActorSheet {
 
     const containerId = container.id;
     const itemObj = this.object.items.get(item.id);
-    const alreadyExists = container.system.itemIds.find((i) => i.id == item.id);
+    const alreadyExists = container.system.itemIds.find((i) => i.id === item.id);
     if (!alreadyExists) {
       const newList = [...container.system.itemIds, item.id];
       await container.update({ system: { itemIds: newList } });
@@ -412,7 +412,7 @@ export class OseActorSheet extends ActorSheet {
 
     // Resize resizable classes
     let resizable = html.find(".resizable");
-    if (resizable.length == 0) {
+    if (resizable.length === 0) {
       return;
     }
     resizable.each((_, el) => {
@@ -427,7 +427,7 @@ export class OseActorSheet extends ActorSheet {
 
     let html = $(this.form);
     let resizable = html.find(".resizable");
-    if (resizable.length == 0) {
+    if (resizable.length === 0) {
       return;
     }
     // Resize divs

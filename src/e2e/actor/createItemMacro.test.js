@@ -64,7 +64,7 @@ export default ({ before, beforeEach, after, describe, it, expect, assert, ...co
             trashMacro();
         })
 
-        it('Create spell macro', async () => { await canCreate("weapon") })
+        it('Create weapon macro', async () => { await canCreate("weapon") })
         it('Create spell macro', async () => { await canCreate("spell") })
     })
 };

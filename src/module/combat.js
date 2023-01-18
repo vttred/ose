@@ -73,6 +73,10 @@ export class OseCombat {
     let combatants = combat?.combatants;
     for (let i = 0; i < combatants.size; i++) {
       let c = combatants.contents[i];
+      //check if actor initiative has already been set for this round
+      if (c?.initiative) {
+        continue;
+      }
       // This comes from foundry.js, had to remove the update turns thing
       // Roll initiative
       const cf = await c._getInitiativeFormula(c);

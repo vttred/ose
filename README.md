@@ -11,7 +11,7 @@
 </p>
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-12-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2Fose&colorB=4aa94a)](https://forge-vtt.com/bazaar#package=ose)
 [![Foundry Hub Endorsements](https://img.shields.io/endpoint?logoColor=white&url=https%3A%2F%2Fwww.foundryvtt-hub.com%2Fwp-json%2Fhubapi%2Fv1%2Fpackage%2Fose%2Fshield%2Fendorsements)](https://www.foundryvtt-hub.com/package/ose/)
@@ -136,6 +136,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center"><a href="https://github.com/hogwrassler"><img src="https://avatars.githubusercontent.com/u/110945935?v=4?s=100" width="100px;" alt="hogwrassler"/><br /><sub><b>hogwrassler</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=hogwrassler" title="Code">💻</a></td>
       <td align="center"><a href="http://timsnyder.codes"><img src="https://avatars.githubusercontent.com/u/1731267?v=4?s=100" width="100px;" alt="Tim"/><br /><sub><b>Tim</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=wyrmisis" title="Code">💻</a></td>
       <td align="center"><a href="https://github.com/maschill92"><img src="https://avatars.githubusercontent.com/u/4692066?v=4?s=100" width="100px;" alt="Michael Schilling"/><br /><sub><b>Michael Schilling</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=maschill92" title="Code">💻</a></td>
+      <td align="center"><a href="http://adamoresten.com"><img src="https://avatars.githubusercontent.com/u/12858387?v=4?s=100" width="100px;" alt="Adam Oresten"/><br /><sub><b>Adam Oresten</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=Haxxer" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>

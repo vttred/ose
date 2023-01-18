@@ -115,31 +115,26 @@ export class OsePartySheet extends FormApplication {
   }
 
   _recursiveAddFolder(folder) {
-    folder.content.forEach((actor) => this._addActorToParty(actor));
+    folder.contents.forEach((actor) => this._addActorToParty(actor));
     folder.children.forEach((folder) => this._recursiveAddFolder(folder));
   }
 
-  _onDropFolder(event, data) {
+  async _onDropFolder(event, data) {
     if (data.documentName !== "Actor") {
       return;
     }
 
-    const folder = game.folders.get(data.id);
+    const folder = await fromUuid(data.uuid);
     if (!folder) return;
 
     this._recursiveAddFolder(folder);
   }
 
   /* - Dragging from the Party Sheet - */
-  _onDragStart(event) {
+  async _onDragStart(event) {
     try {
-      const actorId = event.currentTarget.dataset.actorId;
-
-      const dragData = {
-        id: actorId,
-        type: "Actor",
-      };
-
+      const { uuid } = event.currentTarget.dataset
+      const dragData = (await fromUuid(uuid)).toDragData();
       // Set data transfer
       event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
     } catch (error) {

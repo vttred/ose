@@ -37,104 +37,17 @@ export class OseActorSheetMonster extends OseActorSheet {
    * @private
    */
   _prepareItems(data) {
-    const itemsData = this.actor?.items;
-    const containerContents = {};
-    const attackPatterns = {};
-
-    let colors = Object.keys(CONFIG.OSE.colors);
-    colors.push("transparent");
-
-    // Set up attack patterns in specific order
-    for (var i = 0; i < colors.length; i++) {
-      attackPatterns[colors[i]] = [];
-    }
-
-    // Partition items by category
-    let [weapons, items, armors, spells, containers, treasures] =
-      itemsData.reduce(
-        (arr, item) => {
-          const itemData = item?.system;
-          // Classify items into types
-          const containerId = itemData.containerId;
-          if (containerId) {
-            containerContents[containerId] = [
-              ...(containerContents[containerId] || []),
-              item,
-            ];
-            return arr;
-          }
-          // Add Items to their respective attack groups
-          if (["weapon", "ability"].includes(item.type)) {
-            attackPatterns[item.system.pattern].push(item);
-          }
-          // Classify items into types
-          switch (item.type) {
-            case "weapon":
-              arr[0].push(item);
-              break;
-            case "item":
-              arr[item.system.treasure ? 5 : 1].push(item);
-              break;
-            case "armor":
-              arr[2].push(item);
-              break;
-            case "spell":
-              arr[3].push(item);
-              break;
-            case "container":
-              arr[4].push(item);
-              break;
-          }
-
-          return arr;
-        },
-        [[], [], [], [], [], []]
-      );
-
-    // Sort spells by level
-    var sortedSpells = {};
-    var slots = {};
-    for (var i = 0; i < spells.length; i++) {
-      let lvl = spells[i].system.lvl;
-      if (!sortedSpells[lvl]) sortedSpells[lvl] = [];
-      if (!slots[lvl]) slots[lvl] = 0;
-      slots[lvl] += spells[i].system.memorized;
-      sortedSpells[lvl].push(spells[i]);
-    }
-    data.slots = {
-      used: slots,
-    };
-    containers.map((container, key, arr) => {
-      arr[key].system.itemIds = containerContents[container.id] || [];
-      arr[key].system.totalWeight = containerContents[container.id]?.reduce(
-        (acc, item) => {
-          return (
-            acc + item.system?.weight * (item.system?.quantity?.value || 1)
-          );
-        },
-        0
-      );
-      return arr;
-    });
     // Assign and return
-    data.owned = { weapons, items, containers, armors, treasures };
+    data.owned = {
+      weapons: this.actor.system.weapons,
+      items: this.actor.system.items,
+      containers: this.actor.system.containers,
+      armors: this.actor.system.armor,
+      treasures: this.actor.system.treasures,
+    };
 
-    data.attackPatterns = attackPatterns;
-    // Sort items and spells alphabetically within their groups
-    data.spells = sortedSpells;
-    [...Object.values(data.owned), ...Object.values(data.spells)].forEach((o) =>
-      o.sort((a, b) => a.name.localeCompare(b.name))
-    );
-
-    // Within each attack pattern, weapons come before abilities,
-    // and are then alphabetized
-    Object.values(data.attackPatterns).forEach((o) =>
-      o.sort(
-        (a, b) =>
-          b.type.localeCompare(a.type) ||
-          a.name.localeCompare(b.name)
-      )
-    );
+    data.attackPatterns = this.actor.system.attackPatterns;
+    data.spells = this.actor.system.spells.spellList;
   }
 
   /**

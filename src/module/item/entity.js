@@ -49,10 +49,10 @@ export class OseItem extends Item {
     // Item properties
     const props = [];
 
-    if (itemType == "weapon") {
+    if (itemType === "weapon") {
       itemData.tags.forEach((t) => props.push(t.value));
     }
-    if (itemType == "spell") {
+    if (itemType === "spell") {
       props.push(
         `${itemData.class} ${itemData.lvl}`,
         itemData.range,
@@ -371,7 +371,7 @@ export class OseItem extends Item {
     const header = event.currentTarget;
     const card = header.closest(".chat-card");
     const content = card.querySelector(".card-content");
-    if (content.style.display == "none") {
+    if (content.style.display === "none") {
       $(content).slideDown(200);
     } else {
       $(content).slideUp(200);
@@ -418,7 +418,7 @@ export class OseItem extends Item {
     if (action === "damage") await item.rollDamage({ event });
     else if (action === "formula") await item.rollFormula({ event });
     // Saving Throws for card targets
-    else if (action == "save") {
+    else if (action === "save") {
       if (!targets.length) {
         ui.notifications.error(
           game.i18n.localize("OSE.error.noTokenControlled")

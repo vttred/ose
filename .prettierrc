@@ -1,1 +1,14 @@
-{}
+{ 
+	"importOrder": [
+		"<THIRD_PARTY_MODULES>",
+		"hooks/(.*)$",
+		"actor/(.*)$",
+		"actor/(.*)-sheet$",
+		"item/(.*)$",
+		"item/(.*)-sheet$",
+		"module/(.*)$",
+		"^[./]"
+	],
+	"importOrderSeparation": true,
+	"importOrderSortSpecifiers": true 
+}

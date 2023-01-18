@@ -64,7 +64,7 @@ export function rollItemMacro(itemName) {
     );
   } else if (items.length === 0) {
     return ui.notifications.error(
-      game.i18n.format("OSE.warn.noItemWithName", {
+      game.i18n.format("OSE.error.noItemWithName", {
         actorName: actor.name,
         itemName: itemName,
       })

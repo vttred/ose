@@ -23,22 +23,21 @@ export default class OseDataModelItem extends foundry.abstract.DataModel {
 	get manualTags() {
 		if (!this.tags) return null;
 
-		const tagNames = Object.values(CONFIG.OSE.auto_tags).map(({ label }) => label);
-		return this.tags.filter(({ value }) =>
-			!tagNames.includes(value)
-		).map(({ title, value }) => ({ title, value, label: value }))
-	}
+    const tagNames = new Set(
+      Object.values(CONFIG.OSE.auto_tags).map(({ label }) => label)
+    );
+    return this.tags
+      .filter(({ value }) => !tagNames.has(value))
+      .map(({ title, value }) => ({ title, value, label: value }));
+  }
 
-	get autoTags() {
-		const tagNames = Object.values(CONFIG.OSE.auto_tags)
+  get autoTags() {
+    const tagNames = Object.values(CONFIG.OSE.auto_tags);
 
-		const autoTags = this.tags.map(({ value }) =>
-			tagNames.find(({ label }) => value === label)
-		)
+    const autoTags = this.tags.map(({ value }) =>
+      tagNames.find(({ label }) => value === label)
+    );
 
-		return [
-			...autoTags,
-			...this.manualTags
-		].flat().filter(t => !!t)
-	}
+    return [...autoTags, ...this.manualTags].flat().filter((t) => !!t);
+  }
 }

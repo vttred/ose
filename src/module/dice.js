@@ -1,7 +1,7 @@
 import { OSE } from "./config";
 
-export class OseDice {
-  static async sendRoll({
+export const OseDice = {
+  async sendRoll({
     parts = [],
     data = {},
     title = null,
@@ -12,15 +12,15 @@ export class OseDice {
   } = {}) {
     const template = `${OSE.systemPath()}/templates/chat/roll-result.html`;
 
-    let chatData = {
+    const chatData = {
       user: game.user.id,
-      speaker: speaker,
+      speaker,
     };
 
     const templateData = {
-      title: title,
-      flavor: flavor,
-      data: data,
+      title,
+      flavor,
+      data,
     };
 
     // Optionally include a situational bonus
@@ -28,7 +28,7 @@ export class OseDice {
       parts.push(form.bonus.value);
     }
 
-    //;
+    // ;
     const roll = new Roll(parts.join("+"), data).evaluate({ async: false });
 
     // Convert the roll to a chat message and return the roll
@@ -41,10 +41,10 @@ export class OseDice {
     }
 
     if (["gmroll", "blindroll"].includes(rollMode))
-      chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
-    if (rollMode === "selfroll") chatData["whisper"] = [game.user._id];
+      chatData.whisper = ChatMessage.getWhisperRecipients("GM");
+    if (rollMode === "selfroll") chatData.whisper = [game.user._id];
     if (rollMode === "blindroll") {
-      chatData["blind"] = true;
+      chatData.blind = true;
       data.roll.blindroll = true;
     }
 
@@ -77,59 +77,80 @@ export class OseDice {
         });
       });
     });
-  }
+  },
 
-  static digestResult(data, roll) {
-    let result = {
+  digestResult(data, roll) {
+    const result = {
       isSuccess: false,
       isFailure: false,
       target: data.roll.target,
       total: roll.total,
     };
 
-    let die = roll.terms[0].total;
-    if (data.roll.type === "result") {
-      if (roll.total === result.target) {
-        result.isSuccess = true;
-      } else {
-        result.isFailure = true;
-      }
-    } else if (data.roll.type === "above") {
-      // SAVING THROWS
-      if (roll.total >= result.target) {
-        result.isSuccess = true;
-      } else {
-        result.isFailure = true;
-      }
-    } else if (data.roll.type === "below") {
-      // MORALE, EXPLORATION
-      if (roll.total <= result.target) {
-        result.isSuccess = true;
-      } else {
-        result.isFailure = true;
-      }
-    } else if (data.roll.type === "check") {
-      // SCORE CHECKS (1s and 20s)
-      if (die === 1 || (roll.total <= result.target && die < 20)) {
-        result.isSuccess = true;
-      } else {
-        result.isFailure = true;
-      }
-    } else if (data.roll.type === "table") {
-      // Reaction
-      let table = data.roll.table;
-      let output = Object.values(table)[0];
-      for (let i = 0; i <= roll.total; i++) {
-        if (table[i]) {
-          output = table[i];
+    const die = roll.terms[0].total;
+    switch (data.roll.type) {
+      case "result": {
+        if (roll.total === result.target) {
+          result.isSuccess = true;
+        } else {
+          result.isFailure = true;
         }
+
+        break;
       }
-      result.details = output;
+
+      case "above": {
+        // SAVING THROWS
+        if (roll.total >= result.target) {
+          result.isSuccess = true;
+        } else {
+          result.isFailure = true;
+        }
+
+        break;
+      }
+
+      case "below": {
+        // MORALE, EXPLORATION
+        if (roll.total <= result.target) {
+          result.isSuccess = true;
+        } else {
+          result.isFailure = true;
+        }
+
+        break;
+      }
+
+      case "check": {
+        // SCORE CHECKS (1s and 20s)
+        if (die === 1 || (roll.total <= result.target && die < 20)) {
+          result.isSuccess = true;
+        } else {
+          result.isFailure = true;
+        }
+
+        break;
+      }
+
+      case "table": {
+        // Reaction
+        const { table } = data.roll;
+        let output = Object.values(table)[0];
+        for (let i = 0; i <= roll.total; i++) {
+          if (table[i]) {
+            output = table[i];
+          }
+        }
+        result.details = output;
+
+        break;
+      }
+      // No default
     }
     return result;
-  }
+  },
 
-  static attackIsSuccess(roll, thac0, ac) {
+  attackIsSuccess(roll, thac0, ac) {
     if (roll.total === 1 || roll.terms[0].results[0] === 1) {
       return false;
     }
@@ -140,17 +161,17 @@ export class OseDice {
       return true;
     }
     return false;
-  }
+  },
 
-  static digestAttackResult(data, roll) {
-    let result = {
+  digestAttackResult(data, roll) {
+    const result = {
       isSuccess: false,
       isFailure: false,
       target: "",
       total: roll.total,
     };
     result.target = data.roll.thac0;
-    let targetActorData = data.roll.target?.actor?.system || null;
+    const targetActorData = data.roll.target?.actor?.system || null;
 
     const targetAc = data.roll.target ? targetActorData.ac.value : 9;
     const targetAac = data.roll.target ? targetActorData.aac.value : 10;
@@ -181,16 +202,16 @@ export class OseDice {
         return result;
       }
       result.isSuccess = true;
-      let value = Math.clamped(result.target - roll.total, -3, 9);
+      const value = Math.clamped(result.target - roll.total, -3, 9);
       result.details = game.i18n.format("OSE.messages.AttackSuccess", {
         result: value,
         bonus: result.target,
       });
     }
     return result;
-  }
+  },
 
-  static async sendAttackRoll({
+  async sendAttackRoll({
     parts = [],
     data = {},
     flags = {},
@@ -199,24 +220,26 @@ export class OseDice {
     speaker = null,
     form = null,
   } = {}) {
-    if (!data.roll.dmg.filter(v => v !== '').length) {
+    if (data.roll.dmg.filter((v) => v !== "").length === 0) {
       /**
        * @todo should this error be localized?
        */
-      ui.notifications.error('Attack has no damage dice terms; be sure to set the attack\'s damage');
+      ui.notifications.error(
+        "Attack has no damage dice terms; be sure to set the attack's damage"
+      );
       return;
     }
     const template = `${OSE.systemPath()}/templates/chat/roll-attack.html`;
-    let chatData = {
+    const chatData = {
       user: game.user.id,
-      speaker: speaker,
-      flags: flags,
+      speaker,
+      flags,
     };
 
-    let templateData = {
-      title: title,
-      flavor: flavor,
-      data: data,
+    const templateData = {
+      title,
+      flavor,
+      data,
       config: CONFIG.OSE,
     };
 
@@ -238,10 +261,10 @@ export class OseDice {
     }
 
     if (["gmroll", "blindroll"].includes(rollMode))
-      chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
-    if (rollMode === "selfroll") chatData["whisper"] = [game.user._id];
+      chatData.whisper = ChatMessage.getWhisperRecipients("GM");
+    if (rollMode === "selfroll") chatData.whisper = [game.user._id];
     if (rollMode === "blindroll") {
-      chatData["blind"] = true;
+      chatData.blind = true;
       data.roll.blindroll = true;
     }
 
@@ -293,9 +316,9 @@ export class OseDice {
         });
       });
     });
-  }
+  },
 
-  static async RollSave({
+  async RollSave({
     parts = [],
     data = {},
     skipDialog = false,
@@ -306,26 +329,26 @@ export class OseDice {
   } = {}) {
     let rolled = false;
     const template = `${OSE.systemPath()}/templates/chat/roll-dialog.html`;
-    let dialogData = {
+    const dialogData = {
       formula: parts.join(" "),
-      data: data,
+      data,
       rollMode: game.settings.get("core", "rollMode"),
       rollModes: CONFIG.Dice.rollModes,
     };
 
-    let rollData = {
-      parts: parts,
-      data: data,
-      title: title,
-      flavor: flavor,
-      speaker: speaker,
-      chatMessage: chatMessage,
+    const rollData = {
+      parts,
+      data,
+      title,
+      flavor,
+      speaker,
+      chatMessage,
     };
     if (skipDialog) {
       return OseDice.sendRoll(rollData);
     }
 
-    let buttons = {
+    const buttons = {
       ok: {
         label: game.i18n.localize("OSE.Roll"),
         icon: '<i class="fas fa-dice-d20"></i>',
@@ -358,21 +381,21 @@ export class OseDice {
     const html = await renderTemplate(template, dialogData);
     let roll;
 
-    //Create Dialog window
+    // Create Dialog window
     return new Promise((resolve) => {
       new Dialog({
-        title: title,
+        title,
         content: html,
-        buttons: buttons,
+        buttons,
         default: "ok",
         close: () => {
           resolve(rolled ? roll : false);
         },
       }).render(true);
     });
-  }
+  },
 
-  static async Roll({
+  async Roll({
     parts = [],
     data = {},
     skipDialog = false,
@@ -384,22 +407,22 @@ export class OseDice {
   } = {}) {
     let rolled = false;
     const template = `${OSE.systemPath()}/templates/chat/roll-dialog.html`;
-    let dialogData = {
+    const dialogData = {
       formula: parts.join(" "),
-      data: data,
+      data,
       rollMode: data.roll.blindroll
         ? "blindroll"
         : game.settings.get("core", "rollMode"),
       rollModes: CONFIG.Dice.rollModes,
     };
-    let rollData = {
-      parts: parts,
-      data: data,
-      title: title,
-      flavor: flavor,
-      speaker: speaker,
-      chatMessage: chatMessage,
-      flags: flags,
+    const rollData = {
+      parts,
+      data,
+      title,
+      flavor,
+      speaker,
+      chatMessage,
+      flags,
     };
     if (skipDialog) {
       return ["melee", "missile", "attack"].includes(data.roll.type)
@@ -407,7 +430,7 @@ export class OseDice {
         : OseDice.sendRoll(rollData);
     }
 
-    let buttons = {
+    const buttons = {
       ok: {
         label: game.i18n.localize("OSE.Roll"),
         icon: '<i class="fas fa-dice-d20"></i>',
@@ -429,17 +452,17 @@ export class OseDice {
     const html = await renderTemplate(template, dialogData);
     let roll;
 
-    //Create Dialog window
+    // Create Dialog window
     return new Promise((resolve) => {
       new Dialog({
-        title: title,
+        title,
         content: html,
-        buttons: buttons,
+        buttons,
         default: "ok",
         close: () => {
           resolve(rolled ? roll : false);
         },
       }).render(true);
     });
-  }
-}
+  },
+};

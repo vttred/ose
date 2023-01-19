@@ -1,4 +1,5 @@
 import { OseItem } from "./item/entity";
+
 import { OSE } from "./config";
 
 export const RenderCompendium = async function (object, html, d) {
@@ -8,10 +9,10 @@ export const RenderCompendium = async function (object, html, d) {
   const render = html[0].querySelectorAll(".item");
   const docs = await d.collection.getDocuments();
 
-  render.forEach(async function (item, i) {
+  render.forEach(async (item, i) => {
     const id = render[i].dataset.documentId;
 
-    const element = docs.filter((d) => d.id === id)[0];
+    const element = docs.find((d) => d.id === id);
     const tagTemplate = $.parseHTML(
       await renderTemplate(
         `${OSE.systemPath()}/templates/actors/partials/item-auto-tags-partial.html`,
@@ -31,7 +32,7 @@ export const RenderDirectory = async function (object, html) {
   const render = html[0].querySelectorAll(".item");
   const content = object.documents;
 
-  render.forEach(async function (item) {
+  render.forEach(async (item) => {
     const foundryDocument = content.find(
       (e) => e.id === item.dataset.documentId
     );
@@ -39,7 +40,7 @@ export const RenderDirectory = async function (object, html) {
     const tagTemplate = $.parseHTML(
       await renderTemplate(
         `${OSE.systemPath()}/templates/actors/partials/item-auto-tags-partial.html`,
-        { tags: foundryDocument.system.autoTags || []}
+        { tags: foundryDocument.system.autoTags || [] }
       )
     );
     $(item).append(tagTemplate);

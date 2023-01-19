@@ -14,7 +14,8 @@ export class OseCharacterModifiers extends FormApplication {
 
   /**
    * Add the Entity name into the window title
-   * @type {String}
+   *
+   * @type {string}
    */
   get title() {
     return `${this.object.name}: Modifiers`;
@@ -24,7 +25,8 @@ export class OseCharacterModifiers extends FormApplication {
 
   /**
    * Construct and return the data object used to render the HTML template for this form application.
-   * @return {Object}
+   *
+   * @returns {object}
    */
   getData() {
     const data = foundry.utils.deepClone(this.object);

@@ -1,10 +1,10 @@
 import { OSE } from "./config";
 
-export class OseCombat {
-  static STATUS_SLOW = -789;
-  static STATUS_DIZZY = -790;
+export const OseCombat = {
+  STATUS_SLOW: -789,
+  STATUS_DIZZY: -790,
 
-  static debounce(callback, wait) {
+  debounce(callback, wait) {
     let timeoutId = null;
     return (...args) => {
       window.clearTimeout(timeoutId);
@@ -12,24 +12,24 @@ export class OseCombat {
         callback.apply(null, args);
       }, wait);
     };
-  }
-  static async rollInitiative(combat, data) {
+  },
+  async rollInitiative(combat, data) {
     // Check groups
     data.combatants = [];
-    let groups = {};
-    let combatants = combat?.combatants;
+    const groups = {};
+    const combatants = combat?.combatants;
     combatants.forEach((cbt) => {
       const group = cbt.getFlag(game.system.id, "group");
       groups[group] = { present: true };
       data.combatants.push(cbt);
     });
     // Roll init
-    for (let group in groups) {
+    for (const group in groups) {
       // Object.keys(groups).forEach((group) => {
-      let roll = new Roll("1d6").evaluate({ async: false });
+      const roll = new Roll("1d6").evaluate({ async: false });
       await roll.toMessage({
         flavor: game.i18n.format("OSE.roll.initiative", {
-          group: CONFIG["OSE"].colors[group],
+          group: CONFIG.OSE.colors[group],
         }),
       });
       groups[group].initiative = roll.total;
@@ -41,7 +41,7 @@ export class OseCombat {
         if (!data.combatants[i].actor) {
           return;
         }
-        let actorData = data.combatants[i].actor?.system;
+        const actorData = data.combatants[i].actor?.system;
         if (actorData.isSlow) {
           await data.combatants[i].update({
             initiative: OseCombat.STATUS_SLOW,
@@ -57,23 +57,23 @@ export class OseCombat {
     }
 
     await combat.setupTurns();
-  }
+  },
 
-  static async resetInitiative(combat, data) {
-    let reroll = game.settings.get(game.system.id, "rerollInitiative");
+  async resetInitiative(combat, data) {
+    const reroll = game.settings.get(game.system.id, "rerollInitiative");
     if (!["reset", "reroll"].includes(reroll)) {
       return;
     }
     combat.resetAll();
-  }
+  },
 
-  static async individualInitiative(combat, data) {
-    let updates = [];
-    let rolls = [];
-    let combatants = combat?.combatants;
+  async individualInitiative(combat, data) {
+    const updates = [];
+    const rolls = [];
+    const combatants = combat?.combatants;
     for (let i = 0; i < combatants.size; i++) {
-      let c = combatants.contents[i];
-      //check if actor initiative has already been set for this round
+      const c = combatants.contents[i];
+      // check if actor initiative has already been set for this round
       if (c?.initiative) {
         continue;
       }
@@ -85,39 +85,38 @@ export class OseCombat {
       const data = { _id: c.id };
       updates.push(data);
     }
-    //combine init rolls
+    // combine init rolls
     const pool = PoolTerm.fromRolls(rolls);
     const combinedRoll = await Roll.fromTerms([pool]);
-    //get evaluated chat message
+    // get evaluated chat message
     const evalRoll = await combinedRoll.toMessage({}, { create: false });
-    let rollArr = combinedRoll.terms[0].rolls;
+    const rollArr = combinedRoll.terms[0].rolls;
     let msgContent = ``;
-    for (let i = 0; i < rollArr.length; i++) {
-      let roll = rollArr[i];
-      //get combatant
-      let cbt = game.combats.viewed.combatants.find(
+    for (const [i, roll] of rollArr.entries()) {
+      // get combatant
+      const cbt = game.combats.viewed.combatants.find(
         (c) => c.id === updates[i]._id
       );
-      //add initiative value to update
-      //check if actor is slow
+      // add initiative value to update
+      // check if actor is slow
       let value = cbt.actor?.system?.isSlow
         ? OseCombat.STATUS_SLOW
         : roll.total;
-      //check if actor is defeated
+      // check if actor is defeated
       if (combat.settings.skipDefeated && cbt.isDefeated) {
         value = OseCombat.STATUS_DIZZY;
       }
       updates[i].initiative = value;
 
-      //render template
-      let template = `${OSE.systemPath()}/templates/chat/roll-individual-initiative.html`;
-      let tData = {
+      // render template
+      const template = `${OSE.systemPath()}/templates/chat/roll-individual-initiative.html`;
+      const tData = {
         name: cbt.name,
         formula: roll.formula,
         result: roll.result,
         total: roll.total,
       };
-      let rendered = await renderTemplate(template, tData);
+      const rendered = await renderTemplate(template, tData);
       msgContent += rendered;
     }
     evalRoll.content = `
@@ -126,13 +125,13 @@ export class OseCombat {
     ${msgContent}
     </details>`;
     ChatMessage.create(evalRoll);
-    //update tracker
+    // update tracker
     if (game.user.isGM)
       await combat.updateEmbeddedDocuments("Combatant", updates);
     data.turn = 0;
-  }
+  },
 
-  static format(object, html, user) {
+  format(object, html, user) {
     html.find(".initiative").each((_, span) => {
       span.innerHTML =
         span.innerHTML === `${OseCombat.STATUS_SLOW}`
@@ -169,14 +168,14 @@ export class OseCombat {
     });
     OseCombat.announceListener(html);
 
-    let init = game.settings.get(game.system.id, "initiative") === "group";
+    const init = game.settings.get(game.system.id, "initiative") === "group";
     if (!init) {
       return;
     }
 
     html.find('.combat-control[data-control="rollNPC"]').remove();
     html.find('.combat-control[data-control="rollAll"]').remove();
-    let trash = html.find(
+    const trash = html.find(
       '.encounters .combat-control[data-control="endCombat"]'
     );
     $(
@@ -189,19 +188,19 @@ export class OseCombat {
 
       // Get group color
       const cmbtant = object.viewed.combatants.get(ct.dataset.combatantId);
-      let color = cmbtant.getFlag(game.system.id, "group");
+      const color = cmbtant.getFlag(game.system.id, "group");
 
       // Append colored flag
-      let controls = $(ct).find(".combatant-controls");
+      const controls = $(ct).find(".combatant-controls");
       controls.prepend(
         `<a class='combatant-control flag' style='color:${color}' title="${CONFIG.OSE.colors[color]}"><i class='fas fa-flag'></i></a>`
       );
     });
     OseCombat.addListeners(html);
-  }
+  },
 
-  static updateCombatant(combatant, data) {
-    let init = game.settings.get(game.system.id, "initiative");
+  updateCombatant(combatant, data) {
+    const init = game.settings.get(game.system.id, "initiative");
     // Why do you reroll ?
     const actorData = combatant.actor?.system;
     if (actorData.isSlow) {
@@ -209,7 +208,7 @@ export class OseCombat {
       return;
     }
     if (data.initiative && init === "group") {
-      let groupInit = data.initiative;
+      const groupInit = data.initiative;
       const cmbtGroup = combatant.getFlag(game.system.id, "group");
       // Check if there are any members of the group with init
       game.combats.viewed.combatants.forEach((ct) => {
@@ -218,53 +217,54 @@ export class OseCombat {
           ct.initiative &&
           ct.initiative != "-789.00" &&
           ct.id != data.id &&
-          group === cmbtGroup
+          group === cmbtGroup && // Set init
+          game.user.isGM
         ) {
-          // Set init
-          if (game.user.isGM) {
-            combatant.update({ initiative: parseInt(groupInit) });
-          }
+          combatant.update({ initiative: parseInt(groupInit) });
         }
       });
     }
-  }
+  },
 
-  static announceListener(html) {
+  announceListener(html) {
     html.find(".combatant-control.prepare-spell").click((ev) => {
       ev.preventDefault();
       // Toggle spell announcement
-      let id = $(ev.currentTarget).closest(".combatant")[0].dataset.combatantId;
-      let isActive = ev.currentTarget.classList.contains("active");
+      const id = $(ev.currentTarget).closest(".combatant")[0].dataset
+        .combatantId;
+      const isActive = ev.currentTarget.classList.contains("active");
       const combatant = game.combat.combatants.get(id);
       combatant.setFlag(game.system.id, "prepareSpell", !isActive);
     });
     html.find(".combatant-control.move-combat").click((ev) => {
       ev.preventDefault();
       // Toggle spell announcement
-      let id = $(ev.currentTarget).closest(".combatant")[0].dataset.combatantId;
-      let isActive = ev.currentTarget.classList.contains("active");
+      const id = $(ev.currentTarget).closest(".combatant")[0].dataset
+        .combatantId;
+      const isActive = ev.currentTarget.classList.contains("active");
       const combatant = game.combat.combatants.get(id);
       if (game.user.isGM) {
         combatant.setFlag(game.system.id, "moveInCombat", !isActive);
       }
     });
-  }
+  },
 
-  static addListeners(html) {
+  addListeners(html) {
     // Cycle through colors
     html.find(".combatant-control.flag").click((ev) => {
       if (!game.user.isGM) {
         return;
       }
-      let currentColor = ev.currentTarget.style.color;
-      let colors = Object.keys(CONFIG.OSE.colors);
+      const currentColor = ev.currentTarget.style.color;
+      const colors = Object.keys(CONFIG.OSE.colors);
       let index = colors.indexOf(currentColor);
       if (index + 1 === colors.length) {
         index = 0;
       } else {
         index++;
       }
-      let id = $(ev.currentTarget).closest(".combatant")[0].dataset.combatantId;
+      const id = $(ev.currentTarget).closest(".combatant")[0].dataset
+        .combatantId;
       const combatant = game.combat.combatants.get(id);
       if (game.user.isGM) {
         combatant.setFlag(game.system.id, "group", colors[index]);
@@ -275,30 +275,35 @@ export class OseCombat {
       if (!game.combat) {
         return;
       }
-      let data = {};
+      const data = {};
       OseCombat.rollInitiative(game.combat, data);
       if (game.user.isGM) {
-        game.combat.update({ data: data }).then(() => {
+        game.combat.update({ data }).then(() => {
           game.combat.setupTurns();
         });
       }
     });
-  }
+  },
 
-  static addCombatant(combat, data, options, id) {
-    let token = canvas.tokens.get(data.tokenId);
+  addCombatant(combat, data, options, id) {
+    const token = canvas.tokens.get(data.tokenId);
     let color = "black";
-    let disposition = token?.disposition || token?.data?.disposition;
+    const disposition = token?.disposition || token?.data?.disposition;
     switch (disposition) {
-      case -1:
+      case -1: {
         color = "red";
         break;
-      case 0:
+      }
+
+      case 0: {
         color = "yellow";
         break;
-      case 1:
+      }
+
+      case 1: {
         color = "green";
         break;
+      }
     }
     data.flags = {
       ose: {
@@ -306,28 +311,28 @@ export class OseCombat {
       },
     };
     combat.updateSource({ flags: { ose: { group: color } } });
-  }
+  },
 
-  static activateCombatant(li) {
+  activateCombatant(li) {
     const turn = game.combat.turns.findIndex(
       (turn) => turn.id === li.data("combatant-id")
     );
     if (game.user.isGM) {
-      game.combat.update({ turn: turn });
+      game.combat.update({ turn });
     }
-  }
+  },
 
-  static addContextEntry(html, options) {
+  addContextEntry(html, options) {
     options.unshift({
       name: "Set Active",
       icon: '<i class="fas fa-star-of-life"></i>',
       callback: OseCombat.activateCombatant,
     });
-  }
+  },
 
-  static async preUpdateCombat(combat, data, diff, id) {
-    let init = game.settings.get(game.system.id, "initiative");
-    let reroll = game.settings.get(game.system.id, "rerollInitiative");
+  async preUpdateCombat(combat, data, diff, id) {
+    const init = game.settings.get(game.system.id, "initiative");
+    const reroll = game.settings.get(game.system.id, "rerollInitiative");
     if (!data.round) {
       return;
     }
@@ -335,7 +340,8 @@ export class OseCombat {
       if (reroll === "reset") {
         OseCombat.resetInitiative(combat, data, diff, id);
         return;
-      } else if (reroll === "keep") {
+      }
+      if (reroll === "keep") {
         return;
       }
     }
@@ -344,5 +350,5 @@ export class OseCombat {
     } else if (init === "individual") {
       OseCombat.individualInitiative(combat, data, diff, id);
     }
-  }
-}
+  },
+};

@@ -5,8 +5,9 @@
 /**
  * Create a Macro from an Item drop.
  * Get an existing item macro if one exists, otherwise create a new one.
- * @param {Object} data     The dropped data
- * @param {number} slot     The hotbar slot to use
+ *
+ * @param {object} data - The dropped data
+ * @param {number} slot - The hotbar slot to use
  * @returns {Promise}
  */
 export async function createOseMacro(data, slot) {
@@ -27,7 +28,7 @@ export async function createOseMacro(data, slot) {
       name: item.name,
       type: "script",
       img: item.img,
-      command: command,
+      command,
       flags: { "ose.itemMacro": true },
     });
   }
@@ -40,8 +41,9 @@ export async function createOseMacro(data, slot) {
 /**
  * Create a Macro from an Item drop.
  * Get an existing item macro if one exists, otherwise create a new one.
+ *
  * @param {string} itemName
- * @return {Promise}
+ * @returns {Promise}
  */
 export function rollItemMacro(itemName) {
   const speaker = ChatMessage.getSpeaker();
@@ -59,14 +61,14 @@ export function rollItemMacro(itemName) {
     ui.notifications.warn(
       game.i18n.format("OSE.warn.moreThanOneItemWithName", {
         actorName: actor.name,
-        itemName: itemName,
+        itemName,
       })
     );
   } else if (items.length === 0) {
     return ui.notifications.error(
       game.i18n.format("OSE.error.noItemWithName", {
         actorName: actor.name,
-        itemName: itemName,
+        itemName,
       })
     );
   }

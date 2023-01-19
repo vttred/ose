@@ -1,5 +1,5 @@
-import { OseDice } from "../dice";
 import { OSE } from "../config";
+import { OseDice } from "../dice";
 
 export class OseCharacterCreator extends FormApplication {
   static get defaultOptions() {
@@ -15,7 +15,8 @@ export class OseCharacterCreator extends FormApplication {
 
   /**
    * Add the Entity name into the window title
-   * @type {String}
+   *
+   * @type {string}
    */
   get title() {
     return `${this.object.name}: ${game.i18n.localize("OSE.dialog.generator")}`;
@@ -25,7 +26,8 @@ export class OseCharacterCreator extends FormApplication {
 
   /**
    * Construct and return the data object used to render the HTML template for this form application.
-   * @return {Object}
+   *
+   * @returns {object}
    */
   getData() {
     let data = foundry.utils.deepClone(this.object);
@@ -60,11 +62,11 @@ export class OseCharacterCreator extends FormApplication {
     const mean = parseFloat(sum) / n;
     const std = Math.sqrt(
       scores
-        .map((x) => Math.pow(x.value - mean, 2))
+        .map((x) => (x.value - mean) ** 2)
         .reduce((acc, next) => acc + next, 0) / n
     );
 
-    let stats = list.siblings(".roll-stats");
+    const stats = list.siblings(".roll-stats");
     stats.find(".sum").text(sum);
     stats.find(".avg").text(Math.round((10 * sum) / n) / 10);
     stats.find(".std").text(Math.round(100 * std) / 100);
@@ -77,7 +79,7 @@ export class OseCharacterCreator extends FormApplication {
     }
 
     this.object.data.stats = {
-      sum: sum,
+      sum,
       avg: Math.round((10 * sum) / n) / 10,
       std: Math.round(100 * std) / 100,
     };
@@ -88,7 +90,7 @@ export class OseCharacterCreator extends FormApplication {
     this.counters[score]++;
 
     const label =
-      score != "gold" ? game.i18n.localize(`OSE.scores.${score}.long`) : "Gold";
+      score == "gold" ? "Gold" : game.i18n.localize(`OSE.scores.${score}.long`);
     const rollParts = ["3d6"];
     const data = {
       roll: {
@@ -102,7 +104,7 @@ export class OseCharacterCreator extends FormApplication {
     return OseDice.Roll({
       event: options.event,
       parts: rollParts,
-      data: data,
+      data,
       skipDialog: true,
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: game.i18n.format("OSE.dialog.generateScore", {
@@ -131,7 +133,7 @@ export class OseCharacterCreator extends FormApplication {
       templateData
     );
     ChatMessage.create({
-      content: content,
+      content,
       speaker,
     });
     return super.close(options);
@@ -141,8 +143,8 @@ export class OseCharacterCreator extends FormApplication {
   activateListeners(html) {
     super.activateListeners(html);
     html.find("a.score-roll").click((ev) => {
-      let el = ev.currentTarget.parentElement.parentElement;
-      let score = el.dataset.score;
+      const el = ev.currentTarget.parentElement.parentElement;
+      const { score } = el.dataset;
       this.rollScore(score, { event: ev }).then((r) => {
         this.scores[score] = { value: r.total };
         $(el).find("input").val(r.total).trigger("change");
@@ -150,7 +152,7 @@ export class OseCharacterCreator extends FormApplication {
     });
 
     html.find("a.gold-roll").click((ev) => {
-      let el = ev.currentTarget.parentElement.parentElement.parentElement;
+      const el = ev.currentTarget.parentElement.parentElement.parentElement;
       this.rollScore("gold", { event: ev }).then((r) => {
         this.gold = 10 * r.total;
         $(el).find(".gold-value").val(this.gold);
@@ -163,7 +165,7 @@ export class OseCharacterCreator extends FormApplication {
 
     html.find("a.auto-roll").click(async (ev) => {
       const stats = ["str", "int", "dex", "wis", "con", "cha"];
-      for (let char of stats) {
+      for (const char of stats) {
         const r = await this.rollScore(char, { event: ev, skipMessage: true });
         this.scores[char] = { value: r.total };
       }
@@ -180,9 +182,9 @@ export class OseCharacterCreator extends FormApplication {
   ) {
     updateData = { ...updateData, system: { scores: this.scores } };
     super._onSubmit(event, {
-      updateData: updateData,
-      preventClose: preventClose,
-      preventRender: preventRender,
+      updateData,
+      preventClose,
+      preventRender,
     });
     // Generate gold
     const itemData = {
@@ -200,10 +202,12 @@ export class OseCharacterCreator extends FormApplication {
     };
     this.object.createEmbeddedDocuments("Item", [itemData]);
   }
+
   /**
    * This method is called upon form submission after form data is validated
-   * @param event {Event}       The initial triggering submission event
-   * @param formData {Object}   The object of validated form data with which to update the object
+   *
+   * @param event - {Event}       The initial triggering submission event
+   * @param formData - {Object}   The object of validated form data with which to update the object
    * @private
    */
   async _updateObject(event, formData) {

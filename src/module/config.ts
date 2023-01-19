@@ -15,7 +15,7 @@ export type OseConfig = {
   /** @todo How do I set this type? */
   encumbranceOptions: {
     [name: string]: unknown;
-  }
+  };
   scores: Record<Attribute, string>;
   scores_short: Record<Attribute, string>;
   exploration_skills: Record<ExplorationSkill, string>;
@@ -26,7 +26,7 @@ export type OseConfig = {
   armor: Record<Armor, string>;
   colors: Record<Color, string>;
   languages: string[];
-  auto_tags: {[n: string]: {label: string, icon: string}};
+  auto_tags: { [n: string]: { label: string; icon: string } };
   tags: Record<InventoryItemTag, string>;
   tag_images: Record<InventoryItemTag, string>;
   monster_saves: Record<
@@ -65,13 +65,13 @@ export const OSE: OseConfig = {
     return `${this.systemRoot}/dist`;
   },
   get systemRoot(): string {
-    return `/systems/${game.system.id}`
+    return `/systems/${game.system.id}`;
   },
   get assetsPath(): string {
-    return `${this.systemRoot}/assets`
+    return `${this.systemRoot}/assets`;
   },
   get encumbrance() {
-    const variant = game.settings.get(game.system.id, 'encumbranceOption')
+    const variant = game.settings.get(game.system.id, "encumbranceOption");
     return this.encumbranceOptions[variant] || this.encumbranceOptions.disabled;
   },
   encumbranceOptions: {
@@ -179,33 +179,69 @@ export const OSE: OseConfig = {
     charge: "OSE.items.Charge",
   },
   auto_tags: {
-		get melee() {
-			 return ({ label: CONFIG.OSE.tags.melee, image: `${CONFIG.OSE.assetsPath}/melee.png`,icon: 'fa-sword',  })
-		},
-		get missile() {
-			 return ({ label: CONFIG.OSE.tags.missile, image: `${CONFIG.OSE.assetsPath}/missile.png`,icon: 'fa-bow-arrow' })
-		},
-		get slow() {
-			 return ({ label: CONFIG.OSE.tags.slow, image: `${CONFIG.OSE.assetsPath}/slow.png`,icon: 'fa-weight-hanging' })
-		},
-		get twohanded() {
-			 return ({ label: CONFIG.OSE.tags.twohanded, image: `${CONFIG.OSE.assetsPath}/twohanded.png`,icon: 'fa-hands-holding' })
-		},
-		get blunt() {
-			 return ({ label: CONFIG.OSE.tags.blunt, image: `${CONFIG.OSE.assetsPath}/blunt.png`,icon: 'fa-hammer-crash' })
-		},
-		get brace() {
-			 return ({ label: CONFIG.OSE.tags.brace, image: `${CONFIG.OSE.assetsPath}/brace.png`,icon: 'fa-block-brick' })
-		},
-		get splash() {
-			 return ({ label: CONFIG.OSE.tags.splash, image: `${CONFIG.OSE.assetsPath}/splash.png`,icon: 'fa-burst' })
-		},
-		get reload() {
-			 return ({ label: CONFIG.OSE.tags.reload, image: `${CONFIG.OSE.assetsPath}/reload.png`,icon: 'fa-gear' })
-		},
-		get charge() {
-			 return ({ label: CONFIG.OSE.tags.charge, image: `${CONFIG.OSE.assetsPath}/charge.png`,icon: 'fa-person-running' })
-		}
+    get melee() {
+      return {
+        label: CONFIG.OSE.tags.melee,
+        image: `${CONFIG.OSE.assetsPath}/melee.png`,
+        icon: "fa-sword",
+      };
+    },
+    get missile() {
+      return {
+        label: CONFIG.OSE.tags.missile,
+        image: `${CONFIG.OSE.assetsPath}/missile.png`,
+        icon: "fa-bow-arrow",
+      };
+    },
+    get slow() {
+      return {
+        label: CONFIG.OSE.tags.slow,
+        image: `${CONFIG.OSE.assetsPath}/slow.png`,
+        icon: "fa-weight-hanging",
+      };
+    },
+    get twohanded() {
+      return {
+        label: CONFIG.OSE.tags.twohanded,
+        image: `${CONFIG.OSE.assetsPath}/twohanded.png`,
+        icon: "fa-hands-holding",
+      };
+    },
+    get blunt() {
+      return {
+        label: CONFIG.OSE.tags.blunt,
+        image: `${CONFIG.OSE.assetsPath}/blunt.png`,
+        icon: "fa-hammer-crash",
+      };
+    },
+    get brace() {
+      return {
+        label: CONFIG.OSE.tags.brace,
+        image: `${CONFIG.OSE.assetsPath}/brace.png`,
+        icon: "fa-block-brick",
+      };
+    },
+    get splash() {
+      return {
+        label: CONFIG.OSE.tags.splash,
+        image: `${CONFIG.OSE.assetsPath}/splash.png`,
+        icon: "fa-burst",
+      };
+    },
+    get reload() {
+      return {
+        label: CONFIG.OSE.tags.reload,
+        image: `${CONFIG.OSE.assetsPath}/reload.png`,
+        icon: "fa-gear",
+      };
+    },
+    get charge() {
+      return {
+        label: CONFIG.OSE.tags.charge,
+        image: `${CONFIG.OSE.assetsPath}/charge.png`,
+        icon: "fa-person-running",
+      };
+    },
   },
   tag_images: {
     get melee() {

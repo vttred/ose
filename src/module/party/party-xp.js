@@ -1,5 +1,5 @@
-import { OseParty } from "./party";
 import { OSE } from "../config";
+import { OseParty } from "./party";
 
 export class OsePartyXP extends FormApplication {
   static get defaultOptions() {
@@ -17,7 +17,8 @@ export class OsePartyXP extends FormApplication {
 
   /**
    * Add the Entity name into the window title
-   * @type {String}
+   *
+   * @type {string}
    */
   get title() {
     return game.i18n.localize("OSE.dialog.xp.deal");
@@ -27,17 +28,17 @@ export class OsePartyXP extends FormApplication {
 
   /**
    * Construct and return the data object used to render the HTML template for this form application.
-   * @return {Object}
+   *
+   * @returns {object}
    */
   getData() {
-    let data = {
+    return {
       actors: OseParty.currentParty,
       data: this.object,
       config: CONFIG.OSE,
       user: game.user,
-      settings: settings,
+      settings,
     };
-    return data;
   }
 
   _onDrop(event) {
@@ -47,7 +48,7 @@ export class OsePartyXP extends FormApplication {
     try {
       data = JSON.parse(event.dataTransfer.getData("text/plain"));
       if (data.type !== "Item") return;
-    } catch (err) {
+    } catch (error) {
       return false;
     }
   }
@@ -58,7 +59,7 @@ export class OsePartyXP extends FormApplication {
   }
 
   _calculateShare(ev) {
-    const currentParty = OseParty.currentParty;
+    const { currentParty } = OseParty;
 
     const html = $(this.form);
     const totalXP = html.find('input[name="total"]').val();

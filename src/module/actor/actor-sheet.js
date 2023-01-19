@@ -1,11 +1,11 @@
-import { OseEntityTweaks } from "../dialog/entity-tweaks";
-import { OSE } from "../config";
+/**
+ * @file Shared behaviors between different actor types.
+ */
 import { skipRollDialogCheck } from "../behaviourHelpers";
+import { OSE } from "../config";
+import { OseEntityTweaks } from "../dialog/entity-tweaks";
 
-export class OseActorSheet extends ActorSheet {
-  constructor(...args) {
-    super(...args);
-  }
+export default class OseActorSheet extends ActorSheet {
   /* -------------------------------------------- */
 
   getData() {
@@ -16,7 +16,7 @@ export class OseActorSheet extends ActorSheet {
     data.config = {
       ...CONFIG.OSE,
       ascendingAC: game.settings.get(game.system.id, "ascendingAC"),
-      initiative: game.settings.get(game.system.id, "initiative") != "group",
+      initiative: game.settings.get(game.system.id, "initiative") !== "group",
       encumbrance: game.settings.get(game.system.id, "encumbranceOption"),
     };
     data.isNew = this.actor.isNew();
@@ -36,9 +36,7 @@ export class OseActorSheet extends ActorSheet {
 
   _getItemFromActor(event) {
     const li = event.currentTarget.closest(".item-entry");
-    const item = this.actor.items.get(li.dataset.itemId);
-
-    return item;
+    return this.actor.items.get(li.dataset.itemId);
   }
 
   // end Helpers
@@ -46,16 +44,16 @@ export class OseActorSheet extends ActorSheet {
   _toggleItemCategory(event) {
     event.preventDefault();
     const targetCategory = $(event.currentTarget);
-    let items = targetCategory.next(".item-list");
+    const items = targetCategory.next(".item-list");
 
     if (items.css("display") === "none") {
-      let el = $(event.currentTarget).find(".fas.fa-caret-right");
+      const el = $(event.currentTarget).find(".fas.fa-caret-right");
       el.removeClass("fa-caret-right");
       el.addClass("fa-caret-down");
 
       items.slideDown(200);
     } else {
-      let el = $(event.currentTarget).find(".fas.fa-caret-down");
+      const el = $(event.currentTarget).find(".fas.fa-caret-down");
       el.removeClass("fa-caret-down");
       el.addClass("fa-caret-right");
 
@@ -66,16 +64,16 @@ export class OseActorSheet extends ActorSheet {
   _toggleContainedItems(event) {
     event.preventDefault();
     const targetItems = $(event.target.closest(".container"));
-    let items = targetItems.find(".item-list.contained-items");
+    const items = targetItems.find(".item-list.contained-items");
 
     if (items.css("display") === "none") {
-      let el = targetItems.find(".fas.fa-caret-right");
+      const el = targetItems.find(".fas.fa-caret-right");
       el.removeClass("fa-caret-right");
       el.addClass("fa-caret-down");
 
       items.slideDown(200);
     } else {
-      let el = targetItems.find(".fas.fa-caret-down");
+      const el = targetItems.find(".fas.fa-caret-down");
       el.removeClass("fa-caret-down");
       el.addClass("fa-caret-right");
 
@@ -88,11 +86,7 @@ export class OseActorSheet extends ActorSheet {
     const itemSummary = event.currentTarget
       .closest(".item-entry.item")
       .querySelector(".item-summary");
-    if (itemSummary.style.display === "") {
-      itemSummary.style.display = "block";
-    } else {
-      itemSummary.style.display = "";
-    }
+    itemSummary.style.display = itemSummary.style.display === "" ? "block" : "";
   }
 
   async _displayItemInChat(event) {
@@ -119,6 +113,7 @@ export class OseActorSheet extends ActorSheet {
   }
 
   /**
+   * @param event
    * @param {bool} decrement
    */
   _useConsumable(event, decrement) {
@@ -137,7 +132,8 @@ export class OseActorSheet extends ActorSheet {
     const item = this._getItemFromActor(event);
     if (event.target.dataset.field === "cast") {
       return item.update({ "system.cast": parseInt(event.target.value) });
-    } else if (event.target.dataset.field === "memorize") {
+    }
+    if (event.target.dataset.field === "memorize") {
       return item.update({
         "system.memorized": parseInt(event.target.value),
       });
@@ -145,11 +141,11 @@ export class OseActorSheet extends ActorSheet {
   }
 
   async _resetSpells(event) {
-    let spells = $(event.currentTarget)
+    const spells = $(event.currentTarget)
       .closest(".inventory.spells")
       .find(".item-entry");
     spells.each((_, el) => {
-      let itemId = el.dataset.itemId;
+      const { itemId } = el.dataset;
       const item = this.actor.items.get(itemId);
       const itemData = item?.system;
       item.update({
@@ -165,28 +161,28 @@ export class OseActorSheet extends ActorSheet {
     if (item.type === "weapon") {
       if (this.actor.type === "monster") {
         item.update({
-          'system.counter.value': itemData.counter.value - 1
+          "system.counter.value": itemData.counter.value - 1,
         });
       }
       item.rollWeapon({ skipDialog: skipRollDialogCheck(event) });
     } else if (item.type == "spell") {
-      item.spendSpell({ skipDialog: skipRollDialogCheck(event)});
+      item.spendSpell({ skipDialog: skipRollDialogCheck(event) });
     } else {
       item.rollFormula({ skipDialog: skipRollDialogCheck(event) });
     }
   }
 
   async _rollSave(event) {
-    let actorObject = this.actor;
-    let element = event.currentTarget;
-    let save = element.parentElement.parentElement.dataset.save;
-    actorObject.rollSave(save, { event: event });
+    const actorObject = this.actor;
+    const element = event.currentTarget;
+    const { save } = element.parentElement.parentElement.dataset;
+    actorObject.rollSave(save, { event });
   }
 
   async _rollAttack(event) {
-    let actorObject = this.actor;
-    let element = event.currentTarget;
-    let attack = element.parentElement.parentElement.dataset.attack;
+    const actorObject = this.actor;
+    const element = event.currentTarget;
+    const { attack } = element.parentElement.parentElement.dataset;
     actorObject.targetAttack({ roll: {} }, attack, {
       type: attack,
       skipDialog: skipRollDialogCheck(event),
@@ -195,13 +191,13 @@ export class OseActorSheet extends ActorSheet {
 
   _onSortItem(event, itemData) {
     const source = this.actor.items.get(itemData._id);
-    const siblings = this.actor.items.filter((i) => {
-      return i.data._id !== source.data._id;
-    });
+    const siblings = this.actor.items.filter(
+      (i) => i.data._id !== source.data._id
+    );
     const dropTarget = event.target.closest("[data-item-id]");
     const targetId = dropTarget ? dropTarget.dataset.itemId : null;
     const target = siblings.find((s) => s.data._id === targetId);
-    if (!target) throw new Error("Couldn't drop near "+ event.target);
+    if (!target) throw new Error(`Couldn't drop near ${event.target}`);
     const targetData = target?.system;
 
     // Dragging items into a container
@@ -235,7 +231,7 @@ export class OseActorSheet extends ActorSheet {
       const item = this.actor.items.get(li.dataset.itemId);
       dragData = item.toDragData();
       dragData.item = item;
-      dragData.type = "Item"; 
+      dragData.type = "Item";
       if (item.type === "container" && item.system.itemIds.length) {
         //otherwise JSON.stringify will quadruple stringify for some reason
         itemIdsArray = item.system.itemIds;
@@ -260,58 +256,60 @@ export class OseActorSheet extends ActorSheet {
       "text/plain",
       JSON.stringify(dragData, (key, value) => {
         if (key === "itemIds") {
-          //something about how this Array is created makes its elements not real Array elements
-          //we go through this hoop to trick stringify into creating our string
+          // something about how this Array is created makes its elements not real Array elements
+          // we go through this hoop to trick stringify into creating our string
           return JSON.stringify(itemIdsArray);
         }
         return value;
       })
     );
   }
-  async _onDropItem(event, data){
+
+  async _onDropItem(event, data) {
     const item = await Item.implementation.fromDropData(data);
     const itemData = item.toObject();
 
     const exists = !!this.actor.items.get(item.id);
-    
-    if (!exists)
-      return this._onDropItemCreate([itemData]);
-    
+
+    if (!exists) return this._onDropItemCreate([itemData]);
+
     const isContainer = this.actor.items.get(item.system.containerId);
-    
-    if (isContainer)
-      return this._onContainerItemRemove(item, isContainer);
-    
-    const {itemId: targetId} = event.target.closest('.item').dataset;
-    const targetItem = this.actor.items.get(targetId)
-    const targetIsContainer = targetItem?.type === 'container'
 
-    if (targetIsContainer)
-      return this._onContainerItemAdd(item, targetItem);
+    if (isContainer) return this._onContainerItemRemove(item, isContainer);
 
+    const { itemId: targetId } = event.target.closest(".item").dataset;
+    const targetItem = this.actor.items.get(targetId);
+    const targetIsContainer = targetItem?.type === "container";
+
+    if (targetIsContainer) return this._onContainerItemAdd(item, targetItem);
   }
+
   async _onContainerItemRemove(item, container) {
     const newList = container.system.itemIds.filter((s) => s != item.id);
     const itemObj = this.object.items.get(item.id);
     await container.update({ system: { itemIds: newList } });
     await itemObj.update({ system: { containerId: "" } });
   }
+
   async _onContainerItemAdd(item, target) {
     const itemData = item.toObject();
     const container = this.object.items.get(target.id);
 
     const containerId = container.id;
     const itemObj = this.object.items.get(item.id);
-    const alreadyExists = container.system.itemIds.find((i) => i.id === item.id);
+    const alreadyExists = container.system.itemIds.find(
+      (i) => i.id === item.id
+    );
     if (!alreadyExists) {
       const newList = [...container.system.itemIds, item.id];
       await container.update({ system: { itemIds: newList } });
       await itemObj.update({ system: { containerId: container.id } });
     }
   }
+
   async _onDropItemCreate(itemData, container = false) {
-    //override to fix hidden items because their original containers don't exist on this actor
-    itemData = itemData instanceof Array ? itemData : [itemData];
+    // override to fix hidden items because their original containers don't exist on this actor
+    itemData = Array.isArray(itemData) ? itemData : [itemData];
     itemData.forEach((item) => {
       if (item.system.containerId && item.system.containerId !== "")
         item.system.containerId = "";
@@ -319,7 +317,7 @@ export class OseActorSheet extends ActorSheet {
         item.type === "container" &&
         typeof item.system.itemIds === "string"
       ) {
-        //itemIds was double stringified to fix strange behavior with stringify blanking our Arrays
+        // itemIds was double stringified to fix strange behavior with stringify blanking our Arrays
         const containedItems = JSON.parse(item.system.itemIds);
         containedItems.forEach((containedItem) => {
           containedItem.system.containerId = "";
@@ -331,22 +329,22 @@ export class OseActorSheet extends ActorSheet {
       return this.actor.createEmbeddedDocuments("Item", itemData);
     }
 
-    let itemIds = container.system.itemIds;
+    const { itemIds } = container.system;
     itemIds.push(itemData.id);
     const item = this.actor.items.get(itemData[0]._id);
     await item.update({ system: { containerId: container.id } });
-    await container.update({ system: { itemIds: itemIds } });
+    await container.update({ system: { itemIds } });
   }
 
   /* -------------------------------------------- */
 
   async _chooseItemType(choices = ["weapon", "armor", "shield", "gear"]) {
-    let templateData = { types: choices },
-      dlg = await renderTemplate(
-        `${OSE.systemPath()}/templates/items/entity-create.html`,
-        templateData
-      );
-    //Create Dialog window
+    const templateData = { types: choices };
+    const dlg = await renderTemplate(
+      `${OSE.systemPath()}/templates/items/entity-create.html`,
+      templateData
+    );
+    // Create Dialog window
     return new Promise((resolve) => {
       new Dialog({
         title: game.i18n.localize("OSE.dialog.createItem"),
@@ -377,8 +375,8 @@ export class OseActorSheet extends ActorSheet {
     const header = event.currentTarget;
     const { treasure, type } = header.dataset;
     const createItem = (type, name) => ({
-      name: name ? name : `New ${type.capitalize()}`,
-      type: type,
+      name: name || `New ${type.capitalize()}`,
+      type,
     });
 
     // Getting back to main logic
@@ -390,7 +388,7 @@ export class OseActorSheet extends ActorSheet {
       });
     } else {
       const itemData = createItem(type);
-      if (treasure) itemData.system = { treasure: true }
+      if (treasure) itemData.system = { treasure: true };
       return this.actor.createEmbeddedDocuments("Item", [itemData], {});
     }
   }
@@ -403,7 +401,8 @@ export class OseActorSheet extends ActorSheet {
       return item.update({
         "system.quantity.value": parseInt(event.target.value),
       });
-    } else if (event.target.dataset.field === "max") {
+    }
+    if (event.target.dataset.field === "max") {
       return item.update({
         "system.quantity.max": parseInt(event.target.value),
       });
@@ -416,12 +415,12 @@ export class OseActorSheet extends ActorSheet {
     this.form = html[0];
 
     // Resize resizable classes
-    let resizable = html.find(".resizable");
+    const resizable = html.find(".resizable");
     if (resizable.length === 0) {
       return;
     }
     resizable.each((_, el) => {
-      let heightDelta = this.position.height - this.options.height;
+      const heightDelta = this.position.height - this.options.height;
       el.style.height = `${heightDelta + parseInt(el.dataset.baseSize)}px`;
     });
     return html;
@@ -430,22 +429,22 @@ export class OseActorSheet extends ActorSheet {
   async _onResize(event) {
     super._onResize(event);
 
-    let html = $(this.form);
-    let resizable = html.find(".resizable");
+    const html = $(this.form);
+    const resizable = html.find(".resizable");
     if (resizable.length === 0) {
       return;
     }
     // Resize divs
     resizable.each((_, el) => {
-      let heightDelta = this.position.height - this.options.height;
+      const heightDelta = this.position.height - this.options.height;
       el.style.height = `${heightDelta + parseInt(el.dataset.baseSize)}px`;
     });
     // Resize editors
-    let editors = html.find(".editor");
+    const editors = html.find(".editor");
     editors.each((id, editor) => {
-      let container = editor.closest(".resizable-editor");
+      const container = editor.closest(".resizable-editor");
       if (container) {
-        let heightDelta = this.position.height - this.options.height;
+        const heightDelta = this.position.height - this.options.height;
         editor.style.height = `${
           heightDelta + parseInt(container.dataset.editorSize)
         }px`;
@@ -463,6 +462,7 @@ export class OseActorSheet extends ActorSheet {
 
   /**
    * Extend and override the sheet header buttons
+   *
    * @override
    */
   _getHeaderButtons() {
@@ -496,7 +496,7 @@ export class OseActorSheet extends ActorSheet {
     });
 
     html.find(".hit-dice .attribute-name").click((event) => {
-      this.actor.rollHitDice({ event: event });
+      this.actor.rollHitDice({ event });
     });
 
     // Items (Abilities, Inventory and Spells)
@@ -544,9 +544,11 @@ export class OseActorSheet extends ActorSheet {
       Dialog.confirm({
         title: game.i18n.localize("OSE.dialog.deleteContainer"),
         content: game.i18n.localize("OSE.dialog.confirmDeleteContainer"),
-        yes: () => { this._removeItemFromActor(event); },
-        defaultYes: false
-      })
+        yes: () => {
+          this._removeItemFromActor(event);
+        },
+        defaultYes: false,
+      });
     });
 
     html

@@ -1,25 +1,28 @@
-import OseDataModelCharacterSpells from "./data-model-classes/data-model-character-spells";
-
 // Encumbrance schemes
 import OseDataModelCharacterEncumbranceDisabled from "./data-model-classes/data-model-character-encumbrance-disabled";
+import OseDataModelCharacterSpells from "./data-model-classes/data-model-character-spells";
 
 const getItemsOfActorOfType = (actor, filterType, filterFn = null) =>
   actor.items
     .filter(({ type }) => type === filterType)
-    .filter(filterFn ? filterFn : () => true);
+    .filter(filterFn || (() => true));
 
 export default class OseDataModelMonster extends foundry.abstract.DataModel {
   prepareDerivedData() {
     this.encumbrance = new OseDataModelCharacterEncumbranceDisabled();
-    this.spells = new OseDataModelCharacterSpells(
-      this.spells,
-      this.#spellList
-    )
+    this.spells = new OseDataModelCharacterSpells(this.spells, this.#spellList);
   }
 
   // @todo define schema options; stuff like min/max values and so on.
   static defineSchema() {
-    const { SchemaField, StringField, NumberField, BooleanField, ArrayField, ObjectField } = foundry.data.fields;
+    const {
+      SchemaField,
+      StringField,
+      NumberField,
+      BooleanField,
+      ArrayField,
+      ObjectField,
+    } = foundry.data.fields;
 
     return {
       spells: new ObjectField(),
@@ -33,7 +36,7 @@ export default class OseDataModelMonster extends foundry.abstract.DataModel {
       hp: new ObjectField({
         hd: new StringField(),
         value: new NumberField({ integer: true }),
-        max: new NumberField({ integer: true })
+        max: new NumberField({ integer: true }),
       }),
       thac0: new ObjectField(),
       initiative: new ObjectField(),
@@ -41,113 +44,117 @@ export default class OseDataModelMonster extends foundry.abstract.DataModel {
       saves: new ObjectField({
         breath: new ObjectField({ value: new NumberField({ integer: true }) }),
         death: new ObjectField({ value: new NumberField({ integer: true }) }),
-        paralysis: new ObjectField({ value: new NumberField({ integer: true }) }),
+        paralysis: new ObjectField({
+          value: new NumberField({ integer: true }),
+        }),
         spell: new ObjectField({ value: new NumberField({ integer: true }) }),
         wand: new ObjectField({ value: new NumberField({ integer: true }) }),
       }),
       retainer: new ObjectField({
         enabled: new BooleanField(),
         loyalty: new NumberField({ integer: true }),
-        wage: new StringField()
-      })
+        wage: new StringField(),
+      }),
     };
   }
 
   // @todo This only needs to be public until
   //       we can ditch sharing out AC/AAC.
   get usesAscendingAC() {
-    return game.settings.get(game.system.id, 'ascendingAC');
+    return game.settings.get(game.system.id, "ascendingAC");
   }
 
   get isNew() {
     return !Object.values(this.saves).reduce(
       (prev, curr) => prev + (parseInt(curr?.value) || 0),
       0
-    )
+    );
   }
 
   get containers() {
     return getItemsOfActorOfType(
       this.parent,
-      'container',
+      "container",
       ({ system: { containerId } }) => !containerId
     );
   }
+
   get treasures() {
     return getItemsOfActorOfType(
       this.parent,
-      'item',
+      "item",
       ({ system: { treasure, containerId } }) => treasure && !containerId
     ).sort((a, b) => a.name.localeCompare(b.name));
   }
+
   get items() {
     return getItemsOfActorOfType(
       this.parent,
-      'item',
+      "item",
       ({ system: { treasure, containerId } }) => !treasure && !containerId
     ).sort((a, b) => a.name.localeCompare(b.name));
   }
+
   get weapons() {
     return getItemsOfActorOfType(
       this.parent,
-      'weapon',
+      "weapon",
       ({ system: { containerId } }) => !containerId
     ).sort((a, b) => a.name.localeCompare(b.name));
   }
+
   get armor() {
     return getItemsOfActorOfType(
       this.parent,
-      'armor',
+      "armor",
       ({ system: { containerId } }) => !containerId
     ).sort((a, b) => a.name.localeCompare(b.name));
   }
+
   get abilities() {
     return getItemsOfActorOfType(
       this.parent,
-      'ability',
+      "ability",
       ({ system: { containerId } }) => !containerId
     ).sort((a, b) => (a.sort || 0) - (b.sort || 0));
   }
+
   get attackPatterns() {
-    return [
-      ...this.weapons,
-      ...this.abilities
-    ]
+    return [...this.weapons, ...this.abilities]
       .sort((a, b) => {
-        if (a.system.pattern !== 'transparent' && b.system.pattern === 'transparent')
+        if (
+          a.system.pattern !== "transparent" &&
+          b.system.pattern === "transparent"
+        )
           return -1;
-        b.type.localeCompare(a.type) ||
-        a.name.localeCompare(b.name)  
+        b.type.localeCompare(a.type) || a.name.localeCompare(b.name);
       })
-      .reduce( (prev, curr) => {
-        const {pattern} = curr.system;
-        if (!prev[pattern])
-          prev[pattern] = [];
-        return {...prev, [pattern]: [...prev[pattern], curr]};      
+      .reduce((prev, curr) => {
+        const { pattern } = curr.system;
+        if (!prev[pattern]) prev[pattern] = [];
+        return { ...prev, [pattern]: [...prev[pattern], curr] };
       }, {});
   }
 
   get #spellList() {
     return getItemsOfActorOfType(
       this.parent,
-      'spell',
+      "spell",
       ({ system: { containerId } }) => !containerId
     );
   }
 
   get isSlow() {
-    return (!this.weapons.length)
+    return this.weapons.length === 0
       ? false
-      : this.weapons.every((item) =>
-        !(
-          item.type !== "weapon" ||
-          !item.system.slow
-        ));
+      : this.weapons.every(
+          (item) => !(item.type !== "weapon" || !item.system.slow)
+        );
   }
 
   get init() {
-    const group = game.settings.get(game.system.id, "initiative") !== "group"
+    const group = game.settings.get(game.system.id, "initiative") !== "group";
 
-    return (group) ? this.initiative.mod : 0;
+    return group ? this.initiative.mod : 0;
   }
 }

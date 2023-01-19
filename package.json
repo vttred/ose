@@ -11,7 +11,11 @@
     "lint": "npm run lint:js && npm run lint:css",
     "lint:js": "eslint src",
     "lint:css": "echo 'No CSS linting until we switch to PostCSS!'",
-    "fix:js": "eslint src --fix"
+    "fix": "npm run fix:js && npm run fix:ts && npm run fix:scss && npm run fix:css",
+    "fix:js": "prettier-eslint \"src/**/**/*.js\" --write",
+    "fix:ts": "prettier-eslint \"src/**/**/*.ts\" --write",
+    "fix:scss": "prettier-eslint \"src/**/**/*.scss\" --write",
+    "fix:css": "prettier-eslint \"src/**/**/*.css\" --write"
   },
   "author": "",
   "license": "",

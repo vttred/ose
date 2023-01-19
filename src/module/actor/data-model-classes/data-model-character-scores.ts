@@ -1,17 +1,17 @@
 type incomingScore = {
   value: number;
   bonus: number;
-}
+};
 
-type baseScore = incomingScore & { mod: number; }
+type baseScore = incomingScore & { mod: number };
 
 export interface CharacterScores {
   str: baseScore & { od: number };
-  int: baseScore & { literacy: string; spoken: string; };
+  int: baseScore & { literacy: string; spoken: string };
   wis: baseScore;
   dex: baseScore & { init: number };
   con: baseScore;
-  cha: baseScore & { loyalty: number; retain: number; npc: number; };
+  cha: baseScore & { loyalty: number; retain: number; npc: number };
 }
 
 /**
@@ -20,7 +20,7 @@ export interface CharacterScores {
 export default class OseDataModelCharacterScores implements CharacterScores {
   /**
    * Standard modifiers, from -3 to 3.
-   * 
+   *
    * Applied to:
    * - `str.mod`
    * - `int.mod`
@@ -40,10 +40,11 @@ export default class OseDataModelCharacterScores implements CharacterScores {
     13: 1,
     16: 2,
     18: 3,
-  }
+  };
+
   /**
    * Capped modifiers, from -2 to 2.
-   * 
+   *
    * Applied to:
    * - `dex.init`
    * - `cha.npc`
@@ -58,6 +59,7 @@ export default class OseDataModelCharacterScores implements CharacterScores {
     16: 1,
     18: 2,
   };
+
   /**
    * Modifier tables for the Open Door exploration skill, from 0 to 5.
    * Applied to:
@@ -71,6 +73,7 @@ export default class OseDataModelCharacterScores implements CharacterScores {
     16: 4,
     18: 5,
   };
+
   /**
    * Mapping tables for character literacy.
    * Applied to:
@@ -82,6 +85,7 @@ export default class OseDataModelCharacterScores implements CharacterScores {
     6: "OSE.LiteracyBasic",
     9: "OSE.Literate",
   };
+
   /**
    * Mapping tables for character's spoken languages.
    * Applied to:
@@ -95,7 +99,7 @@ export default class OseDataModelCharacterScores implements CharacterScores {
     18: "OSE.NativePlus3",
   };
 
-  static valueFromTable(table: {[str:string]: any}, val: number) {
+  static valueFromTable(table: { [str: string]: any }, val: number) {
     let output;
     for (let i = 0; i <= val; i++) {
       if (table[i] != undefined) {
@@ -106,23 +110,37 @@ export default class OseDataModelCharacterScores implements CharacterScores {
   }
 
   #str: incomingScore = { value: 0, bonus: 0 };
+
   #int: incomingScore = { value: 0, bonus: 0 };
+
   #wis: incomingScore = { value: 0, bonus: 0 };
+
   #dex: incomingScore = { value: 0, bonus: 0 };
+
   #con: incomingScore = { value: 0, bonus: 0 };
+
   #cha: incomingScore = { value: 0, bonus: 0 };
 
   /**
-   * 
-   * @param {object} scores An object containing the six primary ability scores.
-   * @param {string} scores.str The character's strength 
-   * @param {string} scores.int The character's intelligence 
-   * @param {string} scores.wis The character's wisdom
-   * @param {string} scores.dex The character's dexterity
-   * @param {string} scores.con The character's constitution
-   * @param {string} scores.cha The character's charisma
+   *
+   * @param {object} scores - An object containing the six primary ability scores.
+   * @param {string} scores.str - The character's strength
+   * @param {string} scores.int - The character's intelligence
+   * @param {string} scores.wis - The character's wisdom
+   * @param {string} scores.dex - The character's dexterity
+   * @param {string} scores.con - The character's constitution
+   * @param {string} scores.cha - The character's charisma
    */
-  constructor({str, int, wis, dex, con, cha}: {[str:string]: {value: number; bonus: number}}) {
+  constructor({
+    str,
+    int,
+    wis,
+    dex,
+    con,
+    cha,
+  }: {
+    [str: string]: { value: number; bonus: number };
+  }) {
     this.#str = str;
     this.#int = int;
     this.#wis = wis;
@@ -136,81 +154,89 @@ export default class OseDataModelCharacterScores implements CharacterScores {
       value: this.#str.value,
       bonus: this.#str.bonus,
       mod: this.#strMod,
-      od: this.#strOpenDoorsMod
-    }
+      od: this.#strOpenDoorsMod,
+    };
   }
+
   set str(change) {
     this.#str = {
       ...this.#str,
-      ...change
-    }
+      ...change,
+    };
   }
 
   get #strMod() {
     return OseDataModelCharacterScores.valueFromTable(
       OseDataModelCharacterScores.standardAttributeMods,
       this.#str.value
-    )
+    );
   }
+
   get #strOpenDoorsMod() {
     return OseDataModelCharacterScores.valueFromTable(
       OseDataModelCharacterScores.openDoorMods,
       this.#str.value
-    )
+    );
   }
-  
+
   get int() {
     return {
       value: this.#int.value,
       bonus: this.#int.bonus,
       mod: this.#intMod,
       literacy: this.#intLiteracyMod,
-      spoken: this.#intSpokenLanguagesMod
-    }
+      spoken: this.#intSpokenLanguagesMod,
+    };
   }
+
   set int(change) {
     this.#int = {
       ...this.#int,
-      ...change
-    }
+      ...change,
+    };
   }
+
   get #intMod() {
     return OseDataModelCharacterScores.valueFromTable(
       OseDataModelCharacterScores.standardAttributeMods,
       this.#int.value
-    )
+    );
   }
+
   get #intLiteracyMod() {
     return OseDataModelCharacterScores.valueFromTable(
       OseDataModelCharacterScores.literacyMods,
       this.#int.value
-    )
+    );
   }
+
   get #intSpokenLanguagesMod() {
     return OseDataModelCharacterScores.valueFromTable(
       OseDataModelCharacterScores.spokenMods,
       this.#int.value
-    )
+    );
   }
-  
+
   get wis() {
     return {
       value: this.#wis.value,
       bonus: this.#wis.bonus,
-      mod: this.#wisMod
-    }
+      mod: this.#wisMod,
+    };
   }
+
   set wis(change) {
     this.#wis = {
       ...this.#wis,
-      ...change
-    }
+      ...change,
+    };
   }
+
   get #wisMod() {
     return OseDataModelCharacterScores.valueFromTable(
       OseDataModelCharacterScores.standardAttributeMods,
       this.#wis.value
-    )
+    );
   }
 
   get dex() {
@@ -218,21 +244,24 @@ export default class OseDataModelCharacterScores implements CharacterScores {
       value: this.#dex.value,
       bonus: this.#dex.bonus,
       mod: this.#dexMod,
-      init: this.#dexInitMod
-    }
+      init: this.#dexInitMod,
+    };
   }
+
   set dex(change) {
     this.#dex = {
       ...this.#dex,
-      ...change
-    }
+      ...change,
+    };
   }
+
   get #dexMod() {
     return OseDataModelCharacterScores.valueFromTable(
       OseDataModelCharacterScores.standardAttributeMods,
       this.#dex.value
-    )
+    );
   }
+
   get #dexInitMod() {
     return OseDataModelCharacterScores.valueFromTable(
       OseDataModelCharacterScores.cappedAttributeMods,
@@ -244,20 +273,22 @@ export default class OseDataModelCharacterScores implements CharacterScores {
     return {
       value: this.#con.value,
       bonus: this.#con.bonus,
-      mod: this.#conMod
-    }
+      mod: this.#conMod,
+    };
   }
+
   set con(change) {
     this.#con = {
       ...this.#con,
-      ...change
-    }
+      ...change,
+    };
   }
+
   get #conMod() {
     return OseDataModelCharacterScores.valueFromTable(
       OseDataModelCharacterScores.standardAttributeMods,
       this.#con.value
-    )
+    );
   }
 
   get cha() {
@@ -267,32 +298,36 @@ export default class OseDataModelCharacterScores implements CharacterScores {
       mod: this.#chaMod,
       loyalty: this.#chaLoyaltyMod,
       retain: this.#chaRetainMod,
-      npc: this.#chaReactionMod
-    }
+      npc: this.#chaReactionMod,
+    };
   }
+
   set cha(change) {
     this.#cha = {
       ...this.#cha,
-      ...change
-    }
+      ...change,
+    };
   }
+
   get #chaMod() {
     return OseDataModelCharacterScores.valueFromTable(
       OseDataModelCharacterScores.standardAttributeMods,
       this.#cha.value
-    )
+    );
   }
+
   get #chaReactionMod() {
     return OseDataModelCharacterScores.valueFromTable(
       OseDataModelCharacterScores.cappedAttributeMods,
       this.#cha.value
     );
   }
+
   get #chaRetainMod() {
     return this.#chaMod + 4;
   }
+
   get #chaLoyaltyMod() {
     return this.#chaMod + 7;
   }
 }
-

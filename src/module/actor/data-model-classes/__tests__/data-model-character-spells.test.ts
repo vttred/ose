@@ -33,7 +33,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
       const spells = createMockSpellList({}, ...spellsPerLevel);
       const spellData = new OseDataModelCharacterSpells({}, spells);
       spellsPerLevel.forEach((lv) => {
-        expect(spellData.spellList[lv].length).to.equal(lv);
+        expect(spellData.spellList[lv].length).to.equal(lv); // eslint-disable-line @typescript-eslint/no-unused-expressions
       });
     });
   });
@@ -46,8 +46,8 @@ export default ({ describe, it, expect }: QuenchMethods) => {
           { 1: { max: 1 } },
           spells as Item[]
         );
-        expect(spellData.slots[1].used).to.equal(0);
-        expect(spellData.slots[1].max).to.equal(1);
+        expect(spellData.slots[1].used).to.equal(0); // eslint-disable-line @typescript-eslint/no-unused-expressions
+        expect(spellData.slots[1].max).to.equal(1); // eslint-disable-line @typescript-eslint/no-unused-expressions
       });
 
       it("with spells prepared, not cast", () => {
@@ -56,8 +56,8 @@ export default ({ describe, it, expect }: QuenchMethods) => {
           { 1: { max: 1 } },
           spells as Item[]
         );
-        expect(spellData.slots[1].used).to.equal(1);
-        expect(spellData.slots[1].max).to.equal(1);
+        expect(spellData.slots[1].used).to.equal(1); // eslint-disable-line @typescript-eslint/no-unused-expressions
+        expect(spellData.slots[1].max).to.equal(1); // eslint-disable-line @typescript-eslint/no-unused-expressions
       });
 
       it("with spells prepared and cast", () => {
@@ -66,8 +66,8 @@ export default ({ describe, it, expect }: QuenchMethods) => {
           { 1: { max: 1 } },
           spells as Item[]
         );
-        expect(spellData.slots[1].used).to.equal(0);
-        expect(spellData.slots[1].max).to.equal(1);
+        expect(spellData.slots[1].used).to.equal(0); // eslint-disable-line @typescript-eslint/no-unused-expressions
+        expect(spellData.slots[1].max).to.equal(1); // eslint-disable-line @typescript-eslint/no-unused-expressions
       });
     });
   });
@@ -75,17 +75,17 @@ export default ({ describe, it, expect }: QuenchMethods) => {
   describe("Checking for spellcasting", () => {
     it("Can cast spells when spellcasting is enabled", () => {
       const spellData = new OseDataModelCharacterSpells({ enabled: true }, []);
-      expect(spellData.enabled).to.be.true;
+      expect(spellData.enabled).to.be.true; // eslint-disable-line @typescript-eslint/no-unused-expressions
     });
     it("Cannot cast spells when spellcasting is disabled", () => {
       const spellData = new OseDataModelCharacterSpells({ enabled: false }, []);
-      expect(spellData.enabled).to.be.false;
+      expect(spellData.enabled).to.be.false; // eslint-disable-line @typescript-eslint/no-unused-expressions
     });
     it("Can toggle between being able and unable to cast spells", () => {
       const spellData = new OseDataModelCharacterSpells({ enabled: true }, []);
-      expect(spellData.enabled).to.be.true;
+      expect(spellData.enabled).to.be.true; // eslint-disable-line @typescript-eslint/no-unused-expressions
       spellData.enabled = false;
-      expect(spellData.enabled).to.be.false;
+      expect(spellData.enabled).to.be.false; // eslint-disable-line @typescript-eslint/no-unused-expressions
     });
   });
 };

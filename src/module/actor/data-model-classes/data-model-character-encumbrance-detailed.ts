@@ -1,3 +1,6 @@
+/**
+ * @file A class representing the "Detailed" encumbrance scheme from Old School Essentials: Classic Fantasy
+ */
 import OseDataModelCharacterEncumbrance, {
   CharacterEncumbrance,
 } from "./data-model-character-encumbrance";
@@ -62,6 +65,7 @@ export default class OseDataModelCharacterEncumbranceDetailed
         : 0);
   }
 
+  // eslint-disable-next-line class-methods-use-this
   get steps() {
     return Object.values(OseDataModelCharacterEncumbrance.encumbranceSteps);
   }

@@ -1,3 +1,6 @@
+/**
+ * @file System-wide configuration settings. Should be reachable elsewhere in the system at `CONFIG.OSE`
+ */
 import OseDataModelCharacterEncumbranceBasic from "./actor/data-model-classes/data-model-character-encumbrance-basic";
 import OseDataModelCharacterEncumbranceComplete from "./actor/data-model-classes/data-model-character-encumbrance-complete";
 import OseDataModelCharacterEncumbranceDetailed from "./actor/data-model-classes/data-model-character-encumbrance-detailed";
@@ -60,7 +63,7 @@ export type InventoryItemTag =
   | "reload"
   | "charge";
 
-export const OSE: OseConfig = {
+const config: OseConfig = {
   systemPath(): string {
     return `${this.systemRoot}/dist`;
   },
@@ -356,3 +359,5 @@ export const OSE: OseConfig = {
     22: 5,
   },
 };
+
+export default config;

@@ -1,10 +1,13 @@
-import { OSE } from "../config";
+/**
+ * @file Static OseParty methods
+ */
 
-export const OseParty = {
+const OseParty = {
   /**
-   * @public
    * Returns all characters currently in the Party
-   * @return {OseActor[]}
+   *
+   * @public
+   * @returns {OseActor[]} - A list of party members
    */
   get currentParty() {
     return game.actors.filter(
@@ -15,3 +18,5 @@ export const OseParty = {
     );
   },
 };
+
+export default OseParty;

@@ -1,19 +1,12 @@
-import { OSE } from "../config";
+/**
+ * @file The system-level sheet for items of any type
+ */
+import OSE from "../config";
 
 /**
  * Extend the basic ItemSheet with some very simple modifications
  */
-export class OseItemSheet extends ItemSheet {
-  constructor(...args) {
-    super(...args);
-
-    /**
-     * Keep track of the currently active sheet tab
-     *
-     * @type {string}
-     */
-  }
-
+export default class OseItemSheet extends ItemSheet {
   /**
    * Extend and override the default options used by the Simple Item Sheet
    *
@@ -40,15 +33,14 @@ export class OseItemSheet extends ItemSheet {
   /** @override */
   get template() {
     const path = `${OSE.systemPath()}/templates/items`;
-    const type = isNewerVersion(game.version, "10.264")
-      ? this.item.type
-      : this.item.type;
-    return `${path}/${type}-sheet.html`;
+    return `${path}/${this.item.type}-sheet.html`;
   }
 
   /**
    * Prepare data for rendering the Item sheet
    * The prepared data object contains both the actor data as well as additional sheet options
+   *
+   * @returns {object} Data for the Handlebars template
    */
   async getData() {
     const { data } = super.getData();
@@ -68,7 +60,7 @@ export class OseItemSheet extends ItemSheet {
   /**
    * Activate event listeners using the prepared sheet HTML
    *
-   * @param html - {HTML}   The prepared HTML object ready to be rendered into the DOM
+   * @param {JQuery} html - The prepared HTML object ready to be rendered into the DOM
    */
   activateListeners(html) {
     html.find('input[data-action="add-tag"]').keypress((ev) => {

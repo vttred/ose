@@ -1,10 +1,13 @@
-import { OSE } from "../config";
+/**
+ * @file An application used for setting up roll modifiers
+ */
+import OSE from "../config";
 
-export class OseCharacterModifiers extends FormApplication {
+export default class OseCharacterModifiers extends FormApplication {
   static get defaultOptions() {
     const options = super.defaultOptions;
-    (options.classes = ["ose", "dialog", "modifiers"]),
-      (options.id = "sheet-modifiers");
+    options.classes = ["ose", "dialog", "modifiers"];
+    options.id = "sheet-modifiers";
     options.template = `${OSE.systemPath()}/templates/actors/dialogs/modifiers-dialog.html`;
     options.width = 240;
     return options;
@@ -15,7 +18,7 @@ export class OseCharacterModifiers extends FormApplication {
   /**
    * Add the Entity name into the window title
    *
-   * @type {string}
+   * @returns {string} - The app title
    */
   get title() {
     return `${this.object.name}: Modifiers`;
@@ -26,7 +29,7 @@ export class OseCharacterModifiers extends FormApplication {
   /**
    * Construct and return the data object used to render the HTML template for this form application.
    *
-   * @returns {object}
+   * @returns {object} - The template data
    */
   getData() {
     const data = foundry.utils.deepClone(this.object);

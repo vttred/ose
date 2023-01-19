@@ -1,6 +1,9 @@
-import { OSE } from "./config";
+/**
+ * @file System-level odifications to the way combat works
+ */
+import OSE from "./config";
 
-export const OseCombat = {
+const OseCombat = {
   STATUS_SLOW: -789,
   STATUS_DIZZY: -790,
 
@@ -352,3 +355,5 @@ export const OseCombat = {
     }
   },
 };
+
+export default OseCombat;

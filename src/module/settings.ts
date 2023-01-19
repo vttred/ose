@@ -1,4 +1,16 @@
-export const registerSettings = function () {
+/**
+ * @file Wire up system settings.
+ */
+
+type EncumbranceType = {
+  type: string;
+  localizedLabel: string;
+};
+
+/**
+ * Perform setting registration.
+ */
+const registerSettings = () => {
   game.settings.register(game.system.id, "initiative", {
     name: game.i18n.localize("OSE.Setting.Initiative"),
     hint: game.i18n.localize("OSE.Setting.InitiativeHint"),
@@ -52,10 +64,9 @@ export const registerSettings = function () {
     type: String,
     config: true,
     choices: Object.fromEntries(
-      Object.values(CONFIG.OSE.encumbranceOptions).map((enc) => [
-        enc.type,
-        enc.localizedLabel,
-      ])
+      Object.values(CONFIG.OSE.encumbranceOptions).map(
+        (enc: EncumbranceType) => [enc.type, enc.localizedLabel]
+      )
     ),
   });
 
@@ -113,3 +124,5 @@ declare global {
     }
   }
 }
+
+export default registerSettings;

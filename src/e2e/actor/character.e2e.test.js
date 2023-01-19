@@ -1,3 +1,6 @@
+/**
+ * @file Tests for the Character sheet
+ */
 import { trashChat, waitForInput } from "../testUtils";
 
 export const key = "ose.actor.character";

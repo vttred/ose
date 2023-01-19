@@ -1,3 +1,6 @@
+/**
+ * @file The data model for Items of type Weapon
+ */
 export default class OseDataModelWeapon extends foundry.abstract.DataModel {
   static defineSchema() {
     const {
@@ -79,6 +82,8 @@ export default class OseDataModelWeapon extends foundry.abstract.DataModel {
 
   /**
    * Icons that display in the inventory grid's weapon row, under "Qualities"
+   *
+   * @returns {Array} - An array of qualities that display in the "Qualities" column on an Actor's Inventory sheet
    */
   get qualities() {
     return [

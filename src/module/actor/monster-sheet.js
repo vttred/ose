@@ -1,16 +1,13 @@
-import { OSE } from "../config";
-import { OseActorSheet } from "./actor-sheet";
+/**
+ * @file The sheet class for Actors of type Monster
+ */
+import OSE from "../config";
+import OseActorSheet from "./actor-sheet";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
  */
-export class OseActorSheetMonster extends OseActorSheet {
-  constructor(...args) {
-    super(...args);
-  }
-
-  /* -------------------------------------------- */
-
+export default class OseActorSheetMonster extends OseActorSheet {
   /**
    * Extend and override the default options used by the 5e Actor Sheet
    *

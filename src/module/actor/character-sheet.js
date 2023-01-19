@@ -1,23 +1,17 @@
-import { OSE } from "../config";
-import { OseCharacterCreator } from "../dialog/character-creation";
-import { OseCharacterGpCost } from "../dialog/character-gp-cost.js";
-import { OseCharacterModifiers } from "../dialog/character-modifiers";
-import { OseActorSheet } from "./actor-sheet";
-
 /**
- * Extend the basic ActorSheet with some very simple modifications
+ * @file Extend the basic ActorSheet with some very simple modifications
  */
-export class OseActorSheetCharacter extends OseActorSheet {
-  constructor(...args) {
-    super(...args);
-  }
+import OSE from "../config";
+import OseCharacterCreator from "../dialog/character-creation";
+import OseCharacterGpCost from "../dialog/character-gp-cost";
+import OseCharacterModifiers from "../dialog/character-modifiers";
+import OseActorSheet from "./actor-sheet";
 
-  /* -------------------------------------------- */
-
+export default class OseActorSheetCharacter extends OseActorSheet {
   /**
    * Extend and override the default options used by the 5e Actor Sheet
    *
-   * @returns {object}
+   * @returns {object} - The default options for this sheet.
    */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {

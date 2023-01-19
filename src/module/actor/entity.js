@@ -1,10 +1,9 @@
+import OseItem from "../item/entity";
+
 import { skipRollDialogCheck } from "../behaviourHelpers";
-import { OseDice } from "../dice";
-import { OseItem } from "../item/entity";
+import OseDice from "../dice";
 
-import { OseDice } from "../dice";
-
-export class OseActor extends Actor {
+export default class OseActor extends Actor {
   prepareDerivedData() {
     this.system.prepareDerivedData?.();
   }
@@ -144,7 +143,7 @@ export class OseActor extends Actor {
       event: options.event,
       parts: rollParts,
       data: data,
-      skipDialog: (options.fastForward || skipRollDialogCheck(options.event)),
+      skipDialog: options.fastForward || skipRollDialogCheck(options.event),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: game.i18n.format("OSE.roll.save", { save: label }),
       title: game.i18n.format("OSE.roll.save", { save: label }),
@@ -235,7 +234,7 @@ export class OseActor extends Actor {
       event: options.event,
       parts: rollParts,
       data: data,
-      skipDialog: (options.fastForward || skipRollDialogCheck(options.event)),
+      skipDialog: options.fastForward || skipRollDialogCheck(options.event),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: game.i18n.localize("OSE.reaction.check"),
       title: game.i18n.localize("OSE.reaction.check"),
@@ -269,7 +268,7 @@ export class OseActor extends Actor {
       event: options.event,
       parts: rollParts,
       data: data,
-      skipDialog: (options.fastForward || skipRollDialogCheck(options.event)),
+      skipDialog: options.fastForward || skipRollDialogCheck(options.event),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: game.i18n.format("OSE.roll.attribute", { attribute: label }),
       title: game.i18n.format("OSE.roll.attribute", { attribute: label }),
@@ -368,7 +367,7 @@ export class OseActor extends Actor {
       event: options.event,
       parts: rollParts,
       data: data,
-      skipDialog: (options.fastForward || skipRollDialogCheck(options.event)),
+      skipDialog: options.fastForward || skipRollDialogCheck(options.event),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: game.i18n.format("OSE.roll.exploration", { exploration: label }),
       title: game.i18n.format("OSE.roll.exploration", { exploration: label }),

@@ -1,4 +1,7 @@
-import { OsePartySheet } from "./party/party-sheet";
+/**
+ * @file Helper functions for managing the Party Sheet
+ */
+import OsePartySheet from "./party/party-sheet";
 
 export const addControl = (object, html) => {
   const control = `<button class='ose-party-sheet' type="button" title='${game.i18n.localize(
@@ -11,7 +14,7 @@ export const addControl = (object, html) => {
   });
 };
 
-export const update = (actor, data) => {
+export const update = (actor) => {
   const partyFlag = actor.getFlag(game.system.id, "party");
 
   if (partyFlag === null) {

@@ -1,3 +1,6 @@
+/**
+ * @file The data model for Items of type Armor
+ */
 export default class OseDataModelArmor extends foundry.abstract.DataModel {
   static ArmorTypes = {
     unarmored: "OSE.armor.unarmored",

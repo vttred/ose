@@ -1,13 +1,10 @@
+/**
+ * @file The data model for Items of type Container
+ */
 export default class OseDataModelContainer extends foundry.abstract.DataModel {
   static defineSchema() {
-    const {
-      SchemaField,
-      StringField,
-      NumberField,
-      BooleanField,
-      ArrayField,
-      ObjectField,
-    } = foundry.data.fields;
+    const { SchemaField, StringField, NumberField, ArrayField, ObjectField } =
+      foundry.data.fields;
     return {
       itemIds: new ArrayField(new StringField()),
       description: new StringField(),

@@ -1,3 +1,6 @@
+/**
+ * @file Tests for the class representing a creature data model's AC
+ */
 import { QuenchMethods } from "../../../../e2e";
 import OseDataModelCharacterAC from "../data-model-character-ac";
 
@@ -7,6 +10,7 @@ export const options = { displayName: "Character Data Model: AC" };
 export default ({ describe, it, expect }: QuenchMethods) => {
   const armorAC = 4;
   const shieldAC = 2;
+  // eslint-disable-next-line new-cap
   const armor = new Item.implementation({
     name: "Armor",
     type: "armor",
@@ -18,6 +22,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
     },
   }) as Item;
 
+  // eslint-disable-next-line new-cap
   const shield = new Item.implementation({
     name: "Shield",
     type: "armor",
@@ -72,13 +77,15 @@ export default ({ describe, it, expect }: QuenchMethods) => {
       describe("With shield", () => {
         it("When ascending", () => {
           const ac = new OseDataModelCharacterAC(true, itemsShield);
-          expect(ac.value).to.equal( // eslint-disable-line @typescript-eslint/no-unused-expressions
+          expect(ac.value).to.equal(
+            // eslint-disable-line @typescript-eslint/no-unused-expressions
             OseDataModelCharacterAC.baseAscending + shieldAC
           );
         });
         it("When descending", () => {
           const ac = new OseDataModelCharacterAC(false, itemsShield);
-          expect(ac.value).to.equal( // eslint-disable-line @typescript-eslint/no-unused-expressions
+          expect(ac.value).to.equal(
+            // eslint-disable-line @typescript-eslint/no-unused-expressions
             OseDataModelCharacterAC.baseDescending - shieldAC
           );
         });

@@ -1,10 +1,13 @@
-import { OSE } from "../config";
-import { OseDice } from "../dice";
+/**
+ * @file The system-specific Item entity, containing logic for operating on all available Item types.
+ */
+import OSE from "../config";
+import OseDice from "../dice";
 
 /**
  * Override and extend the basic :class:`Item` implementation
  */
-export class OseItem extends Item {
+export default class OseItem extends Item {
   // Replacing default image */
   static get defaultIcons() {
     return {

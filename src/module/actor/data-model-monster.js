@@ -1,3 +1,6 @@
+/**
+ * @file The data model for Actors of type Monster
+ */
 // Encumbrance schemes
 import OseDataModelCharacterEncumbranceDisabled from "./data-model-classes/data-model-character-encumbrance-disabled";
 import OseDataModelCharacterSpells from "./data-model-classes/data-model-character-spells";
@@ -15,14 +18,8 @@ export default class OseDataModelMonster extends foundry.abstract.DataModel {
 
   // @todo define schema options; stuff like min/max values and so on.
   static defineSchema() {
-    const {
-      SchemaField,
-      StringField,
-      NumberField,
-      BooleanField,
-      ArrayField,
-      ObjectField,
-    } = foundry.data.fields;
+    const { StringField, NumberField, BooleanField, ObjectField } =
+      foundry.data.fields;
 
     return {
       spells: new ObjectField(),
@@ -39,7 +36,6 @@ export default class OseDataModelMonster extends foundry.abstract.DataModel {
         max: new NumberField({ integer: true }),
       }),
       thac0: new ObjectField(),
-      initiative: new ObjectField(),
       languages: new ObjectField(),
       saves: new ObjectField({
         breath: new ObjectField({ value: new NumberField({ integer: true }) }),
@@ -60,13 +56,14 @@ export default class OseDataModelMonster extends foundry.abstract.DataModel {
 
   // @todo This only needs to be public until
   //       we can ditch sharing out AC/AAC.
+  // eslint-disable-next-line class-methods-use-this
   get usesAscendingAC() {
     return game.settings.get(game.system.id, "ascendingAC");
   }
 
   get isNew() {
     return !Object.values(this.saves).reduce(
-      (prev, curr) => prev + (parseInt(curr?.value) || 0),
+      (prev, curr) => prev + (parseInt(curr?.value, 10) || 0),
       0
     );
   }
@@ -127,12 +124,13 @@ export default class OseDataModelMonster extends foundry.abstract.DataModel {
           b.system.pattern === "transparent"
         )
           return -1;
-        b.type.localeCompare(a.type) || a.name.localeCompare(b.name);
+        return b.type.localeCompare(a.type) || a.name.localeCompare(b.name);
       })
       .reduce((prev, curr) => {
+        const updated = { ...prev };
         const { pattern } = curr.system;
-        if (!prev[pattern]) prev[pattern] = [];
-        return { ...prev, [pattern]: [...prev[pattern], curr] };
+        if (!updated[pattern]) updated[pattern] = [];
+        return { ...updated, [pattern]: [...updated[pattern], curr] };
       }, {});
   }
 

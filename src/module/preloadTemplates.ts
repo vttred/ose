@@ -1,6 +1,9 @@
-import { OSE } from "./config";
+/**
+ * @file A file that manages preloading our system templates
+ */
+import OSE from "./config";
 
-export const preloadHandlebarsTemplates = async function () {
+const preloadHandlebarsTemplates = async () => {
   const templatePaths = [
     // Character Sheets
     `${OSE.systemPath()}/templates/actors/character-sheet.html`,
@@ -23,3 +26,5 @@ export const preloadHandlebarsTemplates = async function () {
   ];
   return loadTemplates(templatePaths);
 };
+
+export default preloadHandlebarsTemplates;

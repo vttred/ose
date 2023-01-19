@@ -1,6 +1,9 @@
-import { InventoryItemTag, OSE } from "./config";
+/**
+ * @file A place to store Handlebars helpers for our templates
+ */
+import OSE, { InventoryItemTag } from "./config";
 
-export const registerHelpers = async function () {
+const registerHelpers = async () => {
   // Handlebars template helpers
   Handlebars.registerHelper("eq", (a, b) => a === b);
 
@@ -14,11 +17,14 @@ export const registerHelpers = async function () {
     return "0";
   });
 
-  Handlebars.registerHelper("add", (lh, rh) => parseInt(lh) + parseInt(rh));
+  Handlebars.registerHelper(
+    "add",
+    (lh, rh) => parseInt(lh, 10) + parseInt(rh, 10)
+  );
 
   Handlebars.registerHelper(
     "subtract",
-    (lh, rh) => parseInt(lh) - parseInt(rh)
+    (lh, rh) => parseInt(lh, 10) - parseInt(rh, 10)
   );
 
   Handlebars.registerHelper("divide", (lh, rh) =>
@@ -51,6 +57,7 @@ export const registerHelpers = async function () {
 
   Handlebars.registerHelper("times", (n, block) => {
     let accum = "";
+    // eslint-disable-next-line no-plusplus
     for (let i = 0; i < n; ++i) accum += block.fn(i);
     return accum;
   });
@@ -70,3 +77,5 @@ export const registerHelpers = async function () {
     TextEditor.enrichHTML(html)
   );
 };
+
+export default registerHelpers;

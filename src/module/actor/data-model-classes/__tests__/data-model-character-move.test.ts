@@ -1,3 +1,6 @@
+/**
+ * @file Tests for the data model class that determines character movement speed
+ */
 import { QuenchMethods } from "../../../../e2e";
 import OseDataModelCharacterEncumbrance from "../data-model-character-encumbrance";
 import EncumbranceBasic from "../data-model-character-encumbrance-basic";
@@ -8,19 +11,20 @@ import OseDataModelCharacterMove from "../data-model-character-move";
 export const key = "ose.datamodel.character.move";
 export const options = { displayName: "Character Data Model: Movement" };
 
-export default ({ describe, it, expect }: QuenchMethods) => {
-  const createMockItem = (
-    type: string,
-    weight: number,
-    quantity: number,
-    options = {}
-  ): Item =>
-    new Item.implementation({
-      name: `Mock ${type} ${foundry.utils.randomID()}`,
-      type,
-      system: { ...options, weight, quantity: { value: quantity } },
-    }) as Item;
+const createMockItem = (
+  type: string,
+  weight: number,
+  quantity: number,
+  itemOptions = {}
+): Item =>
+  // eslint-disable-next-line new-cap
+  new Item.implementation({
+    name: `Mock ${type} ${foundry.utils.randomID()}`,
+    type,
+    system: { ...itemOptions, weight, quantity: { value: quantity } },
+  }) as Item;
 
+export default ({ describe, it, expect }: QuenchMethods) => {
   describe("Prevent autocalculation when...", () => {
     it("Autocalculation is off", () => {
       const enc = new EncumbranceBasic();
@@ -51,10 +55,12 @@ export default ({ describe, it, expect }: QuenchMethods) => {
       ]);
       move = new OseDataModelCharacterMove(enc);
       expect(move.base).to.equal(OseDataModelCharacterMove.baseMoveRate); // eslint-disable-line @typescript-eslint/no-unused-expressions
-      expect(move.encounter).to.equal( // eslint-disable-line @typescript-eslint/no-unused-expressions
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      expect(move.encounter).to.equal(
         OseDataModelCharacterMove.baseMoveRate / 3
       );
-      expect(move.overland).to.equal( // eslint-disable-line @typescript-eslint/no-unused-expressions
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      expect(move.overland).to.equal(
         OseDataModelCharacterMove.baseMoveRate / 5
       );
     });
@@ -66,10 +72,12 @@ export default ({ describe, it, expect }: QuenchMethods) => {
       ]);
       const move = new OseDataModelCharacterMove(enc);
       expect(move.base).to.equal(OseDataModelCharacterMove.baseMoveRate * 0.75); // eslint-disable-line @typescript-eslint/no-unused-expressions
-      expect(move.encounter).to.equal( // eslint-disable-line @typescript-eslint/no-unused-expressions
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      expect(move.encounter).to.equal(
         (OseDataModelCharacterMove.baseMoveRate * 0.75) / 3
       );
-      expect(move.overland).to.equal( // eslint-disable-line @typescript-eslint/no-unused-expressions
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      expect(move.overland).to.equal(
         (OseDataModelCharacterMove.baseMoveRate * 0.75) / 5
       );
     });
@@ -81,10 +89,12 @@ export default ({ describe, it, expect }: QuenchMethods) => {
       ]);
       const move = new OseDataModelCharacterMove(enc);
       expect(move.base).to.equal(OseDataModelCharacterMove.baseMoveRate * 0.5); // eslint-disable-line @typescript-eslint/no-unused-expressions
-      expect(move.encounter).to.equal( // eslint-disable-line @typescript-eslint/no-unused-expressions
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      expect(move.encounter).to.equal(
         (OseDataModelCharacterMove.baseMoveRate * 0.5) / 3
       );
-      expect(move.overland).to.equal( // eslint-disable-line @typescript-eslint/no-unused-expressions
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      expect(move.overland).to.equal(
         (OseDataModelCharacterMove.baseMoveRate * 0.5) / 5
       );
     });
@@ -96,10 +106,12 @@ export default ({ describe, it, expect }: QuenchMethods) => {
       ]);
       let move = new OseDataModelCharacterMove(enc);
       expect(move.base).to.equal(OseDataModelCharacterMove.baseMoveRate); // eslint-disable-line @typescript-eslint/no-unused-expressions
-      expect(move.encounter).to.equal( // eslint-disable-line @typescript-eslint/no-unused-expressions
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      expect(move.encounter).to.equal(
         OseDataModelCharacterMove.baseMoveRate / 3
       );
-      expect(move.overland).to.equal( // eslint-disable-line @typescript-eslint/no-unused-expressions
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      expect(move.overland).to.equal(
         OseDataModelCharacterMove.baseMoveRate / 5
       );
 
@@ -110,10 +122,12 @@ export default ({ describe, it, expect }: QuenchMethods) => {
       ]);
       move = new OseDataModelCharacterMove(enc);
       expect(move.base).to.equal(OseDataModelCharacterMove.baseMoveRate - 30); // eslint-disable-line @typescript-eslint/no-unused-expressions
-      expect(move.encounter).to.equal( // eslint-disable-line @typescript-eslint/no-unused-expressions
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      expect(move.encounter).to.equal(
         (OseDataModelCharacterMove.baseMoveRate - 30) / 3
       );
-      expect(move.overland).to.equal( // eslint-disable-line @typescript-eslint/no-unused-expressions
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      expect(move.overland).to.equal(
         (OseDataModelCharacterMove.baseMoveRate - 30) / 5
       );
     });

@@ -1,7 +1,10 @@
+/**
+ * @file An application for deducting currency from an actor using the Shopping Cart feature
+ */
 // eslint-disable-next-line no-unused-vars
-import { OSE } from "../config";
+import OSE from "../config";
 
-export class OseCharacterGpCost extends FormApplication {
+export default class OseCharacterGpCost extends FormApplication {
   constructor(event, preparedData, position) {
     super(event, position);
     this.object.preparedData = preparedData;
@@ -9,8 +12,8 @@ export class OseCharacterGpCost extends FormApplication {
 
   static get defaultOptions() {
     const options = super.defaultOptions;
-    (options.classes = ["ose", "dialog", "gp-cost"]),
-      (options.id = "sheet-gp-cost");
+    options.classes = ["ose", "dialog", "gp-cost"];
+    options.id = "sheet-gp-cost";
     options.template = `${OSE.systemPath()}/templates/actors/dialogs/gp-cost-dialog.html`;
     options.width = 240;
     return options;
@@ -22,6 +25,7 @@ export class OseCharacterGpCost extends FormApplication {
    * Add the Entity name into the window title
    *
    * @type {string}
+   * @returns {string} - A localized window title
    */
   get title() {
     return `${this.object.name}: ${game.i18n.localize(
@@ -34,11 +38,11 @@ export class OseCharacterGpCost extends FormApplication {
   /**
    * Construct and return the data object used to render the HTML template for this form application.
    *
-   * @returns {object}
+   * @returns {object} - The template data
    */
   async getData() {
     const data = await foundry.utils.deepClone(this.object.preparedData);
-    data.totalCost = await this._getTotalCost(data);
+    data.totalCost = await this.#getTotalCost(data);
     data.user = game.user;
     this.inventory = this.object.items;
     return data;
@@ -48,13 +52,29 @@ export class OseCharacterGpCost extends FormApplication {
     return super.close(options);
   }
 
+  /**
+   * An object that provides options to _onSubmit
+   *
+   * @typedef submitOptions
+   * @property {boolean} preventClose - Should the application be stopped from closing?
+   * @property {boolean} preventRender - Should the application be stopped from rendering?
+   */
+
+  /**
+   * Override Foundry's default _onSubmit event to add our own behaviors
+   *
+   * @param {Event} event - The native form submit event
+   * @param {submitOptions} options - Options for the _onSubmit event
+   */
+  // eslint-disable-next-line no-underscore-dangle
   async _onSubmit(event, { preventClose = false, preventRender = false } = {}) {
+    // eslint-disable-next-line no-underscore-dangle
     super._onSubmit(event, {
       preventClose,
       preventRender,
     });
     // Generate gold
-    const totalCost = await this._getTotalCost(await this.getData());
+    const totalCost = await this.#getTotalCost(await this.getData());
     const gp = await this.object.items.find((item) => {
       const itemData = item.system;
       return (
@@ -80,13 +100,12 @@ export class OseCharacterGpCost extends FormApplication {
   /**
    * This method is called upon form submission after form data is validated
    *
-   * @param event - {Event}       The initial triggering submission event
-   * @param formData - {Object}   The object of validated form data with which to update the object
+   * @param {Event} event - The initial triggering submission event
+   * @param {object} formData - The object of validated form data with which to update the object
    * @private
    */
-  async _updateObject(event, formData) {
+  async #updateObject(event, formData) {
     event.preventDefault();
-    const { items } = this.object.data;
 
     const speaker = ChatMessage.getSpeaker({ actor: this });
     const templateData = await this.getData();
@@ -105,7 +124,8 @@ export class OseCharacterGpCost extends FormApplication {
     this.object.sheet.render(true);
   }
 
-  async _getTotalCost(data) {
+  // eslint-disable-next-line class-methods-use-this
+  async #getTotalCost(data) {
     let total = 0;
     const physical = new Set(["item", "container", "weapon", "armor"]);
     data.items.forEach((item) => {
@@ -123,7 +143,7 @@ export class OseCharacterGpCost extends FormApplication {
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
-    html.find("a.auto-deduct").click(async (ev) => {
+    html.find("a.auto-deduct").click(() => {
       this.submit();
     });
   }

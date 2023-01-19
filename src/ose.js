@@ -2,11 +2,11 @@
  * @file The entry point for the OSE system
  *       We should handle most of our setup here.
  */
-import { OseActorSheetCharacter } from "./module/actor/character-sheet";
+import OseActorSheetCharacter from "./module/actor/character-sheet";
 import OseDataModelCharacter from "./module/actor/data-model-character";
 import OseDataModelMonster from "./module/actor/data-model-monster";
-import { OseActor } from "./module/actor/entity";
-import { OseActorSheetMonster } from "./module/actor/monster-sheet";
+import OseActor from "./module/actor/entity";
+import OseActorSheetMonster from "./module/actor/monster-sheet";
 
 import OseDataModelAbility from "./module/item/data-model-ability";
 import OseDataModelArmor from "./module/item/data-model-armor";
@@ -14,20 +14,20 @@ import OseDataModelContainer from "./module/item/data-model-container";
 import OseDataModelItem from "./module/item/data-model-item";
 import OseDataModelSpell from "./module/item/data-model-spell";
 import OseDataModelWeapon from "./module/item/data-model-weapon";
-import { OseItem } from "./module/item/entity";
-import { OseItemSheet } from "./module/item/item-sheet";
+import OseItem from "./module/item/entity";
+import OseItemSheet from "./module/item/item-sheet";
 
 import * as chat from "./module/chat";
-import { OseCombat } from "./module/combat";
-import { OSE } from "./module/config";
-import { registerFVTTModuleAPIs } from "./module/fvttModuleAPIs";
-import { registerHelpers } from "./module/helpers";
+import OseCombat from "./module/combat";
+import OSE from "./module/config";
+import registerFVTTModuleAPIs from "./module/fvttModuleAPIs";
+import handlebarsHelpers from "./module/helpers";
 import * as macros from "./module/macros";
 import * as party from "./module/party";
-import { OsePartySheet } from "./module/party/party-sheet";
-import { preloadHandlebarsTemplates } from "./module/preloadTemplates";
+import OsePartySheet from "./module/party/party-sheet";
+import templates from "./module/preloadTemplates";
 import * as renderList from "./module/renderList";
-import { registerSettings } from "./module/settings";
+import registerSettings from "./module/settings";
 import * as treasure from "./module/treasure";
 
 import "./e2e";
@@ -58,7 +58,7 @@ Hooks.once("init", async () => {
   OsePartySheet.init();
 
   // Custom Handlebars helpers
-  registerHelpers();
+  handlebarsHelpers();
 
   // Give modules a chance to add encumbrance schemes
   // They can do so by adding their encumbrance schemes
@@ -106,7 +106,7 @@ Hooks.once("init", async () => {
     label: "OSE.SheetClassItem",
   });
 
-  await preloadHandlebarsTemplates();
+  await templates();
 });
 
 /**

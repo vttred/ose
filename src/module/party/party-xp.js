@@ -1,7 +1,10 @@
-import { OSE } from "../config";
-import { OseParty } from "./party";
+/**
+ * @file An application for dispensing XP to party members
+ */
+import OSE from "../config";
+import OseParty from "./party";
 
-export class OsePartyXP extends FormApplication {
+export default class OsePartyXP extends FormApplication {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["ose", "dialog", "party-xp"],
@@ -20,6 +23,7 @@ export class OsePartyXP extends FormApplication {
    *
    * @type {string}
    */
+  // eslint-disable-next-line class-methods-use-this
   get title() {
     return game.i18n.localize("OSE.dialog.xp.deal");
   }
@@ -37,11 +41,12 @@ export class OsePartyXP extends FormApplication {
       data: this.object,
       config: CONFIG.OSE,
       user: game.user,
-      settings,
+      settings: game.settings,
     };
   }
 
-  _onDrop(event) {
+  // eslint-disable-next-line no-underscore-dangle
+  _onDrop(event) { // eslint-disable-line class-methods-use-this
     event.preventDefault();
     // WIP Drop Item Quantity
     let data;
@@ -54,11 +59,14 @@ export class OsePartyXP extends FormApplication {
   }
   /* -------------------------------------------- */
 
-  _updateObject(event, formData) {
+  // eslint-disable-next-line no-underscore-dangle
+  _updateObject(event) {
+    // eslint-disable-next-line no-underscore-dangle
     this._dealXP(event);
   }
 
-  _calculateShare(ev) {
+  // eslint-disable-next-line no-underscore-dangle
+  _calculateShare() {
     const { currentParty } = OseParty;
 
     const html = $(this.form);
@@ -74,7 +82,8 @@ export class OsePartyXP extends FormApplication {
     });
   }
 
-  _dealXP(ev) {
+  // eslint-disable-next-line no-underscore-dangle
+  _dealXP() {
     const html = $(this.form);
     const rows = html.find(".actor");
     rows.each((_, row) => {
@@ -83,7 +92,7 @@ export class OsePartyXP extends FormApplication {
       const id = qRow.data("actorId");
       const actor = OseParty.currentParty.find((e) => e.id === id);
       if (value) {
-        actor.getExperience(Math.floor(parseInt(value)));
+        actor.getExperience(Math.floor(parseInt(value, 10)));
       }
     });
   }
@@ -92,6 +101,7 @@ export class OsePartyXP extends FormApplication {
     super.activateListeners(html);
 
     const totalField = html.find('input[name="total"]');
+    // eslint-disable-next-line no-underscore-dangle
     totalField.on("input", this._calculateShare.bind(this));
 
     html.find('button[data-action="deal-xp"').click((event) => {

@@ -1,12 +1,15 @@
-import { OSE } from "../config";
-import { OseParty } from "./party";
-import { OsePartyXP } from "./party-xp";
+/**
+ * @file An application for managing the current party.
+ */
+import OSE from "../config";
+import OseParty from "./party";
+import OsePartyXP from "./party-xp";
 
 const Party = {
   partySheet: void 0,
 };
 
-export class OsePartySheet extends FormApplication {
+export default class OsePartySheet extends FormApplication {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["ose", "dialog", "party-sheet"],

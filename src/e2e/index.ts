@@ -1,3 +1,10 @@
+/**
+ * @file Orchestration for our Quench tests
+ */
+import dataModelCharacterTests, {
+  key as dataModelCharacterKey,
+  options as dataModelCharacterOptions,
+} from "../module/actor/data-model-character.test.js";
 import dataModelCharacterACTests, {
   key as dataModelCharacterACKey,
   options as dataModelCharacterACOptions,

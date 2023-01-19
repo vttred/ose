@@ -1,3 +1,6 @@
+/**
+ * @file The base class for all encumbrance schemes. Feel free to extend this to make your own schemes!
+ */
 export interface CharacterEncumbrance {
   variant: string;
   enabled: boolean;
@@ -32,14 +35,16 @@ export default class OseDataModelCharacterEncumbrance
   #weight = 0;
 
   /**
+   * The constructor
    *
-   * @param variant
-   * @param max - The max weight this character can carry
-   * @param items - The items this character is carrying
+   * @param {string} variant - The name of this encumbrance variant.
+   * @param {number} max - The max weight this character can carry
+   * @param {Item[]} items - The items this character is carrying. Note: we're not using this in the base class.
    */
   constructor(
     variant = "disabled",
-    max = OseDataModelCharacterEncumbrance.baseEncumbranceCap
+    max = OseDataModelCharacterEncumbrance.baseEncumbranceCap,
+    items = [] // eslint-disable-line @typescript-eslint/no-unused-vars
   ) {
     this.#encumbranceVariant = variant;
     this.#max = max;
@@ -61,6 +66,7 @@ export default class OseDataModelCharacterEncumbrance
     return this.value >= this.max;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   get steps(): number[] {
     return [];
   }

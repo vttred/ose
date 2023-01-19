@@ -1,6 +1,13 @@
+/**
+ * @file Utilities for our Quench tests
+ */
+
 const inputDelay = 120;
 
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const delay = (ms) =>
+  new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
 
 /**
  * If there are messages, purge them.

@@ -1,3 +1,6 @@
+/**
+ * @file A class representing the "Basic" encumbrance scheme from Old School Essentials: Classic Fantasy
+ */
 import OseDataModelCharacterEncumbrance, {
   CharacterEncumbrance,
 } from "./data-model-character-encumbrance";
@@ -58,13 +61,12 @@ export default class OseDataModelCharacterEncumbranceBasic
   constructor(
     max = OseDataModelCharacterEncumbrance.baseEncumbranceCap,
     items: Item[] = [],
-    options: Options = {
-      significantTreasure:
-        OseDataModelCharacterEncumbranceBasic.significantTreasure,
-    }
+    options: Options = {} as Options
   ) {
     super(OseDataModelCharacterEncumbranceBasic.type, max);
-    this.#treasureEncumbrance = options.significantTreasure;
+    this.#treasureEncumbrance =
+      options?.significantTreasure ||
+      OseDataModelCharacterEncumbranceBasic.significantTreasure;
 
     this.#weight = items.reduce(
       (acc: number, { type, system: { treasure, quantity, weight } }: Item) =>

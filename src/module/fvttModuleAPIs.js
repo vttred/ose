@@ -1,3 +1,7 @@
+/**
+ * @file Register APIs that help the system more gracefully integrate with other modules
+ */
+
 const registerFVTTModuleAPIs = () => {
   // see docs for more info https://github.com/fantasycalendar/FoundryVTT-ItemPiles/blob/master/docs/api.md
   Hooks.once("item-piles-ready", async () => {

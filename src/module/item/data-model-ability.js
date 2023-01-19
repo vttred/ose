@@ -1,13 +1,10 @@
+/**
+ * @file The data model for Items of type Ability
+ */
 export default class OseDataModelAbility extends foundry.abstract.DataModel {
   static defineSchema() {
-    const {
-      SchemaField,
-      StringField,
-      NumberField,
-      BooleanField,
-      ArrayField,
-      ObjectField,
-    } = foundry.data.fields;
+    const { StringField, NumberField, BooleanField, ArrayField, ObjectField } =
+      foundry.data.fields;
     return {
       save: new StringField(),
       pattern: new StringField(),

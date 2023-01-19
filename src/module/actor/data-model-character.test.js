@@ -1,34 +1,21 @@
-import OseDataModelCharacter from "./data-model-character";
-
+/**
+ * @file Quench unit tests for the Character data model class.
+ */
 export const key = "ose.datamodel.character";
 export const options = { displayName: "Character Data Model" };
 
-export default ({
-  before,
-  beforeEach,
-  after,
-  describe,
-  it,
-  expect,
-  ...context
-}) => {
-  // @todo How can we add items to this actor?
-  const createMockCharacter = (system = {}, items = [], options = {}) =>
-    new Actor.implementation({
-      name: `Mock Character ${foundry.utils.randomID()}`,
-      type: "character",
-      ...options,
-      system,
-      items,
-    });
+// @todo How can we add items to this actor?
+const createMockCharacter = (system = {}, items = [], characterOptions = {}) =>
+  // eslint-disable-next-line new-cap
+  new Actor.implementation({
+    name: `Mock Character ${foundry.utils.randomID()}`,
+    type: "character",
+    ...characterOptions,
+    system,
+    items,
+  });
 
-  const createMockItem = (type, weight, quantity, options = {}) =>
-    new Item.implementation({
-      name: `Mock ${type} ${foundry.utils.randomID()}`,
-      type,
-      system: { ...options, weight, quantity: { value: quantity } },
-    });
-
+export default ({ describe, it, expect }) => {
   describe("Is this character new?", () => {
     it("New when all ability scores are at 0", () => {
       const testActor = createMockCharacter({

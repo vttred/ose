@@ -1,3 +1,6 @@
+/**
+ * @file Functions that make working with hotbar macros easier
+ */
 /* -------------------------------------------- */
 /*  Hotbar Macros                               */
 /* -------------------------------------------- */

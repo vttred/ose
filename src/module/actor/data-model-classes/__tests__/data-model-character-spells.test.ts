@@ -1,32 +1,36 @@
+/**
+ * @file Quench unit tests for the data model class that drives actor spells.
+ */
 import { QuenchMethods } from "../../../../e2e";
 import OseDataModelCharacterSpells from "../data-model-character-spells";
 
 export const key = "ose.datamodel.character.spells";
 export const options = { displayName: "Character Data Model: Spells" };
 
+const createMockSpell = (lvl: number, spellOptions?: any): Item =>
+  // eslint-disable-next-line new-cap
+  new Item.implementation({
+    name: `Mock Spell ${foundry.utils.randomID()}`,
+    type: "spell",
+    system: { ...spellOptions, lvl },
+  }) as Item;
+
+const createMockSpellList = (spellOptions: any, ...levels: any) =>
+  levels.reduce(
+    (arr: Item[], lvCount: number, idx: number) => [
+      ...arr,
+      ...Array.from({ length: lvCount }, () =>
+        createMockSpell(idx + 1, spellOptions)
+      ),
+    ],
+    []
+  );
+
+// Core goes to 6, but we'll go to 9 just in case
+// someone wants to implement higher-level spells
+const spellsPerLevel = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
 export default ({ describe, it, expect }: QuenchMethods) => {
-  // Core goes to 6, but we'll go to 9 just in case
-  // someone wants to implement higher-level spells
-  const spellsPerLevel = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-  const createMockSpell = (lvl: number, spellOptions?: any): Item =>
-    new Item.implementation({
-      name: `Mock Spell ${foundry.utils.randomID()}`,
-      type: "spell",
-      system: { ...spellOptions, lvl },
-    }) as Item;
-
-  const createMockSpellList = (spellOptions: any, ...levels: any) =>
-    levels.reduce(
-      (arr: Item[], lvCount: number, idx: number) => [
-        ...arr,
-        ...Array.from({ length: lvCount }, () =>
-          createMockSpell(idx + 1, spellOptions)
-        ),
-      ],
-      []
-    );
-
   // Test for spells being sorted into buckets by spell level.
   describe("Spell levels", () => {
     it("Sorts the incoming spell list into an object with spell level keys", () => {

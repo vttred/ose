@@ -1,9 +1,7 @@
+/**
+ * @file The data model for Actors of type Character.
+ */
 import OseDataModelCharacterAC from "./data-model-classes/data-model-character-ac";
-import OseDataModelCharacterEncumbrance from "./data-model-classes/data-model-character-encumbrance";
-// Encumbrance schemes
-import OseDataModelCharacterEncumbranceBasic from "./data-model-classes/data-model-character-encumbrance-basic";
-import OseDataModelCharacterEncumbranceComplete from "./data-model-classes/data-model-character-encumbrance-complete";
-import OseDataModelCharacterEncumbranceDetailed from "./data-model-classes/data-model-character-encumbrance-detailed";
 import OseDataModelCharacterMove from "./data-model-classes/data-model-character-move";
 import OseDataModelCharacterScores from "./data-model-classes/data-model-character-scores";
 import OseDataModelCharacterSpells from "./data-model-classes/data-model-character-spells";
@@ -17,6 +15,7 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
   prepareDerivedData() {
     this.scores = new OseDataModelCharacterScores(this.scores);
 
+    // eslint-disable-next-line new-cap
     this.encumbrance = new CONFIG.OSE.encumbrance(
       this.encumbrance.max,
       [...this.parent.items],
@@ -62,14 +61,8 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
 
   // @todo define schema options; stuff like min/max values and so on.
   static defineSchema() {
-    const {
-      SchemaField,
-      StringField,
-      NumberField,
-      BooleanField,
-      ArrayField,
-      ObjectField,
-    } = foundry.data.fields;
+    const { StringField, NumberField, BooleanField, ObjectField } =
+      foundry.data.fields;
 
     return {
       spells: new ObjectField(),
@@ -87,7 +80,6 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
         max: new NumberField({ integer: true }),
       }),
       thac0: new ObjectField(),
-      initiative: new ObjectField(),
       languages: new ObjectField(),
       saves: new ObjectField({
         breath: new ObjectField({ value: new NumberField({ integer: true }) }),
@@ -114,6 +106,7 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
 
   // @todo This only needs to be public until
   //       we can ditch sharing out AC/AAC.
+  // eslint-disable-next-line class-methods-use-this
   get usesAscendingAC() {
     return game.settings.get(game.system.id, "ascendingAC");
   }

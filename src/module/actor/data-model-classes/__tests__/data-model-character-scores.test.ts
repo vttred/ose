@@ -1,3 +1,6 @@
+/**
+ * @file Tests for the class represening a character's ability scores
+ */
 import { QuenchMethods } from "../../../../e2e";
 import OseDataModelCharacterScores from "../data-model-character-scores";
 
@@ -19,24 +22,24 @@ export default ({ describe, it, expect }: QuenchMethods) => {
     OseDataModelCharacterScores.valueFromTable(tables[tableKey], score);
   const numberToScores = (number: number) =>
     Object.fromEntries(
-      scoreKeys.map((key) => [key, { value: number, bonus: 0 }])
+      scoreKeys.map((scoreKey) => [scoreKey, { value: number, bonus: 0 }])
     );
 
   const buildTestCases = (
     score: number,
-    key: string,
+    scoreKey: string,
     mod: string,
     table: any
   ) => {
     const scoresToUse = numberToScores(score);
     const scoresObj = new OseDataModelCharacterScores(scoresToUse);
     return it(`${score}`, () => {
-      expect(scoresObj[key][mod]).to.equal(fromTable(table, score)); // eslint-disable-line @typescript-eslint/no-unused-expressions
+      expect(scoresObj[scoreKey][mod]).to.equal(fromTable(table, score)); // eslint-disable-line @typescript-eslint/no-unused-expressions
     });
   };
   const buildTestCasesWithModifiers = (
     score: number,
-    key: string,
+    scoreKey: string,
     mod: string,
     table: any,
     added: number
@@ -44,14 +47,17 @@ export default ({ describe, it, expect }: QuenchMethods) => {
     const scoresToUse = numberToScores(score);
     const scoresObj = new OseDataModelCharacterScores(scoresToUse);
     return it(`${score}`, () => {
-      expect(scoresObj[key][mod]).to.equal(fromTable(table, score) + added); // eslint-disable-line @typescript-eslint/no-unused-expressions
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      expect(scoresObj[scoreKey][mod]).to.equal(
+        fromTable(table, score) + added
+      );
     });
   };
 
   const spreadToModTests = (name: string) =>
-    scoreKeys.map((key) =>
-      describe(`${name}: ${key}`, () =>
-        scoreSpread.map((score) => buildTestCases(score, key, "mod", 0)))
+    scoreKeys.map((scoreKey) =>
+      describe(`${name}: ${scoreKey}`, () =>
+        scoreSpread.map((score) => buildTestCases(score, scoreKey, "mod", 0)))
     );
 
   describe("Standard attribute modifiers", () => spreadToModTests("Attribute"));

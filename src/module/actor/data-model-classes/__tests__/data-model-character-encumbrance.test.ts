@@ -1,3 +1,6 @@
+/**
+ * @file Tests for encumbrance schemes that are part of the Old School Essentials SRD
+ */
 import { QuenchMethods } from "../../../../e2e";
 import OseDataModelCharacterEncumbrance from "../data-model-character-encumbrance";
 import EncumbranceBasic from "../data-model-character-encumbrance-basic";
@@ -8,21 +11,22 @@ import EncumbranceDisabled from "../data-model-character-encumbrance-disabled";
 export const key = "ose.datamodel.character.encumbrance";
 export const options = { displayName: "Character Data Model: Encumbrance" };
 
-export default ({ describe, it, expect }: QuenchMethods) => {
-  const toPct = (value: number, max: number) =>
-    Math.clamped((100 * value) / max, 0, 100);
-  const createMockItem = (
-    type: string,
-    weight: number,
-    quantity: number,
-    options = {}
-  ): Item =>
-    new Item.implementation({
-      name: `Mock ${type} ${foundry.utils.randomID()}`,
-      type,
-      system: { ...options, weight, quantity: { value: quantity } },
-    }) as Item;
+const toPct = (value: number, max: number) =>
+  Math.clamped((100 * value) / max, 0, 100);
+const createMockItem = (
+  type: string,
+  weight: number,
+  quantity: number,
+  itemOptions = {}
+): Item =>
+  // eslint-disable-next-line new-cap
+  new Item.implementation({
+    name: `Mock ${type} ${foundry.utils.randomID()}`,
+    type,
+    system: { ...itemOptions, weight, quantity: { value: quantity } },
+  }) as Item;
 
+export default ({ describe, it, expect }: QuenchMethods) => {
   describe("Disabled Encumbrance", () => {
     it("Is disabled", () => {
       let enc = new OseDataModelCharacterEncumbrance();
@@ -157,7 +161,8 @@ export default ({ describe, it, expect }: QuenchMethods) => {
       expect(enc.max).to.equal(setMax); // eslint-disable-line @typescript-eslint/no-unused-expressions
 
       enc = new EncumbranceBasic();
-      expect(enc.max).to.equal( // eslint-disable-line @typescript-eslint/no-unused-expressions
+      expect(enc.max).to.equal(
+        // eslint-disable-line @typescript-eslint/no-unused-expressions
         OseDataModelCharacterEncumbrance.baseEncumbranceCap
       );
     });
@@ -170,7 +175,8 @@ export default ({ describe, it, expect }: QuenchMethods) => {
     });
     it("Returns the appropriate encumbrance steps", () => {
       const enc = new EncumbranceDetailed();
-      expect(enc.steps).to.have.members( // eslint-disable-line @typescript-eslint/no-unused-expressions
+      expect(enc.steps).to.have.members(
+        // eslint-disable-line @typescript-eslint/no-unused-expressions
         Object.values(OseDataModelCharacterEncumbrance.encumbranceSteps)
       );
     });
@@ -269,7 +275,8 @@ export default ({ describe, it, expect }: QuenchMethods) => {
       expect(enc.max).to.equal(setMax); // eslint-disable-line @typescript-eslint/no-unused-expressions
 
       enc = new EncumbranceDetailed();
-      expect(enc.max).to.equal( // eslint-disable-line @typescript-eslint/no-unused-expressions
+      expect(enc.max).to.equal(
+        // eslint-disable-line @typescript-eslint/no-unused-expressions
         OseDataModelCharacterEncumbrance.baseEncumbranceCap
       );
     });
@@ -282,7 +289,8 @@ export default ({ describe, it, expect }: QuenchMethods) => {
     });
     it("Returns the appropriate encumbrance steps", () => {
       const enc = new EncumbranceComplete();
-      expect(enc.steps).to.have.members( // eslint-disable-line @typescript-eslint/no-unused-expressions
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      expect(enc.steps).to.have.members(
         Object.values(OseDataModelCharacterEncumbrance.encumbranceSteps)
       );
     });
@@ -378,7 +386,8 @@ export default ({ describe, it, expect }: QuenchMethods) => {
       expect(enc.max).to.equal(setMax); // eslint-disable-line @typescript-eslint/no-unused-expressions
 
       enc = new EncumbranceComplete();
-      expect(enc.max).to.equal( // eslint-disable-line @typescript-eslint/no-unused-expressions
+      // eslint-disable-line @typescript-eslint/no-unused-expressions
+      expect(enc.max).to.equal(
         OseDataModelCharacterEncumbrance.baseEncumbranceCap
       );
     });

@@ -1,3 +1,7 @@
+/**
+ * @file A class representing the "Disabled" encumbrance scheme;
+ *       we aren't tracking carry weight here.
+ */
 import OseDataModelCharacterEncumbrance, {
   CharacterEncumbrance,
 } from "./data-model-character-encumbrance";
@@ -30,6 +34,7 @@ export default class OseDataModelCharacterEncumbranceDisabled
     super(OseDataModelCharacterEncumbranceDisabled.type);
   }
 
+  // eslint-disable-next-line class-methods-use-this
   get value(): number {
     return 0;
   }

@@ -1,13 +1,11 @@
 /**
- * @file Shared behaviors between different actor types.
+ * @file The base class we use for Character and Monster sheets. Shared behavior goes here!
  */
 import { skipRollDialogCheck } from "../behaviourHelpers";
-import { OSE } from "../config";
-import { OseEntityTweaks } from "../dialog/entity-tweaks";
+import OSE from "../config";
+import OseEntityTweaks from "../dialog/entity-tweaks";
 
 export default class OseActorSheet extends ActorSheet {
-  /* -------------------------------------------- */
-
   getData() {
     const data = foundry.utils.deepClone(super.getData().data);
     data.owner = this.actor.isOwner;

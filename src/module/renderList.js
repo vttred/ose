@@ -1,18 +1,20 @@
-import { OseItem } from "./item/entity";
+/**
+ * @file Functions that alter the way that sidebar and compendium lists render
+ */
+import OSE from "./config";
 
-import { OSE } from "./config";
-
-export const RenderCompendium = async function (object, html, d) {
-  if (object.metadata.type != "Item") {
+export const RenderCompendium = async (object, html, d) => {
+  if (object.metadata.type !== "Item") {
     return;
   }
+
   const render = html[0].querySelectorAll(".item");
   const docs = await d.collection.getDocuments();
 
   render.forEach(async (item, i) => {
     const id = render[i].dataset.documentId;
 
-    const element = docs.find((d) => d.id === id);
+    const element = docs.find((doc) => doc.id === id);
     const tagTemplate = $.parseHTML(
       await renderTemplate(
         `${OSE.systemPath()}/templates/actors/partials/item-auto-tags-partial.html`,
@@ -24,8 +26,8 @@ export const RenderCompendium = async function (object, html, d) {
   });
 };
 
-export const RenderDirectory = async function (object, html) {
-  if (object.id != "items") {
+export const RenderDirectory = async (object, html) => {
+  if (object.id !== "items") {
     return;
   }
 

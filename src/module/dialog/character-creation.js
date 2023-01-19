@@ -1,11 +1,14 @@
-import { OSE } from "../config";
-import { OseDice } from "../dice";
+/**
+ * @file The Character Creator application
+ */
+import OSE from "../config";
+import OseDice from "../dice";
 
-export class OseCharacterCreator extends FormApplication {
+export default class OseCharacterCreator extends FormApplication {
   static get defaultOptions() {
     const options = super.defaultOptions;
-    (options.classes = ["ose", "dialog", "creator"]),
-      (options.id = "character-creator");
+    options.classes = ["ose", "dialog", "creator"];
+    options.id = "character-creator";
     options.template = `${OSE.systemPath()}/templates/actors/dialogs/character-creation.html`;
     options.width = 235;
     return options;
@@ -27,7 +30,7 @@ export class OseCharacterCreator extends FormApplication {
   /**
    * Construct and return the data object used to render the HTML template for this form application.
    *
-   * @returns {object}
+   * @returns {object} - Render data for the form application
    */
   getData() {
     let data = foundry.utils.deepClone(this.object);
@@ -87,10 +90,12 @@ export class OseCharacterCreator extends FormApplication {
 
   rollScore(score, options = {}) {
     // Increase counter
-    this.counters[score]++;
+    this.counters[score] += 1;
 
     const label =
-      score == "gold" ? "Gold" : game.i18n.localize(`OSE.scores.${score}.long`);
+      score === "gold"
+        ? "Gold"
+        : game.i18n.localize(`OSE.scores.${score}.long`);
     const rollParts = ["3d6"];
     const data = {
       roll: {
@@ -176,13 +181,15 @@ export class OseCharacterCreator extends FormApplication {
     });
   }
 
+  // eslint-disable-next-line no-underscore-dangle
   async _onSubmit(
     event,
     { updateData = null, preventClose = false, preventRender = false } = {}
   ) {
-    updateData = { ...updateData, system: { scores: this.scores } };
+    const extendedData = { ...updateData, data: { scores: this.scores } };
+    // eslint-disable-next-line no-underscore-dangle
     super._onSubmit(event, {
-      updateData,
+      extendedData,
       preventClose,
       preventRender,
     });
@@ -206,10 +213,11 @@ export class OseCharacterCreator extends FormApplication {
   /**
    * This method is called upon form submission after form data is validated
    *
-   * @param event - {Event}       The initial triggering submission event
-   * @param formData - {Object}   The object of validated form data with which to update the object
+   * @param {Event} event - The initial triggering submission event
+   * @param {object} formData - The object of validated form data with which to update the object
    * @private
    */
+  // eslint-disable-next-line no-underscore-dangle
   async _updateObject(event, formData) {
     event.preventDefault();
     // Update the actor

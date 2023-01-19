@@ -55,12 +55,12 @@
 		"jsdoc/valid-types": 1, // Recommended
 		"ecmascript-compat/compat": "off", // Disabled because core uses async
 		"unicorn/no-array-reduce": "off", // Disabled because Array#reduce is helpful
-		"no-secrets/no-secrets": "off", // Disabled because of string entropy
+		"no-secrets/no-secrets": "off" // Disabled because of string entropy
 	},
 	"parserOptions": {
-        ecmaVersion: 2020,
-        sourceType: "module",
-        project: "./tsconfig.json",
+        "ecmaVersion": 2020,
+        "sourceType": "module",
+        "project": "./tsconfig.json"
     },
 	"parser": "@typescript-eslint/parser",
 	"globals": {
@@ -93,6 +93,6 @@
 		"isNewerVersion": "readonly",
 		"fromUuid": "readonly",
 		"fromUuidSync": "readonly",
-		"PoolTerm": "readonly",
+		"PoolTerm": "readonly"
 	}
 }

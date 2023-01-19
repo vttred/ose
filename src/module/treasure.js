@@ -1,6 +1,10 @@
-import { OSE } from "./config";
+/**
+ * @file Helper functions related to treasure table rolls
+ */
+import OSE from "./config";
 
-export const augmentTable = (table, html, data) => {
+// eslint-disable-next-line import/prefer-default-export
+export const augmentTable = (table, html) => {
   // Treasure Toggle
   const isTreasureTable = Boolean(
     table.object.getFlag(game.system.id, "treasure")

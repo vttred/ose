@@ -1,6 +1,9 @@
-import { OSE } from "./config";
+/**
+ * @file Helpful methods for dealing with OSE-specific dice logic 
+ */
+import OSE from "./config";
 
-export const OseDice = {
+const OseDice = {
   async sendRoll({
     parts = [],
     data = {},
@@ -466,3 +469,5 @@ export const OseDice = {
     });
   },
 };
+
+export default OseDice;

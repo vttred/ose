@@ -86,6 +86,14 @@ export const registerSettings = function () {
       targeted: "OSE.Setting.damageTarget",
     },
   });
+  game.settings.register(game.system.id, "invertedCtrlBehavior", {
+    name: game.i18n.localize("OSE.Setting.InvertedCtrlBehavior"),
+    hint: game.i18n.localize("OSE.Setting.InvertedCtrlBehaviorHint"),
+    default: false,
+    scope: "world",
+    type: Boolean,
+    config: true,
+  })
 };
 
 declare global {

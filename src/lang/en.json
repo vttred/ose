@@ -318,5 +318,9 @@
   "OSE.error.notEnoughGP": "This Actor doesn't have enough GP to pay for its inventory.",
   "OSE.error.itemNoLongerExistsOnActor": "The requested Item {itemId} no longer exists on Actor {actorName}.",
   "OSE.error.noTokenControlled": "You must have one or more controlled Tokens in order to use this option.",
-  "OSE.error.noGP": "You need a GP item to use this feature."
+  "OSE.error.noGP": "You need a GP item to use this feature.",
+
+  "OSE.migration.beginMigration": "Applying OSE System Migration for version {version}. Please be patient and do not close your game or shut down your server.",
+  "OSE.migration.completeMigration": "OSE System Migration for version {version} completed.",
+  "OSE.migration.oseVersionTooOldWarning": "Your OSE system data is from too old a Foundry version and cannot be reliably migrated to the latest version. The process will be attempted, but errosr may occur."
 }

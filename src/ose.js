@@ -138,6 +138,19 @@ Hooks.once("ready", async () => {
     // Returning false to stop the rest of hotbarDrop handling.
     return false;
   });
+
+  // Determine if system migration is necessary
+  if ( !game.user.isGM ) return;
+  const cv = game.settings.get(game.system.id, "systemMigrationVersion") || game.world.flags.ose?.version;
+  const totalDocuments = game.actors.size + game.items.size;
+  if ( !cv && totalDocuments === 0 ) return game.settings.set(game.system.id, "systemMigrationVersion", game.system.version);
+  if ( cv && !isNewerVersion(game.system.flags.needsMigrationVersion, cv) ) return;
+
+  // Perform the migration
+  if ( cv && isNewerVersion(game.system.flags.compatibleMigrationVersion, cv) ) {
+    ui.notifications.error(game.i18n.localize("OSE.migration.oseVersionTooOldWarning", {permanent: true}));
+  }
+  migrateWorld();
 });
 
 // License info

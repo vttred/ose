@@ -93,6 +93,15 @@ export const registerSettings = function () {
     scope: "world",
     type: Boolean,
     config: true,
+  });
+  
+  // Internal System Migration Version
+  game.settings.register(game.system.id, "systemMigrationVersion", {
+    name: "System Migration Version",
+    scope: "world",
+    type: String,
+    config: false,
+    default: ""
   })
 };
 

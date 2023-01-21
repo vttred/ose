@@ -78,6 +78,8 @@
   "download": "AUTOMATICALLY REPLACED BY GITHUB WORKFLOW ACTION",
   "bugs": "https://github.com/vttred/ose/issues",
   "flags": {
-    "allowBugReporter": true
+    "allowBugReporter": true,
+    "needsMigrationVersion": "1.7.5",
+    "compatibleMigrationVersion": "1.7.0"
   }
 }

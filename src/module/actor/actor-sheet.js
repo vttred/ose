@@ -106,6 +106,13 @@ export class OseActorSheet extends ActorSheet {
     const itemData = item?.system;
     const itemDisplay = event.currentTarget.closest(".item-entry");
 
+    if (item.type !== "container" && itemData.containerId !== '') {
+      const containerId = itemData.containerId;
+      const newItemIds = this.actor.items.get(containerId).system.itemIds.filter(o => o !== item.id);
+      
+      await this.actor.updateEmbeddedDocuments("Item", [{_id: containerId, system: {itemIds: newItemIds}}]);
+    }
+
     if (item.type === "container" && itemData.itemIds) {
       const containedItems = itemData.itemIds;
       const updateData = containedItems.reduce((acc, val) => {

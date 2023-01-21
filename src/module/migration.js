@@ -46,7 +46,6 @@ export const migrateActorData = function(actor, migrationData) {
 
     // Migrate owned items
     if ( !actor.items ) return updateData;
-    console.log(`Fixing actor ${actor.name}`)
     const items = actor.items.reduce((arr, i) => {
         // Migrate owned items
         const itemData = i instanceof CONFIG.Item.documentClass ? i.toObject() : i;

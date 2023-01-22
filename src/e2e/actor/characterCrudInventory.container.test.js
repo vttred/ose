@@ -60,7 +60,53 @@ export default ({before, after, afterEach, expect, describe, it, ...context}) =>
 
     /* --------------------------------------- */
 
-    // Test helpers
+    const testSetupContainerAndItem = async () => {
+        await testAddContainerAndItem();
+        const sourceItem = testActor().items.getName("New Actor Test Item");
+        const targetItem = testActor().items.getName("New Actor Test Container");
+        await testMoveItemToContainer(sourceItem, targetItem)
+        expect(testActor().items.size).equals(2);
+        expect(testActor().system.containers.length).equal(1);
+        expect(testActor().system.items.length).equal(0);
+    }
+
+    /* --------------------------------------- */
+
+    const testAddContainerToActor = async () => {
+        expect(testActor().items.size).equals(0);
+        const test_item = await createActorTestItem("container");
+        expect(testActor().items.size).equals(1);
+        expect(test_item.length).equals(1)
+        expect(test_item[0].name).equals("New Actor Test Container")
+        expect(testActor().system.containers.length).equal(1);
+    }
+
+    const testAddContainerAndItem = async () => {
+        await testAddContainerToActor();
+        await createActorTestItem("item");
+        expect(testActor().items.size).equals(2);
+        expect(testActor().system.items.length).equal(1);
+    }
+
+    const testAddWorldItem = async () => {
+        expect(game.items.getName("New World Test Item")).equals(undefined)
+        await createWorldTestItem('item');
+        const test_item = game.items.getName("New World Test Item");
+        expect(test_item).not.equals(undefined)
+        return test_item;
+    }
+
+    /* --------------------------------------- */
+
+    const testMoveItemToContainer = async (sourceItem, targetItem) => {
+        await testActorSheet()._onContainerItemAdd(sourceItem, targetItem);
+        
+        expect(sourceItem.system.containerId).equals(targetItem._id)
+        expect(targetItem.system.itemIds.length).equals(1)
+        expect(targetItem.system.itemIds[0]).equals(sourceItem._id)
+        expect(testActor().system.containers.length).equal(1)
+        expect(testActor().system.items.length).equal(0)
+    }
 
     /* --------------------------------------- */
 
@@ -83,41 +129,13 @@ export default ({before, after, afterEach, expect, describe, it, ...context}) =>
     /* --------------------------------------- */
 
     describe('Creating', () => {
-        it('Creating a container item on the Actor', async () => {
-            expect(testActor().items.size).equals(0);
-            const test_item = await createActorTestItem("container");
-            expect(testActor().items.size).equals(1);
-            expect(test_item.length).equals(1)
-            expect(test_item[0].name).equals("New Actor Test Container")
-        })
-        it('Adding item from the actor itself into Actor container', async () => {
-            expect(testActor().items.size).equals(0);
-            await createActorTestItem("item");
-            await createActorTestItem("container");
-            expect(testActor().items.size).equals(2);
-            expect(testActor().system.containers.length).equal(1);
-            expect(testActor().system.items.length).equal(1);
-
-            const test_item = testActor().items.getName("New Actor Test Item");
-            const test_container = testActor().items.getName("New Actor Test Container");
-            await testActorSheet()._onContainerItemAdd(test_item, test_container);
-
-            expect(test_item.system.containerId).equals(test_container._id)
-            expect(test_container.system.itemIds.length).equals(1)
-            expect(test_container.system.itemIds[0]).equals(test_item._id)
-            expect(testActor().system.containers.length).equal(1)
-            expect(testActor().system.items.length).equal(0)            
-        })
-        // @fixes #265
+        it('Creating a container item on the Actor', async () => { await testAddContainerToActor(); })
+        it('Adding item from the actor itself into Actor container', async () => { await testAddContainerAndItem(); })
         it('Adding item from Items sidebar into Actor container', async () => {
-            expect(game.items.getName("New World Test Item")).equals(undefined)
-            await createWorldTestItem('item');
-            expect(game.items.getName("New World Test Item")).not.equals(undefined)
-            await createActorTestItem("container");
-            expect(testActor().items.size).equals(1);
-            expect(testActor().system.containers.length).equal(1);
+            const test_item = await testAddWorldItem();
 
-            const test_item = game.items.getName("New World Test Item");
+            await testAddContainerToActor();
+
             const test_container = testActor().items.getName("New Actor Test Container");
             await testActorSheet()._onContainerItemAdd(test_item, test_container);
 
@@ -128,28 +146,21 @@ export default ({before, after, afterEach, expect, describe, it, ...context}) =>
             expect(testActor().system.containers.length).equal(1)
             expect(testActor().system.items.length).equal(0)
         })
-        // @fixes #265
         it('Adding item from Item Compendium into Actor container', async () => {
             expect(game.packs.get('world.testcompendiumtest')).equal(undefined)
             const compendium = await createTestCompendium();
             expect(game.packs.get('world.compendiumtest')).not.equal(undefined)
-            console.log(game.packs.get('world.compendiumtest').size)
             expect(game.packs.get('world.compendiumtest').size).equal(0)
            
-            expect(game.items.getName("New World Test Item")).equals(undefined)
-            await createWorldTestItem('item');
-            expect(game.items.getName("New World Test Item")).not.equals(undefined)
+            const test_world_item = await testAddWorldItem();
 
-            await game.packs.get('world.compendiumtest').importDocument(game.items.getName("New World Test Item"));
+            await game.packs.get('world.compendiumtest').importDocument(test_world_item);
             expect(game.packs.get('world.compendiumtest').size).equal(1)
 
             const test_item = game.packs.get('world.compendiumtest').contents[0];
             expect(test_item).not.equal(undefined);
 
-            await createActorTestItem("container");
-            expect(testActor().items.size).equals(1);
-            expect(testActor().system.containers.length).equal(1);
-
+            await testAddContainerToActor()
             const test_container = testActor().items.getName("New Actor Test Container");
             await testActorSheet()._onContainerItemAdd(test_item, test_container);
 
@@ -163,22 +174,37 @@ export default ({before, after, afterEach, expect, describe, it, ...context}) =>
     })
 
     describe('Removing', () => {
-        /**
-         * _removeItemFromActor
-         *  - actor.updateEmbeddedDocuments("Item", [{_id: id, system: {} }])
-         *  - actor.deleteEmbeddedDocuments("Item", [id])
-         * _onDropItem
-         *  - _onContainerItemRemove(item, containerId)
-         *    - item.update({system: {itemIds: []} });
-         */
-        it('Trying to remove container with items asks for confirmation', () => {})
-        it('Confirmed deletion pops contained items into inventory', () => {})
-        it('Cancelled confirmation cancels leaves container & inventory as-is', () => {})
-        it('Removing contained item updates containers internal id list', () => {})
-        it('Dragging contained item into inventory again removes it from container', () => {
-            // Item does exist in `actor.system.items`
-            //           not exist in `container.system.itemIds`. 
-            // `item.system.containerId` === ''
+        beforeEach(async () => {
+            await testSetupContainerAndItem()
+        })
+
+        // it('Trying to remove container with items asks for confirmation', () => {})
+        // it('Confirmed deletion pops contained items into inventory', () => {})
+        // it('Cancelled confirmation cancels leaves container & inventory as-is', () => {})
+        it('Removing contained item updates containers internal id list', async () => {
+            const test_item = testActor().items.getName("New Actor Test Item");
+            const test_container = testActor().items.getName("New Actor Test Container");
+            expect(test_item).not.equal(undefined)
+            expect(test_container).not.equal(undefined)
+
+            await testActorSheet()._removeItemFromActor(test_item);
+            await waitForInput();
+            expect(testActor().system.containers.length).equal(1)
+            expect(test_container.system.itemIds.length).equal(0)
+            expect(testActor().system.items.length).equal(0)
+        })
+        it('Dragging contained item into inventory again removes it from container', async () => {
+            const test_item = testActor().items.getName("New Actor Test Item");
+            const test_container = testActor().items.getName("New Actor Test Container");
+            expect(test_item).not.equal(undefined)
+            expect(test_container).not.equal(undefined)
+
+            await testActorSheet()._onContainerItemRemove(test_item, test_container);
+            await waitForInput();
+            expect(testActor().system.containers.length).equal(1)
+            expect(test_container.system.itemIds.length).equal(0)
+            expect(testActor().system.items.length).equal(1)
+            expect(test_item.system.containerId).equal('')
         })
     })
     // describe('Updating', () => {

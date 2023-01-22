@@ -1,4 +1,3 @@
-import { ExitStatus } from "typescript";
 import { trashChat, waitForInput } from "../testUtils";
 
 /** 

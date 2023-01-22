@@ -277,18 +277,18 @@ export default class OseActorSheet extends ActorSheet {
     const itemData = item.toObject();
 
     const exists = !!this.actor.items.get(item.id);
-    
-    if (!exists)
-      return this._onDropItemCreate([itemData]);
-    
-    const isContainer = this.actor.items.get(item.system.containerId);
-    
-    if (isContainer)
-      return this._onContainerItemRemove(item, isContainer);
-    
+
     const {itemId: targetId} = event.target.closest('.item').dataset;
     const targetItem = this.actor.items.get(targetId)
     const targetIsContainer = targetItem?.type === 'container'
+
+    const isContainer = this.actor.items.get(item.system.containerId);
+    
+    if (!exists && !targetIsContainer)
+      return this._onDropItemCreate([itemData]);
+    
+    if (isContainer)
+      return this._onContainerItemRemove(item, isContainer);
 
     if (targetIsContainer)
       return this._onContainerItemAdd(item, targetItem);
@@ -303,18 +303,17 @@ export default class OseActorSheet extends ActorSheet {
   }
 
   async _onContainerItemAdd(item, target) {
-    const itemData = item.toObject();
-    const container = this.object.items.get(target.id);
+    const alreadyExistsInActor = target.parent.items.find(i => i._id === item._id);
+    if (!alreadyExistsInActor) {
+      let newItem = await this._onDropItemCreate([item.toObject()]);
+      item = newItem.pop();
+    }
 
-    const containerId = container.id;
-    const itemObj = this.object.items.get(item.id);
-    const alreadyExists = container.system.itemIds.find(
-      (i) => i.id === item.id
-    );
-    if (!alreadyExists) {
-      const newList = [...container.system.itemIds, item.id];
-      await container.update({ system: { itemIds: newList } });
-      await itemObj.update({ system: { containerId: container.id } });
+    const alreadyExistsInContainer = target.system.itemIds.find((i) => i._id === item._id);
+    if (!alreadyExistsInContainer) {
+      const newList = [...target.system.itemIds, item._id];
+      await target.update({ system: { itemIds: newList } });
+      await item.update({ system: { containerId: target._id } });
     }
   }
 

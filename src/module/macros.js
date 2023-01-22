@@ -22,7 +22,7 @@ export async function createOseMacro(data, slot) {
   let macro = game.macros.contents.find(
     (m) => m.name === item.name && m.command === command
   );
-  if (!macro) {
+  if (!macro || macro.ownership[game.userId] === undefined ) {
     macro = await Macro.create({
       name: item.name,
       type: "script",

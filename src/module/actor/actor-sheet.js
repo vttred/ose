@@ -96,24 +96,18 @@ export default class OseActorSheet extends ActorSheet {
     item.show();
   }
 
-  async _removeItemFromActor(event) {
-    const item = this._getItemFromActor(event);
-    const itemData = item?.system;
-    const itemDisplay = event.currentTarget.closest(".item-entry");
-
+  async _removeItemFromActor(item) {
     if ( item.type === 'ability' || item.type === 'spell') {
-      return this.actor.deleteEmbeddedDocuments("Item", [itemDisplay.dataset.itemId]);
+      return this.actor.deleteEmbeddedDocuments("Item", [item._id]);
     }
-
-    if (item.type !== "container" && item.containerId !== '') {
-      const containerId = item.containerId;
+    if (item.type !== "container" && item.system.containerId !== '') {
+      const containerId = item.system.containerId;
       const newItemIds = this.actor.items.get(containerId).system.itemIds.filter(o => o !== item.id);
       
       await this.actor.updateEmbeddedDocuments("Item", [{_id: containerId, system: {itemIds: newItemIds}}]);
     }
-
-    if (item.type === "container" && item.itemIds) {
-      const containedItems = item.itemIds;
+    if (item.type === "container" && item.system.itemIds) {
+      const containedItems = item.system.itemIds;
       const updateData = containedItems.reduce((acc, val) => {
         acc.push({ _id: val, "system.containerId": "" });
         return acc;
@@ -122,7 +116,7 @@ export default class OseActorSheet extends ActorSheet {
       await this.actor.updateEmbeddedDocuments("Item", updateData);
     }
 
-    this.actor.deleteEmbeddedDocuments("Item", [itemDisplay.dataset.itemId]);
+    this.actor.deleteEmbeddedDocuments("Item", [item._id]);
   }
 
   /**
@@ -283,9 +277,9 @@ export default class OseActorSheet extends ActorSheet {
 
     const exists = !!this.actor.items.get(item.id);
 
-    const {itemId: targetId} = event.target.closest('.item').dataset;
-    const targetItem = this.actor.items.get(targetId)
-    const targetIsContainer = targetItem?.type === 'container'
+    const targetId = event.target.closest('.item')?.dataset?.itemId;
+    const targetItem = this.actor.items.get(targetId);
+    const targetIsContainer = targetItem?.type === 'container';
 
     const isContainer = this.actor.items.get(item.system.containerId);
     
@@ -554,12 +548,12 @@ export default class OseActorSheet extends ActorSheet {
       const item = this._getItemFromActor(event);
 
       if (item?.type !== "container" || !item?.system?.itemIds?.length > 0)
-        return this._removeItemFromActor(event);
+        return this._removeItemFromActor(item);
 
       Dialog.confirm({
         title: game.i18n.localize("OSE.dialog.deleteContainer"),
         content: game.i18n.localize("OSE.dialog.confirmDeleteContainer"),
-        yes: () => { this._removeItemFromActor(event); },
+        yes: () => { this._removeItemFromActor(item); },
         defaultYes: false
       })
     });

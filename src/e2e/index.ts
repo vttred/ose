@@ -8,6 +8,11 @@ import macroTests, {
   options as macroOptions
 } from '../module/__tests__/macros.test';
 
+import actorCrudInventoryContainerTests, {
+  key as actorCrudInventoryContainerKey,
+  options as actorCrudInventoryContainerOptions
+} from './actor/characterCrudInventory.container.test';
+
 import characterItemMacroTests, {
   key as characterItemMacroKey,
   options as characterItemMacroOptions
@@ -87,6 +92,7 @@ type Quench = {
 Hooks.on('quenchReady', async (quench: Quench) => {
   quench.registerBatch(actorCrudInventoryContainerKey, actorCrudInventoryContainerTests, actorCrudInventoryContainerOptions);
   quench.registerBatch(macroKey, macroTests, macroOptions);
+  quench.registerBatch(actorCrudInventoryContainerKey, actorCrudInventoryContainerTests, actorCrudInventoryContainerOptions);
   quench.registerBatch(characterItemMacroKey, characterItemMacroTests, characterItemMacroOptions);
   quench.registerBatch(characterKey, characterTests, characterOptions);
   // Character data model classes

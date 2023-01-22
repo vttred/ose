@@ -141,6 +141,7 @@ Hooks.once("ready", async () => {
 
   // Determine if system migration is necessary
   if ( !game.user.isGM ) return;
+  if ( game.system.id === "ose-dev" ) return;
   const cv = game.settings.get(game.system.id, "systemMigrationVersion") || game.world.flags.ose?.version;
   const totalDocuments = game.actors.size + game.items.size;
   if ( !cv && totalDocuments === 0 ) return game.settings.set(game.system.id, "systemMigrationVersion", game.system.version);

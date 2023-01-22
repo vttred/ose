@@ -106,15 +106,19 @@ export class OseActorSheet extends ActorSheet {
     const itemData = item?.system;
     const itemDisplay = event.currentTarget.closest(".item-entry");
 
-    if (item.type !== "container" && itemData.containerId !== '') {
-      const containerId = itemData.containerId;
+    if ( item.type === 'ability' || item.type === 'spell') {
+      return this.actor.deleteEmbeddedDocuments("Item", [itemDisplay.dataset.itemId]);
+    }
+
+    if (item.type !== "container" && item.containerId !== '') {
+      const containerId = item.containerId;
       const newItemIds = this.actor.items.get(containerId).system.itemIds.filter(o => o !== item.id);
       
       await this.actor.updateEmbeddedDocuments("Item", [{_id: containerId, system: {itemIds: newItemIds}}]);
     }
 
-    if (item.type === "container" && itemData.itemIds) {
-      const containedItems = itemData.itemIds;
+    if (item.type === "container" && item.itemIds) {
+      const containedItems = item.itemIds;
       const updateData = containedItems.reduce((acc, val) => {
         acc.push({ _id: val, "system.containerId": "" });
         return acc;
@@ -122,6 +126,7 @@ export class OseActorSheet extends ActorSheet {
 
       await this.actor.updateEmbeddedDocuments("Item", updateData);
     }
+
     this.actor.deleteEmbeddedDocuments("Item", [itemDisplay.dataset.itemId]);
   }
 

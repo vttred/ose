@@ -283,7 +283,7 @@ export class OseActor extends Actor {
 
     const label = game.i18n.localize(`OSE.roll.hd`);
     const rollParts = [actorData.hp.hd];
-    if (actorType == "character") {
+    if (actorType === "character") {
       rollParts.push(actorData.scores.con.mod*actorData.details.level);
     }
 
@@ -314,7 +314,7 @@ export class OseActor extends Actor {
 
     const rollParts = [];
     let label = "";
-    if (options.check == "wilderness") {
+    if (options.check === "wilderness") {
       rollParts.push(actorData.details.appearing.w);
       label = "(2)";
     } else {
@@ -393,7 +393,7 @@ export class OseActor extends Actor {
     }
 
     // Add Str to damage
-    if (attData.roll.type == "melee") {
+    if (attData.roll.type === "melee") {
       dmgParts.push(data.scores.str.mod);
     }
 
@@ -444,12 +444,12 @@ export class OseActor extends Actor {
     if (ascending) {
       rollParts.push(data.thac0.bba.toString());
     }
-    if (options.type == "missile") {
+    if (options.type === "missile") {
       rollParts.push(
         data.scores.dex.mod.toString(),
         data.thac0.mod.missile.toString()
       );
-    } else if (options.type == "melee") {
+    } else if (options.type === "melee") {
       rollParts.push(
         data.scores.str.mod.toString(),
         data.thac0.mod.melee.toString()
@@ -459,7 +459,7 @@ export class OseActor extends Actor {
       rollParts.push(attData.item.system.bonus);
     }
     let thac0 = data.thac0.value;
-    if (options.type == "melee") {
+    if (options.type === "melee") {
       dmgParts.push(data.scores.str.mod);
     }
     const rollData = {

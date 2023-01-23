@@ -136,6 +136,12 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/adn770"><img src="https://avatars.githubusercontent.com/u/113786?v=4?s=100" width="100px;" alt="Josep Torra"/><br /><sub><b>Josep Torra</b></sub></a><br /><a href="#translation-adn770" title="Translation">🌍</a></td>
+      <td align="center"><a href="https://github.com/HerrSquash"><img src="https://avatars.githubusercontent.com/u/97633309?v=4?s=100" width="100px;" alt="herrsquash"/><br /><sub><b>herrsquash</b></sub></a><br /><a href="#translation-herrsquash" title="Translation">🌍</a></td>
+      <td align="center"><a href="http://linktr.ee/teuri"><img src="https://avatars.githubusercontent.com/u/64547748?v=4?s=100" width="100px;" alt="Igor Teuri"/><br /><sub><b>Igor Teuri</b></sub></a><br /><a href="#translation-igorteuri" title="Translation">🌍</a></td>
+      <td align="center"><a href="https://github.com/hogwrassler"><img src="https://avatars.githubusercontent.com/u/110945935?v=4?s=100" width="100px;" alt="hogwrassler"/><br /><sub><b>hogwrassler</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=hogwrassler" title="Code">💻</a></td>
+      <td align="center"><a href="http://timsnyder.codes"><img src="https://avatars.githubusercontent.com/u/1731267?v=4?s=100" width="100px;" alt="Tim"/><br /><sub><b>Tim</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=wyrmisis" title="Code">💻</a></td>
+      <td align="center"><a href="https://github.com/maschill92"><img src="https://avatars.githubusercontent.com/u/4692066?v=4?s=100" width="100px;" alt="Michael Schilling"/><br /><sub><b>Michael Schilling</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=maschill92" title="Code">💻</a></td>
+      <td align="center"><a href="http://adamoresten.com"><img src="https://avatars.githubusercontent.com/u/12858387?v=4?s=100" width="100px;" alt="Adam Oresten"/><br /><sub><b>Adam Oresten</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=Haxxer" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>

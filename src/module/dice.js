@@ -88,34 +88,34 @@ export class OseDice {
     };
 
     let die = roll.terms[0].total;
-    if (data.roll.type == "result") {
-      if (roll.total == result.target) {
+    if (data.roll.type === "result") {
+      if (roll.total === result.target) {
         result.isSuccess = true;
       } else {
         result.isFailure = true;
       }
-    } else if (data.roll.type == "above") {
+    } else if (data.roll.type === "above") {
       // SAVING THROWS
       if (roll.total >= result.target) {
         result.isSuccess = true;
       } else {
         result.isFailure = true;
       }
-    } else if (data.roll.type == "below") {
+    } else if (data.roll.type === "below") {
       // MORALE, EXPLORATION
       if (roll.total <= result.target) {
         result.isSuccess = true;
       } else {
         result.isFailure = true;
       }
-    } else if (data.roll.type == "check") {
+    } else if (data.roll.type === "check") {
       // SCORE CHECKS (1s and 20s)
-      if (die == 1 || (roll.total <= result.target && die < 20)) {
+      if (die === 1 || (roll.total <= result.target && die < 20)) {
         result.isSuccess = true;
       } else {
         result.isFailure = true;
       }
-    } else if (data.roll.type == "table") {
+    } else if (data.roll.type === "table") {
       // Reaction
       let table = data.roll.table;
       let output = Object.values(table)[0];
@@ -130,10 +130,10 @@ export class OseDice {
   }
 
   static attackIsSuccess(roll, thac0, ac) {
-    if (roll.total == 1 || roll.terms[0].results[0] == 1) {
+    if (roll.total === 1 || roll.terms[0].results[0] === 1) {
       return false;
     }
-    if (roll.total >= 20 || roll.terms[0].results[0] == 20) {
+    if (roll.total >= 20 || roll.terms[0].results[0] === 20) {
       return true, -3;
     }
     if (roll.total + ac >= thac0) {
@@ -159,7 +159,7 @@ export class OseDice {
     if (game.settings.get(game.system.id, "ascendingAC")) {
       if (
         (roll.terms[0] != 20 && roll.total < targetAac) ||
-        roll.terms[0] == 1
+        roll.terms[0] === 1
       ) {
         result.details = game.i18n.format(
           "OSE.messages.AttackAscendingFailure",

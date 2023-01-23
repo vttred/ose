@@ -194,7 +194,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
       let score = element.parentElement.parentElement.dataset.score;
       let stat = element.parentElement.parentElement.dataset.stat;
       if (!score) {
-        if (stat == "lr") {
+        if (stat === "lr") {
           actorObject.rollLoyalty(score, { event: ev });
         }
       } else {

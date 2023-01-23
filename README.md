@@ -11,11 +11,12 @@
 </p>
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-15-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2Fose&colorB=4aa94a)](https://forge-vtt.com/bazaar#package=ose)
 [![Foundry Hub Endorsements](https://img.shields.io/endpoint?logoColor=white&url=https%3A%2F%2Fwww.foundryvtt-hub.com%2Fwp-json%2Fhubapi%2Fv1%2Fpackage%2Fose%2Fshield%2Fendorsements)](https://www.foundryvtt-hub.com/package/ose/)
 [![Foundry Hub Comments](https://img.shields.io/endpoint?logoColor=white&url=https%3A%2F%2Fwww.foundryvtt-hub.com%2Fwp-json%2Fhubapi%2Fv1%2Fpackage%2Fose%2Fshield%2Fcomments)](https://www.foundryvtt-hub.com/package/ose/)
+[![Crowdin](https://badges.crowdin.net/ose/localized.svg)](https://crowdin.com/project/ose)
 
 ## Installation
 
@@ -58,7 +59,7 @@ It's always appreciated when users [submit an issue](https://github.com/vttred/o
 
 - The **#dnd-other** channel in the [official Foundry VTT Discord server](https://discord.gg/foundryvtt)
 - The **#ose-virtual-tabletop** channel in the [official Necrotic Gnome Discord server](https://discord.gg/YprM5nq)
-- There is a Discord server for Unofficial Old-School Essentials on Foundry VTT. Please ask for the invite link in one of the above places. We are sensitive to the possibility of spam and phishing attacks, so we do not post it on GitHub directly. This space is subject to the [VTT Red Code of Conduct](/CODE_OF_CONDUCT.md).
+- There is a Discord server for Unofficial Old-School Essentials on Foundry VTT. You can find it on this repo's [New Issue](https://github.com/vttred/ose/issues/new/choose) page.
 - There are [unofficial Foundry VTT user communities for many other languages](https://www.foundryvtt-hub.com/links/#internationaldiscords) if you'd prefer to discuss Foundry VTT in another language. Keep in mind that it's unlikely you'll find answers to your questions about a less popular game system like Old-School Essentials, but they are good for asking questions about Foundry VTT in general.
 - The [/r/FoundryVTT community on Reddit](https://reddit.com/r/FoundryVTT) may also have answers to your Foundry VTT questions, but it is another general Foundry VTT user community that may not have many users with specific knowledge about OSE. Be sure to write `[OSE]` in your post subject and select `FVTT Question` from the "Flair" menu.
 
@@ -71,12 +72,6 @@ Any feedback is deeply appreciated. Please browse the [open issues](https://gith
 If you're a developer, look for our [CONTRIBUTING.md](/CONTRIBUTING.md) file.
 
 If you speak a non-English language, [Join the ose project on Crowdin](https://crowdin.com/project/ose).
-
-### Language Support Chart
-
-[![Language support chart](https://badges.awesome-crowdin.com/translation-15191204-504892.png)](https://crowdin.com/project/ose)
-
-Above is a list of all languages we need help supporting. The ones with shorter bars need your help by submitting a few more words and phrases for full language support. The ones with green bar segments need your help by proofreading submitted words and phrases.
 
 ## Open Game Content Used Under License
 
@@ -122,15 +117,25 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tbody>
     <tr>
-      <td align="center"><a href="https://github.com/Godforsaken84"><img src="https://avatars.githubusercontent.com/u/100036544?v=4?s=100" width="100px;" alt="Godforsaken84"/><br /><sub><b>Godforsaken84</b></sub></a><br /><a href="#design-Godforsaken84" title="Design">🎨</a></td>
-      <td align="center"><a href="https://github.com/freohr"><img src="https://avatars.githubusercontent.com/u/3462951?v=4?s=100" width="100px;" alt="Stephen FAURE"/><br /><sub><b>Stephen FAURE</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=freohr" title="Code">💻</a></td>
-      <td align="center"><a href="https://github.com/engleback"><img src="https://avatars.githubusercontent.com/u/35422051?v=4?s=100" width="100px;" alt="Ian Engleback"/><br /><sub><b>Ian Engleback</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=engleback" title="Code">💻</a></td>
-      <td align="center"><a href="https://github.com/RabidOwlbear"><img src="https://avatars.githubusercontent.com/u/71675732?v=4?s=100" width="100px;" alt="Grim"/><br /><sub><b>Grim</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=RabidOwlbear" title="Code">💻</a></td>
-      <td align="center"><a href="https://github.com/WallaceMcGregor"><img src="https://avatars.githubusercontent.com/u/17795541?v=4?s=100" width="100px;" alt="WallaceMcGregor"/><br /><sub><b>WallaceMcGregor</b></sub></a><br /><a href="#translation-WallaceMcGregor" title="Translation">🌍</a></td>
-      <td align="center"><a href="https://github.com/IGALEGOI"><img src="https://avatars.githubusercontent.com/u/97805442?v=4?s=100" width="100px;" alt="IGALEGOI"/><br /><sub><b>IGALEGOI</b></sub></a><br /><a href="#translation-IGALEGOI" title="Translation">🌍</a></td>
-      <td align="center"><a href="https://github.com/sanviler"><img src="https://avatars.githubusercontent.com/u/96877404?v=4?s=100" width="100px;" alt="Lorenzo Castelletta"/><br /><sub><b>Lorenzo Castelletta</b></sub></a><br /><a href="#translation-sanviler" title="Translation">🌍</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Godforsaken84"><img src="https://avatars.githubusercontent.com/u/100036544?v=4?s=100" width="100px;" alt="Godforsaken84"/><br /><sub><b>Godforsaken84</b></sub></a><br /><a href="#design-Godforsaken84" title="Design">🎨</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/freohr"><img src="https://avatars.githubusercontent.com/u/3462951?v=4?s=100" width="100px;" alt="Stephen FAURE"/><br /><sub><b>Stephen FAURE</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=freohr" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/engleback"><img src="https://avatars.githubusercontent.com/u/35422051?v=4?s=100" width="100px;" alt="Ian Engleback"/><br /><sub><b>Ian Engleback</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=engleback" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/RabidOwlbear"><img src="https://avatars.githubusercontent.com/u/71675732?v=4?s=100" width="100px;" alt="Grim"/><br /><sub><b>Grim</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=RabidOwlbear" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/WallaceMcGregor"><img src="https://avatars.githubusercontent.com/u/17795541?v=4?s=100" width="100px;" alt="WallaceMcGregor"/><br /><sub><b>WallaceMcGregor</b></sub></a><br /><a href="#translation-WallaceMcGregor" title="Translation">🌍</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/IGALEGOI"><img src="https://avatars.githubusercontent.com/u/97805442?v=4?s=100" width="100px;" alt="IGALEGOI"/><br /><sub><b>IGALEGOI</b></sub></a><br /><a href="#translation-IGALEGOI" title="Translation">🌍</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/sanviler"><img src="https://avatars.githubusercontent.com/u/96877404?v=4?s=100" width="100px;" alt="Lorenzo Castelletta"/><br /><sub><b>Lorenzo Castelletta</b></sub></a><br /><a href="#translation-sanviler" title="Translation">🌍</a></td>
     </tr>
     <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/HerrSquash"><img src="https://avatars.githubusercontent.com/u/97633309?v=4?s=100" width="100px;" alt="herrsquash"/><br /><sub><b>herrsquash</b></sub></a><br /><a href="#translation-herrsquash" title="Translation">🌍</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://linktr.ee/teuri"><img src="https://avatars.githubusercontent.com/u/64547748?v=4?s=100" width="100px;" alt="Igor Teuri"/><br /><sub><b>Igor Teuri</b></sub></a><br /><a href="#translation-igorteuri" title="Translation">🌍</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/hogwrassler"><img src="https://avatars.githubusercontent.com/u/110945935?v=4?s=100" width="100px;" alt="hogwrassler"/><br /><sub><b>hogwrassler</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=hogwrassler" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://timsnyder.codes"><img src="https://avatars.githubusercontent.com/u/1731267?v=4?s=100" width="100px;" alt="Tim"/><br /><sub><b>Tim</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=wyrmisis" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/maschill92"><img src="https://avatars.githubusercontent.com/u/4692066?v=4?s=100" width="100px;" alt="Michael Schilling"/><br /><sub><b>Michael Schilling</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=maschill92" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://adamoresten.com"><img src="https://avatars.githubusercontent.com/u/12858387?v=4?s=100" width="100px;" alt="Adam Oresten"/><br /><sub><b>Adam Oresten</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=Haxxer" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/bakbakbakbakbak"><img src="https://avatars.githubusercontent.com/u/105067023?v=4?s=100" width="100px;" alt="bakbakbakbakbak"/><br /><sub><b>bakbakbakbakbak</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=bakbakbakbakbak" title="Code">💻</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/adn770"><img src="https://avatars.githubusercontent.com/u/113786?v=4?s=100" width="100px;" alt="Josep Torra"/><br /><sub><b>Josep Torra</b></sub></a><br /><a href="#translation-adn770" title="Translation">🌍</a></td>
       <td align="center"><a href="https://github.com/HerrSquash"><img src="https://avatars.githubusercontent.com/u/97633309?v=4?s=100" width="100px;" alt="herrsquash"/><br /><sub><b>herrsquash</b></sub></a><br /><a href="#translation-herrsquash" title="Translation">🌍</a></td>
       <td align="center"><a href="http://linktr.ee/teuri"><img src="https://avatars.githubusercontent.com/u/64547748?v=4?s=100" width="100px;" alt="Igor Teuri"/><br /><sub><b>Igor Teuri</b></sub></a><br /><a href="#translation-igorteuri" title="Translation">🌍</a></td>
       <td align="center"><a href="https://github.com/hogwrassler"><img src="https://avatars.githubusercontent.com/u/110945935?v=4?s=100" width="100px;" alt="hogwrassler"/><br /><sub><b>hogwrassler</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=hogwrassler" title="Code">💻</a></td>

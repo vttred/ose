@@ -27,6 +27,8 @@
   "OSE.dialog.generateScore": "Rolling {score} ({count})",
   "OSE.dialog.shoppingCart": "Shopping Cart",
   "OSE.dialog.purchaseFor": "Purchase for {totalCost}GP",
+  "OSE.dialog.deleteContainer": "Delete container?",
+  "OSE.dialog.confirmDeleteContainer": "Are you sure you want to delete the container?",
 
   "OSE.Formula": "Formula",
   "OSE.SitMod": "Situational Modifier",
@@ -200,6 +202,8 @@
   "OSE.Setting.applyDamageOptionHint": "Which token(s) to apply damage to on an attack roll",
   "OSE.Setting.damageSelected": "Selected",
   "OSE.Setting.damageTarget": "Target",
+  "OSE.Setting.InvertedCtrlBehavior": "Invert Roll Ctrl/Meta-key",
+  "OSE.Setting.InvertedCtrlBehaviorHint": "Reverses behavior for holding Ctrl/Meta when clicking on a roll.",
 
   "OSE.items.Equip": "Equip",
   "OSE.items.Unequip": "Unequip",
@@ -305,7 +309,9 @@
   "OSE.CombatFlag.SpellDeclared": "Spell Declared",
   "OSE.CombatFlag.RetreatFromMeleeDeclared": "Retreat From Melee Declared",
 
-  "OSE.warn.moreThanOneItemWithName": "Your controlled Actor {actorName} has more than one Item with name ${itemName}. The first matched Item will be chosen.",
+  "OSE.warn.moreThanOneItemWithName": "Your controlled Actor {actorName} has more than one Item with name {itemName}. The first matched Item will be chosen.",
+  "OSE.warn.macrosOnlyForOwnedItems": "Only Items owned by Actor may be used to create macros.",
+  "OSE.warn.macrosNoTokenOwnedInScene": "No controlled token in scene",
 
   "OSE.error.macrosOnlyForOwnedItems": "You can only create macro buttons for owned Items",
   "OSE.error.noItemWithName": "Your controlled Actor {actorName} does not have an item named {itemName}.",

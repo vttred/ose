@@ -1,3 +1,4 @@
+import { skipRollDialogCheck } from "../behaviourHelpers";
 import { OseDice } from "../dice";
 import { OseItem } from "../item/entity";
 
@@ -134,8 +135,6 @@ export class OseActor extends Actor {
       details: game.i18n.format("OSE.roll.details.save", { save: label }),
     };
 
-    let skip = options?.event?.ctrlKey || options.fastForward;
-
     const rollMethod =
       actorType === "character" ? OseDice.RollSave : OseDice.Roll;
 
@@ -144,7 +143,7 @@ export class OseActor extends Actor {
       event: options.event,
       parts: rollParts,
       data: data,
-      skipDialog: skip,
+      skipDialog: (options.fastForward || skipRollDialogCheck(options.event)),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: game.i18n.format("OSE.roll.save", { save: label }),
       title: game.i18n.format("OSE.roll.save", { save: label }),
@@ -230,15 +229,12 @@ export class OseActor extends Actor {
       },
     };
 
-    let skip =
-      options.event && (options.event.ctrlKey || options.event.metaKey);
-
     // Roll and return
     return OseDice.Roll({
       event: options.event,
       parts: rollParts,
       data: data,
-      skipDialog: skip,
+      skipDialog: (options.fastForward || skipRollDialogCheck(options.event)),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: game.i18n.localize("OSE.reaction.check"),
       title: game.i18n.localize("OSE.reaction.check"),
@@ -267,14 +263,12 @@ export class OseActor extends Actor {
       }),
     };
 
-    let skip = options?.event?.ctrlKey || options.fastForward;
-
     // Roll and return
     return OseDice.Roll({
       event: options.event,
       parts: rollParts,
       data: data,
-      skipDialog: skip,
+      skipDialog: (options.fastForward || skipRollDialogCheck(options.event)),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: game.i18n.format("OSE.roll.attribute", { attribute: label }),
       title: game.i18n.format("OSE.roll.attribute", { attribute: label }),
@@ -368,16 +362,12 @@ export class OseActor extends Actor {
       }),
     };
 
-    let skip =
-      options.fastForward ||
-      (options.event && (options.event.ctrlKey || options.event.metaKey));
-
     // Roll and return
     return OseDice.Roll({
       event: options.event,
       parts: rollParts,
       data: data,
-      skipDialog: skip,
+      skipDialog: (options.fastForward || skipRollDialogCheck(options.event)),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: game.i18n.format("OSE.roll.exploration", { exploration: label }),
       title: game.i18n.format("OSE.roll.exploration", { exploration: label }),

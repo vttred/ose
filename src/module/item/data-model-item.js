@@ -3,9 +3,7 @@ export default class OseDataModelItem extends foundry.abstract.DataModel {
 		const { SchemaField, StringField, NumberField, BooleanField, ArrayField, ObjectField } = foundry.data.fields;
 		return {
 			treasure: new BooleanField(),
-			details: new ObjectField({
-				description: new StringField(),
-			}),
+			description: new StringField(),
 			tags: new ArrayField(new ObjectField()),
 			cost: new NumberField({ min: 0, initial: 0 }),
 			containerId: new StringField(),
@@ -17,6 +15,11 @@ export default class OseDataModelItem extends foundry.abstract.DataModel {
 		};
 	}
 
+	static migrateData(source) {
+		if (source.details?.description && !source.description)
+			source.description = source.details.description;
+		return source;
+	}
 	get manualTags() {
 		if (!this.tags) return null;
 

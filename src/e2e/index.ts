@@ -1,7 +1,7 @@
 import macroTests, {
   key as macroKey,
   options as macroOptions
-} from '../module/__tests__/macro.test';
+} from '../module/__tests__/macros.test';
 
 import characterItemMacroTests, {
   key as characterItemMacroKey,

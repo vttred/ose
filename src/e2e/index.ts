@@ -1,12 +1,12 @@
 import actorCrudInventoryContainerTests, {
   key as actorCrudInventoryContainerKey,
   options as actorCrudInventoryContainerOptions
-} from './actor/characterCrudInventory.container.test';
+} from '../module/actor/__tests__/character-crud-inventory-container.test';
 
 import characterItemMacroTests, {
   key as characterItemMacroKey,
   options as characterItemMacroOptions
-} from './actor/createItemMacro.test';
+} from '../module/actor/__tests__/character-macros.test';
 
 import characterTests, {
   key as characterKey,

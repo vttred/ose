@@ -1,5 +1,5 @@
-import { createOseMacro } from '../../module/macros';
-import { trashChat, waitForInput } from '../testUtils';
+import { createOseMacro } from '../../macros';
+import { trashChat, waitForInput } from '../../../e2e/testUtils';
 
 
 export const key = 'ose.actor.macro';

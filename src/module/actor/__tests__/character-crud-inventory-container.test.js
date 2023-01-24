@@ -1,4 +1,4 @@
-import { trashChat, waitForInput } from "../testUtils";
+import { trashChat, waitForInput } from "../../../e2e/testUtils";
 
 /** 
  * @file Contains tests for containers in actor sheets

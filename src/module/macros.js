@@ -14,6 +14,9 @@
  * @returns {Promise}
  */
 export async function createOseMacro(data, slot) {
+  if (data.type === "Macro") {
+    return game.user.assignHotbarMacro(await fromUuid(data.uuid), slot);
+  }
   if (data.type !== "Item") return;
   if ( data.uuid.indexOf("Item.") <= 0 )
     return ui.notifications.warn(
@@ -26,7 +29,7 @@ export async function createOseMacro(data, slot) {
   let macro = game.macros.contents.find(
     (m) => m.name === item.name && m.command === command
   );
-  if (!macro || macro.ownership[game.userId] === undefined) {
+  if (!macro || macro.ownership[game.userId] === undefined ) {
     macro = await Macro.create({
       name: item.name,
       type: "script",

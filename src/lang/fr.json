@@ -25,6 +25,8 @@
   "OSE.dialog.generateSaves": "Générer les Sauvegardes",
   "OSE.dialog.generateScores": "Générer les Scores",
   "OSE.dialog.generateScore": "Création: {score} ({count})",
+  "OSE.dialog.deleteContainer": "Supprimer le conteneur?",
+  "OSE.dialog.confirmDeleteContainer": "Voulez-vous vraiment supprimer le conteneur?",
 
   "OSE.Formula": "Formule",
   "OSE.SitMod": "Mod. de situation",
@@ -191,6 +193,8 @@
   "OSE.Setting.Languages": "Langues",
   "OSE.Setting.LanguagesHint": "Entrez une liste des Langues de l'univers séparée par des virgules",
   "OSE.Setting.EnableInventory": "Afficher l'inventaire",
+  "OSE.Setting.InvertedCtrlBehavior": "Inverser le rouleau Ctrl/Méta-clé",
+  "OSE.Setting.InvertedCtrlBehaviorHint": "Inverse le comportement consistant à maintenir Ctrl/Meta enfoncé lorsque vous cliquez sur un rouleau.",
 
   "OSE.items.Equip": "Equiper",
   "OSE.items.Unequip": "Déséquiper",

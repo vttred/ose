@@ -1,3 +1,8 @@
+import characterItemMacroTests, {
+  key as characterItemMacroKey,
+  options as characterItemMacroOptions
+} from './actor/createItemMacro.test';
+
 import characterTests, {
   key as characterKey,
   options as characterOptions
@@ -46,7 +51,8 @@ type Quench = {
 }
 
 Hooks.on('quenchReady', async (quench: Quench) => {
-  quench.registerBatch(characterKey, characterTests, characterOptions)
+  quench.registerBatch(characterItemMacroKey, characterItemMacroTests, characterItemMacroOptions);
+  quench.registerBatch(characterKey, characterTests, characterOptions);
   // Character data model classes
   quench.registerBatch(dataModelCharacterACKey, dataModelCharacterACTests, dataModelCharacterACOptions);
   quench.registerBatch(dataModelCharacterScoresKey, dataModelCharacterScoresTests, dataModelCharacterScoresOptions);

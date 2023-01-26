@@ -1,3 +1,8 @@
+import macroTests, {
+  key as macroKey,
+  options as macroOptions
+} from '../module/__tests__/macros.test';
+
 import characterItemMacroTests, {
   key as characterItemMacroKey,
   options as characterItemMacroOptions
@@ -51,6 +56,7 @@ type Quench = {
 }
 
 Hooks.on('quenchReady', async (quench: Quench) => {
+  quench.registerBatch(macroKey, macroTests, macroOptions);
   quench.registerBatch(characterItemMacroKey, characterItemMacroTests, characterItemMacroOptions);
   quench.registerBatch(characterKey, characterTests, characterOptions);
   // Character data model classes

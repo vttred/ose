@@ -7,8 +7,8 @@ export interface CharacterEncumbrance {
   value: number;
   max: number;
   atHalfEncumbered: boolean | null;
+  atThreeEighthsEncumbered: boolean | null;
   atQuarterEncumbered: boolean | null;
-  atEighthEncumbered: boolean | null;
 };
 
 /**
@@ -17,8 +17,8 @@ export interface CharacterEncumbrance {
  export default class OseDataModelCharacterEncumbrance implements CharacterEncumbrance {
   static baseEncumbranceCap = 1600;
   static encumbranceSteps = {
-    eighth: 12.5,
     quarter: 25,
+    threeEighths: 37.5,
     half: 50
   };
 
@@ -49,7 +49,7 @@ export interface CharacterEncumbrance {
     return Math.clamped((100 * this.value) / this.max, 0, 100)
   };
   get encumbered() {
-    return this.value >= this.max;
+    return this.value > this.max;
   }
   get steps(): number[] {
     return [];
@@ -64,13 +64,13 @@ export interface CharacterEncumbrance {
   get #delta() { return this.max - OseDataModelCharacterEncumbrance.baseEncumbranceCap; };
 
   get atHalfEncumbered() {
-    return this.value >= this.max * (OseDataModelCharacterEncumbrance.encumbranceSteps.half / 100) + (this.#delta || 0)
+    return this.value > this.max * (OseDataModelCharacterEncumbrance.encumbranceSteps.half / 100) + (this.#delta || 0)
+  }
+  get atThreeEighthsEncumbered() {
+    return this.value > this.max * (OseDataModelCharacterEncumbrance.encumbranceSteps.threeEighths / 100) + (this.#delta || 0)
   }
   get atQuarterEncumbered() {
-    return this.value >= this.max * (OseDataModelCharacterEncumbrance.encumbranceSteps.quarter / 100) + (this.#delta || 0)
-  }
-  get atEighthEncumbered() {
-    return this.value >= this.max * (OseDataModelCharacterEncumbrance.encumbranceSteps.eighth / 100) + (this.#delta || 0)
+    return this.value > this.max * (OseDataModelCharacterEncumbrance.encumbranceSteps.quarter / 100) + (this.#delta || 0)
   }
   
 }

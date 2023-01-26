@@ -117,10 +117,10 @@ export default ({
         expect(enc.value).to.equal(0);
       })
       describe('As fully encumbered flag', () => {
-        it('Encumbered at full load', () => {
+        it('Encumbered over full load (1600.1)', () => {
           const enc = new EncumbranceBasic(
             1600,
-            [createMockItem('item', 1600, 1, { treasure: true })]
+            [createMockItem('item', 1600.1, 1, { treasure: true })]
           );
           expect(enc.encumbered).to.be.true;
         })
@@ -129,10 +129,10 @@ export default ({
             const enc = new EncumbranceBasic(
               1600,
               [
-                createMockItem('weapon', 1600, 1),
-                createMockItem('armor', 1600, 1),
-                createMockItem('container', 1600, 1),
-                createMockItem('item', 1600, 1)
+                createMockItem('weapon', 1600.1, 1),
+                createMockItem('armor', 1600.1, 1),
+                createMockItem('container', 1600.1, 1),
+                createMockItem('item', 1600.1, 1)
               ]
             );
             expect(enc.encumbered).to.be.false;
@@ -269,10 +269,10 @@ export default ({
 
       })
       describe('As fully encumbered flag', () => {
-        it('Encumbered at full load', () => {
+        it('Encumbered over full load (1600.1)', () => {
           const enc = new EncumbranceDetailed(
             1600,
-            [createMockItem('item', 1600, 1, { treasure: true })]
+            [createMockItem('item', 1600.1, 1, { treasure: true })]
           );
           expect(enc.encumbered).to.be.true;
         })
@@ -281,7 +281,7 @@ export default ({
             const enc = new EncumbranceDetailed(
               1600,
               [
-                createMockItem('item', 1600, 1)
+                createMockItem('item', 1600.1, 1)
               ]
             );
             expect(enc.encumbered).to.be.false;
@@ -395,15 +395,15 @@ export default ({
 
       })
       describe('As fully encumbered flag', () => {
-        it('Encumbered at full load', () => {
+        it('Encumbered over full load (1600.1)', () => {
           let enc = new EncumbranceComplete(
             1600,
-            [createMockItem('item', 1600, 1, { treasure: true })]
+            [createMockItem('item', 1600.1, 1, { treasure: true })]
           );
           expect(enc.encumbered).to.be.true;
           enc = new EncumbranceComplete(
             1600,
-            [createMockItem('item', 1600, 1, { treasure: false })]
+            [createMockItem('item', 1600.1, 1, { treasure: false })]
           );
           expect(enc.encumbered).to.be.true;
         })

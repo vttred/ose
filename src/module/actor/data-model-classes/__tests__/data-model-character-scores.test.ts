@@ -34,7 +34,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
     const scoresToUse = numberToScores(score);
     const scoresObj = new OseDataModelCharacterScores(scoresToUse);
     return it(`${score}`, () => {
-      expect(scoresObj[scoreKey][mod]).to.equal(fromTable(table, score)); // eslint-disable-line @typescript-eslint/no-unused-expressions
+      expect(scoresObj[scoreKey][mod]).to.equal(fromTable(table, score));
     });
   };
   const buildTestCasesWithModifiers = (

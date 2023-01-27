@@ -48,11 +48,11 @@ export default ({ describe, it, expect }: QuenchMethods) => {
     describe("Returns the default base AC", () => {
       it("When ascending", () => {
         const ac = new OseDataModelCharacterAC(true);
-        expect(ac.value).to.equal(OseDataModelCharacterAC.baseAscending); // eslint-disable-line @typescript-eslint/no-unused-expressions
+        expect(ac.value).to.equal(OseDataModelCharacterAC.baseAscending);
       });
       it("When descending", () => {
         const ac = new OseDataModelCharacterAC();
-        expect(ac.value).to.equal(OseDataModelCharacterAC.baseDescending); // eslint-disable-line @typescript-eslint/no-unused-expressions
+        expect(ac.value).to.equal(OseDataModelCharacterAC.baseDescending);
       });
     });
   });
@@ -63,14 +63,14 @@ export default ({ describe, it, expect }: QuenchMethods) => {
         it("When ascending", () => {
           const ac = new OseDataModelCharacterAC(true, itemsArmor);
           // @todo this should be the expectation, needs to happen after data migration
-          // expect(ac,value).to.equal(OseDataModelCharacterAC.baseAscending + armorAC) // eslint-disable-line @typescript-eslint/no-unused-expressions
-          expect(ac.value).to.equal(armorAC); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          // expect(ac,value).to.equal(OseDataModelCharacterAC.baseAscending + armorAC)
+          expect(ac.value).to.equal(armorAC);
         });
         it("When descending", () => {
           const ac = new OseDataModelCharacterAC(false, itemsArmor);
           // @todo this should be the expectation, needs to happen after data migration
-          // expect(ac,value).to.equal(OseDataModelCharacterAC.baseDescending - armorAC) // eslint-disable-line @typescript-eslint/no-unused-expressions
-          expect(ac.value).to.equal(armorAC); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          // expect(ac,value).to.equal(OseDataModelCharacterAC.baseDescending - armorAC)
+          expect(ac.value).to.equal(armorAC);
         });
       });
 
@@ -78,14 +78,12 @@ export default ({ describe, it, expect }: QuenchMethods) => {
         it("When ascending", () => {
           const ac = new OseDataModelCharacterAC(true, itemsShield);
           expect(ac.value).to.equal(
-            // eslint-disable-line @typescript-eslint/no-unused-expressions
             OseDataModelCharacterAC.baseAscending + shieldAC
           );
         });
         it("When descending", () => {
           const ac = new OseDataModelCharacterAC(false, itemsShield);
           expect(ac.value).to.equal(
-            // eslint-disable-line @typescript-eslint/no-unused-expressions
             OseDataModelCharacterAC.baseDescending - shieldAC
           );
         });
@@ -95,14 +93,14 @@ export default ({ describe, it, expect }: QuenchMethods) => {
         it("When ascending", () => {
           const ac = new OseDataModelCharacterAC(true, itemsBoth);
           // @todo this should be the expectation, needs to happen after data migration
-          // expect(ac,value).to.equal(OseDataModelCharacterAC.baseAscending + armorAC + shieldAC) // eslint-disable-line @typescript-eslint/no-unused-expressions
-          expect(ac.value).to.equal(armorAC + shieldAC); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          // expect(ac,value).to.equal(OseDataModelCharacterAC.baseAscending + armorAC + shieldAC)
+          expect(ac.value).to.equal(armorAC + shieldAC);
         });
         it("When descending", () => {
           const ac = new OseDataModelCharacterAC(false, itemsBoth);
           // @todo this should be the expectation, needs to happen after data migration
-          // expect(ac,value).to.equal(OseDataModelCharacterAC.baseDescending - armorAC - shieldAC) // eslint-disable-line @typescript-eslint/no-unused-expressions
-          expect(ac.value).to.equal(armorAC - shieldAC); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          // expect(ac,value).to.equal(OseDataModelCharacterAC.baseDescending - armorAC - shieldAC)
+          expect(ac.value).to.equal(armorAC - shieldAC);
         });
       });
     });
@@ -114,7 +112,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
         const base = OseDataModelCharacterAC.baseAscending;
         it("Unarmored, no shield", () => {
           const ac = new OseDataModelCharacterAC(true, [], positiveDexMod);
-          expect(ac.value).to.equal(base + positiveDexMod); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          expect(ac.value).to.equal(base + positiveDexMod);
         });
         it("Armored, no shield", () => {
           const ac = new OseDataModelCharacterAC(
@@ -122,7 +120,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
             itemsArmor,
             positiveDexMod
           );
-          expect(ac.value).to.equal(armorAC + positiveDexMod); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          expect(ac.value).to.equal(armorAC + positiveDexMod);
         });
         it("Unarmored, shield", () => {
           const ac = new OseDataModelCharacterAC(
@@ -130,7 +128,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
             itemsShield,
             positiveDexMod
           );
-          expect(ac.value).to.equal(base + shieldAC + positiveDexMod); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          expect(ac.value).to.equal(base + shieldAC + positiveDexMod);
         });
         it("Armored, shield", () => {
           const ac = new OseDataModelCharacterAC(
@@ -138,14 +136,14 @@ export default ({ describe, it, expect }: QuenchMethods) => {
             itemsBoth,
             positiveDexMod
           );
-          expect(ac.value).to.equal(armorAC + shieldAC + positiveDexMod); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          expect(ac.value).to.equal(armorAC + shieldAC + positiveDexMod);
         });
       });
       describe("When descending", () => {
         const base = OseDataModelCharacterAC.baseDescending;
         it("Unarmored, no shield", () => {
           const ac = new OseDataModelCharacterAC(false, [], positiveDexMod);
-          expect(ac.value).to.equal(base - positiveDexMod); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          expect(ac.value).to.equal(base - positiveDexMod);
         });
         it("Armored, no shield", () => {
           const ac = new OseDataModelCharacterAC(
@@ -153,7 +151,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
             itemsArmor,
             positiveDexMod
           );
-          expect(ac.value).to.equal(armorAC - positiveDexMod); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          expect(ac.value).to.equal(armorAC - positiveDexMod);
         });
         it("Unarmored, shield", () => {
           const ac = new OseDataModelCharacterAC(
@@ -161,7 +159,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
             itemsShield,
             positiveDexMod
           );
-          expect(ac.value).to.equal(base - shieldAC - positiveDexMod); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          expect(ac.value).to.equal(base - shieldAC - positiveDexMod);
         });
         it("Armored, shield", () => {
           const ac = new OseDataModelCharacterAC(
@@ -169,7 +167,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
             itemsBoth,
             positiveDexMod
           );
-          expect(ac.value).to.equal(armorAC - shieldAC - positiveDexMod); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          expect(ac.value).to.equal(armorAC - shieldAC - positiveDexMod);
         });
       });
     });
@@ -178,7 +176,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
         const base = OseDataModelCharacterAC.baseAscending;
         it("Unarmored, no shield", () => {
           const ac = new OseDataModelCharacterAC(true, [], negativeDexMod);
-          expect(ac.value).to.equal(base + negativeDexMod); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          expect(ac.value).to.equal(base + negativeDexMod);
         });
         it("Armored, no shield", () => {
           const ac = new OseDataModelCharacterAC(
@@ -186,7 +184,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
             itemsArmor,
             negativeDexMod
           );
-          expect(ac.value).to.equal(armorAC + negativeDexMod); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          expect(ac.value).to.equal(armorAC + negativeDexMod);
         });
         it("Unarmored, shield", () => {
           const ac = new OseDataModelCharacterAC(
@@ -194,7 +192,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
             itemsShield,
             negativeDexMod
           );
-          expect(ac.value).to.equal(base + shieldAC + negativeDexMod); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          expect(ac.value).to.equal(base + shieldAC + negativeDexMod);
         });
         it("Armored, shield", () => {
           const ac = new OseDataModelCharacterAC(
@@ -202,14 +200,14 @@ export default ({ describe, it, expect }: QuenchMethods) => {
             itemsBoth,
             negativeDexMod
           );
-          expect(ac.value).to.equal(armorAC + shieldAC + negativeDexMod); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          expect(ac.value).to.equal(armorAC + shieldAC + negativeDexMod);
         });
       });
       describe("When descending", () => {
         const base = OseDataModelCharacterAC.baseDescending;
         it("Unarmored, no shield", () => {
           const ac = new OseDataModelCharacterAC(false, [], negativeDexMod);
-          expect(ac.value).to.equal(base - negativeDexMod); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          expect(ac.value).to.equal(base - negativeDexMod);
         });
         it("Armored, no shield", () => {
           const ac = new OseDataModelCharacterAC(
@@ -217,7 +215,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
             itemsArmor,
             negativeDexMod
           );
-          expect(ac.value).to.equal(armorAC - negativeDexMod); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          expect(ac.value).to.equal(armorAC - negativeDexMod);
         });
         it("Unarmored, shield", () => {
           const ac = new OseDataModelCharacterAC(
@@ -225,7 +223,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
             itemsShield,
             negativeDexMod
           );
-          expect(ac.value).to.equal(base - shieldAC - negativeDexMod); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          expect(ac.value).to.equal(base - shieldAC - negativeDexMod);
         });
         it("Armored, shield", () => {
           const ac = new OseDataModelCharacterAC(
@@ -233,7 +231,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
             itemsBoth,
             negativeDexMod
           );
-          expect(ac.value).to.equal(armorAC - shieldAC - negativeDexMod); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          expect(ac.value).to.equal(armorAC - shieldAC - negativeDexMod);
         });
       });
     });
@@ -250,7 +248,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
             0,
             positiveArbitraryMod
           );
-          expect(ac.value).to.equal(base + positiveArbitraryMod); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          expect(ac.value).to.equal(base + positiveArbitraryMod);
         });
         it("Armored, no shield", () => {
           const ac = new OseDataModelCharacterAC(
@@ -259,7 +257,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
             0,
             positiveArbitraryMod
           );
-          expect(ac.value).to.equal(armorAC + positiveArbitraryMod); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          expect(ac.value).to.equal(armorAC + positiveArbitraryMod);
         });
         it("Unarmored, shield", () => {
           const ac = new OseDataModelCharacterAC(
@@ -268,7 +266,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
             0,
             positiveArbitraryMod
           );
-          expect(ac.value).to.equal(base + shieldAC + positiveArbitraryMod); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          expect(ac.value).to.equal(base + shieldAC + positiveArbitraryMod);
         });
         it("Armored, shield", () => {
           const ac = new OseDataModelCharacterAC(
@@ -277,7 +275,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
             0,
             positiveArbitraryMod
           );
-          expect(ac.value).to.equal(armorAC + shieldAC + positiveArbitraryMod); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          expect(ac.value).to.equal(armorAC + shieldAC + positiveArbitraryMod);
         });
       });
       describe("When descending", () => {
@@ -289,7 +287,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
             0,
             positiveArbitraryMod
           );
-          expect(ac.value).to.equal(base - positiveArbitraryMod); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          expect(ac.value).to.equal(base - positiveArbitraryMod);
         });
         it("Armored, no shield", () => {
           const ac = new OseDataModelCharacterAC(
@@ -298,7 +296,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
             0,
             positiveArbitraryMod
           );
-          expect(ac.value).to.equal(armorAC - positiveArbitraryMod); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          expect(ac.value).to.equal(armorAC - positiveArbitraryMod);
         });
         it("Unarmored, shield", () => {
           const ac = new OseDataModelCharacterAC(
@@ -307,7 +305,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
             0,
             positiveArbitraryMod
           );
-          expect(ac.value).to.equal(base - shieldAC - positiveArbitraryMod); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          expect(ac.value).to.equal(base - shieldAC - positiveArbitraryMod);
         });
         it("Armored, shield", () => {
           const ac = new OseDataModelCharacterAC(
@@ -316,7 +314,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
             0,
             positiveArbitraryMod
           );
-          expect(ac.value).to.equal(armorAC - shieldAC - positiveArbitraryMod); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          expect(ac.value).to.equal(armorAC - shieldAC - positiveArbitraryMod);
         });
       });
     });
@@ -330,7 +328,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
             0,
             negativeArbitraryMod
           );
-          expect(ac.value).to.equal(base + negativeArbitraryMod); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          expect(ac.value).to.equal(base + negativeArbitraryMod);
         });
         it("Armored, no shield", () => {
           const ac = new OseDataModelCharacterAC(
@@ -339,7 +337,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
             0,
             negativeArbitraryMod
           );
-          expect(ac.value).to.equal(armorAC + negativeArbitraryMod); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          expect(ac.value).to.equal(armorAC + negativeArbitraryMod);
         });
         it("Unarmored, shield", () => {
           const ac = new OseDataModelCharacterAC(
@@ -348,7 +346,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
             0,
             negativeArbitraryMod
           );
-          expect(ac.value).to.equal(base + shieldAC + negativeArbitraryMod); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          expect(ac.value).to.equal(base + shieldAC + negativeArbitraryMod);
         });
         it("Armored, shield", () => {
           const ac = new OseDataModelCharacterAC(
@@ -357,7 +355,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
             0,
             negativeArbitraryMod
           );
-          expect(ac.value).to.equal(armorAC + shieldAC + negativeArbitraryMod); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          expect(ac.value).to.equal(armorAC + shieldAC + negativeArbitraryMod);
         });
       });
       describe("When descending", () => {
@@ -369,7 +367,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
             0,
             negativeArbitraryMod
           );
-          expect(ac.value).to.equal(base - negativeArbitraryMod); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          expect(ac.value).to.equal(base - negativeArbitraryMod);
         });
         it("Armored, no shield", () => {
           const ac = new OseDataModelCharacterAC(
@@ -378,7 +376,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
             0,
             negativeArbitraryMod
           );
-          expect(ac.value).to.equal(armorAC - negativeArbitraryMod); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          expect(ac.value).to.equal(armorAC - negativeArbitraryMod);
         });
         it("Unarmored, shield", () => {
           const ac = new OseDataModelCharacterAC(
@@ -387,7 +385,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
             0,
             negativeArbitraryMod
           );
-          expect(ac.value).to.equal(base - shieldAC - negativeArbitraryMod); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          expect(ac.value).to.equal(base - shieldAC - negativeArbitraryMod);
         });
         it("Armored, shield", () => {
           const ac = new OseDataModelCharacterAC(
@@ -396,7 +394,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
             0,
             negativeArbitraryMod
           );
-          expect(ac.value).to.equal(armorAC - shieldAC - negativeArbitraryMod); // eslint-disable-line @typescript-eslint/no-unused-expressions
+          expect(ac.value).to.equal(armorAC - shieldAC - negativeArbitraryMod);
         });
       });
     });

@@ -28,7 +28,7 @@ export default ({ describe, it, expect }) => {
           cha: { value: 0 },
         },
       });
-      expect(testActor.system.isNew).to.be.true; // eslint-disable-line @typescript-eslint/no-unused-expressions
+      expect(testActor.system.isNew).to.be.true;
     });
     it("Not new when any ability score is above 0", () => {
       const testActor = createMockCharacter({
@@ -41,7 +41,7 @@ export default ({ describe, it, expect }) => {
           cha: { value: 0 },
         },
       });
-      expect(testActor.system.isNew).to.be.false; // eslint-disable-line @typescript-eslint/no-unused-expressions
+      expect(testActor.system.isNew).to.be.false;
     });
   });
 };

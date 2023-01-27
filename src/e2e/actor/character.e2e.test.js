@@ -51,7 +51,7 @@ export default ({
   const rollNoMods = async (key, rollFn) => {
     await testActor()[rollFn](key, { fastForward: true });
     await waitForInput();
-    expect(game.messages.size).to.equal(1); // eslint-disable-line @typescript-eslint/no-unused-expressions
+    expect(game.messages.size).to.equal(1);
   };
 
   const rollNoModsSkipDialog = async (key, rollFn) => {
@@ -82,7 +82,7 @@ export default ({
 
     await waitForInput();
 
-    expect(game.messages.size).to.equal(1); // eslint-disable-line @typescript-eslint/no-unused-expressions
+    expect(game.messages.size).to.equal(1);
   };
 
   const rollInvertCtrlNoDialog = async (key, rollFn) => {
@@ -186,7 +186,7 @@ export default ({
 
     it("renders", async () => {
       await testActor().sheet._render(true);
-      expect(document.querySelector(".sheet.character")).not.to.be.null; // eslint-disable-line @typescript-eslint/no-unused-expressions
+      expect(document.querySelector(".sheet.character")).not.to.be.null;
       await testActor().sheet.close();
     });
   });
@@ -387,8 +387,8 @@ export default ({
   //     const tabButton = document.querySelector('.item[data-tab="spells"]');
   //     const tabContainer = document.querySelector('.tab[data-tab="spells"]');
 
-  //     expect(tabContainer).to.be.null; // eslint-disable-line @typescript-eslint/no-unused-expressions
-  //     expect(tabButton).to.be.null; // eslint-disable-line @typescript-eslint/no-unused-expressions
+  //     expect(tabContainer).to.be.null;
+  //     expect(tabButton).to.be.null;
 
   //     await testActor().sheet.close();
   //   })
@@ -407,12 +407,12 @@ export default ({
   //     const tabButton = document.querySelector('.item[data-tab="spells"]');
   //     const tabContainer = document.querySelector('.tab[data-tab="spells"]');
 
-  //     expect(tabContainer).not.to.be.null; // eslint-disable-line @typescript-eslint/no-unused-expressions
-  //     expect(tabButton).not.to.be.null; // eslint-disable-line @typescript-eslint/no-unused-expressions
+  //     expect(tabContainer).not.to.be.null;
+  //     expect(tabButton).not.to.be.null;
 
   //     tabButton.click();
 
-  //     expect(tabContainer.classList.contains('active')).to.be.true; // eslint-disable-line @typescript-eslint/no-unused-expressions
+  //     expect(tabContainer.classList.contains('active')).to.be.true;
 
   //     await testActor().sheet.close();
   //   })

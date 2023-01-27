@@ -220,9 +220,10 @@ const OseCombat = {
           ct.initiative &&
           ct.initiative != "-789.00" &&
           ct.id != data.id &&
-          group === cmbtGroup && // Set init
+          group === cmbtGroup &&
           game.user.isGM
         ) {
+          // Set init
           combatant.update({ initiative: parseInt(groupInit) });
         }
       });

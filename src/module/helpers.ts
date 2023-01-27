@@ -71,11 +71,6 @@ const registerHelpers = async () => {
     "asset",
     (relativePath) => `${OSE.assetsPath}${relativePath}`
   );
-
-  // helper for parsing inline rolls
-  Handlebars.registerHelper("parseInline", (html) =>
-    TextEditor.enrichHTML(html)
-  );
 };
 
 export default registerHelpers;

@@ -9,9 +9,9 @@ import OseActorSheet from "./actor-sheet";
  */
 export default class OseActorSheetMonster extends OseActorSheet {
   /**
-   * Extend and override the default options used by the 5e Actor Sheet
+   * Extend and override the default options used by the Actor Sheet
    *
-   * @returns {object}
+   * @returns {object} - The sheet's default options
    */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {

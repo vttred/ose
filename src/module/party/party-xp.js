@@ -46,7 +46,8 @@ export default class OsePartyXP extends FormApplication {
   }
 
   // eslint-disable-next-line no-underscore-dangle
-  _onDrop(event) { // eslint-disable-line class-methods-use-this
+  _onDrop(event) {
+    // eslint-disable-line class-methods-use-this
     event.preventDefault();
     // WIP Drop Item Quantity
     let data;

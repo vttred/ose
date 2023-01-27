@@ -1,5 +1,5 @@
 /**
- * @file Helpful methods for dealing with OSE-specific dice logic 
+ * @file Helpful methods for dealing with OSE-specific dice logic
  */
 import OSE from "./config";
 

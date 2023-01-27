@@ -230,8 +230,8 @@ export default class OseActorSheet extends ActorSheet {
       dragData = item.toDragData();
       dragData.item = item;
       dragData.type = "Item";
-      if (item.type === "container" && item.system.itemIds.length) {
-        //otherwise JSON.stringify will quadruple stringify for some reason
+      if (item.type === "container" && item.system.itemIds.length > 0) {
+        // otherwise JSON.stringify will quadruple stringify for some reason
         itemIdsArray = item.system.itemIds;
       }
     }

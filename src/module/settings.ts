@@ -106,7 +106,7 @@ const registerSettings = () => {
     scope: "world",
     type: Boolean,
     config: true,
-  })
+  });
 };
 
 declare global {

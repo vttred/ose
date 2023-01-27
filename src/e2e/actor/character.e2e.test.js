@@ -10,11 +10,12 @@ export const options = {
 
 /**
  * If there are dialogs, close them.
+ *
  * @returns {Promise} the promise from closing dialogs
  */
 export const closeRollDialog = async () => {
-  const openDialogs = Object.values(ui.windows).filter(
-    (o) => o.options.classes.indexOf("dialog") > -1
+  const openDialogs = Object.values(ui.windows).filter((o) =>
+    o.options.classes.includes("dialog")
   );
 
   openDialogs?.forEach(async (o) => {

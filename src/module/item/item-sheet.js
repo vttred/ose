@@ -49,9 +49,9 @@ export default class OseItemSheet extends ItemSheet {
     data.enriched = {
       description: await TextEditor.enrichHTML(
         this.item.system?.description || "",
-        {async: true}
-      )
-    }
+        { async: true }
+      ),
+    };
     return data;
   }
 

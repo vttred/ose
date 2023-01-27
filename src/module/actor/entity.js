@@ -142,7 +142,7 @@ export default class OseActor extends Actor {
     return rollMethod({
       event: options.event,
       parts: rollParts,
-      data: data,
+      data,
       skipDialog: options.fastForward || skipRollDialogCheck(options.event),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: game.i18n.format("OSE.roll.save", { save: label }),
@@ -233,7 +233,7 @@ export default class OseActor extends Actor {
     return OseDice.Roll({
       event: options.event,
       parts: rollParts,
-      data: data,
+      data,
       skipDialog: options.fastForward || skipRollDialogCheck(options.event),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: game.i18n.localize("OSE.reaction.check"),
@@ -267,7 +267,7 @@ export default class OseActor extends Actor {
     return OseDice.Roll({
       event: options.event,
       parts: rollParts,
-      data: data,
+      data,
       skipDialog: options.fastForward || skipRollDialogCheck(options.event),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: game.i18n.format("OSE.roll.attribute", { attribute: label }),
@@ -366,7 +366,7 @@ export default class OseActor extends Actor {
     return OseDice.Roll({
       event: options.event,
       parts: rollParts,
-      data: data,
+      data,
       skipDialog: options.fastForward || skipRollDialogCheck(options.event),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: game.i18n.format("OSE.roll.exploration", { exploration: label }),

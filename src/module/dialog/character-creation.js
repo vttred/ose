@@ -33,7 +33,7 @@ export default class OseCharacterCreator extends FormApplication {
    * @returns {object} - Render data for the form application
    */
   getData() {
-    let data = foundry.utils.deepClone(this.object);
+    const data = foundry.utils.deepClone(this.object);
     data.user = game.user;
     data.config = CONFIG.OSE;
     this.counters = {

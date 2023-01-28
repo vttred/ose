@@ -7,6 +7,16 @@ export class OseActor extends Actor {
     this.system.prepareDerivedData?.();
   }
 
+  static migrateData(source) {
+    if (!source.img) {
+      source.img = 'icons/svg/mystery-man.svg';
+    }
+    if (!source.prototypeToken.texture.img) {
+      source.prototypeToken.texture.img = 'icons/svg/mystery-man.svg';
+    }
+		return source
+	}
+
   static async update(data, options = {}) {
     // Compute AAC from AC
     if (data?.ac?.value) {

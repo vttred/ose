@@ -24,6 +24,13 @@ export class OseItem extends Item {
     return super.create(data, context);
   }
 
+  static migrateData(source) {
+    if (!source.img && source.type) {
+      source.img = this.defaultIcons(source.type)
+    }
+		return source
+	}
+
   prepareData() {
     super.prepareData();
   }

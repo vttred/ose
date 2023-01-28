@@ -10,6 +10,29 @@ export default class OseActor extends Actor {
     this.system.prepareDerivedData?.();
   }
 
+  static migrateData(source) {
+    source.items?.forEach((o) => {
+      let itemIds = o.system?.itemIds;
+
+      if (itemIds) {
+        const containerItems = source.items.reduce((arr, i) => {
+          if ( i.system.containerId === o._id )
+            arr.push(i._id);
+
+          return arr;
+        }, []);
+
+        if (!Array.prototype.every.call(containerItems, (x) => {
+          Array.prototype.includes.call(itemIds, x);
+        })) {
+          console.log(`${game.system.id}: item.migrateData: Migrating ${o.name} due to mismatching itemIds.`)
+          o.system.itemIds = containerItems;
+        }
+      }
+    })
+    return source;
+  }
+
   static async update(data, options = {}) {
     // Compute AAC from AC
     if (data?.ac?.value) {

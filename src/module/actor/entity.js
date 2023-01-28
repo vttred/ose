@@ -11,7 +11,7 @@ export class OseActor extends Actor {
     if (!source.img) {
       source.img = 'icons/svg/mystery-man.svg';
     }
-    if (!source.prototypeToken.texture.img) {
+    if (!source.prototypeToken?.texture?.img) {
       source.prototypeToken.texture.img = 'icons/svg/mystery-man.svg';
     }
 		return source

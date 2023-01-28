@@ -27,7 +27,6 @@ import OseDataModelSpell from './module/item/data-model-spell';
 import OseDataModelAbility  from './module/item/data-model-ability';
 import OseDataModelContainer from './module/item/data-model-container';
 
-
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
 /* -------------------------------------------- */

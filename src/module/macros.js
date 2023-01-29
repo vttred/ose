@@ -11,13 +11,16 @@
  *
  * @param {object} data - The dropped data
  * @param {number} slot - The hotbar slot to use
- * @returns {Promise}
+ * @returns {Promise} - Promise of assigned macro or a notification
  */
 export async function createOseMacro(data, slot) {
   if (data.type === "Macro") {
     return game.user.assignHotbarMacro(await fromUuid(data.uuid), slot);
   }
-  if (data.type !== "Item") return;
+  if (data.type !== "Item")
+    return ui.notifications.warn(
+      game.i18n.localize("OSE.warn.macrosNotAnItem")
+    );
   if (data.uuid.indexOf("Item.") <= 0)
     return ui.notifications.warn(
       game.i18n.localize("OSE.warn.macrosOnlyForOwnedItems")
@@ -38,8 +41,7 @@ export async function createOseMacro(data, slot) {
       flags: { "ose.itemMacro": true },
     });
   }
-  game.user.assignHotbarMacro(macro, slot);
-  return false;
+  return game.user.assignHotbarMacro(macro, slot);
 }
 
 /* -------------------------------------------- */
@@ -48,8 +50,8 @@ export async function createOseMacro(data, slot) {
  * Create a Macro from an Item drop.
  * Get an existing item macro if one exists, otherwise create a new one.
  *
- * @param {string} itemName
- * @returns {Promise}
+ * @param {string} itemName - Name of item to roll
+ * @returns {Promise} - Promise of item roll or notification
  */
 export function rollItemMacro(itemName) {
   const speaker = ChatMessage.getSpeaker();

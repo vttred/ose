@@ -1,4 +1,4 @@
-/* eslint-disable import/no-cycle, simple-import-sort/imports */
+/* eslint-disable prettier/prettier, import/no-cycle, simple-import-sort/imports */
 
 /**
  * @file Orchestration for our Quench tests
@@ -26,7 +26,7 @@ import dataModelCharacterACTests, {
 import dataModelCharacterTests, {
   key as dataModelCharacterKey,
   options as dataModelCharacterOptions,
-} from '../module/actor/data-model-character.test.js';
+} from '../module/actor/data-model-character.test';
 import characterRollingTests, {
   key as characterRollingKey,
   options as characterRollingOptions,

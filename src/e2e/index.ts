@@ -4,11 +4,11 @@
  * @file Orchestration for our Quench tests
  */
 import dataModelCharacterMoveTests, {
-  key as dataModelCharacterMoveKey, 
+  key as dataModelCharacterMoveKey,
   options as dataModelCharacterMoveOptions,
 } from "../module/actor/data-model-classes/__tests__/data-model-character-move.test";
 import dataModelCharacterEncumbranceTests, {
-  key as dataModelCharacterEncumbranceKey, 
+  key as dataModelCharacterEncumbranceKey,
   options as dataModelCharacterEncumbranceOptions,
 } from "../module/actor/data-model-classes/__tests__/data-model-character-encumbrance.test";
 import dataModelCharacterSpellsTests, {
@@ -52,7 +52,7 @@ type Quench = {
   registerBatch: (key: string, tests: Function, options: any) => void;
 };
 
-Hooks.on('quenchReady', async (quench: Quench) => {
+Hooks.on("quenchReady", async (quench: Quench) => {
   // Macro testing
   quench.registerBatch(
     macroCreationKey,

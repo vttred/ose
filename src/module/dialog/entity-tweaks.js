@@ -1,6 +1,9 @@
-import { OSE } from "../config";
+/**
+ * @file An application used to manage Actor configuration.
+ */
+import OSE from "../config";
 
-export class OseEntityTweaks extends FormApplication {
+export default class OseEntityTweaks extends FormApplication {
   static get defaultOptions() {
     const options = super.defaultOptions;
     options.id = "sheet-tweaks";
@@ -13,7 +16,9 @@ export class OseEntityTweaks extends FormApplication {
 
   /**
    * Add the Entity name into the window title
-   * @type {String}
+   *
+   * @type {string}
+   * @returns {string} - The app title
    */
   get title() {
     return `${this.object.name}: ${game.i18n.localize("OSE.dialog.tweaks")}`;
@@ -23,7 +28,8 @@ export class OseEntityTweaks extends FormApplication {
 
   /**
    * Construct and return the data object used to render the HTML template for this form application.
-   * @return {Object}
+   *
+   * @returns {object} - The template data
    */
   getData() {
     const data = foundry.utils.deepClone(this.object.data);
@@ -47,15 +53,18 @@ export class OseEntityTweaks extends FormApplication {
 
   /**
    * This method is called upon form submission after form data is validated
-   * @param event {Event}       The initial triggering submission event
-   * @param formData {Object}   The object of validated form data with which to update the object
+   *
+   * @param {Event} event - The initial triggering submission event
+   * @param {object} formData - The object of validated form data with which to update the object
    * @private
    */
+  // eslint-disable-next-line no-underscore-dangle
   async _updateObject(event, formData) {
     event.preventDefault();
     // Update the actor
     await this.object.update(formData);
     // Re-draw the updated sheet
+    // eslint-disable-next-line no-underscore-dangle
     await this.object.sheet._render(true);
   }
 }

@@ -1,12 +1,15 @@
-import { OsePartyXP } from "./party-xp";
-import { OseParty } from "./party";
-import { OSE } from "../config";
+/**
+ * @file An application for managing the current party.
+ */
+import OSE from "../config";
+import OseParty from "./party";
+import OsePartyXP from "./party-xp";
 
 const Party = {
   partySheet: void 0,
 };
 
-export class OsePartySheet extends FormApplication {
+export default class OsePartySheet extends FormApplication {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["ose", "dialog", "party-sheet"],
@@ -37,7 +40,8 @@ export class OsePartySheet extends FormApplication {
 
   /**
    * Add the Entity name into the window title
-   * @type {String}
+   *
+   * @type {string}
    */
   get title() {
     return game.i18n.localize("OSE.dialog.partysheet");
@@ -47,26 +51,24 @@ export class OsePartySheet extends FormApplication {
 
   /**
    * Construct and return the data object used to render the HTML template for this form application.
-   * @return {Object}
+   *
+   * @returns {object}
    */
   getData() {
     const settings = {
       ascending: game.settings.get(game.system.id, "ascendingAC"),
     };
 
-    let data = {
+    return {
       partyActors: OseParty.currentParty,
       // data: this.object,
       config: CONFIG.OSE,
       user: game.user,
-      settings: settings,
+      settings,
     };
-
-    return data;
   }
 
   async _addActorToParty(actor) {
-
     if (actor.type !== "character") {
       return;
     }
@@ -91,25 +93,26 @@ export class OsePartySheet extends FormApplication {
       data = JSON.parse(event.dataTransfer.getData("text/plain"));
 
       switch (data.type) {
-        case "Actor":
-
+        case "Actor": {
           return this._onDropActor(event, data);
-        case "Folder":
+        }
+
+        case "Folder": {
           return this._onDropFolder(event, data);
+        }
       }
-    } catch (err) {
+    } catch (error) {
       return false;
     }
   }
 
   async _onDropActor(event, data) {
-   
     if (data.type !== "Actor") {
       return;
     }
 
-    const actors = game.actors;
-    let droppedActor = await fromUuid(data.uuid);
+    const { actors } = game;
+    const droppedActor = await fromUuid(data.uuid);
 
     this._addActorToParty(droppedActor);
   }
@@ -133,7 +136,7 @@ export class OsePartySheet extends FormApplication {
   /* - Dragging from the Party Sheet - */
   async _onDragStart(event) {
     try {
-      const { uuid } = event.currentTarget.dataset
+      const { uuid } = event.currentTarget.dataset;
       const dragData = (await fromUuid(uuid)).toDragData();
       // Set data transfer
       event.dataTransfer.setData("text/plain", JSON.stringify(dragData));

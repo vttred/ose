@@ -1,19 +1,17 @@
-import { OseActorSheet } from "./actor-sheet";
-import { OSE } from "../config";
+/**
+ * @file The sheet class for Actors of type Monster
+ */
+import OSE from "../config";
+import OseActorSheet from "./actor-sheet";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
  */
-export class OseActorSheetMonster extends OseActorSheet {
-  constructor(...args) {
-    super(...args);
-  }
-
-  /* -------------------------------------------- */
-
+export default class OseActorSheetMonster extends OseActorSheet {
   /**
-   * Extend and override the default options used by the 5e Actor Sheet
-   * @returns {Object}
+   * Extend and override the default options used by the Actor Sheet
+   *
+   * @returns {object} - The sheet's default options
    */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
@@ -34,6 +32,8 @@ export class OseActorSheetMonster extends OseActorSheet {
 
   /**
    * Organize and classify Owned Items for Character sheets
+   *
+   * @param data
    * @private
    */
   _prepareItems(data) {
@@ -82,14 +82,14 @@ export class OseActorSheetMonster extends OseActorSheet {
    * Monster creation helpers
    */
   async generateSave() {
-    let choices = CONFIG.OSE.monster_saves;
+    const choices = CONFIG.OSE.monster_saves;
 
-    let templateData = { choices },
-      dlg = await renderTemplate(
-        `${OSE.systemPath()}/templates/actors/dialogs/monster-saves.html`,
-        templateData
-      );
-    //Create Dialog window
+    const templateData = { choices };
+    const dlg = await renderTemplate(
+      `${OSE.systemPath()}/templates/actors/dialogs/monster-saves.html`,
+      templateData
+    );
+    // Create Dialog window
     new Dialog(
       {
         title: game.i18n.localize("OSE.dialog.generateSaves"),
@@ -99,7 +99,7 @@ export class OseActorSheetMonster extends OseActorSheet {
             label: game.i18n.localize("OSE.Ok"),
             icon: '<i class="fas fa-check"></i>',
             callback: (html) => {
-              let hd = html.find('input[name="hd"]').val();
+              const hd = html.find('input[name="hd"]').val();
               this.actor.generateSave(hd);
             },
           },
@@ -122,31 +122,33 @@ export class OseActorSheetMonster extends OseActorSheet {
     try {
       data = JSON.parse(event.dataTransfer.getData("text/plain"));
       if (data.type !== "RollTable") return;
-    } catch (err) {
+    } catch (error) {
       return false;
     }
 
     let link = "";
     if (data.pack) {
-      let tableData = game.packs
+      const tableDatum = game.packs
         .get(data.pack)
-        .index.filter((el) => el._id === data.id);
-      link = `@UUID[${data.uuid}]{${tableData[0].name}}`;
+        .index.find((el) => el._id === data.id);
+      link = `@UUID[${data.uuid}]{${tableDatum.name}}`;
     } else {
       link = `@UUID[${data.uuid}]`;
     }
-    this.actor.update({ 'system.details.treasure.table': link });
+    this.actor.update({ "system.details.treasure.table": link });
   }
 
   /* -------------------------------------------- */
   async _resetAttacks(event) {
     return Promise.all(
       this.actor.items
-        .filter(i => i.type === 'weapon')
-        .map(weapon => weapon.update({
-          'system.counter.value': parseInt(weapon.system.counter.max)
-        }))
-    )
+        .filter((i) => i.type === "weapon")
+        .map((weapon) =>
+          weapon.update({
+            "system.counter.value": parseInt(weapon.system.counter.max),
+          })
+        )
+    );
   }
 
   async _updateAttackCounter(event) {
@@ -157,7 +159,8 @@ export class OseActorSheetMonster extends OseActorSheet {
       return item.update({
         "system.counter.value": parseInt(event.target.value),
       });
-    } else if (event.target.dataset.field === "max") {
+    }
+    if (event.target.dataset.field === "max") {
       return item.update({
         "system.counter.max": parseInt(event.target.value),
       });
@@ -166,9 +169,9 @@ export class OseActorSheetMonster extends OseActorSheet {
 
   _cycleAttackPatterns(event) {
     const item = super._getItemFromActor(event);
-    let currentColor = item.system.pattern;
+    const currentColor = item.system.pattern;
     // Attack patterns include all OSE colors and transparent
-    let colors = Object.keys(CONFIG.OSE.colors);
+    const colors = Object.keys(CONFIG.OSE.colors);
     colors.push("transparent");
     let index = colors.indexOf(currentColor);
     if (index + 1 === colors.length) {
@@ -183,29 +186,30 @@ export class OseActorSheetMonster extends OseActorSheet {
 
   /**
    * Activate event listeners using the prepared sheet HTML
-   * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
+   *
+   * @param html - {HTML}   The prepared HTML object ready to be rendered into the DOM
    */
   activateListeners(html) {
     super.activateListeners(html);
 
     html.find(".morale-check a").click((ev) => {
-      let actorObject = this.actor;
+      const actorObject = this.actor;
       actorObject.rollMorale({ event: ev });
     });
 
     html.find(".reaction-check a").click((ev) => {
-      let actorObject = this.actor;
+      const actorObject = this.actor;
       actorObject.rollReaction({ event: ev });
     });
 
     html.find(".appearing-check a").click((ev) => {
-      let actorObject = this.actor;
-      let check = $(ev.currentTarget).closest(".check-field").data("check");
-      actorObject.rollAppearing({ event: ev, check: check });
+      const actorObject = this.actor;
+      const check = $(ev.currentTarget).closest(".check-field").data("check");
+      actorObject.rollAppearing({ event: ev, check });
     });
 
     html.find(".treasure-table a").contextmenu((ev) => {
-      this.actor.update({ 'system.details.treasure.table': null });
+      this.actor.update({ "system.details.treasure.table": null });
     });
 
     // Everything below here is only needed if the sheet is editable

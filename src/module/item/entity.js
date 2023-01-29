@@ -1,10 +1,13 @@
-import { OseDice } from "../dice";
-import { OSE } from "../config";
+/**
+ * @file The system-specific Item entity, containing logic for operating on all available Item types.
+ */
+import OSE from "../config";
+import OseDice from "../dice";
 
 /**
  * Override and extend the basic :class:`Item` implementation
  */
-export class OseItem extends Item {
+export default class OseItem extends Item {
   // Replacing default image */
   static get defaultIcons() {
     return {
@@ -69,7 +72,7 @@ export class OseItem extends Item {
   }
 
   rollWeapon(options = {}) {
-    let isNPC = this.actor.type != "character";
+    const isNPC = this.actor.type != "character";
     const targets = 5;
     const itemData = this.system;
 
@@ -107,7 +110,8 @@ export class OseItem extends Item {
         default: "melee",
       }).render(true);
       return true;
-    } else if (itemData.missile && !isNPC) {
+    }
+    if (itemData.missile && !isNPC) {
       type = "missile";
     }
     this.actor.targetAttack(rollData, type, options);
@@ -124,13 +128,13 @@ export class OseItem extends Item {
     const label = `${this.name}`;
     const rollParts = [data.roll];
 
-    let type = data.rollType;
+    const type = data.rollType;
 
     const newData = {
       actor: this.actor,
       item: this._source,
       roll: {
-        type: type,
+        type,
         target: data.rollTarget,
         blindroll: data.blindroll,
       },
@@ -143,8 +147,8 @@ export class OseItem extends Item {
       data: newData,
       skipDialog: true,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: game.i18n.format("OSE.roll.formula", { label: label }),
-      title: game.i18n.format("OSE.roll.formula", { label: label }),
+      flavor: game.i18n.format("OSE.roll.formula", { label }),
+      title: game.i18n.format("OSE.roll.formula", { label }),
     });
   }
 
@@ -167,8 +171,6 @@ export class OseItem extends Item {
       return {
         label: `${game.i18n.localize("OSE.items.Roll")} ${roll}`,
       };
-    } else {
-      return;
     }
   }
 
@@ -178,8 +180,6 @@ export class OseItem extends Item {
         label: CONFIG.OSE.saves_long[data.save],
         icon: "fa-skull",
       };
-    } else {
-      return;
     }
   }
 
@@ -190,9 +190,11 @@ export class OseItem extends Item {
 
     switch (itemType) {
       case "container":
-      case "item":
+      case "item": {
         break;
-      case "weapon":
+      }
+
+      case "weapon": {
         tagList.push({ label: data.damage, icon: "fa-tint" });
         if (data.missile) {
           tagList.push({
@@ -206,20 +208,27 @@ export class OseItem extends Item {
           tagList.push({ label: t.value });
         });
         break;
-      case "armor":
+      }
+
+      case "armor": {
         tagList.push({ label: CONFIG.OSE.armor[data.type], icon: "fa-tshirt" });
         break;
-      case "spell":
+      }
+
+      case "spell": {
         tagList.push(
           { label: data.class },
           { label: data.range },
           { label: data.duration }
         );
         break;
-      case "ability":
+      }
+
+      case "ability": {
         const reqs = data.requirements.split(",");
         reqs.forEach((req) => tagList.push({ label: req }));
         break;
+      }
     }
 
     const rollTag = this._getRollTag(data);
@@ -241,34 +250,39 @@ export class OseItem extends Item {
     if (data.tags) {
       update = data.tags;
     }
-    let newData = {};
-    var regExp = /\(([^)]+)\)/;
+    const newData = {};
+    const regExp = /\(([^)]+)\)/;
     if (update) {
       values.forEach((val) => {
         // Catch infos in brackets
-        var matches = regExp.exec(val);
+        const matches = regExp.exec(val);
         let title = "";
         if (matches) {
           title = matches[1];
-          val = val.substring(0, matches.index).trim();
+          val = val.slice(0, Math.max(0, matches.index)).trim();
         } else {
           val = val.trim();
           title = val;
         }
         // Auto fill checkboxes
         switch (val) {
-          case CONFIG.OSE.tags.melee:
+          case CONFIG.OSE.tags.melee: {
             newData.melee = true;
             break;
-          case CONFIG.OSE.tags.slow:
+          }
+
+          case CONFIG.OSE.tags.slow: {
             newData.slow = true;
             break;
-          case CONFIG.OSE.tags.missile:
+          }
+
+          case CONFIG.OSE.tags.missile: {
             newData.missile = true;
             break;
+          }
         }
         if (!newData.melee && !newData.slow && !newData.missile)
-          update.push({ title: title, value: val, label: val });
+          update.push({ title, value: val, label: val });
       });
     } else {
       update = values;
@@ -280,11 +294,11 @@ export class OseItem extends Item {
   popManualTag(value) {
     const itemData = this.system;
 
-    const tags = itemData.tags;
+    const { tags } = itemData;
     if (!tags) return;
 
-    let update = tags.filter((el) => el.value != value);
-    let newData = {
+    const update = tags.filter((el) => el.value != value);
+    const newData = {
       tags: update,
     };
     return this.update({ data: newData });
@@ -293,33 +307,41 @@ export class OseItem extends Item {
   roll(options = {}) {
     const itemData = this.system;
     switch (this.type) {
-      case "weapon":
+      case "weapon": {
         this.rollWeapon(options);
         break;
-      case "spell":
+      }
+
+      case "spell": {
         this.spendSpell(options);
         break;
-      case "ability":
+      }
+
+      case "ability": {
         if (itemData.roll) {
           this.rollFormula();
         } else {
           this.show();
         }
         break;
+      }
+
       case "item":
-      case "armor":
+      case "armor": {
         this.show();
+      }
     }
   }
 
   /**
    * Show the item to Chat, creating a chat card which contains follow up attack or damage roll options
-   * @return {Promise}
+   *
+   * @returns {Promise}
    */
   async show() {
     const itemType = this.type;
     // Basic template rendering data
-    const token = this.actor.token; //v10: prototypeToken?
+    const { token } = this.actor; // v10: prototypeToken?
     const templateData = {
       actor: this.actor,
       tokenId: token ? `${token.parent.id}.${token.id}` : null,
@@ -351,11 +373,11 @@ export class OseItem extends Item {
     };
 
     // Toggle default roll mode
-    let rollMode = game.settings.get("core", "rollMode");
+    const rollMode = game.settings.get("core", "rollMode");
     if (["gmroll", "blindroll"].includes(rollMode))
-      chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
-    if (rollMode === "selfroll") chatData["whisper"] = [game.user.id];
-    if (rollMode === "blindroll") chatData["blind"] = true;
+      chatData.whisper = ChatMessage.getWhisperRecipients("GM");
+    if (rollMode === "selfroll") chatData.whisper = [game.user.id];
+    if (rollMode === "blindroll") chatData.blind = true;
 
     // Create the chat message
     return ChatMessage.create(chatData);
@@ -363,7 +385,8 @@ export class OseItem extends Item {
 
   /**
    * Handle toggling the visibility of chat card content when the name is clicked
-   * @param {Event} event   The originating click event
+   *
+   * @param {Event} event - The originating click event
    * @private
    */
   static _onChatCardToggleContent(event) {
@@ -385,9 +408,9 @@ export class OseItem extends Item {
     const button = event.currentTarget;
     button.disabled = true;
     const card = button.closest(".chat-card");
-    const messageId = card.closest(".message").dataset.messageId;
+    const { messageId } = card.closest(".message").dataset;
     const message = game.messages.get(messageId);
-    const action = button.dataset.action;
+    const { action } = button.dataset;
 
     // Validate permission to proceed with the roll
     const isTargetted = action === "save";
@@ -415,19 +438,31 @@ export class OseItem extends Item {
     }
 
     // Attack and Damage Rolls
-    if (action === "damage") await item.rollDamage({ event });
-    else if (action === "formula") await item.rollFormula({ event });
-    // Saving Throws for card targets
-    else if (action === "save") {
-      if (!targets.length) {
-        ui.notifications.error(
-          game.i18n.localize("OSE.error.noTokenControlled")
-        );
-        return (button.disabled = false);
+    switch (action) {
+      case "damage": {
+        await item.rollDamage({ event });
+        break;
       }
-      for (let t of targets) {
-        await t.rollSave(button.dataset.save, { event });
+
+      case "formula": {
+        await item.rollFormula({ event });
+        break;
       }
+
+      case "save": {
+        if (targets.length === 0) {
+          ui.notifications.error(
+            game.i18n.localize("OSE.error.noTokenControlled")
+          );
+          return (button.disabled = false);
+        }
+        for (const t of targets) {
+          await t.rollSave(button.dataset.save, { event });
+        }
+
+        break;
+      }
+      // No default
     }
 
     // Re-enable the button
@@ -448,15 +483,15 @@ export class OseItem extends Item {
     }
 
     // Case 2 - use Actor ID directory
-    const actorId = card.dataset.actorId;
+    const { actorId } = card.dataset;
     return game.actors.get(actorId) || null;
   }
 
   static _getChatCardTargets(card) {
-    const character = game.user.character;
-    const controlled = canvas.tokens.controlled;
+    const { character } = game.user;
+    const { controlled } = canvas.tokens;
     const targets = controlled.reduce(
-      (arr, t) => (t.actor ? arr.concat([t.actor]) : arr),
+      (arr, t) => (t.actor ? [...arr, t.actor] : arr),
       []
     );
     if (character && controlled.length === 0) targets.push(character);

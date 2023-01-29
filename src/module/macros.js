@@ -21,7 +21,6 @@ export async function createOseMacro(data, slot) {
   if (data.uuid.indexOf("Item.") <= 0)
     return ui.notifications.warn(
       game.i18n.localize("OSE.warn.macrosOnlyForOwnedItems")
-      game.i18n.localize("OSE.warn.macrosOnlyForOwnedItems")
     );
   const { item } = data;
 
@@ -75,7 +74,6 @@ export function rollItemMacro(itemName) {
     );
   } else if (items.length === 0) {
     return ui.notifications.error(
-      game.i18n.format("OSE.error.noItemWithName", {
       game.i18n.format("OSE.error.noItemWithName", {
         actorName: actor.name,
         itemName,

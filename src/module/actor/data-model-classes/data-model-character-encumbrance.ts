@@ -10,6 +10,7 @@ export interface CharacterEncumbrance {
   value: number;
   max: number;
   atHalfEncumbered: boolean | null;
+  atThreeEighthsEncumbered: boolean | null;
   atQuarterEncumbered: boolean | null;
   atEighthEncumbered: boolean | null;
 }
@@ -23,7 +24,6 @@ export default class OseDataModelCharacterEncumbrance
   static baseEncumbranceCap = 1600;
 
   static encumbranceSteps = {
-    eighth: 12.5,
     quarter: 25,
     half: 50,
   };
@@ -63,7 +63,7 @@ export default class OseDataModelCharacterEncumbrance
   }
 
   get encumbered() {
-    return this.value >= this.max;
+    return this.value > this.max;
   }
 
   // eslint-disable-next-line class-methods-use-this

@@ -1,3 +1,8 @@
+import actorCrudInventoryContainerTests, {
+  key as actorCrudInventoryContainerKey,
+  options as actorCrudInventoryContainerOptions
+} from '../module/actor/__tests__/character-crud-inventory-container.test';
+
 import macroTests, {
   key as macroKey,
   options as macroOptions
@@ -13,35 +18,6 @@ import characterTests, {
   options as characterOptions
 } from './actor/character.e2e.test.js';
 
-import dataModelCharacterACTests, {
-  key as dataModelCharacterACKey,
-  options as dataModelCharacterACOptions
-} from '../module/actor/data-model-classes/__tests__/data-model-character-ac.test';
-
-import dataModelCharacterScoresTests, {
-  key as dataModelCharacterScoresKey,
-  options as dataModelCharacterScoresOptions
-} from '../module/actor/data-model-classes/__tests__/data-model-character-scores.test';
-
-import dataModelCharacterSpellsTests, {
-  key as dataModelCharacterSpellsKey,
-  options as dataModelCharacterSpellsOptions
-} from '../module/actor/data-model-classes/__tests__/data-model-character-spells.test';
-
-import dataModelCharacterEncumbranceTests, {
-  key as dataModelCharacterEncumbranceKey,
-  options as dataModelCharacterEncumbranceOptions
-} from '../module/actor/data-model-classes/__tests__/data-model-character-encumbrance.test';
-
-import dataModelCharacterMoveTests, {
-  key as dataModelCharacterMoveKey,
-  options as dataModelCharacterMoveOptions
-} from '../module/actor/data-model-classes/__tests__/data-model-character-move.test';
-
-import dataModelCharacterTests, {
-  key as dataModelCharacterKey,
-  options as dataModelCharacterOptions,
-} from "../module/actor/data-model-character.test.js";
 import dataModelCharacterACTests, {
   key as dataModelCharacterACKey,
   options as dataModelCharacterACOptions,
@@ -80,6 +56,7 @@ type Quench = {
 };
 
 Hooks.on('quenchReady', async (quench: Quench) => {
+  quench.registerBatch(actorCrudInventoryContainerKey, actorCrudInventoryContainerTests, actorCrudInventoryContainerOptions);
   quench.registerBatch(macroKey, macroTests, macroOptions);
   quench.registerBatch(characterItemMacroKey, characterItemMacroTests, characterItemMacroOptions);
   quench.registerBatch(characterKey, characterTests, characterOptions);

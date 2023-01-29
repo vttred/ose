@@ -289,9 +289,8 @@ export default class OseActorSheet extends ActorSheet {
     if (isContainer)
       return this._onContainerItemRemove(item, isContainer);
 
-    if (targetIsContainer)
+    if (targetIsContainer) 
       return this._onContainerItemAdd(item, targetItem);
-
   }
 
   async _onContainerItemRemove(item, container) {

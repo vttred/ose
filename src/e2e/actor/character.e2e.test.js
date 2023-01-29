@@ -68,7 +68,7 @@ export default ({before, beforeEach, after, afterEach, describe, it, expect, ...
     await testActor()[rollFn](key, {event: meta_down});
     await waitForInput();
     expect(game.messages.size).to.equal(1);
-  }
+  };
 
   const rollMods = async (key, rollFn) => {
     testActor()[rollFn](key);
@@ -84,6 +84,86 @@ export default ({before, beforeEach, after, afterEach, describe, it, expect, ...
 
     await waitForInput();
 
+    expect(game.messages.size).to.equal(1);
+  };
+
+  const rollInvertCtrlNoDialog = async (key, rollFn) => {
+    await testActor()[rollFn](key, { fastForward: false });
+    await waitForInput();
+
+    expect(game.messages.size).to.equal(1);
+  };
+
+  const rollInvertCtrlDialog = async (key, rollFn) => {
+    const ctrl_down = new KeyboardEvent("keydown", { ctrlKey: true });
+    testActor()[rollFn](key, { event: ctrl_down });
+
+    await waitForInput();
+
+    const dialog = document.querySelector(".roll-dialog.ose");
+    expect(dialog).not.equal(null);
+
+    dialog
+      .closest(".window-content")
+      .querySelector(".dialog-button.ok")
+      .click();
+
+    await waitForInput();
+    expect(game.messages.size).to.equal(1);
+  };
+
+  const rollInvertCtrlDialogMeta = async (key, rollFn) => {
+    const meta_down = new KeyboardEvent("keydown", { metaKey: true });
+    testActor()[rollFn](key, { event: meta_down });
+
+    await waitForInput();
+
+    const dialog = document.querySelector(".roll-dialog.ose");
+    expect(dialog).not.equal(null);
+
+    dialog
+      .closest(".window-content")
+      .querySelector(".dialog-button.ok")
+      .click();
+
+    await waitForInput();
+    expect(game.messages.size).to.equal(1);
+  };
+
+  const rollInvertCtrlNoDialog = async (key, rollFn) => {
+    await testActor()[rollFn](key, {fastForward: false});
+    await waitForInput();
+    
+    expect(game.messages.size).to.equal(1);
+  }
+
+  const rollInvertCtrlDialog = async (key, rollFn) => {
+    const ctrl_down = new KeyboardEvent('keydown', {ctrlKey: true});
+    testActor()[rollFn](key, {event: ctrl_down});
+
+    await waitForInput();
+
+    const dialog = document.querySelector('.roll-dialog.ose');
+    expect(dialog).not.equal(null)
+
+    dialog.closest('.window-content').querySelector('.dialog-button.ok').click();
+
+    await waitForInput();
+    expect(game.messages.size).to.equal(1);
+  }
+
+  const rollInvertCtrlDialogMeta = async (key, rollFn) => {
+    const meta_down = new KeyboardEvent('keydown', {metaKey: true});
+    testActor()[rollFn](key, {event: meta_down});
+
+    await waitForInput();
+
+    const dialog = document.querySelector('.roll-dialog.ose');
+    expect(dialog).not.equal(null)
+
+    dialog.closest('.window-content').querySelector('.dialog-button.ok').click();
+
+    await waitForInput();
     expect(game.messages.size).to.equal(1);
   };
 

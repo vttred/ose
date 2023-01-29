@@ -1,10 +1,23 @@
-/**
- * @file Orchestration for our Quench tests
- */
-import dataModelCharacterTests, {
-  key as dataModelCharacterKey,
-  options as dataModelCharacterOptions,
-} from "../module/actor/data-model-character.test.js";
+import actorCrudInventoryContainerTests, {
+  key as actorCrudInventoryContainerKey,
+  options as actorCrudInventoryContainerOptions
+} from '../module/actor/__tests__/character-crud-inventory-container.test';
+
+import macroTests, {
+  key as macroKey,
+  options as macroOptions
+} from '../module/__tests__/macros.test';
+
+import characterItemMacroTests, {
+  key as characterItemMacroKey,
+  options as characterItemMacroOptions
+} from '../module/actor/__tests__/character-macros.test';
+
+import characterTests, {
+  key as characterKey,
+  options as characterOptions
+} from './actor/character.e2e.test.js';
+
 import dataModelCharacterACTests, {
   key as dataModelCharacterACKey,
   options as dataModelCharacterACOptions,
@@ -42,12 +55,10 @@ type Quench = {
   registerBatch: (key: string, tests: Function, options: any) => void;
 };
 
-Hooks.on("quenchReady", async (quench: Quench) => {
-  quench.registerBatch(
-    characterItemMacroKey,
-    characterItemMacroTests,
-    characterItemMacroOptions
-  );
+Hooks.on('quenchReady', async (quench: Quench) => {
+  quench.registerBatch(actorCrudInventoryContainerKey, actorCrudInventoryContainerTests, actorCrudInventoryContainerOptions);
+  quench.registerBatch(macroKey, macroTests, macroOptions);
+  quench.registerBatch(characterItemMacroKey, characterItemMacroTests, characterItemMacroOptions);
   quench.registerBatch(characterKey, characterTests, characterOptions);
   // Character data model classes
   quench.registerBatch(

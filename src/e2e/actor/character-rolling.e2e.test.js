@@ -3,9 +3,9 @@
  */
 import { trashChat, waitForInput } from "../testUtils";
 
-export const key = "ose.actor.character";
+export const key = "ose.actor.character.rolling";
 export const options = {
-  displayName: "The Character Sheet",
+  displayName: "Actor Data Model: Character Rolling",
 };
 
 /**

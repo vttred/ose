@@ -1,25 +1,62 @@
-import OseItem from "../item/entity";
-
+/**
+ * @file Contains the Data Model for items.
+ */
+// eslint-disable-next-line prettier/prettier
 import { skipRollDialogCheck } from "../behaviourHelpers";
+// eslint-disable-next-line prettier/prettier
 import OseDice from "../dice";
+import OseItem from "../item/entity";
 
 export default class OseActor extends Actor {
   prepareDerivedData() {
     this.system.prepareDerivedData?.();
   }
 
+  static migrateData(source) {
+    source.items?.forEach((o) => {
+      const itemIds = o.system?.itemIds;
+
+      if (itemIds) {
+        const containerItems = source.items.reduce((arr, i) => {
+          // eslint-disable-next-line no-underscore-dangle
+          if (i.system.containerId === o._id) arr.push(i._id);
+
+          return arr;
+        }, []);
+
+        if (
+          !Array.prototype.every.call(containerItems, (x) => {
+            Array.prototype.includes.call(itemIds, x);
+          })
+        ) {
+          // eslint-disable-next-line no-console
+          console.log(
+            `${game.system.id}: item.migrateData: Migrating ${o.name} due to mismatching itemIds.`
+          );
+          // eslint-disable-next-line no-param-reassign
+          o.system.itemIds = containerItems;
+        }
+      }
+    });
+    return source;
+  }
+
   static async update(data, options = {}) {
     // Compute AAC from AC
     if (data?.ac?.value) {
+      // eslint-disable-next-line no-param-reassign
       data.aac = { value: 19 - data.ac.value };
     } else if (data?.aac?.value) {
+      // eslint-disable-next-line no-param-reassign
       data.ac = { value: 19 - data.aac.value };
     }
 
     // Compute Thac0 from BBA
     if (data?.thac0?.value) {
+      // eslint-disable-next-line no-param-reassign
       data.thac0.bba = 19 - data.thac0.value;
     } else if (data?.thac0?.bba) {
+      // eslint-disable-next-line no-param-reassign
       data.thac0.value = 19 - data.thac0.bba;
     }
 
@@ -27,8 +64,9 @@ export default class OseActor extends Actor {
   }
 
   async createEmbeddedDocuments(embeddedName, data = [], context = {}) {
-    data.map((item) => {
+    data.forEach((item) => {
       if (item.img === undefined) {
+        // eslint-disable-next-line no-param-reassign
         item.img = OseItem.defaultIcons[item.type];
       }
     });
@@ -38,7 +76,7 @@ export default class OseActor extends Actor {
   /* -------------------------------------------- */
   /*  Socket Listeners and Handlers
     /* -------------------------------------------- */
-  getExperience(value, options = {}) {
+  getExperience(value) {
     const actorData = this.system;
     const actorType = this.type;
     // @TODO this seems like not the best spot for defining the xpKey const
@@ -50,11 +88,12 @@ export default class OseActor extends Actor {
     const modified = Math.floor(
       value + (actorData.details.xp.bonus * value) / 100
     );
+    // eslint-disable-next-line consistent-return
     return this.update({
       [xpKey]: modified + actorData.details.xp.value,
     }).then(() => {
       const speaker = ChatMessage.getSpeaker({ actor: this });
-      ChatMessage.create({
+      return ChatMessage.create({
         content: game.i18n.format("OSE.messages.GetExperience", {
           name: this.name,
           value: modified,
@@ -69,11 +108,12 @@ export default class OseActor extends Actor {
   }
 
   generateSave(hd) {
-    hd = hd.includes("+") ? parseInt(hd) + 1 : parseInt(hd);
+    const parsedHd = hd.includes("+") ? parseInt(hd, 10) + 1 : parseInt(hd, 10);
 
     // Compute saves
     let saves = {};
-    for (let i = 0; i <= hd; i++) {
+    // eslint-disable-next-line no-plusplus
+    for (let i = 0; i <= parsedHd; i++) {
       const tmp = CONFIG.OSE.monster_saves[i];
       if (tmp) {
         saves = tmp;
@@ -83,7 +123,7 @@ export default class OseActor extends Actor {
     // Compute Thac0
     let thac0 = 20;
     Object.keys(CONFIG.OSE.monster_thac0).forEach((k) => {
-      if (hd < parseInt(k)) return;
+      if (parsedHd < parseInt(k, 10)) return;
       thac0 = CONFIG.OSE.monster_thac0[k];
     });
 
@@ -114,6 +154,8 @@ export default class OseActor extends Actor {
   /*  Rolls                                       */
   /* -------------------------------------------- */
 
+  // @todo: this is used in monster-sheet.js to send an event as options
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async rollHP(options = {}) {
     const { total } = await new Roll(this.system.hp.hd).roll({ async: true });
     return this.update({ "system.hp": { max: total, value: total } });
@@ -264,6 +306,7 @@ export default class OseActor extends Actor {
     };
 
     // Roll and return
+    // eslint-disable-next-line consistent-return
     return OseDice.Roll({
       event: options.event,
       parts: rollParts,
@@ -331,6 +374,7 @@ export default class OseActor extends Actor {
     };
 
     // Roll and return
+    // eslint-disable-next-line consistent-return
     return OseDice.Roll({
       event: options.event,
       parts: rollParts,
@@ -363,6 +407,7 @@ export default class OseActor extends Actor {
     };
 
     // Roll and return
+    // eslint-disable-next-line consistent-return
     return OseDice.Roll({
       event: options.event,
       parts: rollParts,
@@ -411,13 +456,14 @@ export default class OseActor extends Actor {
 
   async targetAttack(data, type, options) {
     if (game.user.targets.size > 0) {
-      for (const t of game.user.targets.values()) {
+      game.user.targets.forEach(async (t) => {
+        // eslint-disable-next-line no-param-reassign
         data.roll.target = t;
         await this.rollAttack(data, {
           type,
           skipDialog: options.skipDialog,
         });
-      }
+      });
     } else {
       this.rollAttack(data, { type, skipDialog: options.skipDialog });
     }
@@ -465,6 +511,7 @@ export default class OseActor extends Actor {
     const rollData = {
       actor: this,
       item: attData.item,
+      // eslint-disable-next-line no-underscore-dangle
       itemId: attData.item?._id,
       roll: {
         type: options.type,
@@ -482,24 +529,26 @@ export default class OseActor extends Actor {
       skipDialog: options.skipDialog,
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: label,
+      // eslint-disable-next-line no-underscore-dangle
       flags: { ose: { roll: "attack", itemId: attData.item?._id } },
       title: label,
     });
   }
 
   /**
-   * @param {number | string} amount
-   * @param {1 | -1} multiplier
-   * @returns
+   * Applies damage
+   *
+   * @param {number | string} amount - Amount of damage
+   * @param {1 | -1} multiplier - Add or substract
    */
   async applyDamage(amount = 0, multiplier = 1) {
-    amount = Math.floor(parseInt(amount) * multiplier);
+    const damageAmount = Math.floor(parseInt(amount, 10) * multiplier);
 
     const { value, max } = this.system.hp;
 
     // Update the Actor
     return this.update({
-      "system.hp.value": Math.clamped(value - amount, 0, max),
+      "system.hp.value": Math.clamped(value - damageAmount, 0, max),
     });
   }
 }

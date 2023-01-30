@@ -1,10 +1,18 @@
+/* eslint-disable eslint-comments/disable-enable-pair */
+
+/* eslint-disable import/no-cycle, simple-import-sort/imports */
+
 /**
  * @file Orchestration for our Quench tests
  */
+import actorCrudInventoryContainerTests, {
+  key as actorCrudInventoryContainerKey,
+  options as actorCrudInventoryContainerOptions,
+} from "../module/actor/__tests__/character-crud-inventory-container.test";
 import dataModelCharacterTests, {
   key as dataModelCharacterKey,
   options as dataModelCharacterOptions,
-} from "../module/actor/data-model-character.test.js";
+} from "../module/actor/data-model-character.test";
 import dataModelCharacterACTests, {
   key as dataModelCharacterACKey,
   options as dataModelCharacterACOptions,
@@ -25,14 +33,10 @@ import dataModelCharacterSpellsTests, {
   key as dataModelCharacterSpellsKey,
   options as dataModelCharacterSpellsOptions,
 } from "../module/actor/data-model-classes/__tests__/data-model-character-spells.test";
-import characterTests, {
-  key as characterKey,
-  options as characterOptions,
-} from "./actor/character.e2e.test.js";
-import characterItemMacroTests, {
-  key as characterItemMacroKey,
-  options as characterItemMacroOptions,
-} from "./actor/createItemMacro.test";
+import characterRollingTests, {
+  key as characterRollingKey,
+  options as characterRollingOptions,
+} from "./actor/character-rolling.e2e.test";
 
 export type QuenchMethods = {
   [s: string]: any;
@@ -43,13 +47,24 @@ type Quench = {
 };
 
 Hooks.on("quenchReady", async (quench: Quench) => {
+  // Actor CRUD testing
   quench.registerBatch(
-    characterItemMacroKey,
-    characterItemMacroTests,
-    characterItemMacroOptions
+    actorCrudInventoryContainerKey,
+    actorCrudInventoryContainerTests,
+    actorCrudInventoryContainerOptions
   );
-  quench.registerBatch(characterKey, characterTests, characterOptions);
+  // Actor rolling testing
+  quench.registerBatch(
+    characterRollingKey,
+    characterRollingTests,
+    characterRollingOptions
+  );
   // Character data model classes
+  quench.registerBatch(
+    dataModelCharacterKey,
+    dataModelCharacterTests,
+    dataModelCharacterOptions
+  );
   quench.registerBatch(
     dataModelCharacterACKey,
     dataModelCharacterACTests,
@@ -74,10 +89,5 @@ Hooks.on("quenchReady", async (quench: Quench) => {
     dataModelCharacterMoveKey,
     dataModelCharacterMoveTests,
     dataModelCharacterMoveOptions
-  );
-  quench.registerBatch(
-    dataModelCharacterKey,
-    dataModelCharacterTests,
-    dataModelCharacterOptions
   );
 });

@@ -427,25 +427,21 @@ export default class OseActorSheet extends ActorSheet {
   }
 
   // eslint-disable-next-line no-underscore-dangle, consistent-return
-  _createItem(event) {
-    event.preventDefault();
-    const header = event.currentTarget;
-    const { treasure, type } = header.dataset;
-    const createItem = (name, itemType = type) => ({
+  _createItem(type, treasure = false, choices = []) {
+    const createItemData = (itemType, name) => ({
       name: name || `New ${itemType.capitalize()}`,
       type: itemType,
     });
 
     // Getting back to main logic
     if (type === "choice") {
-      const choices = header.dataset.choices.split(",");
       // eslint-disable-next-line promise/catch-or-return, no-underscore-dangle, promise/always-return
       this._chooseItemType(choices).then((dialogInput) => {
-        const itemData = createItem(dialogInput.name, dialogInput.type);
+        const itemData = createItemData(dialogInput.type, dialogInput.name);
         this.actor.createEmbeddedDocuments("Item", [itemData], {});
       });
     } else {
-      const itemData = createItem(type);
+      const itemData = createItemData(type);
       if (treasure) itemData.system = { treasure: true };
       return this.actor.createEmbeddedDocuments("Item", [itemData], {});
     }
@@ -608,8 +604,11 @@ export default class OseActorSheet extends ActorSheet {
 
     // Item Management
     html.find(".item-create").click((event) => {
+      event.preventDefault();
+      const { dataset } = event.currentTarget;
+      const { treasure, type, choices } = dataset;
       // eslint-disable-next-line no-underscore-dangle
-      this._createItem(event);
+      this._createItem(type, treasure, choices?.split(","));
     });
 
     html.find(".item-edit").click((event) => {
@@ -624,14 +623,14 @@ export default class OseActorSheet extends ActorSheet {
 
       if (item?.type !== "container" || !item?.system?.itemIds?.length > 0)
         // eslint-disable-next-line no-underscore-dangle
-        return this._removeItemFromActor(event);
+        return this._removeItemFromActor(item);
 
       return Dialog.confirm({
         title: game.i18n.localize("OSE.dialog.deleteContainer"),
         content: game.i18n.localize("OSE.dialog.confirmDeleteContainer"),
         yes: () => {
           // eslint-disable-next-line no-underscore-dangle
-          this._removeItemFromActor(event);
+          this._removeItemFromActor(item);
         },
         defaultYes: false,
       });

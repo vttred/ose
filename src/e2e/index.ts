@@ -5,6 +5,10 @@
 /**
  * @file Orchestration for our Quench tests
  */
+import actorCrudInventoryWeaponTests, {
+  key as actorCrudInventoryWeaponKey,
+  options as actorCrudInventoryWeaponOptions,
+} from "../module/actor/__tests__/character-crud-inventory-weapon.test";
 import actorCrudInventoryContainerTests, {
   key as actorCrudInventoryContainerKey,
   options as actorCrudInventoryContainerOptions,
@@ -48,6 +52,11 @@ type Quench = {
 
 Hooks.on("quenchReady", async (quench: Quench) => {
   // Actor CRUD testing
+  quench.registerBatch(
+    actorCrudInventoryWeaponKey,
+    actorCrudInventoryWeaponTests,
+    actorCrudInventoryWeaponOptions
+  );
   quench.registerBatch(
     actorCrudInventoryContainerKey,
     actorCrudInventoryContainerTests,

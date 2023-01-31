@@ -23,12 +23,17 @@ export const closeRollDialog = async () => {
   });
 };
 
-export default ({ before, beforeEach, after, describe, it, expect }) => {
+export default ({
+  before,
+  beforeEach,
+  after,
+  afterEach,
+  describe,
+  it,
+  expect,
+  ...context
+}) => {
   const testCharacterName = "Quench Test Character";
-
-  const testActor = () => game.actors.getName(testCharacterName);
-  const trashActor = () => testActor()?.delete();
-
   const prepareActor = async (data) => {
     await trashChat();
     await trashActor();
@@ -40,30 +45,31 @@ export default ({ before, beforeEach, after, describe, it, expect }) => {
     });
   };
 
-  const rollNoMods = async (rollKey, rollFn) => {
-    await testActor()[rollFn](rollKey, { fastForward: true });
+  const testActor = () => game.actors.getName(testCharacterName);
+  const trashActor = () => testActor()?.delete();
+
+  const rollNoMods = async (key, rollFn) => {
+    await testActor()[rollFn](key, { fastForward: true });
     await waitForInput();
     expect(game.messages.size).to.equal(1);
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const rollNoModsSkipDialog = async (rollKey, rollFn) => {
-    const ctrlDown = new KeyboardEvent("keydown", { ctrlKey: true });
-    await testActor()[rollFn](rollKey, { event: ctrlDown });
+  const rollNoModsSkipDialog = async (key, rollFn) => {
+    const ctrl_down = new KeyboardEvent("keydown", { ctrlKey: true });
+    await testActor()[rollFn](key, { event: ctrl_down });
     await waitForInput();
     expect(game.messages.size).to.equal(1);
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const rollNoModsSkipDialogMeta = async (rollKey, rollFn) => {
-    const metaDown = new KeyboardEvent("keydown", { metaKey: true });
-    await testActor()[rollFn](rollKey, { event: metaDown });
+  const rollNoModsSkipDialogMeta = async (key, rollFn) => {
+    const meta_down = new KeyboardEvent("keydown", { metaKey: true });
+    await testActor()[rollFn](key, { event: meta_down });
     await waitForInput();
     expect(game.messages.size).to.equal(1);
   };
 
-  const rollMods = async (rollKey, rollFn) => {
-    testActor()[rollFn](rollKey);
+  const rollMods = async (key, rollFn) => {
+    testActor()[rollFn](key);
 
     await waitForInput();
 
@@ -79,15 +85,92 @@ export default ({ before, beforeEach, after, describe, it, expect }) => {
     expect(game.messages.size).to.equal(1);
   };
 
-  const canRoll = (rollKey, rollFn) => {
+  const rollInvertCtrlNoDialog = async (key, rollFn) => {
+    await testActor()[rollFn](key, { fastForward: false });
+    await waitForInput();
+
+    expect(game.messages.size).to.equal(1);
+  };
+
+  const rollInvertCtrlDialog = async (key, rollFn) => {
+    const ctrl_down = new KeyboardEvent("keydown", { ctrlKey: true });
+    testActor()[rollFn](key, { event: ctrl_down });
+
+    await waitForInput();
+
+    const dialog = document.querySelector(".roll-dialog.ose");
+    expect(dialog).not.equal(null);
+
+    dialog
+      .closest(".window-content")
+      .querySelector(".dialog-button.ok")
+      .click();
+
+    await waitForInput();
+    expect(game.messages.size).to.equal(1);
+  };
+
+  const rollInvertCtrlDialogMeta = async (key, rollFn) => {
+    const meta_down = new KeyboardEvent("keydown", { metaKey: true });
+    testActor()[rollFn](key, { event: meta_down });
+
+    await waitForInput();
+
+    const dialog = document.querySelector(".roll-dialog.ose");
+    expect(dialog).not.equal(null);
+
+    dialog
+      .closest(".window-content")
+      .querySelector(".dialog-button.ok")
+      .click();
+
+    await waitForInput();
+    expect(game.messages.size).to.equal(1);
+  };
+
+  const canRoll = (key, rollFn) => {
+    before(async () => {
+      await game.settings.set(game.system.id, "invertedCtrlBehavior", false);
+    });
+
     beforeEach(async () => {
       await trashChat();
     });
+
+    afterEach(async () => {
+      await closeRollDialog();
+    });
     it("With no modifiers", async () => {
-      await rollNoMods(rollKey, rollFn);
+      await rollNoMods(key, rollFn);
+    });
+    it("Skipping dialog, holding ctrl", async () => {
+      await rollNoModsSkipDialog(key, rollFn);
+    });
+    it("Skipping dialog, holding meta", async () => {
+      await rollNoModsSkipDialogMeta(key, rollFn);
     });
     it("With modifiers", async () => {
-      await rollMods(rollKey, rollFn);
+      await rollMods(key, rollFn);
+    });
+
+    describe("Inverted Ctrl behavior", () => {
+      before(async () => {
+        await game.settings.set(game.system.id, "invertedCtrlBehavior", true);
+      });
+
+      after(async () => {
+        await game.settings.set(game.system.id, "invertedCtrlBehavior", false);
+      });
+
+      it("Inverted ctrl behavior without dialog", async () => {
+        await rollInvertCtrlNoDialog(key, rollFn);
+      });
+      it("Inverted ctrl behavior with dialog, ctrl key", async () => {
+        await rollInvertCtrlDialog(key, rollFn);
+      });
+      it("Inverted ctrl behavior with dialog, meta key", async () => {
+        await rollInvertCtrlDialogMeta(key, rollFn);
+      });
     });
   };
 
@@ -102,7 +185,6 @@ export default ({ before, beforeEach, after, describe, it, expect }) => {
     });
 
     it("renders", async () => {
-      // eslint-disable-next-line no-underscore-dangle
       await testActor().sheet._render(true);
       expect(document.querySelector(".sheet.character")).not.to.be.null;
       await testActor().sheet.close();
@@ -112,8 +194,7 @@ export default ({ before, beforeEach, after, describe, it, expect }) => {
   describe("The Attributes Tab", () => {
     // At01
     describe("Scores", () => {
-      // eslint-disable-next-line unicorn/consistent-function-scoping
-      const canRollCheck = (rollKey) => canRoll(rollKey, "rollCheck");
+      const canRollCheck = (key) => canRoll(key, "rollCheck");
 
       before(async () => {
         await prepareActor();
@@ -151,8 +232,7 @@ export default ({ before, beforeEach, after, describe, it, expect }) => {
 
     // At02
     describe("Saves", () => {
-      // eslint-disable-next-line unicorn/consistent-function-scoping
-      const canRollSave = (rollKey) => canRoll(rollKey, "rollSave");
+      const canRollSave = (key) => canRoll(key, "rollSave");
 
       before(async () => {
         await prepareActor();
@@ -187,9 +267,7 @@ export default ({ before, beforeEach, after, describe, it, expect }) => {
   describe("The Abilities Tab", () => {
     // Ab01
     describe("Exploration Skills", () => {
-      // eslint-disable-next-line unicorn/consistent-function-scoping
-      const canRollExploration = (rollKey) =>
-        canRoll(rollKey, "rollExploration");
+      const canRollExploration = (key) => canRoll(key, "rollExploration");
 
       before(async () => {
         await prepareActor();

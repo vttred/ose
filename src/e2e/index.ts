@@ -13,6 +13,10 @@ import actorCrudInventoryContainerTests, {
   key as actorCrudInventoryContainerKey,
   options as actorCrudInventoryContainerOptions,
 } from "../module/actor/__tests__/character-crud-inventory-container.test";
+import characterItemMacroTests, {
+  key as characterItemMacroKey,
+  options as characterItemMacroOptions,
+} from "../module/actor/__tests__/character-macros.test";
 import dataModelCharacterTests, {
   key as dataModelCharacterKey,
   options as dataModelCharacterOptions,
@@ -42,6 +46,11 @@ import characterRollingTests, {
   options as characterRollingOptions,
 } from "./actor/character-rolling.e2e.test";
 
+import macroCreationTests, {
+  key as macroCreationKey,
+  options as macroCreationOptions,
+} from "../module/__tests__/macros-creation.test";
+
 export type QuenchMethods = {
   [s: string]: any;
 };
@@ -51,6 +60,17 @@ type Quench = {
 };
 
 Hooks.on("quenchReady", async (quench: Quench) => {
+  // Macro testing
+  quench.registerBatch(
+    macroCreationKey,
+    macroCreationTests,
+    macroCreationOptions
+  );
+  quench.registerBatch(
+    characterItemMacroKey,
+    characterItemMacroTests,
+    characterItemMacroOptions
+  );
   // Actor CRUD testing
   quench.registerBatch(
     actorCrudInventoryWeaponKey,

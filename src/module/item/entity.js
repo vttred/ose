@@ -72,12 +72,12 @@ export default class OseItem extends Item {
   }
 
   rollWeapon(options = {}) {
-    const isNPC = this.actor.type != "character";
-    const targets = 5;
+    const isNPC = this.actor?.type !== "character";
     const itemData = this.system;
 
     let type = isNPC ? "attack" : "melee";
     const rollData = {
+      // eslint-disable-next-line no-underscore-dangle
       item: this._source,
       actor: this.actor,
       roll: {
@@ -114,7 +114,7 @@ export default class OseItem extends Item {
     if (itemData.missile && !isNPC) {
       type = "missile";
     }
-    this.actor.targetAttack(rollData, type, options);
+    this.actor?.targetAttack(rollData, type, options);
     return true;
   }
 
@@ -152,16 +152,18 @@ export default class OseItem extends Item {
     });
   }
 
-  spendSpell() {
+  spendSpell = async () => {
+    if (this.type !== "spell")
+      throw new Error("Trying to spend a spell on an item that is not a spell.");
+
     const itemData = this.system;
-    this.update({
-      data: {
+    await this.update({
+      system: {
         cast: itemData.cast - 1,
       },
-    }).then(() => {
-      this.show({ skipDialog: true });
     });
-  }
+    await this.show({ skipDialog: true });
+  };
 
   _getRollTag(data) {
     if (data.roll) {
@@ -257,32 +259,41 @@ export default class OseItem extends Item {
         // Catch infos in brackets
         const matches = regExp.exec(val);
         let title = "";
+        let value = "";
         if (matches) {
+          // eslint-disable-next-line prefer-destructuring
           title = matches[1];
-          val = val.slice(0, Math.max(0, matches.index)).trim();
+          value = val.slice(0, Math.max(0, matches.index)).trim();
         } else {
-          val = val.trim();
+          value = val.trim();
           title = val;
         }
         // Auto fill checkboxes
-        switch (val) {
+        // eslint-disable-next-line default-case
+        switch (title) {
+          // eslint-disable-next-line switch-case/no-case-curly
           case CONFIG.OSE.tags.melee: {
             newData.melee = true;
             break;
           }
 
+          // eslint-disable-next-line switch-case/no-case-curly
           case CONFIG.OSE.tags.slow: {
             newData.slow = true;
             break;
           }
 
+          // eslint-disable-next-line switch-case/no-case-curly
           case CONFIG.OSE.tags.missile: {
             newData.missile = true;
             break;
           }
         }
-        if (!newData.melee && !newData.slow && !newData.missile)
-          update.push({ title, value: val, label: val });
+        if (
+          (!newData.melee && !newData.slow && !newData.missile) ||
+          title !== value
+        )
+          update.push({ title, value, label: value });
       });
     } else {
       update = values;
@@ -297,7 +308,7 @@ export default class OseItem extends Item {
     const { tags } = itemData;
     if (!tags) return;
 
-    const update = tags.filter((el) => el.value != value);
+    const update = tags.filter((el) => el.value !== value);
     const newData = {
       tags: update,
     };
@@ -341,7 +352,7 @@ export default class OseItem extends Item {
   async show() {
     const itemType = this.type;
     // Basic template rendering data
-    const { token } = this.actor; // v10: prototypeToken?
+    const token = this.actor?.token; // v10: prototypeToken?
     const templateData = {
       actor: this.actor,
       tokenId: token ? `${token.parent.id}.${token.id}` : null,
@@ -366,9 +377,9 @@ export default class OseItem extends Item {
       type: CONST.CHAT_MESSAGE_TYPES.OTHER,
       content: html,
       speaker: {
-        actor: this.actor.id,
-        token: this.actor.token,
-        alias: this.actor.name,
+        actor: this.actor?.id,
+        token: this.actor?.token,
+        alias: this.actor?.name,
       },
     };
 

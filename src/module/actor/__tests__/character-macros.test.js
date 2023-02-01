@@ -1,23 +1,32 @@
-import { createOseMacro } from "../../module/macros";
+/**
+ * @file Contains Quench tests for testing macro creation from character.
+ */
+import { trashChat, waitForInput } from "../../../e2e/testUtils";
+import { createOseMacro } from "../../macros";
 
-import { trashChat, waitForInput } from "../testUtils";
-
-export const key = "ose.actor.macro";
+export const key = "ose.macro.create.actor.item";
 export const options = {
-  displayName: "The Character Sheet: Item Macros",
+  displayName: "Macro: Create Character Item Macros",
 };
 
-export default ({
-  before,
-  beforeEach,
-  after,
-  describe,
-  it,
-  expect,
-  assert,
-  ...context
-}) => {
+const trashMacro = async () => {
+  await game.macros.find((o) => o.name === "Test Macro Item")?.delete();
+  await game.user.assignHotbarMacro(null, 1);
+};
+
+const createItemMacroData = (item) => {
+  const dragData = item.toDragData();
+  dragData.item = item;
+  dragData.type = "Item";
+  return dragData;
+};
+
+export default ({ before, after, afterEach, describe, it, expect }) => {
   const testCharacterName = "Quench Test Character";
+
+  const testActor = () => game.actors.getName(testCharacterName);
+  const trashActor = () => testActor()?.delete();
+
   const prepareActor = async (data) => {
     await trashChat();
     await trashActor();
@@ -28,29 +37,18 @@ export default ({
       type: "character",
     });
   };
-  const testActor = () => game.actors.getName(testCharacterName);
-  const trashActor = () => testActor()?.delete();
-  const trashMacro = async () => {
-    await game.macros.find((o) => o.name === "Test Macro Item")?.delete();
-    await game.user.assignHotbarMacro(null, 1);
-  };
-  const createItem = (type) =>
-    testActor()?.createEmbeddedDocuments("Item", [
+
+  const createItem = async (type) => {
+    await testActor()?.createEmbeddedDocuments("Item", [
       { type, name: "Test Macro Item" },
     ]);
-
-  const createItemMacroData = (item) => {
-    const dragData = item.toDragData();
-    dragData.item = item;
-    dragData.type = "Item";
-    return dragData;
   };
 
   const canCreate = async (type) => {
     await createItem(type);
     const item = testActor().items.contents[0];
     const data = createItemMacroData(item);
-    const macro = await createOseMacro(data, 1);
+    await createOseMacro(data, 1);
     await waitForInput();
 
     const createdMacro = game.user.getHotbarMacros()[0];

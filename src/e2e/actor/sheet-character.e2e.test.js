@@ -3,9 +3,9 @@
  */
 import { trashChat, waitForInput } from "../testUtils";
 
-export const key = "ose.actor.character";
+export const key = "ose.sheet.actor.character";
 export const options = {
-  displayName: "The Character Sheet",
+  displayName: "Sheet: Character",
 };
 
 /**

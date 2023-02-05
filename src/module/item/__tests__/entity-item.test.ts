@@ -7,7 +7,7 @@
 // eslint-disable-next-line prettier/prettier, import/no-cycle
 import { QuenchMethods } from "../../../e2e";
 // eslint-disable-next-line prettier/prettier
-import { closeDialogs, createMockActorKey, openDialogs, trashChat, waitForInput } from "../../../e2e/testUtils";
+import { cleanUpWorldItems, closeDialogs, createMockActorKey, openDialogs, trashChat, waitForInput } from "../../../e2e/testUtils";
 // eslint-disable-next-line prettier/prettier
 import OseActor from "../../actor/entity";
 import OseItem from "../entity";

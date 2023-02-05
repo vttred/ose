@@ -163,6 +163,7 @@ export default ({
       const type = "weapon";
       const actor = await createMockActor("character");
       const scene = await createMockScene();
+      expect(scene.tokenVision).equal(true);
       await createActorTestItem(actor, type);
       await game.user.update({ character: null });
       expect(ChatMessage.getSpeaker().scene).is.not.null;
@@ -181,6 +182,7 @@ export default ({
       const type = "weapon";
       const actor = await createMockActor("character");
       const scene = await createMockScene();
+      expect(scene.tokenVision).equal(true);
       await createActorTestItem(actor, type);
       await game.user.update({ character: actor._id });
       expect(ChatMessage.getSpeaker().scene).is.not.null;
@@ -196,6 +198,7 @@ export default ({
       const type = "weapon";
       const actor = await createMockActor("character");
       const scene = await createMockScene();
+      expect(scene.tokenVision).equal(true);
       await createActorTestItem(actor, type);
       await createActorTestItem(actor, type);
       await game.user.update({ character: actor._id });
@@ -220,6 +223,7 @@ export default ({
       const type = "weapon";
       const actor = await createMockActor("character");
       const scene = await createMockScene();
+      expect(scene.tokenVision).equal(true);
       await createActorTestItem(actor, type);
       await game.user.update({ character: actor._id });
       await actor?.items

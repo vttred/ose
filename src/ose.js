@@ -17,18 +17,18 @@ import OseDataModelWeapon from "./module/item/data-model-weapon";
 import OseItem from "./module/item/entity";
 import OseItemSheet from "./module/item/item-sheet";
 
-import * as chat from "./module/chat";
+import * as chat from "./module/helpers-chat";
 import OseCombat from "./module/combat";
 import OSE from "./module/config";
 import registerFVTTModuleAPIs from "./module/fvttModuleAPIs";
-import handlebarsHelpers from "./module/helpers";
-import * as macros from "./module/macros";
-import * as party from "./module/party";
+import handlebarsHelpers from "./module/helpers-handlebars";
+import * as macros from "./module/helpers-macros";
+import * as party from "./module/helpers-party";
 import OsePartySheet from "./module/party/party-sheet";
 import templates from "./module/preloadTemplates";
 import * as renderList from "./module/renderList";
 import registerSettings from "./module/settings";
-import * as treasure from "./module/treasure";
+import * as treasure from "./module/helpers-treasure";
 
 import "./e2e";
 

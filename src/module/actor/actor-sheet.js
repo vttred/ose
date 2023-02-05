@@ -1,7 +1,7 @@
 /**
  * @file The base class we use for Character and Monster sheets. Shared behavior goes here!
  */
-import { skipRollDialogCheck } from "../behaviourHelpers";
+import skipRollDialogCheck from "../helpers-behaviour";
 import OSE from "../config";
 import OseEntityTweaks from "../dialog/entity-tweaks";
 

@@ -2,7 +2,7 @@
  * @file The Character Creator application
  */
 import OSE from "../config";
-import OseDice from "../dice";
+import OseDice from "../helpers-dice";
 
 export default class OseCharacterCreator extends FormApplication {
   static get defaultOptions() {

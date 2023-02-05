@@ -89,3 +89,7 @@ export const addChatMessageButtons = (msg: ChatMessage, html: JQuery) => {
     });
   }
 };
+
+export const functionsForTesting = {
+  applyChatCardDamage,
+};

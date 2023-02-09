@@ -54,14 +54,18 @@ export default ({ describe, it, expect }: QuenchMethods) => {
       ability.save = "death";
       expect(ability.autoTags.length).equal(3);
       expect(Object.keys(ability.autoTags[2]).length).equal(2);
-      // expect(ability.autoTags[2].label).equal("Death Poison"); // Localized
+      expect(ability.autoTags[2].label).equal(
+        game.i18n.localize("OSE.saves.death.long")
+      );
       expect(ability.autoTags[2].icon).equal("fa-skull");
     });
     it("Roll create autoTags", () => {
       ability.roll = "1d20+1";
       expect(ability.autoTags.length).equal(4);
       expect(Object.keys(ability.autoTags[3]).length).equal(2);
-      // expect(ability.autoTags[2].label).equal("Roll 1d20+1 undefinednull"); // Localized
+      expect(ability.autoTags[2].label).equal(
+        `${game.i18n.localize("OSE.items.Roll")} 1d20+1 undefinednull`
+      );
     });
   });
 };

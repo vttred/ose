@@ -17,6 +17,7 @@ export const options = {
 };
 
 export default ({ describe, it, before, after, expect }: QuenchMethods) => {
+  // @todo: How do we test these properly?
   describe("applyChatCardDamage(roll, multiplier)", () => {});
   describe("addChatMessageContextOptions(_, options)", () => {});
   describe("addChatMessageButtons(msg. html)", () => {});

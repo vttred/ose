@@ -63,7 +63,9 @@ export default ({
       });
       await waitForInput();
       await waitForInput();
-      const chatCard = document.querySelector(".chat-message .dice-formula")?.innerHTML;
+      const chatCard = document.querySelector(
+        ".chat-message .dice-formula"
+      )?.innerHTML;
       expect(Object.keys(dice)).contain("_evaluated");
       expect(dice._evaluated).equal(true);
       expect(Object.keys(dice)).contain("_formula");
@@ -77,16 +79,15 @@ export default ({
       });
       await waitForInput();
       await waitForInput();
-      const chatCard = document.querySelector(".chat-message .dice-formula")?.innerHTML;
+      const chatCard = document.querySelector(
+        ".chat-message .dice-formula"
+      )?.innerHTML;
       expect(Object.keys(dice)).contain("_evaluated");
       expect(dice._evaluated).equal(true);
       expect(Object.keys(dice)).contain("_formula");
       expect(dice._formula).equal("1d10 + 1d20");
       expect(chatCard).equal("1d10 + 1d20");
     });
-    if (game.dice3d) {
-      describe("Dice So Nice integration", () => {});
-    }
     afterEach(async () => {
       await trashChat();
     });
@@ -212,25 +213,17 @@ export default ({
     });
   });
   describe("attackIsSuccess(roll, thac0, ac)", () => {
-    it("Natural 1 total always fails", () => {
-      const roll = createMockRoll(1);
-      expect(OseDice.attackIsSuccess(roll, 10, 10)).equal(false);
+    it("Natural 1 always fails", () => {
+      const rollTargetOne = createMockRoll(1, [1]);
+      expect(OseDice.attackIsSuccess(rollTargetOne, 21, 0)).equal(false);
+      const rollTargetTwenty = createMockRoll(20, [1]);
+      expect(OseDice.attackIsSuccess(rollTargetTwenty, 21, 0)).equal(false);
     });
-    it("Natural 1 terms always fails", () => {
-      const roll = createMockRoll(5, [1]);
-      expect(OseDice.attackIsSuccess(roll, 10, 10)).equal(false);
-    });
-    it("Natural 20 total always succeed", () => {
-      const roll = createMockRoll(20);
-      expect(OseDice.attackIsSuccess(roll, 100, 10)).equal(true);
-    });
-    it("Natural 20+ total always succeed", () => {
-      const roll = createMockRoll(21);
-      expect(OseDice.attackIsSuccess(roll, 100, 10)).equal(true);
-    });
-    it("Natural 20 terms always succeed", () => {
-      const roll = createMockRoll(5, [20]);
-      expect(OseDice.attackIsSuccess(roll, 100, 10)).equal(true);
+    it("Natural 20 always succeeds", () => {
+      const rollTargetOne = createMockRoll(1, [20]);
+      expect(OseDice.attackIsSuccess(rollTargetOne, 0, 21)).equal(true);
+      const rollTargetTwenty = createMockRoll(20, [20]);
+      expect(OseDice.attackIsSuccess(rollTargetTwenty, 0, 21)).equal(true);
     });
     it("Roll + ac equal thac0 is successful", () => {
       const roll = createMockRoll(10);
@@ -269,9 +262,20 @@ export default ({
       it("Natural 1 terms is unsuccesful", async () => {
         await game.settings.set(game.system.id, "ascendingAC", true);
         expect(game.settings.get(game.system.id, "ascendingAC")).equal(true);
-        const roll = createMockRoll(1);
-        expect(OseDice.digestAttackResult(data, roll).isSuccess).equal(false);
-        expect(OseDice.digestAttackResult(data, roll).isFailure).equal(true);
+        const rollTargetOne = createMockRoll(1, [1]);
+        expect(OseDice.digestAttackResult(data, rollTargetOne).isSuccess).equal(
+          false
+        );
+        expect(OseDice.digestAttackResult(data, rollTargetOne).isFailure).equal(
+          true
+        );
+        const rollTargetTwenty = createMockRoll(20, [1]);
+        expect(
+          OseDice.digestAttackResult(data, rollTargetTwenty).isSuccess
+        ).equal(false);
+        expect(
+          OseDice.digestAttackResult(data, rollTargetTwenty).isFailure
+        ).equal(true);
       });
       it("Lower than target AC is unsuccesful", () => {
         const roll = createMockRoll(8);
@@ -289,18 +293,40 @@ export default ({
         expect(OseDice.digestAttackResult(data, roll).isFailure).equal(false);
       });
       it("Natural 20 is succesful", () => {
-        const roll = createMockRoll(20);
-        expect(OseDice.digestAttackResult(data, roll).isSuccess).equal(true);
-        expect(OseDice.digestAttackResult(data, roll).isFailure).equal(false);
+        const rollTargetOne = createMockRoll(1, [20]);
+        expect(OseDice.digestAttackResult(data, rollTargetOne).isSuccess).equal(
+          true
+        );
+        expect(OseDice.digestAttackResult(data, rollTargetOne).isFailure).equal(
+          false
+        );
+        const rollTargetTwenty = createMockRoll(20, [20]);
+        expect(
+          OseDice.digestAttackResult(data, rollTargetTwenty).isSuccess
+        ).equal(true);
+        expect(
+          OseDice.digestAttackResult(data, rollTargetTwenty).isFailure
+        ).equal(false);
       });
     });
     describe("Descending AC, ac=0", () => {
       it("Natural 1 terms is unsuccesful", async () => {
         await game.settings.set(game.system.id, "ascendingAC", false);
         expect(game.settings.get(game.system.id, "ascendingAC")).equal(false);
-        const roll = createMockRoll(1);
-        expect(OseDice.digestAttackResult(data, roll).isSuccess).equal(false);
-        expect(OseDice.digestAttackResult(data, roll).isFailure).equal(true);
+        const rollTargetOne = createMockRoll(1, [1]);
+        expect(OseDice.digestAttackResult(data, rollTargetOne).isSuccess).equal(
+          false
+        );
+        expect(OseDice.digestAttackResult(data, rollTargetOne).isFailure).equal(
+          true
+        );
+        const rollTargetTwenty = createMockRoll(20, [1]);
+        expect(
+          OseDice.digestAttackResult(data, rollTargetTwenty).isSuccess
+        ).equal(false);
+        expect(
+          OseDice.digestAttackResult(data, rollTargetTwenty).isFailure
+        ).equal(true);
       });
       it("Lower than thac0 is unsuccesful", () => {
         const roll = createMockRoll(14);
@@ -318,9 +344,20 @@ export default ({
         expect(OseDice.digestAttackResult(data, roll).isFailure).equal(false);
       });
       it("Natural 20 is succesful", () => {
-        const roll = createMockRoll(20);
-        expect(OseDice.digestAttackResult(data, roll).isSuccess).equal(true);
-        expect(OseDice.digestAttackResult(data, roll).isFailure).equal(false);
+        const rollTargetOne = createMockRoll(1, [20]);
+        expect(OseDice.digestAttackResult(data, rollTargetOne).isSuccess).equal(
+          true
+        );
+        expect(OseDice.digestAttackResult(data, rollTargetOne).isFailure).equal(
+          false
+        );
+        const rollTargetTwenty = createMockRoll(20, [20]);
+        expect(
+          OseDice.digestAttackResult(data, rollTargetTwenty).isSuccess
+        ).equal(true);
+        expect(
+          OseDice.digestAttackResult(data, rollTargetTwenty).isFailure
+        ).equal(false);
       });
     });
   });
@@ -349,9 +386,12 @@ export default ({
       await waitForInput();
       const attackResult = document.querySelector(".roll-result b").innerHTML;
       expect(attackResult).equal("Hits AC 20!");
-      const attackDiceResult = document.querySelector(".dice-formula").innerHTML;
+      const attackDiceResult =
+        document.querySelector(".dice-formula").innerHTML;
       expect(attackDiceResult).equal("20");
-      const damageDiceResult = document.querySelector(".damage-roll .dice-formula").innerHTML;
+      const damageDiceResult = document.querySelector(
+        ".damage-roll .dice-formula"
+      ).innerHTML;
       expect(damageDiceResult).equal("1d6");
     });
     it("Can roll with single part and multiple dmg dice", async () => {
@@ -362,9 +402,12 @@ export default ({
       await waitForInput();
       const attackResult = document.querySelector(".roll-result b").innerHTML;
       expect(attackResult).equal("Hits AC 20!");
-      const attackDiceResult = document.querySelector(".dice-formula").innerHTML;
+      const attackDiceResult =
+        document.querySelector(".dice-formula").innerHTML;
       expect(attackDiceResult).equal("20");
-      const damageDiceResult = document.querySelector(".damage-roll .dice-formula").innerHTML;
+      const damageDiceResult = document.querySelector(
+        ".damage-roll .dice-formula"
+      ).innerHTML;
       expect(damageDiceResult).equal("1d6 + 1d100");
     });
     it("Can roll with multiple parts and single dmg die", async () => {
@@ -375,9 +418,12 @@ export default ({
       await waitForInput();
       const attackResult = document.querySelector(".roll-result b").innerHTML;
       expect(attackResult).contain("Hits AC");
-      const attackDiceResult = document.querySelector(".dice-formula").innerHTML;
+      const attackDiceResult =
+        document.querySelector(".dice-formula").innerHTML;
       expect(attackDiceResult).equal("1d20 + 1d10 + 30");
-      const damageDiceResult = document.querySelector(".damage-roll .dice-formula").innerHTML;
+      const damageDiceResult = document.querySelector(
+        ".damage-roll .dice-formula"
+      ).innerHTML;
       expect(damageDiceResult).equal("1d6");
     });
     it("Can roll with multiple parts and single dmg die", async () => {
@@ -388,9 +434,12 @@ export default ({
       await waitForInput();
       const attackResult = document.querySelector(".roll-result b").innerHTML;
       expect(attackResult).contain("Hits AC");
-      const attackDiceResult = document.querySelector(".dice-formula").innerHTML;
+      const attackDiceResult =
+        document.querySelector(".dice-formula").innerHTML;
       expect(attackDiceResult).equal("1d20 + 1d10 + 300");
-      const damageDiceResult = document.querySelector(".damage-roll .dice-formula").innerHTML;
+      const damageDiceResult = document.querySelector(
+        ".damage-roll .dice-formula"
+      ).innerHTML;
       expect(damageDiceResult).equal("1d6");
     });
     it("Can roll with multiple parts and multiple dmg dice", async () => {
@@ -402,14 +451,14 @@ export default ({
       await waitForInput();
       const attackResult = document.querySelector(".roll-result b").innerHTML;
       expect(attackResult).contain("Hits AC");
-      const attackDiceResult = document.querySelector(".dice-formula").innerHTML;
+      const attackDiceResult =
+        document.querySelector(".dice-formula").innerHTML;
       expect(attackDiceResult).equal("1d20 + 1d10 + 30");
-      const damageDiceResult = document.querySelector(".damage-roll .dice-formula").innerHTML;
+      const damageDiceResult = document.querySelector(
+        ".damage-roll .dice-formula"
+      ).innerHTML;
       expect(damageDiceResult).equal("1d6 + 1d100");
     });
-    if (game.dice3d) {
-      describe("Dice So Nice integration", () => {});
-    }
     afterEach(async () => {
       await trashChat();
     });

@@ -35,7 +35,7 @@ const cleanUpTables = () => {
 
 export default ({ describe, it, expect, after }: QuenchMethods) => {
   // @todo: how to test?
-  // describe("augmentTable(table, html)", () => {});
+  describe("augmentTable(table, html)", () => {});
   describe("drawTreasure(table, data)", () => {
     it("Can create table", async () => {
       const table = await createMockTreasureTable();

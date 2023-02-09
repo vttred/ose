@@ -116,30 +116,25 @@ export default ({
     */
   });
 
-  /*
-  // How to test?
+  // @todo: How to test?
   describe('prepareData()', () => {});
 
-  // How to test?
+  // @todo: How to test?
   describe('prepareDerivedData()', () => {});
-  */
 
-  /*
-  // How to mock html?     
+  // @todo: How to mock html?     
   describe('chatListeners(html)', () => {
     it('Correctly binds _onChatCardAction to element', () => { assert(false) })
     it('Correctly binds _onChatCardToggleContent to element', () => { assert(false) })
-  }); 
-  */
+  });
 
-  /*
+  /// @todo: How to test?
   describe('getChatData(htmlOptions)', () => {
     it('Weapon with tags correctly stored in item.system.properties', () => { assert(false) })
     it('Spell stores class, level, range, and duration in item.system.properties', () => { assert(false) })
     it('Equipped item stores "Equipped" in item.system.properties', () => { assert(false) })
     it('Properly returns itemData', () => { assert(false) })
   });
-  */
 
   describe("rollWeapon(options)", () => {
     it("Actor with melee & missile weapon renders dialog", async () => {
@@ -458,7 +453,6 @@ export default ({
   });
 
   // @todo How to test?
-  /*
   describe('roll(options)', () => {
     it('Item of weapon type activates rollWeapon', async () => {})
     it('Item of spell type activates spendSpell', () => { assert(false) })
@@ -467,7 +461,6 @@ export default ({
     it('Item of item type shows chat card', () => { assert(false) })
     it('Item of armor type shows chat card', () => { assert(false) })
   });
-  */
 
   describe("show()", () => {
     beforeEach(async () => {
@@ -522,18 +515,17 @@ export default ({
     });
   });
 
-  /*
-  // e2e
+  // @todo: How to test? Mock Event?
   describe('_onChatCardToggleContent(event)', () => { });
   describe('_onChatCardAction(event)', () => { });
 
+  // @todo: How to mock?
   describe('_getChatCardActor(card)', () => {
     it('Returns actor if tokenId is properly set', () => { assert(false) })
     it('Returns actor if actorId is properly set', () => { assert(false) })
     it('Returns null if neither tokenId nor actorId is properly set', () => { assert(false) })
   });
 
-  // e2e
+  // @todo: How to mock?
   describe('_getChatCardTargets(card)', () => { });
-  */
 };

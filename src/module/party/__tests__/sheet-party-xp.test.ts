@@ -51,11 +51,9 @@ export default ({ describe, it, expect, assert }: QuenchMethods) => {
       expect(keys).contain("settings");
     });
   });
-  /**
-   * @todo Test with Cypress or similar
-   */
-  // describe("_onDrop(event)", () => {});
-  // describe("_updateObject(event)", () => {});
-  // describe("_calculateShare()", () => {});
-  // describe("_dealXP(event)", () => {});
+  // @todo: Test with Cypress or similar, or mock event
+  describe("_onDrop(event)", () => {});
+  describe("_updateObject(event)", () => {});
+  describe("_calculateShare()", () => {});
+  describe("_dealXP(event)", () => {});
 };

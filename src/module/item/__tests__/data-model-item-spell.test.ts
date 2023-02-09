@@ -42,14 +42,18 @@ export default ({ describe, it, expect }: QuenchMethods) => {
       spell.save = "death";
       expect(spell.autoTags.length).equal(4);
       expect(Object.keys(spell.autoTags[3]).length).equal(2);
-      // expect(spell.autoTags[3].label).equal("Death Poison"); // Localized
+      expect(spell.autoTags[3].label).equal(
+        game.i18n.localize("OSE.saves.death.long")
+      );
       expect(spell.autoTags[3].icon).equal("fa-skull");
     });
     it("Roll create autoTags", () => {
       spell.roll = "1d20+1";
       expect(spell.autoTags.length).equal(5);
       expect(Object.keys(spell.autoTags[3]).length).equal(1);
-      // expect(spell.autoTags[3].label).equal("Roll 1d20+1"); // Localized
+      expect(spell.autoTags[3].label).equal(
+        `${game.i18n.localize("OSE.items.Roll")} 1d20+1`
+      );
     });
   });
 };

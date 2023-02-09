@@ -38,6 +38,7 @@ export default ({ describe, it, expect, assert, after }: QuenchMethods) => {
       assert(!partySheet.options.closeOnSubmit);
     });
   });
+  // @todo: How to test?
   describe("init()", () => {});
   describe("showPartySheet(options = {})", () => {
     it("Can render party sheet", async () => {
@@ -118,10 +119,8 @@ export default ({ describe, it, expect, assert, after }: QuenchMethods) => {
     });
   });
 
-  /**
-   * @todo Test with Cypress or similar
-   */
-  // describe("_onDrop(event)", () => {});
+  // @todo: Test with Cypress or mock event
+  describe("_onDrop(event)", () => {});
 
   describe("_onDropActor(event, data)", () => {
     const event = "";
@@ -215,15 +214,11 @@ export default ({ describe, it, expect, assert, after }: QuenchMethods) => {
       await folder?.delete();
     });
   });
-  /**
-   * Requires UI testing
-   */
-  // describe("_onDragStart(event)", () => {});
+  // @todo: Test with Cypress or Mock event
+  describe("_onDragStart(event)", () => {});
 
-  /**
-   * Tested in OsePartyXP
-   */
-  // describe("_dealXP(event)", () => {});
+  // Tested in OsePartyXP
+  describe("_dealXP(event)", () => {});
 
   after(() => {
     game.actors?.contents

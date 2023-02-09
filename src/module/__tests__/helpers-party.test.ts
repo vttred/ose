@@ -30,7 +30,7 @@ export default ({ describe, it, expect, after }: QuenchMethods) => {
     cleanUpActors();
   });
   // @todo: How to test?
-  // describe("addControl(object, html)", () => {});
+  describe("addControl(object, html)", () => {});
   describe("update(actor)", () => {
     it("Doesn't render a partysheet when not in party", async () => {
       const actor = await createMockActor("character");

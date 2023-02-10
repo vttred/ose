@@ -90,7 +90,7 @@ const OseDice = {
       total: roll.total,
     };
 
-    const die = roll.terms[0].total;
+    const die = roll.terms[0].results[0].result;
     switch (data.roll.type) {
       case "result": {
         if (roll.total === result.target) {
@@ -153,17 +153,16 @@ const OseDice = {
     return result;
   },
 
-  attackIsSuccess(roll, thac0, ac) {
-    if (roll.total === 1 || roll.terms[0].results[0] === 1) {
+  attackIsSuccess(roll, target, bonus) {
+    // Natural 1
+    if (roll.terms[0].results[0].result === 1) {
       return false;
     }
-    if (roll.total >= 20 || roll.terms[0].results[0] === 20) {
-      return true, -3;
-    }
-    if (roll.total + ac >= thac0) {
+    // Natural 20
+    if (roll.terms[0].results[0].result === 20) {
       return true;
     }
-    return false;
+    return roll.total + bonus >= target;
   },
 
   digestAttackResult(data, roll) {
@@ -181,35 +180,36 @@ const OseDice = {
     result.victim = data.roll.target ? data.roll.target.name : null;
 
     if (game.settings.get(game.system.id, "ascendingAC")) {
-      if (
-        (roll.terms[0] != 20 && roll.total < targetAac) ||
-        roll.terms[0] === 1
-      ) {
+      const attackBonus = 19 - data.roll.thac0;
+      if (this.attackIsSuccess(roll, targetAac, attackBonus)) {
+        result.details = game.i18n.format(
+          "OSE.messages.AttackAscendingSuccess",
+          {
+            result: roll.total,
+          }
+        );
+        result.isSuccess = true;
+      } else {
         result.details = game.i18n.format(
           "OSE.messages.AttackAscendingFailure",
           {
             bonus: result.target,
           }
         );
-        return result;
+        result.isFailure = true;
       }
-      result.details = game.i18n.format("OSE.messages.AttackAscendingSuccess", {
-        result: roll.total,
-      });
-      result.isSuccess = true;
-    } else {
-      if (!this.attackIsSuccess(roll, result.target, targetAc)) {
-        result.details = game.i18n.format("OSE.messages.AttackFailure", {
-          bonus: result.target,
-        });
-        return result;
-      }
-      result.isSuccess = true;
+    } else if (this.attackIsSuccess(roll, result.target, targetAc)) {
       const value = Math.clamped(result.target - roll.total, -3, 9);
       result.details = game.i18n.format("OSE.messages.AttackSuccess", {
         result: value,
         bonus: result.target,
       });
+      result.isSuccess = true;
+    } else {
+      result.details = game.i18n.format("OSE.messages.AttackFailure", {
+        bonus: result.target,
+      });
+      result.isFailure = true;
     }
     return result;
   },

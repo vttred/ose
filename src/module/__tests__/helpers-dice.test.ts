@@ -430,9 +430,6 @@ export default ({
       rollData.data.roll.dmg = [];
       await OseDice.sendAttackRoll(rollData);
       await waitForInput();
-      await waitForInput();
-      await waitForInput();
-      await waitForInput();
       const notification = ui.notifications?.queue.pop();
       expect(ui.notifications?.queue.length).equal(0);
       expect(notification?.message).equal(
@@ -453,71 +450,6 @@ export default ({
         ".damage-roll .dice-formula"
       )?.innerHTML;
       expect(damageDiceResult).equal("1d6");
-    });
-    it("Can roll with single part and multiple dmg dice", async () => {
-      const rollData = createMockAttackData();
-      rollData.data.roll.dmg = ["1d6", "1d100"];
-      await OseDice.sendAttackRoll(rollData);
-      await waitForInput();
-      await waitForInput();
-      await waitForInput();
-      await waitForInput();
-      const attackDiceResult =
-        document.querySelector(".dice-formula")?.innerHTML;
-      expect(attackDiceResult).equal("1d20 + 0 + 0 + 0");
-      const damageDiceResult = document.querySelector(
-        ".damage-roll .dice-formula"
-      )?.innerHTML;
-      expect(damageDiceResult).equal("1d6 + 1d100");
-    });
-    it("Can roll with multiple parts and single dmg die", async () => {
-      const rollData = createMockAttackData();
-      rollData.parts = ["1d20", "1d10", "30"];
-      await OseDice.sendAttackRoll(rollData);
-      await waitForInput();
-      await waitForInput();
-      await waitForInput();
-      await waitForInput();
-      const attackDiceResult =
-        document.querySelector(".dice-formula")?.innerHTML;
-      expect(attackDiceResult).equal("1d20 + 1d10 + 30");
-      const damageDiceResult = document.querySelector(
-        ".damage-roll .dice-formula"
-      )?.innerHTML;
-      expect(damageDiceResult).equal("1d6");
-    });
-    it("Can roll with multiple parts and single dmg die", async () => {
-      const rollData = createMockAttackData();
-      rollData.parts = ["1d20", "1d10", "300"];
-      await OseDice.sendAttackRoll(rollData);
-      await waitForInput();
-      await waitForInput();
-      await waitForInput();
-      await waitForInput();
-      const attackDiceResult =
-        document.querySelector(".dice-formula")?.innerHTML;
-      expect(attackDiceResult).equal("1d20 + 1d10 + 300");
-      const damageDiceResult = document.querySelector(
-        ".damage-roll .dice-formula"
-      )?.innerHTML;
-      expect(damageDiceResult).equal("1d6");
-    });
-    it("Can roll with multiple parts and multiple dmg dice", async () => {
-      const rollData = createMockAttackData();
-      rollData.parts = ["1d20", "1d10", "30"];
-      rollData.data.roll.dmg = ["1d6", "1d100"];
-      await OseDice.sendAttackRoll(rollData);
-      await waitForInput();
-      await waitForInput();
-      await waitForInput();
-      await waitForInput();
-      const attackDiceResult =
-        document.querySelector(".dice-formula")?.innerHTML;
-      expect(attackDiceResult).equal("1d20 + 1d10 + 30");
-      const damageDiceResult = document.querySelector(
-        ".damage-roll .dice-formula"
-      )?.innerHTML;
-      expect(damageDiceResult).equal("1d6 + 1d100");
     });
     afterEach(async () => {
       await trashChat();

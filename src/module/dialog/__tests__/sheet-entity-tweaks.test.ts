@@ -58,7 +58,7 @@ export default ({ describe, it, expect, assert, after }: QuenchMethods) => {
     });
   });
   // @todo: Test with Cypress or mock event
-  describe("_updateObject(event, formData)", () => {});`
+  describe("_updateObject(event, formData)", () => {});
   after(() => {
     game.actors?.contents
       ?.filter((a) => a.name?.includes(`Test Actor ${key}`))

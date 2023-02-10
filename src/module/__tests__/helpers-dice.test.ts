@@ -258,6 +258,66 @@ export default ({
         },
       },
     };
+    describe("Attacking without a target", () => {
+      const rollData = {
+        roll: {
+          thac0: 15,
+        },
+      };
+      const scoreSpread = Array.from({ length: 18 }, (_el, idx) => idx + 2);
+      describe("Ascending AC", () => {
+        it("Set ascending AC", async () => {
+          await game.settings.set(game.system.id, "ascendingAC", true);
+          expect(game.settings.get(game.system.id, "ascendingAC")).equal(true);
+        });
+        it(`Rolling 1 is successful and show damage`, async () => {
+          const roll = createMockRoll(1);
+          const attackResult = OseDice.digestAttackResult(rollData, roll);
+          expect(attackResult.isSuccess).equal(false);
+          expect(attackResult.isFailure).equal(true);
+        });
+        scoreSpread.forEach((score) => {
+          it(`Rolling ${score} is successful and show damage`, async () => {
+            const roll = createMockRoll(score);
+            const attackResult = OseDice.digestAttackResult(rollData, roll);
+            expect(attackResult.isSuccess).equal(true);
+            expect(attackResult.isFailure).equal(false);
+          });
+        });
+        it(`Rolling 20 is successful and show damage`, async () => {
+          const roll = createMockRoll(20);
+          const attackResult = OseDice.digestAttackResult(rollData, roll);
+          expect(attackResult.isSuccess).equal(true);
+          expect(attackResult.isFailure).equal(false);
+        });
+      });
+      describe("Descending AC", () => {
+        it("Set ascending AC", async () => {
+          await game.settings.set(game.system.id, "ascendingAC", false);
+          expect(game.settings.get(game.system.id, "ascendingAC")).equal(false);
+        });
+        it(`Rolling 1 is successful and show damage`, async () => {
+          const roll = createMockRoll(1);
+          const attackResult = OseDice.digestAttackResult(rollData, roll);
+          expect(attackResult.isSuccess).equal(false);
+          expect(attackResult.isFailure).equal(true);
+        });
+        scoreSpread.forEach((score) => {
+          it(`Rolling ${score} is successful and show damage`, async () => {
+            const roll = createMockRoll(score);
+            const attackResult = OseDice.digestAttackResult(rollData, roll);
+            expect(attackResult.isSuccess).equal(true);
+            expect(attackResult.isFailure).equal(false);
+          });
+        });
+        it(`Rolling 20 is successful and show damage`, async () => {
+          const roll = createMockRoll(20);
+          const attackResult = OseDice.digestAttackResult(rollData, roll);
+          expect(attackResult.isSuccess).equal(true);
+          expect(attackResult.isFailure).equal(false);
+        });
+      });
+    });
     describe("Ascending AC", () => {
       it("Natural 1 terms is unsuccesful", async () => {
         await game.settings.set(game.system.id, "ascendingAC", true);

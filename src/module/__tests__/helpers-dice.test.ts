@@ -215,15 +215,15 @@ export default ({
   describe("attackIsSuccess(roll, thac0, ac)", () => {
     it("Natural 1 always fails", () => {
       const rollTargetOne = createMockRoll(1, 1);
-      expect(OseDice.attackIsSuccess(rollTargetOne, 21, 0)).equal(false);
+      expect(OseDice.attackIsSuccess(rollTargetOne, 100, 0)).equal(false);
       const rollTargetTwenty = createMockRoll(20, 1);
-      expect(OseDice.attackIsSuccess(rollTargetTwenty, 21, 0)).equal(false);
+      expect(OseDice.attackIsSuccess(rollTargetTwenty, 100, 0)).equal(false);
     });
     it("Natural 20 always succeeds", () => {
       const rollTargetOne = createMockRoll(1, 20);
-      expect(OseDice.attackIsSuccess(rollTargetOne, 0, 21)).equal(true);
+      expect(OseDice.attackIsSuccess(rollTargetOne, 0, 100)).equal(true);
       const rollTargetTwenty = createMockRoll(20, 20);
-      expect(OseDice.attackIsSuccess(rollTargetTwenty, 0, 21)).equal(true);
+      expect(OseDice.attackIsSuccess(rollTargetTwenty, 0, 100)).equal(true);
     });
     it("Roll + ac equal thac0 is successful", () => {
       const roll = createMockRoll(10);

@@ -85,7 +85,7 @@ function drawTreasure(table, data) {
       }
     });
   } else {
-    const { results } = table.evaluate({ async: false });
+    const { results } = table.roll({ async: true });
     results.forEach((s) => {
       const text = TextEditor.enrichHTML(table._getResultChatText(s), {
         async: false,

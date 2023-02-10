@@ -2,7 +2,7 @@
  * @file The system-specific Item entity, containing logic for operating on all available Item types.
  */
 import OSE from "../config";
-import OseDice from "../dice";
+import OseDice from "../helpers-dice";
 
 /**
  * Override and extend the basic :class:`Item` implementation

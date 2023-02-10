@@ -1,7 +1,7 @@
 import OseItem from "../item/entity";
 
-import { skipRollDialogCheck } from "../behaviourHelpers";
-import OseDice from "../dice";
+import skipRollDialogCheck from "../helpers-behaviour";
+import OseDice from "../helpers-dice";
 
 export default class OseActor extends Actor {
   prepareDerivedData() {

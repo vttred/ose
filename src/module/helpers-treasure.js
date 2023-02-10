@@ -140,3 +140,8 @@ async function rollTreasure(table, options = {}) {
 
   ChatMessage.create(chatData);
 }
+
+export const functionsForTesting = {
+  drawTreasure,
+  rollTreasure,
+};

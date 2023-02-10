@@ -63,7 +63,7 @@ export const augmentTable = (table, html) => {
 async function drawTreasure(table, data) {
   const percent = async (chance) => {
     const roll = new Roll("1d100");
-    await roll.evaluate();
+    await roll.evaluate({ async: true });
     return roll.total <= chance;
   };
   data.treasure = {};

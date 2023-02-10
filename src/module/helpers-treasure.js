@@ -60,37 +60,34 @@ export const augmentTable = (table, html) => {
  * @param table
  * @param data
  */
-function drawTreasure(table, data) {
-  const percent = (chance) => {
+async function drawTreasure(table, data) {
+  const percent = async (chance) => {
     const roll = new Roll("1d100");
-    roll.evaluate({ async: false });
+    await roll.evaluate();
     return roll.total <= chance;
   };
   data.treasure = {};
   if (table.getFlag(game.system.id, "treasure")) {
-    table.results.forEach((r) => {
-      if (percent(r.data.weight)) {
+    table.results.forEach(async (r) => {
+      if (percent(r.weight)) {
         const text = r.getChatText(r);
         data.treasure[r.id] = {
-          img: r.data.img,
+          img: r.img,
           text: TextEditor.enrichHTML(text, { async: false }),
         };
         if (
-          r.data.type === CONST.TABLE_RESULT_TYPES.DOCUMENT &&
-          r.data.collection === "RollTable"
+          r.type === CONST.TABLE_RESULT_TYPES.DOCUMENT &&
+          r.collection === "RollTable"
         ) {
-          const embeddedTable = game.tables.get(r.data.resultId);
-          drawTreasure(embeddedTable, data.treasure[r.id]);
+          const embeddedTable = game.tables.get(r.resultId);
+          await drawTreasure(embeddedTable, data.treasure[r.id]);
         }
       }
     });
   } else {
-    const { results } = table.roll({ async: true });
+    const { results } = await table.roll();
     results.forEach((s) => {
-      const text = TextEditor.enrichHTML(table._getResultChatText(s), {
-        async: false,
-      });
-      data.treasure[s.id] = { img: s.data.img, text };
+      data.treasure[s.id] = { img: s.img, text: s.text };
     });
   }
   return data;
@@ -103,7 +100,7 @@ function drawTreasure(table, data) {
  */
 async function rollTreasure(table, options = {}) {
   // Draw treasure
-  const data = drawTreasure(table, {});
+  const data = await drawTreasure(table, {});
   const templateData = {
     treasure: data.treasure,
     table,

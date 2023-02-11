@@ -202,8 +202,8 @@ const OseDice = {
     result.target = data.roll.thac0;
     const targetActorData = data.roll.target?.actor?.system || null;
 
-    const targetAc = data.roll.target ? targetActorData.ac.value : 9;
-    const targetAac = data.roll.target ? targetActorData.aac.value : 10;
+    const targetAc = data.roll.target ? targetActorData.ac.value : 20;
+    const targetAac = data.roll.target ? targetActorData.aac.value : -20;
     result.victim = data.roll.target ? data.roll.target.name : null;
 
     if (game.settings.get(game.system.id, "ascendingAC")) {

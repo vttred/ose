@@ -318,7 +318,7 @@ export default ({
           OseDice.digestAttackResult(data, rollTargetTwenty).isFailure
         ).equal(true);
       });
-      it("Low total but not 1 is successful Issue#340", () => {
+      it("Attack rolls with a modified result of 1 are allowed to succeeed if hits target AC. Issue#340", () => {
         const attackBonus = -1;
         const targetData = {
           roll: {
@@ -361,7 +361,7 @@ export default ({
         expect(OseDice.digestAttackResult(data, roll).isSuccess).equal(true);
         expect(OseDice.digestAttackResult(data, roll).isFailure).equal(false);
       });
-      it("High total but not 20 is successful Issue#340", () => {
+      it("Attack rolls with a modified result of 20 are allowed to fail if doesn't hit target AC. Issue#340", () => {
         const attackBonus = 1;
         const targetData = {
           roll: {

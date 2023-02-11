@@ -82,7 +82,15 @@ const OseDice = {
     });
   },
 
+  /**
+   * Digesting results depending on type of roll
+   *
+   * @param {object} data - Contains roll data, including what type of check
+   * @param {object} roll - Evaluated Roll returned object
+   * @returns {object} - Object containing the evaluated data // @todo DigestResult
+   */
   digestResult(data, roll) {
+    // @todo: Extract this to a DigestResult type/interface
     const result = {
       isSuccess: false,
       isFailure: false,
@@ -91,6 +99,7 @@ const OseDice = {
     };
 
     const die = roll.terms[0].results[0].result;
+    // eslint-disable-next-line default-case
     switch (data.roll.type) {
       case "result": {
         if (roll.total === result.target) {
@@ -98,7 +107,7 @@ const OseDice = {
         } else {
           result.isFailure = true;
         }
-
+        
         break;
       }
 
@@ -173,7 +182,17 @@ const OseDice = {
     return roll.total + ac >= thac0;
   },
 
+  /**
+   * Digest the results of a target to reach, and an evaluated roll
+   * to evaluate if it does hit or not. The function adds information
+   * for generating chat card data too.
+   *
+   * @param {object} data - Data with at least roll target data
+   * @param {object} roll - Evaluation result from a Roll
+   * @returns {object} - DigestResult
+   */
   digestAttackResult(data, roll) {
+    // @todo: Extract this to a DigestResult type/interface
     const result = {
       isSuccess: false,
       isFailure: false,
@@ -223,6 +242,25 @@ const OseDice = {
     return result;
   },
 
+  // eslint-disable-next-line jsdoc/require-param
+  /**
+   * Puts together the information needed to roll a Roll and the
+   * expectations on hitting a target. Also creates the chat card
+   * containing the infromation about the evaluated roll.
+   *
+   * @param {object} param0 - Object to evaluate
+   * @param {Array<String || number>} param0.parts - Roll parts (e.g. ["1d20", "3", "0", "0"])
+   * @param {object} param0.data - Object containing target data
+   * @param {object} param0.data.roll - Roll target data
+   * @param {Array<String || number|} param0.data.roll.dmg - Roll parts for damage roll if hit
+   * @param {Actor | null} param0.data.target - Target data for the intended hit target
+   * @param {object} param0.flags -Not used directly in function, but may be passed on
+   * @param {string} param0.title - Modified in RollSave() if magic save required
+   * @param {string} param0.flavor - Not used directly in function
+   * @param {object} param0.speaker- Speaker data for the chat card
+   * @param {object} param0.form - Data from the Dialog Form that generates data for the function
+   * @returns {Promise || Void} - Either not returning anything, or a Promise for rendering a Chat Card
+   */
   async sendAttackRoll({
     parts = [],
     data = {},

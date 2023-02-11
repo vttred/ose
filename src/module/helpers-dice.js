@@ -153,7 +153,15 @@ const OseDice = {
     return result;
   },
 
-  attackIsSuccess(roll, target, bonus) {
+  /**
+   * Evaluates if a roll is successful for both THAC0 and Ascending AC
+   *
+   * @param {object} roll - Evaluated roll data from a Roll
+   * @param {number} thac0 - THAC0 value, or Hit Target when AscendingAC
+   * @param {number} ac - AC Value, or Attack Bonus when AscendingAC
+   * @returns {boolean} - Did the attack succeed?
+   */
+  attackIsSuccess(roll, thac0, ac) {
     // Natural 1
     if (roll.terms[0].results[0].result === 1) {
       return false;
@@ -162,7 +170,7 @@ const OseDice = {
     if (roll.terms[0].results[0].result === 20) {
       return true;
     }
-    return roll.total + bonus >= target;
+    return roll.total + ac >= thac0;
   },
 
   digestAttackResult(data, roll) {
@@ -199,6 +207,7 @@ const OseDice = {
         result.isFailure = true;
       }
     } else if (this.attackIsSuccess(roll, result.target, targetAc)) {
+      // Answer is bounded betweewn AC -3 and 9 (unarmored) and is shown in chat card
       const value = Math.clamped(result.target - roll.total, -3, 9);
       result.details = game.i18n.format("OSE.messages.AttackSuccess", {
         result: value,

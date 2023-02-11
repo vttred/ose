@@ -312,6 +312,7 @@
   "OSE.warn.moreThanOneItemWithName": "Your controlled Actor {actorName} has more than one Item with name {itemName}. The first matched Item will be chosen.",
   "OSE.warn.macrosOnlyForOwnedItems": "Only Items owned by Actor may be used to create macros.",
   "OSE.warn.macrosNoTokenOwnedInScene": "No controlled token in scene",
+  "OSE.warn.macrosNotAnItem": "Unable to create macro, not an item.",
 
   "OSE.error.macrosOnlyForOwnedItems": "You can only create macro buttons for owned Items",
   "OSE.error.noItemWithName": "Your controlled Actor {actorName} does not have an item named {itemName}.",

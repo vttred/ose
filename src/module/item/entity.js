@@ -152,16 +152,18 @@ export default class OseItem extends Item {
     });
   }
 
-  spendSpell() {
+  spendSpell = async () => {
+    if (this.type !== "spell")
+      throw new Error("Trying to spend a spell on an item that is not a spell.");
+
     const itemData = this.system;
-    this.update({
-      data: {
+    await this.update({
+      system: {
         cast: itemData.cast - 1,
       },
-    }).then(() => {
-      this.show({ skipDialog: true });
     });
-  }
+    await this.show({ skipDialog: true });
+  };
 
   _getRollTag(data) {
     if (data.roll) {

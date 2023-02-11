@@ -107,7 +107,7 @@ const OseDice = {
         } else {
           result.isFailure = true;
         }
-        
+
         break;
       }
 

@@ -169,6 +169,7 @@ export class OseDice {
             bonus: result.target,
           }
         );
+        result.isFailure = true;
         return result;
       }
       result.details = game.i18n.format("OSE.messages.AttackAscendingSuccess", {
@@ -180,6 +181,7 @@ export class OseDice {
         result.details = game.i18n.format("OSE.messages.AttackFailure", {
           bonus: result.target,
         });
+        result.isFailure = true;
         return result;
       }
       result.isSuccess = true;

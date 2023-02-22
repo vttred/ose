@@ -130,11 +130,13 @@ export class OseDice {
   }
 
   static attackIsSuccess(roll, thac0, ac) {
-    if (roll.total == 1 || roll.terms[0].results[0] == 1) {
+    // Natural 1
+    if (roll.terms[0].results[0].result === 1) {
       return false;
     }
-    if (roll.total >= 20 || roll.terms[0].results[0] == 20) {
-      return true, -3;
+    // Natural 20
+    if (roll.terms[0].results[0].result === 20) {
+      return true;
     }
     if (roll.total + ac >= thac0) {
       return true;
@@ -158,8 +160,8 @@ export class OseDice {
 
     if (game.settings.get(game.system.id, "ascendingAC")) {
       if (
-        (roll.terms[0] != 20 && roll.total < targetAac) ||
-        roll.terms[0] == 1
+        (roll.terms[0].results[0].result !== 20 && roll.total < targetAac) ||
+        roll.terms[0].results[0].result === 1
       ) {
         result.details = game.i18n.format(
           "OSE.messages.AttackAscendingFailure",
@@ -167,6 +169,7 @@ export class OseDice {
             bonus: result.target,
           }
         );
+        result.isFailure = true;
         return result;
       }
       result.details = game.i18n.format("OSE.messages.AttackAscendingSuccess", {
@@ -178,6 +181,7 @@ export class OseDice {
         result.details = game.i18n.format("OSE.messages.AttackFailure", {
           bonus: result.target,
         });
+        result.isFailure = true;
         return result;
       }
       result.isSuccess = true;

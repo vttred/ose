@@ -242,7 +242,6 @@ const OseDice = {
     return result;
   },
 
-  // eslint-disable-next-line jsdoc/require-param
   /**
    * Puts together the information needed to roll a Roll and the
    * expectations on hitting a target. Also creates the chat card
@@ -257,7 +256,7 @@ const OseDice = {
    * @param {object} param0.flags -Not used directly in function, but may be passed on
    * @param {string} param0.title - Modified in RollSave() if magic save required
    * @param {string} param0.flavor - Not used directly in function
-   * @param {object} param0.speaker- Speaker data for the chat card
+   * @param {object} param0.speaker - Speaker data for the chat card
    * @param {object} param0.form - Data from the Dialog Form that generates data for the function
    * @returns {Promise || Void} - Either not returning anything, or a Promise for rendering a Chat Card
    */

@@ -152,9 +152,11 @@ export default class OseItem extends Item {
     });
   }
 
-  spendSpell = async () => {
+  async spendSpell() {
     if (this.type !== "spell")
-      throw new Error("Trying to spend a spell on an item that is not a spell.");
+      throw new Error(
+        "Trying to spend a spell on an item that is not a spell."
+      );
 
     const itemData = this.system;
     await this.update({
@@ -163,7 +165,7 @@ export default class OseItem extends Item {
       },
     });
     await this.show({ skipDialog: true });
-  };
+  }
 
   _getRollTag(data) {
     if (data.roll) {

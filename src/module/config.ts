@@ -248,31 +248,31 @@ const config: OseConfig = {
   },
   tag_images: {
     get melee() {
-      return `${OSE.assetsPath}/melee.png`;
+      return `${CONFIG.OSE.assetsPath}/melee.png`;
     },
     get missile() {
       return `fa-bow-arrow`;
     },
     get slow() {
-      return `${OSE.assetsPath}/slow.png`;
+      return `${CONFIG.OSE.assetsPath}/slow.png`;
     },
     get twohanded() {
-      return `${OSE.assetsPath}/twohanded.png`;
+      return `${CONFIG.OSE.assetsPath}/twohanded.png`;
     },
     get blunt() {
-      return `${OSE.assetsPath}/blunt.png`;
+      return `${CONFIG.OSE.assetsPath}/blunt.png`;
     },
     get brace() {
-      return `${OSE.assetsPath}/brace.png`;
+      return `${CONFIG.OSE.assetsPath}/brace.png`;
     },
     get splash() {
-      return `${OSE.assetsPath}/splash.png`;
+      return `${CONFIG.OSE.assetsPath}/splash.png`;
     },
     get reload() {
-      return `${OSE.assetsPath}/reload.png`;
+      return `${CONFIG.OSE.assetsPath}/reload.png`;
     },
     get charge() {
-      return `${OSE.assetsPath}/charge.png`;
+      return `${CONFIG.OSE.assetsPath}/charge.png`;
     },
   },
   monster_saves: {

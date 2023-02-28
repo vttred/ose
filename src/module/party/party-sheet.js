@@ -123,7 +123,7 @@ export default class OsePartySheet extends FormApplication {
   }
 
   async _onDropFolder(event, data) {
-    if (data.documentName !== "Folder") {
+    if (data.documentName !== "Actor") {
       return;
     }
 

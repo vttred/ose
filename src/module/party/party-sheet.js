@@ -119,7 +119,7 @@ export default class OsePartySheet extends FormApplication {
 
   _recursiveAddFolder(folder) {
     folder.contents.forEach((actor) => this._addActorToParty(actor));
-    folder.children.forEach((folder) => this._recursiveAddFolder(folder));
+    folder.children.forEach((folder) => this._recursiveAddFolder(folder.folder));
   }
 
   async _onDropFolder(event, data) {

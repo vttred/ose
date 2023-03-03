@@ -82,7 +82,15 @@ const OseDice = {
     });
   },
 
+  /**
+   * Digesting results depending on type of roll
+   *
+   * @param {object} data - Contains roll data, including what type of check
+   * @param {object} roll - Evaluated Roll returned object
+   * @returns {object} - Object containing the evaluated data // @todo DigestResult
+   */
   digestResult(data, roll) {
+    // @todo: Extract this to a DigestResult type/interface
     const result = {
       isSuccess: false,
       isFailure: false,
@@ -90,7 +98,8 @@ const OseDice = {
       total: roll.total,
     };
 
-    const die = roll.terms[0].total;
+    const die = roll.terms[0].results[0].result;
+    // eslint-disable-next-line default-case
     switch (data.roll.type) {
       case "result": {
         if (roll.total === result.target) {
@@ -153,20 +162,37 @@ const OseDice = {
     return result;
   },
 
+  /**
+   * Evaluates if a roll is successful for both THAC0 and Ascending AC
+   *
+   * @param {object} roll - Evaluated roll data from a Roll
+   * @param {number} thac0 - THAC0 value, or Hit Target when AscendingAC
+   * @param {number} ac - AC Value, or Attack Bonus when AscendingAC
+   * @returns {boolean} - Did the attack succeed?
+   */
   attackIsSuccess(roll, thac0, ac) {
-    if (roll.total === 1 || roll.terms[0].results[0] === 1) {
+    // Natural 1
+    if (roll.terms[0].results[0].result === 1) {
       return false;
     }
-    if (roll.total >= 20 || roll.terms[0].results[0] === 20) {
-      return true, -3;
-    }
-    if (roll.total + ac >= thac0) {
+    // Natural 20
+    if (roll.terms[0].results[0].result === 20) {
       return true;
     }
-    return false;
+    return roll.total + ac >= thac0;
   },
 
+  /**
+   * Digest the results of a target to reach, and an evaluated roll
+   * to evaluate if it does hit or not. The function adds information
+   * for generating chat card data too.
+   *
+   * @param {object} data - Data with at least roll target data
+   * @param {object} roll - Evaluation result from a Roll
+   * @returns {object} - DigestResult
+   */
   digestAttackResult(data, roll) {
+    // @todo: Extract this to a DigestResult type/interface
     const result = {
       isSuccess: false,
       isFailure: false,
@@ -176,44 +202,64 @@ const OseDice = {
     result.target = data.roll.thac0;
     const targetActorData = data.roll.target?.actor?.system || null;
 
-    const targetAc = data.roll.target ? targetActorData.ac.value : 9;
-    const targetAac = data.roll.target ? targetActorData.aac.value : 10;
+    const targetAc = data.roll.target ? targetActorData.ac.value : 20;
+    const targetAac = data.roll.target ? targetActorData.aac.value : -20;
     result.victim = data.roll.target ? data.roll.target.name : null;
 
     if (game.settings.get(game.system.id, "ascendingAC")) {
-      if (
-        (roll.terms[0] != 20 && roll.total < targetAac) ||
-        roll.terms[0] === 1
-      ) {
+      const attackBonus = 19 - data.roll.thac0;
+      if (this.attackIsSuccess(roll, targetAac, attackBonus)) {
+        result.details = game.i18n.format(
+          "OSE.messages.AttackAscendingSuccess",
+          {
+            result: roll.total,
+          }
+        );
+        result.isSuccess = true;
+      } else {
         result.details = game.i18n.format(
           "OSE.messages.AttackAscendingFailure",
           {
             bonus: result.target,
           }
         );
-        return result;
+        result.isFailure = true;
       }
-      result.details = game.i18n.format("OSE.messages.AttackAscendingSuccess", {
-        result: roll.total,
-      });
-      result.isSuccess = true;
-    } else {
-      if (!this.attackIsSuccess(roll, result.target, targetAc)) {
-        result.details = game.i18n.format("OSE.messages.AttackFailure", {
-          bonus: result.target,
-        });
-        return result;
-      }
-      result.isSuccess = true;
+    } else if (this.attackIsSuccess(roll, result.target, targetAc)) {
+      // Answer is bounded betweewn AC -3 and 9 (unarmored) and is shown in chat card
       const value = Math.clamped(result.target - roll.total, -3, 9);
       result.details = game.i18n.format("OSE.messages.AttackSuccess", {
         result: value,
         bonus: result.target,
       });
+      result.isSuccess = true;
+    } else {
+      result.details = game.i18n.format("OSE.messages.AttackFailure", {
+        bonus: result.target,
+      });
+      result.isFailure = true;
     }
     return result;
   },
 
+  /**
+   * Puts together the information needed to roll a Roll and the
+   * expectations on hitting a target. Also creates the chat card
+   * containing the infromation about the evaluated roll.
+   *
+   * @param {object} param0 - Object to evaluate
+   * @param {Array<String || number>} param0.parts - Roll parts (e.g. ["1d20", "3", "0", "0"])
+   * @param {object} param0.data - Object containing target data
+   * @param {object} param0.data.roll - Roll target data
+   * @param {Array<String || number|} param0.data.roll.dmg - Roll parts for damage roll if hit
+   * @param {Actor | null} param0.data.target - Target data for the intended hit target
+   * @param {object} param0.flags -Not used directly in function, but may be passed on
+   * @param {string} param0.title - Modified in RollSave() if magic save required
+   * @param {string} param0.flavor - Not used directly in function
+   * @param {object} param0.speaker - Speaker data for the chat card
+   * @param {object} param0.form - Data from the Dialog Form that generates data for the function
+   * @returns {Promise || Void} - Either not returning anything, or a Promise for rendering a Chat Card
+   */
   async sendAttackRoll({
     parts = [],
     data = {},

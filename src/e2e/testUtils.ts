@@ -99,7 +99,7 @@ export const cleanUpMacros = async () => {
   return true;
 };
 
-export const cleanUpActorsByKey = async (key) => {
+export const cleanUpActorsByKey = async (key: string) => {
   game.actors
     ?.filter((a) => a.name === `Test Actor ${key}`)
     .forEach(async (a) => await a.delete());

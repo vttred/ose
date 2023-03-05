@@ -42,7 +42,7 @@ export const closeDialogs = async () => {
 
 export const closeSheets = async () => {
   openWindows("sheet").forEach(async (w) => w.close());
-  await delay(220);
+  await waitForInput();
 };
 
 /**

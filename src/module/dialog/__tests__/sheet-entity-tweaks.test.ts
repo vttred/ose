@@ -12,7 +12,9 @@ import {
 import OseEntityTweaks from "../entity-tweaks";
 
 export const key = "ose.actor.sheet.dialog.entity-tweaks";
-export const options = { displayName: "OSE: Actor: Dialog Sheet: Entity Tweaks" };
+export const options = {
+  displayName: "OSE: Actor: Dialog Sheet: Entity Tweaks",
+};
 
 const createMockActor = async (type: string, data: object = {}) =>
   createMockActorKey(type, data, key);

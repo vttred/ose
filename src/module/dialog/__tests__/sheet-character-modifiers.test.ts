@@ -12,7 +12,9 @@ import {
 import OseCharacterModifiers from "../character-modifiers";
 
 export const key = "ose.actor.sheet.character.dialog.modifiers";
-export const options = { displayName: "OSE: Actor: Dialog Sheet: Character Modifiers" };
+export const options = {
+  displayName: "OSE: Actor: Dialog Sheet: Character Modifiers",
+};
 
 const createMockActor = async (type: string, data: object = {}) =>
   createMockActorKey(type, data, key);

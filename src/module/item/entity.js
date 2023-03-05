@@ -28,11 +28,11 @@ export default class OseItem extends Item {
   }
 
   static migrateData(source) {
-    if (!source.img && source.type) {
-      source.img = this.defaultIcons(source.type)
+    if (source?.img === "" && source.type) {
+      source.img = this.defaultIcons(source.type);
     }
-		return source
-	}
+    return source;
+  }
 
   prepareData() {
     super.prepareData();

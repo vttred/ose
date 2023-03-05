@@ -10,11 +10,11 @@ export default class OseActor extends Actor {
 
   static migrateData(source) {
     // Fixing missing img
-    if (!source.img) {
-      source.img = 'icons/svg/mystery-man.svg';
+    if (source?.img === "") {
+      source.img = "icons/svg/mystery-man.svg";
     }
-    if (!source.prototypeToken.texture.img) {
-      source.prototypeToken.texture.img = 'icons/svg/mystery-man.svg';
+    if (source?.prototypeToken?.texture?.img === "") {
+      source.prototypeToken.texture.img = "icons/svg/mystery-man.svg";
     }
     return source;
   }

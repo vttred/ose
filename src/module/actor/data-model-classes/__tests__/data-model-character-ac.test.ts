@@ -5,7 +5,7 @@ import { QuenchMethods } from "../../../../e2e";
 import OseDataModelCharacterAC from "../data-model-character-ac";
 
 export const key = "ose.datamodel.character.ac";
-export const options = { displayName: "Character Data Model: AC" };
+export const options = { displayName: "Data Model: Character AC" };
 
 export default ({ describe, it, expect }: QuenchMethods) => {
   const armorAC = 4;

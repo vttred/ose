@@ -5,7 +5,7 @@ import { QuenchMethods } from "../../../../e2e";
 import OseDataModelCharacterSpells from "../data-model-character-spells";
 
 export const key = "ose.datamodel.character.spells";
-export const options = { displayName: "Character Data Model: Spells" };
+export const options = { displayName: "Data Model: Character Spells" };
 
 const createMockSpell = (lvl: number, spellOptions?: any): Item =>
   // eslint-disable-next-line new-cap

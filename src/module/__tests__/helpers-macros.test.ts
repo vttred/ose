@@ -11,6 +11,7 @@ import {
   closeDialogs,
   createActorTestItem,
   createMockActorKey,
+  createMockMacro,
   createMockScene,
   createWorldTestItem,
   openDialogs,
@@ -22,13 +23,6 @@ export const key = "ose.helpers.macro";
 export const options = { displayName: "Helpers: Macro" };
 
 /* MOCKING HELPERS */
-const createMockMacro = () =>
-  Macro.create({
-    name: `Mock Macro ${foundry.utils.randomID()}`,
-    type: "script",
-    command: "console.log('Testing Macro');",
-  });
-
 const createMockActor = async (type: string, data: object = {}) =>
   createMockActorKey(type, data, key);
 

@@ -5,7 +5,7 @@ import { QuenchMethods } from "../../../../e2e";
 import OseDataModelCharacterScores from "../data-model-character-scores";
 
 export const key = "ose.datamodel.character.scores";
-export const options = { displayName: "Character Data Model: Ability Scores" };
+export const options = { displayName: "Data Model: Character Ability Scores" };
 
 export default ({ describe, it, expect }: QuenchMethods) => {
   // An array from 0-

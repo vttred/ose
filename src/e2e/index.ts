@@ -1,19 +1,13 @@
-/* eslint-disable eslint-comments/disable-enable-pair */
-
 /* eslint-disable import/no-cycle */
-// eslint-disable-next-line prettier/prettier
 /* eslint-disable simple-import-sort/imports */
 /**
  * @file Orchestration for our Quench tests
  */
-import actorCrudInventoryContainerTests, {
-  key as actorCrudInventoryContainerKey,
-  options as actorCrudInventoryContainerOptions,
-} from "../module/actor/__tests__/character-crud-inventory-container.test";
-import dataModelCharacterTests, {
-  key as dataModelCharacterKey,
-  options as dataModelCharacterOptions,
-} from "../module/actor/data-model-character.test";
+// ACTOR TESTING IMPORTS
+import dataModelActorCharacterTests, {
+  key as dataModelActorCharacterKey,
+  options as dataModelActorCharacterOptions,
+} from "../module/actor/__tests__/data-model-character.test";
 import dataModelCharacterACTests, {
   key as dataModelCharacterACKey,
   options as dataModelCharacterACOptions,
@@ -34,11 +28,42 @@ import dataModelCharacterSpellsTests, {
   key as dataModelCharacterSpellsKey,
   options as dataModelCharacterSpellsOptions,
 } from "../module/actor/data-model-classes/__tests__/data-model-character-spells.test";
+import dataModelActorMonsterTests, {
+  key as dataModelActorMonsterKey,
+  options as dataModelActorMonsterOptions,
+} from "../module/actor/__tests__/data-model-monster.test";
+import entityActorTests, {
+  key as entityActorKey,
+  options as entityActorOptions,
+} from "../module/actor/__tests__/entity-actor.test";
+import sheetActorTests, {
+  key as sheetActorKey,
+  options as sheetActorOptions,
+} from "../module/actor/__tests__/sheet-actor.test";
+import sheetActorDragNDropTests, {
+  key as sheetActorDragNDropKey,
+  options as sheetActorDragNDropOptions,
+} from "../module/actor/__tests__/sheet-actor/sheet-actor-e2e-dragndrop.test";
 import sheetCharacterTests, {
   key as sheetCharacterKey,
   options as sheetCharacterOptions,
-} from "./actor/sheet-character.e2e.test";
+} from "../module/actor/__tests__/sheet-character.test";
+import sheetMonsterTests, {
+  key as sheetMonsterKey,
+  options as sheetMonsterOptions,
+} from "../module/actor/__tests__/sheet-monster.test";
 
+// DIALOG TESTING IMPORTS
+import sheetDialogCharacterModifiersTest, {
+  key as sheetDialogCharacterModifiersKey,
+  options as sheetDialogCharacterModifiersOptions,
+} from "../module/dialog/__tests__/sheet-character-modifiers.test";
+import sheetDialogEntityTweaksTests, {
+  key as sheetDialogEntityTweaksKey,
+  options as sheetDialogEntityTweaksOptions,
+} from "../module/dialog/__tests__/sheet-entity-tweaks.test";
+
+// ITEM TESTING IMPORTS
 import dataModelItemAbilityTests, {
   key as dataModelItemAbilityKey,
   options as dataModelItemAbilityOptions,
@@ -72,6 +97,21 @@ import sheetItemTests, {
   options as sheetItemOptions,
 } from "../module/item/__tests__/sheet-item.test";
 
+// PARTY TESTING IMPORTS
+import entityPartyTests, {
+  key as entityPartyKey,
+  options as entityPartyOptions,
+} from "../module/party/__tests__/entity-party.test";
+import sheetPartyTests, {
+  key as sheetPartyKey,
+  options as sheetPartyOptions,
+} from "../module/party/__tests__/sheet-party.test";
+import sheetPartyXpTests, {
+  key as sheetPartyXpKey,
+  options as sheetPartyXpOptions,
+} from "../module/party/__tests__/sheet-party-xp.test";
+
+// HELPER TESTING IMPORTS
 import helpersBehaviourTests, {
   key as helpersBehaviourKey,
   options as helpersBehaviourOptions,
@@ -100,26 +140,6 @@ import helpersTreasureTests, {
   key as helpersTreasureKey,
   options as helpersTreasureOptions,
 } from "../module/__tests__/helpers-treasure.test";
-import sheetCharacterModifiersTest, {
-  key as sheetCharacterModifiersKey,
-  options as sheetCharacterModifiersOptions,
-} from "../module/dialog/__tests__/sheet-character-modifiers.test";
-import sheetEntityTweaksTests, {
-  key as sheetEntityTweaksKey,
-  options as sheetEntityTweaksOptions,
-} from "../module/dialog/__tests__/sheet-entity-tweaks.test";
-import entityPartyTests, {
-  key as entityPartyKey,
-  options as entityPartyOptions,
-} from "../module/party/__tests__/entity-party.test";
-import sheetPartyXpTests, {
-  key as sheetPartyXpKey,
-  options as sheetPartyXpOptions,
-} from "../module/party/__tests__/sheet-party-xp.test";
-import sheetPartyTests, {
-  key as sheetPartyKey,
-  options as sheetPartyOptions,
-} from "../module/party/__tests__/sheet-party.test";
 
 export type QuenchMethods = {
   [s: string]: any;
@@ -130,43 +150,79 @@ type Quench = {
 };
 
 Hooks.on("quenchReady", async (quench: Quench) => {
+  /* ------------------------------------------- */
+  /* ACTOR TESTING                               */
+  /* ------------------------------------------- */
   quench.registerBatch(
-    helpersBehaviourKey,
-    helpersBehaviourTests,
-    helpersBehaviourOptions
-  );
-  quench.registerBatch(helpersChatKey, helpersChatTests, helpersChatOptions);
-  quench.registerBatch(helpersDiceKey, helpersDiceTests, helpersDiceOptions);
-  quench.registerBatch(
-    helpersHandlebarsKey,
-    helpersHandlebarsTests,
-    helpersHandlebarsOptions
+    dataModelActorCharacterKey,
+    dataModelActorCharacterTests,
+    dataModelActorCharacterOptions
   );
   quench.registerBatch(
-    helpersMacrosKey,
-    helpersMacrosTests,
-    helpersMacrosOptions
-  );
-  quench.registerBatch(helpersPartyKey, helpersPartyTests, helpersPartyOptions);
-  quench.registerBatch(
-    helpersTreasureKey,
-    helpersTreasureTests,
-    helpersTreasureOptions
+    dataModelCharacterACKey,
+    dataModelCharacterACTests,
+    dataModelCharacterACOptions
   );
   quench.registerBatch(
-    sheetCharacterModifiersKey,
-    sheetCharacterModifiersTest,
-    sheetCharacterModifiersOptions
+    dataModelCharacterEncumbranceKey,
+    dataModelCharacterEncumbranceTests,
+    dataModelCharacterEncumbranceOptions
   );
   quench.registerBatch(
-    sheetEntityTweaksKey,
-    sheetEntityTweaksTests,
-    sheetEntityTweaksOptions
+    dataModelCharacterMoveKey,
+    dataModelCharacterMoveTests,
+    dataModelCharacterMoveOptions
   );
-  quench.registerBatch(entityPartyKey, entityPartyTests, entityPartyOptions);
-  quench.registerBatch(sheetPartyKey, sheetPartyTests, sheetPartyOptions);
-  quench.registerBatch(sheetPartyXpKey, sheetPartyXpTests, sheetPartyXpOptions);
-  // Item model
+  quench.registerBatch(
+    dataModelCharacterScoresKey,
+    dataModelCharacterScoresTests,
+    dataModelCharacterScoresOptions
+  );
+  quench.registerBatch(
+    dataModelCharacterSpellsKey,
+    dataModelCharacterSpellsTests,
+    dataModelCharacterSpellsOptions
+  );
+  quench.registerBatch(
+    dataModelActorMonsterKey,
+    dataModelActorMonsterTests,
+    dataModelActorMonsterOptions
+  );
+
+  quench.registerBatch(entityActorKey, entityActorTests, entityActorOptions);
+
+  quench.registerBatch(sheetActorKey, sheetActorTests, sheetActorOptions);
+  quench.registerBatch(
+    sheetActorDragNDropKey,
+    sheetActorDragNDropTests,
+    sheetActorDragNDropOptions
+  );
+  quench.registerBatch(
+    sheetCharacterKey,
+    sheetCharacterTests,
+    sheetCharacterOptions
+  );
+  quench.registerBatch(sheetMonsterKey, sheetMonsterTests, sheetMonsterOptions);
+
+  /* ------------------------------------------- */
+  /* DIALOG TESTING                              */
+  /* ------------------------------------------- */
+
+  quench.registerBatch(
+    sheetDialogCharacterModifiersKey,
+    sheetDialogCharacterModifiersTest,
+    sheetDialogCharacterModifiersOptions
+  );
+  quench.registerBatch(
+    sheetDialogEntityTweaksKey,
+    sheetDialogEntityTweaksTests,
+    sheetDialogEntityTweaksOptions
+  );
+
+  /* ------------------------------------------- */
+  /* ITEM TESTING                                */
+  /* ------------------------------------------- */
+
   quench.registerBatch(
     dataModelItemAbilityKey,
     dataModelItemAbilityTests,
@@ -197,52 +253,44 @@ Hooks.on("quenchReady", async (quench: Quench) => {
     dataModelItemWeaponTests,
     dataModelItemWeaponOptions
   );
-  // Item Entity Testing
+
   quench.registerBatch(entityItemKey, entityItemTests, entityItemOptions);
-  // Item Sheet testing
+
   quench.registerBatch(sheetItemKey, sheetItemTests, sheetItemOptions);
 
-  // Character data model classes
+  /* ------------------------------------------- */
+  /* PARTY TESTING                         */
+  /* ------------------------------------------- */
+
+  quench.registerBatch(entityPartyKey, entityPartyTests, entityPartyOptions);
+  quench.registerBatch(sheetPartyKey, sheetPartyTests, sheetPartyOptions);
+  quench.registerBatch(sheetPartyXpKey, sheetPartyXpTests, sheetPartyXpOptions);
+
+  /* ------------------------------------------- */
+  /* HELPER TESTING                               */
+  /* ------------------------------------------- */
+
   quench.registerBatch(
-    dataModelCharacterKey,
-    dataModelCharacterTests,
-    dataModelCharacterOptions
+    helpersBehaviourKey,
+    helpersBehaviourTests,
+    helpersBehaviourOptions
+  );
+  quench.registerBatch(helpersChatKey, helpersChatTests, helpersChatOptions);
+  quench.registerBatch(helpersDiceKey, helpersDiceTests, helpersDiceOptions);
+  quench.registerBatch(
+    helpersHandlebarsKey,
+    helpersHandlebarsTests,
+    helpersHandlebarsOptions
   );
   quench.registerBatch(
-    dataModelCharacterACKey,
-    dataModelCharacterACTests,
-    dataModelCharacterACOptions
+    helpersMacrosKey,
+    helpersMacrosTests,
+    helpersMacrosOptions
   );
+  quench.registerBatch(helpersPartyKey, helpersPartyTests, helpersPartyOptions);
   quench.registerBatch(
-    dataModelCharacterScoresKey,
-    dataModelCharacterScoresTests,
-    dataModelCharacterScoresOptions
-  );
-  quench.registerBatch(
-    dataModelCharacterSpellsKey,
-    dataModelCharacterSpellsTests,
-    dataModelCharacterSpellsOptions
-  );
-  quench.registerBatch(
-    dataModelCharacterEncumbranceKey,
-    dataModelCharacterEncumbranceTests,
-    dataModelCharacterEncumbranceOptions
-  );
-  quench.registerBatch(
-    dataModelCharacterMoveKey,
-    dataModelCharacterMoveTests,
-    dataModelCharacterMoveOptions
-  );
-  // Actor CRUD testing
-  quench.registerBatch(
-    actorCrudInventoryContainerKey,
-    actorCrudInventoryContainerTests,
-    actorCrudInventoryContainerOptions
-  );
-  // Actor rolling testing
-  quench.registerBatch(
-    sheetCharacterKey,
-    sheetCharacterTests,
-    sheetCharacterOptions
+    helpersTreasureKey,
+    helpersTreasureTests,
+    helpersTreasureOptions
   );
 });

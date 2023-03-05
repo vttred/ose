@@ -9,7 +9,7 @@ import EncumbranceDetailed from "../data-model-character-encumbrance-detailed";
 import EncumbranceDisabled from "../data-model-character-encumbrance-disabled";
 
 export const key = "ose.datamodel.character.encumbrance";
-export const options = { displayName: "Character Data Model: Encumbrance" };
+export const options = { displayName: "Data Model: Character Encumbrance" };
 
 const toPct = (value: number, max: number) =>
   Math.clamped((100 * value) / max, 0, 100);

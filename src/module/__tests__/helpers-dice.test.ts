@@ -232,35 +232,41 @@ export default ({
       });
     });
   });
+
   describe("attackIsSuccess(roll, target, bonus)", () => {
     describe("Ascending AC", () => {
       before(async () => {
         await game.settings.set(game.system.id, "ascendingAC", true);
       });
+
       it("Natural 1 always fails", () => {
         const rollTargetOne = createMockRoll(1, [1]);
         expect(OseDice.attackIsSuccess(rollTargetOne, 100, 0)).equal(false);
         const rollTargetTwenty = createMockRoll(20, [1]);
         expect(OseDice.attackIsSuccess(rollTargetTwenty, 100, 0)).equal(false);
       });
+
       it("Natural 20 always succeeds", () => {
         const rollTargetOne = createMockRoll(1, [20]);
         expect(OseDice.attackIsSuccess(rollTargetOne, 0, 100)).equal(true);
         const rollTargetTwenty = createMockRoll(20, [20]);
         expect(OseDice.attackIsSuccess(rollTargetTwenty, 0, 100)).equal(true);
       });
+
       it("Roll + bonus equal target is successful", () => {
         const roll = createMockRoll(10);
         const target = 20;
         const bonus = 10;
         expect(OseDice.attackIsSuccess(roll, target, bonus)).equal(true);
       });
+
       it("Roll + bonus above target is successful", () => {
         const roll = createMockRoll(10);
         const target = 19;
         const bonus = 10;
         expect(OseDice.attackIsSuccess(roll, target, bonus)).equal(true);
       });
+
       it("Roll + bnous under target is unsuccessful", () => {
         const roll = createMockRoll(10);
         const target = 21;
@@ -268,34 +274,40 @@ export default ({
         expect(OseDice.attackIsSuccess(roll, target, bonus)).equal(false);
       });
     });
+
     describe("Descending AC", () => {
       before(async () => {
         await game.settings.set(game.system.id, "ascendingAC", false);
       });
+
       it("Natural 1 always fails", () => {
         const rollTargetOne = createMockRoll(1, [1]);
         expect(OseDice.attackIsSuccess(rollTargetOne, 100, 0)).equal(false);
         const rollTargetTwenty = createMockRoll(20, [1]);
         expect(OseDice.attackIsSuccess(rollTargetTwenty, 100, 0)).equal(false);
       });
+
       it("Natural 20 always succeeds", () => {
         const rollTargetOne = createMockRoll(1, [20]);
         expect(OseDice.attackIsSuccess(rollTargetOne, 0, 100)).equal(true);
         const rollTargetTwenty = createMockRoll(20, [20]);
         expect(OseDice.attackIsSuccess(rollTargetTwenty, 0, 100)).equal(true);
       });
+
       it("Roll + ac equal thac0 is successful", () => {
         const roll = createMockRoll(10);
         const thac0 = 20;
         const ac = 10;
         expect(OseDice.attackIsSuccess(roll, thac0, ac)).equal(true);
       });
+
       it("Roll + ac above thac0 is successful", () => {
         const roll = createMockRoll(10);
         const thac0 = 19;
         const ac = 10;
         expect(OseDice.attackIsSuccess(roll, thac0, ac)).equal(true);
       });
+
       it("Roll + ac under thac0 is unsuccessful", () => {
         const roll = createMockRoll(10);
         const thac0 = 21;
@@ -304,6 +316,7 @@ export default ({
       });
     });
   });
+
   describe("digestAttackResult(data, roll)", () => {
     const data = {
       roll: {
@@ -318,10 +331,12 @@ export default ({
         },
       },
     };
+
     describe("Ascending AC", () => {
       before(async () => {
         await game.settings.set(game.system.id, "ascendingAC", true);
       });
+
       it("Natural 1 terms is unsuccessful", async () => {
         expect(game.settings.get(game.system.id, "ascendingAC")).equal(true);
         const rollTargetOne = createMockRoll(1, [1]);
@@ -339,6 +354,7 @@ export default ({
           OseDice.digestAttackResult(data, rollTargetTwenty).isFailure
         ).equal(true);
       });
+
       it("Attack rolls with a modified result of 1 are allowed to succeeed if hits target AC. Issue#340", () => {
         const attackBonus = -1;
         const targetData = {
@@ -354,10 +370,16 @@ export default ({
             },
           },
         };
+
         const roll = createMockRoll(1, [2, attackBonus]);
-        expect(OseDice.digestAttackResult(targetData, roll).isSuccess).equal(true);
-        expect(OseDice.digestAttackResult(targetData, roll).isFailure).equal(false);
+        expect(OseDice.digestAttackResult(targetData, roll).isSuccess).equal(
+          true
+        );
+        expect(OseDice.digestAttackResult(targetData, roll).isFailure).equal(
+          false
+        );
       });
+
       it("Lower than target AC is unsuccessful", () => {
         const attackBonus = 19 - data.roll.thac0;
         const roll = createMockRoll(
@@ -366,6 +388,7 @@ export default ({
         expect(OseDice.digestAttackResult(data, roll).isSuccess).equal(false);
         expect(OseDice.digestAttackResult(data, roll).isFailure).equal(true);
       });
+
       it("Equal than target AC is successful", () => {
         const attackBonus = 19 - data.roll.thac0;
         const roll = createMockRoll(
@@ -374,6 +397,7 @@ export default ({
         expect(OseDice.digestAttackResult(data, roll).isSuccess).equal(true);
         expect(OseDice.digestAttackResult(data, roll).isFailure).equal(false);
       });
+
       it("Higher than target AC is successful", () => {
         const attackBonus = 19 - data.roll.thac0;
         const roll = createMockRoll(
@@ -382,6 +406,7 @@ export default ({
         expect(OseDice.digestAttackResult(data, roll).isSuccess).equal(true);
         expect(OseDice.digestAttackResult(data, roll).isFailure).equal(false);
       });
+
       it("Attack rolls with a modified result of 20 are allowed to fail if doesn't hit target AC. Issue#340", () => {
         const attackBonus = 1;
         const targetData = {
@@ -397,10 +422,16 @@ export default ({
             },
           },
         };
+
         const roll = createMockRoll(20, [19, attackBonus]);
-        expect(OseDice.digestAttackResult(targetData, roll).isSuccess).equal(false);
-        expect(OseDice.digestAttackResult(targetData, roll).isFailure).equal(true);
+        expect(OseDice.digestAttackResult(targetData, roll).isSuccess).equal(
+          false
+        );
+        expect(OseDice.digestAttackResult(targetData, roll).isFailure).equal(
+          true
+        );
       });
+
       it("Natural 20 is successful", () => {
         const rollTargetOne = createMockRoll(1, [20]);
         expect(OseDice.digestAttackResult(data, rollTargetOne).isSuccess).equal(
@@ -423,6 +454,7 @@ export default ({
       before(async () => {
         await game.settings.set(game.system.id, "ascendingAC", false);
       });
+
       it("Natural 1 terms is unsuccessful", async () => {
         expect(game.settings.get(game.system.id, "ascendingAC")).equal(false);
         const rollTargetOne = createMockRoll(1, [1]);
@@ -440,21 +472,25 @@ export default ({
           OseDice.digestAttackResult(data, rollTargetTwenty).isFailure
         ).equal(true);
       });
+
       it("Lower than thac0 is unsuccessful", () => {
         const roll = createMockRoll(data.roll.thac0 - 1);
         expect(OseDice.digestAttackResult(data, roll).isSuccess).equal(false);
         expect(OseDice.digestAttackResult(data, roll).isFailure).equal(true);
       });
+
       it("Equal to thac0 is successful", () => {
         const roll = createMockRoll(data.roll.thac0);
         expect(OseDice.digestAttackResult(data, roll).isSuccess).equal(true);
         expect(OseDice.digestAttackResult(data, roll).isFailure).equal(false);
       });
+
       it("Higher than thac0 is successful", () => {
         const roll = createMockRoll(data.roll.thac0 + 1);
         expect(OseDice.digestAttackResult(data, roll).isSuccess).equal(true);
         expect(OseDice.digestAttackResult(data, roll).isFailure).equal(false);
       });
+
       it("Natural 20 is successful", () => {
         const rollTargetOne = createMockRoll(1, [20]);
         expect(OseDice.digestAttackResult(data, rollTargetOne).isSuccess).equal(
@@ -563,6 +599,7 @@ export default ({
       await closeDialogs();
     });
   });
+
   describe("Roll(parts, data, skipDialog, speaker, flavor, title, chatMessage, flags)", () => {
     describe("Skipping dialog", () => {
       const skipDialog = true;

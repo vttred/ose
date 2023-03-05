@@ -4,7 +4,7 @@
 // eslint-disable-next-line import/no-cycle
 import { QuenchMethods } from "../../../e2e";
 import {
-  cleanUpActorsKey,
+  cleanUpActorsByKey,
   createMockActorKey,
   getMockActorKey,
 } from "../../../e2e/testUtils";
@@ -23,7 +23,7 @@ export default ({ describe, it, expect, after, before }: QuenchMethods) => {
   after(() => {
     game.settings.set(game.system.id, "ascendingAC", ascendingACSetting);
     game.settings.set(game.system.id, "initiative", initiativeSetting);
-    cleanUpActorsKey(key);
+    cleanUpActorsByKey(key);
   });
 
   // @todo: Can this be tested without creating an actor?
@@ -115,7 +115,7 @@ export default ({ describe, it, expect, after, before }: QuenchMethods) => {
     });
 
     after(() => {
-      cleanUpActorsKey(key);
+      cleanUpActorsByKey(key);
     });
   });
 
@@ -171,7 +171,7 @@ export default ({ describe, it, expect, after, before }: QuenchMethods) => {
     });
 
     after(() => {
-      cleanUpActorsKey(key);
+      cleanUpActorsByKey(key);
     });
   });
 
@@ -330,7 +330,7 @@ export default ({ describe, it, expect, after, before }: QuenchMethods) => {
     });
 
     after(() => {
-      cleanUpActorsKey(key);
+      cleanUpActorsByKey(key);
     });
   });
 
@@ -379,7 +379,7 @@ export default ({ describe, it, expect, after, before }: QuenchMethods) => {
     });
 
     after(() => {
-      cleanUpActorsKey(key);
+      cleanUpActorsByKey(key);
     });
   });
 
@@ -459,7 +459,7 @@ export default ({ describe, it, expect, after, before }: QuenchMethods) => {
     });
 
     after(() => {
-      cleanUpActorsKey(key);
+      cleanUpActorsByKey(key);
     });
   });
 
@@ -586,7 +586,7 @@ export default ({ describe, it, expect, after, before }: QuenchMethods) => {
       });
 
       after(() => {
-        cleanUpActorsKey(key);
+        cleanUpActorsByKey(key);
       });
     });
   });
@@ -647,7 +647,7 @@ export default ({ describe, it, expect, after, before }: QuenchMethods) => {
     });
 
     after(() => {
-      cleanUpActorsKey(key);
+      cleanUpActorsByKey(key);
     });
   });
 

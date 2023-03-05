@@ -4,7 +4,7 @@
 // eslint-disable-next-line import/no-cycle
 import { QuenchMethods } from "../../../e2e";
 import {
-  cleanUpActorsKey,
+  cleanUpActorsByKey,
   closeDialogs,
   closeSheets,
   createMockActorKey,
@@ -21,7 +21,7 @@ export const options = { displayName: "OSE: Actor: Sheet: Character" };
 
 export default ({ describe, it, expect, after, afterEach }: QuenchMethods) => {
   after(async () => {
-    await cleanUpActorsKey(key);
+    await cleanUpActorsByKey(key);
     await closeSheets();
   });
 
@@ -55,7 +55,7 @@ export default ({ describe, it, expect, after, afterEach }: QuenchMethods) => {
     });
 
     after(async () => {
-      await cleanUpActorsKey(key);
+      await cleanUpActorsByKey(key);
     });
   });
 
@@ -145,7 +145,7 @@ export default ({ describe, it, expect, after, afterEach }: QuenchMethods) => {
 
     afterEach(async () => {
       await trashChat();
-      await cleanUpActorsKey(key);
+      await cleanUpActorsByKey(key);
       const windows = openWindows("creator");
       windows.forEach((w) => w.close());
       await delay(300);
@@ -179,7 +179,7 @@ export default ({ describe, it, expect, after, afterEach }: QuenchMethods) => {
     });
 
     after(async () => {
-      await cleanUpActorsKey(key);
+      await cleanUpActorsByKey(key);
     });
   });
 
@@ -196,7 +196,7 @@ export default ({ describe, it, expect, after, afterEach }: QuenchMethods) => {
     });
 
     after(async () => {
-      await cleanUpActorsKey(key);
+      await cleanUpActorsByKey(key);
       await closeDialogs();
       await delay(300);
     });
@@ -233,7 +233,7 @@ export default ({ describe, it, expect, after, afterEach }: QuenchMethods) => {
     });
 
     after(async () => {
-      await cleanUpActorsKey(key);
+      await cleanUpActorsByKey(key);
       await closeDialogs();
     });
   });
@@ -257,7 +257,7 @@ export default ({ describe, it, expect, after, afterEach }: QuenchMethods) => {
     });
 
     after(async () => {
-      await cleanUpActorsKey(key);
+      await cleanUpActorsByKey(key);
     });
   });
 
@@ -287,7 +287,7 @@ export default ({ describe, it, expect, after, afterEach }: QuenchMethods) => {
     });
 
     after(async () => {
-      await cleanUpActorsKey(key);
+      await cleanUpActorsByKey(key);
       await closeDialogs();
       await delay(400);
     });
@@ -319,7 +319,7 @@ export default ({ describe, it, expect, after, afterEach }: QuenchMethods) => {
     });
 
     after(async () => {
-      await cleanUpActorsKey(key);
+      await cleanUpActorsByKey(key);
       await closeDialogs();
       await delay(400);
     });

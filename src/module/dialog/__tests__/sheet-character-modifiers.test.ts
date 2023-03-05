@@ -4,7 +4,7 @@
 // eslint-disable-next-line prettier/prettier, import/no-cycle
 import { QuenchMethods } from "../../../e2e";
 import {
-  cleanUpActorsKey,
+  cleanUpActorsByKey,
   createMockActorKey,
   openWindows,
   waitForInput,
@@ -61,6 +61,6 @@ export default ({ describe, it, expect, assert, after }: QuenchMethods) => {
   });
 
   after(async () => {
-    await cleanUpActorsKey(key);
+    await cleanUpActorsByKey(key);
   });
 };

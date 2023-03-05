@@ -4,7 +4,7 @@
 // eslint-disable-next-line import/no-cycle
 import { QuenchMethods } from "../../e2e";
 import {
-  cleanUpActorsKey,
+  cleanUpActorsByKey,
   cleanUpMacros,
   cleanUpScenes,
   cleanUpWorldItems,
@@ -27,7 +27,7 @@ const createMockActor = async (type: string, data: object = {}) =>
   createMockActorKey(type, data, key);
 
 /* CLEAN UP HELPERS */
-const cleanUpActors = () => cleanUpActorsKey(key);
+const cleanUpActors = () => cleanUpActorsByKey(key);
 
 export default ({
   describe,

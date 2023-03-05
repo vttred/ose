@@ -4,7 +4,7 @@
 // eslint-disable-next-line prettier/prettier, import/no-cycle
 import { QuenchMethods } from "../../../e2e";
 import {
-  cleanUpActorsKey,
+  cleanUpActorsByKey,
   createMockActorKey,
   openWindows,
   waitForInput,
@@ -236,7 +236,7 @@ export default ({ describe, it, expect, assert, after }: QuenchMethods) => {
   describe("_dealXP(event)", () => {});
 
   after(async () => {
-    cleanUpActorsKey(key);
+    cleanUpActorsByKey(key);
     game.folders?.contents
       ?.filter((a) => a.name?.includes(`Test Folder ${key}`))
       ?.forEach((a) => a.delete());

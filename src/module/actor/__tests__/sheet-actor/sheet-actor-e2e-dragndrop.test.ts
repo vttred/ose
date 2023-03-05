@@ -4,7 +4,7 @@
 // eslint-disable-next-line prettier/prettier
 import { QuenchMethods } from "../../../../e2e";
 import {
-  cleanUpActorsKey,
+  cleanUpActorsByKey,
   cleanUpWorldItems,
   createActorTestItem,
   createMockActorKey,
@@ -102,7 +102,7 @@ export default ({
     });
 
     after(async () => {
-      await cleanUpActorsKey(key);
+      await cleanUpActorsByKey(key);
     });
   });
 
@@ -327,7 +327,7 @@ export default ({
         });
 
         afterEach(async () => {
-          await cleanUpActorsKey(key);
+          await cleanUpActorsByKey(key);
           await cleanUpCompendium();
           await cleanUpWorldItems();
         });

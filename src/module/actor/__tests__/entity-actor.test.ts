@@ -10,7 +10,7 @@ import OseItem from "../../item/entity";
 
 import * as e2e from "../../../e2e";
 import {
-  cleanUpActorsKey,
+  cleanUpActorsByKey,
   cleanUpScenes,
   cleanUpWorldItems,
   createMockScene,
@@ -44,7 +44,7 @@ export default ({
 }: e2e.QuenchMethods) => {
   afterEach(async () => {
     await trashChat();
-    cleanUpActorsKey(key);
+    cleanUpActorsByKey(key);
     cleanUpWorldItems();
   });
 

@@ -4,7 +4,7 @@
 // eslint-disable-next-line prettier/prettier, import/no-cycle
 import { QuenchMethods } from "../../e2e";
 import {
-  cleanUpActorsKey,
+  cleanUpActorsByKey,
   closeDialogs,
   createMockActorKey,
   openDialogs,
@@ -23,7 +23,7 @@ const createMockActor = async (type: string, data: object = {}) =>
   createMockActorKey(type, data, key);
 
 /* CLEAN UP HELPERS */
-const cleanUpActors = () => cleanUpActorsKey(key);
+const cleanUpActors = () => cleanUpActorsByKey(key);
 
 export default ({ describe, it, expect, after }: QuenchMethods) => {
   after(() => {

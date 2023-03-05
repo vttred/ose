@@ -4,7 +4,7 @@
 // eslint-disable-next-line import/no-cycle
 import { QuenchMethods } from "../../../e2e";
 import {
-  cleanUpActorsKey,
+  cleanUpActorsByKey,
   createMockActorKey,
   getMockActorKey,
 } from "../../../e2e/testUtils";
@@ -30,13 +30,13 @@ export default ({
   after(() => {
     game.settings.set(game.system.id, "ascendingAC", ascendingACSetting);
     game.settings.set(game.system.id, "initiative", initiativeSetting);
-    cleanUpActorsKey(key);
+    cleanUpActorsByKey(key);
   });
 
   // @todo: Can this be tested without creating an actor?
   describe("prepareDerivedData()", () => {
     afterEach(() => {
-      cleanUpActorsKey(key);
+      cleanUpActorsByKey(key);
     });
 
     it("doesnt have scores", async () => {
@@ -153,7 +153,7 @@ export default ({
     });
 
     after(() => {
-      cleanUpActorsKey(key);
+      cleanUpActorsByKey(key);
     });
   });
 
@@ -218,7 +218,7 @@ export default ({
     });
 
     after(() => {
-      cleanUpActorsKey(key);
+      cleanUpActorsByKey(key);
     });
   });
 
@@ -268,7 +268,7 @@ export default ({
     });
 
     after(() => {
-      cleanUpActorsKey(key);
+      cleanUpActorsByKey(key);
     });
   });
 
@@ -395,7 +395,7 @@ export default ({
     });
 
     after(() => {
-      cleanUpActorsKey(key);
+      cleanUpActorsByKey(key);
     });
   });
 
@@ -507,7 +507,7 @@ export default ({
     });
 
     after(() => {
-      cleanUpActorsKey(key);
+      cleanUpActorsByKey(key);
     });
   });
 

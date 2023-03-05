@@ -4,7 +4,7 @@
 // eslint-disable-next-line import/no-cycle
 import { QuenchMethods } from "../../../e2e";
 import {
-  cleanUpActorsKey,
+  cleanUpActorsByKey,
   closeDialogs,
   closeSheets,
   createActorTestItem,
@@ -31,7 +31,7 @@ export default ({ describe, it, expect, after, before }: QuenchMethods) => {
       "invertedCtrlBehavior",
       orginalCtrlSetting
     );
-    await cleanUpActorsKey(key);
+    await cleanUpActorsByKey(key);
     await closeSheets();
   });
 
@@ -62,7 +62,7 @@ export default ({ describe, it, expect, after, before }: QuenchMethods) => {
     });
 
     after(async () => {
-      await cleanUpActorsKey(key);
+      await cleanUpActorsByKey(key);
     });
   });
 
@@ -95,7 +95,7 @@ export default ({ describe, it, expect, after, before }: QuenchMethods) => {
     });
 
     after(async () => {
-      await cleanUpActorsKey(key);
+      await cleanUpActorsByKey(key);
     });
   });
 
@@ -111,7 +111,7 @@ export default ({ describe, it, expect, after, before }: QuenchMethods) => {
     });
 
     after(async () => {
-      await cleanUpActorsKey(key);
+      await cleanUpActorsByKey(key);
       await closeDialogs();
       await delay(300);
     });
@@ -122,7 +122,7 @@ export default ({ describe, it, expect, after, before }: QuenchMethods) => {
       RollTable.create({ name: "Test RollTable" });
 
     after(async () => {
-      await cleanUpActorsKey(key);
+      await cleanUpActorsByKey(key);
       game.tables
         ?.filter((rt) => rt.name === "Test RollTable")
         .forEach((rt) => rt.delete());
@@ -189,7 +189,7 @@ export default ({ describe, it, expect, after, before }: QuenchMethods) => {
     });
 
     after(async () => {
-      await cleanUpActorsKey(key);
+      await cleanUpActorsByKey(key);
     });
   });
 
@@ -222,7 +222,7 @@ export default ({ describe, it, expect, after, before }: QuenchMethods) => {
     });
 
     after(async () => {
-      await cleanUpActorsKey(key);
+      await cleanUpActorsByKey(key);
     });
   });
 
@@ -260,7 +260,7 @@ export default ({ describe, it, expect, after, before }: QuenchMethods) => {
     });
 
     after(async () => {
-      await cleanUpActorsKey(key);
+      await cleanUpActorsByKey(key);
     });
   });
 };

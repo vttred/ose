@@ -5,7 +5,7 @@
 import { QuenchMethods } from "../../../e2e";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {
-  cleanUpActorsKey,
+  cleanUpActorsByKey,
   cleanUpMacros,
   closeDialogs,
   closeSheets,
@@ -68,7 +68,7 @@ export default ({
   );
 
   after(async () => {
-    await cleanUpActorsKey(key);
+    await cleanUpActorsByKey(key);
     await closeSheets();
     game.settings.set(
       game.system.id,
@@ -153,7 +153,7 @@ export default ({
       });
 
       after(async () => {
-        await cleanUpActorsKey(key);
+        await cleanUpActorsByKey(key);
         await closeSheets();
       });
     });
@@ -201,7 +201,7 @@ export default ({
     });
 
     after(async () => {
-      await cleanUpActorsKey(key);
+      await cleanUpActorsByKey(key);
       await closeSheets();
     });
   });
@@ -265,7 +265,7 @@ export default ({
     });
 
     after(async () => {
-      await cleanUpActorsKey(key);
+      await cleanUpActorsByKey(key);
       await closeSheets();
     });
   });
@@ -383,7 +383,7 @@ export default ({
     });
 
     after(async () => {
-      await cleanUpActorsKey(key);
+      await cleanUpActorsByKey(key);
       await closeSheets();
     });
   });
@@ -438,7 +438,7 @@ export default ({
       });
 
       after(async () => {
-        await cleanUpActorsKey(key);
+        await cleanUpActorsByKey(key);
       });
     });
   });
@@ -536,7 +536,7 @@ export default ({
       });
 
       after(async () => {
-        await cleanUpActorsKey(key);
+        await cleanUpActorsByKey(key);
       });
     });
   });
@@ -580,7 +580,7 @@ export default ({
     });
 
     after(async () => {
-      await cleanUpActorsKey(key);
+      await cleanUpActorsByKey(key);
     });
   });
 
@@ -614,7 +614,7 @@ export default ({
     });
 
     after(async () => {
-      await cleanUpActorsKey(key);
+      await cleanUpActorsByKey(key);
     });
   });
 
@@ -641,7 +641,7 @@ export default ({
     });
 
     after(async () => {
-      await cleanUpActorsKey(key);
+      await cleanUpActorsByKey(key);
     });
   });
 
@@ -660,7 +660,7 @@ export default ({
     });
 
     afterEach(async () => {
-      await cleanUpActorsKey(key);
+      await cleanUpActorsByKey(key);
       await trashChat();
     });
 
@@ -773,7 +773,7 @@ export default ({
     });
 
     after(async () => {
-      await cleanUpActorsKey(key);
+      await cleanUpActorsByKey(key);
       await trashChat();
     });
   });
@@ -812,7 +812,7 @@ export default ({
       });
 
       after(async () => {
-        await cleanUpActorsKey(key);
+        await cleanUpActorsByKey(key);
         await trashChat();
         await delay(200);
       });
@@ -840,7 +840,7 @@ export default ({
       });
 
       after(async () => {
-        await cleanUpActorsKey(key);
+        await cleanUpActorsByKey(key);
         await trashChat();
         await delay(200);
       });
@@ -876,7 +876,7 @@ export default ({
     });
 
     after(async () => {
-      await cleanUpActorsKey(key);
+      await cleanUpActorsByKey(key);
     });
   });
 
@@ -980,7 +980,7 @@ export default ({
       });
 
       after(async () => {
-        await cleanUpActorsKey(key);
+        await cleanUpActorsByKey(key);
       });
     });
   });
@@ -1042,7 +1042,7 @@ export default ({
       });
 
       after(async () => {
-        await cleanUpActorsKey(key);
+        await cleanUpActorsByKey(key);
       });
     });
   });
@@ -1084,7 +1084,7 @@ export default ({
       });
 
       after(async () => {
-        await cleanUpActorsKey(key);
+        await cleanUpActorsByKey(key);
       });
     });
   });
@@ -1125,7 +1125,7 @@ export default ({
 
     afterEach(async () => {
       await closeDialogs();
-      await cleanUpActorsKey(key);
+      await cleanUpActorsByKey(key);
     });
   });
 
@@ -1147,7 +1147,7 @@ export default ({
     });
 
     afterEach(async () => {
-      await cleanUpActorsKey(key);
+      await cleanUpActorsByKey(key);
     });
   });
 
@@ -1200,7 +1200,7 @@ export default ({
     });
 
     afterEach(async () => {
-      await cleanUpActorsKey(key);
+      await cleanUpActorsByKey(key);
     });
   });
 
@@ -1227,7 +1227,7 @@ export default ({
     });
 
     afterEach(async () => {
-      await cleanUpActorsKey(key);
+      await cleanUpActorsByKey(key);
     });
   });
 

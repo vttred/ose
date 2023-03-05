@@ -3,7 +3,7 @@
  */
 // eslint-disable-next-line prettier/prettier, import/no-cycle
 import { QuenchMethods } from "../../../e2e";
-import { cleanUpActorsKey, createMockActorKey } from "../../../e2e/testUtils";
+import { cleanUpActorsByKey, createMockActorKey } from "../../../e2e/testUtils";
 import OseParty from "../party";
 import OsePartySheet from "../party-sheet";
 
@@ -33,6 +33,6 @@ export default ({ describe, it, expect, assert, after }: QuenchMethods) => {
   });
 
   after(async () => {
-    await cleanUpActorsKey(key);
+    await cleanUpActorsByKey(key);
   });
 };

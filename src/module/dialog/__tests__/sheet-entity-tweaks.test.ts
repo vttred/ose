@@ -3,16 +3,16 @@
  */
 // eslint-disable-next-line prettier/prettier, import/no-cycle
 import { QuenchMethods } from "../../../e2e";
-import { createMockActorKey, waitForInput } from "../../../e2e/testUtils";
+import {
+  cleanUpActorsKey,
+  createMockActorKey,
+  openWindows,
+  waitForInput,
+} from "../../../e2e/testUtils";
 import OseEntityTweaks from "../entity-tweaks";
 
 export const key = "ose.sheet.entity-tweaks";
 export const options = { displayName: "Sheet: Entity Tweaks" };
-
-const openWindows = (className: string) =>
-  Object.values(ui.windows).filter((o) =>
-    o.options.classes.includes(className)
-  );
 
 const createMockActor = async (type: string, data: object = {}) =>
   createMockActorKey(type, data, key);
@@ -29,6 +29,7 @@ export default ({ describe, it, expect, assert, after }: QuenchMethods) => {
       expect(entityTweaks.options.width).equal(380);
     });
   });
+
   describe("title()", () => {
     it("Creates string in dialog window title", async () => {
       const actor = await createMockActor("character");
@@ -45,6 +46,7 @@ export default ({ describe, it, expect, assert, after }: QuenchMethods) => {
       expect(openWindows("sheet-tweaks").length).equal(0);
     });
   });
+
   describe("getData()", () => {
     it("Returns proper data", async () => {
       const actor = await createMockActor("character");
@@ -57,11 +59,11 @@ export default ({ describe, it, expect, assert, after }: QuenchMethods) => {
       assert(data.isCharacter);
     });
   });
+
   // @todo: Test with Cypress or mock event
   describe("_updateObject(event, formData)", () => {});
-  after(() => {
-    game.actors?.contents
-      ?.filter((a) => a.name?.includes(`Test Actor ${key}`))
-      ?.forEach((a) => a.delete());
+
+  after(async () => {
+    await cleanUpActorsKey(key);
   });
 };

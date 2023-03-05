@@ -59,8 +59,7 @@ export default ({
   expect,
   after,
   afterEach,
-  before,
-  beforeEach,
+  before
 }: QuenchMethods) => {
   // Saving settings being modified by tests
   const originalCtrlSetting = game.settings.get(

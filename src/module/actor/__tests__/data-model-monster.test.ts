@@ -38,10 +38,12 @@ export default ({
     afterEach(() => {
       cleanUpActorsKey(key);
     });
+
     it("doesnt have scores", async () => {
       const actor = await createMockActor();
       expect(actor?.system.scores).is.undefined;
     });
+
     it("has encumbrance", async () => {
       const actor = await createMockActor();
       expect(actor?.system.encumbrance).not.undefined;
@@ -56,23 +58,27 @@ export default ({
       expect(actor?.system.encumbrance.atQuarterEncumbered).not.undefined;
       expect(actor?.system.encumbrance.atEighthEncumbered).not.undefined;
     });
+
     it("have movement", async () => {
       const actor = await createMockActor();
       expect(actor?.system.movement).not.undefined;
       expect(actor?.system.movement.base).not.undefined;
     });
+
     it("have ac", async () => {
       const actor = await createMockActor();
       expect(actor?.system.ac).not.undefined;
       expect(actor?.system.ac.value).not.undefined;
       expect(actor?.system.ac.mod).not.undefined;
     });
+
     it("have aac", async () => {
       const actor = await createMockActor();
       expect(actor?.system.aac).not.undefined;
       expect(actor?.system.aac.value).not.undefined;
       expect(actor?.system.aac.mod).not.undefined;
     });
+
     describe("has spells", () => {
       // @todo: Should we keep using numbers and keys for spell levels?
       const spellLevels = new Set(["1", "2", "3", "4", "5", "6"]);
@@ -95,13 +101,12 @@ export default ({
       });
     });
   });
+
   describe("defineSchema()", () => {
     before(async () => {
       await createMockActor();
     });
-    after(() => {
-      cleanUpActorsKey(key);
-    });
+
     const flatFields = ["config", "initiative", "thac0", "languages"];
     flatFields.forEach((field) => {
       it(`has ${field}`, async () => {
@@ -146,6 +151,10 @@ export default ({
         });
       });
     });
+
+    after(() => {
+      cleanUpActorsKey(key);
+    });
   });
 
   describe("isNew()", () => {
@@ -168,6 +177,7 @@ export default ({
       );
       expect(testActor?.system.isNew).to.be.true;
     });
+
     it("Not new when any ability score is above 0", async () => {
       const testActor = await createMockActorKey(
         "monster",
@@ -188,10 +198,8 @@ export default ({
       expect(testActor?.system.isNew).to.be.false;
     });
   });
+
   describe("containers()", () => {
-    after(() => {
-      cleanUpActorsKey(key);
-    });
     it("returns all containers", async () => {
       const actor = await createMockActor();
       expect(actor?.items.contents.length).equal(0);
@@ -208,11 +216,13 @@ export default ({
       expect(actor?.system.containers[0]._id).equal(itemId);
       actor?.delete();
     });
-  });
-  describe("treasures()", () => {
+
     after(() => {
       cleanUpActorsKey(key);
     });
+  });
+
+  describe("treasures()", () => {
     it("returns treasures on actor", async () => {
       const actor = await createMockActor();
       expect(actor?.items.contents.length).equal(0);
@@ -230,6 +240,7 @@ export default ({
       expect(actor?.system.treasures[0]._id).equal(itemId);
       actor?.delete();
     });
+
     it("doesn't returns treasures on actor if in container", async () => {
       const actor = await createMockActor();
       expect(actor?.items.contents.length).equal(0);
@@ -255,7 +266,12 @@ export default ({
       expect(actor?.system.treasures.length).equal(0);
       actor?.delete();
     });
+
+    after(() => {
+      cleanUpActorsKey(key);
+    });
   });
+
   describe("items()", () => {
     it("only returns other items than treasure", async () => {
       const actor = await createMockActor();
@@ -280,6 +296,7 @@ export default ({
       expect(actor?.system.items[0].name).equal("test item");
       actor?.delete();
     });
+
     it("only returns other items than stored in containers", async () => {
       const actor = await createMockActor();
       expect(actor?.items.contents.length).equal(0);
@@ -312,6 +329,7 @@ export default ({
       actor?.delete();
     });
   });
+
   const testTypes = [
     { type: "weapon", getter: "weapons" },
     { type: "ability", getter: "abilities" },
@@ -320,9 +338,6 @@ export default ({
   ];
   testTypes.forEach(({ type, getter }) => {
     describe(`${getter}()`, () => {
-      after(() => {
-        cleanUpActorsKey(key);
-      });
       it(`returns all ${getter}`, async () => {
         const actor = await createMockActor();
         expect(actor?.items.contents.length).equal(0);
@@ -339,6 +354,7 @@ export default ({
         expect(actor?.system[getter][0]._id).equal(itemId);
         actor?.delete();
       });
+
       it(`returns all ${getter} except ones in container`, async () => {
         if (getter === "abilities") return;
         const actor = await createMockActor();
@@ -377,7 +393,12 @@ export default ({
         actor?.delete();
       });
     });
+
+    after(() => {
+      cleanUpActorsKey(key);
+    });
   });
+
   describe("attackPatterns()", () => {
     it("returns all weapons and abilities in transparent when no pattern set", async () => {
       const actor = await createMockActor();
@@ -402,6 +423,7 @@ export default ({
         "test ability"
       );
     });
+
     it("returns separated weapons and abilities whith patterns patterns", async () => {
       const actor = await createMockActor();
       await actor?.createEmbeddedDocuments("Item", [
@@ -444,15 +466,14 @@ export default ({
       );
     });
   });
+
   describe("isSlow()", () => {
-    after(() => {
-      cleanUpActorsKey(key);
-    });
     it("returns false if no weapons", async () => {
       const actor = await createMockActor();
       expect(actor?.system.isSlow).is.false;
       actor?.delete();
     });
+
     it("returns false if weapon that doesn't have slow tag", async () => {
       const actor = await createMockActor();
       expect(actor?.items.contents.length).equal(0);
@@ -468,6 +489,7 @@ export default ({
       expect(actor?.system.isSlow).is.false;
       actor?.delete();
     });
+
     it("returns true if weapon that has slow tag", async () => {
       const actor = await createMockActor();
       expect(actor?.items.contents.length).equal(0);
@@ -483,31 +505,40 @@ export default ({
       expect(actor?.system.isSlow).is.true;
       actor?.delete();
     });
+
+    after(() => {
+      cleanUpActorsKey(key);
+    });
   });
+
   describe("init()", () => {
     before(async () => {
       await game.settings.set(game.system.id, "initiative", "individual");
       // @todo: tests fails if scores.dex.init isn't initiated
       // dataModel.scores.dex = { init: 0 };
     });
+
     it("returns 0 by default", () => {
       expect(dataModel.initiative.value).equal(0);
       expect(dataModel.initiative.mod).equal(0);
       expect(dataModel.scores.dex.init).equal(0);
       expect(dataModel.init).equal(0);
     });
+
     it("returns correctly with initiative value set", async () => {
       dataModel.initiative.value = 12;
       expect(dataModel.init).equal(12);
       dataModel.initiative.value = 0;
       expect(dataModel.initiative.value).equal(0);
     });
+
     it("returns correctly with initiative mod set", async () => {
       dataModel.initiative.mod = 10;
       expect(dataModel.init).equal(10);
       dataModel.initiative.mod = 0;
       expect(dataModel.initiative.mod).equal(0);
     });
+
     it("returns correctly with dex mod init set", async () => {
       dataModel.scores.dex = { init: 5 };
       expect(dataModel.init).equal(5);

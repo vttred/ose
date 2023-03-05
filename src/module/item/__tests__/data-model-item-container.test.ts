@@ -28,6 +28,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
     it("By default return empty array", () => {
       expect(container.manualTags.length).equal(0);
     });
+
     it("Can write tags to tags field", () => {
       container.tags = [{ value: "value", title: "title" }];
       expect(container.tags.length).equal(1);
@@ -36,6 +37,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
       expect(container.tags[0].value).equal("value");
       expect(container.tags[0].label).is.undefined;
     });
+
     it("Can retrieve tags", () => {
       expect(container.manualTags.length).equal(1);
       expect(container.manualTags[0].title).equal("title");
@@ -43,11 +45,13 @@ export default ({ describe, it, expect }: QuenchMethods) => {
       expect(container.tags[0].label).is.undefined;
     });
   });
+
   describe("autoTags()", () => {
     const container = new OseDataModelContainer();
     it("By default return no auto-tags", () => {
       expect(container.autoTags.length).equal(0);
     });
+
     it("Can create autoTags", () => {
       container.tags = [{ value: CONFIG.OSE.tags.blunt }];
       expect(container.tags.length).equal(1);

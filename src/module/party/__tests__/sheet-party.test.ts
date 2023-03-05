@@ -4,6 +4,7 @@
 // eslint-disable-next-line prettier/prettier, import/no-cycle
 import { QuenchMethods } from "../../../e2e";
 import {
+  cleanUpActorsKey,
   createMockActorKey,
   openWindows,
   waitForInput,
@@ -38,8 +39,10 @@ export default ({ describe, it, expect, assert, after }: QuenchMethods) => {
       assert(!partySheet.options.closeOnSubmit);
     });
   });
+
   // @todo: How to test?
   describe("init()", () => {});
+
   describe("showPartySheet(options = {})", () => {
     it("Can render party sheet", async () => {
       OsePartySheet.showPartySheet();
@@ -51,13 +54,15 @@ export default ({ describe, it, expect, assert, after }: QuenchMethods) => {
       expect(openWindows("party-sheet").length).equal(0);
     });
   });
+
   describe("partySheet()", () => {
     it("Returns a partysheet", () => {
       const { partySheet } = OsePartySheet;
       expect(partySheet).is.not.undefined;
-      expect(partySheet.options.classes).contain("party-sheet");
+      expect(partySheet?.options.classes).contain("party-sheet");
     });
   });
+
   describe("title()", () => {
     it("Creates string in dialog window title", async () => {
       OsePartySheet.showPartySheet();
@@ -72,6 +77,7 @@ export default ({ describe, it, expect, assert, after }: QuenchMethods) => {
       expect(openWindows("party-sheet").length).equal(0);
     });
   });
+
   describe("getData()", () => {
     it("Returns proper data", () => {
       const sheet = new OsePartySheet();
@@ -84,6 +90,7 @@ export default ({ describe, it, expect, assert, after }: QuenchMethods) => {
       expect(keys).contain("settings");
     });
   });
+
   describe("_addActorToParty(actor)", () => {
     it("Monster returns undefined", async () => {
       const actor = await createMockActor("monster");
@@ -93,6 +100,7 @@ export default ({ describe, it, expect, assert, after }: QuenchMethods) => {
       expect(promisedAnswer).is.undefined;
       await actor.delete();
     });
+
     it("Adding a character updates the actor", async () => {
       const actor = await createMockActor("character");
       const partySheet = new OsePartySheet();
@@ -103,6 +111,7 @@ export default ({ describe, it, expect, assert, after }: QuenchMethods) => {
       await actor.delete();
     });
   });
+
   describe("_removeActorFromParty(actor)", async () => {
     it("Removing a character updates the actor flags", async () => {
       const actor = await createMockActor("character");
@@ -132,6 +141,7 @@ export default ({ describe, it, expect, assert, after }: QuenchMethods) => {
       });
       expect(resolvedResponse).is.undefined;
     });
+
     it("Dropping an actor type updates the actor", async () => {
       const actor = await createMockActor("character");
       const data = {
@@ -147,6 +157,7 @@ export default ({ describe, it, expect, assert, after }: QuenchMethods) => {
       await actor?.delete();
     });
   });
+
   describe("_recursiveAddFolder(folder)", () => {
     it("Folder of actors add actors to party", async () => {
       const partySheet = new OsePartySheet();
@@ -165,6 +176,7 @@ export default ({ describe, it, expect, assert, after }: QuenchMethods) => {
       await actor?.delete();
       await folder?.delete();
     });
+
     it("Folder with sub-folders of actors add actors to party", async () => {
       const partySheet = new OsePartySheet();
       const folder = await Folder.create({
@@ -187,6 +199,7 @@ export default ({ describe, it, expect, assert, after }: QuenchMethods) => {
       await actor?.delete();
     });
   });
+
   describe("_onDropFolder(event, data)", () => {
     it("Dropping with documentName that is not Actor returns undefined", async () => {
       const mockData = {
@@ -196,6 +209,7 @@ export default ({ describe, it, expect, assert, after }: QuenchMethods) => {
       const response = await partySheet._onDropFolder("", mockData);
       expect(response).is.undefined;
     });
+
     it("Dropping a folder with an actor in it adds it to the party", async () => {
       const partySheet = new OsePartySheet();
       const folder = await Folder.create({
@@ -214,16 +228,15 @@ export default ({ describe, it, expect, assert, after }: QuenchMethods) => {
       await folder?.delete();
     });
   });
+
   // @todo: Test with Cypress or Mock event
   describe("_onDragStart(event)", () => {});
 
   // Tested in OsePartyXP
   describe("_dealXP(event)", () => {});
 
-  after(() => {
-    game.actors?.contents
-      ?.filter((a) => a.name?.includes(`Test Actor ${key}`))
-      ?.forEach((a) => a.delete());
+  after(async () => {
+    cleanUpActorsKey(key);
     game.folders?.contents
       ?.filter((a) => a.name?.includes(`Test Folder ${key}`))
       ?.forEach((a) => a.delete());

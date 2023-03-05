@@ -14,6 +14,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
     it("By default return empty array", () => {
       expect(spell.manualTags.length).equal(0);
     });
+
     it("Can write tags to tags field", () => {
       spell.tags = [{ title: "title", value: "value" }];
       expect(spell.tags.length).equal(1);
@@ -22,6 +23,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
       expect(spell.tags[0].value).equal("value");
       expect(spell.tags[0].label).is.undefined;
     });
+
     it("Can retrieve tags", () => {
       expect(spell.manualTags.length).equal(1);
       expect(spell.manualTags[0].title).equal("title");
@@ -29,6 +31,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
       expect(spell.tags[0].label).is.undefined;
     });
   });
+
   describe("autoTags()", () => {
     const spell = new OseDataModelSpell();
     it("By default return 3 auto-tags", () => {
@@ -38,6 +41,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
         expect(t?.label).equal("");
       });
     });
+
     it("Save create autoTags", () => {
       spell.save = "death";
       expect(spell.autoTags.length).equal(4);
@@ -47,6 +51,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
       );
       expect(spell.autoTags[3].icon).equal("fa-skull");
     });
+
     it("Roll create autoTags", () => {
       spell.roll = "1d20+1";
       expect(spell.autoTags.length).equal(5);

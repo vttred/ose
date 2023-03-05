@@ -201,6 +201,7 @@ export default ({ describe, it, expect, after, afterEach }: QuenchMethods) => {
       await delay(300);
     });
   });
+
   describe("_pushLang(table)", () => {
     const table = "languages";
 

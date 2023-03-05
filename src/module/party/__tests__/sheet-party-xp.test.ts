@@ -23,6 +23,7 @@ export default ({ describe, it, expect, assert }: QuenchMethods) => {
       assert(partyXP.options.closeOnSubmit);
     });
   });
+
   describe("title()", () => {
     it("Creates string in dialog window title", async () => {
       const partyXP = new OsePartyXP();
@@ -38,6 +39,7 @@ export default ({ describe, it, expect, assert }: QuenchMethods) => {
       expect(openWindows("party-xp").length).equal(0);
     });
   });
+
   describe("getData()", () => {
     it("Returns proper data", () => {
       const sheet = new OsePartyXP();
@@ -51,7 +53,8 @@ export default ({ describe, it, expect, assert }: QuenchMethods) => {
       expect(keys).contain("settings");
     });
   });
-  // @todo: Test with Cypress or similar, or mock event
+
+  // @todo: Test with Cypress or similar, or mock event (see actor-sheet-e2e)
   describe("_onDrop(event)", () => {});
   describe("_updateObject(event)", () => {});
   describe("_calculateShare()", () => {});

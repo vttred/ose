@@ -72,6 +72,7 @@ export default ({
   describe,
   it,
   expect,
+  after,
   afterEach,
   beforeEach,
 }: QuenchMethods) => {

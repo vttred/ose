@@ -1,10 +1,13 @@
 // eslint-disable-next-line eslint-comments/disable-enable-pair
+
 /* eslint-disable simple-import-sort/imports */
 
 /**
  * @file Contains tests for Actor Entity.
  */
 // eslint-disable-next-line import/no-cycle
+import OseItem from "../../item/entity";
+
 import * as e2e from "../../../e2e";
 import {
   cleanUpActorsKey,
@@ -16,7 +19,6 @@ import {
   trashChat,
   waitForInput,
 } from "../../../e2e/testUtils";
-import OseItem from "../../item/entity";
 import OseActor from "../entity";
 
 export const key = "ose.entity.actor";
@@ -57,6 +59,7 @@ export default ({
       expect(actor?.system.ac.value).equal(15);
       expect(actor?.system.aac.value).equal(19 - 15);
     });
+
     it("AC to AAC", async () => {
       const actor = await createMockActor("character");
       expect(actor?.system.ac.value).equal(12);
@@ -66,6 +69,7 @@ export default ({
       expect(actor?.system.aac.value).equal(15);
       expect(actor?.system.ac.value).equal(19 - 15);
     });
+
     it("THAC0 to BBA", async () => {
       const actor = await createMockActor("character");
       expect(actor?.system.thac0.value).equal(12);
@@ -75,6 +79,7 @@ export default ({
       expect(actor?.system.thac0.value).equal(15);
       expect(actor?.system.thac0.value).equal(19 - 15);
     });
+
     it("BBA to THAC0", async () => {
       const actor = await createMockActor("character");
       expect(actor?.system.thac0.value).equal(12);
@@ -85,6 +90,7 @@ export default ({
       expect(actor?.system.thac0.value).equal(19 - 15);
     });
   });
+
   describe("createEmbeddedDocuments(embeddedName, data, context)", () => {
     after(async () => {
       game.items
@@ -105,10 +111,12 @@ export default ({
       });
     });
   });
+
   describe("getExperience(value, options)", () => {
     afterEach(async () => {
       await trashChat();
     });
+
     it("Adding positive XP adds to experience", async () => {
       const actor = (await createMockActor("character")) as OseActor;
       expect(actor?.system.details.xp.value).equal(0);
@@ -119,6 +127,7 @@ export default ({
       expect(game.messages?.size).equal(1);
       await actor?.delete();
     });
+
     it("Adding negative XP subtracts from experience", async () => {
       const actor = (await createMockActor("character")) as OseActor;
       expect(actor?.system.details.xp.value).equal(0);
@@ -129,6 +138,7 @@ export default ({
       expect(game.messages?.size).equal(1);
       await actor?.delete();
     });
+
     it("Adding positive XP adds to experience modified by bonus", async () => {
       const actor = (await createMockActor("character")) as OseActor;
       await actor?.update({ system: { details: { xp: { bonus: 10 } } } });
@@ -141,18 +151,21 @@ export default ({
       await actor?.delete();
     });
   });
+
   describe("isNew()", () => {
     it("character", async () => {
       const actor = (await createMockActor("character")) as OseActor;
       expect(actor?.isNew()).equal(true);
       await actor?.delete();
     });
+
     it("monster", async () => {
       const actor = (await createMockActor("monster")) as OseActor;
       expect(actor?.isNew()).equal(true);
       await actor?.delete();
     });
   });
+
   describe("generateSave(hd)", async () => {
     const saves = [
       {
@@ -300,6 +313,7 @@ export default ({
 
     await actor?.delete();
   });
+
   describe("rollHP(options)", async () => {
     const actor = (await createMockActor("monster")) as OseActor;
     const conScoreSpread = Array.from({ length: 20 }, (_el, idx) => idx + 1);
@@ -323,6 +337,7 @@ export default ({
     });
     await actor?.delete();
   });
+
   describe("rollSave(save, options)", () => {
     afterEach(async () => {
       await trashChat();
@@ -338,6 +353,7 @@ export default ({
         expect(game.messages?.size).equal(1);
         await actor?.delete();
       });
+
       it(`is functional for ${save} saves on monster`, async () => {
         const actor = (await createMockActor("monster")) as OseActor;
         expect(game.messages?.size).equal(0);
@@ -348,10 +364,12 @@ export default ({
       });
     });
   });
+
   describe("rollMorale(options)", () => {
     afterEach(async () => {
       await trashChat();
     });
+
     it("for character", async () => {
       const actor = (await createMockActor("character")) as OseActor;
       expect(game.messages?.size).equal(0);
@@ -360,6 +378,7 @@ export default ({
       expect(game.messages?.size).equal(1);
       await actor?.delete();
     });
+
     it("for monster", async () => {
       const actor = (await createMockActor("monster")) as OseActor;
       expect(game.messages?.size).equal(0);
@@ -369,10 +388,12 @@ export default ({
       await actor?.delete();
     });
   });
+
   describe("rollLoyalty(options)", () => {
     afterEach(async () => {
       await trashChat();
     });
+
     it("for character", async () => {
       const actor = (await createMockActor("character")) as OseActor;
       expect(game.messages?.size).equal(0);
@@ -381,6 +402,7 @@ export default ({
       expect(game.messages?.size).equal(1);
       await actor?.delete();
     });
+
     it("for monster", async () => {
       const actor = (await createMockActor("monster")) as OseActor;
       expect(game.messages?.size).equal(0);
@@ -390,10 +412,12 @@ export default ({
       await actor?.delete();
     });
   });
+
   describe("rollReaction(options)", () => {
     afterEach(async () => {
       await trashChat();
     });
+
     it("for character", async () => {
       const actor = (await createMockActor("character")) as OseActor;
       expect(game.messages?.size).equal(0);
@@ -402,6 +426,7 @@ export default ({
       expect(game.messages?.size).equal(1);
       await actor.delete();
     });
+
     it("for monster", async () => {
       const actor = (await createMockActor("monster")) as OseActor;
       expect(game.messages?.size).equal(0);
@@ -411,12 +436,14 @@ export default ({
       await actor.delete();
     });
   });
+
   describe("rollCheck(score, options)", () => {
     const scores = ["str", "int", "dex", "wis", "con", "cha"];
 
     afterEach(async () => {
       await trashChat();
     });
+
     scores.forEach((score) => {
       it(`${score} for character`, async () => {
         const actor = (await createMockActor("character")) as OseActor;
@@ -426,6 +453,7 @@ export default ({
         expect(game.messages?.size).equal(1);
         await actor.delete();
       });
+
       it(`${score} for character`, async () => {
         const actor = (await createMockActor("monster")) as OseActor;
         expect(game.messages?.size).equal(0);
@@ -436,6 +464,7 @@ export default ({
       });
     });
   });
+
   describe("rollHitDice(options)", () => {
     const conScoreSpread = Array.from({ length: 20 }, (_el, idx) => idx + 1);
     const conBonusSpread = [
@@ -480,6 +509,7 @@ export default ({
     afterEach(async () => {
       await trashChat();
     });
+
     it("for character", async () => {
       const actor = (await createMockActor("character")) as OseActor;
       expect(game.messages?.size).equal(0);
@@ -488,6 +518,7 @@ export default ({
       expect(game.messages?.size).equal(0);
       await actor.delete();
     });
+
     describe("for monster", () => {
       it("in wilderness", async () => {
         const actor = (await createMockActor("monster")) as OseActor;
@@ -500,6 +531,7 @@ export default ({
         );
         await actor.delete();
       });
+
       it("in other", async () => {
         const actor = (await createMockActor("monster")) as OseActor;
         expect(game.messages?.size).equal(0);
@@ -513,10 +545,12 @@ export default ({
       });
     });
   });
+
   describe("rollExploration(expl, options)", () => {
     afterEach(async () => {
       await trashChat();
     });
+
     const explorationOptions = ["ld", "od", "sd", "fs"];
     explorationOptions.forEach((expl) => {
       it("for character", async () => {
@@ -532,6 +566,7 @@ export default ({
         await actor.delete();
       });
     });
+
     it("for monster", async () => {
       const actor = (await createMockActor("monster")) as OseActor;
       expect(game.messages?.size).equal(0);
@@ -541,10 +576,12 @@ export default ({
       await actor.delete();
     });
   });
+
   describe("rollDamage(attData, options)", () => {
     afterEach(async () => {
       await trashChat();
     });
+
     it("for character", async () => {
       const actor = (await createMockActor("character")) as OseActor;
       expect(game.messages?.size).equal(0);
@@ -556,6 +593,7 @@ export default ({
       );
       await actor.delete();
     });
+
     it("for monster", async () => {
       const actor = (await createMockActor("monster")) as OseActor;
       expect(game.messages?.size).equal(0);
@@ -567,6 +605,7 @@ export default ({
       );
       await actor.delete();
     });
+
     it("Adds roll.dmg to damage parts if provided", async () => {
       const actor = (await createMockActor("character")) as OseActor;
       expect(game.messages?.size).equal(0);
@@ -582,6 +621,7 @@ export default ({
       expect(game.messages?.contents[0].content).contain("15");
       await actor.delete();
     });
+
     it("Adds strength bonus if melee damage roll", async () => {
       const actor = (await createMockActor("character")) as OseActor;
       await actor?.update({ system: { scores: { str: { value: 1 } } } });
@@ -600,17 +640,17 @@ export default ({
       await actor.delete();
     });
   });
+
   describe("targetAttack(data, type, options)", () => {
     before(async () => {
       const scene = await createMockScene();
       await scene?.activate();
     });
+
     afterEach(async () => {
       await trashChat();
     });
-    after(() => {
-      cleanUpScenes();
-    });
+
     it("One target causes one attack roll", async () => {
       const actor = (await createMockActor("character")) as OseActor;
       const token = await actor.getTokenDocument();
@@ -633,6 +673,7 @@ export default ({
       expect(game.user?.targets.size).equal(0);
       await actor.delete();
     });
+
     it("Multiple target causes multiple attack rolls", async () => {
       const actor = (await createMockActor("character")) as OseActor;
       const token = await actor.getTokenDocument();
@@ -653,6 +694,7 @@ export default ({
       expect(game.user?.targets.size).equal(0);
       await actor.delete();
     });
+
     it("If no target is given, just roll attack", async () => {
       const data = {
         roll: {
@@ -672,14 +714,21 @@ export default ({
       expect(game.messages?.size).equal(1);
       await actor.delete();
     });
+
+    after(() => {
+      cleanUpScenes();
+    });
   });
+
   describe("rollAttack(attdata, options)", () => {
     before(async () => {
       await trashChat();
     });
+
     afterEach(async () => {
       await trashChat();
     });
+
     it("rolls a d20 if supplied no data", async () => {
       const actor = (await createMockActor("character")) as OseActor;
       expect(game.messages?.size).equal(0);
@@ -692,6 +741,7 @@ export default ({
       expect(game.messages?.size).equal(1);
       await actor.delete();
     });
+
     it("Provided an item, adds item damage to dmgParts", async () => {
       // @todo: How to verify the item is being rolled?
       /* const actor = await createMockActor("character");
@@ -705,6 +755,7 @@ export default ({
       actor?.delete();
       item?.delete(); */
     });
+
     it("If missile attack, add dex mod to attack roll", async () => {
       const actor = (await createMockActor("character")) as OseActor;
       expect(game.messages?.size).equal(0);
@@ -717,6 +768,7 @@ export default ({
       expect(game.messages?.size).equal(1);
       await actor.delete();
     });
+
     it("If melee attack, add str mod to attack roll", async () => {
       const actor = (await createMockActor("character")) as OseActor;
       await actor.update({ system: { scores: { str: { value: 18 } } } });
@@ -730,9 +782,10 @@ export default ({
       expect(game.messages?.size).equal(1);
       await actor.delete();
     });
-    it("If melee attack, add str mod to damage roll", async () => {
-      // @todo: How to verify if possible to miss, thus obfuscating dmg roll?
-    });
+
+    // @todo: How to verify if possible to miss, thus obfuscating dmg roll?
+    it("If melee attack, add str mod to damage roll", async () => {});
+
     it("If item provided with a bonus, it is added as bonus to attack roll", async () => {
       const actor = (await createMockActor("character")) as OseActor;
       const item = await createWorldTestItem("weapon");
@@ -748,6 +801,7 @@ export default ({
       await actor.delete();
     });
   });
+
   describe("applyDamage(amount, multiplier)", () => {
     it("doesn't remove hp if no variables are given", async () => {
       const actor = (await createMockActor("character")) as OseActor;
@@ -757,6 +811,7 @@ export default ({
       expect(actor.system.hp.value).equal(10);
       await actor.delete();
     });
+
     it("calculates the amount with amount", async () => {
       const actor = (await createMockActor("character")) as OseActor;
       await actor.update({ system: { hp: { value: 10, max: 10 } } });
@@ -765,6 +820,7 @@ export default ({
       expect(actor.system.hp.value).equal(7);
       await actor.delete();
     });
+
     it("calculates the amount with amount and multiplier", async () => {
       const actor = (await createMockActor("character")) as OseActor;
       await actor.update({ system: { hp: { value: 10, max: 10 } } });
@@ -773,6 +829,7 @@ export default ({
       expect(actor.system.hp.value).equal(4);
       await actor.delete();
     });
+
     it("calculates the amount with amount and negative multiplier", async () => {
       const actor = (await createMockActor("character")) as OseActor;
       await actor.update({ system: { hp: { value: 1, max: 10 } } });
@@ -781,6 +838,7 @@ export default ({
       expect(actor.system.hp.value).equal(7);
       await actor.delete();
     });
+
     it("calculates the amount with negative amount", async () => {
       const actor = (await createMockActor("character")) as OseActor;
       await actor.update({ system: { hp: { value: 1, max: 10 } } });
@@ -789,6 +847,7 @@ export default ({
       expect(actor.system.hp.value).equal(4);
       await actor.delete();
     });
+
     it("doesn't reduce lower than 0 hp with only amount", async () => {
       const actor = (await createMockActor("character")) as OseActor;
       await actor.update({ system: { hp: { value: 10, max: 10 } } });
@@ -797,6 +856,7 @@ export default ({
       expect(actor.system.hp.value).equal(0);
       await actor.delete();
     });
+
     it("doesn't reduce lower than 0 hp with amount and multiplier", async () => {
       const actor = (await createMockActor("character")) as OseActor;
       await actor.update({ system: { hp: { value: 10, max: 10 } } });
@@ -805,6 +865,7 @@ export default ({
       expect(actor.system.hp.value).equal(0);
       await actor.delete();
     });
+
     it("doesn't increase higher than max hp with only amount", async () => {
       const actor = (await createMockActor("character")) as OseActor;
       await actor.update({ system: { hp: { value: 1, max: 10 } } });
@@ -813,6 +874,7 @@ export default ({
       expect(actor.system.hp.value).equal(10);
       await actor.delete();
     });
+
     it("doesn't increase higher than max hp with amount and multiplier", async () => {
       const actor = (await createMockActor("character")) as OseActor;
       await actor.update({ system: { hp: { value: 1, max: 10 } } });

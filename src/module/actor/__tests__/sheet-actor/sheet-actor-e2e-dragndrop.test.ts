@@ -17,7 +17,7 @@ import OseActor from "../../entity";
 
 export const key = "ose.actor.sheet.e2e.dragndrop";
 export const options = {
-  displayName: "OSE: Actor: sheet E2E Drag'n'Drop",
+  displayName: "OSE: Actor: Sheet E2E Drag'n'Drop",
   preSelected: true,
 };
 

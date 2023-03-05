@@ -8,8 +8,10 @@ import EncumbranceComplete from "../data-model-character-encumbrance-complete";
 import EncumbranceDetailed from "../data-model-character-encumbrance-detailed";
 import OseDataModelCharacterMove from "../data-model-character-move";
 
-export const key = "ose.datamodel.character.move";
-export const options = { displayName: "Data Model: Character Movement" };
+export const key = "ose.actor.datamodel.character.move";
+export const options = {
+  displayName: "OSE: Actor: Data Model: Character Movement",
+};
 
 const createMockItem = (
   type: string,

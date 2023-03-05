@@ -23,7 +23,7 @@ import OseActor from "../entity";
 
 export const key = "ose.actor.entity";
 export const options = {
-  displayName: "OSE: Actor: Entity: Actor",
+  displayName: "OSE: Actor: Entity",
   preSelected: true,
 };
 

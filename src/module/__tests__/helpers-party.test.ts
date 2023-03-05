@@ -15,7 +15,7 @@ import OsePartySheet from "../party/party-sheet";
 
 export const key = "ose.helpers.party";
 export const options = {
-  displayName: "Helpers: Party",
+  displayName: "OSE: Helpers: Party",
 };
 
 /* MOCKING HELPERS */

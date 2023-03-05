@@ -4,111 +4,111 @@
  * @file Orchestration for our Quench tests
  */
 // ACTOR TESTING IMPORTS
-import dataModelActorCharacterTests, {
-  key as dataModelActorCharacterKey,
-  options as dataModelActorCharacterOptions,
+import actorDataModelCharacterTests, {
+  key as actorDataModelCharacterKey,
+  options as actorDataModelCharacterOptions,
 } from "../module/actor/__tests__/data-model-character.test";
-import dataModelCharacterACTests, {
-  key as dataModelCharacterACKey,
-  options as dataModelCharacterACOptions,
+import actorDataModelCharacterACTests, {
+  key as actorDataModelCharacterACKey,
+  options as actorDataModelCharacterACOptions,
 } from "../module/actor/data-model-classes/__tests__/data-model-character-ac.test";
-import dataModelCharacterEncumbranceTests, {
-  key as dataModelCharacterEncumbranceKey,
-  options as dataModelCharacterEncumbranceOptions,
+import actorDataModelCharacterEncumbranceTests, {
+  key as actorDataModelCharacterEncumbranceKey,
+  options as actorDataModelCharacterEncumbranceOptions,
 } from "../module/actor/data-model-classes/__tests__/data-model-character-encumbrance.test";
-import dataModelCharacterMoveTests, {
-  key as dataModelCharacterMoveKey,
-  options as dataModelCharacterMoveOptions,
+import actorDataModelCharacterMoveTests, {
+  key as actorDataModelCharacterMoveKey,
+  options as actorDataModelCharacterMoveOptions,
 } from "../module/actor/data-model-classes/__tests__/data-model-character-move.test";
-import dataModelCharacterScoresTests, {
-  key as dataModelCharacterScoresKey,
-  options as dataModelCharacterScoresOptions,
+import actorDataModelCharacterScoresTests, {
+  key as actorDataModelCharacterScoresKey,
+  options as actorDataModelCharacterScoresOptions,
 } from "../module/actor/data-model-classes/__tests__/data-model-character-scores.test";
-import dataModelCharacterSpellsTests, {
-  key as dataModelCharacterSpellsKey,
-  options as dataModelCharacterSpellsOptions,
+import actorDataModelCharacterSpellsTests, {
+  key as actorDataModelCharacterSpellsKey,
+  options as actorDataModelCharacterSpellsOptions,
 } from "../module/actor/data-model-classes/__tests__/data-model-character-spells.test";
-import dataModelActorMonsterTests, {
-  key as dataModelActorMonsterKey,
-  options as dataModelActorMonsterOptions,
+import actorDataModelMonsterTests, {
+  key as actorDataModelMonsterKey,
+  options as actorDataModelMonsterOptions,
 } from "../module/actor/__tests__/data-model-monster.test";
-import entityActorTests, {
-  key as entityActorKey,
-  options as entityActorOptions,
+import actorEntityTests, {
+  key as actorEntityKey,
+  options as actorEntityOptions,
 } from "../module/actor/__tests__/entity-actor.test";
-import sheetActorTests, {
-  key as sheetActorKey,
-  options as sheetActorOptions,
+import actorSheetTests, {
+  key as actorSheetKey,
+  options as actorSheetOptions,
 } from "../module/actor/__tests__/sheet-actor.test";
-import sheetActorDragNDropTests, {
-  key as sheetActorDragNDropKey,
-  options as sheetActorDragNDropOptions,
+import actorSheetDragNDropTests, {
+  key as actorSheetDragNDropKey,
+  options as actorSheetDragNDropOptions,
 } from "../module/actor/__tests__/sheet-actor/sheet-actor-e2e-dragndrop.test";
-import sheetCharacterTests, {
-  key as sheetCharacterKey,
-  options as sheetCharacterOptions,
+import actorSheetCharacterTests, {
+  key as actorSheetCharacterKey,
+  options as actorSheetCharacterOptions,
 } from "../module/actor/__tests__/sheet-character.test";
-import sheetMonsterTests, {
-  key as sheetMonsterKey,
-  options as sheetMonsterOptions,
+import actorSheetMonsterTests, {
+  key as actorSheetMonsterKey,
+  options as actorSheetMonsterOptions,
 } from "../module/actor/__tests__/sheet-monster.test";
 
 // DIALOG TESTING IMPORTS
-import sheetDialogCharacterModifiersTest, {
-  key as sheetDialogCharacterModifiersKey,
-  options as sheetDialogCharacterModifiersOptions,
+import actorSheetCharacterDialogModifiersTest, {
+  key as actorSheetCharacterDialogModifiersKey,
+  options as actorSheetCharacterDialogModifiersOptions,
 } from "../module/dialog/__tests__/sheet-character-modifiers.test";
-import sheetDialogEntityTweaksTests, {
-  key as sheetDialogEntityTweaksKey,
-  options as sheetDialogEntityTweaksOptions,
+import actorSheetDialogEntityTweaksTests, {
+  key as actorSheetDialogEntityTweaksKey,
+  options as actorSheetDialogEntityTweaksOptions,
 } from "../module/dialog/__tests__/sheet-entity-tweaks.test";
 
 // ITEM TESTING IMPORTS
-import dataModelItemAbilityTests, {
-  key as dataModelItemAbilityKey,
-  options as dataModelItemAbilityOptions,
+import itemDataModelAbilityTests, {
+  key as itemDataModelAbilityKey,
+  options as itemDataModelAbilityOptions,
 } from "../module/item/__tests__/data-model-item-ability.test";
-import dataModelItemArmorTests, {
-  key as dataModelItemArmorKey,
-  options as dataModelItemArmorOptions,
+import itemDataModelArmorTests, {
+  key as itemDataModelArmorKey,
+  options as itemDataModelArmorOptions,
 } from "../module/item/__tests__/data-model-item-armor.test";
-import dataModelItemContainerTests, {
-  key as dataModelItemContainerKey,
-  options as dataModelItemContainerOptions,
+import itemDataModelContainerTests, {
+  key as itemDataModelContainerKey,
+  options as itemDataModelContainerOptions,
 } from "../module/item/__tests__/data-model-item-container.test";
-import dataModelItemMiscTests, {
-  key as dataModelItemMiscKey,
-  options as dataModelItemMiscOptions,
+import itemDataModelMiscTests, {
+  key as itemDataModelMiscKey,
+  options as itemDataModelMiscOptions,
 } from "../module/item/__tests__/data-model-item-misc.test";
-import dataModelItemSpellTests, {
-  key as dataModelItemSpellKey,
-  options as dataModelItemSpellOptions,
+import itemDataModelSpellTests, {
+  key as itemDataModelSpellKey,
+  options as itemDataModelSpellOptions,
 } from "../module/item/__tests__/data-model-item-spell.test";
-import dataModelItemWeaponTests, {
-  key as dataModelItemWeaponKey,
-  options as dataModelItemWeaponOptions,
+import itemDataModelWeaponTests, {
+  key as itemDataModelWeaponKey,
+  options as itemDataModelWeaponOptions,
 } from "../module/item/__tests__/data-model-item-weapon.test";
-import entityItemTests, {
-  key as entityItemKey,
-  options as entityItemOptions,
+import itemEntityTests, {
+  key as itemEntityKey,
+  options as itemEntityOptions,
 } from "../module/item/__tests__/entity-item.test";
-import sheetItemTests, {
-  key as sheetItemKey,
-  options as sheetItemOptions,
+import itemSheetTests, {
+  key as itemSheetKey,
+  options as itemSheetOptions,
 } from "../module/item/__tests__/sheet-item.test";
 
 // PARTY TESTING IMPORTS
-import entityPartyTests, {
-  key as entityPartyKey,
-  options as entityPartyOptions,
+import partyEntityTests, {
+  key as partyEntityKey,
+  options as partyEntityOptions,
 } from "../module/party/__tests__/entity-party.test";
-import sheetPartyTests, {
-  key as sheetPartyKey,
-  options as sheetPartyOptions,
+import partySheetTests, {
+  key as partySheetKey,
+  options as partySheetOptions,
 } from "../module/party/__tests__/sheet-party.test";
-import sheetPartyXpTests, {
-  key as sheetPartyXpKey,
-  options as sheetPartyXpOptions,
+import partyXpSheetTests, {
+  key as partyXpSheetKey,
+  options as partyXpSheetOptions,
 } from "../module/party/__tests__/sheet-party-xp.test";
 
 // HELPER TESTING IMPORTS
@@ -154,69 +154,73 @@ Hooks.on("quenchReady", async (quench: Quench) => {
   /* ACTOR TESTING                               */
   /* ------------------------------------------- */
   quench.registerBatch(
-    dataModelActorCharacterKey,
-    dataModelActorCharacterTests,
-    dataModelActorCharacterOptions
+    actorDataModelCharacterKey,
+    actorDataModelCharacterTests,
+    actorDataModelCharacterOptions
   );
   quench.registerBatch(
-    dataModelCharacterACKey,
-    dataModelCharacterACTests,
-    dataModelCharacterACOptions
+    actorDataModelCharacterACKey,
+    actorDataModelCharacterACTests,
+    actorDataModelCharacterACOptions
   );
   quench.registerBatch(
-    dataModelCharacterEncumbranceKey,
-    dataModelCharacterEncumbranceTests,
-    dataModelCharacterEncumbranceOptions
+    actorDataModelCharacterEncumbranceKey,
+    actorDataModelCharacterEncumbranceTests,
+    actorDataModelCharacterEncumbranceOptions
   );
   quench.registerBatch(
-    dataModelCharacterMoveKey,
-    dataModelCharacterMoveTests,
-    dataModelCharacterMoveOptions
+    actorDataModelCharacterMoveKey,
+    actorDataModelCharacterMoveTests,
+    actorDataModelCharacterMoveOptions
   );
   quench.registerBatch(
-    dataModelCharacterScoresKey,
-    dataModelCharacterScoresTests,
-    dataModelCharacterScoresOptions
+    actorDataModelCharacterScoresKey,
+    actorDataModelCharacterScoresTests,
+    actorDataModelCharacterScoresOptions
   );
   quench.registerBatch(
-    dataModelCharacterSpellsKey,
-    dataModelCharacterSpellsTests,
-    dataModelCharacterSpellsOptions
+    actorDataModelCharacterSpellsKey,
+    actorDataModelCharacterSpellsTests,
+    actorDataModelCharacterSpellsOptions
   );
   quench.registerBatch(
-    dataModelActorMonsterKey,
-    dataModelActorMonsterTests,
-    dataModelActorMonsterOptions
+    actorDataModelMonsterKey,
+    actorDataModelMonsterTests,
+    actorDataModelMonsterOptions
   );
 
-  quench.registerBatch(entityActorKey, entityActorTests, entityActorOptions);
+  quench.registerBatch(actorEntityKey, actorEntityTests, actorEntityOptions);
 
-  quench.registerBatch(sheetActorKey, sheetActorTests, sheetActorOptions);
+  quench.registerBatch(actorSheetKey, actorSheetTests, actorSheetOptions);
   quench.registerBatch(
-    sheetActorDragNDropKey,
-    sheetActorDragNDropTests,
-    sheetActorDragNDropOptions
+    actorSheetDragNDropKey,
+    actorSheetDragNDropTests,
+    actorSheetDragNDropOptions
   );
   quench.registerBatch(
-    sheetCharacterKey,
-    sheetCharacterTests,
-    sheetCharacterOptions
+    actorSheetCharacterKey,
+    actorSheetCharacterTests,
+    actorSheetCharacterOptions
   );
-  quench.registerBatch(sheetMonsterKey, sheetMonsterTests, sheetMonsterOptions);
+  quench.registerBatch(
+    actorSheetMonsterKey,
+    actorSheetMonsterTests,
+    actorSheetMonsterOptions
+  );
 
   /* ------------------------------------------- */
   /* DIALOG TESTING                              */
   /* ------------------------------------------- */
 
   quench.registerBatch(
-    sheetDialogCharacterModifiersKey,
-    sheetDialogCharacterModifiersTest,
-    sheetDialogCharacterModifiersOptions
+    actorSheetCharacterDialogModifiersKey,
+    actorSheetCharacterDialogModifiersTest,
+    actorSheetCharacterDialogModifiersOptions
   );
   quench.registerBatch(
-    sheetDialogEntityTweaksKey,
-    sheetDialogEntityTweaksTests,
-    sheetDialogEntityTweaksOptions
+    actorSheetDialogEntityTweaksKey,
+    actorSheetDialogEntityTweaksTests,
+    actorSheetDialogEntityTweaksOptions
   );
 
   /* ------------------------------------------- */
@@ -224,47 +228,47 @@ Hooks.on("quenchReady", async (quench: Quench) => {
   /* ------------------------------------------- */
 
   quench.registerBatch(
-    dataModelItemAbilityKey,
-    dataModelItemAbilityTests,
-    dataModelItemAbilityOptions
+    itemDataModelAbilityKey,
+    itemDataModelAbilityTests,
+    itemDataModelAbilityOptions
   );
   quench.registerBatch(
-    dataModelItemArmorKey,
-    dataModelItemArmorTests,
-    dataModelItemArmorOptions
+    itemDataModelArmorKey,
+    itemDataModelArmorTests,
+    itemDataModelArmorOptions
   );
   quench.registerBatch(
-    dataModelItemContainerKey,
-    dataModelItemContainerTests,
-    dataModelItemContainerOptions
+    itemDataModelContainerKey,
+    itemDataModelContainerTests,
+    itemDataModelContainerOptions
   );
   quench.registerBatch(
-    dataModelItemMiscKey,
-    dataModelItemMiscTests,
-    dataModelItemMiscOptions
+    itemDataModelMiscKey,
+    itemDataModelMiscTests,
+    itemDataModelMiscOptions
   );
   quench.registerBatch(
-    dataModelItemSpellKey,
-    dataModelItemSpellTests,
-    dataModelItemSpellOptions
+    itemDataModelSpellKey,
+    itemDataModelSpellTests,
+    itemDataModelSpellOptions
   );
   quench.registerBatch(
-    dataModelItemWeaponKey,
-    dataModelItemWeaponTests,
-    dataModelItemWeaponOptions
+    itemDataModelWeaponKey,
+    itemDataModelWeaponTests,
+    itemDataModelWeaponOptions
   );
 
-  quench.registerBatch(entityItemKey, entityItemTests, entityItemOptions);
+  quench.registerBatch(itemEntityKey, itemEntityTests, itemEntityOptions);
 
-  quench.registerBatch(sheetItemKey, sheetItemTests, sheetItemOptions);
+  quench.registerBatch(itemSheetKey, itemSheetTests, itemSheetOptions);
 
   /* ------------------------------------------- */
   /* PARTY TESTING                         */
   /* ------------------------------------------- */
 
-  quench.registerBatch(entityPartyKey, entityPartyTests, entityPartyOptions);
-  quench.registerBatch(sheetPartyKey, sheetPartyTests, sheetPartyOptions);
-  quench.registerBatch(sheetPartyXpKey, sheetPartyXpTests, sheetPartyXpOptions);
+  quench.registerBatch(partyEntityKey, partyEntityTests, partyEntityOptions);
+  quench.registerBatch(partySheetKey, partySheetTests, partySheetOptions);
+  quench.registerBatch(partyXpSheetKey, partyXpSheetTests, partyXpSheetOptions);
 
   /* ------------------------------------------- */
   /* HELPER TESTING                               */

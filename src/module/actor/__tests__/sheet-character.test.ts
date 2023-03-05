@@ -16,8 +16,8 @@ import {
 } from "../../../e2e/testUtils";
 import OseActorSheetCharacter from "../character-sheet";
 
-export const key = "ose.sheet.character";
-export const options = { displayName: "Sheet: Character" };
+export const key = "ose.actor.sheet.character";
+export const options = { displayName: "OSE: Actor: Sheet: Character" };
 
 export default ({ describe, it, expect, after, afterEach }: QuenchMethods) => {
   after(async () => {

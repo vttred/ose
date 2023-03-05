@@ -5,8 +5,8 @@
 import { QuenchMethods } from "../../../e2e";
 import { cleanUpWorldItems, createWorldTestItem } from "../../../e2e/testUtils";
 
-export const key = "ose.sheet.item";
-export const options = { displayName: "Sheet: Item" };
+export const key = "ose.item.sheet";
+export const options = { displayName: "OSE: Item: Sheet" };
 
 export default ({ describe, it, expect, after, assert }: QuenchMethods) => {
   after(() => {

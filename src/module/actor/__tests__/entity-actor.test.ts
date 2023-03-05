@@ -21,10 +21,10 @@ import {
 } from "../../../e2e/testUtils";
 import OseActor from "../entity";
 
-export const key = "ose.entity.actor";
+export const key = "ose.actor.entity";
 export const options = {
-  displayName: "Entity: Actor (long)",
-  preSelected: false,
+  displayName: "OSE: Actor: Entity: Actor",
+  preSelected: true,
 };
 
 const createMockActor = async (type: string) =>

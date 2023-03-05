@@ -5,8 +5,8 @@
 import { QuenchMethods } from "../../../e2e";
 import OseDataModelSpell from "../data-model-spell";
 
-export const key = "ose.datamodel.item.spell";
-export const options = { displayName: "Item Data Model: Spell" };
+export const key = "ose.item.datamodel.spell";
+export const options = { displayName: "OSE: Item: Data Model: Spell" };
 
 export default ({ describe, it, expect }: QuenchMethods) => {
   describe("manualTags()", () => {

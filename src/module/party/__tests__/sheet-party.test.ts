@@ -11,8 +11,8 @@ import {
 } from "../../../e2e/testUtils";
 import OsePartySheet from "../party-sheet";
 
-export const key = "ose.sheet.party";
-export const options = { displayName: "Sheet: Party" };
+export const key = "ose.party.sheet";
+export const options = { displayName: "OSE: Party: Sheet" };
 
 const createMockActor = async (type: string, data: object = {}) =>
   createMockActorKey(type, data, key);

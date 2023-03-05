@@ -15,8 +15,8 @@ import {
 } from "../../../e2e/testUtils";
 import OseItem from "../entity";
 
-export const key = "ose.entity.item";
-export const options = { displayName: "Entity: Item" };
+export const key = "ose.item.entity";
+export const options = { displayName: "OSE: Item: Entity" };
 
 const createMockActor = async (data: object = {}) =>
   createMockActorKey("character", data, key);

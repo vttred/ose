@@ -5,8 +5,8 @@
 import { QuenchMethods } from "../../../e2e";
 import OseDataModelArmor from "../data-model-armor";
 
-export const key = "ose.datamodel.item.armor";
-export const options = { displayName: "Item Data Model: Armor" };
+export const key = "ose.item.datamodel.armor";
+export const options = { displayName: "OSE: Item: Data Model: Armor" };
 
 export default ({ describe, it, expect }: QuenchMethods) => {
   describe("ArmorTypes", () => {
@@ -35,6 +35,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
     it("By default return empty array", () => {
       expect(item.manualTags.length).equal(0);
     });
+
     it("Can write tags to tags field", () => {
       item.tags = [{ title: "title", value: "value" }];
       expect(item.tags.length).equal(1);
@@ -43,6 +44,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
       expect(item.tags[0].value).equal("value");
       expect(item.tags[0].label).is.undefined;
     });
+
     it("Can retrieve tags", () => {
       expect(item.manualTags.length).equal(1);
       expect(Object.keys(item.tags[0]).length).equal(2);

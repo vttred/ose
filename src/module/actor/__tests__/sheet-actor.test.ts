@@ -24,10 +24,10 @@ import OseItem from "../../item/entity";
 import OseActorSheet from "../actor-sheet";
 import OseActor from "../entity";
 
-export const key = "ose.sheet.actor";
+export const key = "ose.actor.sheet";
 export const options = {
-  displayName: "Sheet: Actor (long)",
-  preSelected: false,
+  displayName: "OSE: Actor: Sheet",
+  preSelected: true,
 };
 
 /* --------------------------------------------- */

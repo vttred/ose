@@ -10,7 +10,7 @@ const { drawTreasure, rollTreasure } = functionsForTesting;
 
 export const key = "ose.helpers.treasure";
 export const options = {
-  displayName: "Helpers: Treasure",
+  displayName: "OSE: Helpers: Treasure",
 };
 
 const createMockTable = async () =>

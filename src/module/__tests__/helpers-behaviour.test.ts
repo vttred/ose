@@ -7,7 +7,7 @@ import skipRollDialogCheck from "../helpers-behaviour";
 
 export const key = "ose.helpers.behaviour";
 export const options = {
-  displayName: "Helpers: Behaviour",
+  displayName: "OSE: Helpers: Behaviour",
 };
 
 export default ({ describe, it, before, after, assert }: QuenchMethods) => {

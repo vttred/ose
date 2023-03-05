@@ -6,7 +6,7 @@ import { QuenchMethods } from "../../e2e";
 
 export const key = "ose.helpers.handlebars";
 export const options = {
-  displayName: "Helpers: Handlebars",
+  displayName: "OSE: Helpers: Handlebars",
 };
 
 export default ({ describe, it, expect }: QuenchMethods) => {

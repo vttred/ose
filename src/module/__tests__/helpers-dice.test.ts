@@ -8,7 +8,7 @@ import OseDice from "../helpers-dice";
 
 export const key = "ose.helpers.dice";
 export const options = {
-  displayName: "Helpers: Dice",
+  displayName: "OSE: Helpers: Dice",
 };
 
 const createMockRoll = (

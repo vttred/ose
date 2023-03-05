@@ -6,8 +6,8 @@ import { QuenchMethods } from "../../../e2e";
 import { openWindows, waitForInput } from "../../../e2e/testUtils";
 import OsePartyXP from "../party-xp";
 
-export const key = "ose.sheet.party.xp";
-export const options = { displayName: "Sheet: Party XP" };
+export const key = "ose.party-xp.sheet";
+export const options = { displayName: "OSE: Party XP: Sheet" };
 
 export default ({ describe, it, expect, assert }: QuenchMethods) => {
   describe("defaultOptions()", () => {

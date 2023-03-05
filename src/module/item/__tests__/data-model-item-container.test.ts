@@ -5,8 +5,8 @@
 import { QuenchMethods } from "../../../e2e";
 import OseDataModelContainer from "../data-model-container";
 
-export const key = "ose.datamodel.item.container";
-export const options = { displayName: "Item Data Model: Container" };
+export const key = "ose.item.datamodel.container";
+export const options = { displayName: "OSE: Item: Data Model: Container" };
 
 export default ({ describe, it, expect }: QuenchMethods) => {
   describe("contents()", () => {

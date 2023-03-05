@@ -7,8 +7,8 @@ import { cleanUpActorsKey, createMockActorKey } from "../../../e2e/testUtils";
 import OseParty from "../party";
 import OsePartySheet from "../party-sheet";
 
-export const key = "ose.entity.party";
-export const options = { displayName: "Entity: Party" };
+export const key = "ose.party.entity";
+export const options = { displayName: "OSE: Party: Entity" };
 
 const createMockActor = async (type: string, data: object = {}) =>
   createMockActorKey(type, data, key);

@@ -5,8 +5,8 @@
 import { QuenchMethods } from "../../../e2e";
 import OseDataModelWeapon from "../data-model-weapon";
 
-export const key = "ose.datamodel.item.weapon";
-export const options = { displayName: "Item Data Model: Weapon" };
+export const key = "ose.item.datamodel.weapon";
+export const options = { displayName: "OSE: Item: Data Model: Weapon" };
 
 export default ({ describe, it, expect }: QuenchMethods) => {
   describe("manualTags()", () => {

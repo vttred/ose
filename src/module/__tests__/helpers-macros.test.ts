@@ -20,7 +20,7 @@ import {
 import { createOseMacro, rollItemMacro } from "../helpers-macros";
 
 export const key = "ose.helpers.macro";
-export const options = { displayName: "Helpers: Macro" };
+export const options = { displayName: "OSE: Helpers: Macro" };
 
 /* MOCKING HELPERS */
 const createMockActor = async (type: string, data: object = {}) =>

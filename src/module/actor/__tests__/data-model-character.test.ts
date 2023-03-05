@@ -10,8 +10,8 @@ import {
 } from "../../../e2e/testUtils";
 import OseDataModelCharacter from "../data-model-character";
 
-export const key = "ose.datamodel.character";
-export const options = { displayName: "Data Model: Character" };
+export const key = "ose.actor.datamodel.character";
+export const options = { displayName: "OSE: Actor: Data Model: Character" };
 
 const createMockActor = () => createMockActorKey("character", {}, key);
 

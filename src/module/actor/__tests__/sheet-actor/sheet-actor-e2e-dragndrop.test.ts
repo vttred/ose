@@ -15,10 +15,10 @@ import {
 import OseItem from "../../../item/entity";
 import OseActor from "../../entity";
 
-export const key = "ose.sheet.actor.e2e.dragndrop";
+export const key = "ose.actor.sheet.e2e.dragndrop";
 export const options = {
-  displayName: "Sheet E2E: Actor Drag'n'Drop",
-  preSelected: false,
+  displayName: "OSE: Actor: sheet E2E Drag'n'Drop",
+  preSelected: true,
 };
 
 /* --------------------------------------------- */

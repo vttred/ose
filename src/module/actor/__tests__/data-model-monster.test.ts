@@ -10,8 +10,8 @@ import {
 } from "../../../e2e/testUtils";
 import OseDataModelMonster from "../data-model-monster";
 
-export const key = "ose.datamodel.monster";
-export const options = { displayName: "Data Model: Monster" };
+export const key = "ose.actor.datamodel.monster";
+export const options = { displayName: "OSE: Actor: Data Model: Monster" };
 
 const createMockActor = () => createMockActorKey("monster", {}, key);
 

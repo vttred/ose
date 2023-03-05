@@ -16,8 +16,8 @@ import {
 } from "../../../e2e/testUtils";
 import OseActorSheetMonster from "../monster-sheet";
 
-export const key = "ose.sheet.monster";
-export const options = { displayName: "Sheet: Monster" };
+export const key = "ose.actor.sheet.monster";
+export const options = { displayName: "OSE: Actor: Sheet: Monster" };
 
 export default ({ describe, it, expect, after, before }: QuenchMethods) => {
   const orginalCtrlSetting = game.settings.get(

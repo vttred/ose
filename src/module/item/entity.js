@@ -84,29 +84,33 @@ export class OseItem extends Item {
     };
 
     if (itemData.missile && itemData.melee && !isNPC) {
-      // Dialog
-      new Dialog({
-        title: "Choose Attack Range",
-        content: "",
-        buttons: {
-          melee: {
-            icon: '<i class="fas fa-fist-raised"></i>',
-            label: "Melee",
-            callback: () => {
-              this.actor.targetAttack(rollData, "melee", options);
+      if (options.preferedType === "melee" || options.preferedType === "missile"){
+        type = options.preferedType;
+      } else {
+        // Dialog
+        new Dialog({
+          title: "Choose Attack Range",
+          content: "",
+          buttons: {
+            melee: {
+              icon: '<i class="fas fa-fist-raised"></i>',
+              label: "Melee",
+              callback: () => {
+                this.actor.targetAttack(rollData, "melee", options);
+              },
+            },
+            missile: {
+              icon: '<i class="fas fa-bullseye"></i>',
+              label: "Missile",
+              callback: () => {
+                this.actor.targetAttack(rollData, "missile", options);
+              },
             },
           },
-          missile: {
-            icon: '<i class="fas fa-bullseye"></i>',
-            label: "Missile",
-            callback: () => {
-              this.actor.targetAttack(rollData, "missile", options);
-            },
-          },
-        },
-        default: "melee",
-      }).render(true);
-      return true;
+          default: "melee",
+        }).render(true);
+        return true;
+      }
     } else if (itemData.missile && !isNPC) {
       type = "missile";
     }

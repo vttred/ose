@@ -156,7 +156,7 @@ export class OseDice {
 
     const targetAc = data.roll.target ? targetActorData.ac.value : 9;
     const targetAac = data.roll.target ? targetActorData.aac.value : 10;
-    result.victim = data.roll.target ? data.roll.target.name : null;
+    result.victim = data.roll.target || null;
 
     if (game.settings.get(game.system.id, "ascendingAC")) {
       if (
@@ -203,11 +203,13 @@ export class OseDice {
     speaker = null,
     form = null,
   } = {}) {
-    if (!data.roll.dmg.filter(v => v !== '').length) {
+    if (!data.roll.dmg.filter((v) => v !== "").length) {
       /**
        * @todo should this error be localized?
        */
-      ui.notifications.error('Attack has no damage dice terms; be sure to set the attack\'s damage');
+      ui.notifications.error(
+        "Attack has no damage dice terms; be sure to set the attack's damage"
+      );
       return;
     }
     const template = `${OSE.systemPath()}/templates/chat/roll-attack.html`;

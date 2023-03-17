@@ -68,18 +68,23 @@ export const addChatMessageButtons = function (msg: ChatMessage, html: JQuery) {
  */
 function applyChatCardDamage(roll: JQuery, multiplier: 1 | -1) {
   const amount = roll.find(".dice-total").last().text();
-  const dmgTgt = game.settings.get(game.system.id, "applyDamageOption");
-  if (dmgTgt === `targeted`) {
-    game.user?.targets.forEach(async (t) => {
-      if (game.user?.isGM && t.actor instanceof OseActor)
-        await t.actor.applyDamage(amount, multiplier);
-    });
-  }
-  if (dmgTgt === `selected`) {
-    canvas.tokens?.controlled.forEach(async (t) => {
-      if (game.user?.isGM && t.actor instanceof OseActor)
-        await t.actor.applyDamage(amount, multiplier);
-    });
+  const victimId = roll.find(".chat-target").last().data("id");
+  if (victimId) {
+    // TODO implement
+  } else {
+    const dmgTgt = game.settings.get(game.system.id, "applyDamageOption");
+    if (dmgTgt === `targeted`) {
+      game.user?.targets.forEach(async (t) => {
+        if (game.user?.isGM && t.actor instanceof OseActor)
+          await t.actor.applyDamage(amount, multiplier);
+      });
+    }
+    if (dmgTgt === `selected`) {
+      canvas.tokens?.controlled.forEach(async (t) => {
+        if (game.user?.isGM && t.actor instanceof OseActor)
+          await t.actor.applyDamage(amount, multiplier);
+      });
+    }
   }
 }
 

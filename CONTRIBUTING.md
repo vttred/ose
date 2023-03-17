@@ -26,11 +26,8 @@ Prerequisites: Node.js (v16 is recommended), a familiarity with command Foundry 
 
    ```json
    {
-     "dataPath": [
-       "path/to/FoundryVTT-userdata REPLACE THIS STRING",
-       "path/to/FoundryVTT-userdata-if-you-have-multiple OTHERWISE USE ONLY ONE STRING"
-     ],
-     "symlinkName": "ose-dev"
+     "dataPath": "path/to/FoundryVTT-userdata REPLACE THIS STRING",
+     "symLinkName": "ose-dev"
    }
    ```
 
@@ -103,8 +100,8 @@ This is achieved with a `foundryconfig.json` files in each local version of the 
 
 ```json
 {
-  "dataPath": ["~/fvtt/v9-userdata", "~/fvtt/v10-userdata"],
-  "symlinkName": "ose-dev"
+  "dataPath": "~/fvtt/v10-userdata",
+  "symLinkName": "ose-dev"
 }
 ```
 
@@ -112,8 +109,8 @@ This is achieved with a `foundryconfig.json` files in each local version of the 
 
 ```json
 {
-  "dataPath": ["~/fvtt/v9-userdata", "~/fvtt/v10-userdata"],
-  "symlinkName": "ose-test"
+  "dataPath": "~/fvtt/v10-userdata",
+  "symLinkName": "ose-test"
 }
 ```
 

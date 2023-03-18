@@ -202,6 +202,7 @@
   "OSE.Setting.applyDamageOptionHint": "Which token(s) to apply damage to on an attack roll",
   "OSE.Setting.damageSelected": "Selected",
   "OSE.Setting.damageTarget": "Target",
+  "OSE.Setting.damageOriginalTarget": "Original Target",
   "OSE.Setting.InvertedCtrlBehavior": "Invert Roll Ctrl/Meta-key",
   "OSE.Setting.InvertedCtrlBehaviorHint": "Reverses behavior for holding Ctrl/Meta when clicking on a roll.",
 

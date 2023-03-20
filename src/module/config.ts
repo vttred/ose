@@ -14,13 +14,16 @@ export type Color = keyof OseConfig["colors"];
 export type InventoryItemTag = keyof OseConfig["tags"];
 export type EncumbranceOption = keyof OseConfig["encumbranceOptions"];
 
-export const OSE = {
+export const OSE = {  
+  /** Path for system dist */
   systemPath(): string {
     return `${this.systemRoot}/dist`;
-  },
+  },  
+  /** Root path for OSE system */
   get systemRoot(): string {
     return `/systems/${game.system.id}`
   },
+  /** Path for system assets */
   get assetsPath(): string {
     return `${this.systemRoot}/assets`
   },

@@ -11,13 +11,11 @@ export const delay = (ms: number) =>
 
 /**
  * If there are messages, purge them.
- *
- * @returns {Promise} The promise from deleting messages
  */
-export const trashChat = (): Promise<any> =>
-  game.messages?.size > 0
-    ? game.messages?.documentClass.deleteDocuments([], { deleteAll: true })
-    : null;
+export const trashChat = (): any => {
+  if (game.messages?.size)
+    game.messages?.documentClass.deleteDocuments([], { deleteAll: true });
+};
 
 /**
  * Delays execution so the UI can catch up.
@@ -42,7 +40,7 @@ export const closeDialogs = async () => {
 
 export const closeSheets = async () => {
   openWindows("sheet").forEach(async (w) => w.close());
-  await waitForInput();
+  waitForInput();
 };
 
 /**

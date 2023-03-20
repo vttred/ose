@@ -1,20 +1,19 @@
 import { OseActor } from "./actor/entity";
 
 function canApplyDamage(html: JQuery) {
-  if (html.find(".dice-total").length)
-    switch (game.settings.get(game.system.id, "applyDamageOption")) {
-      case "originalTarget":
-        return html.find(".chat-target").last().data("id");
-      case "targeted":
-        return !!game.user?.targets?.size;
-      case "selected":
-        return !!canvas.tokens?.controlled.length;
-      default: {
-        console.log('unknown setting');
-        return false;
-      }
+  if (!html.find('.dice-total').length) return false;
+  switch (game.settings.get(game.system.id, "applyDamageOption")) {
+    case "originalTarget":
+      return !!html.find(".chat-target").last().data("id");
+    case "targeted":
+      return !!game.user?.targets?.size;
+    case "selected":
+      return !!canvas.tokens?.controlled.length;
+    default: {
+      console.log('unknown setting');
+      return false;
     }
-  return false;
+  }
 }
 
 /**
@@ -87,31 +86,24 @@ function applyChatCardDamage(html: JQuery, multiplier: 1 | -1) {
   const dmgTgt = game.settings.get(game.system.id, "applyDamageOption");
   if (dmgTgt === `originalTarget`) {
     const victimId = html.find(".chat-target").last().data("id");
-    if (victimId) {
-      (async () => {
-        const actor = ((await fromUuid(victimId)) as TokenDocument)?.actor;
-        if (actor instanceof OseActor) {
-          await actor.applyDamage(amount, multiplier);
-        } else {
-          ui.notifications?.error(`Can't deal damage to ${victimId}`);
-        }
-      })();
-    } else {
-      ui.notifications?.error(`Can't find original target to deal damage`);
-    }
+    (async () => {
+      const actor = ((await fromUuid(victimId || '')) as TokenDocument)?.actor;
+      await applyDamageToTarget(actor, amount, multiplier, actor?.name || victimId || 'original target');
+    })();
   }
   if (dmgTgt === `targeted`) {
-    game.user?.targets.forEach(async (t) => {
-      if (game.user?.isGM && t.actor instanceof OseActor)
-        await t.actor.applyDamage(amount, multiplier);
-    });
+    game.user?.targets.forEach((t) => applyDamageToTarget(t.actor, amount, multiplier, t.name));
   }
   if (dmgTgt === `selected`) {
-    canvas.tokens?.controlled.forEach(async (t) => {
-      if (game.user?.isGM && t.actor instanceof OseActor)
-        await t.actor.applyDamage(amount, multiplier);
-    });
+    canvas.tokens?.controlled.forEach((t) => applyDamageToTarget(t.actor, amount, multiplier, t.name));
   }
 }
 
+async function applyDamageToTarget(actor: Actor | null, amount: string, multiplier: 1 | -1, nameOrId: string) {
+  if (!game.user?.isGM || !(actor instanceof OseActor)) {
+    ui.notifications?.error(`Can't deal damage to ${nameOrId}`);
+    return;
+  }
+  await actor.applyDamage(amount, multiplier);
+}
 /* -------------------------------------------- */

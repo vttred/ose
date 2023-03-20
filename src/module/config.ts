@@ -12,6 +12,7 @@ export type Save = keyof OseConfig["saves_long"];
 export type Armor = keyof OseConfig["armor"];
 export type Color = keyof OseConfig["colors"];
 export type InventoryItemTag = keyof OseConfig["tags"];
+export type EncumbranceOption = keyof OseConfig["encumbranceOptions"];
 
 export const OSE = {
   systemPath(): string {

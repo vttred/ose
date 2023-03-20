@@ -1,3 +1,5 @@
+import { EncumbranceOption } from "./config";
+
 export const registerSettings = function () {
   game.settings.register(game.system.id, "initiative", {
     name: game.i18n.localize("OSE.Setting.Initiative"),
@@ -52,9 +54,9 @@ export const registerSettings = function () {
     type: String,
     config: true,
     choices: Object.values(CONFIG.OSE.encumbranceOptions)
-      .reduce((obj: {[n:string]: string}, enc) => {
+      .reduce((obj, enc) => {
         return {...obj, [enc.type]: enc.localizedLabel}
-      }, {}),
+      }, {}) as SettingConfig<EncumbranceOption>["choices"],
   });
 
   game.settings.register(game.system.id, "significantTreasure", {

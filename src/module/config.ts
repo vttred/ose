@@ -26,6 +26,7 @@ export type OseConfig = {
   armor: Record<Armor, string>;
   colors: Record<Color, string>;
   languages: string[];
+  attack_types: Record<AttackType, AttackType>,
   auto_tags: {[n: string]: {label: string, icon: string}};
   tags: Record<InventoryItemTag, string>;
   tag_images: Record<InventoryItemTag, string>;
@@ -49,6 +50,7 @@ export type Color =
   | "blue"
   | "orange"
   | "white";
+export type AttackType = "missile" | "melee" | "attack";
 export type InventoryItemTag =
   | "melee"
   | "missile"
@@ -177,6 +179,11 @@ export const OSE: OseConfig = {
     splash: "OSE.items.Splash",
     reload: "OSE.items.Reload",
     charge: "OSE.items.Charge",
+  },
+  attack_types: {
+    missile: "missile",
+    melee: "melee",
+    attack: "attack",
   },
   auto_tags: {
 		get melee() {

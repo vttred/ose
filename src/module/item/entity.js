@@ -68,53 +68,48 @@ export class OseItem extends Item {
     return itemData;
   }
 
-  rollWeapon(options = {}) {
-    let isNPC = this.actor.type != "character";
-    const targets = 5;
+  async getAttackType(options) {
+    if (this.actor.type != "character") return CONFIG.OSE.attack_types.attack;
     const itemData = this.system;
-
-    let type = isNPC ? "attack" : "melee";
-    const rollData = {
-      item: this._source,
-      actor: this.actor,
-      roll: {
-        save: itemData.save,
-        target: null,
-      },
-    };
-
-    if (itemData.missile && itemData.melee && !isNPC) {
-      if (options.preferedType === "melee" || options.preferedType === "missile"){
-        type = options.preferedType;
-      } else {
+    if (itemData.missile && itemData.melee) {
+      if (CONFIG.OSE.attack_types[options.preferedType]){
+        return CONFIG.OSE.attack_types[options.preferedType];
+      } else return new Promise((resolve) => {
+        const rollData = {
+          item: this._source,
+          actor: this.actor,
+          roll: {
+            save: itemData.save,
+            target: null,
+          },
+        };
         // Dialog
         new Dialog({
-          title: "Choose Attack Range",
+          title: game.i18n.localize("OSE.dialog.attackType"),
           content: "",
           buttons: {
             melee: {
               icon: '<i class="fas fa-fist-raised"></i>',
-              label: "Melee",
-              callback: () => {
-                this.actor.targetAttack(rollData, "melee", options);
-              },
+              label: game.i18n.localize("OSE.Melee"),
+              callback: () => resolve(CONFIG.OSE.attack_types.melee),
             },
             missile: {
               icon: '<i class="fas fa-bullseye"></i>',
-              label: "Missile",
-              callback: () => {
-                this.actor.targetAttack(rollData, "missile", options);
-              },
+              label: game.i18n.localize("OSE.Missile"),
+              callback: () => resolve(CONFIG.OSE.attack_types.missile),
             },
           },
           default: "melee",
         }).render(true);
-        return true;
-      }
-    } else if (itemData.missile && !isNPC) {
-      type = "missile";
-    }
-    this.actor.targetAttack(rollData, type, options);
+      });
+    } 
+    if (itemData.missile) return CONFIG.OSE.attack_types.missile;
+    return CONFIG.OSE.attack_types.melee;
+  }
+
+  rollWeapon(options = {}) {
+    this.getAttackType()
+      .then(type => this.actor.targetAttack(rollData, type, options));
     return true;
   }
 

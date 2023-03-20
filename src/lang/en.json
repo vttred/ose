@@ -16,6 +16,7 @@
   "OSE.dialog.partysheetplaceholder": "Add Characters to the Party by dragging and dropping them into this window.",
   "OSE.dialog.partyselect": "Select PCs",
   "OSE.dialog.createItem": "Create Item",
+  "OSE.dialog.attackType": "Choose Attack Range",
   "OSE.dialog.itemType": "Item type",
   "OSE.dialog.itemName": "Item name",
   "OSE.dialog.xp.deal": "Deal XP",

@@ -3,11 +3,11 @@ import { OseActor } from "./actor/entity";
 function canApplyDamage(html: JQuery) {
   if (!html.find('.dice-total').length) return false;
   switch (game.settings.get(game.system.id, "applyDamageOption")) {
-    case "originalTarget":
+    case CONFIG.OSE.apply_damage_options.originalTarget:
       return !!html.find(".chat-target").last().data("id");
-    case "targeted":
+    case CONFIG.OSE.apply_damage_options.targeted:
       return !!game.user?.targets?.size;
-    case "selected":
+    case CONFIG.OSE.apply_damage_options.selected:
       return !!canvas.tokens?.controlled.length;
     default: {
       console.log('unknown setting');
@@ -84,17 +84,17 @@ export const addChatMessageButtons = function (msg: ChatMessage, html: JQuery) {
 function applyChatCardDamage(html: JQuery, multiplier: 1 | -1) {
   const amount = html.find(".dice-total").last().text();
   const dmgTgt = game.settings.get(game.system.id, "applyDamageOption");
-  if (dmgTgt === `originalTarget`) {
+  if (dmgTgt === CONFIG.OSE.apply_damage_options.originalTarget) {
     const victimId = html.find(".chat-target").last().data("id");
     (async () => {
       const actor = ((await fromUuid(victimId || '')) as TokenDocument)?.actor;
       await applyDamageToTarget(actor, amount, multiplier, actor?.name || victimId || 'original target');
     })();
   }
-  if (dmgTgt === `targeted`) {
+  if (dmgTgt === CONFIG.OSE.apply_damage_options.targeted) {
     game.user?.targets.forEach((t) => applyDamageToTarget(t.actor, amount, multiplier, t.name));
   }
-  if (dmgTgt === `selected`) {
+  if (dmgTgt === CONFIG.OSE.apply_damage_options.selected) {
     canvas.tokens?.controlled.forEach((t) => applyDamageToTarget(t.actor, amount, multiplier, t.name));
   }
 }

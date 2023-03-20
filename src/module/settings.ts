@@ -1,3 +1,5 @@
+import { ApplyDamageOption } from "./config";
+
 export const registerSettings = function () {
   game.settings.register(game.system.id, "initiative", {
     name: game.i18n.localize("OSE.Setting.Initiative"),
@@ -108,7 +110,7 @@ declare global {
       "ose.encumbranceOption": "disabled" | "basic" | "detailed" | "complete";
       "ose.significantTreasure": number;
       "ose.languages": string;
-      "ose.applyDamageOption": "selected" | "targeted" | "originalTarget";
+      "ose.applyDamageOption": ApplyDamageOption;
     }
   }
 }

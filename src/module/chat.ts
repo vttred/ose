@@ -2,7 +2,8 @@ import { OseActor } from "./actor/entity";
 
 function canApplyDamage(html: JQuery) {
   if (!html.find('.dice-total').length) return false;
-  switch (game.settings.get(game.system.id, "applyDamageOption")) {
+  const applyDamageOption = game.settings.get(game.system.id, "applyDamageOption");
+  switch (applyDamageOption) {
     case CONFIG.OSE.apply_damage_options.originalTarget:
       return !!html.find(".chat-target").last().data("id");
     case CONFIG.OSE.apply_damage_options.targeted:
@@ -10,7 +11,7 @@ function canApplyDamage(html: JQuery) {
     case CONFIG.OSE.apply_damage_options.selected:
       return !!canvas.tokens?.controlled.length;
     default: {
-      console.log('unknown setting');
+      ui.notifications?.error(`unexpected OSE setting applyDamageOption: ${applyDamageOption}`);
       return false;
     }
   }

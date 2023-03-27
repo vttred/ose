@@ -7,6 +7,7 @@ export default class OseEntityTweaks extends FormApplication {
   static get defaultOptions() {
     const options = super.defaultOptions;
     options.id = "sheet-tweaks";
+    options.classes = ["sheet-tweaks"];
     options.template = `${OSE.systemPath()}/templates/actors/dialogs/tweaks-dialog.html`;
     options.width = 380;
     return options;

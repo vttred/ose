@@ -202,6 +202,7 @@
   "OSE.Setting.applyDamageOptionHint": "Which token(s) to apply damage to on an attack roll",
   "OSE.Setting.damageSelected": "Selected",
   "OSE.Setting.damageTarget": "Target",
+  "OSE.Setting.damageOriginalTarget": "Original Target",
   "OSE.Setting.InvertedCtrlBehavior": "Invert Roll Ctrl/Meta-key",
   "OSE.Setting.InvertedCtrlBehaviorHint": "Reverses behavior for holding Ctrl/Meta when clicking on a roll.",
 
@@ -318,5 +319,7 @@
   "OSE.error.notEnoughGP": "This Actor doesn't have enough GP to pay for its inventory.",
   "OSE.error.itemNoLongerExistsOnActor": "The requested Item {itemId} no longer exists on Actor {actorName}.",
   "OSE.error.noTokenControlled": "You must have one or more controlled Tokens in order to use this option.",
-  "OSE.error.noGP": "You need a GP item to use this feature."
+  "OSE.error.noGP": "You need a GP item to use this feature.",
+  "OSE.error.unexpectedSettings": "unexpected OSE setting {configName}: {configValue}",
+  "OSE.error.cantDealDamageTo": "Can't deal damage to {nameOrId}"
 }

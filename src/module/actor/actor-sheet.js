@@ -93,13 +93,24 @@ export default class OseActorSheet extends ActorSheet {
     item.show();
   }
 
-  async _removeItemFromActor(event) {
-    const item = this._getItemFromActor(event);
-    const itemData = item?.system;
-    const itemDisplay = event.currentTarget.closest(".item-entry");
+  // eslint-disable-next-line no-underscore-dangle, consistent-return
+  async _removeItemFromActor(item) {
+    if (item.type === "ability" || item.type === "spell") {
+      // eslint-disable-next-line no-underscore-dangle
+      return this.actor.deleteEmbeddedDocuments("Item", [item._id]);
+    }
+    if (item.type !== "container" && item.system.containerId !== "") {
+      const { containerId } = item.system;
+      const newItemIds = this.actor.items
+        .get(containerId)
+        .system.itemIds.filter((o) => o !== item.id);
 
-    if (item.type === "container" && itemData.itemIds) {
-      const containedItems = itemData.itemIds;
+      await this.actor.updateEmbeddedDocuments("Item", [
+        { _id: containerId, system: { itemIds: newItemIds } },
+      ]);
+    }
+    if (item.type === "container" && item.system.itemIds) {
+      const containedItems = item.system.itemIds;
       const updateData = containedItems.reduce((acc, val) => {
         acc.push({ _id: val, "system.containerId": "" });
         return acc;
@@ -107,7 +118,9 @@ export default class OseActorSheet extends ActorSheet {
 
       await this.actor.updateEmbeddedDocuments("Item", updateData);
     }
-    this.actor.deleteEmbeddedDocuments("Item", [itemDisplay.dataset.itemId]);
+
+    // eslint-disable-next-line no-underscore-dangle
+    this.actor.deleteEmbeddedDocuments("Item", [item._id]);
   }
 
   /**
@@ -537,13 +550,13 @@ export default class OseActorSheet extends ActorSheet {
       const item = this._getItemFromActor(event);
 
       if (item?.type !== "container" || !item?.system?.itemIds?.length > 0)
-        return this._removeItemFromActor(event);
+        return this._removeItemFromActor(item);
 
       Dialog.confirm({
         title: game.i18n.localize("OSE.dialog.deleteContainer"),
         content: game.i18n.localize("OSE.dialog.confirmDeleteContainer"),
         yes: () => {
-          this._removeItemFromActor(event);
+          this._removeItemFromActor(item);
         },
         defaultYes: false,
       });

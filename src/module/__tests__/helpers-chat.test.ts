@@ -13,7 +13,7 @@ const { applyChatCardDamage } = functionsForTesting;
 
 export const key = "ose.helpers.chat";
 export const options = {
-  displayName: "Helpers: Chat",
+  displayName: "OSE: Helpers: Chat",
 };
 
 export default ({ describe, it, before, after, expect }: QuenchMethods) => {

@@ -5,8 +5,8 @@
 import { QuenchMethods } from "../../../e2e";
 import OseDataModelWeapon from "../data-model-weapon";
 
-export const key = "ose.datamodel.item.weapon";
-export const options = { displayName: "Item Data Model: Weapon" };
+export const key = "ose.item.datamodel.weapon";
+export const options = { displayName: "OSE: Item: Data Model: Weapon" };
 
 export default ({ describe, it, expect }: QuenchMethods) => {
   describe("manualTags()", () => {
@@ -14,6 +14,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
     it("By default return empty array", () => {
       expect(item.manualTags.length).equal(0);
     });
+
     it("Can write tags to tags field", () => {
       item.tags = [{ title: "title", value: "value" }];
       expect(item.tags.length).equal(1);
@@ -22,6 +23,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
       expect(item.tags[0].value).equal("value");
       expect(item.tags[0].label).is.undefined;
     });
+
     it("Can retrieve tags", () => {
       expect(item.manualTags.length).equal(1);
       expect(Object.keys(item.tags[0]).length).equal(2);
@@ -35,6 +37,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
       const item = new OseDataModelWeapon();
       expect(item.qualities.length).equal(0);
     });
+
     it("Given a manual tag, it returns an array containing said tag", () => {
       const item = new OseDataModelWeapon();
       item.tags = [{ value: "slow", label: "slow" }];
@@ -43,6 +46,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
       expect(item.qualities[0].label).equal(item.manualTags[0].label);
       expect(item.qualities[0].value).equal(item.manualTags[0].value);
     });
+
     it("Given a autoTag, it returns an array containing said autoTag", () => {
       const item = new OseDataModelWeapon();
       item.slow = true;
@@ -54,6 +58,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
       expect(item.qualities[0].image).contain("assets/slow.png");
     });
   });
+
   describe("autotags()", () => {
     it("Returns an flattened array with damage and autotags", () => {
       const item = new OseDataModelWeapon();
@@ -62,6 +67,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
       expect(item.autoTags[0].icon).equal("fa-tint");
       expect(item.autoTags[0].label).equal("");
     });
+
     it("Damage is present in flattened array", () => {
       const item = new OseDataModelWeapon();
       item.damage = "1d13";
@@ -70,6 +76,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
       expect(item.autoTags[0].icon).equal("fa-tint");
       expect(item.autoTags[0].label).equal("1d13");
     });
+
     it("A melee tag is returned as expected", () => {
       const item = new OseDataModelWeapon();
       item.melee = true;
@@ -82,6 +89,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
       expect(item.autoTags[1].icon).equal("fa-sword");
       expect(item.autoTags[1].image).contain("assets/melee.png");
     });
+
     it("A missile tag is returned as expected", () => {
       const item = new OseDataModelWeapon();
       item.missile = true;
@@ -97,6 +105,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
       expect(item.autoTags[2].label).equal("0/0/0");
       expect(item.autoTags[2].icon).equal("fa-bullseye");
     });
+
     it("A missile tag with ranges is returned as expected", () => {
       const item = new OseDataModelWeapon();
       item.missile = true;
@@ -115,6 +124,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
       expect(item.autoTags[2].label).equal("30/60/90");
       expect(item.autoTags[2].icon).equal("fa-bullseye");
     });
+
     it("A slow tag is returned as expected", () => {
       const item = new OseDataModelWeapon();
       item.slow = true;
@@ -127,6 +137,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
       expect(item.autoTags[1].icon).equal("fa-weight-hanging");
       expect(item.autoTags[1].image).contain("assets/slow.png");
     });
+
     it("A save tag is returned as expected", () => {
       const item = new OseDataModelWeapon();
       item.save = "death";

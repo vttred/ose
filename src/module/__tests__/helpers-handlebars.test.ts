@@ -6,7 +6,7 @@ import { QuenchMethods } from "../../e2e";
 
 export const key = "ose.helpers.handlebars";
 export const options = {
-  displayName: "Helpers: Handlebars",
+  displayName: "OSE: Helpers: Handlebars",
 };
 
 export default ({ describe, it, expect }: QuenchMethods) => {
@@ -16,6 +16,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
       it("is registered", () => {
         expect(Object.keys(Handlebars.helpers)).contain(helper);
       });
+
       it("is functional", () => {
         expect(Handlebars.helpers.eq(1, 1)).equal(true);
         expect(Handlebars.helpers.eq("test", "test")).equal(true);
@@ -24,11 +25,13 @@ export default ({ describe, it, expect }: QuenchMethods) => {
         expect(Handlebars.helpers.eq([], [])).equal(false);
       });
     });
+
     describe("mod helper", () => {
       const helper = "mod";
       it("is registered", () => {
         expect(Object.keys(Handlebars.helpers)).contain(helper);
       });
+
       it("is functional", () => {
         expect(Handlebars.helpers.mod(0)).equal("0");
         expect(Handlebars.helpers.mod(1)).equal("+1");
@@ -38,11 +41,13 @@ export default ({ describe, it, expect }: QuenchMethods) => {
         expect(Handlebars.helpers.mod("a")).equal("0");
       });
     });
+
     describe("add helper", () => {
       const helper = "add";
       it("is registered", () => {
         expect(Object.keys(Handlebars.helpers)).contain(helper);
       });
+
       it("is functional", () => {
         expect(Handlebars.helpers.add(1, 2)).equal(3);
         expect(Handlebars.helpers.add(1, -2)).equal(-1);
@@ -50,11 +55,13 @@ export default ({ describe, it, expect }: QuenchMethods) => {
         expect(Handlebars.helpers.add("1", "-3")).equal(-2);
       });
     });
+
     describe("subtract helper", () => {
       const helper = "subtract";
       it("is registered", () => {
         expect(Object.keys(Handlebars.helpers)).contain(helper);
       });
+
       it("is functional", () => {
         expect(Handlebars.helpers.subtract(1, 2)).equal(-1);
         expect(Handlebars.helpers.subtract(1, -2)).equal(3);
@@ -62,11 +69,13 @@ export default ({ describe, it, expect }: QuenchMethods) => {
         expect(Handlebars.helpers.subtract("1", "-3")).equal(4);
       });
     });
+
     describe("divide helper", () => {
       const helper = "divide";
       it("is registered", () => {
         expect(Object.keys(Handlebars.helpers)).contain(helper);
       });
+
       it("is functional", () => {
         expect(Handlebars.helpers.divide(1, 2)).equal(0);
         expect(Handlebars.helpers.divide(1, -2)).equal(-1);
@@ -75,11 +84,13 @@ export default ({ describe, it, expect }: QuenchMethods) => {
         expect(Handlebars.helpers.divide("10", "-3")).equal(-4);
       });
     });
+
     describe("mult helper", () => {
       const helper = "mult";
       it("is registered", () => {
         expect(Object.keys(Handlebars.helpers)).contain(helper);
       });
+
       it("is functional", () => {
         expect(Handlebars.helpers.mult(1, 2)).equal(2);
         expect(Handlebars.helpers.mult(1, -2)).equal(-2);
@@ -91,22 +102,26 @@ export default ({ describe, it, expect }: QuenchMethods) => {
         expect(Handlebars.helpers.mult(0.001, 1)).equal(0);
       });
     });
+
     describe("roundWeight helper", () => {
       const helper = "roundWeight";
       it("is registered", () => {
         expect(Object.keys(Handlebars.helpers)).contain(helper);
       });
+
       it("is functional", () => {
         expect(Handlebars.helpers.roundWeight(10.1)).equal(0);
         expect(Handlebars.helpers.roundWeight(100.1)).equal(0.1);
         expect(Handlebars.helpers.roundWeight(1000.1)).equal(1);
       });
     });
+
     describe("getTagIcon helper", () => {
       const helper = "getTagIcon";
       it("is registered", () => {
         expect(Object.keys(Handlebars.helpers)).contain(helper);
       });
+
       describe("is functional", () => {
         const tags = Object.keys(CONFIG.OSE.tags);
         tags.forEach((tag) => {
@@ -118,11 +133,13 @@ export default ({ describe, it, expect }: QuenchMethods) => {
         });
       });
     });
+
     describe("counter helper", () => {
       const helper = "counter";
       it("is registered", () => {
         expect(Object.keys(Handlebars.helpers)).contain(helper);
       });
+
       it("is functional", () => {
         expect(Handlebars.helpers.counter(true, 12, 10)).equal(100);
         expect(Handlebars.helpers.counter(true, -10, 10)).equal(0);
@@ -136,11 +153,13 @@ export default ({ describe, it, expect }: QuenchMethods) => {
         expect(Handlebars.helpers.counter(false, 100, 400)).equal(75);
       });
     });
+
     describe("times helper", () => {
       const helper = "times";
       it("is registered", () => {
         expect(Object.keys(Handlebars.helpers)).contain(helper);
       });
+
       it("is functional", () => {
         const block = {
           fn: (i) => i,
@@ -149,22 +168,30 @@ export default ({ describe, it, expect }: QuenchMethods) => {
         expect(Handlebars.helpers.times(5, block)).equal("01234");
       });
     });
+
     describe("path helper", () => {
       const helper = "path";
       it("is registered", () => {
         expect(Object.keys(Handlebars.helpers)).contain(helper);
       });
+
       it("is functional", () => {
-        expect(Handlebars.helpers.path("/test")).equal(`${CONFIG.OSE.systemPath()}/test`);
+        expect(Handlebars.helpers.path("/test")).equal(
+          `${CONFIG.OSE.systemPath()}/test`
+        );
       });
     });
+
     describe("asset helper", () => {
       const helper = "asset";
       it("is registered", () => {
         expect(Object.keys(Handlebars.helpers)).contain(helper);
       });
+
       it("is functional", () => {
-        expect(Handlebars.helpers.asset("/test")).equal(`${CONFIG.OSE.assetsPath}/test`);
+        expect(Handlebars.helpers.asset("/test")).equal(
+          `${CONFIG.OSE.assetsPath}/test`
+        );
       });
     });
   });

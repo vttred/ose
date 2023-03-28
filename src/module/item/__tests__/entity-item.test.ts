@@ -1,36 +1,25 @@
-// eslint-disable-next-line eslint-comments/disable-enable-pair
-// eslint-disable @typescript-eslint/no-unused-expressions, import/no-cycle
-
 /**
  * @file Contains tests for Item Data Model.
  */
 // eslint-disable-next-line prettier/prettier, import/no-cycle
 import { QuenchMethods } from "../../../e2e";
-// eslint-disable-next-line prettier/prettier
-import { cleanUpWorldItems, closeDialogs, createMockActorKey, openDialogs, trashChat, waitForInput } from "../../../e2e/testUtils";
-// eslint-disable-next-line prettier/prettier
-import OseActor from "../../actor/entity";
+import {
+  cleanUpWorldItems,
+  closeDialogs,
+  createActorTestItem,
+  createMockActorKey,
+  createWorldTestItem,
+  openDialogs,
+  trashChat,
+  waitForInput,
+} from "../../../e2e/testUtils";
 import OseItem from "../entity";
 
-export const key = "ose.entity.item";
-export const options = { displayName: "Entity: Item" };
+export const key = "ose.item.entity";
+export const options = { displayName: "OSE: Item: Entity" };
 
 const createMockActor = async (data: object = {}) =>
   createMockActorKey("character", data, key);
-
-const createMockActorItem = async (actor: OseActor, type: string) =>
-  actor.createEmbeddedDocuments("Item", [
-    {
-      name: `Test ${type.capitalize()} Item ${foundry.utils.randomID()}`,
-      type,
-    },
-  ]);
-
-const createMockItem = async (type: string) =>
-  OseItem.create({
-    name: `New World Test ${type.capitalize()} Item ${foundry.utils.randomID()}`,
-    type,
-  });
 
 export default ({
   describe,
@@ -69,7 +58,7 @@ export default ({
 
   describe("create()", () => {
     const testItemCreate = async (type: string) => {
-      const item = await createMockItem(type);
+      const item = await createWorldTestItem(type);
       expect(item).is.not.undefined;
       expect(item?.img).equals(defaultIcons[type]);
       const itemName = item?.name;
@@ -117,34 +106,39 @@ export default ({
   });
 
   // @todo: How to test?
-  describe('prepareData()', () => {});
+  describe("prepareData()", () => {});
 
-  // @todo: How to test?
-  describe('prepareDerivedData()', () => {});
+  describe("prepareDerivedData()", () => {
+    it("has the expected fields", async () => {
+      const item = (await createWorldTestItem(type)) as OseItem;
+      expect(item?.system.enrichedDescription).not.undefined;
+      await item?.delete();
+    });
+  });
 
-  // @todo: How to mock html?     
-  describe('chatListeners(html)', () => {
-    it('Correctly binds _onChatCardAction to element', () => { assert(false) })
-    it('Correctly binds _onChatCardToggleContent to element', () => { assert(false) })
+  // @todo: How to mock html?
+  describe("chatListeners(html)", () => {
+    it("Correctly binds _onChatCardAction to element", () => {});
+    it("Correctly binds _onChatCardToggleContent to element", () => {});
   });
 
   /// @todo: How to test?
-  describe('getChatData(htmlOptions)', () => {
-    it('Weapon with tags correctly stored in item.system.properties', () => { assert(false) })
-    it('Spell stores class, level, range, and duration in item.system.properties', () => { assert(false) })
-    it('Equipped item stores "Equipped" in item.system.properties', () => { assert(false) })
-    it('Properly returns itemData', () => { assert(false) })
+  describe("getChatData(htmlOptions)", () => {
+    it("Weapon with tags correctly stored in item.system.properties", () => {});
+    it("Spell stores class, level, range, and duration in item.system.properties", () => {});
+    it('Equipped item stores "Equipped" in item.system.properties', () => {});
+    it("Properly returns itemData", () => {});
   });
 
   describe("rollWeapon(options)", () => {
     it("Actor with melee & missile weapon renders dialog", async () => {
       const actor: OseActor = await createMockActor();
-      await createMockActorItem(actor, "weapon");
+      await createActorTestItem(actor, "weapon");
       const weapon: OseItem = actor?.items.contents[0];
       await weapon?.update({ system: { melee: true, missile: true } });
       const result = weapon.rollWeapon();
       await waitForInput();
-      actor.delete();
+      await actor.delete();
       expect(openDialogs().length).equal(1);
       assert(result);
       await closeDialogs();
@@ -153,20 +147,21 @@ export default ({
       await waitForInput();
       expect(openDialogs().length).equal(0);
     });
+
     it("Actor with weapon with ", async () => {
       const actor: OseActor = await createMockActor();
-      await createMockActorItem(actor, "weapon");
+      await createActorTestItem(actor, "weapon");
       const weapon: OseItem = actor?.items.contents[0];
       await weapon?.update({ system: { missile: true, melee: false } });
       const result = weapon.rollWeapon();
-      actor.delete();
+      await actor.delete();
       assert(result);
     });
   });
 
   describe("rollFormula(options)", () => {
     it("Missing item.system.roll throws error", async () => {
-      const item: OseItem = await createMockItem("item");
+      const item: OseItem = await createWorldTestItem("item");
       try {
         await item.rollFormula();
       } catch (error: any) {
@@ -174,7 +169,7 @@ export default ({
       }
     });
     it("Casting a spell trigger a dialog", async () => {
-      const item: OseItem = await createMockItem("spell");
+      const item: OseItem = await createWorldTestItem("spell");
       await item.update({ system: { roll: "1d20+12" } });
       await item.rollFormula();
       await waitForInput();
@@ -185,7 +180,7 @@ export default ({
       await trashChat();
     });
     it("A OseDice.Roll is returned from method", async () => {
-      const item: OseItem = await createMockItem("spell");
+      const item: OseItem = await createWorldTestItem("spell");
       await item.update({ system: { roll: "1d20+12" } });
       const result: any = await item.rollFormula();
       assert(result instanceof Roll);
@@ -194,7 +189,7 @@ export default ({
 
   describe("spendSpell()", () => {
     it("Calling using non-spell item throws an error", async () => {
-      const item: OseItem = await createMockItem("weapon");
+      const item: OseItem = await createWorldTestItem("weapon");
       try {
         await item.spendSpell();
       } catch (error: unknown) {
@@ -202,7 +197,7 @@ export default ({
       }
     });
     it("Calling function reduces item.system.cast by one", async () => {
-      const item: OseItem = await createMockItem("spell");
+      const item: OseItem = await createWorldTestItem("spell");
       const initialSlots: Number = 3;
       await item.update({ system: { cast: initialSlots } });
       await item.spendSpell();
@@ -212,13 +207,13 @@ export default ({
 
   describe("_getRollTag(data)", () => {
     it("Data provided without a roll key returns void", async () => {
-      const item: OseItem = await createMockItem("weapon");
+      const item: OseItem = await createWorldTestItem("weapon");
       // eslint-disable-next-line no-underscore-dangle
       const tag = item._getRollTag({});
       expect(tag).to.be.undefined;
     });
     it("Returns ab object with value containing roll-info", async () => {
-      const item: OseItem = await createMockItem("weapon");
+      const item: OseItem = await createWorldTestItem("weapon");
       // eslint-disable-next-line no-underscore-dangle
       const tag = item._getRollTag({ roll: "1d12+4" });
       expect(tag).not.to.be.undefined;
@@ -228,13 +223,13 @@ export default ({
 
   describe("_getSaveTag(data)", () => {
     it("Data provided without a save key returns void", async () => {
-      const item: OseItem = await createMockItem("weapon");
+      const item: OseItem = await createWorldTestItem("weapon");
       // eslint-disable-next-line no-underscore-dangle
       const tag = item._getSaveTag({});
       expect(tag).to.be.undefined;
     });
     it("Returns an object with two keys; label and icon", async () => {
-      const item: OseItem = await createMockItem("weapon");
+      const item: OseItem = await createWorldTestItem("weapon");
       // eslint-disable-next-line no-underscore-dangle
       const tag = item._getSaveTag({ save: "death" });
       expect(tag).not.to.be.undefined;
@@ -275,7 +270,7 @@ export default ({
     };
 
     it("Provided value without () adds value to all keys", async () => {
-      const item: OseItem = await createMockItem("weapon");
+      const item: OseItem = await createWorldTestItem("weapon");
       await testPushManualTag(item, "test", {
         label: "test",
         title: "test",
@@ -284,7 +279,7 @@ export default ({
       item.delete();
     });
     it("Provided values have tags within () added to array as title", async () => {
-      const item: OseItem = await createMockItem("weapon");
+      const item: OseItem = await createWorldTestItem("weapon");
       await testPushManualTag(item, "test (test2)", {
         label: "test",
         title: "test2",
@@ -295,7 +290,7 @@ export default ({
 
     // Default
     it("Weapons are automatically melee", async () => {
-      const item: OseItem = await createMockItem("weapon");
+      const item: OseItem = await createWorldTestItem("weapon");
       testSystemBooleans(item, { melee: true, slow: false, missile: false });
       await item?.delete();
     });
@@ -309,7 +304,7 @@ export default ({
 
     booleanTags.forEach((t) => {
       it(`"${t}" tag activates the boolean but not a tag`, async () => {
-        const item: OseItem = await createMockItem("weapon");
+        const item: OseItem = await createWorldTestItem("weapon");
         await pushManualTag(item, t);
         testSystemBooleans(item, {
           melee: true,
@@ -319,7 +314,7 @@ export default ({
         item.delete();
       });
       it(`"Test (${t})" tags activates the boolean and adds a tag`, async () => {
-        const item: OseItem = await createMockItem("weapon");
+        const item: OseItem = await createWorldTestItem("weapon");
         await testPushManualTag(item, `Test (${t})`, {
           label: "Test",
           title: t,
@@ -337,13 +332,13 @@ export default ({
 
   describe("popManualTag(value)", () => {
     it("Item without system.tags return undefined", async () => {
-      const item: OseItem = await createMockItem("weapon");
+      const item: OseItem = await createWorldTestItem("weapon");
       expect(item.system.tags.length).equal(0);
       const poppedTag = await item.popManualTag("test");
       expect(poppedTag).equal(undefined);
     });
     it("Tags matching input value are removed from item.system.tags", async () => {
-      const item: OseItem = await createMockItem("weapon");
+      const item: OseItem = await createWorldTestItem("weapon");
       expect(item.system.tags.length).equal(0);
 
       await item.pushManualTag(["test", "test2"]);
@@ -357,19 +352,19 @@ export default ({
 
   describe("getAutoTagList()", () => {
     it("Container does nothing", async () => {
-      const item: OseItem = await createMockItem("container");
+      const item: OseItem = await createWorldTestItem("container");
       const tagList = item.getAutoTagList();
       expect(tagList.length).equal(0);
       item.delete();
     });
     it("Item does nothing", async () => {
-      const item: OseItem = await createMockItem("item");
+      const item: OseItem = await createWorldTestItem("item");
       const tagList = item.getAutoTagList();
       expect(tagList.length).equal(0);
       item.delete();
     });
     it("Weapon has damage label applied", async () => {
-      const item: OseItem = await createMockItem("weapon");
+      const item: OseItem = await createWorldTestItem("weapon");
       const tagList = item.getAutoTagList();
       expect(tagList.length).equal(1);
       expect(tagList[0].icon).equal("fa-tint");
@@ -377,7 +372,7 @@ export default ({
       item.delete();
     });
     it("Missile weapon has ranges applied", async () => {
-      const item: OseItem = await createMockItem("weapon");
+      const item: OseItem = await createWorldTestItem("weapon");
       await item.pushManualTag([CONFIG.OSE.tags.missile]);
       assert(item.system.missile);
       const tagList = item.getAutoTagList();
@@ -389,7 +384,7 @@ export default ({
       item.delete();
     });
     it("Manual weapon tags are applied", async () => {
-      const item: OseItem = await createMockItem("weapon");
+      const item: OseItem = await createWorldTestItem("weapon");
       await item.pushManualTag(["Test"]);
       const tagList = item.getAutoTagList();
       expect(tagList.length).equal(2);
@@ -399,7 +394,7 @@ export default ({
       item.delete();
     });
     it("Default Armor has armor type applied", async () => {
-      const item: OseItem = await createMockItem("armor");
+      const item: OseItem = await createWorldTestItem("armor");
       const tagList = item.getAutoTagList();
       expect(tagList.length).equal(1);
       expect(tagList[0].icon).equal("fa-tshirt");
@@ -407,7 +402,7 @@ export default ({
       item.delete();
     });
     it("Heavy Armor has armor type applied", async () => {
-      const item: OseItem = await createMockItem("armor");
+      const item: OseItem = await createWorldTestItem("armor");
       await item.update({ system: { type: "heavy" } });
       const tagList = item.getAutoTagList();
       expect(tagList.length).equal(1);
@@ -416,7 +411,7 @@ export default ({
       item.delete();
     });
     it("Spells have class, range, and duration applied", async () => {
-      const item: OseItem = await createMockItem("spell");
+      const item: OseItem = await createWorldTestItem("spell");
       const tagList = item.getAutoTagList();
       expect(tagList.length).equal(3);
       expect(tagList[0].label).equal("Magic-User");
@@ -425,7 +420,7 @@ export default ({
       item.delete();
     });
     it("Abilities have requirements applied", async () => {
-      const item: OseItem = await createMockItem("ability");
+      const item: OseItem = await createWorldTestItem("ability");
       await item.update({ system: { requirements: "alice,bob" } });
       const tagList = item.getAutoTagList();
       expect(tagList.length).equal(2);
@@ -434,7 +429,7 @@ export default ({
       item.delete();
     });
     it("If rollTag exists, it is applied", async () => {
-      const item: OseItem = await createMockItem("spell");
+      const item: OseItem = await createWorldTestItem("spell");
       await item.update({ system: { roll: "1d20+12" } });
       const tagList = item.getAutoTagList();
       expect(tagList.length).equal(4);
@@ -442,7 +437,7 @@ export default ({
       item.delete();
     });
     it("If saveTag exists, it is applied", async () => {
-      const item: OseItem = await createMockItem("spell");
+      const item: OseItem = await createWorldTestItem("spell");
       await item.update({ system: { save: "death" } });
       const tagList = item.getAutoTagList();
       expect(tagList.length).equal(4);
@@ -453,13 +448,13 @@ export default ({
   });
 
   // @todo How to test?
-  describe('roll(options)', () => {
-    it('Item of weapon type activates rollWeapon', async () => {})
-    it('Item of spell type activates spendSpell', () => { assert(false) })
-    it('Item of ability type activates rollFormula if it has associated item.system.roll', () => { assert(false) })
-    it('Item of ability type shows chat card if no item.system.roll associated', () => { assert(false) })
-    it('Item of item type shows chat card', () => { assert(false) })
-    it('Item of armor type shows chat card', () => { assert(false) })
+  describe("roll(options)", () => {
+    it("Item of weapon type activates rollWeapon", async () => {});
+    it("Item of spell type activates spendSpell", () => {});
+    it("Item of ability type activates rollFormula if it has associated item.system.roll", () => {});
+    it("Item of ability type shows chat card if no item.system.roll associated", () => {});
+    it("Item of item type shows chat card", () => {});
+    it("Item of armor type shows chat card", () => {});
   });
 
   describe("show()", () => {
@@ -482,7 +477,7 @@ export default ({
       expect(game.messages?.size).equal(0);
       game.settings.set("core", "rollMode", rollMode);
       expect(game.settings.get("core", "rollMode")).equal(rollMode);
-      const item: OseItem = await createMockItem("weapon");
+      const item: OseItem = await createWorldTestItem("weapon");
       await item?.show();
       expect(game.messages?.size).equal(1);
       const chatMessage = game.messages?.contents.pop();
@@ -516,16 +511,16 @@ export default ({
   });
 
   // @todo: How to test? Mock Event?
-  describe('_onChatCardToggleContent(event)', () => { });
-  describe('_onChatCardAction(event)', () => { });
+  describe("_onChatCardToggleContent(event)", () => {});
+  describe("_onChatCardAction(event)", () => {});
 
   // @todo: How to mock?
-  describe('_getChatCardActor(card)', () => {
-    it('Returns actor if tokenId is properly set', () => { assert(false) })
-    it('Returns actor if actorId is properly set', () => { assert(false) })
-    it('Returns null if neither tokenId nor actorId is properly set', () => { assert(false) })
+  describe("_getChatCardActor(card)", () => {
+    it("Returns actor if tokenId is properly set", () => {});
+    it("Returns actor if actorId is properly set", () => {});
+    it("Returns null if neither tokenId nor actorId is properly set", () => {});
   });
 
   // @todo: How to mock?
-  describe('_getChatCardTargets(card)', () => { });
+  describe("_getChatCardTargets(card)", () => {});
 };

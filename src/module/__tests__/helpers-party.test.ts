@@ -4,7 +4,7 @@
 // eslint-disable-next-line prettier/prettier, import/no-cycle
 import { QuenchMethods } from "../../e2e";
 import {
-  cleanUpActorsKey,
+  cleanUpActorsByKey,
   closeDialogs,
   createMockActorKey,
   openDialogs,
@@ -15,7 +15,7 @@ import OsePartySheet from "../party/party-sheet";
 
 export const key = "ose.helpers.party";
 export const options = {
-  displayName: "Helpers: Party",
+  displayName: "OSE: Helpers: Party",
 };
 
 /* MOCKING HELPERS */
@@ -23,21 +23,24 @@ const createMockActor = async (type: string, data: object = {}) =>
   createMockActorKey(type, data, key);
 
 /* CLEAN UP HELPERS */
-const cleanUpActors = () => cleanUpActorsKey(key);
+const cleanUpActors = () => cleanUpActorsByKey(key);
 
 export default ({ describe, it, expect, after }: QuenchMethods) => {
   after(() => {
     cleanUpActors();
   });
+
   // @todo: How to test?
   describe("addControl(object, html)", () => {});
+
   describe("update(actor)", () => {
     it("Doesn't render a partysheet when not in party", async () => {
       const actor = await createMockActor("character");
       update(actor);
       expect(openDialogs().length).equal(0);
-      actor?.delete();
+      await actor?.delete();
     });
+
     it("Opens a partysheet when in party", async () => {
       const actor = await createMockActor("character");
       actor?.setFlag(game.system.id, "party", true);
@@ -48,7 +51,7 @@ export default ({ describe, it, expect, after }: QuenchMethods) => {
       const partyMember = document
         .querySelector(".party-members .actor")
         ?.getAttribute("data-actor-id");
-      expect(partyMember).equal(actor._id);
+      expect(partyMember).equal(actor?.id);
       expect(openDialogs().length).equal(1);
       await closeDialogs();
       actor?.delete();

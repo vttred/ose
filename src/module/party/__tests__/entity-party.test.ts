@@ -3,12 +3,12 @@
  */
 // eslint-disable-next-line prettier/prettier, import/no-cycle
 import { QuenchMethods } from "../../../e2e";
-import { createMockActorKey } from "../../../e2e/testUtils";
+import { cleanUpActorsByKey, createMockActorKey } from "../../../e2e/testUtils";
 import OseParty from "../party";
 import OsePartySheet from "../party-sheet";
 
-export const key = "ose.entity.party";
-export const options = { displayName: "Entity: Party" };
+export const key = "ose.party.entity";
+export const options = { displayName: "OSE: Party: Entity" };
 
 const createMockActor = async (type: string, data: object = {}) =>
   createMockActorKey(type, data, key);
@@ -31,9 +31,8 @@ export default ({ describe, it, expect, assert, after }: QuenchMethods) => {
       await actor?.delete();
     });
   });
-  after(() => {
-    game.actors?.contents
-      ?.filter((a) => a.name?.includes(`Test Actor ${key}`))
-      ?.forEach((a) => a.delete());
+
+  after(async () => {
+    await cleanUpActorsByKey(key);
   });
 };

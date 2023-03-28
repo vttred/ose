@@ -4,20 +4,18 @@
 
 const inputDelay = 120;
 
-const delay = (ms) =>
+export const delay = (ms: number) =>
   new Promise((resolve) => {
     setTimeout(resolve, ms);
   });
 
 /**
  * If there are messages, purge them.
- *
- * @returns {Promise} The promise from deleting messages
  */
-export const trashChat = () =>
-  game.messages.size > 0
-    ? game.messages.documentClass.deleteDocuments([], { deleteAll: true })
-    : null;
+export const trashChat = (): any => {
+  if (game.messages?.size)
+    game.messages?.documentClass.deleteDocuments([], { deleteAll: true });
+};
 
 /**
  * Delays execution so the UI can catch up.
@@ -32,12 +30,17 @@ export const openWindows = (className: string) =>
   );
 
 export const openDialogs = () =>
-  Object.values(ui.windows).filter((o) => o.options.classes.includes("dialog"))
+  Object.values(ui.windows).filter((o) => o.options.classes.includes("dialog"));
 
 export const closeDialogs = async () => {
   openDialogs()?.forEach(async (o) => {
     await o.close();
   });
+};
+
+export const closeSheets = async () => {
+  openWindows("sheet").forEach(async (w) => w.close());
+  waitForInput();
 };
 
 /**
@@ -55,50 +58,71 @@ export const createMockActorKey = async (
     type,
   });
 
-export const createWorldTestItem = async (type: string) =>
+export const createWorldTestItem = async (
+  type: string,
+  name: string = `New World Test ${type.capitalize()}`
+) =>
   Item.create({
     type,
-    name: `New World Test ${type.capitalize()}`,
+    name,
   });
 
 export const createActorTestItem = async (
-  actor: StoredDocument<Actor>,
-  type: string
-) =>
-  actor.createEmbeddedDocuments(
-    "Item",
-    [{ type, name: `New Actor Test ${type.capitalize()}` }],
-    {}
-  );
+  actor: StoredDocument<Actor> | undefined,
+  type: string,
+  name: string = `New Actor Test ${type.capitalize()}`,
+  data: object = {}
+) => actor?.createEmbeddedDocuments("Item", [{ type, name, ...data }]);
+
+export const createMockMacro = async () =>
+  Macro.create({
+    name: `Mock Macro ${foundry.utils.randomID()}`,
+    type: "script",
+    command: "console.log('Testing Macro');",
+  });
 
 export const createMockScene = async () =>
   Scene.create({ name: "Mock Scene", tokenVision: true });
+
+export const getMockActorKey = async (key: string) =>
+  game.actors?.getName(`Test Actor ${key}`);
 
 /**
  * CLEANUP HELPERS
  */
 
-export const cleanUpMacros = () => {
-  const mockMacros = game.macros?.filter((o) =>
-    o.name.includes("New Actor Test")
-  );
-  mockMacros?.forEach((o) => o.delete());
+export const cleanUpMacros = async () => {
+  const mockMacros = game.macros?.filter((o) => o.name?.includes("Mock Macro"));
+  mockMacros?.forEach(async (o) => await o.delete());
+  return true;
 };
 
-export const cleanUpActorsKey = (key) => {
+export const cleanUpActorsByKey = async (key: string) => {
   game.actors
     ?.filter((a) => a.name === `Test Actor ${key}`)
-    .forEach((a) => a.delete());
+    .forEach(async (a) => await a.delete());
 };
 
-export const cleanUpWorldItems = () => {
+export const cleanUpWorldItems = async () => {
   game.items
     ?.filter((a) => a?.name?.includes("New World Test"))
-    .forEach((a) => a.delete());
+    .forEach(async (a) => await a.delete());
 };
 
-export const cleanUpScenes = () => {
+export const cleanUpScenes = async () => {
   game.scenes
     ?.filter((s) => s.name === "Mock Scene")
-    .forEach((s) => s.delete());
+    .forEach(async (s) => await s.delete());
 };
+
+/**
+ * CONSTS
+ */
+export const itemTypes = new Set([
+  "spell",
+  "ability",
+  "armor",
+  "weapon",
+  "item",
+  "container",
+]);

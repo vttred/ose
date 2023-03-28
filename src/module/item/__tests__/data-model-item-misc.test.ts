@@ -5,8 +5,8 @@
 import { QuenchMethods } from "../../../e2e";
 import OseDataModelItem from "../data-model-item";
 
-export const key = "ose.datamodel.item.misc";
-export const options = { displayName: "Item Data Model: Misc" };
+export const key = "ose.item.datamodel.misc";
+export const options = { displayName: "OSE: Item: Data Model: Misc" };
 
 export default ({ describe, it, expect }: QuenchMethods) => {
   describe("manualTags()", () => {
@@ -14,6 +14,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
     it("By default return empty array", () => {
       expect(miscItem.manualTags.length).equal(0);
     });
+
     it("Can write tags to tags field", () => {
       miscItem.tags = [{ title: "title", value: "value" }];
       expect(miscItem.tags.length).equal(1);
@@ -22,6 +23,7 @@ export default ({ describe, it, expect }: QuenchMethods) => {
       expect(miscItem.tags[0].value).equal("value");
       expect(miscItem.tags[0].label).is.undefined;
     });
+
     it("Can retrieve tags", () => {
       expect(miscItem.manualTags.length).equal(1);
       expect(miscItem.manualTags[0].title).equal("title");
@@ -29,11 +31,13 @@ export default ({ describe, it, expect }: QuenchMethods) => {
       expect(miscItem.tags[0].label).is.undefined;
     });
   });
+
   describe("autoTags()", () => {
     const miscItem = new OseDataModelItem();
     it("By default return no auto-tags", () => {
       expect(miscItem.autoTags.length).equal(0);
     });
+
     it("Can create autoTags", () => {
       miscItem.tags = [{ value: CONFIG.OSE.tags.blunt }];
       expect(miscItem.tags.length).equal(1);

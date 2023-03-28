@@ -10,7 +10,7 @@ const { drawTreasure, rollTreasure } = functionsForTesting;
 
 export const key = "ose.helpers.treasure";
 export const options = {
-  displayName: "Helpers: Treasure",
+  displayName: "OSE: Helpers: Treasure",
 };
 
 const createMockTable = async () =>
@@ -19,13 +19,13 @@ const createMockTable = async () =>
   });
 
 const createMockTreasureTable = async () => {
-  const table: RollTable = await createMockTable();
+  const table: RollTable = (await createMockTable()) as RollTable;
   await table.update({ name: `Mock Treasure Table ${key}` });
   await table.setFlag(game.system.id, "treasure", true);
   return table;
 };
 
-const cleanUpTables = () => {
+const cleanUpTables = async () => {
   const tables = game.tables?.filter(
     (t) =>
       t.name === `Mock Table ${key}` || t.name === `Mock Treasure Table ${key}`
@@ -36,6 +36,7 @@ const cleanUpTables = () => {
 export default ({ describe, it, expect, after }: QuenchMethods) => {
   // @todo: how to test?
   describe("augmentTable(table, html)", () => {});
+
   describe("drawTreasure(table, data)", () => {
     it("Can create table", async () => {
       const table = await createMockTreasureTable();
@@ -47,8 +48,9 @@ export default ({ describe, it, expect, after }: QuenchMethods) => {
         },
       ]);
       expect(table.results.size).equal(1);
-      table.delete();
+      await table.delete();
     });
+
     it("Draws successfully from a treasure table", async () => {
       const table = await createMockTreasureTable();
       await table.createEmbeddedDocuments("TableResult", [
@@ -64,6 +66,7 @@ export default ({ describe, it, expect, after }: QuenchMethods) => {
       const resultKey = Object.keys(data.treasure)[0];
       expect(data.treasure[resultKey].text).equal("100% Chance");
     });
+
     // @todo: volatile, may still draw due to 1% minimum, how to fix?
     /* it("Draws unsuccessfully from a treasure table", async () => {
       const table = await createMockTreasureTable();
@@ -77,6 +80,7 @@ export default ({ describe, it, expect, after }: QuenchMethods) => {
       const data = await drawTreasure(table, {});
       expect(Object.keys(data.treasure).length).equal(0);
     }); */
+
     it("Just draws from a non-treasure table", async () => {
       const table = await createMockTable();
       table?.update({ formula: "1d100" });
@@ -93,6 +97,7 @@ export default ({ describe, it, expect, after }: QuenchMethods) => {
       expect(data.treasure[resultKey].text).equal("100% Chance");
     });
   });
+
   describe("rollTreasure(table, options)", () => {
     it("Rolling on treasure table produces a chat message", async () => {
       trashChat();
@@ -106,8 +111,8 @@ export default ({ describe, it, expect, after }: QuenchMethods) => {
       ]);
       await rollTreasure(table);
       await waitForInput();
-      expect(game.messages.size).equal(1);
-      expect(game.messages.contents[0].content).contains("100% Chance");
+      expect(game.messages?.size).equal(1);
+      expect(game.messages?.contents[0].content).contains("100% Chance");
     });
   });
 

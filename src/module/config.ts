@@ -136,8 +136,8 @@ export const OSE: OseConfig = {
   },
   apply_damage_options: {
     selected : "selected",
-    targeted : "selected",
-    originalTarget : "selected",
+    targeted : "targeted",
+    originalTarget : "originalTarget",
   },
   colors: {
     green: "OSE.colors.green",

@@ -11,7 +11,10 @@ function canApplyDamage(html: JQuery) {
     case CONFIG.OSE.apply_damage_options.selected:
       return !!canvas.tokens?.controlled.length;
     default: {
-      ui.notifications?.error(`unexpected OSE setting applyDamageOption: ${applyDamageOption}`);
+      ui.notifications?.error(game.i18n.format("OSE.error.unexpectedSettings", {
+        configName: 'applyDamageOption',
+        configValue: applyDamageOption,
+      }));
       return false;
     }
   }
@@ -102,7 +105,7 @@ function applyChatCardDamage(html: JQuery, multiplier: 1 | -1) {
 
 async function applyDamageToTarget(actor: Actor | null, amount: string, multiplier: 1 | -1, nameOrId: string) {
   if (!game.user?.isGM || !(actor instanceof OseActor)) {
-    ui.notifications?.error(`Can't deal damage to ${nameOrId}`);
+    ui.notifications?.error(game.i18n.format("OSE.error.cantDealDamageTo", { nameOrId }));
     return;
   }
   await actor.applyDamage(amount, multiplier);

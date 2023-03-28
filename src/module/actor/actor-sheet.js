@@ -289,6 +289,9 @@ export default class OseActorSheet extends ActorSheet {
 
     const isContainer = this.actor.items.get(item.system.containerId);
 
+    // Issue #357
+    if (item.id === targetId) return;
+
     if (!exists && !targetIsContainer)
       // eslint-disable-next-line no-underscore-dangle
       return this._onDropItemCreate([itemData]);

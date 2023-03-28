@@ -4,7 +4,7 @@ const yargs = require("yargs");
 const { hideBin } = require("yargs/helpers");
 
 /**
- * @typedef {{dataPath: string; symLinkName: string;}} FoundryConfig
+ * @typedef {{dataPath: string; symLinkName: Array<string>;}} FoundryConfig
  */
 
 const argv = yargs(hideBin(process.argv))

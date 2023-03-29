@@ -38,7 +38,7 @@
     padding: 0;
     .item-entry {
       list-style: none;
-      line-height: 30px;
+      line-height: var(--line-height-30);
       .item-header {
         padding: 0px;
         margin-bottom: 8px;
@@ -53,7 +53,7 @@
           text-indent: 8px;
         }
         .field-short {
-          font-size: 12px;
+          font-size: var(--font-size-12);
           flex-basis: 45px;
           flex-grow: 0;
           text-align: center;
@@ -80,7 +80,7 @@
       text-align: center;
       border: 1px solid $colorFaint;
       background: $colorOlive;
-      font-size: 10px;
+      font-size: var(--font-size-11);
       color: whitesmoke;
       border-radius: 3px;
       box-shadow: 0 0 1px $colorFaint;
@@ -89,7 +89,7 @@
   }
   .form-group {
     button {
-      line-height: 18px;
+      line-height: var(--line-height-16);
       flex-grow: 0;
     }
   }
@@ -109,7 +109,7 @@
     color: whitesmoke;
     background: $darkBackground;
     padding: 4px 0;
-    line-height: 20px;
+    line-height: var(--line-height-20);
     text-align: left;
     padding: 2px 10px;
     .item-control {
@@ -117,7 +117,7 @@
     }
     button {
       max-width: 25%;
-      line-height: 15px;
+      line-height: var(--line-height-16);
       margin: 0 1px;
       background: rgba(255, 255, 240, 0.8);
       border: 1px solid #b5b3a4;
@@ -152,10 +152,10 @@
       border-top: 1px solid $colorTan;
       .fas {
         padding: 0 2px;
-        font-size: 10px;
+        font-size: var(--font-size-11);
       }
       margin-bottom: 2px;
-      font-size: 12px;
+      font-size: var(--font-size-12);
       text-align: center;
       .fields .field-row {
         white-space: nowrap;
@@ -185,10 +185,10 @@
           button {
             display: none;
             cursor: pointer;
-            font-size: 10px;
+            font-size: var(--font-size-11);
             height: 18px;
             width: 14px;
-            line-height: 13px;
+            line-height: var(--line-height-12);
             margin: 0 1px;
             border: 1px solid $colorOlive;
             padding: 2px;
@@ -211,7 +211,7 @@
   .ose-party-sheet {
     width: 32px;
     text-align: center;
-    line-height: 20px;
+    line-height: var(--line-height-20);
   }
   input {
     width: calc(100% - 45px);
@@ -266,7 +266,7 @@
 }
 
 #settings .ose.game-license {
-  font-size: 12px;
+  font-size: var(--font-size-12);
   .button {
     text-align: center;
     margin: 4px;
@@ -293,10 +293,10 @@
       overflow: hidden;
       h2 {
         border: none;
-        line-height: 34px;
+        line-height: var(--line-height-30);
         margin: 0;
         text-indent: 10px;
-        font-size: 16px;
+        font-size: var(--font-size-16);
         word-break: break-all;
       }
     }
@@ -312,10 +312,10 @@
   }
   .chat-details {
     padding: 4px;
-    font-size: 13px;
+    font-size: var(--font-size-13);
   }
   .roll-result {
-    font-size: 13px;
+    font-size: var(--font-size-13);
     text-align: center;
     &.roll-success {
       color: #18520b;
@@ -354,7 +354,7 @@
 
 .ose.chat-card {
   font-style: normal;
-  font-size: 12px;
+  font-size: var(--font-size-12);
 
   .card-header {
     padding: 3px 0;
@@ -380,14 +380,14 @@
 
   .inventory-list {
     .item-category-title {
-      line-height: 30px;
+      line-height: var(--line-height-30);
     }
     .item-list {
       list-style: none;
       margin: 0;
       padding: 0;
       .item-entry {
-        line-height: 30px;
+        line-height: var(--line-height-30);
         .item-header {
           padding: 0;
           margin: 0 0 8px 0;
@@ -427,7 +427,7 @@
         }
         div {
           text-indent: 10px;
-          font-size: 14px;
+          font-size: var(--font-size-14);
           font-weight: bold;
         }
         line-height: 36px;
@@ -441,12 +441,12 @@
         }
         div {
           text-indent: 10px;
-          font-size: 14px;
+          font-size: var(--font-size-14);
         }
       }
     }
     h3 {
-      font-size: 12px;
+      font-size: var(--font-size-12);
       margin: 0;
       font-weight: bold;
     }
@@ -464,15 +464,15 @@
 
     span {
       display: block;
-      line-height: 28px;
+      line-height: var(--line-height-30);
       text-align: center;
       border: 1px solid $colorTan;
     }
 
     button {
-      font-size: 12px;
+      font-size: var(--font-size-12);
       height: 24px;
-      line-height: 20px;
+      line-height: var(--line-height-20);
       margin: 2px 0;
     }
   }
@@ -484,7 +484,7 @@
     span {
       border-right: 2px groove #fff;
       padding: 0 5px 0 0;
-      font-size: 10px;
+      font-size: var(--font-size-11);
 
       &:last-child {
         border-right: none;
@@ -529,8 +529,8 @@
       pointer-events: none;
       white-space: nowrap;
       margin: 1px;
-      font-size: 10px;
-      line-height: 12px;
+      font-size: var(--font-size-11);
+      line-height: var(--line-height-12);
       background: $colorOlive;
       padding: 1px 3px;
       color: whitesmoke;
@@ -557,8 +557,8 @@
         pointer-events: none;
         white-space: nowrap;
         margin: 0 1px;
-        font-size: 10px;
-        line-height: 12px;
+        font-size: var(--font-size-11);
+        line-height: var(--line-height-12);
         background: $colorOlive;
         padding: 1px 3px;
         color: whitesmoke;

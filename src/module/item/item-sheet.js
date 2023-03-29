@@ -22,7 +22,7 @@ export class OseItemSheet extends ItemSheet {
       classes: ["ose", "sheet", "item"],
       width: 520,
       height: 390,
-      resizable: false,
+      resizable: true,
       tabs: [
         {
           navSelector: ".tabs",

@@ -309,6 +309,44 @@ export default ({ describe, it, expect, after, before }: QuenchMethods) => {
       );
       expect(testActor?.system.isNew).to.be.false;
     });
+
+    it("New when all saves are at 0", async () => {
+      const testActor = await createMockActorKey(
+        "monster",
+        {
+          system: {
+            saves: {
+              breath: { value: 0 },
+              death: { value: 0 },
+              paralysis: { value: 0 },
+              spell: { value: 0 },
+              wand: { value: 0 },
+            },
+          },
+        },
+        key
+      );
+      expect(testActor?.system.isNew).to.be.true;
+    });
+
+    it("Not new when any save is above 0", async () => {
+      const testActor = await createMockActorKey(
+        "monster",
+        {
+          system: {
+            saves: {
+              breath: { value: 10 },
+              death: { value: 0 },
+              paralysis: { value: 0 },
+              spell: { value: 0 },
+              wand: { value: 0 },
+            },
+          },
+        },
+        key
+      );
+      expect(testActor?.system.isNew).to.be.false;
+    });
   });
 
   describe("containers()", () => {

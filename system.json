@@ -11,15 +11,16 @@
     "verified": "10",
     "maximum": 10
   },
-  "author": "Maintained by VTT Red with 9 contributors",
+  "author": "Maintained by VTT Red with 16 contributors",
   "authors": [
     {
       "name": "VTT RED",
-      "email": "ose-content@vtt.red",
+      "email": "ose-system@vtt.red",
       "url": "https://vtt.red"
     },
     {
-      "name": "and 9 other contributors"
+      "name": "and 16 other contributors",
+      "url": "https://github.com/vttred/ose#contributors-"
     }
   ],
   "esmodules": [
@@ -69,6 +70,11 @@
       "lang": "zh-CN",
       "name": "简体中文 (中国)",
       "path": "dist/lang/zh-CN.json"
+    },
+    {
+      "lang": "sv",
+      "name": "Svenska (Sverige)",
+      "path": "dist/lang/sv.json"
     }
   ],
   "gridDistance": 5,

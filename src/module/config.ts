@@ -27,6 +27,7 @@ export type OseConfig = {
   saves_short: Record<Save, string>;
   saves_long: Record<Save, string>;
   armor: Record<Armor, string>;
+  apply_damage_options: Record<ApplyDamageOption, ApplyDamageOption>;
   colors: Record<Color, string>;
   languages: string[];
   auto_tags: { [n: string]: { label: string; icon: string } };
@@ -44,6 +45,7 @@ export type ExplorationSkill = "ld" | "od" | "sd" | "fs";
 export type RollType = "result" | "above" | "below";
 export type Save = "death" | "wand" | "paralysis" | "breath" | "spell";
 export type Armor = "unarmored" | "light" | "heavy" | "shield";
+export type ApplyDamageOption = "selected" | "targeted" | "originalTarget";
 export type Color =
   | "green"
   | "red"
@@ -135,6 +137,11 @@ const config: OseConfig = {
     light: "OSE.armor.light",
     heavy: "OSE.armor.heavy",
     shield: "OSE.armor.shield",
+  },
+  apply_damage_options: {
+    selected : "selected",
+    targeted : "targeted",
+    originalTarget : "originalTarget",
   },
   colors: {
     green: "OSE.colors.green",

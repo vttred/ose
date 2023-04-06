@@ -298,6 +298,8 @@
             line-height: 30px;
             flex-basis: 90px;
             cursor: pointer;
+            text-overflow: ellipsis;
+            white-space: nowrap;
           }
         }
         .item-entry {

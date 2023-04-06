@@ -2,6 +2,8 @@
  * @file Wire up system settings.
  */
 
+import { ApplyDamageOption } from "./config";
+
 type EncumbranceType = {
   type: string;
   localizedLabel: string;
@@ -97,6 +99,7 @@ const registerSettings = () => {
     choices: {
       selected: "OSE.Setting.damageSelected",
       targeted: "OSE.Setting.damageTarget",
+      originalTarget: "OSE.Setting.damageOriginalTarget",
     },
   });
   game.settings.register(game.system.id, "invertedCtrlBehavior", {
@@ -120,7 +123,7 @@ declare global {
       "ose.encumbranceOption": "disabled" | "basic" | "detailed" | "complete";
       "ose.significantTreasure": number;
       "ose.languages": string;
-      "ose.applyDamageOption": "selected" | "targeted";
+      "ose.applyDamageOption": ApplyDamageOption;
     }
   }
 }

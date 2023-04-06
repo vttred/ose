@@ -10,9 +10,9 @@ export interface CharacterEncumbrance {
   value: number;
   max: number;
   atHalfEncumbered: boolean | null;
+  atThreeEighthsEncumbered: boolean | null;
   atQuarterEncumbered: boolean | null;
-  atEighthEncumbered: boolean | null;
-}
+};
 
 /**
  * A class to handle character encumbrance.
@@ -23,9 +23,9 @@ export default class OseDataModelCharacterEncumbrance
   static baseEncumbranceCap = 1600;
 
   static encumbranceSteps = {
-    eighth: 12.5,
     quarter: 25,
-    half: 50,
+    threeEighths: 37.5,
+    half: 50
   };
 
   #encumbranceVariant;
@@ -63,7 +63,7 @@ export default class OseDataModelCharacterEncumbrance
   }
 
   get encumbered() {
-    return this.value >= this.max;
+    return this.value > this.max;
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -88,29 +88,13 @@ export default class OseDataModelCharacterEncumbrance
   }
 
   get atHalfEncumbered() {
-    return (
-      this.value >=
-      this.max *
-        (OseDataModelCharacterEncumbrance.encumbranceSteps.half / 100) +
-        (this.#delta || 0)
-    );
+    return this.value > this.max * (OseDataModelCharacterEncumbrance.encumbranceSteps.half / 100) + (this.#delta || 0)
   }
-
+  get atThreeEighthsEncumbered() {
+    return this.value > this.max * (OseDataModelCharacterEncumbrance.encumbranceSteps.threeEighths / 100) + (this.#delta || 0)
+  }
   get atQuarterEncumbered() {
-    return (
-      this.value >=
-      this.max *
-        (OseDataModelCharacterEncumbrance.encumbranceSteps.quarter / 100) +
-        (this.#delta || 0)
-    );
+    return this.value > this.max * (OseDataModelCharacterEncumbrance.encumbranceSteps.quarter / 100) + (this.#delta || 0)
   }
-
-  get atEighthEncumbered() {
-    return (
-      this.value >=
-      this.max *
-        (OseDataModelCharacterEncumbrance.encumbranceSteps.eighth / 100) +
-        (this.#delta || 0)
-    );
-  }
+  
 }

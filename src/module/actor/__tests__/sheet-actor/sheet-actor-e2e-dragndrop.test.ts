@@ -194,6 +194,64 @@ export default ({
     };
 
     /* --------------------------------------------- */
+    /* Specific cases                                */
+    /* --------------------------------------------- */
+    // Issue#357
+    it("Issue#357 Dragging container onto itself should retain container in inventory", async () => {
+      const items: DragNDropItems = {
+        source: {} as DragNDropItem,
+        target: {} as DragNDropItem,
+      } as DragNDropItems;
+
+      // Setup actor & items
+      const actor = await createMockActorKey("character", {}, key);
+      [items.target.item] = await createActorTestItem(
+        actor,
+        "container",
+        "TargetContainer"
+      );
+      [items.source.item] = await createActorTestItem(actor, "weapon");
+
+      // Render UI elements
+      actor?.sheet?.render(true);
+      await waitForInput();
+
+      // Set the DOM elements
+      items.source.itemElement = document.querySelector(
+        `.sheet .inventory li.item[data-item-id="${items.source?.item?.id}"]`
+      );
+      items.target.itemElement = document.querySelector(
+        `.sheet .inventory li.item[data-item-id="${items.target?.item?.id}"]`
+      );
+
+      // Execute drag'n'drop of stored item
+      dragNDropCasePreflightCheck("New Actor Test Weapon", items);
+      await executeDragNDrop(items);
+      await waitForInput();
+
+      // Check items
+      expect(items.target.item?.system.itemIds.length).equal(1);
+      expect(items.target.item?.system.itemIds).contain(items.source.item?.id);
+      expect(items.source.item?.system.containerId).equal(
+        items.target.item?.id
+      );
+
+      // Re-form the source item to use the target container
+      items.source.itemElement = items.target.itemElement;
+      items.source.item = items.target.item;
+
+      // Execute drag'n'drop again
+      await executeDragNDrop(items);
+      await waitForInput();
+
+      // Verify that the target container is still present
+      const finalElement = document.querySelector(
+        `.sheet .inventory li.item[data-item-id="${items.target?.item?.id}"]`
+      );
+      expect(finalElement).not.null;
+    });
+
+    /* --------------------------------------------- */
     /* Loop over item types                          */
     /* --------------------------------------------- */
     itemTypes.forEach((itemType) => {

@@ -93,13 +93,24 @@ export default class OseActorSheet extends ActorSheet {
     item.show();
   }
 
-  async _removeItemFromActor(event) {
-    const item = this._getItemFromActor(event);
-    const itemData = item?.system;
-    const itemDisplay = event.currentTarget.closest(".item-entry");
+  // eslint-disable-next-line no-underscore-dangle, consistent-return
+  async _removeItemFromActor(item) {
+    if (item.type === "ability" || item.type === "spell") {
+      // eslint-disable-next-line no-underscore-dangle
+      return this.actor.deleteEmbeddedDocuments("Item", [item._id]);
+    }
+    if (item.type !== "container" && item.system.containerId !== "") {
+      const { containerId } = item.system;
+      const newItemIds = this.actor.items
+        .get(containerId)
+        .system.itemIds.filter((o) => o !== item.id);
 
-    if (item.type === "container" && itemData.itemIds) {
-      const containedItems = itemData.itemIds;
+      await this.actor.updateEmbeddedDocuments("Item", [
+        { _id: containerId, system: { itemIds: newItemIds } },
+      ]);
+    }
+    if (item.type === "container" && item.system.itemIds) {
+      const containedItems = item.system.itemIds;
       const updateData = containedItems.reduce((acc, val) => {
         acc.push({ _id: val, "system.containerId": "" });
         return acc;
@@ -107,7 +118,9 @@ export default class OseActorSheet extends ActorSheet {
 
       await this.actor.updateEmbeddedDocuments("Item", updateData);
     }
-    this.actor.deleteEmbeddedDocuments("Item", [itemDisplay.dataset.itemId]);
+
+    // eslint-disable-next-line no-underscore-dangle
+    this.actor.deleteEmbeddedDocuments("Item", [item._id]);
   }
 
   /**
@@ -264,21 +277,29 @@ export default class OseActorSheet extends ActorSheet {
   }
 
   async _onDropItem(event, data) {
+    const targetId = event.target.closest(".item")?.dataset?.itemId;
+    const targetItem = this.actor.items.get(targetId);
+    const targetIsContainer = targetItem?.type === "container";
+
+    // This eats the event.target as it is parsed with the TextEditor.
     const item = await Item.implementation.fromDropData(data);
     const itemData = item.toObject();
 
     const exists = !!this.actor.items.get(item.id);
 
-    if (!exists) return this._onDropItemCreate([itemData]);
-
     const isContainer = this.actor.items.get(item.system.containerId);
 
+    // Issue: https://github.com/vttred/ose/issues/357
+    if (item.id === targetId) return;
+
+    if (!exists && !targetIsContainer)
+      // eslint-disable-next-line no-underscore-dangle
+      return this._onDropItemCreate([itemData]);
+
+    // eslint-disable-next-line no-underscore-dangle
     if (isContainer) return this._onContainerItemRemove(item, isContainer);
 
-    const { itemId: targetId } = event.target.closest(".item").dataset;
-    const targetItem = this.actor.items.get(targetId);
-    const targetIsContainer = targetItem?.type === "container";
-
+    // eslint-disable-next-line no-underscore-dangle
     if (targetIsContainer) return this._onContainerItemAdd(item, targetItem);
   }
 
@@ -290,26 +311,35 @@ export default class OseActorSheet extends ActorSheet {
   }
 
   async _onContainerItemAdd(item, target) {
-    const itemData = item.toObject();
-    const container = this.object.items.get(target.id);
-
-    const containerId = container.id;
-    const itemObj = this.object.items.get(item.id);
-    const alreadyExists = container.system.itemIds.find(
+    const alreadyExistsInActor = target.parent.items.find(
       (i) => i.id === item.id
     );
-    if (!alreadyExists) {
-      const newList = [...container.system.itemIds, item.id];
-      await container.update({ system: { itemIds: newList } });
-      await itemObj.update({ system: { containerId: container.id } });
+    let latestItem = item;
+    if (!alreadyExistsInActor) {
+      // eslint-disable-next-line no-underscore-dangle
+      const newItem = await this._onDropItemCreate([item.toObject()]);
+      latestItem = newItem.pop();
+    }
+
+    const alreadyExistsInContainer = target.system.itemIds.find(
+      (i) => i.id === latestItem.id
+    );
+    if (!alreadyExistsInContainer) {
+      const newList = [...target.system.itemIds, latestItem.id];
+      await target.update({ system: { itemIds: newList } });
+      await latestItem.update({ system: { containerId: target.id } });
     }
   }
 
-  async _onDropItemCreate(itemData, container = false) {
+  // eslint-disable-next-line no-underscore-dangle, consistent-return
+  async _onDropItemCreate(droppedItem, targetContainer = false) {
     // override to fix hidden items because their original containers don't exist on this actor
-    itemData = Array.isArray(itemData) ? itemData : [itemData];
-    itemData.forEach((item) => {
+    const droppedItemArray = Array.isArray(droppedItem)
+      ? droppedItem
+      : [droppedItem];
+    droppedItemArray.forEach((item) => {
       if (item.system.containerId && item.system.containerId !== "")
+        // eslint-disable-next-line no-param-reassign
         item.system.containerId = "";
       if (
         item.type === "container" &&
@@ -318,20 +348,21 @@ export default class OseActorSheet extends ActorSheet {
         // itemIds was double stringified to fix strange behavior with stringify blanking our Arrays
         const containedItems = JSON.parse(item.system.itemIds);
         containedItems.forEach((containedItem) => {
+          // eslint-disable-next-line no-param-reassign
           containedItem.system.containerId = "";
         });
-        itemData.push(...containedItems);
+        droppedItem.push(...containedItems);
       }
     });
-    if (!container) {
-      return this.actor.createEmbeddedDocuments("Item", itemData);
+    if (!targetContainer) {
+      return this.actor.createEmbeddedDocuments("Item", droppedItem);
     }
 
-    const { itemIds } = container.system;
-    itemIds.push(itemData.id);
-    const item = this.actor.items.get(itemData[0]._id);
-    await item.update({ system: { containerId: container.id } });
-    await container.update({ system: { itemIds } });
+    const { itemIds } = targetContainer.system;
+    itemIds.push(droppedItem.id);
+    const item = this.actor.items.get(droppedItem[0].id);
+    await item.update({ system: { containerId: targetContainer.id } });
+    await targetContainer.update({ system: { itemIds } });
   }
 
   /* -------------------------------------------- */
@@ -537,13 +568,13 @@ export default class OseActorSheet extends ActorSheet {
       const item = this._getItemFromActor(event);
 
       if (item?.type !== "container" || !item?.system?.itemIds?.length > 0)
-        return this._removeItemFromActor(event);
+        return this._removeItemFromActor(item);
 
       Dialog.confirm({
         title: game.i18n.localize("OSE.dialog.deleteContainer"),
         content: game.i18n.localize("OSE.dialog.confirmDeleteContainer"),
         yes: () => {
-          this._removeItemFromActor(event);
+          this._removeItemFromActor(item);
         },
         defaultYes: false,
       });

@@ -289,7 +289,7 @@ export default class OseActorSheet extends ActorSheet {
 
     const isContainer = this.actor.items.get(item.system.containerId);
 
-    // Issue #357
+    // Issue: https://github.com/vttred/ose/issues/357
     if (item.id === targetId) return;
 
     if (!exists && !targetIsContainer)

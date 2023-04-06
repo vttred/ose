@@ -350,7 +350,6 @@ export default class OseItem extends Item {
       actor: this.actor,
       tokenId: token ? `${token.parent.id}.${token.id}` : null,
       item: this._source,
-      itemId: this._source.id,
       data: await this.getChatData(),
       labels: this.labels,
       isHealing: this.isHealing,

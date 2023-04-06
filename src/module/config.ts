@@ -13,6 +13,7 @@ export type Armor = keyof OseConfig["armor"];
 export type Color = keyof OseConfig["colors"];
 export type InventoryItemTag = keyof OseConfig["tags"];
 export type EncumbranceOption = keyof OseConfig["encumbranceOptions"];
+export type ApplyDamageOption = keyof OseConfig["apply_damage_options"];
 
 export const OSE = {  
   /** Path for system dist */
@@ -89,6 +90,11 @@ export const OSE = {
     light: "OSE.armor.light",
     heavy: "OSE.armor.heavy",
     shield: "OSE.armor.shield",
+  },
+  apply_damage_options: {
+    selected : "selected",
+    targeted : "targeted",
+    originalTarget : "originalTarget",
   },
   colors: {
     green: "OSE.colors.green",

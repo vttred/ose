@@ -12,8 +12,8 @@
             {{/if}}
         </div>
         {{#if result.victim}}
-        <div class="chat-target">
-            vs {{result.victim}}
+        <div class="chat-target" data-id="{{result.victim.document.uuid}}">
+            vs {{result.victim.name}}
         </div>
         {{/if}}
         <div class="blindable" data-blind="{{data.roll.blindroll}}">

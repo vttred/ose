@@ -1,4 +1,5 @@
 import { EncumbranceOption } from "./config";
+import { ApplyDamageOption } from "./config";
 
 export const registerSettings = function () {
   game.settings.register(game.system.id, "initiative", {
@@ -86,6 +87,7 @@ export const registerSettings = function () {
     choices: {
       selected: "OSE.Setting.damageSelected",
       targeted: "OSE.Setting.damageTarget",
+      originalTarget: "OSE.Setting.damageOriginalTarget",
     },
   });
   game.settings.register(game.system.id, "invertedCtrlBehavior", {
@@ -109,7 +111,7 @@ declare global {
       "ose.encumbranceOption": "disabled" | "basic" | "detailed" | "complete";
       "ose.significantTreasure": number;
       "ose.languages": string;
-      "ose.applyDamageOption": "selected" | "targeted";
+      "ose.applyDamageOption": ApplyDamageOption;
     }
   }
 }

@@ -158,18 +158,17 @@ export default ({
   });
 
   describe("isNew()", () => {
-    it("New when all ability scores are at 0", async () => {
+    it("New when all saves are at 0", async () => {
       const testActor = await createMockActorKey(
         "monster",
         {
           system: {
-            scores: {
-              str: { value: 0 },
-              int: { value: 0 },
-              wis: { value: 0 },
-              dex: { value: 0 },
-              con: { value: 0 },
-              cha: { value: 0 },
+            saves: {
+              breath: { value: 0 },
+              death: { value: 0 },
+              paralysis: { value: 0 },
+              spell: { value: 0 },
+              wand: { value: 0 },
             },
           },
         },
@@ -178,18 +177,17 @@ export default ({
       expect(testActor?.system.isNew).to.be.true;
     });
 
-    it("Not new when any ability score is above 0", async () => {
+    it("Not new when any save is above 0", async () => {
       const testActor = await createMockActorKey(
         "monster",
         {
           system: {
-            scores: {
-              str: { value: 10 },
-              int: { value: 0 },
-              wis: { value: 0 },
-              dex: { value: 0 },
-              con: { value: 0 },
-              cha: { value: 0 },
+            saves: {
+              breath: { value: 10 },
+              death: { value: 0 },
+              paralysis: { value: 0 },
+              spell: { value: 0 },
+              wand: { value: 0 },
             },
           },
         },

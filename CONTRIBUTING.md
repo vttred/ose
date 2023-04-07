@@ -30,7 +30,7 @@ Prerequisites: Node.js (v16 is recommended), a familiarity with command Foundry 
        "path/to/FoundryVTT-userdata REPLACE THIS STRING",
        "path/to/FoundryVTT-userdata-if-you-have-multiple OTHERWISE USE ONLY ONE STRING"
      ],
-     "symlinkName": "ose-dev"
+     "symLinkName": "ose-dev"
    }
    ```
 

@@ -1,4 +1,14 @@
-export const registerSettings = function () {
+/**
+ * @file Wire up system settings.
+ */
+
+import { ApplyDamageOption } from "./config";
+import { EncumbranceOption } from "./config";
+
+/**
+ * Perform setting registration.
+ */
+const registerSettings = () => {
   game.settings.register(game.system.id, "initiative", {
     name: game.i18n.localize("OSE.Setting.Initiative"),
     hint: game.i18n.localize("OSE.Setting.InitiativeHint"),
@@ -52,9 +62,9 @@ export const registerSettings = function () {
     type: String,
     config: true,
     choices: Object.values(CONFIG.OSE.encumbranceOptions)
-      .reduce((obj: {[n:string]: string}, enc) => {
-        return {...obj, [enc.type]: enc.localizedLabel}
-      }, {}),
+    .reduce((obj, enc) => {
+      return {...obj, [enc.type]: enc.localizedLabel}
+    }, {}) as SettingConfig<EncumbranceOption>["choices"],
   });
 
   game.settings.register(game.system.id, "significantTreasure", {
@@ -81,10 +91,10 @@ export const registerSettings = function () {
     scope: "world",
     type: String,
     config: true,
-    choices: {
-      selected: "OSE.Setting.damageSelected",
-      targeted: "OSE.Setting.damageTarget",
-    },
+    choices: Object.values(CONFIG.OSE.encumbranceOptions)
+    .reduce((obj, enc) => {
+      return {...obj, [enc.type]: enc.localizedLabel}
+    }, {}) as SettingConfig<ApplyDamageOption>["choices"],
   });
   game.settings.register(game.system.id, "invertedCtrlBehavior", {
     name: game.i18n.localize("OSE.Setting.InvertedCtrlBehavior"),
@@ -93,7 +103,7 @@ export const registerSettings = function () {
     scope: "world",
     type: Boolean,
     config: true,
-  })
+  });
 };
 
 declare global {
@@ -104,10 +114,12 @@ declare global {
       "ose.rerollInitiative": "keep" | "reset" | "reroll";
       "ose.ascendingAC": boolean;
       "ose.morale": boolean;
-      "ose.encumbranceOption": "disabled" | "basic" | "detailed" | "complete";
+      "ose.encumbranceOption": EncumbranceOption;
       "ose.significantTreasure": number;
       "ose.languages": string;
-      "ose.applyDamageOption": "selected" | "targeted";
+      "ose.applyDamageOption": ApplyDamageOption;
     }
   }
 }
+
+export default registerSettings;

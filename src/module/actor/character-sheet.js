@@ -1,22 +1,17 @@
-import { OseActorSheet } from "./actor-sheet";
-import { OseCharacterModifiers } from "../dialog/character-modifiers";
-import { OseCharacterGpCost } from "../dialog/character-gp-cost.js";
-import { OseCharacterCreator } from "../dialog/character-creation";
-import { OSE } from "../config";
-
 /**
- * Extend the basic ActorSheet with some very simple modifications
+ * @file Extend the basic ActorSheet with some very simple modifications
  */
-export class OseActorSheetCharacter extends OseActorSheet {
-  constructor(...args) {
-    super(...args);
-  }
+import OSE from "../config";
+import OseCharacterCreator from "../dialog/character-creation";
+import OseCharacterGpCost from "../dialog/character-gp-cost";
+import OseCharacterModifiers from "../dialog/character-modifiers";
+import OseActorSheet from "./actor-sheet";
 
-  /* -------------------------------------------- */
-
+export default class OseActorSheetCharacter extends OseActorSheet {
   /**
    * Extend and override the default options used by the 5e Actor Sheet
-   * @returns {Object}
+   *
+   * @returns {object} - The default options for this sheet.
    */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
@@ -38,6 +33,8 @@ export class OseActorSheetCharacter extends OseActorSheet {
 
   /**
    * Organize and classify Owned Items for Character sheets
+   *
+   * @param data
    * @private
    */
   _prepareItems(data) {
@@ -53,14 +50,14 @@ export class OseActorSheetCharacter extends OseActorSheet {
     data.abilities = this.actor.system.abilities;
     data.spells = this.actor.system.spells.spellList;
     data.slots = this.actor.system.spellSlots;
-    
+
     // These values are getters that aren't getting
     // cloned when `this.actor.system` is cloned
     data.system.usesAscendingAC = this.actor.system.usesAscendingAC;
     data.system.meleeMod = this.actor.system.meleeMod;
     data.system.rangedMod = this.actor.system.rangedMod;
     data.system.init = this.actor.system.init;
-    
+
     // Sort by sort order (see ActorSheet)
     [
       ...Object.values(data.owned),
@@ -97,14 +94,14 @@ export class OseActorSheetCharacter extends OseActorSheet {
   }
 
   async _chooseLang() {
-    let choices = CONFIG.OSE.languages;
+    const choices = CONFIG.OSE.languages;
 
-    let templateData = { choices },
-      dlg = await renderTemplate(
-        `${OSE.systemPath()}/templates/actors/dialogs/lang-create.html`,
-        templateData
-      );
-    //Create Dialog window
+    const templateData = { choices };
+    const dlg = await renderTemplate(
+      `${OSE.systemPath()}/templates/actors/dialogs/lang-create.html`,
+      templateData
+    );
+    // Create Dialog window
     return new Promise((resolve) => {
       new Dialog({
         title: "",
@@ -131,7 +128,7 @@ export class OseActorSheetCharacter extends OseActorSheet {
 
   _pushLang(table) {
     const data = this.actor.system;
-    let update = data[table]; //V10 compatibility
+    let update = data[table]; // V10 compatibility
     this._chooseLang().then((dialogInput) => {
       const name = CONFIG.OSE.languages[dialogInput.choice];
       if (update.value) {
@@ -140,18 +137,18 @@ export class OseActorSheetCharacter extends OseActorSheet {
         update = { value: [name] };
       }
 
-      let newData = {};
+      const newData = {};
       newData[table] = update;
-      return this.actor.update({ data: newData });
+      return this.actor.update({ system: newData });
     });
   }
 
   _popLang(table, lang) {
     const data = this.actor.system;
-    let update = data[table].value.filter((el) => el != lang);
-    let newData = {};
+    const update = data[table].value.filter((el) => el != lang);
+    const newData = {};
     newData[table] = { value: update };
-    return this.actor.update({ data: newData });
+    return this.actor.update({ system: newData });
   }
 
   /* -------------------------------------------- */
@@ -173,39 +170,38 @@ export class OseActorSheetCharacter extends OseActorSheet {
   }
 
   async _onShowItemTooltip(event) {
-    let templateData = {},
-      dlg = await renderTemplate(
-        `${OSE.systemPath()}/templates/actors/partials/character-item-tooltip.html`,
-        templateData
-      );
+    const templateData = {};
+    const dlg = await renderTemplate(
+      `${OSE.systemPath()}/templates/actors/partials/character-item-tooltip.html`,
+      templateData
+    );
     document.querySelector(".game").append(dlg);
   }
 
   /**
    * Activate event listeners using the prepared sheet HTML
-   * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
+   *
+   * @param html - {HTML}   The prepared HTML object ready to be rendered into the DOM
    */
   activateListeners(html) {
     super.activateListeners(html);
 
     html.find(".ability-score .attribute-name a").click((ev) => {
-      let actorObject = this.actor;
-      let element = ev.currentTarget;
-      let score = element.parentElement.parentElement.dataset.score;
-      let stat = element.parentElement.parentElement.dataset.stat;
-      if (!score) {
-        if (stat == "lr") {
-          actorObject.rollLoyalty(score, { event: ev });
-        }
-      } else {
+      const actorObject = this.actor;
+      const element = ev.currentTarget;
+      const { score } = element.parentElement.parentElement.dataset;
+      const { stat } = element.parentElement.parentElement.dataset;
+      if (score) {
         actorObject.rollCheck(score, { event: ev });
+      } else if (stat === "lr") {
+        actorObject.rollLoyalty(score, { event: ev });
       }
     });
 
     html.find(".exploration .attribute-name a").click((ev) => {
-      let actorObject = this.actor;
-      let element = ev.currentTarget;
-      let expl = element.parentElement.parentElement.dataset.exploration;
+      const actorObject = this.actor;
+      const element = ev.currentTarget;
+      const expl = element.parentElement.parentElement.dataset.exploration;
       actorObject.rollExploration(expl, { event: ev });
     });
 
@@ -235,12 +231,12 @@ export class OseActorSheetCharacter extends OseActorSheet {
       this._popLang(table, $(ev.currentTarget).closest(".item").data("lang"));
     });
 
-    //Toggle Equipment
+    // Toggle Equipment
     html.find(".item-toggle").click(async (ev) => {
       const li = $(ev.currentTarget).parents(".item");
       const item = this.actor.items.get(li.data("itemId"));
       await item.update({
-        data: {
+        system: {
           equipped: !item.system.equipped,
         },
       });

@@ -148,7 +148,7 @@ export default class OseActorSheetCharacter extends OseActorSheet {
     const update = data[table].value.filter((el) => el != lang);
     const newData = {};
     newData[table] = { value: update };
-    return this.actor.update({ data: newData });
+    return this.actor.update({ system: newData });
   }
 
   /* -------------------------------------------- */

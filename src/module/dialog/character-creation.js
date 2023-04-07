@@ -186,10 +186,10 @@ export default class OseCharacterCreator extends FormApplication {
     event,
     { updateData = null, preventClose = false, preventRender = false } = {}
   ) {
-    const extendedData = { ...updateData, data: { scores: this.scores } };
+    const extendedData = { ...updateData, system: { scores: this.scores } };
     // eslint-disable-next-line no-underscore-dangle
     super._onSubmit(event, {
-      extendedData,
+      updateData: extendedData,
       preventClose,
       preventRender,
     });
@@ -198,7 +198,7 @@ export default class OseCharacterCreator extends FormApplication {
       name: game.i18n.localize("OSE.items.gp.short"),
       type: "item",
       img: `${OSE.assetsPath}/gold.png`,
-      data: {
+      system: {
         treasure: true,
         cost: 1,
         weight: 1,

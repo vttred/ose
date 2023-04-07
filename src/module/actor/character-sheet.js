@@ -139,7 +139,7 @@ export default class OseActorSheetCharacter extends OseActorSheet {
 
       const newData = {};
       newData[table] = update;
-      return this.actor.update({ data: newData });
+      return this.actor.update({ system: newData });
     });
   }
 
@@ -236,7 +236,7 @@ export default class OseActorSheetCharacter extends OseActorSheet {
       const li = $(ev.currentTarget).parents(".item");
       const item = this.actor.items.get(li.data("itemId"));
       await item.update({
-        data: {
+        system: {
           equipped: !item.system.equipped,
         },
       });

@@ -312,7 +312,7 @@ export default class OseItem extends Item {
     const newData = {
       tags: update,
     };
-    return this.update({ data: newData });
+    return this.update({ system: newData });
   }
 
   roll(options = {}) {

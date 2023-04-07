@@ -1,3 +1,4 @@
+import { EncumbranceOption } from "./config";
 import { ApplyDamageOption } from "./config";
 
 export const registerSettings = function () {
@@ -54,9 +55,9 @@ export const registerSettings = function () {
     type: String,
     config: true,
     choices: Object.values(CONFIG.OSE.encumbranceOptions)
-      .reduce((obj: {[n:string]: string}, enc) => {
+      .reduce((obj, enc) => {
         return {...obj, [enc.type]: enc.localizedLabel}
-      }, {}),
+      }, {}) as SettingConfig<EncumbranceOption>["choices"],
   });
 
   game.settings.register(game.system.id, "significantTreasure", {

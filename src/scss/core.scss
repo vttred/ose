@@ -25,7 +25,8 @@
     border: none;
     border-radius: 0;
     border-bottom: 1px solid $colorTan;
-    &:hover:not(:disabled), &:focus:not(:disabled) {
+    &:hover:not(:disabled),
+    &:focus:not(:disabled) {
       box-shadow: none;
       background: $inputBackground;
     }

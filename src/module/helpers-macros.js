@@ -1,3 +1,6 @@
+/**
+ * @file Functions that make working with hotbar macros easier
+ */
 /* -------------------------------------------- */
 /*  Hotbar Macros                               */
 /* -------------------------------------------- */
@@ -5,37 +8,40 @@
 /**
  * Create a Macro from an Item drop.
  * Get an existing item macro if one exists, otherwise create a new one.
- * @param {Object} data     The dropped data
- * @param {number} slot     The hotbar slot to use
- * @returns {Promise}
+ *
+ * @param {object} data - The dropped data
+ * @param {number} slot - The hotbar slot to use
+ * @returns {Promise} - Promise of assigned macro or a notification
  */
 export async function createOseMacro(data, slot) {
   if (data.type === "Macro") {
     return game.user.assignHotbarMacro(await fromUuid(data.uuid), slot);
   }
-  if (data.type !== "Item") return;
-  if ( data.uuid.indexOf("Item.") <= 0 )
+  if (data.type !== "Item")
+    return ui.notifications.warn(
+      game.i18n.localize("OSE.warn.macrosNotAnItem")
+    );
+  if (data.uuid.indexOf("Item.") <= 0)
     return ui.notifications.warn(
       game.i18n.localize("OSE.warn.macrosOnlyForOwnedItems")
     );
-  const item = data.item;
+  const { item } = data;
 
   // Create the macro command
   const command = `game.ose.rollItemMacro("${item.name}");`;
   let macro = game.macros.contents.find(
     (m) => m.name === item.name && m.command === command
   );
-  if (!macro || macro.ownership[game.userId] === undefined ) {
+  if (!macro || macro.ownership[game.userId] === undefined) {
     macro = await Macro.create({
       name: item.name,
       type: "script",
       img: item.img,
-      command: command,
+      command,
       flags: { "ose.itemMacro": true },
     });
   }
-  game.user.assignHotbarMacro(macro, slot);
-  return false;
+  return game.user.assignHotbarMacro(macro, slot);
 }
 
 /* -------------------------------------------- */
@@ -43,14 +49,17 @@ export async function createOseMacro(data, slot) {
 /**
  * Create a Macro from an Item drop.
  * Get an existing item macro if one exists, otherwise create a new one.
- * @param {string} itemName
- * @return {Promise}
+ *
+ * @param {string} itemName - Name of item to roll
+ * @returns {Promise} - Promise of item roll or notification
  */
 export function rollItemMacro(itemName) {
   const speaker = ChatMessage.getSpeaker();
   // Active actor, or inactive actor + token on scene allowed
-  if (!(speaker.actor && speaker.scene)) 
-    return ui.notifications.warn(game.i18n.localize("OSE.warn.macrosNoTokenOwnedInScene"));
+  if (!(speaker.actor && speaker.scene))
+    return ui.notifications.warn(
+      game.i18n.localize("OSE.warn.macrosNoTokenOwnedInScene")
+    );
 
   let actor;
   if (speaker.token) actor = game.actors.tokens[speaker.token];
@@ -62,14 +71,14 @@ export function rollItemMacro(itemName) {
     ui.notifications.warn(
       game.i18n.format("OSE.warn.moreThanOneItemWithName", {
         actorName: actor.name,
-        itemName: itemName,
+        itemName,
       })
     );
   } else if (items.length === 0) {
     return ui.notifications.error(
       game.i18n.format("OSE.error.noItemWithName", {
         actorName: actor.name,
-        itemName: itemName,
+        itemName,
       })
     );
   }

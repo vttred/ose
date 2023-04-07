@@ -1,3 +1,6 @@
+/**
+ * @file System-wide configuration settings. Should be reachable elsewhere in the system at `CONFIG.OSE`
+ */
 import OseDataModelCharacterEncumbranceBasic from "./actor/data-model-classes/data-model-character-encumbrance-basic";
 import OseDataModelCharacterEncumbranceComplete from "./actor/data-model-classes/data-model-character-encumbrance-complete";
 import OseDataModelCharacterEncumbranceDetailed from "./actor/data-model-classes/data-model-character-encumbrance-detailed";
@@ -22,14 +25,14 @@ export const OSE = {
   },  
   /** Root path for OSE system */
   get systemRoot(): string {
-    return `/systems/${game.system.id}`
+    return `/systems/${game.system.id}`;
   },
   /** Path for system assets */
   get assetsPath(): string {
-    return `${this.systemRoot}/assets`
+    return `${this.systemRoot}/assets`;
   },
   get encumbrance() {
-    const variant = game.settings.get(game.system.id, 'encumbranceOption')
+    const variant = game.settings.get(game.system.id, "encumbranceOption");
     return this.encumbranceOptions[variant] || this.encumbranceOptions.disabled;
   },
   encumbranceOptions: {
@@ -142,61 +145,97 @@ export const OSE = {
     charge: "OSE.items.Charge",
   },
   auto_tags: {
-		get melee() {
-			 return ({ label: CONFIG.OSE.tags.melee, image: `${CONFIG.OSE.assetsPath}/melee.png`,icon: 'fa-sword',  })
-		},
-		get missile() {
-			 return ({ label: CONFIG.OSE.tags.missile, image: `${CONFIG.OSE.assetsPath}/missile.png`,icon: 'fa-bow-arrow' })
-		},
-		get slow() {
-			 return ({ label: CONFIG.OSE.tags.slow, image: `${CONFIG.OSE.assetsPath}/slow.png`,icon: 'fa-weight-hanging' })
-		},
-		get twohanded() {
-			 return ({ label: CONFIG.OSE.tags.twohanded, image: `${CONFIG.OSE.assetsPath}/twohanded.png`,icon: 'fa-hands-holding' })
-		},
-		get blunt() {
-			 return ({ label: CONFIG.OSE.tags.blunt, image: `${CONFIG.OSE.assetsPath}/blunt.png`,icon: 'fa-hammer-crash' })
-		},
-		get brace() {
-			 return ({ label: CONFIG.OSE.tags.brace, image: `${CONFIG.OSE.assetsPath}/brace.png`,icon: 'fa-block-brick' })
-		},
-		get splash() {
-			 return ({ label: CONFIG.OSE.tags.splash, image: `${CONFIG.OSE.assetsPath}/splash.png`,icon: 'fa-burst' })
-		},
-		get reload() {
-			 return ({ label: CONFIG.OSE.tags.reload, image: `${CONFIG.OSE.assetsPath}/reload.png`,icon: 'fa-gear' })
-		},
-		get charge() {
-			 return ({ label: CONFIG.OSE.tags.charge, image: `${CONFIG.OSE.assetsPath}/charge.png`,icon: 'fa-person-running' })
-		}
+    get melee() {
+      return {
+        label: CONFIG.OSE.tags.melee,
+        image: `${CONFIG.OSE.assetsPath}/melee.png`,
+        icon: "fa-sword",
+      };
+    },
+    get missile() {
+      return {
+        label: CONFIG.OSE.tags.missile,
+        image: `${CONFIG.OSE.assetsPath}/missile.png`,
+        icon: "fa-bow-arrow",
+      };
+    },
+    get slow() {
+      return {
+        label: CONFIG.OSE.tags.slow,
+        image: `${CONFIG.OSE.assetsPath}/slow.png`,
+        icon: "fa-weight-hanging",
+      };
+    },
+    get twohanded() {
+      return {
+        label: CONFIG.OSE.tags.twohanded,
+        image: `${CONFIG.OSE.assetsPath}/twohanded.png`,
+        icon: "fa-hands-holding",
+      };
+    },
+    get blunt() {
+      return {
+        label: CONFIG.OSE.tags.blunt,
+        image: `${CONFIG.OSE.assetsPath}/blunt.png`,
+        icon: "fa-hammer-crash",
+      };
+    },
+    get brace() {
+      return {
+        label: CONFIG.OSE.tags.brace,
+        image: `${CONFIG.OSE.assetsPath}/brace.png`,
+        icon: "fa-block-brick",
+      };
+    },
+    get splash() {
+      return {
+        label: CONFIG.OSE.tags.splash,
+        image: `${CONFIG.OSE.assetsPath}/splash.png`,
+        icon: "fa-burst",
+      };
+    },
+    get reload() {
+      return {
+        label: CONFIG.OSE.tags.reload,
+        image: `${CONFIG.OSE.assetsPath}/reload.png`,
+        icon: "fa-gear",
+      };
+    },
+    get charge() {
+      return {
+        label: CONFIG.OSE.tags.charge,
+        image: `${CONFIG.OSE.assetsPath}/charge.png`,
+        icon: "fa-person-running",
+      };
+    },
   },
   tag_images: {
     get melee() {
-      return `${OSE.assetsPath}/melee.png`;
+      return `${CONFIG.OSE.assetsPath}/melee.png`;
     },
     get missile() {
       return `fa-bow-arrow`;
     },
     get slow() {
-      return `${OSE.assetsPath}/slow.png`;
+      return `${CONFIG.OSE.assetsPath}/slow.png`;
     },
     get twohanded() {
-      return `${OSE.assetsPath}/twohanded.png`;
+      return `${CONFIG.OSE.assetsPath}/twohanded.png`;
     },
     get blunt() {
-      return `${OSE.assetsPath}/blunt.png`;
+      return `${CONFIG.OSE.assetsPath}/blunt.png`;
     },
     get brace() {
-      return `${OSE.assetsPath}/brace.png`;
+      return `${CONFIG.OSE.assetsPath}/brace.png`;
     },
     get splash() {
-      return `${OSE.assetsPath}/splash.png`;
+      return `${CONFIG.OSE.assetsPath}/splash.png`;
     },
     get reload() {
-      return `${OSE.assetsPath}/reload.png`;
+      return `${CONFIG.OSE.assetsPath}/reload.png`;
     },
     get charge() {
-      return `${OSE.assetsPath}/charge.png`;
+      return `${CONFIG.OSE.assetsPath}/charge.png`;
     },
   },
   monster_saves: {
@@ -282,4 +321,6 @@ export const OSE = {
     20: 6,
     22: 5,
   },
-} as const;
+};
+
+export default OSE;

@@ -114,7 +114,7 @@ declare global {
       "ose.rerollInitiative": "keep" | "reset" | "reroll";
       "ose.ascendingAC": boolean;
       "ose.morale": boolean;
-      "ose.encumbranceOption": "disabled" | "basic" | "detailed" | "complete";
+      "ose.encumbranceOption": EncumbranceOption;
       "ose.significantTreasure": number;
       "ose.languages": string;
       "ose.applyDamageOption": ApplyDamageOption;

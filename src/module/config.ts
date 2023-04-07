@@ -323,4 +323,4 @@ export const OSE = {
   },
 };
 
-export default config;
+export default OSE;

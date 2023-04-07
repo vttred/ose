@@ -3,11 +3,7 @@
  */
 
 import { ApplyDamageOption } from "./config";
-
-type EncumbranceType = {
-  type: string;
-  localizedLabel: string;
-};
+import { EncumbranceOption } from "./config";
 
 /**
  * Perform setting registration.
@@ -65,11 +61,10 @@ const registerSettings = () => {
     scope: "world",
     type: String,
     config: true,
-    choices: Object.fromEntries(
-      Object.values(CONFIG.OSE.encumbranceOptions).map(
-        (enc: EncumbranceType) => [enc.type, enc.localizedLabel]
-      )
-    ),
+    choices: Object.values(CONFIG.OSE.encumbranceOptions)
+    .reduce((obj, enc) => {
+      return {...obj, [enc.type]: enc.localizedLabel}
+    }, {}) as SettingConfig<EncumbranceOption>["choices"],
   });
 
   game.settings.register(game.system.id, "significantTreasure", {
@@ -96,11 +91,10 @@ const registerSettings = () => {
     scope: "world",
     type: String,
     config: true,
-    choices: {
-      selected: "OSE.Setting.damageSelected",
-      targeted: "OSE.Setting.damageTarget",
-      originalTarget: "OSE.Setting.damageOriginalTarget",
-    },
+    choices: Object.values(CONFIG.OSE.encumbranceOptions)
+    .reduce((obj, enc) => {
+      return {...obj, [enc.type]: enc.localizedLabel}
+    }, {}) as SettingConfig<ApplyDamageOption>["choices"],
   });
   game.settings.register(game.system.id, "invertedCtrlBehavior", {
     name: game.i18n.localize("OSE.Setting.InvertedCtrlBehavior"),

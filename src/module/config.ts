@@ -6,72 +6,28 @@ import OseDataModelCharacterEncumbranceComplete from "./actor/data-model-classes
 import OseDataModelCharacterEncumbranceDetailed from "./actor/data-model-classes/data-model-character-encumbrance-detailed";
 import OseDataModelCharacterEncumbranceDisabled from "./actor/data-model-classes/data-model-character-encumbrance-disabled";
 
-export type OseConfig = {
+export type OseConfig = typeof OSE;
+
+export type Attribute = keyof OseConfig["scores"];
+export type ExplorationSkill = keyof OseConfig["exploration_skills"];
+export type RollType = keyof OseConfig["roll_type"];
+export type Save = keyof OseConfig["saves_long"];
+export type Armor = keyof OseConfig["armor"];
+export type Color = keyof OseConfig["colors"];
+export type InventoryItemTag = keyof OseConfig["tags"];
+export type EncumbranceOption = keyof OseConfig["encumbranceOptions"];
+export type ApplyDamageOption = keyof OseConfig["apply_damage_options"];
+
+export const OSE = {  
   /** Path for system dist */
-  systemPath: () => string;
-  /** Root path for OSE system */
-  systemRoot: string;
-  /** Path for system assets */
-  assetsPath: string;
-  /** @todo How do I set this type? */
-  encumbrance: unknown;
-  /** @todo How do I set this type? */
-  encumbranceOptions: {
-    [name: string]: unknown;
-  };
-  scores: Record<Attribute, string>;
-  scores_short: Record<Attribute, string>;
-  exploration_skills: Record<ExplorationSkill, string>;
-  exploration_skills_short: Record<ExplorationSkill, string>;
-  roll_type: Record<RollType, string>;
-  saves_short: Record<Save, string>;
-  saves_long: Record<Save, string>;
-  armor: Record<Armor, string>;
-  apply_damage_options: Record<ApplyDamageOption, ApplyDamageOption>;
-  colors: Record<Color, string>;
-  languages: string[];
-  auto_tags: { [n: string]: { label: string; icon: string } };
-  tags: Record<InventoryItemTag, string>;
-  tag_images: Record<InventoryItemTag, string>;
-  monster_saves: Record<
-    number,
-    { d: number; w: number; p: number; b: number; s: number }
-  >;
-  monster_thac0: Record<number, number>;
-};
-
-export type Attribute = "str" | "int" | "dex" | "wis" | "con" | "cha";
-export type ExplorationSkill = "ld" | "od" | "sd" | "fs";
-export type RollType = "result" | "above" | "below";
-export type Save = "death" | "wand" | "paralysis" | "breath" | "spell";
-export type Armor = "unarmored" | "light" | "heavy" | "shield";
-export type ApplyDamageOption = "selected" | "targeted" | "originalTarget";
-export type Color =
-  | "green"
-  | "red"
-  | "yellow"
-  | "purple"
-  | "blue"
-  | "orange"
-  | "white";
-export type InventoryItemTag =
-  | "melee"
-  | "missile"
-  | "slow"
-  | "twohanded"
-  | "blunt"
-  | "brace"
-  | "splash"
-  | "reload"
-  | "charge";
-
-const config: OseConfig = {
   systemPath(): string {
     return `${this.systemRoot}/dist`;
-  },
+  },  
+  /** Root path for OSE system */
   get systemRoot(): string {
     return `/systems/${game.system.id}`;
   },
+  /** Path for system assets */
   get assetsPath(): string {
     return `${this.systemRoot}/assets`;
   },

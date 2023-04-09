@@ -298,7 +298,7 @@ export default class OseActor extends Actor {
 
     if (actorType === "character") {
       const hd = `${actorData.details.level}${actorData.hp.hd.slice(
-        actorData.hp.hd.indexOf("d")
+        actorData.hp.hd.toLowerCase().indexOf("d")
       )}`;
       rollParts.push(hd);
       rollParts.push(

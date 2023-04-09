@@ -293,9 +293,19 @@ export default class OseActor extends Actor {
     const actorData = this.system;
 
     const label = game.i18n.localize(`OSE.roll.hd`);
-    const rollParts = [actorData.hp.hd];
+
+    const rollParts = [];
+
     if (actorType === "character") {
-      rollParts.push(actorData.scores.con.mod * actorData.details.level);
+      const hd = `${actorData.details.level}${actorData.hp.hd.slice(
+        actorData.hp.hd.toLowerCase().indexOf("d")
+      )}`;
+      rollParts.push(hd);
+      rollParts.push(
+        `${actorData.scores.con.mod} * ${actorData.details.level}`
+      );
+    } else {
+      rollParts.push(actorData.hp.hd);
     }
 
     const data = {
@@ -397,14 +407,14 @@ export default class OseActor extends Actor {
     };
 
     const dmgParts = [];
-    if (attData.roll.dmg) {
+    if (attData.roll?.dmg) {
       dmgParts.push(attData.roll.dmg);
     } else {
       dmgParts.push("1d6");
     }
 
     // Add Str to damage
-    if (attData.roll.type === "melee") {
+    if (attData.roll?.type === "melee") {
       dmgParts.push(data.scores.str.mod);
     }
 
@@ -499,8 +509,10 @@ export default class OseActor extends Actor {
   }
 
   /**
-   * @param {number | string} amount
-   * @param {1 | -1} multiplier
+   * Applies damage to an actor
+   *
+   * @param {number | string} amount - Amount of damage, negative for healing
+   * @param {1 | -1} multiplier - Multiplier to damage, negative for healing
    * @returns
    */
   async applyDamage(amount = 0, multiplier = 1) {

@@ -472,34 +472,69 @@ export default ({
     ];
     const levelSpread = Array.from({ length: 9 }, (_el, idx) => idx + 1);
 
-    conScoreSpread.forEach((con, idx) => {
-      const conMod = conBonusSpread[idx];
-      const expectedTerms = conMod >= 0 ? 5 : 6;
-      const modSign = conMod < 0 ? "-" : "+";
-      const modUnsigned = modSign === "-" ? conMod * -1 : conMod;
-      levelSpread.forEach((level) => {
-        it(`constructs the roll terms correctly with level ${level} and con ${con}`, async () => {
-          const actor = (await createMockActor("character")) as OseActor;
-          await actor?.update({
-            system: { details: { level }, scores: { con: { value: con } } },
-          });
-          const roll = await actor.rollHitDice();
+    describe("monster", () => {
+      it("constructs the roll terms correctly for monster actor", async () => {
+        const actor = (await createMockActor("monster")) as OseActor;
+        await actor?.update({ "system.hp.hd": "5d8" });
 
-          expect(roll.terms.length).equal(expectedTerms);
-          expect(roll.terms[0].expression).equal(actor?.system.hp.hd);
-          if (conMod < 0) {
-            expect(roll.terms[expectedTerms - 5].operator).equal("+");
-          }
-          expect(roll.terms[expectedTerms - 4].operator).equal(modSign);
-          expect(roll.terms[expectedTerms - 3].expression).equal(
-            modUnsigned.toString()
-          );
-          expect(roll.terms[expectedTerms - 2].operator).equal("+");
-          expect(roll.terms[expectedTerms - 1].expression).equal(
-            level.toString()
-          );
-          expect(actor?.system.scores.con.mod).equal(conMod);
-          await actor?.delete();
+        const roll = await actor.rollHitDice();
+
+        expect(roll.terms.length).equal(1);
+        expect(roll.terms[0].faces).equal(8);
+        expect(roll.terms[0].results.length).equal(5);
+
+        await actor?.delete();
+      });
+    });
+
+    describe("character", () => {
+      conScoreSpread.forEach((con, idx) => {
+        const conMod = conBonusSpread[idx];
+        const expectedTerms = conMod >= 0 ? 5 : 6;
+        const modSign = conMod < 0 ? "-" : "+";
+        const modUnsigned = modSign === "-" ? conMod * -1 : conMod;
+        levelSpread.forEach((level) => {
+          it(`constructs the roll terms correctly with level ${level} and con ${con} for character actor`, async () => {
+            const actor = (await createMockActor("character")) as OseActor;
+            await actor?.update({
+              system: { details: { level }, scores: { con: { value: con } } },
+            });
+            const roll = await actor.rollHitDice();
+
+            // Expect the roll constructed to look like for a character
+            //   {level}{hd.type} + {con.mod}*{level}
+            // Expect the roll constructed to look like for a monster
+            //   {hd}
+
+            // Check the die type & amount of HD
+            expect(roll.terms.length).equal(expectedTerms);
+            expect(roll.terms[0].faces).equal(
+              parseInt(
+                actor?.system.hp.hd.slice(actor.system.hp.hd.indexOf("d") + 1),
+                10
+              )
+            );
+            expect(roll.terms[0].results.length).equal(
+              actor?.system.details.level
+            );
+
+            // Check the con mod
+            if (conMod < 0) {
+              expect(roll.terms[expectedTerms - 5].operator).equal("+");
+            }
+            expect(roll.terms[expectedTerms - 4].operator).equal(modSign);
+            expect(roll.terms[expectedTerms - 3].expression).equal(
+              modUnsigned.toString()
+            );
+
+            // Check the level multiplier with level
+            expect(roll.terms[expectedTerms - 2].operator).equal("*");
+            expect(roll.terms[expectedTerms - 1].number).equal(level);
+
+            // Verify the con mod on the actor
+            expect(actor?.system.scores.con.mod).equal(conMod);
+            await actor?.delete();
+          });
         });
       });
     });

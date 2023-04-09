@@ -95,9 +95,9 @@ export const OSE = {
     shield: "OSE.armor.shield",
   },
   apply_damage_options: {
-    selected : "selected",
-    targeted : "targeted",
-    originalTarget : "originalTarget",
+    selected : "OSE.Setting.damageSelected",
+    targeted : "OSE.Setting.damageTarget",
+    originalTarget : "OSE.Setting.damageOriginalTarget",
   },
   colors: {
     green: "OSE.colors.green",

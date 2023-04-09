@@ -91,10 +91,7 @@ const registerSettings = () => {
     scope: "world",
     type: String,
     config: true,
-    choices: Object.values(CONFIG.OSE.encumbranceOptions)
-    .reduce((obj, enc) => {
-      return {...obj, [enc.type]: enc.localizedLabel}
-    }, {}) as SettingConfig<ApplyDamageOption>["choices"],
+    choices: CONFIG.OSE.apply_damage_options,
   });
   game.settings.register(game.system.id, "invertedCtrlBehavior", {
     name: game.i18n.localize("OSE.Setting.InvertedCtrlBehavior"),

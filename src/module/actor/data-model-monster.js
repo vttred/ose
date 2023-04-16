@@ -4,6 +4,7 @@
 // Encumbrance schemes
 import OseDataModelCharacterEncumbranceDisabled from "./data-model-classes/data-model-character-encumbrance-disabled";
 import OseDataModelCharacterSpells from "./data-model-classes/data-model-character-spells";
+import OseDataModelCharacterMove from "./data-model-classes/data-model-character-move";
 
 const getItemsOfActorOfType = (actor, filterType, filterFn = null) =>
   actor.items
@@ -14,6 +15,11 @@ export default class OseDataModelMonster extends foundry.abstract.DataModel {
   prepareDerivedData() {
     this.encumbrance = new OseDataModelCharacterEncumbranceDisabled();
     this.spells = new OseDataModelCharacterSpells(this.spells, this.#spellList);
+    this.movement = new OseDataModelCharacterMove(
+      this.encumbrance,
+      this.config.movementAuto = false,
+      this.movement.base
+      );
   }
 
   // @todo define schema options; stuff like min/max values and so on.

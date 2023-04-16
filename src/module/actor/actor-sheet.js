@@ -112,7 +112,9 @@ export default class OseActorSheet extends ActorSheet {
     if (item.type === "container" && item.system.itemIds) {
       const containedItems = item.system.itemIds;
       const updateData = containedItems.reduce((acc, val) => {
-        acc.push({ _id: val, "system.containerId": "" });
+        // Only create update data for items that still exist on the actor
+        if(this.actor.items.get(val))
+          acc.push({ _id: val, "system.containerId": "" });
         return acc;
       }, []);
 

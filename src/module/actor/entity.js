@@ -465,25 +465,14 @@ export default class OseActor extends Actor {
     }
     // for each type of attack, add the Tweaks bonus
     // and str/dex modifier only if it's non-zero
-    if (options.type === "missile") {
-      rollParts.push(
-        ...[data.scores.dex.mod, data.thac0.mod.missile].reduce((a, b) => {
-          // if an element of the array is falsy, don't push it to rollParts array
-          if (!b) return a;
-          // otherwise, push it to the rollParts array
-          return [...a, b];
-        }, [])
-      );
-    } else if (options.type === "melee") {
-      rollParts.push(
-        ...[data.scores.str.mod, data.thac0.mod.melee].reduce((a, b) => {
-          // if an element of the array is falsy, don't push it to rollParts array
-          if (!b) return a;
-          // otherwise, push it to the rollParts array
-          return [...a, b];
-        }, [])
-      );
-    }
+    let attackMods = [];
+
+    if (options.type === "missile")
+      attackMods = [data.scores.dex.mod, data.thac0.mod.missile];
+    else if (options.type === "melee")
+      attackMods = [data.scores.str.mod, data.thac0.mod.melee];
+
+    rollParts.push(...attackMods.reduce((a, b) => (b ? [...a, b] : a), []));
 
     const rollData = {
       actor: this,

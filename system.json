@@ -2,14 +2,14 @@
   "name": "ose-dev",
   "id": "ose-dev",
   "title": "Old-School Essentials Development Build",
-  "description": "Play B/X OSR modules with Old-School Essentials on Foundry VTT",
+  "description": "Simple, robust rules compatible with decades of Basic/Expert material",
   "version": "AUTOMATICALLY REPLACED BY GITHUB WORKFLOW ACTION",
   "minimumCoreVersion": "10",
-  "compatibleCoreVersion": "10",
+  "compatibleCoreVersion": "11",
   "compatibility": {
     "minimum": "10",
     "verified": "10",
-    "maximum": 10
+    "maximum": 11
   },
   "author": "Maintained by VTT Red with 16 contributors",
   "authors": [
@@ -67,7 +67,7 @@
       "path": "dist/lang/ca.json"
     },
     {
-      "lang": "zh-CN",
+      "lang": "cn",
       "name": "简体中文 (中国)",
       "path": "dist/lang/zh-CN.json"
     },

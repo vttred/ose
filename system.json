@@ -2,7 +2,7 @@
   "name": "ose-dev",
   "id": "ose-dev",
   "title": "Old-School Essentials Development Build",
-  "description": "Simple, robust rules compatible with decades of B/X and OSR content",
+  "description": "Simple, robust rules compatible with decades of Basic/Expert material",
   "version": "AUTOMATICALLY REPLACED BY GITHUB WORKFLOW ACTION",
   "minimumCoreVersion": "10",
   "compatibleCoreVersion": "11",

@@ -1,7 +1,15 @@
-import OseItem from "../item/entity";
-
 import skipRollDialogCheck from "../helpers-behaviour";
 import OseDice from "../helpers-dice";
+import OseItem from "../item/entity";
+
+/**
+ * Used in the rollAttack function to remove zeroes from rollParts arrays
+ *
+ * @param {[]} arr - an array
+ * @returns {[]} - an array
+ */
+const removeFalsyElements = (arr) =>
+  arr.reduce((a, b) => (b ? [...a, b] : a), []);
 
 export default class OseActor extends Actor {
   prepareDerivedData() {
@@ -434,6 +442,20 @@ export default class OseActor extends Actor {
     }
   }
 
+  /**
+   * Constructs the attack roll formula for an attack
+   *
+   * @param {object} attData - the attack data
+   * @param {OseItem} attData.item - the item being used in the attack
+   * @param {OseActor} attData.actor - this actor (at least it should be!)
+   * @param {object} attData.roll - the attack roll data
+   * @param {string} attData.roll.save - the save roll that may be used against the attack
+   * @param {OseActor} attData.roll.target - the target of the attack
+   * @param {object} options - the type of attack and whether to skip the dialog
+   * @param {string} options.type - the type of attack, i.e. melee or missile
+   * @param {boolean} options.skipDialog - whether to skip the dialog
+   * @returns {OseDice.Roll} - the attack roll with completed rollParts and other data
+   */
   rollAttack(attData, options = {}) {
     const data = this.system;
 
@@ -445,17 +467,12 @@ export default class OseActor extends Actor {
           name: this.name,
         });
 
-    const dmgParts = [
+    const dmgParts = removeFalsyElements([
       // Weapon damage roll value
       attData.item?.system?.damage ?? "1d6",
       // Weapon damage bonus
       attData.item?.system?.bonus,
-    ].reduce((acc, curr) => {
-      // if an element of the array is falsy, don't push it to dmgParts array
-      if (!curr) return acc;
-      // otherwise, push it to the dmgParts array
-      return [...acc, curr];
-    }, []);
+    ]);
 
     const rollParts = ["1d20"];
     const ascending = game.settings.get(game.system.id, "ascendingAC");
@@ -472,7 +489,7 @@ export default class OseActor extends Actor {
     else if (options.type === "melee")
       attackMods = [data.scores.str.mod, data.thac0.mod.melee];
 
-    rollParts.push(...attackMods.reduce((a, b) => (b ? [...a, b] : a), []));
+    rollParts.push(...removeFalsyElements(attackMods));
 
     const rollData = {
       actor: this,

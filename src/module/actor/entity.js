@@ -404,7 +404,7 @@ export default class OseActor extends Actor {
     }
 
     // Add Str to damage
-    if (attData.roll.type === "melee") {
+    if (attData.roll.type === "melee" && data.scores.str.mod) {
       dmgParts.push(data.scores.str.mod);
     }
 
@@ -437,49 +437,61 @@ export default class OseActor extends Actor {
   rollAttack(attData, options = {}) {
     const data = this.system;
 
-    const rollParts = ["1d20"];
-    const dmgParts = [];
-    let label = game.i18n.format("OSE.roll.attacks", {
-      name: this.name,
-    });
-    if (attData.item) {
-      label = game.i18n.format("OSE.roll.attacksWith", {
-        name: attData.item.name,
-      });
-      dmgParts.push(attData.item.system.damage);
-    } else {
-      dmgParts.push("1d6");
-    }
+    const label = attData.item
+      ? game.i18n.format("OSE.roll.attacksWith", {
+          name: attData.item.name,
+        })
+      : game.i18n.format("OSE.roll.attacks", {
+          name: this.name,
+        });
 
+    const dmgParts = [
+      // Weapon damage roll value
+      attData.item?.system?.damage ?? "1d6",
+      // Weapon damage bonus
+      attData.item?.system?.bonus,
+    ].reduce((acc, curr) => {
+      // if an element of the array is falsy, don't push it to dmgParts array
+      if (!curr) return acc;
+      // otherwise, push it to the dmgParts array
+      return [...acc, curr];
+    }, []);
+
+    const rollParts = ["1d20"];
     const ascending = game.settings.get(game.system.id, "ascendingAC");
-    if (ascending) {
-      rollParts.push(data.thac0.bba.toString());
+
+    if (ascending && data.thac0.bba) {
+      rollParts.push(data.thac0.bba);
     }
+    // for each type of attack, add the Tweaks bonus
+    // and str/dex modifier only if it's non-zero
     if (options.type === "missile") {
       rollParts.push(
-        data.scores.dex.mod.toString(),
-        data.thac0.mod.missile.toString()
+        ...[data.scores.dex.mod, data.thac0.mod.missile].reduce((a, b) => {
+          // if an element of the array is falsy, don't push it to rollParts array
+          if (!b) return a;
+          // otherwise, push it to the rollParts array
+          return [...a, b];
+        }, [])
       );
     } else if (options.type === "melee") {
       rollParts.push(
-        data.scores.str.mod.toString(),
-        data.thac0.mod.melee.toString()
+        ...[data.scores.str.mod, data.thac0.mod.melee].reduce((a, b) => {
+          // if an element of the array is falsy, don't push it to rollParts array
+          if (!b) return a;
+          // otherwise, push it to the rollParts array
+          return [...a, b];
+        }, [])
       );
     }
-    if (attData.item && attData.item.system.bonus) {
-      rollParts.push(attData.item.system.bonus);
-    }
-    const thac0 = data.thac0.value;
-    if (options.type === "melee") {
-      dmgParts.push(data.scores.str.mod);
-    }
+
     const rollData = {
       actor: this,
       item: attData.item,
       itemId: attData.item?._id,
       roll: {
         type: options.type,
-        thac0,
+        thac0: data.thac0.value,
         dmg: dmgParts,
         save: attData.roll.save,
         target: attData.roll.target,

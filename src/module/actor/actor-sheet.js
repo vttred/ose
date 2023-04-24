@@ -404,7 +404,7 @@ export default class OseActorSheet extends ActorSheet {
   _createItem(event) {
     event.preventDefault();
     const header = event.currentTarget;
-    const { treasure, type } = header.dataset;
+    const { treasure, type, lvl } = header.dataset;
     const createItem = (type, name) => ({
       name: name || `New ${type.capitalize()}`,
       type,
@@ -420,6 +420,8 @@ export default class OseActorSheet extends ActorSheet {
     } else {
       const itemData = createItem(type);
       if (treasure) itemData.system = { treasure: true };
+      // when creating a new spell on the character sheet, we need to set the level
+      if (type === "spell") itemData.system = lvl ? { lvl } : {lvl: 1};
       return this.actor.createEmbeddedDocuments("Item", [itemData], {});
     }
   }

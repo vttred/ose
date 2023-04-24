@@ -81,7 +81,7 @@ export default class OseCharacterCreator extends FormApplication {
         .removeAttr("disabled");
     }
 
-    this.object.data.stats = {
+    this.object.stats = {
       sum,
       avg: Math.round((10 * sum) / n) / 10,
       std: Math.round(100 * std) / 100,
@@ -130,7 +130,7 @@ export default class OseCharacterCreator extends FormApplication {
       config: CONFIG.OSE,
       scores: this.scores,
       title: game.i18n.localize("OSE.dialog.generator"),
-      stats: this.object.data.stats,
+      stats: this.object.stats,
       gold: this.gold,
     };
     const content = await renderTemplate(

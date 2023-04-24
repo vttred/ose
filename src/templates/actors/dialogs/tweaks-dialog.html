@@ -75,7 +75,7 @@
   <div class="form-group">
     <label for="movementAuto">{{localize "OSE.Setting.MovementAuto"}}</label>
     <div class="form-fields">
-      <input type="checkbox" name="system.config.movementAuto" id="movementAuto" {{checked data.config.movementAuto}}
+      <input type="checkbox" name="system.config.movementAuto" id="movementAuto" {{checked system.config.movementAuto}}
         data-dtype="Boolean" {{#unless user.isGM}}disabled{{/unless}} />
     </div>
   </div>
@@ -83,7 +83,7 @@
   <div class="form-group">
     <label for="enableInventory">{{localize "OSE.Setting.EnableInventory"}}</label>
     <div class="form-fields">
-      <input type="checkbox" name="system.config.enableInventory" id="enableInventory" {{checked data.config.enableInventory}}
+      <input type="checkbox" name="system.config.enableInventory" id="enableInventory" {{checked system.config.enableInventory}}
         data-dtype="Boolean" {{#unless user.isGM}}disabled{{/unless}} />
     </div>
   </div>

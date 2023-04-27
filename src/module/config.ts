@@ -1,77 +1,38 @@
+/**
+ * @file System-wide configuration settings. Should be reachable elsewhere in the system at `CONFIG.OSE`
+ */
 import OseDataModelCharacterEncumbranceBasic from "./actor/data-model-classes/data-model-character-encumbrance-basic";
 import OseDataModelCharacterEncumbranceComplete from "./actor/data-model-classes/data-model-character-encumbrance-complete";
 import OseDataModelCharacterEncumbranceDetailed from "./actor/data-model-classes/data-model-character-encumbrance-detailed";
 import OseDataModelCharacterEncumbranceDisabled from "./actor/data-model-classes/data-model-character-encumbrance-disabled";
 
-export type OseConfig = {
+export type OseConfig = typeof OSE;
+
+export type Attribute = keyof OseConfig["scores"];
+export type ExplorationSkill = keyof OseConfig["exploration_skills"];
+export type RollType = keyof OseConfig["roll_type"];
+export type Save = keyof OseConfig["saves_long"];
+export type Armor = keyof OseConfig["armor"];
+export type Color = keyof OseConfig["colors"];
+export type InventoryItemTag = keyof OseConfig["tags"];
+export type EncumbranceOption = keyof OseConfig["encumbranceOptions"];
+export type ApplyDamageOption = keyof OseConfig["apply_damage_options"];
+
+export const OSE = {  
   /** Path for system dist */
-  systemPath: () => string;
-  /** Root path for OSE system */
-  systemRoot: string;
-  /** Path for system assets */
-  assetsPath: string;
-  /** @todo How do I set this type? */
-  encumbrance: unknown;
-  /** @todo How do I set this type? */
-  encumbranceOptions: {
-    [name: string]: unknown;
-  }
-  scores: Record<Attribute, string>;
-  scores_short: Record<Attribute, string>;
-  exploration_skills: Record<ExplorationSkill, string>;
-  exploration_skills_short: Record<ExplorationSkill, string>;
-  roll_type: Record<RollType, string>;
-  saves_short: Record<Save, string>;
-  saves_long: Record<Save, string>;
-  armor: Record<Armor, string>;
-  colors: Record<Color, string>;
-  languages: string[];
-  auto_tags: {[n: string]: {label: string, icon: string}};
-  tags: Record<InventoryItemTag, string>;
-  tag_images: Record<InventoryItemTag, string>;
-  monster_saves: Record<
-    number,
-    { d: number; w: number; p: number; b: number; s: number }
-  >;
-  monster_thac0: Record<number, number>;
-};
-
-export type Attribute = "str" | "int" | "dex" | "wis" | "con" | "cha";
-export type ExplorationSkill = "ld" | "od" | "sd" | "fs";
-export type RollType = "result" | "above" | "below";
-export type Save = "death" | "wand" | "paralysis" | "breath" | "spell";
-export type Armor = "unarmored" | "light" | "heavy" | "shield";
-export type Color =
-  | "green"
-  | "red"
-  | "yellow"
-  | "purple"
-  | "blue"
-  | "orange"
-  | "white";
-export type InventoryItemTag =
-  | "melee"
-  | "missile"
-  | "slow"
-  | "twohanded"
-  | "blunt"
-  | "brace"
-  | "splash"
-  | "reload"
-  | "charge";
-
-export const OSE: OseConfig = {
   systemPath(): string {
     return `${this.systemRoot}/dist`;
-  },
+  },  
+  /** Root path for OSE system */
   get systemRoot(): string {
-    return `/systems/${game.system.id}`
+    return `/systems/${game.system.id}`;
   },
+  /** Path for system assets */
   get assetsPath(): string {
-    return `${this.systemRoot}/assets`
+    return `${this.systemRoot}/assets`;
   },
   get encumbrance() {
-    const variant = game.settings.get(game.system.id, 'encumbranceOption')
+    const variant = game.settings.get(game.system.id, "encumbranceOption");
     return this.encumbranceOptions[variant] || this.encumbranceOptions.disabled;
   },
   encumbranceOptions: {
@@ -133,6 +94,11 @@ export const OSE: OseConfig = {
     heavy: "OSE.armor.heavy",
     shield: "OSE.armor.shield",
   },
+  apply_damage_options: {
+    selected : "selected",
+    targeted : "targeted",
+    originalTarget : "originalTarget",
+  },
   colors: {
     green: "OSE.colors.green",
     red: "OSE.colors.red",
@@ -179,61 +145,97 @@ export const OSE: OseConfig = {
     charge: "OSE.items.Charge",
   },
   auto_tags: {
-		get melee() {
-			 return ({ label: CONFIG.OSE.tags.melee, image: `${CONFIG.OSE.assetsPath}/melee.png`,icon: 'fa-sword',  })
-		},
-		get missile() {
-			 return ({ label: CONFIG.OSE.tags.missile, image: `${CONFIG.OSE.assetsPath}/missile.png`,icon: 'fa-bow-arrow' })
-		},
-		get slow() {
-			 return ({ label: CONFIG.OSE.tags.slow, image: `${CONFIG.OSE.assetsPath}/slow.png`,icon: 'fa-weight-hanging' })
-		},
-		get twohanded() {
-			 return ({ label: CONFIG.OSE.tags.twohanded, image: `${CONFIG.OSE.assetsPath}/twohanded.png`,icon: 'fa-hands-holding' })
-		},
-		get blunt() {
-			 return ({ label: CONFIG.OSE.tags.blunt, image: `${CONFIG.OSE.assetsPath}/blunt.png`,icon: 'fa-hammer-crash' })
-		},
-		get brace() {
-			 return ({ label: CONFIG.OSE.tags.brace, image: `${CONFIG.OSE.assetsPath}/brace.png`,icon: 'fa-block-brick' })
-		},
-		get splash() {
-			 return ({ label: CONFIG.OSE.tags.splash, image: `${CONFIG.OSE.assetsPath}/splash.png`,icon: 'fa-burst' })
-		},
-		get reload() {
-			 return ({ label: CONFIG.OSE.tags.reload, image: `${CONFIG.OSE.assetsPath}/reload.png`,icon: 'fa-gear' })
-		},
-		get charge() {
-			 return ({ label: CONFIG.OSE.tags.charge, image: `${CONFIG.OSE.assetsPath}/charge.png`,icon: 'fa-person-running' })
-		}
+    get melee() {
+      return {
+        label: CONFIG.OSE.tags.melee,
+        image: `${CONFIG.OSE.assetsPath}/melee.png`,
+        icon: "fa-sword",
+      };
+    },
+    get missile() {
+      return {
+        label: CONFIG.OSE.tags.missile,
+        image: `${CONFIG.OSE.assetsPath}/missile.png`,
+        icon: "fa-bow-arrow",
+      };
+    },
+    get slow() {
+      return {
+        label: CONFIG.OSE.tags.slow,
+        image: `${CONFIG.OSE.assetsPath}/slow.png`,
+        icon: "fa-weight-hanging",
+      };
+    },
+    get twohanded() {
+      return {
+        label: CONFIG.OSE.tags.twohanded,
+        image: `${CONFIG.OSE.assetsPath}/twohanded.png`,
+        icon: "fa-hands-holding",
+      };
+    },
+    get blunt() {
+      return {
+        label: CONFIG.OSE.tags.blunt,
+        image: `${CONFIG.OSE.assetsPath}/blunt.png`,
+        icon: "fa-hammer-crash",
+      };
+    },
+    get brace() {
+      return {
+        label: CONFIG.OSE.tags.brace,
+        image: `${CONFIG.OSE.assetsPath}/brace.png`,
+        icon: "fa-block-brick",
+      };
+    },
+    get splash() {
+      return {
+        label: CONFIG.OSE.tags.splash,
+        image: `${CONFIG.OSE.assetsPath}/splash.png`,
+        icon: "fa-burst",
+      };
+    },
+    get reload() {
+      return {
+        label: CONFIG.OSE.tags.reload,
+        image: `${CONFIG.OSE.assetsPath}/reload.png`,
+        icon: "fa-gear",
+      };
+    },
+    get charge() {
+      return {
+        label: CONFIG.OSE.tags.charge,
+        image: `${CONFIG.OSE.assetsPath}/charge.png`,
+        icon: "fa-person-running",
+      };
+    },
   },
   tag_images: {
     get melee() {
-      return `${OSE.assetsPath}/melee.png`;
+      return `${CONFIG.OSE.assetsPath}/melee.png`;
     },
     get missile() {
       return `fa-bow-arrow`;
     },
     get slow() {
-      return `${OSE.assetsPath}/slow.png`;
+      return `${CONFIG.OSE.assetsPath}/slow.png`;
     },
     get twohanded() {
-      return `${OSE.assetsPath}/twohanded.png`;
+      return `${CONFIG.OSE.assetsPath}/twohanded.png`;
     },
     get blunt() {
-      return `${OSE.assetsPath}/blunt.png`;
+      return `${CONFIG.OSE.assetsPath}/blunt.png`;
     },
     get brace() {
-      return `${OSE.assetsPath}/brace.png`;
+      return `${CONFIG.OSE.assetsPath}/brace.png`;
     },
     get splash() {
-      return `${OSE.assetsPath}/splash.png`;
+      return `${CONFIG.OSE.assetsPath}/splash.png`;
     },
     get reload() {
-      return `${OSE.assetsPath}/reload.png`;
+      return `${CONFIG.OSE.assetsPath}/reload.png`;
     },
     get charge() {
-      return `${OSE.assetsPath}/charge.png`;
+      return `${CONFIG.OSE.assetsPath}/charge.png`;
     },
   },
   monster_saves: {
@@ -320,3 +322,5 @@ export const OSE: OseConfig = {
     22: 5,
   },
 };
+
+export default OSE;

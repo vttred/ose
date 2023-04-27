@@ -1,0 +1,101 @@
+{
+	"plugins": [
+		"jsdoc",
+		"prettier",
+		"chai-friendly"
+	],
+	"extends": [
+		"airbnb",
+		"airbnb-typescript/base",
+		"adjunct",
+		"plugin:promise/recommended",
+		"plugin:ecmascript-compat/recommended",
+		"plugin:chai-friendly/recommended",
+		"prettier"
+	],
+	"env": {
+		"browser": true
+	},
+	"ignorePatterns": ["**/lang/**/*.json", "**/*.d.ts"],
+	"rules": {
+		"prettier/prettier": ["error"],
+		"jsdoc/check-access": 1, // Recommended
+		"jsdoc/check-alignment": 1, // Recommended
+		"jsdoc/check-line-alignment": 1,
+		"jsdoc/check-param-names": 1, // Recommended
+		"jsdoc/check-property-names": 1, // Recommended
+		"jsdoc/check-tag-names": 1, // Recommended
+		"jsdoc/check-types": 1, // Recommended
+		"jsdoc/check-values": 1, // Recommended
+		"jsdoc/empty-tags": 1, // Recommended
+		"jsdoc/implements-on-classes": 1, // Recommended
+		"jsdoc/multiline-blocks": 1, // Recommended
+		"jsdoc/newline-after-description": 1, // Recommended
+		"jsdoc/no-bad-blocks": 1,
+		"jsdoc/no-multi-asterisks": 1, // Recommended
+		"jsdoc/no-undefined-types": 1, // Recommended
+		"jsdoc/require-asterisk-prefix": 1,
+		"jsdoc/require-description": 1,
+		"jsdoc/require-file-overview": 1,
+		"jsdoc/require-hyphen-before-param-description": 1,
+		"jsdoc/require-jsdoc": 1, // Recommended
+		"jsdoc/require-param": 1, // Recommended
+		"jsdoc/require-param-description": 1, // Recommended
+		"jsdoc/require-param-name": 1, // Recommended
+		"jsdoc/require-param-type": 1, // Recommended
+		"jsdoc/require-property": 1, // Recommended
+		"jsdoc/require-property-description": 1, // Recommended
+		"jsdoc/require-property-name": 1, // Recommended
+		"jsdoc/require-property-type": 1, // Recommended
+		"jsdoc/require-returns": 1, // Recommended
+		"jsdoc/require-returns-check": 1, // Recommended
+		"jsdoc/require-returns-description": 1, // Recommended
+		"jsdoc/require-returns-type": 1, // Recommended
+		"jsdoc/require-yields": 1, // Recommended
+		"jsdoc/require-yields-check": 1, // Recommended
+		"jsdoc/tag-lines": 1, // Recommended
+		"jsdoc/valid-types": 1, // Recommended
+		"ecmascript-compat/compat": "off", // Disabled because core uses async
+		"unicorn/no-array-reduce": "off", // Disabled because Array#reduce is helpful
+		"no-secrets/no-secrets": "off", // Disabled because of string entropy
+		"@typescript-eslint/no-unused-expressions": "off"
+	},
+	"parserOptions": {
+        "ecmaVersion": 2020,
+        "sourceType": "module",
+        "project": "./tsconfig.json"
+    },
+	"parser": "@typescript-eslint/parser",
+	"globals": {
+		"game": "readonly",
+		"foundry": "readonly",
+		"CONFIG": "readonly",
+		"CONST": "readonly",
+		"Hooks": "readonly",
+		"Item": "readonly",
+		"Items": "readonly",
+		"ItemDirectory": "readonly",
+		"ItemSheet": "readonly",
+		"Actor": "readonly",
+		"Actors": "readonly",
+		"ActorDirectory": "readonly",
+		"ActorSheet": "readonly",
+		"Token": "readonly",
+		"Macro": "readonly",
+		"Settings": "readonly",
+		"FormApplication": "readonly",
+		"FrameViewer": "readonly",
+		"ChatMessage": "readonly",
+		"TextEditor": "readonly",
+		"Roll": "readonly",
+		"$": "readonly",
+		"Dialog": "readonly",
+		"renderTemplate": "readonly",
+		"canvas": "readonly",
+		"ui": "readonly",
+		"isNewerVersion": "readonly",
+		"fromUuid": "readonly",
+		"fromUuidSync": "readonly",
+		"PoolTerm": "readonly"
+	}
+}

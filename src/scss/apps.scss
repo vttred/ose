@@ -266,14 +266,8 @@
 }
 
 #settings .ose.game-license {
-  font-size: 12px;
-  .button {
-    text-align: center;
-    margin: 4px;
-  }
-  .footer {
-    text-align: right;
-  }
+  font-size: var(--font-size-12);
+  padding: 10px;
 }
 
 .ose.chat-block {

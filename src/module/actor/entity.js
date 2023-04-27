@@ -1,10 +1,30 @@
-import { skipRollDialogCheck } from "../behaviourHelpers";
-import { OseDice } from "../dice";
-import { OseItem } from "../item/entity";
+import skipRollDialogCheck from "../helpers-behaviour";
+import OseDice from "../helpers-dice";
+import OseItem from "../item/entity";
 
-export class OseActor extends Actor {
+/**
+ * Used in the rollAttack function to remove zeroes from rollParts arrays
+ *
+ * @param {[]} arr - an array
+ * @returns {[]} - an array
+ */
+const removeFalsyElements = (arr) =>
+  arr.reduce((a, b) => (b ? [...a, b] : a), []);
+
+export default class OseActor extends Actor {
   prepareDerivedData() {
     this.system.prepareDerivedData?.();
+  }
+
+  static migrateData(source) {
+    // Fixing missing img
+    if (source?.img === "") {
+      source.img = "icons/svg/mystery-man.svg";
+    }
+    if (source?.prototypeToken?.texture?.img === "") {
+      source.prototypeToken.texture.img = "icons/svg/mystery-man.svg";
+    }
+    return source;
   }
 
   static async update(data, options = {}) {
@@ -68,25 +88,24 @@ export class OseActor extends Actor {
   }
 
   generateSave(hd) {
-    hd = (!hd.includes('+')) ? parseInt(hd) : parseInt(hd) + 1;
-    
+    hd = hd.includes("+") ? parseInt(hd) + 1 : parseInt(hd);
+
     // Compute saves
     let saves = {};
     for (let i = 0; i <= hd; i++) {
-      let tmp = CONFIG.OSE.monster_saves[i];
+      const tmp = CONFIG.OSE.monster_saves[i];
       if (tmp) {
         saves = tmp;
       }
     }
-    
+
     // Compute Thac0
     let thac0 = 20;
     Object.keys(CONFIG.OSE.monster_thac0).forEach((k) => {
-      if (hd < parseInt(k))
-        return;
+      if (hd < parseInt(k)) return;
       thac0 = CONFIG.OSE.monster_thac0[k];
     });
-    
+
     this.update({
       "system.thac0.value": thac0,
       "system.thac0.bba": 19 - thac0,
@@ -115,8 +134,8 @@ export class OseActor extends Actor {
   /* -------------------------------------------- */
 
   async rollHP(options = {}) {
-    let {total} = await new Roll(this.system.hp.hd).roll({ async: true });
-    return this.update({ 'system.hp': {max: total, value: total}});
+    const { total } = await new Roll(this.system.hp.hd).roll({ async: true });
+    return this.update({ "system.hp": { max: total, value: total } });
   }
 
   rollSave(save, options = {}) {
@@ -142,8 +161,8 @@ export class OseActor extends Actor {
     return rollMethod({
       event: options.event,
       parts: rollParts,
-      data: data,
-      skipDialog: (options.fastForward || skipRollDialogCheck(options.event)),
+      data,
+      skipDialog: options.fastForward || skipRollDialogCheck(options.event),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: game.i18n.format("OSE.roll.save", { save: label }),
       title: game.i18n.format("OSE.roll.save", { save: label }),
@@ -168,7 +187,7 @@ export class OseActor extends Actor {
     return OseDice.Roll({
       event: options.event,
       parts: rollParts,
-      data: data,
+      data,
       skipDialog: true,
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: game.i18n.localize("OSE.roll.morale"),
@@ -194,7 +213,7 @@ export class OseActor extends Actor {
     return OseDice.Roll({
       event: options.event,
       parts: rollParts,
-      data: data,
+      data,
       skipDialog: true,
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: label,
@@ -233,8 +252,8 @@ export class OseActor extends Actor {
     return OseDice.Roll({
       event: options.event,
       parts: rollParts,
-      data: data,
-      skipDialog: (options.fastForward || skipRollDialogCheck(options.event)),
+      data,
+      skipDialog: options.fastForward || skipRollDialogCheck(options.event),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: game.i18n.localize("OSE.reaction.check"),
       title: game.i18n.localize("OSE.reaction.check"),
@@ -267,8 +286,8 @@ export class OseActor extends Actor {
     return OseDice.Roll({
       event: options.event,
       parts: rollParts,
-      data: data,
-      skipDialog: (options.fastForward || skipRollDialogCheck(options.event)),
+      data,
+      skipDialog: options.fastForward || skipRollDialogCheck(options.event),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: game.i18n.format("OSE.roll.attribute", { attribute: label }),
       title: game.i18n.format("OSE.roll.attribute", { attribute: label }),
@@ -283,8 +302,8 @@ export class OseActor extends Actor {
 
     const label = game.i18n.localize(`OSE.roll.hd`);
     const rollParts = [actorData.hp.hd];
-    if (actorType == "character") {
-      rollParts.push(actorData.scores.con.mod*actorData.details.level);
+    if (actorType === "character") {
+      rollParts.push(actorData.scores.con.mod * actorData.details.level);
     }
 
     const data = {
@@ -298,7 +317,7 @@ export class OseActor extends Actor {
     return OseDice.Roll({
       event: options.event,
       parts: rollParts,
-      data: data,
+      data,
       skipDialog: true,
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: label,
@@ -314,7 +333,7 @@ export class OseActor extends Actor {
 
     const rollParts = [];
     let label = "";
-    if (options.check == "wilderness") {
+    if (options.check === "wilderness") {
       rollParts.push(actorData.details.appearing.w);
       label = "(2)";
     } else {
@@ -334,7 +353,7 @@ export class OseActor extends Actor {
     return OseDice.Roll({
       event: options.event,
       parts: rollParts,
-      data: data,
+      data,
       skipDialog: true,
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: game.i18n.format("OSE.roll.appearing", { type: label }),
@@ -366,8 +385,8 @@ export class OseActor extends Actor {
     return OseDice.Roll({
       event: options.event,
       parts: rollParts,
-      data: data,
-      skipDialog: (options.fastForward || skipRollDialogCheck(options.event)),
+      data,
+      skipDialog: options.fastForward || skipRollDialogCheck(options.event),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: game.i18n.format("OSE.roll.exploration", { exploration: label }),
       title: game.i18n.format("OSE.roll.exploration", { exploration: label }),
@@ -385,15 +404,15 @@ export class OseActor extends Actor {
       },
     };
 
-    let dmgParts = [];
-    if (!attData.roll.dmg) {
-      dmgParts.push("1d6");
-    } else {
+    const dmgParts = [];
+    if (attData.roll.dmg) {
       dmgParts.push(attData.roll.dmg);
+    } else {
+      dmgParts.push("1d6");
     }
 
     // Add Str to damage
-    if (attData.roll.type == "melee") {
+    if (attData.roll.type === "melee" && data.scores.str.mod) {
       dmgParts.push(data.scores.str.mod);
     }
 
@@ -411,64 +430,74 @@ export class OseActor extends Actor {
 
   async targetAttack(data, type, options) {
     if (game.user.targets.size > 0) {
-      for (let t of game.user.targets.values()) {
+      for (const t of game.user.targets.values()) {
         data.roll.target = t;
         await this.rollAttack(data, {
-          type: type,
+          type,
           skipDialog: options.skipDialog,
         });
       }
     } else {
-      this.rollAttack(data, { type: type, skipDialog: options.skipDialog });
+      this.rollAttack(data, { type, skipDialog: options.skipDialog });
     }
   }
 
+  /**
+   * Constructs the attack roll formula for an attack
+   *
+   * @param {object} attData - the attack data
+   * @param {OseItem} attData.item - the item being used in the attack
+   * @param {OseActor} attData.actor - this actor (at least it should be!)
+   * @param {object} attData.roll - the attack roll data
+   * @param {string} attData.roll.save - the save roll that may be used against the attack
+   * @param {OseActor} attData.roll.target - the target of the attack
+   * @param {object} options - the type of attack and whether to skip the dialog
+   * @param {string} options.type - the type of attack, i.e. melee or missile
+   * @param {boolean} options.skipDialog - whether to skip the dialog
+   * @returns {OseDice.Roll} - the attack roll with completed rollParts and other data
+   */
   rollAttack(attData, options = {}) {
     const data = this.system;
 
-    const rollParts = ["1d20"];
-    const dmgParts = [];
-    let label = game.i18n.format("OSE.roll.attacks", {
-      name: this.name,
-    });
-    if (!attData.item) {
-      dmgParts.push("1d6");
-    } else {
-      label = game.i18n.format("OSE.roll.attacksWith", {
-        name: attData.item.name,
-      });
-      dmgParts.push(attData.item.system.damage);
-    }
+    const label = attData.item
+      ? game.i18n.format("OSE.roll.attacksWith", {
+          name: attData.item.name,
+        })
+      : game.i18n.format("OSE.roll.attacks", {
+          name: this.name,
+        });
 
-    let ascending = game.settings.get(game.system.id, "ascendingAC");
-    if (ascending) {
-      rollParts.push(data.thac0.bba.toString());
+    const dmgParts = removeFalsyElements([
+      // Weapon damage roll value
+      attData.item?.system?.damage ?? "1d6",
+      // Weapon damage bonus
+      attData.item?.system?.bonus,
+    ]);
+
+    const rollParts = ["1d20"];
+    const ascending = game.settings.get(game.system.id, "ascendingAC");
+
+    if (ascending && data.thac0.bba) {
+      rollParts.push(data.thac0.bba);
     }
-    if (options.type == "missile") {
-      rollParts.push(
-        data.scores.dex.mod.toString(),
-        data.thac0.mod.missile.toString()
-      );
-    } else if (options.type == "melee") {
-      rollParts.push(
-        data.scores.str.mod.toString(),
-        data.thac0.mod.melee.toString()
-      );
-    }
-    if (attData.item && attData.item.system.bonus) {
-      rollParts.push(attData.item.system.bonus);
-    }
-    let thac0 = data.thac0.value;
-    if (options.type == "melee") {
-      dmgParts.push(data.scores.str.mod);
-    }
+    // for each type of attack, add the Tweaks bonus
+    // and str/dex modifier only if it's non-zero
+    let attackMods = [];
+
+    if (options.type === "missile")
+      attackMods = [data.scores.dex.mod, data.thac0.mod.missile];
+    else if (options.type === "melee")
+      attackMods = [data.scores.str.mod, data.thac0.mod.melee];
+
+    rollParts.push(...removeFalsyElements(attackMods));
+
     const rollData = {
       actor: this,
       item: attData.item,
       itemId: attData.item?._id,
       roll: {
         type: options.type,
-        thac0: thac0,
+        thac0: data.thac0.value,
         dmg: dmgParts,
         save: attData.roll.save,
         target: attData.roll.target,

@@ -1,6 +1,7 @@
+import OseItem from "../item/entity";
+
 import skipRollDialogCheck from "../helpers-behaviour";
 import OseDice from "../helpers-dice";
-import OseItem from "../item/entity";
 
 /**
  * Used in the rollAttack function to remove zeroes from rollParts arrays
@@ -488,6 +489,8 @@ export default class OseActor extends Actor {
       attackMods = [data.scores.dex.mod, data.thac0.mod.missile];
     else if (options.type === "melee")
       attackMods = [data.scores.str.mod, data.thac0.mod.melee];
+
+    if (attData.item) attackMods.push(attData.item?.system?.bonus);
 
     rollParts.push(...removeFalsyElements(attackMods));
 

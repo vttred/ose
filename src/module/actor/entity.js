@@ -1,6 +1,7 @@
+import OseItem from "../item/entity";
+
 import skipRollDialogCheck from "../helpers-behaviour";
 import OseDice from "../helpers-dice";
-import OseItem from "../item/entity";
 
 /**
  * Used in the rollAttack function to remove zeroes from rollParts arrays
@@ -470,16 +471,16 @@ export default class OseActor extends Actor {
     const dmgParts = removeFalsyElements([
       // Weapon damage roll value
       attData.item?.system?.damage ?? "1d6",
-      // Weapon damage bonus
-      attData.item?.system?.bonus,
     ]);
-
+    if (!this.system.config?.ignoreBonusDamage && attData.item?.system?.bonus)
+      // Weapon Damage Bonus
+      dmgParts.push(attData.item?.system?.bonus);
+ 
     const rollParts = ["1d20"];
     const ascending = game.settings.get(game.system.id, "ascendingAC");
 
-    if (ascending && data.thac0.bba) {
-      rollParts.push(data.thac0.bba);
-    }
+    if (ascending && data.thac0.bba) rollParts.push(data.thac0.bba);
+
     // for each type of attack, add the Tweaks bonus
     // and str/dex modifier only if it's non-zero
     let attackMods = [];
@@ -488,6 +489,8 @@ export default class OseActor extends Actor {
       attackMods = [data.scores.dex.mod, data.thac0.mod.missile];
     else if (options.type === "melee")
       attackMods = [data.scores.str.mod, data.thac0.mod.melee];
+
+    if (attData.item) attackMods.push(attData.item?.system?.bonus);
 
     rollParts.push(...removeFalsyElements(attackMods));
 

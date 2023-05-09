@@ -28,7 +28,7 @@
             <div class="damage-roll">{{{rollDamage}}}</div>
             {{#if data.roll.save}}
             <div class="card-buttons">
-                <button data-action="save" data-save="{{data.roll.save}}" disabled>
+                <button data-action="save" data-save="{{data.roll.save}}">
                     {{lookup config.saves_long data.roll.save}} - {{localize "OSE.spells.Save"}}
                 </button>
             </div>

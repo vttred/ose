@@ -74,11 +74,11 @@ Hooks.once("init", async () => {
   CONFIG.Actor.documentClass = OseActor;
   CONFIG.Item.documentClass = OseItem;
 
-  CONFIG.Actor.systemDataModels = {
+  CONFIG.Actor.dataModels = {
     character: OseDataModelCharacter,
     monster: OseDataModelMonster,
   };
-  CONFIG.Item.systemDataModels = {
+  CONFIG.Item.dataModels = {
     weapon: OseDataModelWeapon,
     armor: OseDataModelArmor,
     item: OseDataModelItem,

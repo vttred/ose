@@ -475,7 +475,7 @@ export default class OseActor extends Actor {
     if (!this.system.config?.ignoreBonusDamage && attData.item?.system?.bonus)
       // Weapon Damage Bonus
       dmgParts.push(attData.item?.system?.bonus);
- 
+
     const rollParts = ["1d20"];
     const ascending = game.settings.get(game.system.id, "ascendingAC");
 
@@ -490,6 +490,9 @@ export default class OseActor extends Actor {
     else if (options.type === "melee")
       attackMods = [data.scores.str.mod, data.thac0.mod.melee];
 
+    dmgParts.push(...removeFalsyElements(attackMods));
+
+    // Add weapon bonus to attack roll only (already added to dmgParts)
     if (attData.item) attackMods.push(attData.item?.system?.bonus);
 
     rollParts.push(...removeFalsyElements(attackMods));

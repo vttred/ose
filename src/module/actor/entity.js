@@ -485,12 +485,14 @@ export default class OseActor extends Actor {
     // and str/dex modifier only if it's non-zero
     let attackMods = [];
 
-    if (options.type === "missile")
-      attackMods = [data.scores.dex.mod, data.thac0.mod.missile];
-    else if (options.type === "melee")
+    if (options.type === "melee")
       attackMods = [data.scores.str.mod, data.thac0.mod.melee];
 
     dmgParts.push(...removeFalsyElements(attackMods));
+
+    // Add missile mod to attack roll only (missile attacks don't get bonus damage)
+    if (options.type === "missile")
+      attackMods = [data.scores.dex.mod, data.thac0.mod.missile];
 
     // Add weapon bonus to attack roll only (already added to dmgParts)
     if (attData.item) attackMods.push(attData.item?.system?.bonus);

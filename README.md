@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://foundryvtt.com/packages/ose/">
-    <img alt="Unofficial OSE on Foundry VTT logo" src="https://raw.githubusercontent.com/vttred/ose/main/docs/images/unofficial-ose-fvtt-logo.png" width="256" />
+    <img alt="Unofficial OSE on Foundry VTT logo" src="https://raw.githubusercontent.com/vttred/ose/main/docs/images/old-school-essentials-logo.webp" width="500" />
   </a>
 </p>
 <h1 align="center">
@@ -30,12 +30,12 @@ https://github.com/vttred/ose/releases/latest/download/system.json
 
 ### Open Game Content Compendium
 
-The Old-School Essentials Content Compendium is a Foundry VTT module separate from the system. Find it within Foundry VTT's _module_ browser with the search term `ose`.
+The free Community-Made Classic Fantasy Compendium is a Foundry VTT module separate from the system. Find it within Foundry VTT's _module_ browser with the search term `classicfantasy`. It is 100% Open Game Content, and free for all.
 
 You may also copy the manifest link below and paste it into the manifest link input box.
 
 ```console
-https://github.com/vttred/ose-content/releases/latest/download/module.json
+https://github.com/unifiedfantasytoolkit/classicfantasycompendium/releases/latest/download/module.json
 ```
 
 ## Your Support
@@ -43,14 +43,14 @@ https://github.com/vttred/ose-content/releases/latest/download/module.json
 If you use this system and want to show your appreciation, here's a couple free things you can do.
 
 - If you're a GitHub user, please give us a GitHub star.
-- If you're a Foundry Hub user, please [endorse us or write a comment](https://www.foundryvtt-hub.com/package/ose/) (happy feedback and constructive feedback appreciated).
+- If you're a Foundry Hub user, please [endorse us or write a comment](https://www.foundryvtt-hub.com/package/ose/) (happy feedback and constructive feedback both appreciated).
 - If you speak a non-English language fluently, please contribute some of your time on an open source translation. [Join the ose project on Crowdin](https://crowdin.com/project/ose).
-- If you speak JavaScript, please consider [contributing code](/CONTRIBUTING.md).
+- If you know some JavaScript or you're a CSS whiz, please consider [contributing code](/CONTRIBUTING.md).
 
-Here's a couple paid things you can do.
+### Here's a couple paid things you can do.
 
-- If you'd like to support the original maintainer of this system, U\~man, buy them a coffee on [Ko-Fi](https://ko-fi.com/u_man). It is largely because of U\~man's generosity that we are able to continue providing a free and open source system for Foundry VTT users.
-- Official Necrotic Gnome Foundry VTT Editions support the maintainence of the codebase. For official announcements, follow the [Necrotic Gnome blog or subscribe to their newsletter](https://necroticgnome.com/blogs/newsletter-archive).
+- Your purchases of [Official Necrotic Gnome Foundry VTT premium content](https://foundryvtt.com/packages/provider/necroticgnome) support VTT Red's weekly open source maintainence activities on the Old-School Essentials codebase. This includes releasing bug fixes, new open source features, and labor-intensive code reviews, an often overlooked job in open source. Follow the [Necrotic Gnome blog or subscribe to their newsletter](https://necroticgnome.com/blogs/newsletter-archive) for more news about upcoming Foundry VTT releases.
+- If you'd like to support some of the contributors of this game system, we keep a list of tipping/patronage links in the [THANKS.md](/THANKS.md) file.
 - Third-party releases may support one or more of our open source contributors. Find out more on our [website](https://vtt.red/ose).
 
 ## Troubleshooting and Requesting User Support
@@ -59,17 +59,17 @@ It's always appreciated when users [submit an issue](https://github.com/vttred/o
 
 - The **#dnd-other** channel in the [official Foundry VTT Discord server](https://discord.gg/foundryvtt)
 - The **#ose-virtual-tabletop** channel in the [official Necrotic Gnome Discord server](https://discord.gg/YprM5nq)
-- There is a Discord server for Unofficial Old-School Essentials on Foundry VTT. You can find it on this repo's [New Issue](https://github.com/vttred/ose/issues/new/choose) page.
+- There is a Discord server for United Fantasy Toolkit, the code that powers OSE. You can find it on this repo's [New Issue](https://github.com/vttred/ose/issues/new/choose) page. Please do not ask about premium content in this Discord server, as most of our contributor community cannot help you. Please use the support channels listed for those products instead.
 - There are [unofficial Foundry VTT user communities for many other languages](https://www.foundryvtt-hub.com/links/#internationaldiscords) if you'd prefer to discuss Foundry VTT in another language. Keep in mind that it's unlikely you'll find answers to your questions about a less popular game system like Old-School Essentials, but they are good for asking questions about Foundry VTT in general.
 - The [/r/FoundryVTT community on Reddit](https://reddit.com/r/FoundryVTT) may also have answers to your Foundry VTT questions, but it is another general Foundry VTT user community that may not have many users with specific knowledge about OSE. Be sure to write `[OSE]` in your post subject and select `FVTT Question` from the "Flair" menu.
 
-**We do not offer user support via email. Sorry for the inconvenience.**
+**We do not offer user support for the free game system via email. Sorry for the inconvenience.**
 
 ## Contributions
 
 Any feedback is deeply appreciated. Please browse the [open issues](https://github.com/vttred/ose/issues/) and if there's not a matching one already, open a new one.
 
-If you're a developer, look for our [CONTRIBUTING.md](/CONTRIBUTING.md) file.
+If you're a web developer, look for our [CONTRIBUTING.md](/CONTRIBUTING.md) file.
 
 If you speak a non-English language, [Join the ose project on Crowdin](https://crowdin.com/project/ose).
 
@@ -80,14 +80,8 @@ See [LICENSE.OGL](/LICENSE.OGL) file.
 ## Trademarks Used Under License
 
 <!-- BEGIN TEXT REQUIRED BY LICENSE -->
-
-This third party product is not affiliated with or approved by Necrotic Gnome.
-
-Old-School Essentials is a trademark of Necrotic Gnome. The trademark and Old-School Essentials logo are used with permission of Necrotic Gnome, under license. <!-- ADDITIONAL TEXT REQUESTED BY NECROTIC GNOME --> Permission to use Old-School Essentials in the ruleset title granted by Necrotic Gnome. <!-- END ADDITIONAL TEXT -->
-
+Old-School Essentials is a trademark of Necrotic Gnome. The trademark and Old-School Essentials logo are used with permission of Necrotic Gnome, under contract.
 <!-- END TEXT REQUIRED BY LICENSE -->
-
-See [LICENSE.OTHER.OSE_THIRD_PARTY_V1_5](/LICENSE.OTHER.OSETHIRDPARTY.V1_5) file.
 
 ## Code Used Under License
 
@@ -97,15 +91,9 @@ See [LICENSE.GPL](/LICENSE.GPL) file.
 
 Weapon quality icons, and the Treasure chest are from [Rexxard](https://assetstore.unity.com/packages/2d/gui/icons/flat-skills-icons-82713).
 
-[![designed for use with Old-School Essentials](https://raw.githubusercontent.com/vttred/ose/main/docs/images/Designed_For_Use_With_Old-School_Essentials_-_Black.png)](https://necroticgnome.com)
-
-## Additional Artwork Credits
-
-The Unofficial Old-School Essentials on Foundry VTT logo is used with permission from project contributor Godforsaken.
-
 ## Licensing Inquiries
 
-You may direct licensing inquiries to [ose@vtt.red](mailto:ose@vtt.red).
+You may direct licensing inquiries to [ose-licensing@vtt.red](mailto:ose-licensing@vtt.red).
 
 ## Contributors ✨
 

@@ -278,6 +278,21 @@ export default class OseActorSheet extends ActorSheet {
     );
   }
 
+  // eslint-disable-next-line no-underscore-dangle
+  async _onDropFolder(event, data) {
+    const folder = await fromUuid(data.uuid);
+    if (!folder || folder.type !== "Item") return;
+
+    let itemArray = folder.contents;
+
+    folder.getSubfolders(true).forEach((subfolder) => {
+      itemArray.push(...subfolder.contents);
+    });
+
+    this._onDropItemCreate(itemArray);
+  }
+
+  // eslint-disable-next-line no-underscore-dangle
   async _onDropItem(event, data) {
     const targetId = event.target.closest(".item")?.dataset?.itemId;
     const targetItem = this.actor.items.get(targetId);
@@ -401,6 +416,7 @@ export default class OseActorSheet extends ActorSheet {
     });
   }
 
+  // eslint-disable-next-line no-underscore-dangle
   _createItem(event) {
     event.preventDefault();
     const header = event.currentTarget;
@@ -443,6 +459,7 @@ export default class OseActorSheet extends ActorSheet {
   }
 
   // Override to set resizable initial size
+  // eslint-disable-next-line no-underscore-dangle
   async _renderInner(...args) {
     const html = await super._renderInner(...args);
     this.form = html[0];
@@ -459,7 +476,9 @@ export default class OseActorSheet extends ActorSheet {
     return html;
   }
 
+  // eslint-disable-next-line no-underscore-dangle
   async _onResize(event) {
+    // eslint-disable-next-line no-underscore-dangle
     super._onResize(event);
 
     const html = $(this.form);
@@ -485,6 +504,7 @@ export default class OseActorSheet extends ActorSheet {
     });
   }
 
+  // eslint-disable-next-line no-underscore-dangle
   _onConfigureActor(event) {
     event.preventDefault();
     new OseEntityTweaks(this.actor, {
@@ -560,6 +580,7 @@ export default class OseActorSheet extends ActorSheet {
 
     // Item Management
     html.find(".item-create").click((event) => {
+      // eslint-disable-next-line no-underscore-dangle
       this._createItem(event);
     });
 

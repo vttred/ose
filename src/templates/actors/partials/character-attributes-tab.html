@@ -1,10 +1,15 @@
+{{! Sheet Header }}
+<header class="sheet-header flexrow">
+  {{> (path "/templates/actors/partials/character-header.html") }}
+</header>
+
 <section class="attributes-tab flexrow">
     {{!-- Scores --}}
     <div class="attribute-group">
         <ul class="attributes">
             <li class="attribute ability-score" data-score="str">
                 <h4 class="attribute-name box-title" title="{{ localize 'OSE.scores.str.long' }}">
-                    <a>{{ localize "OSE.scores.str.short" }}</a>
+                    <a>{{ localize "OSE.scores.str.long" }}</a>
                 </h4>
                 <div class="attribute-value">
                     <input name="system.scores.str.value" type="text" value="{{system.scores.str.value}}" placeholder="0"
@@ -13,7 +18,7 @@
             </li>
             <li class="attribute ability-score" data-score="int">
                 <h4 class="attribute-name box-title" title="{{ localize 'OSE.scores.int.long' }}">
-                    <a>{{ localize "OSE.scores.int.short" }}</a>
+                    <a>{{ localize "OSE.scores.int.long" }}</a>
                 </h4>
                 <div class="attribute-value">
                     <input name="system.scores.int.value" type="text" value="{{system.scores.int.value}}" placeholder="0"
@@ -22,7 +27,7 @@
             </li>
             <li class="attribute ability-score" data-score="wis">
                 <h4 class="attribute-name box-title" title="{{ localize 'OSE.scores.wis.long' }}">
-                    <a>{{ localize "OSE.scores.wis.short" }}</a>
+                    <a>{{ localize "OSE.scores.wis.long" }}</a>
                 </h4>
                 <div class="attribute-value">
                     <input name="system.scores.wis.value" type="text" value="{{system.scores.wis.value}}" placeholder="0"
@@ -31,7 +36,7 @@
             </li>
             <li class="attribute ability-score" data-score="dex">
                 <h4 class="attribute-name box-title" title="{{ localize 'OSE.scores.dex.long' }}">
-                    <a>{{ localize "OSE.scores.dex.short" }}</a>
+                    <a>{{ localize "OSE.scores.dex.long" }}</a>
                 </h4>
                 <div class="attribute-value">
                     <input name="system.scores.dex.value" type="text" value="{{system.scores.dex.value}}" placeholder="0"
@@ -40,7 +45,7 @@
             </li>
             <li class="attribute ability-score" data-score="con">
                 <h4 class="attribute-name box-title" title="{{ localize 'OSE.scores.con.long' }}">
-                    <a>{{ localize "OSE.scores.con.short" }}</a>
+                    <a>{{ localize "OSE.scores.con.long" }}</a>
                 </h4>
                 <div class="attribute-value">
                     <input name="system.scores.con.value" type="text" value="{{system.scores.con.value}}" placeholder="0"
@@ -49,70 +54,106 @@
             </li>
             <li class="attribute ability-score" data-score="cha">
                 <h4 class="attribute-name box-title" title="{{ localize 'OSE.scores.cha.long' }}">
-                    <a>{{ localize "OSE.scores.cha.short" }}</a>
+                    <a>{{ localize "OSE.scores.cha.long" }}</a>
                 </h4>
                 <div class="attribute-value">
                     <input name="system.scores.cha.value" type="text" value="{{system.scores.cha.value}}" placeholder="0"
                         data-dtype="Number" />
                 </div>
             </li>
-            {{#if system.retainer.enabled}}
-            <li class="attribute ability-score" data-stat="lr">
-                <h4 class="attribute-name box-title" title="{{ localize 'OSE.Loyalty' }}">
-                    <a>{{ localize "OSE.LoyaltyShort" }}</a>
-                </h4>
-                <div class="attribute-value">
-                    <input name="system.retainer.loyalty" type="text" value="{{system.retainer.loyalty}}" placeholder="0"
-                        data-dtype="Number" />
-                </div>
-            </li>
-            {{/if}}
         </ul>
     </div>
     {{!-- Resource Tracking --}}
     <div class="resources">
-        <div class="flexrow">
-            <div class="health">
-                <input class="health-value health-top" name="system.hp.value" type="text" value="{{system.hp.value}}"
-                    data-dtype="Number" placeholder="0" title="{{localize 'OSE.Health'}}" />
-                <input class="health-value health-bottom" name="system.hp.max" type="text" value="{{system.hp.max}}"
-                    data-dtype="Number" placeholder="0" title="{{localize 'OSE.HealthMax'}}" />
-                <div class="health-empty" style="height:{{counter false system.hp.value system.hp.max}}%"></div>
-                <div class="health-full" style="height:{{counter true system.hp.value system.hp.max}}%"></div>
+        <div class="flexrow attributes">
+            {{#if config.ascendingAC}}
+            <div class="resource attribute">
+                <h4 class="attribute-name box-title" title="{{ localize 'OSE.AB' }}">{{ localize "OSE.ABShort"}}
+                </h4>
+                <div class="flexrow">
+                    <div class="attribute-value">
+                        <input name="system.thac0.bba" type="text" value="{{system.thac0.bba}}" placeholder="0"
+                            data-dtype="Number" />
+                            <img src="/systems/ose-dev/assets/mace.svg" />
+                    </div>
+                </div>
             </div>
-            <div class="health armor-class">
-                {{#if @root.system.usesAscendingAC}}
-                <div class="health-value health-top" title="{{localize 'OSE.ArmorClass'}}">{{system.aac.value}}</div>
-                <div class="health-value health-bottom" title="{{localize 'OSE.ArmorClassNaked'}}">
-                    {{system.aac.naked}}</div>
-                {{#if system.aac.shield}}<div class="shield"
-                    title="{{localize 'OSE.items.hasShield'}} ({{system.aac.shield}})"><i class="fas fa-shield-alt"></i>
-                </div>{{/if}}
-                {{else}}
-                <div class="health-value health-top" title="{{localize 'OSE.ArmorClass'}}">{{system.ac.value}}</div>
-                <div class="health-value health-bottom" title="{{localize 'OSE.ArmorClassNaked'}}">
-                    {{system.ac.naked}}</div>
-                {{#if system.ac.shield}}<div class="shield"
-                    title="{{localize 'OSE.items.hasShield'}} ({{system.ac.shield}})"><i class="fas fa-shield-alt"></i>
-                </div>{{/if}}
-                {{/if}}
+            {{else}}
+            <div class="resource attribute">
+                <h4 class="attribute-name box-title" title="{{ localize 'OSE.Thac0Long' }}">{{ localize "OSE.Thac0"}}
+                </h4>
+                <div class="flexrow">
+                    <div class="attribute-value">
+                        <input name="system.thac0.value" type="text" value="{{system.thac0.value}}" placeholder="0"
+                            data-dtype="Number" />
+                        <img src="{{asset '/mace.svg'}}" />
+                    </div>
+                </div>
+            </div>
+            {{/if}}
+            <div class="resource attribute">
+                <h4 class="attribute-name box-title" title="{{ localize 'OSE.Health' }}">{{ localize "OSE.HealthShort"}}
+                </h4>
+                <div class="attribute-value">
+                    <input class="health-value health-top" name="system.hp.value" type="text" value="{{system.hp.value}}"
+                        data-dtype="Number" placeholder="0" title="{{localize 'OSE.Health'}}" />
+                    <input class="health-value health-bottom" name="system.hp.max" type="text" value="{{system.hp.max}}"
+                        data-dtype="Number" placeholder="0" title="{{localize 'OSE.HealthMax'}}" />
+                    <img src="{{asset '/heart.svg'}}" />
+                </div>
+            </div>
+            <div class="resource attribute">
+                <h4 class="attribute-name box-title" title="{{ localize 'OSE.ArmorClass' }}">{{ localize "OSE.ArmorClassShort"}}
+                </h4>
+                <div class="attribute-value">
+                    {{#if @root.system.usesAscendingAC}}
+                    <div class="health-value health-top" title="{{localize 'OSE.ArmorClass'}}">{{system.aac.value}}</div>
+                    {{#if system.aac.shield}}<div class="shield"
+                        title="{{localize 'OSE.items.hasShield'}} ({{system.aac.shield}})"><i class="fas fa-shield-alt"></i>
+                    </div>{{/if}}
+                    {{else}}
+                    <div class="health-value health-top" title="{{localize 'OSE.ArmorClass'}}">{{system.ac.value}}</div>
+                    {{#if system.ac.shield}}<div class="shield"
+                        title="{{localize 'OSE.items.hasShield'}} ({{system.ac.shield}})"><i class="fas fa-shield-alt"></i>
+                    </div>{{/if}}
+                    {{/if}}
+                    <img src="{{asset '/shield.svg'}}" />
+                </div>
             </div>
         </div>
+        <!-- <div class="flexrow">
+            <ul class="attributes flexrow">
+                
+            </ul>
+        </div> -->
         <div class="flexrow">
             <ul class="attributes flexrow">
-                <li class="attribute hit-dice">
-                    <h4 class="attribute-name box-title" title="{{ localize 'OSE.HitDice' }}">
-                        <a>{{ localize "OSE.HitDiceShort" }}</a>
+                <li class="attribute attribute-secondaries attack" data-attack="melee">
+                    <a><h4 class="attribute-name box-title" title="{{localize 'OSE.Melee'}}">
+                        <img src="{{asset '/Melee.svg'}}" /><span>{{localize 'OSE.Melee'}}</span>
+                    </h4></a>
+                    <div class="flexrow">
+                        <div class="attribute-value"
+                            title="{{localize 'OSE.scores.str.long'}}({{system.scores.str.mod}}) + {{localize 'OSE.Modifier'}}({{system.thac0.mod.melee}})">
+                            {{system.meleeMod}}
+                        </div>
+                    </div>
+                </li>
+                <li class="attribute attribute-secondaries attack" data-attack="missile">
+                    <h4 class="attribute-name box-title" title="{{localize 'OSE.Missile'}}">
+                        <a>{{localize 'OSE.Missile'}}</a>
                     </h4>
-                    <div class="attribute-value">
-                        <input name="system.hp.hd" type="text" value="{{system.hp.hd}}" placeholder=""
-                            data-dtype="String" />
+                    <div class="flexrow">
+                        <div class="attribute-value"
+                            title="{{localize 'OSE.scores.dex.long'}}({{system.scores.dex.mod}}) + {{localize 'OSE.Modifier'}}({{system.thac0.mod.missile}})">
+                            {{system.rangedMod}}
+                        </div>
                     </div>
                 </li>
                 {{#if config.initiative}}
-                <li class="attribute">
+                <li class="attribute attribute-secondaries">
                     <h4 class="attribute-name box-title" title="{{ localize 'OSE.Initiative' }}">
-                        {{ localize "OSE.InitiativeShort" }}</h4>
+                        {{ localize "OSE.Initiative" }}</h4>
                     <div class="attribute-value"
                         title="{{localize 'OSE.scores.dex.long'}}({{system.scores.dex.init}}) + {{localize 'OSE.Modifier'}}({{system.initiative.mod}})">
                         {{system.init}}
@@ -123,97 +164,60 @@
         </div>
         <div class="flexrow">
             <ul class="attributes flexrow">
-                <li class="attribute attribute-secondaries attack" data-attack="melee">
-                    <h4 class="attribute-name box-title" title="{{localize 'OSE.Melee'}}">
-                        <a>{{localize 'OSE.MeleeShort'}}</a>
-                    </h4>
-                    <div class="flexrow">
-                        <div class="attribute-value"
-                            title="{{localize 'OSE.scores.str.long'}}({{system.scores.str.mod}}) + {{localize 'OSE.Modifier'}}({{system.thac0.mod.melee}})">
-                            {{system.meleeMod}}
-                        </div>
-                    </div>
-                </li>
-                {{#if config.ascendingAC}}
-                <li class="attribute">
-                    <h4 class="attribute-name box-title" title="{{ localize 'OSE.AB' }}">{{ localize "OSE.ABShort"}}
-                    </h4>
-                    <div class="flexrow">
-                        <div class="attribute-value">
-                            <input name="system.thac0.bba" type="text" value="{{system.thac0.bba}}" placeholder="0"
-                                data-dtype="Number" />
-                        </div>
-                    </div>
-                </li>
-                {{else}}
-                <li class="attribute">
-                    <h4 class="attribute-name box-title" title="{{ localize 'OSE.Thac0' }}">{{ localize "OSE.Thac0"}}
-                    </h4>
-                    <div class="flexrow">
-                        <div class="attribute-value">
-                            <input name="system.thac0.value" type="text" value="{{system.thac0.value}}" placeholder="0"
-                                data-dtype="Number" />
-                        </div>
-                    </div>
-                </li>
-                {{/if}}
-                <li class="attribute attribute-secondaries attack" data-attack="missile">
-                    <h4 class="attribute-name box-title" title="{{localize 'OSE.Missile'}}">
-                        <a>{{localize 'OSE.MissileShort'}}</a>
-                    </h4>
-                    <div class="flexrow">
-                        <div class="attribute-value"
-                            title="{{localize 'OSE.scores.dex.long'}}({{system.scores.dex.mod}}) + {{localize 'OSE.Modifier'}}({{system.thac0.mod.missile}})">
-                            {{system.rangedMod}}
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div class="flexrow">
-            <ul class="attributes flexrow">
-                <li class="attribute attribute-secondaries">
-                    <h4 class="attribute-name box-title" title="{{localize 'OSE.movement.overland.long'}}">
-                        {{localize 'OSE.movement.overland.short'}}</h4>
-                    <div class="flexrow">
-                        <div class="attribute-value">
-                            {{@root.system.movement.overland}}
-                        </div>
-                    </div>
-                </li>
-                <li class="attribute">
-                    <h4 class="attribute-name box-title" title="{{ localize 'OSE.movement.exploration.long' }}">
-                        {{ localize "OSE.movement.exploration.short" }}</h4>
-                    <div class="attribute-value flexrow">
-                        <input name="system.movement.base" type="text" value="{{@root.system.movement.base}}" placeholder="0"
-                            data-dtype="Number" {{#if system.config.movementAuto}}disabled{{/if}} />
-                    </div>
-                </li>
                 <li class="attribute attribute-secondaries">
                     <h4 class="attribute-name box-title" title="{{localize 'OSE.movement.encounter.long'}}">
-                        {{localize 'OSE.movement.encounter.short'}}</h4>
+                        {{localize 'OSE.movement.encounter.oneWord'}}</h4>
                     <div class="flexrow">
                         <div class="attribute-value">
                             {{system.movement.encounter}}
                         </div>
                     </div>
                 </li>
+                <li class="attribute">
+                    <h4 class="attribute-name box-title" title="{{ localize 'OSE.movement.exploration.long' }}">
+                        {{ localize "OSE.movement.exploration.oneWord" }}</h4>
+                    <div class="attribute-value flexrow">
+                        <input name="system.movement.base" type="text" value="{{@root.system.movement.base}}" placeholder="0"
+                            data-dtype="Number" {{#if system.config.movementAuto}}disabled{{/if}} />
+                    </div>
+                </li>
+                <li class="attribute attribute-secondaries">
+                    <h4 class="attribute-name box-title" title="{{localize 'OSE.movement.overland.long'}}">
+                        {{localize 'OSE.movement.overland.oneWord'}}</h4>
+                    <div class="flexrow">
+                        <div class="attribute-value">
+                            {{@root.system.movement.overland}}
+                        </div>
+                    </div>
+                </li>
             </ul>
+        </div>
+        <div class="attributes flexrow">
+            <li class="attribute favorites">
+                <h4 class="attribute-name box-title" title="{{localize 'OSE.movement.speed.long'}}">
+                    {{localize 'OSE.Favorites'}}
+                </h4>
+                <div class="flexrow">
+                    <div class="attribute-value">
+                        Empty
+                    </div>
+                </div>
+            </li>
         </div>
     </div>
     {{!-- Saving throws --}}
     <div class="attribute-group">
         <ul class="attributes">
             <li class="attribute saving-throw" data-save="death">
-                <h4 class="attribute-name box-title">
-                    <a>{{ localize "OSE.saves.death.long" }}</a>
+                <h4 class="attribute-name box-title" title="{{ localize 'OSE.saves.death.long' }}">
+                    <a>{{ localize "OSE.saves.death.oneWord" }}</a>
                 </h4>
                 <div class="attribute-value">
                     <input name="system.saves.death.value" type="text" value="{{system.saves.death.value}}" placeholder="0"
                         data-dtype="Number" />
             </li>
             <li class="attribute saving-throw" data-save="wand">
-                <h4 class="attribute-name box-title">
+                <h4 class="attribute-name box-title" title="{{ localize 'OSE.saves.wand.long' }}">
                     <a>{{ localize "OSE.saves.wand.long" }}</a>
                 </h4>
                 <div class="attribute-value">
@@ -221,24 +225,24 @@
                         data-dtype="Number" />
             </li>
             <li class="attribute saving-throw" data-save="paralysis">
-                <h4 class="attribute-name box-title">
-                    <a>{{ localize "OSE.saves.paralysis.long" }}</a>
+                <h4 class="attribute-name box-title" title="{{ localize 'OSE.saves.paralysis.long' }}">
+                    <a>{{ localize "OSE.saves.paralysis.oneWord" }}</a>
                 </h4>
                 <div class="attribute-value">
                     <input name="system.saves.paralysis.value" type="text" value="{{system.saves.paralysis.value}}"
                         placeholder="0" data-dtype="Number" />
             </li>
             <li class="attribute saving-throw" data-save="breath">
-                <h4 class="attribute-name box-title">
-                    <a>{{ localize "OSE.saves.breath.long" }}</a>
+                <h4 class="attribute-name box-title" title="{{ localize 'OSE.saves.breath.long' }}">
+                    <a>{{ localize "OSE.saves.breath.oneWord" }}</a>
                 </h4>
                 <div class="attribute-value">
                     <input name="system.saves.breath.value" type="text" value="{{system.saves.breath.value}}"
                         placeholder="0" data-dtype="Number" />
             </li>
             <li class="attribute saving-throw" data-save="spell">
-                <h4 class="attribute-name box-title">
-                    <a>{{ localize "OSE.saves.spell.long" }}</a>
+                <h4 class="attribute-name box-title" title="{{ localize 'OSE.saves.spell.long' }}">
+                    <a>{{ localize "OSE.saves.spell.oneWord" }}</a>
                 </h4>
                 <div class="attribute-value">
                     <input name="system.saves.spell.value" type="text" value="{{system.saves.spell.value}}"
@@ -246,7 +250,7 @@
             </li>
             <li class="attribute saving-throw">
                 <h4 class="attribute-name box-title" title="{{ localize 'OSE.saves.magic.long' }}">
-                    {{ localize "OSE.saves.magic.long"}}</h4>
+                    {{ localize "OSE.saves.magic.short"}}</h4>
                 <div class="attribute-value flat" title="{{localize 'OSE.scores.wis.long'}}({{system.scores.wis.mod}})">
                     {{mod system.scores.wis.mod}}
                 </div>

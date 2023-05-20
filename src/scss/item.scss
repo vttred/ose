@@ -30,12 +30,12 @@
         color: whitesmoke;
         padding: 1px 5px;
         height: 18px;
-        box-shadow: 0 0 3px $colorFaint;
+        box-shadow: 0 0 3px $colorLight;
         margin: 0 2px;
         i {
           font-size: 8px;
           vertical-align: top;
-          color: $colorFaint;
+          color: $colorLight;
         }
       }
     }
@@ -61,7 +61,7 @@
           &.range {
             .sep {
               flex: 0 0 1px;
-              background: $colorTan;
+              background: $colorDarkGrey;
               margin: 4px 0;
             }
           }
@@ -71,7 +71,7 @@
           padding: 2px;
           font-size: 15px;
           a {
-            color: $colorInactive;
+            color: $colorMediumGrey;
             &.active,
             :hover {
               color: $colorDark;

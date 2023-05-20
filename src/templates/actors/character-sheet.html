@@ -1,42 +1,41 @@
 <form class="{{cssClass}}" autocomplete="off">
-  {{! Sheet Header }}
-  <header class="sheet-header flexrow">
-    {{> (path "/templates/actors/partials/character-header.html") }}
-  </header>
-
   {{! Sheet Tab Navigation }}
   <nav class="sheet-tabs tabs" data-group="primary">
     <a class="item" data-tab="attributes">
-      {{localize "OSE.category.attributes"}}
+      {{localize "OSE.category.combat"}}
     </a>
     <a class="item" data-tab="abilities">
       {{localize "OSE.category.abilities"}}
     </a>
-    {{#if system.spells.enabled}}
-    <a class="item" data-tab="spells"> {{localize "OSE.category.spells"}} </a>
-    {{/if}}
     <a class="item" data-tab="inventory">
       {{localize "OSE.category.inventory"}}
     </a>
+    {{#if system.spells.enabled}}
+    <a class="item" data-tab="spells"> {{localize "OSE.category.magic"}} </a>
+    {{/if}}
     <a class="item" data-tab="notes"> {{localize "OSE.category.notes"}} </a>
   </nav>
   {{! Sheet Body }}
   <section class="sheet-body">
-    {{! Attributes Tab }}
+    {{! Combat Tab }}
     <div class="tab" data-group="primary" data-tab="attributes">
       {{> (path "/templates/actors/partials/character-attributes-tab.html") }}
     </div>
+    {{! Abilities Tab }}
     <div class="tab" data-group="primary" data-tab="abilities">
       {{> (path "/templates/actors/partials/character-abilities-tab.html") }}
     </div>
+    {{! Inventory Tab }}
+    <div class="tab" data-group="primary" data-tab="inventory">
+      {{> (path "/templates/actors/partials/character-inventory-tab.html") }}
+    </div>
+    {{! Magic Tab }}
     {{#if system.spells.enabled}}
     <div class="tab" data-group="primary" data-tab="spells">
       {{> (path "/templates/actors/partials/character-spells-tab.html") }}
     </div>
     {{/if}}
-    <div class="tab" data-group="primary" data-tab="inventory">
-      {{> (path "/templates/actors/partials/character-inventory-tab.html") }}
-    </div>
+    {{! Notes Tab }}
     <div class="tab" data-group="primary" data-tab="notes">
       {{> (path "/templates/actors/partials/character-notes-tab.html") }}
     </div>

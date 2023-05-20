@@ -17,8 +17,8 @@ export default class OseActorSheetCharacter extends OseActorSheet {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["ose", "sheet", "actor", "character"],
       template: `${OSE.systemPath()}/templates/actors/character-sheet.html`,
-      width: 450,
-      height: 530,
+      width: 668,
+      height: 693,
       resizable: true,
       tabs: [
         {
@@ -27,7 +27,6 @@ export default class OseActorSheetCharacter extends OseActorSheet {
           initial: "attributes",
         },
       ],
-      scrollY: [".inventory"],
     });
   }
 

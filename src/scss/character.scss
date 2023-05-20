@@ -16,7 +16,7 @@
     .xp-bonus {
       top: -15px;
       right: 3px;
-      color: $colorTan;
+      color: $colorDarkGrey;
       font-size: 10px;
       position: absolute;
     }
@@ -48,6 +48,51 @@
     .tab {
       height: 100%;
     }
+    .attribute-group {
+      flex: 0 0 88px;
+      .attributes {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        height: 100%;
+        width: auto;
+        .attribute {
+          display: flex;
+          flex-direction: column;
+          .attribute-name {
+            width: auto;
+            display: flex;
+            align-items: center;
+            margin: 0;
+            line-height: 35px;
+            span {
+              margin: 0 0 0 .25em;
+            }
+            img {
+              height: 35px;
+              width: auto;
+              display: inline-block;
+            }
+          }
+          &.saving-throw {
+            .attribute-name {
+              line-height: 16px;
+              width: 80px;
+            }
+            .attribute-value {
+              line-height: 29px;
+            }
+          }
+          .attribute-value {
+            width: 45px;
+            flex-grow: 0;
+            input {
+              padding: 0;
+            }
+          }
+        }
+      }
+    }
     .attributes-tab {
       justify-content: space-between;
       height: 100%;
@@ -57,10 +102,25 @@
       justify-content: space-evenly;
       flex-direction: column;
       .attribute {
+        display: flex;
+        flex-direction: row;
         flex: 0 0 55px;
+        &.resource {
+          img{
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+          }
+          flex-direction: column;
+        }
         &.attribute-secondaries {
-          flex: 0 0 40px;
           margin-bottom: 5px;
+        }
+        &.favorites {
+          flex-direction: column;
         }
       }
     }
@@ -174,7 +234,7 @@
   /* Encumbrance Bar */
   .encumbrance {
     height: 12px;
-    background: $darkBackground;
+    background: $colorDark;
     margin: 1px 15px 0 1px;
     border: 1px solid $colorDark;
     border-radius: 3px;
@@ -212,7 +272,7 @@
       height: 0;
       border-left: 4px solid transparent;
       border-right: 4px solid transparent;
-      border-bottom: 4px solid $colorFaint;
+      border-bottom: 4px solid $colorLight;
     }
 
     .arrow-down {
@@ -221,7 +281,7 @@
       height: 0;
       border-left: 4px solid transparent;
       border-right: 4px solid transparent;
-      border-top: 4px solid $colorFaint;
+      border-top: 4px solid $colorLight;
     }
 
     &.encumbered {

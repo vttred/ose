@@ -16,82 +16,118 @@
       ><i class="fa fa-dice"></i
     ></a>
     {{/unless}}
+    <a data-action="tweaks" title="{{localize 'OSE.dialog.tweaks'}}"
+      ><i class="fas fa-code"></i
+    ></a>
   </div>
 </div>
 <section class="header-details flexrow">
-  <h1 class="charname">
-    <input
-      name="name"
-      type="text"
-      value="{{name}}"
-      placeholder="{{localize 'OSE.details.name'}}"
-      data-dtype="String"
-    />
-  </h1>
-  <ul class="summary flexrow">
-    {{#if system.retainer.enabled}}
-    <li>
-      <input
-        type="text"
-        name="system.retainer.wage"
-        value="{{system.retainer.wage}}"
-        data-dtype="String"
-      />
-      <label>{{localize 'OSE.RetainerWage'}}</label>
-    </li>
-    {{else}}
-    <li>
-      <input
-        type="text"
-        name="system.details.title"
-        value="{{system.details.title}}"
-        data-dtype="String"
-      />
-      <label>{{localize 'OSE.details.title'}}</label>
-    </li>
-    {{/if}}
-    <li>
-      <input
-        type="text"
-        name="system.details.alignment"
-        value="{{system.details.alignment}}"
-        data-dtype="String"
-      />
-      <label>{{localize 'OSE.details.alignment'}}</label>
-    </li>
-  </ul>
   <ul class="summary flexrow">
     <li class="flex3">
+      <label>{{localize 'OSE.details.name'}}</label>
+      <input
+        name="name"
+        type="text"
+        value="{{name}}"
+        placeholder="{{localize 'OSE.details.name'}}"
+        data-dtype="String"
+      />
+    </li>
+    <li class="flex2">
+      <label>{{localize 'OSE.details.class'}}</label>
       <input
         type="text"
         name="system.details.class"
         value="{{system.details.class}}"
         data-dtype="String"
       />
-      <label>{{localize 'OSE.details.class'}}</label>
     </li>
+  </ul>
+  <ul class="summary flexrow">
     <li
-      class="{{#if (gte system.details.xp.value system.details.xp.next)}}notify{{/if}}"
+    class="{{#if (gte system.details.xp.value system.details.xp.next)}}notify{{/if}}"
     >
+      <label>{{localize 'OSE.details.level'}}</label>
       <input
         type="text"
         name="system.details.level"
         value="{{system.details.level}}"
         data-dtype="Number"
-      />
-      <label>{{localize 'OSE.details.level'}}</label>
+      />  
     </li>
+    {{#if system.retainer.enabled}}
     <li class="flex2">
+      <label title="{{localize 'OSE.Loyalty'}}">{{localize 'OSE.LoyaltyShort'}}</label>
+      <input
+        type="text"
+        name="system.retainer.loyalty"
+        value="{{system.retainer.loyalty}}"
+        data-dtype="Number"
+      />
+    </li>
+    {{else}}
+    <li class="flex2">
+      <label>{{localize 'OSE.details.title'}}</label>
+      <input
+        type="text"
+        name="system.details.title"
+        value="{{system.details.title}}"
+        data-dtype="String"
+      />
+    </li>
+    {{/if}}
+    <li class="flex2">
+      <label>{{localize 'OSE.details.experience.base'}}</label>
       <input
         type="text"
         name="system.details.xp.value"
         value="{{system.details.xp.value}}"
         data-dtype="Number"
       />
-      <label>{{localize 'OSE.details.experience.base'}}</label>
       {{#if system.details.xp.bonus}}
       <span class="xp-bonus">+{{system.details.xp.bonus}}%</span>
       {{/if}}
     </li>
+  </ul>
+  <ul class="summary flexrow">
+    <li>
+      <label>{{localize 'OSE.HitDiceShort'}}</label>
+      <input
+        type="text"
+        name="system.hp.hd"
+        value="{{system.hp.hd}}"
+        data-dtype="Number"
+      />
+    </li>
+    <li class="flex2">
+      <label>{{localize 'OSE.details.alignment'}}</label>
+      <input
+        type="text"
+        name="system.details.alignment"
+        value="{{system.details.alignment}}"
+        data-dtype="String"
+      />
+    </li>
+    {{#if system.retainer.enabled}}
+    <li class="flex2">
+      <label>{{localize 'OSE.RetainerWage'}}</label>
+      <input
+        type="text"
+        name="system.retainer.wage"
+        value="{{system.retainer.wage}}"
+        data-dtype="Number"
+      />
+    </li>
+    {{else}}
+    <li class="flex2">
+      <label>{{localize 'OSE.details.experience.next'}}</label>
+      <input
+        type="text"
+        name="system.details.xp.next"
+        value="{{system.details.xp.next}}"
+        data-dtype="Number"
+      />
+    </li>
+    {{/if}}
   </ul>
 </section>

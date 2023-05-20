@@ -5,7 +5,7 @@
   <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8" />
-  <title>Old School Essentials system for Foundry VTT (Unofficial)</title>
+  <title>Old School Essentials system for Foundry VTT</title>
   <meta name="description" content="" />
   <meta name="author" content="" />
 
@@ -33,7 +33,7 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <section class="header">
     <h2>Old School Essentials</h2>
-    <p>Unofficial system for Foundry VTT</p>
+    <p>Official open source game system for Foundry VTT</p>
   </section>
   <div class="container">
     <nav class="navbar">
@@ -66,12 +66,12 @@
     <div id="intro" class="row">
       <div class="column" style="margin-top: 10%;">
         <p>
-          This fan-made system has all the features you need to play OSE or
-          the Basic/Expert edition of this good old TRPG.
+          This Foundry VTT game system has all the features you need to play
+          Old-School Essentials.
         </p>
         <p>
-          This comprehensive user guide will show you the basics and reveal
-          some hidden features and hacks.
+          This comprehensive user guide will show you the basics and explain all the features
+          of the game system.
         </p>
         <p>
           For further documentation on how to use Foundry VTT please go to
@@ -79,7 +79,8 @@
           <a href="https://foundryvtt.com/kb/" target="_blank">Knowledge base</a>.
         </p>
         <p>
-          Please see the <a href="https://github.com/vttred/ose/#readme">project readme</a> for a list of places to receive Unoffficial Old-School Essentials on Foundry VTT support.
+          Please see the <a href="https://github.com/vttred/ose/#readme">project readme</a>
+          for a list of places to receive Old-School Essentials - Foundry VTT Edition support.
         </p>
       </div>
     </div>
@@ -94,7 +95,7 @@
         server.
       </p>
       <p>
-      <ul>
+      <ol>
         <li>
           Launch Foundry VTT.
         </li>
@@ -102,22 +103,22 @@
           Go to Game Systems, Install System.
         </li>
         <li>
-          Find 'Old-School Essentials' and click Install.
+          Search for 'Old-School Essentials' or 'ose' and click the Install button.
         </li>
         <li>
-          Go to Modules, Install Module.
+          Optionally install the free, community-created Classic Fantasy Compendium
+          or the Advanced Fantasy premium content module. You do not need both (or either).
         </li>
         <li>
-          Find 'Old-School Essentials OGL Content' and click Install.
+          Create a new game world, selecting Old-School Essentials from the game system
+          dropdown menu.
         </li>
-        <li>
-          Create a new World using the Old-School Essentials system.
-        </li>
-      </ul>
+      </ol>
       </p>
       <h4>Setup</h4>
-      <p>You can find System settings in the Configure Settings dialog you
-        open from the sidebar</p>
+      <p>You can find game system settings by navigating to the Settings Directory
+        (the gears icon), clicking the Configure Settings button, and clicking
+        Old-School Essentials in the dialog box.</p>
       <p style="text-align: center;">
         <img src="./images/settings.png" />
       </p>
@@ -125,74 +126,110 @@
         These are several settings to customize your experience with Old
         School Essentials.
       <ul>
-        <li><strong>Initiative</strong>:Initiative can be switched from
-          grouped to individual.
-          Grouped initiative means initiative is rolled once per faction.
-          Switching to individuall will have every combatant roll their own
-          initiative.
-          Setting to invidual will show the initiative field on character
-          sheets, see the <a href="#attributes">Attributes</a> section.
+        <li><strong>Initiative</strong><br />
+          <strong>Group initiative:</strong> every combatant in the same group
+          will have the same initiative roll result (but their final initiative
+          may be modified by abilities).<br />
+          <strong>Individual initiative:</strong> every combatant will have its
+          own initiative roll. Characters will show an initiative modifier on
+          their character sheets, see the <a href="#attributes">Attributes</a> section.
         </li>
-        <li><strong>Initiative persistence</strong>:Initiative can be kept
-          between each turn, reset, or rerolled.
+        <li><strong>Initiative persistence:</strong><br />
+          <strong>Keep each round:</strong> initiative is automatically rolled
+          at the beginning of each combat, and the number does not change between rounds.<br />
+          <strong>Reset each round:</strong> initiative result is removed at the beginning
+          of each round and not automatically re-rolled. Players will have to click to roll
+          new initiative.<br />
+          <strong>Reroll each round:</strong> initiative is automatically rolled
+          at the beginning of each round.
+
         </li>
-        <li><strong>Ascending Armor Class</strong>:Old School Essentials
-          default option is to use the original descending Armor Class and
-          the 'To Hit AC 0' attack statistic alias THAC0.
-          If this input is checked, this will come back to the familiar
-          Attack Bonus as well as an Ascending Armor Class.
+        <li><strong>Ascending Armor Class:</strong> By default, Old-School Essentials
+          uses the original descending Armor Class and the 'To Hit Armour Class 0' attack
+          statistic, also known as THAC0. When checked, this setting will use the optional
+          rules for AAC and AB (attack bonus) given in Old-School Essentials.
         </li>
-        <li><strong>Morale Rating</strong>: This will show a Morale Field in
-          the Monster sheet so you can record and roll a Morale check to see
-          wether your monster has a survival instinct or will fight till the
-          end.
+        <li><strong>Monster Morale</strong>: This enables the optional rule for Monster Morale
+          from Old-School Essentials. Record and roll a Morale check to see
+          whether a monster decides to flee under perilous conditions.
         </li>
-        <li><strong>Encumbrance</strong>:The weight a character is carrying
-          is a significant part of the players treasure hunting adventures.
-          You have three options here.
+        <li><strong>Encumbrance:</strong> The weight of items a character carries may
+          modify their movement rate. The modified movement rate for each encumbrance threshold
+          is documented in the Old-School Essential rules.
           <ul>
-            <li><strong>Disabled</strong>: You can disable the effect of
+            <li><strong>Disabled:</strong> You can disable the effect of
               weight and armor on movement.</li>
-            <li><strong>Basic</strong>: Movement is calculated from the
-              armor type and weither you are carrying more than the
-              significant treasure weight (see below).</li>
-            <li><strong>Detailed</strong>: If the character carry items, 80
-              coins of weight will be added in total. The weight you carry
-              will be counted, your movement value depends on the fraction
-              of your max encumbrance you carry. </li>
-            <li><strong>Complete</strong>: All the weight you carry will be
-              counted, your movement value depends on the fraction of your
-              max encumbrance you carry.</li>
+            <li><strong>Basic:</strong> Movement is calculated from the
+              armour type and whether you are carrying more than
+              "significant" treasure.</li>
+            <li><strong>Detailed:</strong>: If the character carries any "adventuring gear,"
+              80 coins of weight will be added to the character's total encumbrance.
+              The weight of other equipment is counted individually. </li>
+            <li><strong>Complete:</strong>: Each and every item, including adventuring gear,
+              will count towards a character's encumbrance.
+            </li>
           </ul>
         </li>
-        <li><strong>Significant treasure weight</strong>: If you have the
+        <li><strong>Significant treasure weight:</strong> If you have the
           Basic encumbrance option enabled, the movement rate will depend on
           a predefined weight at which you consider the treasure to be
           cumbersome. You can set the value here and it will be used to
           determine the movement rates of characters.
+        </li>
+        <li>
+          <strong>Languages:</strong> Characters and monsters can select
+          languages they speak from a list given here. Classic Fantasy compendium
+          languages are already included by default.
+        </li>
+        <li>
+          <strong>Token Damage Target:</strong> Chat cards will ask the user whether
+          they're successful attack will deal damage. This setting affects which type
+          of targeting system they'd like to use.
+          <ul>
+            <li><strong>Selected:</strong> The selected token receives the damage.</li>
+            <li><strong>Target:</strong> The currently targeted token receives the damage 
+              (even if it wasn't the target when the attack was rolled).</li>
+            <li><strong>Original Target:</strong> The token that was targeted when the
+            attack was rolled receives the damage (even if a different token is targeted when
+            the damage button is pushed).</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Invert Ctrl/Meta Key behavior:</strong> Many of the game system's automated
+          dice rolls will show a dialog box to input modifiers to the dice roll by default, but this
+          dialog box can be skipped by holding Ctrl (on Windows) or Meta (on Mac). Checking this box
+          will make the dialog boxes skip automatically, but show when the Ctrl/Meta key is held down.
         </li>
       </ul>
       </p>
     </div>
     <hr />
     <div id="characters" class="docs-section">
-      <h4>Characters</h4>
+      <h4>Actors</h4>
       <h6 class="docs-header" id="tweaks">Tweaks</h6>
       <div class="row">
         <div class="six columns">
-          <p>You customize characters through this menu accessible from the
-            header of the character sheet.</p>
+          <p>You can customize characters and monsters through this menu by clicking the
+            Tweaks button in the header of the character sheet.</p>
           <p>
           <ul>
-            <li><strong>Spellcaster</strong>: Shows the Spells tab</li>
-            <li><strong>Retainer</strong>: Adds the Loyalty rating
-              attribute, replaces the Title field in the header by a Wage
-              input.</li>
-            <li><strong>Initiative Bonus</strong>: Will add this value to
-              initiative in addition to the Dexterity modifier.</li>
-            <li><strong>Next Level</strong>: The threshold at which the
-              level field in the Header section of the character sheet will
-              animate.</li>
+            <li><strong>Spellcaster:</strong> Shows the Magic tab (even if the Actor doesn't 
+              have any spells).
+            </li>
+            <li><strong>Retainer:</strong> Adds the Loyalty rating and Wage attributes to a character,
+              removes the Title and Next Level XP attributes.
+            </li>
+            <li><strong>Don't apply weapon bonus to damage roll:</strong> A weapon's bonus (e.g. +1, +2)
+              will only augment the attack of the weapon. You may use this to write your damage bonus in
+              the damage input box instead.
+            </li>
+            <li><strong>Initiative Bonus:</strong> Will add this value to
+              initiative in addition to the Dexterity modifier.
+            </li>
+            <li><strong>Next Level:</strong> The threshold at which the
+              level field in the header section of the character sheet will
+              glow to notify players that the character may level up.
+            </li>
         </div>
         <div class="three columns">
           <img src="./images/tweaks.png" width="320" height="300" />
@@ -200,24 +237,25 @@
       </div>
       <div class="row">
         <ul>
-          <li><strong>Bonus experience</strong>: This will add to the
-            experience dealt from the Party Sheet</li>
-          <li><strong>Experience share:</strong>: The share of the party
-            XP you will get from the experience dealt.</li>
-          <li><strong>Melee Bonus</strong>: A bonus to the Attack roll
-            only for melee weapons.</li>
-          <li><strong>Missile Bonus</strong>: A bonus to the Attack roll
-            only for missile weapons.</li>
-          <li><strong>Armor Class</strong>: This value will be added
-            (ascending) or subtracted (default) to the Armor class value
-            that initially depends on the armor you wear and your
-            Dexterity modifier.</li>
-          <li><strong>Encumbrance</strong> (GM Only): The maximum value at
-            which you can't move anymore. If you have an encumbrance of
-            1800 it will delay any movement penalty by 200 (1800-1600).</li>
-          <li><strong>Calculate movement</strong> (GM Only): if you have a
-            tricky case where movement should be manually set, you can
-            uncheck this.</li>
+          <li><strong>Bonus experience:</strong> The percentage of XP to add to the
+            experience gained while using the Party Sheet XP tool.</li>
+          <li><strong>Experience share:</strong> The share of the party
+            XP you will get from the experience dealt (e.g. 50% for Retainers).</li>
+          <li><strong>Melee Bonus:</strong> A bonus to the Attack roll
+            only for melee weapons, in addition to other modifiers.</li>
+          <li><strong>Missile Bonus:</strong> A bonus to the Attack roll
+            only for missile weapons, in addition to other modifiers.</li>
+          <li><strong>Armor Class:</strong> This value will be added
+            (ascending) or subtracted (default) to the Armor class value,
+            in addition to any other modifiers.
+          </li>
+          <li><strong>Encumbrance:</strong> (GM Only) The maximum value at
+            which you can't move anymore. This will affect every encumbrance threshold
+            used for the current encumbrance scheme. For example, if this value is 1800,
+            "half-encumbered" will now be 900 instead of the default 800.
+          </li>
+          <li><strong>Calculate movement:</strong> (GM Only) uncheck this box to manually
+            set movement rates for this character.</li>
         </ul>
       </div>
       <h6 class="docs-header">Header</h6>
@@ -225,128 +263,111 @@
         <img src="./images/header.png" />
       </p>
       <p>The Character sheet header contains text fields you can edit
-        directly. There is no automation done with those fields and you
-        will
-        have to type them manually in most cases.</p>
+        directly. There is no automation done with the header fields.</p>
       <p>The greyed text on top of the experience field is the XP prime
-        requisites bonus that can be
-        set in the Tweaks dialog (see below). It is used when experience
-        is
-        dealt automatically via the party sheet.</p>
+        requisites bonus that can be set in the Tweaks dialog box. It is used
+        when experience is dealt automatically via the party sheet.</p>
       <p> If the character survives long enough, the Level field will
-        have a flash animation as soon when the character got enough
-        experience to level up. This experience threshold is set in the
-        Tweaks dialog.
+        glow as soon when the character has enough experience to level up.
+        This experience threshold is also set in the Tweaks dialog box.
       </p>
-      <h6 class="docs-header">Attributes</h6>
-      <p>The Default tab is dedicated to the statistics of the actor.</p>
+      <h6 class="docs-header">Combat</h6>
+      <p>The Default tab is dedicated to the combat statistics of the actor.</p>
       <p style="text-align: center;">
         <img src="./images/attributes.png" />
       </p>
-      <h4 class="docs-header">Left</h4>
-      <p>This records the attribute scores. You can edit those
-        values directly.</p>
-      <p>Rolls can be made by clicking on the attribute name, after
+      <h4 class="docs-header">Ability Scores</h4>
+      <p>The left side of this view is dedicated to the ability scores. You can edit these
+        values directly, but they can also be automatically generated using the character
+        generator dialog box.</p>
+      <p>Ability rolls can be made by clicking on the attribute name. After
         clicking you will see a dialog where you can input modifiers. If
         you try to roll the attributes will holding the CTRL key, the
         dialog will be skipped.</p>
       <p style="text-align: center;">
         <img src="./images/attribute-roll.png" />
       </p>
-      <p>Above the attributes you can click on the book icon to see the
-        influence of all the attributes on the other stats of your
-        character. That will be useful during character creation, but also
+      <p>By hovering your cursor over the character portrait, 
+        you can click on the book icon to see the influence of each ability score on the
+        other stats of your character. That will be useful during character creation, but also
         to see other stats like your maximum number of retainers, or
         literacy.</p>
-      <h4 class="docs-header">Center</h4>
-      <p>
-        Hit points current and max values: the 'bucket' will empty as
-        you lose HPs.
+      <h4 class="docs-header">Resources and secondary attributes</h4>
+      <p>The center of this view is dedicated to resources and secondary attributes.</p>
+      <p>THAC0 or Attack Bonus (AB) will show inside a morningstar weapon, depending on whether
+        the Ascending Armour Class optional rule is enabled.
       </p>
       <p>
-        An Armor class within a shield shape: The value above is the
-        AC and below will be the unarmored armor class. It's
-        calculated depending on the armor you have equipped. You can
-        add an armor bonus in the Tweaks dialog.
+        Hit points current and max values will show inside the winged heart.
+      </p>
+      <p>
+        Armour Class (normal or ascending) will appear inside the shield.
         If there is a small shield icon on top of the Armor class
         value, it means you have a shield equipped that should not be
         taken into account when you are attacked from behind.
       </p>
-      <p>On the second row there is a Hit Dice field you can roll, and if
-        the individual initiative is set in the Settings, there is the
-        initiative value. This value is calculated but you can add a
-        modifier in the Tweaks dialog.</p>
-      <p>The third row details the Attack statistics. It will change if
-        you have the Ascending AC setting enabled. At the center you will
-        find the THAC0 or Attack Bonus (AB), on the left the Melee attack
-        modifier that is influenced by strength and on the right the
-        Missile modifier influenced by Dexterity. you can hover both to
-        have the details of the calculation, and add a bonus if needed in
-        the Tweaks dialog.
-        Both field names are clickable and will roll attacks that can be
-        speedrolled by maintaining the CTRL key.
+      <p>On the second row are the Melee, ranged, and initiative modifiers for
+        the character.</p>
+      <p>The third row details the movement rates for different situations, i.e. Encounter movement
+        per round, Exploration movement per dungeon turn, and Overland movement per day. These are automatically
+        set based on your encumbrance setting and weight.
       </p>
       <p style="text-align: center;">
         <img src="./images/attack-roll.png" />
       </p>
+      <h4 class="docs-header">Saving Throws</h4>
       <p>
-        The last row shows the three movement stats, they are
-        automagically set by default, depending on the weight you are
-        carrying and the encumbrance options (See the <a href="#inventory">inventory</a> section).
-        You can disable this behavior through the <a href="#tweaks">Tweaks</a>
-        dialog.
-      </p>
-      <h4 class="docs-header">Right</h4>
-      <p>
-        Here are recorder the saving throw scores. Complete names and
-        abbreviations can be seen on hover. This can be rolled when the
-        save name is clicked, and can be speedrolled with CTRL as well.
+        On the right side of this view, the saving throws for the character may
+        be recorded. Complete names and abbreviations for each can be seen on hover.
+        This can be rolled when the save name is clicked, and can be speedrolled with Ctrl/Meta
+        as well.
       </p>
       <p style="text-align: center;">
         <img src="./images/save-roll.png" />
       </p>
       <p>
-        The last value for Bonus versus magic must be manually added to
-        the roll by using the dialog that pops without speedrolling.
+        The bonus versus magic is applied by clicking the Vs Magic button in the dialog box
+        when a save is clicked. This means saves vs magic cannot be "speedrolled."
       </p>
-      <h4 class="docs-header">Abilities</h4>
+      <h4 class="docs-header">Skills and Abilities</h4>
       <p style="text-align: center;">
         <img src="./images/abilities.png" />
       </p>
       <p>
-        The first row contains rollable entries for exploration rolls.
-        Those can be speed rolled as well.
+        The top row contains rollable entries for exploration rolls.
+        These can be speed rolled with Ctrl/Meta.
       </p>
       <p>
         In the abilities section you can create anything that needs a
-        description. It can be thieves skills, class abilities, and so on.
+        description. It can be thieves' skills, class abilities, and so on.
         You can create a new ability by clicking the plus button or by
         dragging one from the item sidebar or a compendium.
         You can open the abilities with the pen icon, show it in the chat
         with the eye icon, and delete it with the trash icon.
       </p>
+      <p>
+        You can also drag skills onto the character sheet from a compendium.
+      </p>
       <p style="text-align: center;">
         <img src="./images/ability.png" />
       </p>
       <p>
-        When opened, the ability details can be entered. On the left you
-        see you can set the ability requirements, for example `Thief, 1`,
-        you can enter a roll associated with the ability.
-        For example if Roll is `1d100`, roll type is `>=` and target is
-        `40`. The roll will display success in green as soon as the result
-        is above 40.
+        When opened, the ability details can be entered. On the left you can set the 
+        ability requirements, for example `Thief, 1`, and you can enter a roll associated
+        with the ability. For example if Roll is `1d100`, roll type is `>=` and target is
+        `40`. The roll will display success in green as if the result is above 40.
         When the ability has a roll set you can click on the ability image
         on the character sheet to roll directly to the chat.
-        You can apply the roll result as damage or healing by right
+        You can apply the roll result as damage or as healing by right
         clicking on the chat card, this is true for all rolls.
       </p>
       <p style="text-align: center;">
         <img src="./images/ability-chat.png" />
       </p>
       <p>
-        If you need someone else to roll the ability you can show the
+        If you need someone else to roll an ability you can show the
         whole ability to the chat with the eye icon and they can roll from
-        there.
+        there. They can also roll a save for that ability.
         Note that you can slide down the ability description by clicking
         on its name from the character sheet.
       </p>
@@ -357,41 +378,38 @@
       <p>
         You won't have this tab displayed by default. You must enable the
         `spellcaster` checkbox in the Tweaks dialog located in the sheet
-        toolbar.
+        toolbar, or drag a magic item into the character sheet.
       </p>
       <p>
-        Here you can record your spellbook content. First you can add a
-        new spell by clicking the plus. For each level of spell you have
-        you will have a new section for its level with it's related spell
-        slot counter.
+        Here you can record your spellbook contents, or your deity's available spells.
+        First you can add a new spell by clicking the plus. For each level of spell you have,
+        you will have a new section for its level with it's related spell slot counter.
       </p>
       <p>
         At the beginning I recommend creating one New Spell for each spell
-        level you have and then change their level by opening them, it
-        will unblock the spell slot counters.
+        level you have and then change their level by opening them, which
+        unlocks the spell slot counters for each level.
       </p>
       <p>
-        Spell slots counters have two values. The first one is the number
-        of spells you have memorized, it can't be edited. And the second
-        one is the total number of spell slots you have. You should edit
-        those as you gain new levels.
+        Spell slot counters have two values. The first one is the number
+        of spells you have memorized, which can't be edited. The second
+        is the total number of spell slots you have. Edit this value as
+        the character levels up.
       </p>
       <p>
         Spells themselves have counters. The first is the remaining
         available spells, the second is the number of this spell you
-        memorized.
-        The spell counter decreases as you roll them by clicking their
-        image. Spell slots that have been used can all be refilled by
-        clicking the reset icon in the spells tab header.
+        memorized. The spell counter decreases as you roll
+        them by clicking their image. Used spell slots can be refreshed
+        by clicking the reset icon in the spells tab header.
       </p>
       <p style="text-align: center;">
         <img src="./images/spell.png" />
       </p>
       <p>
-        Spells are similar with abilities but have a few more infos. Rolls
-        can't be configured as much, you can only set a roll string that
-        respects Foundry VTT syntax.
-        However you can specify a Save so when the Spell is displayed on
+        Spells are similar to abilities but have a few more info. Rolls
+        can't be configured as much, you can only set a roll string.
+        However you can still specify a Save so when the Spell is displayed on
         chat with the eye icon, a button that triggers a save roll from
         the selected actors is displayed below the spell description.
       </p>
@@ -403,7 +421,7 @@
         <img src="./images/inventory.png" />
       </p>
       <p>
-        The inventory compiles every item you own from the weapon to the
+        The inventory compiles every item you own, from weapons to
         treasure. Weapons are in the first section. Clicking on the weapon
         icon will roll an attack with damage.
       </p>
@@ -414,50 +432,46 @@
         Damage rolled during the attack can be applied to one or several
         selected tokens if you click on the blood drop icon right to the
         result. You can apply damage or healing by right clicking on the
-        chat card, this is true for all rolls.
+        chat card, which is true for all rolls. Damage will be applied
+        according to the damage application setting in Configure Settings.
       </p>
       <p>
         Clicking on the name will expand the item description along with
-        relevant tags. Here it's the damage.
+        relevant tags, including damage.
       </p>
       <p style="text-align: center;">
         <img src="./images/item-collapse.png" />
       </p>
       <p>
-        It is possible to equip an item. The only mechanical value it has
-        for now is the influence of the Slow weapon tag on initiative.
-        Tags that are recognized will be displayed as icons. If you don't
-        have Foundry VTT set has english and you use a translation
-        (French, Spanish), you will have to use the tags translation to
-        have it matched.
-        Other tags will be written as text.
+        It is possible to equip an item. Equipped slow weapons will make the character
+        last in the initiative order. Some special tags are displayed as icons in the inventory.
       </p>
       <p>
         When you open the weapon sheet by clicking on the pen icon, you
-        can edit the stats and add new tags.
-        Slow, Melee, and Missile tags will check automatically the
-        matching checkbox. But won't uncheck it.
+        can edit the stats and add new tags. The Melee and Missile icons, when clicked, will make
+        the weapon use your character's melee or missile modifiers. If both are active,
+        the system will prompt the userwhether the weapon is being held or thrown when attacking.
       </p>
       <p style="text-align: center;">
         <img src="./images/weapon.png" />
       </p>
       <p>
-        Weapons can have attack bonuses. You can add new weapon tags if
-        you type text in the field below the weapon icon and press ENTER.
-        You can copy the whole qualities field from the book as the tag
-        parser will split the commas, and set the text between brackets as
-        a hover text.
+        You can add new weapon tags if you type text in the field below the weapon
+        icon and press ENTER. If you enter more than one, the input
+        parser will split tags using commas. Text entered between brackets will be visible when
+        hovered by the cursor.
       </p>
       <p>
-        Other items won't be clickable. Armors have configurable Armor
-        Class and an Armor type, Misc items can have a quantity directly
-        editable from the inventory list. If checked as Treasure, it is
-        counter in the total treasure displayed in the treasure header.
+        Armour has a configurable Armour Class and an Armour type,
+        Misc items can have a quantity directly editable from the inventory list.
+        If checked as Treasure, it is displayed under the treasure header instead and will
+        usually count against one's encumbrance.
       </p>
       <p>
-        Below is the encumbrance bar. This is used for the auto mouvement
-        calculation. If you're encumbrance max value is 1600 as default,
-        each cursor passed are the threshold you will lose movement.
+        At the bottom of the inventory view is the encumbrance bar.
+        Weight, visualized here as a percentage with thresholds and a maximum,
+        is used for automatic mouvement calculation. Your encumbrance max value
+        is 1600 by default, and at each threshold shown, the character's movement will degrade.
       </p>
       <h4 class="docs-header">Notes</h4>
       <p style="text-align: center;">
@@ -465,15 +479,10 @@
       </p>
       <p>This tab is a free space you can record description and notes.
         This is enriched so you can use inline rolls, entity links and
-        other fun things.</p>
+        anything you can usually do in a journal entry.</p>
       <p>You can add known language by clicking on the plus next to the
-        language header. The number of language you can speak can be found
-        in the modifier dialog in the attribute tab.</p>
-      <p>The language list was made compatible with the Polyglot module
-        from Kakaroto, you can find it <a href="https://github.com/kakaroto/fvtt-module-polyglot">here</a>
-        or in the module list within Foundry VTT.</p>
-      <p>We have finished with the character sheet. Feel free to post
-        issues on GitHub or contact me for more informations.</p>
+        language header. The number of languages you can speak can be found
+        in the View Modifiers dialog box.</p>
     </div>
     <div id="monsters" class="docs-section">
       <h4>Monsters</h4>
@@ -482,50 +491,67 @@
         <img src="./images/monster-tweaks.png" />
       </p>
       <p>
-        The tweaks menu for monsters is lighter. You can enable spells,
-        add a value to initiative, set as retainer and that's pretty much
-        it.
+        The options available in the monster tweaks menu is mostly a subset of the character
+        tweaks menu. But one new feature is the ability to enable an inventory tab for this monster.
       </p>
+      <ul>
+        <li><strong>Spellcaster:</strong> Shows the Magic tab (even if the Actor doesn't 
+          have any spells).
+        </li>
+        <li><strong>Retainer:</strong> Adds the Loyalty rating and Wage attributes to a character,
+          removes the Title and Next Level XP attributes.
+        </li>
+        <li><strong>Don't apply weapon bonus to damage roll:</strong> A weapon's bonus (e.g. +1, +2)
+          will only augment the attack of the weapon. You may use this to write your damage bonus in
+          the damage input box instead.
+        </li>
+        <li><strong>Initiative Bonus:</strong> Will add this value to
+          initiative in addition to the Dexterity modifier.
+        </li>
+        <li><strong>Enable inventory:</strong> See the same inventory tab as characters have.
+        </li>
+    </div>
       <h4 class="docs-header">Header</h4>
       <p style="text-align: center;">
         <img src="./images/monster-header.png" />
       </p>
-      <p>There is a lot happening here. The first row below the name are
-        all rollable fields. The alignment rolls a plain 2d6 on the
-        reaction table. The two number appearing can be rolled and the
-        morale as well. The XP award is just plain text though.</p>
-      <p>The Treasure type is a link to a rollable table. When you drop a
-        rollable table on a monster sheet it will show up here so you can
-        access the treasure table quickly and roll that loot.</p>
+      <p>The first row below the name contains rollable fields.
+        The alignment roll icon rolls a plain 2d6 on the
+        reaction table. Numb appearing (NA) can be rolled and
+        morale (optional) as well. XP award is just plain text.</p>
+      <p>The Treasure type can show a link to a rollable table. You may drop a
+        rollable table onto a monster sheet to show it here. Right clicking the
+        treasure table link removes it.
+      </p>
       <h4 class="docs-header">Abilities</h4>
       <p style="text-align: center;">
         <img src="./images/monster-abilities.png" />
       </p>
       <p>
-        The Hit Points can be silently rolled as you click on the dice
-        next to the header. That is why Hit dice must be a rollable
-        string. AC is manually typed and there is no calculation involved.
-        Clicking on THAC0 will launch a raw Attack with 1d6 damage.
+        Hit Points can be silently rolled as you click the dice icon
+        next to it. Hit dice must be a rollable string.
+        AC (or AAC) is manually typed here. Clicking on THAC0 (or AB) will
+        launch an unarmed attack for 1d6 damage.
       </p>
       <p>
-        The abilities and equipment panel will contain all the heart and
-        soul of your monster. You can set clickable abilities like for
-        characters. There is also a weapon counter so you know how many
-        attacks you made each round with your monster. The counters are
-        reset with the icon in the header.
+        The abilities and equipment panel will contain the heart and
+        soul of your monster. You can set clickable abilities just like for
+        characters. There is also a weapon counter so the referee knows how many
+        attacks were made each round. The counters may be reset with the 
+        reset icon in the header.
       </p>
       <p>
-        On the left of the weapon icons, in the list, you can mark the
-        item with a color so you can distinguish attack patterns. In the
-        example here I have in red 2xClaws and Bite so here is my attack
-        pattern. If I choose green I have a tail spike attack.
+        On the left of the weapon icons, in the list, you can mark an
+        item with a color so you can distinguish and fuse attacks into attack patterns.
+        In the example here, the red attack pattern is 2 x Claws and 1x Bite, and in green
+        is a 1 x tail spike attack.
       </p>
       <p>You can record movement details for non-walking movement options
-        your monster may have. Below are your monster's save that you can
-        roll and speedroll with CTRL maintained.</p>
+        your monster may have. Below that, the monster's saves, which can
+        be speedrolled with CTRL held down.</p>
       <p>
-        Monsters use the same content as characters for spells, weapons
-        and items. The Note tab is only a large text editor where you can
+        Monsters use the same tabs as characters for spells, weapons
+        and items. The Notes tab is only a large text editor where you can
         input the monster description or any other particularities that
         does not fit on the sheet itself.
       </p>
@@ -538,31 +564,25 @@
       </p>
       <p>
         By default each character or creature is assigned to a group. If
-        their disposition is hostile in the Token configuration they will
-        be in group 'Red', Neutral is yellow, Friendly is green. But the
-        GM can change the group you belong by clicking on the flag, there
-        is a limited number of colors but it should be enough I hope.
+        their disposition is hostile in the Token configuration they will by default
+        be in the 'Red' group. Neutral is yellow, and Friendly is green. But the
+        GM can change the group for each combatant by clicking on the flag.
       </p>
       <p style="text-align: center;">
         <img src="./images/initiative-group.png" />
       </p>
       <p>
-        When you are happy about the groups, you can begin the combat by
-        clicking below the combat tracker. You can reroll the initiative
-        manually with the dice above the tracker. But if you go to the
-        next round it will be rolled again. Characters equipped with a
-        Slow weapon have a Weight displayed in place of the initiative
-        value. If they unequip the weapon they can reset their initiative
-        to the group value by right clicking and select 'reroll'.
+        Characters equipped with a Slow weapon have a Weight icon displayed in place of the initiative
+        value. If they unequip the weapon they can reset their initiative to the group value by right clicking and select 'reroll'.
       </p>
       <p style="text-align: center;">
         <img src="./images/initiative-result.png" />
       </p>
-      <h4 class="docs-header">Individual initiative</h4>
-      <p>For this part I invite you to read Foundry VTT documentation, you
-        will find exactly the same behavior and features here, except that
-        initiative will be automatically rerolled when you go to the next
-        round.</p>
+      <h4 class="docs-header">Individual initiative and initiative controls</h4>
+      <p>Individual initiative combat is exactly the same as the default Foundry VTT experience.
+        I invite readers to check out [Foundry VTT's knowledge base](https://foundryvtt.com/kb/), keeping in mind
+        that your "Reroll initiative" setting may modify the default rerolling behaviour.
+        </p>
     </div>
     <div id="treasure" class="docs-section">
       <h4>Treasure tables</h4>
@@ -570,9 +590,8 @@
         <img src="./images/treasure-sidebar.png" />
       </p>
       <p>
-        You can find Foundry VTT rollable tables in the sidebar. The
-        default rollable tables can't handle treasure like specified in
-        the Old School Essentials books so I had to augment them.
+        The default rollable table behavior does not support treasure tables,
+        so one must use the treasure table toggle to create a new treasure table.
       </p>
       <p style="text-align: center;">
         <img src="./images/treasure-toggle.png" />
@@ -580,16 +599,9 @@
       <p>
         You can toggle between the default rollable tables and the
         treasure table with the Chest icon right next to the table name.
-        The default tables are selecting an entry by rolling a dice and
-        returning the matching result. Treasure tables however, have a
-        different behavior. Each entry is rolled with 1d100 and the value
-        is compared to the 'chance field'. So it can return multiple
+        Once enabled, each entry is rolled with 1d100 and the value
+        is compared to the 'chance field'. This allows it to return multiple
         items.
-      </p>
-      <p>
-        You can select the table type you need by clicking on the chest at
-        the right of the rollable table name. Once you do the fields will
-        change.
       </p>
       <p style="text-align: center;">
         <img src="./images/treasure-table.png" />
@@ -600,13 +612,11 @@
         Here I use inline rolls from enriched text to tell how many coins
         I get.
       </p>
-      <p>If you have only one item to be rolled you can change the result
-        type.</p>
       <p style="text-align: center;">
         <img src="./images/treasure-item.png" />
       </p>
       <p>
-        Once you roll the treasure you have the result displayed in the
+        Upon rolling a treasure table, the result displayed in the
         chat.
       </p>
       <p style="text-align: center;">
@@ -619,22 +629,22 @@
         <img src="./images/party-sidebar.png" />
       </p>
       <p>
-        When in the Actors sidebar, you will find a new icon next to the
-        search filter. This will open the Party Overview Sheet.
+        A party icon in the Actors Directory, next to the
+        search filter, will open the Party Overview sheet.
       </p>
       <p style="text-align: center;">
         <img src="./images/party-overview.png" />
       </p>
       <p>
-        The Party Sheet will condense a lot of stats about your
+        The Party Sheet condenses a lot of stats about your
         group. To add members to the party, simply drag and drop actors
         (or folders of actors) from the sidebar into the Party window.
       </p>
       <p>
-        Every info icon on the Sheet will display its name when hovered.
+        Every info icon on the Sheet will display its name when hovered by the cursor.
         If you hover on the actor image you will see two buttons: one
-        that opens up the corresponding actor sheet,
-        and another that removes the actor from the party sheet.
+        that opens up the corresponding actor sheet, and another that removes the
+        actor from the party sheet.
       </p>
       <p>
         The XP button in the window header allows you to deal

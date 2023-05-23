@@ -7,7 +7,7 @@
   Old-School Essentials – Foundry VTT Edition
 </h1>
 <p align="center">
-  <!-- BEGIN TEXT REQUIRED BY LICENSE -->Requires <strong><em>Old-School Essentials</em></strong> Classic Fantasy or Advanced Fantasy.<!-- END TEXT REQUIRED BY LICENSE --> Find the game at <a href="https://necroticgnome.com">Necrotic Gnome's website</a>.
+  <!-- BEGIN TEXT REQUIRED BY LICENSE -->Requires <strong><em>Old-School Essentials</em></strong> Classic Fantasy or Advanced Fantasy.<!-- END TEXT REQUIRED BY LICENSE --> Find the game at <a href="https://necroticgnome.com">Necrotic Gnome's website</a>. Buy <a href="https://www.drivethrurpg.com/browse/pub/5606/Necrotic-Gnome?filters=0_0_0_100073_0&affiliate_id=1488516">Old-School Essentials: Advanced Fantasy and more</a> for Foundry VTT.
 </p>
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
@@ -49,7 +49,7 @@ If you use this system and want to show your appreciation, here's a couple free 
 
 ### Here's a couple paid things you can do.
 
-- Your purchases of [Official Necrotic Gnome Foundry VTT premium content](https://foundryvtt.com/packages/provider/necroticgnome) support VTT Red's weekly open source maintainence activities on the Old-School Essentials codebase. This includes releasing bug fixes, new open source features, and labor-intensive code reviews, an often overlooked job in open source. Follow the [Necrotic Gnome blog or subscribe to their newsletter](https://necroticgnome.com/blogs/newsletter-archive) for more news about upcoming Foundry VTT releases.
+- Your purchases of [Official Necrotic Gnome Foundry VTT premium content](https://www.drivethrurpg.com/browse/pub/5606/Necrotic-Gnome?filters=0_0_0_100073_0&affiliate_id=1488516) support VTT Red's weekly open source maintainence activities on the Old-School Essentials codebase. This includes releasing bug fixes, new open source features, and labor-intensive code reviews, an often overlooked job in open source. Follow the [Necrotic Gnome blog or subscribe to their newsletter](https://necroticgnome.com/blogs/newsletter-archive) for more news about upcoming Foundry VTT releases.
 - If you'd like to support some of the contributors of this game system, we keep a list of tipping/patronage links in the [THANKS.md](/THANKS.md) file.
 - Third-party releases may support one or more of our open source contributors. Find out more on our [website](https://vtt.red/ose).
 

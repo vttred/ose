@@ -283,11 +283,20 @@ export default class OseActorSheet extends ActorSheet {
     const folder = await fromUuid(data.uuid);
     if (!folder || folder.type !== "Item") return;
 
-    let itemArray = folder.contents;
+    let itemArray = folder.contents || [];
 
     folder.getSubfolders(true).forEach((subfolder) => {
       itemArray.push(...subfolder.contents);
     });
+
+    // Compendium items
+    if (itemArray.length > 0 && itemArray[0]?.uuid?.includes("Compendium")) {
+      const items = [];
+      itemArray.forEach(async (item) => {
+        items.push(await fromUuid(item.uuid));
+      });
+      itemArray = items;
+    }
 
     this._onDropItemCreate(itemArray);
   }

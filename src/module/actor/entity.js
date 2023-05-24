@@ -25,6 +25,10 @@ export default class OseActor extends Actor {
     if (source?.prototypeToken?.texture?.img === "") {
       source.prototypeToken.texture.img = "icons/svg/mystery-man.svg";
     }
+    // Fixing missing movement.value by moving it to details.movement
+    if (source?.system?.movement?.value && !source?.system?.details.movement)
+      source.system.details.movement = source.system.movement.value;
+
     return source;
   }
 

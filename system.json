@@ -8,10 +8,10 @@
   "compatibleCoreVersion": "11",
   "compatibility": {
     "minimum": "10",
-    "verified": "10",
-    "maximum": 11
+    "verified": "11",
+    "maximum": "11"
   },
-  "author": "Maintained by VTT Red with 16 contributors",
+  "author": "Maintained by VTT Red with 18 contributors",
   "authors": [
     {
       "name": "VTT RED",
@@ -19,7 +19,7 @@
       "url": "https://vtt.red"
     },
     {
-      "name": "and 16 other contributors",
+      "name": "and 18 other contributors",
       "url": "https://github.com/vttred/ose#contributors-"
     }
   ],
@@ -90,5 +90,27 @@
   "bugs": "https://github.com/vttred/ose/issues",
   "flags": {
     "allowBugReporter": true
+  },
+  "relationships": {
+    "recommends": [
+      {
+        "id": "ose-advancedfantasytome",
+        "type": "module",
+        "compatibility": {
+          "minimum": "0.1.0",
+          "verified": "1.0.99",
+          "maximum": "1.99.99"
+        }
+      },
+      {
+        "id": "classicfantasycompendium",
+        "type": "module",
+        "compatibility": {
+          "minimum": "1.0.0",
+          "verified": "1.0.99",
+          "maximum": "1.99.99"
+        }
+      }
+    ]
   }
 }

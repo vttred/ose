@@ -33,6 +33,11 @@ const createMockActor = async (type: string) =>
     type,
   });
 
+const createMockCompendiumActor = async (actorType: string, modulePack: string) =>
+    OseActor.createDocuments(
+        [{name: `Test Actor ${key}`, type: actorType}], {pack: modulePack}
+    );
+
 export default ({
   describe,
   it,
@@ -149,6 +154,24 @@ export default ({
       await waitForInput();
       expect(game.messages?.size).equal(1);
       await actor?.delete();
+    });
+  });
+
+  describe("_preCreate(data, options, user)", () => {
+    it("New character's prototypeToken actorLink defaults to true", async () => {
+      const actor = (await createMockActor("character")) as OseActor;
+      expect(actor?.system.prototypeToken.linkActor.value).equal(true);
+    });
+    it("New monster's prototypeToken actorLink defaults to false", async () => {
+      const actor = (await createMockActor("monster")) as OseActor;
+      expect(actor?.system.prototypeToken.linkActor.value).equal(false);
+    });
+    it("Character from compendium does not have defaults applied", async () => {
+      const actor = await createMockCompendiumActor(
+        "character",
+        "mymodule.mypack"
+      );
+      expect(actor?.system.prototypeToken.linkActor.value).equal(false);
     });
   });
 

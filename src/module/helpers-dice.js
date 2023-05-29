@@ -157,7 +157,13 @@ const OseDice = {
 
         break;
       }
-      // No default
+
+      default : {
+        result.isSuccess = false;
+        result.isFailure = false;
+
+        break;
+      }
     }
     return result;
   },

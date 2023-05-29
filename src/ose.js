@@ -51,6 +51,7 @@ Hooks.once("init", async () => {
 
   game.ose = {
     rollItemMacro: macros.rollItemMacro,
+    rollTableMacro: macros.rollTableMacro,
     oseCombat: OseCombat,
   };
 

@@ -17,6 +17,18 @@ export async function createOseMacro(data, slot) {
   if (data.type === "Macro") {
     return game.user.assignHotbarMacro(await fromUuid(data.uuid), slot);
   }
+  if (data.uuid.startsWith("RollTable.")) {
+    const table = await game.tables.find((t) => t.uuid === data.uuid);
+    const command = `game.ose.rollTableMacro("${table.id}");`;
+    const macro = await Macro.create({
+      name: table.name,
+      type: "script",
+      img: table.img,
+      command,
+      flags: { "ose.tableMacro": true },
+    });
+    return game.user.assignHotbarMacro(macro, slot);
+  }
   if (data.type !== "Item")
     return ui.notifications.warn(
       game.i18n.localize("OSE.warn.macrosNotAnItem")
@@ -58,7 +70,7 @@ export function rollItemMacro(itemName) {
   // Active actor, or inactive actor + token on scene allowed
   if (!(speaker.actor && speaker.scene))
     return ui.notifications.warn(
-      game.i18n.localize("OSE.warn.macrosNoTokenOwnedInScene")
+        game.i18n.localize("OSE.warn.macrosNoTokenOwnedInScene")
     );
 
   let actor;
@@ -69,21 +81,32 @@ export function rollItemMacro(itemName) {
   const items = actor ? actor.items.filter((i) => i.name === itemName) : [];
   if (items.length > 1) {
     ui.notifications.warn(
-      game.i18n.format("OSE.warn.moreThanOneItemWithName", {
-        actorName: actor.name,
-        itemName,
-      })
+        game.i18n.format("OSE.warn.moreThanOneItemWithName", {
+          actorName: actor.name,
+          itemName,
+        })
     );
   } else if (items.length === 0) {
     return ui.notifications.error(
-      game.i18n.format("OSE.error.noItemWithName", {
-        actorName: actor.name,
-        itemName,
-      })
+        game.i18n.format("OSE.error.noItemWithName", {
+          actorName: actor.name,
+          itemName,
+        })
     );
   }
   const item = items[0];
 
   // Trigger the item roll
   return item.roll();
+}
+
+/**
+ * Create a Macro from a Table drop.
+ * Get an existing table macro if one exists, otherwise create a new one.
+ *
+ * @param {string} tableId - Name of item to roll
+ * @returns {Promise} - Promise of item roll or notification
+ */
+export function rollTableMacro(tableId) {
+  return game.tables.get(tableId).draw({ roll: true, displayChat: true });
 }

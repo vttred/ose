@@ -33,12 +33,6 @@ const createMockActor = async (type: string) =>
     type,
   });
 
-const createMockCompendiumActor = async (actorType: string, modulePack: string) =>
-    OseActor.createDocuments(
-        [{name: `Test Actor ${key}`, type: actorType}],
-        {pack: modulePack}
-    );
-
 export default ({
   describe,
   it,

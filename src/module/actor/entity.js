@@ -14,7 +14,7 @@ const removeFalsyElements = (arr) =>
 
 export default class OseActor extends Actor {
   prepareDerivedData() {
-    this.system.prepareDerivedData?.();
+    if (game.version.startsWith("10")) this.system.prepareDerivedData?.();
   }
 
   static migrateData(source) {

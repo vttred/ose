@@ -169,6 +169,15 @@
       "contributions": [
         "review"
       ]
+    },
+    {
+      "login": "Stew-rt",
+      "name": "Stewart Webb",
+      "avatar_url": "https://avatars.githubusercontent.com/u/40280034?v=4",
+      "profile": "https://github.com/Stew-rt",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
@@ -177,5 +186,6 @@
   "repoType": "github",
   "repoHost": "https://github.com",
   "skipCi": true,
-  "commitConvention": "angular"
+  "commitConvention": "angular",
+  "commitType": "docs"
 }

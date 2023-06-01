@@ -318,6 +318,7 @@
   "OSE.warn.macrosNotAnItem": "Unable to create macro, not an item.",
 
   "OSE.error.macrosOnlyForOwnedItems": "You can only create macro buttons for owned Items",
+  "OSE.error.noRollTableWithUuId": "RollTable with uuid, {uuid} did not or no longer exists in this world.",
   "OSE.error.noItemWithName": "Your controlled Actor {actorName} does not have an item named {itemName}.",
   "OSE.error.notEnoughGP": "This Actor doesn't have enough GP to pay for its inventory.",
   "OSE.error.itemNoLongerExistsOnActor": "The requested Item {itemId} no longer exists on Actor {actorName}.",

@@ -98,7 +98,7 @@ async function drawTreasure(table, data) {
  * @param table
  * @param options
  */
-async function rollTreasure(table, options = {}) {
+export async function rollTreasure(table, options = {}) {
   // Draw treasure
   const data = await drawTreasure(table, {});
   const templateData = {

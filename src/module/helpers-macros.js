@@ -1,6 +1,7 @@
 /**
  * @file Functions that make working with hotbar macros easier
  */
+import {rollTreasure} from "./helpers-treasure";
 /* -------------------------------------------- */
 /*  Hotbar Macros                               */
 /* -------------------------------------------- */
@@ -114,6 +115,11 @@ export function rollTableMacro(tableUuId) {
         })
       );
     }
-    return table.draw({ roll: true, displayChat: true });
+    //
+
+    if (table.getFlag(game.system.id, "treasure")) {
+      return rollTreasure(table);
+    }
+    return table.draw({ displayChat: true });
   });
 }

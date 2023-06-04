@@ -1,0 +1,73 @@
+.character-2 .window-content {
+  padding: 18px 16px 24px;
+}
+
+.character-2 nav.sheet-tabs {
+  margin: 0 0 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(75px, 1fr));
+  justify-content: stretch;
+  border: 1px solid var(--background-color-heading);
+}
+
+.character-2 nav.sheet-tabs .item {
+  background-color: transparent;
+}
+
+.character-2 nav.sheet-tabs .item.active {
+  background-color: var(--background-color-heading);
+  color: var(--color-heading);
+  text-shadow: none;
+}
+
+.character-info {
+  display: grid;
+  grid-template-columns: 144px 1fr;
+  grid-gap: 4px;
+  margin-bottom: 8px;
+}
+
+.character-info img {
+  height: 100%;
+  object-fit: cover;
+}
+
+.character-info__details {
+  display: grid;
+  grid-template-columns: 115px 160px 196px;
+  grid-column-gap: 8px;
+  grid-row-gap: 12px;
+}
+
+.character-info__details [name="name"] {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.character-info img {
+  border: 1px solid var(--color-ui-09);
+}
+
+.combat__stats {
+  display: grid;
+  grid-align-items: start;
+  grid-template-columns: 100px 1fr 100px;
+  grid-gap: 16px;
+}
+
+.combat__stats ability-score-field:not(:last-of-type) {
+  margin-bottom: 8px;
+}
+
+.combat__vitals {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 16px;
+  margin-bottom: 16px;
+}
+
+.combat__favorites {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 16px;
+}

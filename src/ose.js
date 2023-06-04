@@ -3,6 +3,7 @@
  *       We should handle most of our setup here.
  */
 import OseActorSheetCharacter from "./module/actor/character-sheet";
+import OseActorSheetCharacter2 from "./module/actor/character-sheet-2-0";
 import OseDataModelCharacter from "./module/actor/data-model-character";
 import OseDataModelMonster from "./module/actor/data-model-monster";
 import OseActor from "./module/actor/entity";
@@ -16,7 +17,6 @@ import OseDataModelSpell from "./module/item/data-model-spell";
 import OseDataModelWeapon from "./module/item/data-model-weapon";
 import OseItem from "./module/item/entity";
 import OseItemSheet from "./module/item/item-sheet";
-
 import * as chat from "./module/helpers-chat";
 import OseCombat from "./module/combat";
 import OSE from "./module/config";
@@ -29,7 +29,13 @@ import templates from "./module/preloadTemplates";
 import * as renderList from "./module/renderList";
 import registerSettings from "./module/settings";
 import * as treasure from "./module/helpers-treasure";
-
+// Custom Elements
+import "./module/actor/custom-elements/AbilityScoreField";
+import "./module/actor/custom-elements/CharacterAbilityField";
+import "./module/actor/custom-elements/CharacterInfoField";
+import "./module/actor/custom-elements/LabeledSection";
+import "./module/actor/custom-elements/MajorIconField";
+// Testing
 import "./e2e";
 
 /* -------------------------------------------- */
@@ -89,9 +95,14 @@ Hooks.once("init", async () => {
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet(game.system.id, OseActorSheetCharacter, {
+  Actors.registerSheet(game.system.id, OseActorSheetCharacter2, {
     types: ["character"],
     makeDefault: true,
+    label: "Character Sheet (v2)",
+  });
+  Actors.registerSheet(game.system.id, OseActorSheetCharacter, {
+    types: ["character"],
+    makeDefault: false,
     label: "OSE.SheetClassCharacter",
   });
   Actors.registerSheet(game.system.id, OseActorSheetMonster, {

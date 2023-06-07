@@ -24,7 +24,7 @@ export default class OseDataModelMonster extends foundry.abstract.DataModel {
 
   // @todo define schema options; stuff like min/max values and so on.
   static defineSchema() {
-    const { StringField, NumberField, BooleanField, ObjectField } =
+    const { StringField, NumberField, BooleanField, ObjectField, SchemaField } =
       foundry.data.fields;
 
     return {
@@ -32,27 +32,30 @@ export default class OseDataModelMonster extends foundry.abstract.DataModel {
       details: new ObjectField(),
       ac: new ObjectField(),
       aac: new ObjectField(),
-      encumbrance: new ObjectField(),
+      encumbrance: new SchemaField({
+        value: new NumberField({ integer: false }),
+        max: new NumberField({ integer: false }),
+      }),
       movement: new ObjectField(),
       config: new ObjectField(),
       initiative: new ObjectField(),
-      hp: new ObjectField({
+      hp: new SchemaField({
         hd: new StringField(),
         value: new NumberField({ integer: true }),
         max: new NumberField({ integer: true }),
       }),
       thac0: new ObjectField(),
       languages: new ObjectField(),
-      saves: new ObjectField({
-        breath: new ObjectField({ value: new NumberField({ integer: true }) }),
-        death: new ObjectField({ value: new NumberField({ integer: true }) }),
-        paralysis: new ObjectField({
+      saves: new SchemaField({
+        breath: new SchemaField({ value: new NumberField({ integer: true }) }),
+        death: new SchemaField({ value: new NumberField({ integer: true }) }),
+        paralysis: new SchemaField({
           value: new NumberField({ integer: true }),
         }),
-        spell: new ObjectField({ value: new NumberField({ integer: true }) }),
-        wand: new ObjectField({ value: new NumberField({ integer: true }) }),
+        spell: new SchemaField({ value: new NumberField({ integer: true }) }),
+        wand: new SchemaField({ value: new NumberField({ integer: true }) }),
       }),
-      retainer: new ObjectField({
+      retainer: new SchemaField({
         enabled: new BooleanField(),
         loyalty: new NumberField({ integer: true }),
         wage: new StringField(),

@@ -1,0 +1,168 @@
+<header class="character-info">
+  <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+  <section class="character-info__details">
+    <character-info-field name="name" value="{{actor.name}}" data-dtype="String">{{localize "OSE.details.name"}}</character-info-field>
+    <character-info-field name="system.details.class" value="{{actor.system.details.class}}" data-dtype="String">{{localize "OSE.details.class"}}</character-info-field>
+    <character-info-field name="system.details.level" value="{{actor.system.details.level}}" data-dtype="Number">{{localize "OSE.details.level"}}</character-info-field>
+    <character-info-field name="system.details.title" value="{{actor.system.details.title}}" data-dtype="String">{{localize "OSE.details.title"}}</character-info-field>
+    <character-info-field name="system.details.xp.value" value="{{actor.system.details.xp.value}}" data-dtype="Number">{{localize "OSE.details.experience.baseshort"}}</character-info-field>
+    <character-info-field name="system.hp.hd" value="{{actor.system.hp.hd}}" data-dtype="String">{{localize "OSE.HitDiceShort"}}</character-info-field>
+    <character-info-field name="system.details.alignment" value="{{actor.system.details.alignment}}" data-dtype="String">{{localize "OSE.details.alignmentshort"}}</character-info-field>
+    <character-info-field name="system.details.xp.next" value="{{actor.system.details.xp.next}}" data-dtype="Number">{{localize "OSE.details.experience.nextshort"}}</character-info-field>
+  </section>
+</header>
+<main class="combat__stats">
+  <section class="combat__stat-region combat__stat-region--ability-scores">
+    <ability-score-field
+      name="system.scores.str.value"
+      value="{{actor.system.scores.str.value}}"
+      modifier-value="{{actor.system.scores.str.mod}}"
+      data-dtype="Number"
+    >
+      {{localize "OSE.scores.str.long"}}
+    </ability-score-field>
+    <ability-score-field
+      name="system.scores.int.value"
+      value="{{actor.system.scores.int.value}}"
+      modifier-value="{{actor.system.scores.int.mod}}"
+      data-dtype="Number"
+    >
+      {{localize "OSE.scores.int.long"}}
+    </ability-score-field>
+    <ability-score-field
+      name="system.scores.wis.value"
+      value="{{actor.system.scores.wis.value}}"
+      modifier-value="{{actor.system.scores.wis.mod}}"
+      data-dtype="Number"
+    >
+      {{localize "OSE.scores.wis.long"}}
+    </ability-score-field>
+    <ability-score-field
+      name="system.scores.dex.value"
+      value="{{actor.system.scores.dex.value}}"
+      modifier-value="{{actor.system.scores.dex.mod}}"
+      data-dtype="Number"
+    >
+      {{localize "OSE.scores.dex.long"}}
+    </ability-score-field>
+    <ability-score-field
+      name="system.scores.con.value"
+      value="{{actor.system.scores.con.value}}"
+      modifier-value="{{actor.system.scores.con.mod}}"
+      data-dtype="Number"
+    >
+      {{localize "OSE.scores.con.long"}}
+    </ability-score-field>
+    <ability-score-field
+      name="system.scores.cha.value"
+      value="{{actor.system.scores.cha.value}}"
+      modifier-value="{{actor.system.scores.cha.mod}}"
+      data-dtype="Number"
+    >
+      {{localize "OSE.scores.cha.long"}}
+    </ability-score-field>
+  </section>
+  <section class="combat__stat-region combat__stat-region--central">
+    <div class="combat__vitals">
+      {{! HP/AC/THAC0}}
+      <major-icon-field value="{{actor.system.thac0.value}}" readonly>
+        {{localize "OSE.Thac0"}}
+        <img src="{{asset "/mace.svg"}}" slot="background" />
+      </major-icon-field>
+      <major-icon-field value="{{actor.system.hp.value}}" value-name="" max="{{actor.system.hp.max}}" max-name="">
+        {{localize "OSE.HealthShort"}}
+        <img src="{{asset "/heart.svg"}}" slot="background" />
+      </major-icon-field>
+      <major-icon-field value="{{actor.system.hp.value}}" readonly>
+        {{localize "OSE.ArmorClassShort"}}
+        <img src="{{asset "/shield.svg"}}" slot="background" />
+      </major-icon-field>
+
+      {{! Combat mods }}
+      <character-ability-field value="{{actor.system.meleeMod}}" readonly>
+        <img src="{{asset '/Melee.svg'}}" slot="icon" />
+        {{localize "OSE.Melee"}}
+      </character-ability-field>
+      <character-ability-field value="{{actor.system.rangedMod}}" readonly>
+        <img src="{{asset '/Missile.svg'}}" slot="icon" />
+        {{localize "OSE.Missile"}}
+      </character-ability-field>
+      <character-ability-field value="{{actor.system.init}}" readonly>
+        <img src="{{asset '/Initiative.svg'}}" slot="icon" />
+        {{localize "OSE.Initiative"}}
+      </character-ability-field>
+
+      {{! Move speed }}
+      <character-ability-field value="{{actor.system.movement.encounter}}" readonly>
+        <img src="{{asset '/Encounter.svg'}}" slot="icon" />
+        {{localize "OSE.movement.encounter.oneWord"}}
+      </character-ability-field>
+      <character-ability-field value="{{actor.system.movement.base}}" readonly>
+        <img src="{{asset '/Exploration.svg'}}" slot="icon" />
+        {{localize "OSE.movement.exploration.oneWord"}}
+      </character-ability-field>
+      <character-ability-field value="{{actor.system.movement.overland}}" readonly>
+        <img src="{{asset '/Overland.svg'}}" slot="icon" />
+        {{localize "OSE.movement.overland.oneWord"}}
+      </character-ability-field>
+    </div>
+    <div class="combat__favorites">
+      <labeled-section>
+        <h4 slot="heading">{{localize "OSE.Favorite.items"}}</h4>
+        <div slot="content" class="favorites favorites__items">
+        {{#each favoriteItems}}
+          <tippable-item uuid="{{uuid}}"></tippable-item>
+        {{/each}}
+        </div>
+      </labeled-section>
+
+      <labeled-section>
+        <h4 slot="heading">{{localize "OSE.Favorite.abilities"}}</h4>
+      </labeled-section>
+    </div>
+  </section>
+  <section class="combat__stat-region combat__stat-region--saves">
+    <ability-score-field
+      name="system.saves.death.value"
+      value="{{actor.system.saves.death.value}}"
+      data-dtype="Number"
+    >
+      {{localize "OSE.saves.death.oneWord"}}
+    </ability-score-field>
+    <ability-score-field
+      name="system.saves.wand.value"
+      value="{{actor.system.saves.wand.value}}"
+      data-dtype="Number"
+    >
+      {{localize "OSE.saves.wand.long"}}
+    </ability-score-field>
+    <ability-score-field
+      name="system.saves.paralysis.value"
+      value="{{actor.system.saves.paralysis.value}}"
+      data-dtype="Number"
+    >
+      {{localize "OSE.saves.paralysis.oneWord"}}
+    </ability-score-field>
+    <ability-score-field
+      name="system.saves.breath.value"
+      value="{{actor.system.saves.breath.value}}"
+      data-dtype="Number"
+    >
+      {{localize "OSE.saves.breath.oneWord"}}
+    </ability-score-field>
+    <ability-score-field
+      name="system.saves.spell.value"
+      value="{{actor.system.saves.spell.value}}"
+      data-dtype="Number"
+    >
+      {{localize "OSE.saves.spell.oneWord"}}
+    </ability-score-field>
+    <ability-score-field
+      value="{{actor.system.scores.wis.mod}}"
+      data-dtype="Number"
+      readonly
+    >
+      {{localize "OSE.saves.magic.short"}}
+    </ability-score-field>
+  </section>
+</main>

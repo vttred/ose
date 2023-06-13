@@ -9,7 +9,7 @@ const preloadHandlebarsTemplates = async () => {
     `${OSE.systemPath()}/templates/actors/character-sheet.html`,
     `${OSE.systemPath()}/templates/actors/character-sheet-2-0.hbs`,
     `${OSE.systemPath()}/templates/actors/monster-sheet.html`,
-    // Character Sheets Partials
+    // Character sheet partials (v1)
     `${OSE.systemPath()}/templates/actors/partials/character-header.html`,
     `${OSE.systemPath()}/templates/actors/partials/character-attributes-tab.html`,
     `${OSE.systemPath()}/templates/actors/partials/character-abilities-tab.html`,
@@ -17,8 +17,11 @@ const preloadHandlebarsTemplates = async () => {
     `${OSE.systemPath()}/templates/actors/partials/character-inventory-tab.html`,
     `${OSE.systemPath()}/templates/actors/partials/actor-item-summary.html`,
     `${OSE.systemPath()}/templates/actors/partials/character-notes-tab.html`,
+    // Monster sheet partials (v1)
     `${OSE.systemPath()}/templates/actors/partials/monster-header.html`,
     `${OSE.systemPath()}/templates/actors/partials/monster-attributes-tab.html`,
+    // Character sheet partials (v2)
+    `${OSE.systemPath()}/templates/actors/partials/sheet-v2/character-notes-tab.hbs`,
     // Item Display
     `${OSE.systemPath()}/templates/actors/partials/item-auto-tags-partial.html`,
     // Party Sheet

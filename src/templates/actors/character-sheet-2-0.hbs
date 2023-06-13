@@ -192,7 +192,9 @@
     <div class="tab" data-group="primary" data-tab="spells"></div>
     {{/if}}
     {{! Notes Tab }}
-    <div class="tab" data-group="primary" data-tab="notes"></div>
+    <div class="tab" data-group="primary" data-tab="notes">
+      {{> (path "/templates/actors/partials/sheet-v2/character-notes-tab.hbs") }}
+    </div>
   </section>
 </form>
   

@@ -6,6 +6,8 @@ import scss from "rollup-plugin-scss";
 import { copy } from "@web/rollup-plugin-copy";
 import livereload from "rollup-plugin-livereload";
 import eslint from "@rollup/plugin-eslint";
+import InlineSvg from 'rollup-plugin-inline-svg';
+import alias from '@rollup/plugin-alias';
 
 const staticFileFolders = ["lang", "packs", "templates"];
 
@@ -35,8 +37,12 @@ export default defineConfig([
     },
     plugins: [
       nodeResolve(),
+      alias({
+        entries: [{ find: '@assets', replacement: './assets' }]
+      }),
       typescript(),
       eslint(),
+      InlineSvg(),
       !isWatchMode && terser(),
       copy({
         patterns: staticFileFolders.map((folderName) => `${folderName}/**/*`),

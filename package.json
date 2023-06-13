@@ -21,6 +21,7 @@
   "license": "",
   "devDependencies": {
     "@league-of-foundry-developers/foundry-vtt-types": "League-of-Foundry-Developers/foundry-vtt-types#main",
+    "@rollup/plugin-alias": "^5.0.0",
     "@rollup/plugin-eslint": "^9.0.1",
     "@rollup/plugin-node-resolve": "^13.1.3",
     "@rollup/plugin-typescript": "^8.3.4",
@@ -60,6 +61,7 @@
     "prettier-eslint": "^15.0.1",
     "prettier-eslint-cli": "^7.1.0",
     "rollup": "^2.77.3",
+    "rollup-plugin-inline-svg": "^3.0.3",
     "rollup-plugin-livereload": "^2.0.5",
     "rollup-plugin-scss": "^3.0.0",
     "rollup-plugin-stylelint": "^1.0.0",

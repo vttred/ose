@@ -22,6 +22,9 @@ const preloadHandlebarsTemplates = async () => {
     `${OSE.systemPath()}/templates/actors/partials/monster-attributes-tab.html`,
     // Character sheet partials (v2)
     `${OSE.systemPath()}/templates/actors/partials/sheet-v2/character-combat-tab.hbs`,
+    `${OSE.systemPath()}/templates/actors/partials/sheet-v2/character-abilities-tab.hbs`,
+    `${OSE.systemPath()}/templates/actors/partials/sheet-v2/character-magic-tab.hbs`,
+    `${OSE.systemPath()}/templates/actors/partials/sheet-v2/character-inventory-tab.hbs`,
     `${OSE.systemPath()}/templates/actors/partials/sheet-v2/character-notes-tab.hbs`,
     // Item Display
     `${OSE.systemPath()}/templates/actors/partials/item-auto-tags-partial.html`,

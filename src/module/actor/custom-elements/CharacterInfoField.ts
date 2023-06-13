@@ -12,11 +12,7 @@ export default class CharacterInfoField extends BaseElement {
     const styles = new CSSStyleSheet();
     styles.replaceSync(`
       :host {
-        --asf-color-heading: var(--color-heading);
-        --asf-background-heading: var(--background-color-heading);
-        --asf-border: var(--background-color-heading);
-
-        border: 1px solid var(--asf-border);
+        border: 1px solid var(--background-color-heading);
 
         display: flex;
         align-items: center;
@@ -30,8 +26,8 @@ export default class CharacterInfoField extends BaseElement {
         line-height: 38px !important;
         font-weight: 700;
         text-align: center;
-        color: var(--asf-color-heading);
-        background: var(--asf-background-heading);
+        color: var(--color-heading);
+        background: var(--background-color-heading);
         transition: background 333ms ease-in-out,
                     border 333ms ease-in-out,
                     color 333ms ease-in-out;
@@ -45,7 +41,8 @@ export default class CharacterInfoField extends BaseElement {
         box-sizing: border-box;
         padding: 6px;
         line-height: 1em;
-        flex: 1
+        flex: 1;
+        color: var(--color-primary);
       }
 
       input:focus {

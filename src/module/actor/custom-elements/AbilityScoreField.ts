@@ -12,32 +12,10 @@ export default class AbilityScoreField extends BaseElement {
     const styles = new CSSStyleSheet();
     styles.replaceSync(`
       :host {
-        --asf-color-heading: var(--color-heading);
-        --asf-background-heading: var(--background-color-heading);
-        --asf-border: var(--background-color-heading);
-
-        display: inline-block;
-        border: 1px solid var(--asf-border);
+        display: block;
       }
       :host(:focus-within) {
         box-shadow: 0 0 10px var(--color-shadow-primary);
-      }
-      label {
-        font-family: "Signika Negative", "Signika", sans-serif;
-        font-size: 16px; /* TODO: variables! ems! */
-        line-height: 1.4em;
-        font-weight: 700;
-        text-align: center;
-        color: var(--asf-color-heading);
-        background: var(--asf-background-heading);
-        width: 100%;
-        display: block !important;
-        transition: background 333ms ease-in-out,
-                    border 333ms ease-in-out,
-                    color 333ms ease-in-out;
-      }
-      .value-pair {
-        padding: 4px;
       }
       :host([modifier-value]) .value-pair {
         display: grid;
@@ -52,14 +30,17 @@ export default class AbilityScoreField extends BaseElement {
         text-align: center;
         padding: 6px 0;
         line-height: 1em;
+        color: var(--color-primary);
       }
       input:focus {
         outline: none;
       }
-      .score-field {
-      }
       .modifier-field {
-        border-left: 1px solid var(--asf-border);
+        border-left: 1px solid var(--background-color-heading);
+        color: var(--color-secondary);
+      }
+      labeled-section {
+        --content-padding: 4px;
       }
       .
     `);
@@ -99,6 +80,7 @@ export default class AbilityScoreField extends BaseElement {
   get #label() {
     const label: HTMLLabelElement = document.createElement("label");
     label.setAttribute("for", this.id);
+    label.setAttribute("slot", "heading");
 
     const slot: HTMLSlotElement = document.createElement("slot");
 
@@ -141,6 +123,7 @@ export default class AbilityScoreField extends BaseElement {
   #render() {
     const valuePairContainer: HTMLDivElement = document.createElement("div");
     valuePairContainer.setAttribute("class", "value-pair");
+    valuePairContainer.setAttribute("slot", "content");
 
     valuePairContainer.append(
       ...[this.#scoreInput as Node, this.#modifierInput as Node].filter(
@@ -148,7 +131,10 @@ export default class AbilityScoreField extends BaseElement {
       )
     );
 
-    this.#shadowRoot.append(this.#label as Node, valuePairContainer);
+    const section: HTMLElement = document.createElement("labeled-section");
+    section.append(this.#label, valuePairContainer);
+
+    this.#shadowRoot.append(section);
   }
 
   onInput(e: Event) {

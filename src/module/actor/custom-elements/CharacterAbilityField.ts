@@ -12,11 +12,7 @@ export default class CharacterAbilityField extends BaseElement {
     const styles = new CSSStyleSheet();
     styles.replaceSync(`
       :host {
-        --asf-color-heading: var(--color-heading);
-        --asf-background-heading: var(--background-color-heading);
-        --asf-border: var(--background-color-heading);
-
-        border: 1px solid var(--asf-border);
+        border: 1px solid var(--background-color-heading);
 
         display: flex;
         align-items: center;
@@ -32,8 +28,8 @@ export default class CharacterAbilityField extends BaseElement {
         font-size: 12px; /* TODO: variables! ems! */
         font-weight: 700;
         text-align: center;
-        color: var(--asf-color-heading);
-        background: var(--asf-background-heading);
+        color: var(--color-heading);
+        background: var(--background-color-heading);
         transition: background 333ms ease-in-out,
                     border 333ms ease-in-out,
                     color 333ms ease-in-out;
@@ -48,6 +44,17 @@ export default class CharacterAbilityField extends BaseElement {
         height: auto;
         flex-basis: 20px;
         margin-left: 2px;
+        border: none !important;
+      }
+      ::slotted(svg) {
+        max-width: 20px !important;
+        max-height: 20px !important;
+        height: auto;
+        flex-basis: 20px;
+        margin-left: 2px;
+        border: none !important;
+        fill: var(--background-color-heading);
+        stroke: transparent;
       }
       label span {
         flex: 1;
@@ -61,6 +68,7 @@ export default class CharacterAbilityField extends BaseElement {
         line-height: 1em;
         flex-basis: 35px;
         text-align: center;
+        color: var(--color-primary);
       }
 
       input:focus {

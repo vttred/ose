@@ -12,29 +12,10 @@ export default class MajorIconField extends BaseElement {
     const styles = new CSSStyleSheet();
     styles.replaceSync(`
       :host {
-        --mif-color-heading: var(--color-heading);
-        --mif-background-heading: var(--background-color-heading);
-        --mif-border: var(--background-color-heading);
-
         display: inline-block;
       }
       :host(:not([readonly]):focus-within) {
         box-shadow: 0 0 10px var(--color-shadow-primary);
-      }
-      label {
-        font-family: "Signika Negative", "Signika", sans-serif;
-        font-size: 16px; /* TODO: variables! ems! */
-        line-height: 1.5em;
-        font-weight: 700;
-        text-align: center;
-        color: var(--mif-color-heading);
-        background: var(--mif-background-heading);
-        width: 100%;
-        margin-bottom: 8px;
-        display: block !important;
-        transition: background 333ms ease-in-out,
-                    border 333ms ease-in-out,
-                    color 333ms ease-in-out;
       }
       .field-background-container {
         position: relative;
@@ -56,12 +37,16 @@ export default class MajorIconField extends BaseElement {
         font-size: 20px;
         font-weight: 700;
         line-height: 1.4em;
+        color: var(--color-primary);
       }
       input:focus {
         outline: none;
       }
+      :host([readonly]) input:hover {
+        cursor: default;
+      }
       .max-field {
-        border-top: 1px solid var(--mif-border);
+        border-top: 1px solid var(--background-color-heading);
       }
       ::slotted(img) {
         display: block;
@@ -114,7 +99,7 @@ export default class MajorIconField extends BaseElement {
   get #label() {
     const label: HTMLLabelElement = document.createElement("label");
     label.setAttribute("for", this.id);
-
+    label.setAttribute("slot", "heading");
     const slot: HTMLSlotElement = document.createElement("slot");
 
     label.append(slot);
@@ -182,15 +167,18 @@ export default class MajorIconField extends BaseElement {
       "class",
       "field-background-container"
     );
+    backgroundFieldContainer.setAttribute("slot", "content");
+
     backgroundFieldContainer.append(this.#fieldContainer, backgroundSlot);
     return backgroundFieldContainer;
   }
 
   #render() {
-    this.#shadowRoot.append(
-      this.#label as Node,
-      this.#backgroundFieldContainer as Node
-    );
+    const section: HTMLElement = document.createElement("labeled-section");
+    section.toggleAttribute("unbordered", true);
+    section.append(this.#label, this.#backgroundFieldContainer);
+
+    this.#shadowRoot.append(section);
   }
 
   onInput(e: Event) {

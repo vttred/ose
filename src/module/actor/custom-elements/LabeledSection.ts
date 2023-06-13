@@ -15,6 +15,9 @@ export default class LabeledSection extends BaseElement {
         display: block;
         border: 1px solid var(--ls-border);
       }
+      :host([unbordered]) {
+        border: none;
+      }
       header {
         font-family: "Signika Negative", "Signika", sans-serif;
         font-size: 16px; /* TODO: variables! ems! */
@@ -35,7 +38,14 @@ export default class LabeledSection extends BaseElement {
         display: contents;
       }
       main {
-        padding: 8px;
+        padding: var(--content-padding, 8px);
+      }
+      .empty {
+        font-style: italic;
+        color: var(--color-secondary);
+        text-align: center;
+        margin: 0;
+        padding: 0;
       }
       .
     `);
@@ -72,7 +82,16 @@ export default class LabeledSection extends BaseElement {
   get #main() {
     const main: HTMLElement = document.createElement("main");
     const slot: HTMLSlotElement = document.createElement("slot");
+    const slotDefault: HTMLParagraphElement = document.createElement("p");
+
+    slot.setAttribute("name", "content");
+
+    slotDefault.classList.add("empty");
+    slotDefault.textContent = game.i18n.localize("OSE.table.treasure.noItems");
+
+    slot.append(slotDefault);
     main.append(slot);
+
     return main;
   }
 

@@ -33,8 +33,10 @@ import * as treasure from "./module/helpers-treasure";
 import "./module/actor/custom-elements/AbilityScoreField";
 import "./module/actor/custom-elements/CharacterAbilityField";
 import "./module/actor/custom-elements/CharacterInfoField";
+import "./module/actor/custom-elements/InventoryRow";
 import "./module/actor/custom-elements/LabeledSection";
 import "./module/actor/custom-elements/MajorIconField";
+import "./module/actor/custom-elements/TippableItem";
 // Testing
 import "./e2e";
 

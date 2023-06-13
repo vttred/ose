@@ -12,23 +12,28 @@
 
   --color-heading: var(--color-ui-100); 
   --color-subheading: var(--color-ui-09);
+  --color-primary: var(--color-ui-00);
+  --color-secondary: var(--color-ui-38);
 
   --background-color-heading: var(--color-ui-09);
   --background-color-subheading: var(--color-ui-57);
 
-  --background-color-zebra-odd: var(--color-ui-57);
-  --background-color-zebra-even: var(--color-ui-38);
+  --background-color-zebra-odd: var(--color-ui-75);
+  --background-color-zebra-even: var(--color-ui-85);
 }
 
 @media (prefers-color-scheme: dark) {
-  root {
+  :root {
     --color-heading: var(--color-ui-09);
     --color-subheading: var(--color-ui-09);
+    --color-primary: var(--color-ui-100);
+    --color-secondary: var(--color-ui-75);
 
+    --background-color-sheet: var(--color-ui-09)cc;
     --background-color-heading: var(--color-ui-100);
     --background-color-subheading: var(--color-ui-75);
 
-    --background-color-zebra-odd: var(--color-ui-85);
-    --background-color-zebra-even: var(--color-ui-75);
+    --background-color-zebra-odd: transparent;
+    --background-color-zebra-even: var(--color-ui-38);
   }
 }

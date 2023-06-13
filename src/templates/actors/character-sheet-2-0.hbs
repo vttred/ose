@@ -24,7 +24,9 @@
     {{! Abilities Tab }}
     <div class="tab" data-group="primary" data-tab="abilities"></div>
     {{! Inventory Tab }}
-    <div class="tab" data-group="primary" data-tab="inventory"></div>
+    <div class="tab" data-group="primary" data-tab="inventory">
+      {{> (path "/templates/actors/partials/sheet-v2/character-inventory-tab.hbs") }}
+    </div>
     {{! Magic Tab }}
     {{#if system.spells.enabled}}
     <div class="tab" data-group="primary" data-tab="spells"></div>

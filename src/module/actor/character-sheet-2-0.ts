@@ -30,11 +30,42 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
           initial: "attributes",
         },
       ],
+      // filter: [{inputSelector: 'input[name="inventory-search"]', contentSelector: "[data-tab='inventory'] inventory-row"}]
     });
+  }
+
+  get favoriteItems() {
+    const itemIds = (this.actor.getFlag(game.system.id, "favorite-items") ||
+      []) as string[];
+    return itemIds.map((id) => fromUuid(id));
+  }
+
+  get enrichedBiography() {
+    return TextEditor.enrichHTML(
+      this.actor.system.details.biography,
+      { async: true }
+    );
+  }
+
+  get enrichedNotes() {
+    return TextEditor.enrichHTML(this.actor.system.details.notes, {
+      { async: true }
+    );
+  }
+
+  async getData() {
+    const favoriteItems = await Promise.all(this.favoriteItems);
+    return {
+      ...super.getData(),
+      favoriteItems: favoriteItems.filter(i => !!i),
+      enrichedBiography: await this.enrichedBiography,
+      enrichedNotes: await this.enrichedNotes
+    };
   }
 
   // eslint-disable-next-line no-underscore-dangle
   async _onChangeInput(e: any) {
+    if (e.target.type === "search") return;
     // eslint-disable-next-line no-underscore-dangle
     await super._onChangeInput(e);
   }
@@ -43,8 +74,12 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
    * Activate event listeners using the prepared sheet HTML
    *
    * @param html - {HTML}   The prepared HTML object ready to be rendered into the DOM
+   *
+   * @todo Click to roll against ability score
+   * @todo CLick to roll against save
+   * @todo Click to roll HD
    */
-  activateListeners(html: JQuery<HTMLElement>) {
+  activateListeners(html: JQuery<HTMLElement>): void {
     super.activateListeners(html);
     if (!this.isEditable) return;
 

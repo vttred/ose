@@ -2,12 +2,12 @@
 	"plugins": [
 		"jsdoc",
 		"prettier",
-		"chai-friendly"
+		"chai-friendly",
+		"importAssertions"
 	],
 	"extends": [
 		"airbnb",
 		"airbnb-typescript/base",
-		"adjunct",
 		"plugin:promise/recommended",
 		"plugin:ecmascript-compat/recommended",
 		"plugin:chai-friendly/recommended",
@@ -16,7 +16,7 @@
 	"env": {
 		"browser": true
 	},
-	"ignorePatterns": ["**/lang/**/*.json", "**/*.d.ts"],
+	"ignorePatterns": ["rollup.config.mjs", "**/lang/**/*.json", "**/*.d.ts"],
 	"rules": {
 		"prettier/prettier": ["error"],
 		"jsdoc/check-access": 1, // Recommended
@@ -58,13 +58,13 @@
 		"ecmascript-compat/compat": "off", // Disabled because core uses async
 		"unicorn/no-array-reduce": "off", // Disabled because Array#reduce is helpful
 		"no-secrets/no-secrets": "off", // Disabled because of string entropy
-		"@typescript-eslint/no-unused-expressions": "off"
+		"@typescript-eslint/no-unused-expressions": "off",
 	},
 	"parserOptions": {
-        "ecmaVersion": 2020,
-        "sourceType": "module",
-        "project": "./tsconfig.json"
-    },
+		"ecmaVersion": 2020,
+		"sourceType": "module",
+		"project": "./tsconfig.json",
+	},
 	"parser": "@typescript-eslint/parser",
 	"globals": {
 		"game": "readonly",

@@ -1,0 +1,70 @@
+:host {
+  display: flex;
+  flex-direction: column;
+}
+.row {
+  display: grid;
+  grid-template-columns: 32px 1fr 1fr;
+  align-items: center;
+  grid-gap-column: var(--spacing-full);
+}
+:host(:focus-within) {
+  box-shadow: 0 0 10px var(--color-shadow-primary);
+}
+.icon {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.controls {
+  justify-self: self-end;
+}
+
+:host::part(content) {
+  align-self: end;
+  min-height: 0;
+  transition: visibility 333ms ease-in-out,
+              opacity 333ms ease-in-out,
+              padding-top 333ms ease-in-out,
+              padding-bottom 333ms ease-in-out;
+  visibility: hidden;
+  opacity: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: var(--content-padding, var(--spacing-half));
+  padding-right: var(--content-padding, var(--spacing-half));
+}
+
+:host([always-expanded])::part(content),
+:host([aria-expanded])::part(content) {
+  opacity: 1;
+  visibility: visible;
+  padding: var(--content-padding, var(--spacing-half));
+}
+
+.collapsable {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  transition: grid-template-rows 333ms ease-in-out;
+}
+
+:host([always-expanded]) .collapsable,
+:host([aria-expanded]) .collapsable {
+  grid-template-rows: 1fr;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  box-shadow: 0 0 1px var(--color-border-dark-2) inset;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb {
+  outline: none;
+  border-radius: 3px;
+  background: var(--color-underline-header);
+  border: 1px solid var(--color-border-highlight);
+}

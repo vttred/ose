@@ -27,9 +27,13 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
         {
           navSelector: ".sheet-tabs",
           contentSelector: ".sheet-body",
-          initial: "attributes",
+          initial: "inventory",
         },
       ],
+      dragDrop: [{
+        dragSelector: '.item',
+        dropSelector: '[data-tab="inventory"] expandable-section, expandable-section[type="container"] item-row'
+      }]
       // filter: [{inputSelector: 'input[name="inventory-search"]', contentSelector: "[data-tab='inventory'] inventory-row"}]
     });
   }
@@ -48,7 +52,7 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
   }
 
   get enrichedNotes() {
-    return TextEditor.enrichHTML(this.actor.system.details.notes, {
+    return TextEditor.enrichHTML(this.actor.system.details.notes,
       { async: true }
     );
   }
@@ -65,9 +69,21 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
 
   // eslint-disable-next-line no-underscore-dangle
   async _onChangeInput(e: any) {
-    if (e.target.type === "search") return;
     // eslint-disable-next-line no-underscore-dangle
     await super._onChangeInput(e);
+  }
+
+  async #onDropIntoContainer(e: Event) {
+    const {type, uuid} = TextEditor.getDragEventData(e.originalEvent) as {type: string, uuid: string};
+    if (type !== "Item") return;
+    const itemToContain = await fromUuid(uuid);
+    const container = await fromUuid(e.target.getAttribute("uuid"))
+
+    if (!container || !itemToContain) return;
+
+    itemToContain.update({
+      'system.containerId': container.id
+    })
   }
 
   /**
@@ -87,5 +103,7 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
       // eslint-disable-next-line no-underscore-dangle
       this._onChangeInput(e)
     );
+
+    html.on("drop", "expandable-section[type='container']", this.#onDropIntoContainer.bind(this))
   }
 }

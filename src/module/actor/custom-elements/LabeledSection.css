@@ -1,0 +1,40 @@
+:host {
+  --ls-color-heading: var(--color-heading);
+  --ls-background-heading: var(--background-color-heading);
+  --ls-border: var(--background-color-heading);
+
+  display: block;
+  border: 1px solid var(--ls-border);
+}
+:host([unbordered]) {
+  border: none;
+}
+header {
+  font-family: "Signika Negative", "Signika", sans-serif;
+  font-size: var(--font-size-heading);
+  line-height: 1.5em;
+  font-weight: 700;
+  text-align: center;
+  color: var(--ls-color-heading);
+  background: var(--ls-background-heading);
+  width: 100%;
+  display: block;
+  transition: background 333ms ease-in-out,
+              border 333ms ease-in-out,
+              color 333ms ease-in-out;
+}
+header ::slotted(*) {
+  font-weight: inherit !important;
+  font-size: inherit !important;
+  display: contents;
+}
+main {
+  padding: var(--content-padding, 8px);
+}
+.empty {
+  font-style: italic;
+  color: var(--color-secondary);
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}

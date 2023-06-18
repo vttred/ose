@@ -2,6 +2,8 @@
  * @file A custom element that represents an Ability Score and its modifier
  */
 import BaseElement from "./_BaseElement";
+// @ts-expect-error
+import styles from "./CharacterInfoField.css" assert { type: "css" };
 
 export default class CharacterInfoField extends BaseElement {
   static get observedAttributes() {
@@ -9,48 +11,6 @@ export default class CharacterInfoField extends BaseElement {
   }
 
   static get styles() {
-    const styles = new CSSStyleSheet();
-    styles.replaceSync(`
-      :host {
-        border: 1px solid var(--background-color-heading);
-
-        display: flex;
-        align-items: center;
-      }
-      :host(:focus-within) {
-        box-shadow: 0 0 10px var(--color-shadow-primary);
-      }
-      label {
-        font-family: "Signika Negative", "Signika", sans-serif;
-        font-size: 16px; /* TODO: variables! ems! */
-        line-height: 38px !important;
-        font-weight: 700;
-        text-align: center;
-        color: var(--color-heading);
-        background: var(--background-color-heading);
-        transition: background 333ms ease-in-out,
-                    border 333ms ease-in-out,
-                    color 333ms ease-in-out;
-        flex-basis: 60px;
-      }
-      input {
-        width: 100%;
-        overflow: hidden;
-        background-color: transparent;
-        border: none;
-        box-sizing: border-box;
-        padding: 6px;
-        line-height: 1em;
-        flex: 1;
-        color: var(--color-primary);
-      }
-
-      input:focus {
-        outline: none;
-      }
-      .
-    `);
-
     return styles;
   }
 

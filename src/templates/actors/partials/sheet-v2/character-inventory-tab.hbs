@@ -1,50 +1,49 @@
-<labeled-section>
+<expandable-section type="weapon" can-create aria-expanded>
   <h2 slot="heading">{{localize "OSE.items.Weapons"}}</h2>
 {{#each actor.system.weapons}}
-  <inventory-row slot="content" id="{{this.uuid}}" can-equip can-favorite>
-    {{this.system.enrichedDescription}}
-  </inventory-row>
-{{else}}
-  <span class="inventory-row--empty">{{localize "OSE.table.treasure.noItems"}}</span>
+  <item-row class="item" slot="content" uuid="{{this.uuid}}" can-equip can-favorite>
+    {{{this.system.enrichedDescription}}}
+  </item-row>
 {{/each}}
-</labeled-section>
+</expandable-section>
 
-<labeled-section>
+<expandable-section type="armor" can-create aria-expanded>
   <h2 slot="heading">{{localize "OSE.items.Armors"}}</h2>
 {{#each actor.system.armor}}
-  <inventory-row slot="content" id="{{this.uuid}}" can-equip>
-    {{this.system.enrichedDescription}}
-  </inventory-row>
-{{else}}
-  <span class="inventory-row--empty">{{localize "OSE.table.treasure.noItems"}}</span>
+  <item-row slot="content" uuid="{{this.uuid}}" can-equip>
+    {{{this.system.enrichedDescription}}}
+  </item-row>
 {{/each}}
-</labeled-section>
+</expandable-section>
 
-<labeled-section>
+<expandable-section type="container" can-create aria-expanded>
   <h2 slot="heading">{{localize "OSE.items.Containers"}}</h2>
 {{#each actor.system.containers}}
-  <inventory-row slot="content" id="{{this.uuid}}"></inventory-row>
-{{else}}
-  <span class="inventory-row--empty">{{localize "OSE.table.treasure.noItems"}}</span>
+  <item-row slot="content" uuid="{{this.uuid}}" always-expanded>
+    {{{this.system.enrichedDescription}}}
+    <div class="container-content">
+    {{#each this.system.contents}}
+      <tippable-item uuid="{{this.uuid}}"></tippable-item>
+    {{/each}}
+    </div>
+  </item-row>
 {{/each}}
-</labeled-section>
+</expandable-section>
 
-<labeled-section>
+<expandable-section type="item" can-create aria-expanded>
   <h2 slot="heading">{{localize "OSE.items.Misc"}}</h2>
 {{#each actor.system.items}}
-  <inventory-row slot="content" id="{{this.uuid}}">
-    {{this.system.enrichedDescription}}
-  </inventory-row>
-{{else}}
-  <span class="inventory-row--empty">{{localize "OSE.table.treasure.noItems"}}</span>
+  <item-row slot="content" uuid="{{this.uuid}}">
+    {{{this.system.enrichedDescription}}}
+  </item-row>
 {{/each}}
-</labeled-section>
+</expandable-section>
 
-<labeled-section>
+<expandable-section type="item" can-create aria-expanded>
   <h2 slot="heading">{{localize "OSE.items.Treasure"}}</h2>
-{{#each actor.system.treasure}}
-  <inventory-row slot="content" id="{{this.uuid}}">
-    {{this.system.enrichedDescription}}
-  </inventory-row>
+{{#each actor.system.treasures}}
+  <item-row slot="content" uuid="{{this.uuid}}">
+    {{{this.system.enrichedDescription}}}
+  </item-row>
 {{/each}}
-</labeled-section>
+</expandable-section>

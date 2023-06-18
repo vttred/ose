@@ -2,42 +2,65 @@
  * @file A custom element that represents item that can be clicked or summon a tooltip
  */
 import BaseElement from "./_BaseElement";
+// @ts-expect-error
+import styles from './TippableItem.css' assert { type: "css" };
+import OseItem from "../../item/entity";
 
 export default class TippableItem extends BaseElement {
   static get styles() {
-    const styles = new CSSStyleSheet();
-    styles.replaceSync(`
-      :host {
-        display: grid;
-        grid-template-columns: 32px 1fr;
-        align-items: center;
-        grid-gap: 8px;
-      }
-      :host(:focus) {
-        outline: none;
-      }
-      :host(:focus-within) {
-        box-shadow: 0 0 10px var(--color-shadow-primary);
-      }
-      .icon {
-        display: block;
-        width: 100%;
-        height: auto;
-      }
-      :host :last-child {
-        justify-self: self-end;
-      }
-      .
-    `);
-
     return styles;
   }
 
   static get contextMenu() {
-    return {};
+    return [{ 
+      name: 'Share in Chat',
+      icon: '<i class="fa fa-eye"></i>', 
+      callback: (node: JQuery<HTMLElement>) => {
+        const { item } = node[0] as TippableItem;
+        item?.show();
+      }
+    },
+    { 
+      name: 'Attack',
+      icon: '<i class="fa fa-edit"></i>', 
+      condition: (node: JQuery<HTMLElement>) => {
+        const { item } = node[0] as TippableItem;
+        return !!(item && item.type === "weapon");
+      },
+      callback: (node: JQuery<HTMLElement>) => {
+        const { item } = node[0] as TippableItem;
+        item?.roll();
+      }
+    },
+    { 
+      name: 'Edit',
+      icon: '<i class="fa fa-edit"></i>', 
+      condition: (node: JQuery<HTMLElement>) => {
+        const { item } = node[0] as TippableItem;
+        return !!item?.isOwner;
+      },
+      callback: (node: JQuery<HTMLElement>) => {
+        const { item } = node[0] as TippableItem;
+        item?.sheet?.render(true);
+      }
+    },
+    {
+      name: 'Delete',
+      icon: '<i class="fa fa-trash"></i>', 
+      condition: (node: JQuery<HTMLElement>) => {
+        const { item } = node[0] as TippableItem;
+        return !!item?.isOwner;
+      },
+      callback: (node: JQuery<HTMLElement>) => {
+        const { item } = node[0] as TippableItem;
+        item?.delete();
+      }
+    }];
   }
 
-  item: Item | null = null;
+  item: OseItem | null = null;
+
+  contextMenu?: unknown;
 
   #shadowRoot: ShadowRoot;
 
@@ -51,9 +74,9 @@ export default class TippableItem extends BaseElement {
 
     // @todo return "borked" state if we can't get the item?
     if (this.getAttribute("uuid"))
-      this.item = (await fromUuid(this.getAttribute("uuid") as string)) as Item;
+      this.item = (await fromUuid(this.getAttribute("uuid") as string)) as OseItem;
 
-    this.setAttribute("title", this.item.name);
+    this.setAttribute("title", this.item?.name || '');
     this.setAttribute("tabindex", "0");
 
     await this.#render();
@@ -90,8 +113,18 @@ export default class TippableItem extends BaseElement {
     return name;
   }
 
+  get uuid() {
+    return this.getAttribute("uuid");
+  }
+
   async #render() {
-    this.#shadowRoot.append(this.#icon, this.#itemName);
+    this.#shadowRoot.append(this.#icon, this.#itemName, document.createElement("slot"));
+    console.info(this.closest(".window-content"));
+    this.contextMenu = new ContextMenu(
+      $(this),
+      this.localName,
+      TippableItem.contextMenu
+    )
   }
 
   onInput(e: Event) {

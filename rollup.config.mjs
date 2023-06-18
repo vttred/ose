@@ -1,8 +1,9 @@
 import { defineConfig } from "rollup";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import typescript from "@rollup/plugin-typescript";
-import { terser } from "rollup-plugin-terser";
+import terser from "@rollup/plugin-terser";
 import scss from "rollup-plugin-scss";
+import css from "rollup-plugin-import-css";
 import { copy } from "@web/rollup-plugin-copy";
 import livereload from "rollup-plugin-livereload";
 import eslint from "@rollup/plugin-eslint";
@@ -41,8 +42,9 @@ export default defineConfig([
         entries: [{ find: '@assets', replacement: './assets' }]
       }),
       typescript(),
-      eslint(),
+      !isWatchMode && eslint(),
       InlineSvg(),
+      css(),
       !isWatchMode && terser(),
       copy({
         patterns: staticFileFolders.map((folderName) => `${folderName}/**/*`),

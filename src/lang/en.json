@@ -340,5 +340,22 @@
   "OSE.error.noTokenControlled": "You must have one or more controlled Tokens in order to use this option.",
   "OSE.error.noGP": "You need a GP item to use this feature.",
   "OSE.error.unexpectedSettings": "unexpected OSE setting {configName}: {configValue}",
-  "OSE.error.cantDealDamageTo": "Can't deal damage to {nameOrId}"
+  "OSE.error.cantDealDamageTo": "Can't deal damage to {nameOrId}",
+
+  "OSE.UI.addItem": "Add a new {type}",
+  "OSE.UI.expand": "Expand {type} list",
+  "OSE.UI.collapse": "Collapse {type} list",
+
+  "OSE.Actors.character": "Character",
+  "OSE.Actor.monster": "Monster",
+
+  "ACTOR.TypeCharacter": "Character",
+  "ACTOR.TypeMonster": "Monster",
+
+  "ITEM.TypeWeapon": "Weapon",
+  "ITEM.TypeArmor": "Armor",
+  "ITEM.TypeItem": "Item",
+  "ITEM.TypeContainer": "Container",
+  "ITEM.TypeSpell": "Spell",
+  "ITEM.TypeAbility": "Ability"
 }

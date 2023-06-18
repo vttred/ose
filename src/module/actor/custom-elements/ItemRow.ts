@@ -1,32 +1,13 @@
 /**
  * @file A custom element that represents an Ability Score and its modifier
  */
+import OseItem from "../../item/entity";
 import BaseElement from "./_BaseElement";
+// @ts-expect-error
+import styles from "./ItemRow.css" assert { type: "css" };
 
-export default class InventoryRow extends BaseElement {
+export default class ItemRow extends BaseElement {
   static get styles() {
-    const styles = new CSSStyleSheet();
-    styles.replaceSync(`
-      :host {
-        display: grid;
-        grid-template-columns: 32px 1fr 1fr;
-        align-items: center;
-        grid-gap: 16px;
-      }
-      :host(:focus-within) {
-        box-shadow: 0 0 10px var(--color-shadow-primary);
-      }
-      .icon {
-        display: block;
-        width: 100%;
-        height: auto;
-      }
-      :host :last-child {
-        justify-self: self-end;
-      }
-      .
-    `);
-
     return styles;
   }
 
@@ -34,7 +15,7 @@ export default class InventoryRow extends BaseElement {
     return {};
   }
 
-  item: Item | null = null;
+  item: OseItem & {system: Record<string, any>} | null = null;
 
   #shadowRoot: ShadowRoot;
 
@@ -47,11 +28,15 @@ export default class InventoryRow extends BaseElement {
     super.connectedCallback();
 
     // @todo return "borked" state if we can't get the item?
-    if (this.getAttribute("id"))
-      this.item = (await fromUuid(this.getAttribute("id") as string)) as Item;
+    if (this.getAttribute("uuid"))
+      this.item = (await fromUuid(this.getAttribute("uuid") as string)) as OseItem & {system: Record<string, any>};
 
     await this.#render();
-    this.#shadowRoot.adoptedStyleSheets = [InventoryRow.styles];
+    this.draggable = true;
+    this.#shadowRoot.adoptedStyleSheets = [ItemRow.styles];
+    this.#shadowRoot
+      .querySelector(".icon")
+      ?.addEventListener("click", this.#onRoll.bind(this));
     this.#shadowRoot
       .querySelector(".favorite")
       ?.addEventListener("click", this.#onFavorite.bind(this));
@@ -64,10 +49,30 @@ export default class InventoryRow extends BaseElement {
     this.#shadowRoot
       .querySelector(".delete")
       ?.addEventListener("click", this.#onDelete.bind(this));
+    this.addEventListener("dragstart", this.#onDrag.bind(this))
   }
 
-  #onFavorite() {
-    if (!this.item) return;;
+  #onDrag(e: DragEvent) {
+    if (!this.item) {
+      e.stopPropagation();
+      return;
+    }
+    // @ts-expect-error - toDragData isn't picked up by TS types
+    const dragData = this.item.toDragData();
+    e.dataTransfer.setDragImage(this.#shadowRoot.querySelector('.icon'), 0, 0);
+    e.dataTransfer?.setData("text/plain", JSON.stringify(dragData));
+  }
+
+
+  #onRoll(e: Event) {
+    e.stopPropagation();
+    if (!this.item) return;
+    this.item.roll();
+  }
+
+  #onFavorite(e: Event) {
+    e.stopPropagation();
+    if (!this.item) return;
 
     const favoriteItemKey = "favorite-items";
 
@@ -83,31 +88,31 @@ export default class InventoryRow extends BaseElement {
       : owner?.setFlag(
           game.system.id,
           favoriteItemKey,
-          ownerFavorites.filter((i) => i !== this.item.uuid)
+          ownerFavorites.filter((i) => i !== this.item?.uuid)
         );
   }
 
-  #onEquip() {
+  #onEquip(e: Event) {
+    e.stopPropagation();
+    if (!this.item) return;
     this.item?.update({
       "system.equipped": !this.item.system.equipped,
     });
   }
 
-  #onEdit() {
+  #onEdit(e: Event) {
+    e.stopPropagation();
+    if (!this.item) return;
     this.item?.sheet?.render(true);
   }
 
-  #onDelete() {
+  #onDelete(e: Event) {
+    e.stopPropagation();
+    if (!this.item) return;
     this.item?.delete();
   }
 
-  // get item() {
-  //   return fromUuidSync()
-  // }
-
   // weight
-  // equip/carry
-  // favorite
   // description
 
   get #icon() {
@@ -122,6 +127,9 @@ export default class InventoryRow extends BaseElement {
     const name: HTMLSpanElement = document.createElement("span");
     name.setAttribute("class", "item-name");
     name.textContent = this.item?.name || "";
+    name.addEventListener("click", (e) => {
+      this.toggleAttribute("aria-expanded");
+    })
     return name;
   }
 
@@ -176,7 +184,7 @@ export default class InventoryRow extends BaseElement {
   }
 
   get #controls() {
-    const controlContainer: HTMLDivElement = document.createElement("div");
+    const container: HTMLDivElement = document.createElement("div");
     const controls = [
       this.#equipButton,
       this.#showChatButton,
@@ -185,22 +193,38 @@ export default class InventoryRow extends BaseElement {
       this.#deleteButton,
     ].filter((n) => !!n);
 
-    controlContainer.append(...(controls as Node[]));
+    container.append(...(controls as Node[]));
+    container.classList.add("controls");
 
-    return controlContainer;
+    return container;
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  get #content() {
+    const content: HTMLElement = document.createElement("div");
+    const collapsible: HTMLDivElement = document.createElement("div");
+    const slot: HTMLSlotElement = document.createElement("slot");
+
+    content.setAttribute("part", "content");
+    collapsible.classList.add("collapsable");
+
+    content.append(slot);
+    collapsible.append(content);
+
+    return collapsible;
+  }
+
+  get #row() {
+    const container: HTMLDivElement = document.createElement("div");
+    container.append(this.#icon, this.#itemName, this.#controls);
+    container.classList.add("row");
+    container.addEventListener("dragstart", this.#onDrag.bind(this));
+    return container;
+  }
+  
   async #render() {
-    this.#shadowRoot.append(this.#icon, this.#itemName, this.#controls);
-  }
-
-  onInput(e: Event) {
-    // const oldValue = parseInt(this.getAttribute("value") || "", 10);
-    const newValue = (e.target as HTMLInputElement).value || "";
-
-    // if (newValue < 0) newValue = 0;
-    super.setValue(newValue);
+    this.#shadowRoot.append(this.#row, this.#content);
   }
 }
 
-customElements.define("inventory-row", InventoryRow);
+customElements.define("item-row", ItemRow);

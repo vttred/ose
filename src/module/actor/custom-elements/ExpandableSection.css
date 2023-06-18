@@ -1,0 +1,98 @@
+header {
+  display: grid;
+  grid-template-columns: var(--spacing-full) 1fr var(--spacing-full);
+  grid-gap: 1em;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 var(--spacing-full);
+  text-align: left;
+}
+
+.collapsable {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  transition: grid-template-rows 333ms ease-in-out;
+}
+
+:host([aria-expanded]) .collapsable {
+  grid-template-rows: 1fr;
+}
+
+main {
+  align-self: end;
+  min-height: 0;
+  transition: visibility 333ms ease-in-out,
+              opacity 333ms ease-in-out,
+              padding-top 333ms ease-in-out,
+              padding-bottom 333ms ease-in-out;
+  visibility: hidden;
+  opacity: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: var(--content-padding, var(--spacing-half));
+  padding-right: var(--content-padding, var(--spacing-half));
+}
+
+:host([aria-expanded]) main {
+  opacity: 1;
+  visibility: visible;
+  padding: var(--content-padding, var(--spacing-half));
+}
+
+button {
+  display: block;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background-color: transparent;
+  position: relative;
+  
+  width: var(--spacing-full);
+  height: 100%;
+
+  color: var(--color-heading);
+  font-size: 19px;
+  line-height: 1em;
+}
+
+button:hover,
+header:hover {
+  cursor: pointer;
+}
+
+button:focus {
+  outline: none;
+}
+
+button:focus-visible {
+  color: var(--color-border-highlight);
+}
+
+button.expand {
+  align-self: unset;
+  height: 22px;
+}
+button.expand::after {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "▶";
+
+  transform: rotate(0);
+  transform-origin: 40% 50%;
+  transition: transform 333ms ease-in-out,
+              color 333ms ease-in-out;
+}
+
+button.add::after {
+  display: inline-block;
+  content: "+";
+  font-weight: bold;
+  font-size: 24px;
+}
+
+:host([aria-expanded]) button.expand:after {
+  transform: rotate(90deg);
+}

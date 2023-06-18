@@ -2,6 +2,8 @@
  * @file A custom element that represents an Ability Score and its modifier
  */
 import BaseElement from "./_BaseElement";
+// @ts-expect-error
+import styles from './CharacterAbilityField.css' assert { type: "css" };
 
 export default class CharacterAbilityField extends BaseElement {
   static get observedAttributes() {
@@ -9,74 +11,6 @@ export default class CharacterAbilityField extends BaseElement {
   }
 
   static get styles() {
-    const styles = new CSSStyleSheet();
-    styles.replaceSync(`
-      :host {
-        border: 1px solid var(--background-color-heading);
-
-        display: flex;
-        align-items: center;
-        border-top-left-radius: 20px;
-        border-bottom-left-radius: 20px;
-        overflow: hidden;
-      }
-      :host(:focus-within) {
-        box-shadow: 0 0 10px var(--color-shadow-primary);
-      }
-      label {
-        font-family: "Signika Negative", "Signika", sans-serif;
-        font-size: 12px; /* TODO: variables! ems! */
-        font-weight: 700;
-        text-align: center;
-        color: var(--color-heading);
-        background: var(--background-color-heading);
-        transition: background 333ms ease-in-out,
-                    border 333ms ease-in-out,
-                    color 333ms ease-in-out;
-        flex: 1;
-        display: flex;
-        align-items: center;
-        height: 20px;
-      }
-      ::slotted(img) {
-        max-width: 20px !important;
-        max-height: 20px !important;
-        height: auto;
-        flex-basis: 20px;
-        margin-left: 2px;
-        border: none !important;
-      }
-      ::slotted(svg) {
-        max-width: 20px !important;
-        max-height: 20px !important;
-        height: auto;
-        flex-basis: 20px;
-        margin-left: 2px;
-        border: none !important;
-        fill: var(--background-color-heading);
-        stroke: transparent;
-      }
-      label span {
-        flex: 1;
-      }
-      input {
-        overflow: hidden;
-        background-color: transparent;
-        border: none;
-        box-sizing: border-box;
-        padding: 2px;
-        line-height: 1em;
-        flex-basis: 35px;
-        text-align: center;
-        color: var(--color-primary);
-      }
-
-      input:focus {
-        outline: none;
-      }
-      .
-    `);
-
     return styles;
   }
 

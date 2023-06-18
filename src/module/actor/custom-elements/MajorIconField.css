@@ -1,0 +1,45 @@
+:host {
+  display: inline-block;
+}
+:host(:not([readonly]):focus-within) {
+  box-shadow: 0 0 10px var(--color-shadow-primary);
+}
+.field-background-container {
+  position: relative;
+}
+.value-pair {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+input {
+  width: 100%;
+  overflow: hidden;
+  background-color: transparent;
+  border: none;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 0;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.4em;
+  color: var(--color-primary);
+}
+input:focus {
+  outline: none;
+}
+:host([readonly]) input:hover {
+  cursor: default;
+}
+.max-field {
+  border-top: 1px solid var(--background-color-heading);
+}
+::slotted(img) {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: none !important;
+  padding: 0 8px;
+  max-height: 100px;
+}

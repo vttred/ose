@@ -10,30 +10,40 @@
   --color-ui-85: #d8d8d8;
   --color-ui-100: #ffffff;
 
-  --color-heading: var(--color-ui-100); 
+  --color-heading:    var(--color-ui-100); 
   --color-subheading: var(--color-ui-09);
-  --color-primary: var(--color-ui-00);
-  --color-secondary: var(--color-ui-38);
+  --color-primary:    var(--color-ui-00);
+  --color-secondary:  var(--color-ui-38);
 
-  --background-color-heading: var(--color-ui-09);
+  --background-color-heading:    var(--color-ui-09);
   --background-color-subheading: var(--color-ui-57);
 
-  --background-color-zebra-odd: var(--color-ui-75);
+  --background-color-zebra-odd:  var(--color-ui-75);
   --background-color-zebra-even: var(--color-ui-85);
+
+  --font-size-base:     var(--font-size-14);
+  --font-size-alt:      var(--font-size-12);
+  --font-size-heading:  var(--font-size-16);
+
+  /* Spacing */
+  --spacing-full:                var(--font-size-16);
+  --spacing-three-quarters: calc(var(--spacing-full) * 0.75);
+  --spacing-half:           calc(var(--spacing-full) * 0.5);
+  --spacing-quarter:        calc(var(--spacing-full) * 0.25);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-heading: var(--color-ui-09);
+    --color-heading:    var(--color-ui-09);
     --color-subheading: var(--color-ui-09);
-    --color-primary: var(--color-ui-100);
-    --color-secondary: var(--color-ui-75);
+    --color-primary:    var(--color-ui-100);
+    --color-secondary:  var(--color-ui-75);
 
-    --background-color-sheet: var(--color-ui-09)cc;
-    --background-color-heading: var(--color-ui-100);
-    --background-color-subheading: var(--color-ui-75);
+    --background-color-sheet:       var(--color-ui-09)cc;
+    --background-color-heading:     var(--color-ui-100);
+    --background-color-subheading:  var(--color-ui-75);
 
-    --background-color-zebra-odd: transparent;
-    --background-color-zebra-even: var(--color-ui-38);
+    --background-color-zebra-odd:   transparent;
+    --background-color-zebra-even:  var(--color-ui-38);
   }
 }

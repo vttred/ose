@@ -111,7 +111,9 @@
         <h4 slot="heading">{{localize "OSE.Favorite.items"}}</h4>
         <div slot="content" class="favorites favorites__items">
         {{#each favoriteItems}}
+          <div class="tooltip-container">
           <tippable-item uuid="{{uuid}}"></tippable-item>
+          </div>
         {{/each}}
         </div>
       </labeled-section>

@@ -2,6 +2,8 @@
  * @file A custom element that represents an Ability Score and its modifier
  */
 import BaseElement from "./_BaseElement";
+// @ts-expect-error
+import styles from './AbilityScoreField.css' assert { type: "css" };
 
 export default class AbilityScoreField extends BaseElement {
   static get observedAttributes() {
@@ -9,45 +11,9 @@ export default class AbilityScoreField extends BaseElement {
   }
 
   static get styles() {
-    const styles = new CSSStyleSheet();
-    styles.replaceSync(`
-      :host {
-        display: block;
-      }
-      :host(:focus-within) {
-        box-shadow: 0 0 10px var(--color-shadow-primary);
-      }
-      :host([modifier-value]) .value-pair {
-        display: grid;
-        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-      }
-      input {
-        width: 100%;
-        overflow: hidden;
-        background-color: transparent;
-        border: none;
-        box-sizing: border-box;
-        text-align: center;
-        padding: 6px 0;
-        line-height: 1em;
-        color: var(--color-primary);
-      }
-      input:focus {
-        outline: none;
-      }
-      .modifier-field {
-        border-left: 1px solid var(--background-color-heading);
-        color: var(--color-secondary);
-      }
-      labeled-section {
-        --content-padding: 4px;
-      }
-      .
-    `);
-
     return styles;
   }
-
+  
   static formAssociated = true;
 
   value: string = "";

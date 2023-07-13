@@ -23,38 +23,23 @@ export default class LabeledSection extends BaseElement {
     this.#shadowRoot.adoptedStyleSheets = [LabeledSection.styles];
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  get #heading() {
-    const heading: HTMLElement = document.createElement("header");
-    const slot: HTMLSlotElement = document.createElement("slot");
-
-    heading.setAttribute("part", "heading");
-    slot.setAttribute("name", "heading");
-
-    heading.append(slot);
-
-    return heading;
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  get #main() {
-    const main: HTMLElement = document.createElement("main");
-    const slot: HTMLSlotElement = document.createElement("slot");
-    const slotDefault: HTMLParagraphElement = document.createElement("p");
-
-    main.setAttribute("part", "content");
-    slot.setAttribute("name", "content");
-    slotDefault.classList.add("empty");
-    slotDefault.textContent = game.i18n.localize("OSE.table.treasure.noItems");
-
-    slot.append(slotDefault);
-    main.append(slot);
-
-    return main;
+  get #template() {
+    const template: HTMLTemplateElement = document.createElement("template");
+    template.innerHTML = `
+    <header part="heading">
+      <slot name="heading"></slot>
+    </header>
+    <main part="content">
+      <slot name="content">
+        <p class="empty">${game.i18n.localize("OSE.table.treasure.noItems")}</p>
+      </slot>
+    </main>
+    `;
+    return template;
   }
 
   #render() {
-    this.#shadowRoot.append(this.#heading, this.#main);
+    this.#shadowRoot.append(document.importNode(this.#template.content, true));
   }
 }
 

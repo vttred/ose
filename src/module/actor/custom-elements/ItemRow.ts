@@ -1,14 +1,20 @@
 /**
  * @file A custom element that represents an Ability Score and its modifier
  */
+import { config, dom, icon } from "@fortawesome/fontawesome-svg-core";
+import { faTrash, faEye, faStar, faEdit, faShirt } from "@fortawesome/free-solid-svg-icons";
 import OseItem from "../../item/entity";
 import BaseElement from "./_BaseElement";
 // @ts-expect-error
 import styles from "./ItemRow.css" assert { type: "css" };
 
+config.autoAddCss = false;
+
 export default class ItemRow extends BaseElement {
   static get styles() {
-    return styles;
+    const iconSheet = new CSSStyleSheet();
+    iconSheet.replaceSync(dom.css());
+    return [styles, iconSheet];
   }
 
   static get contextMenu() {
@@ -33,7 +39,7 @@ export default class ItemRow extends BaseElement {
 
     await this.#render();
     this.draggable = true;
-    this.#shadowRoot.adoptedStyleSheets = [ItemRow.styles];
+    this.#shadowRoot.adoptedStyleSheets = [...ItemRow.styles];
     this.#shadowRoot
       .querySelector(".icon")
       ?.addEventListener("click", this.#onRoll.bind(this));
@@ -59,7 +65,8 @@ export default class ItemRow extends BaseElement {
     }
     // @ts-expect-error - toDragData isn't picked up by TS types
     const dragData = this.item.toDragData();
-    e.dataTransfer.setDragImage(this.#shadowRoot.querySelector('.icon'), 0, 0);
+    if (!!this.#shadowRoot.querySelector('.icon'))
+      e.dataTransfer?.setDragImage(this.#shadowRoot.querySelector('.icon') as Element, 0, 0);
     e.dataTransfer?.setData("text/plain", JSON.stringify(dragData));
   }
 
@@ -112,118 +119,54 @@ export default class ItemRow extends BaseElement {
     this.item?.delete();
   }
 
-  // weight
-  // description
-
-  get #icon() {
-    const icon: HTMLImageElement = document.createElement("img");
-    icon.setAttribute("class", "icon");
-    icon.setAttribute("src", this.item?.img || "");
-    icon.setAttribute("alt", this.item?.name || "");
-    return icon;
+  /**
+   * @TODO Where does carry weight fit in here?
+   */
+  get #template() {
+    const template: HTMLTemplateElement = document.createElement("template");
+    template.innerHTML = `
+      <div class="row">
+        <img class="icon" src="${this.item?.img || ''}" alt="${this.item?.name || ''}">
+        <span class="item-name">${this.item?.name || ''}</span>
+        <div class="controls">
+          ${this.hasAttribute("can-equip") 
+            ? `<button class="equip ${this.item?.system.equipped ? "equip--enabled" : ""}" aria-label="${game.i18n.localize("OSE.Equip")}">
+              ${icon(faShirt).html}
+            </button>`
+            : ""
+          }
+          ${this.hasAttribute("can-show-chat") 
+            ? `<button class="show-chat" aria-label="${game.i18n.localize("OSE.Show")}">
+                ${icon(faEye).html}
+              </button>`
+            : ""
+          }
+          ${this.hasAttribute("can-favorite") 
+            ? `<button class="favorite ${this.item?.system.favorited ? "favorite--enabled" : ""}" aria-label="${game.i18n.localize("OSE.Favorite.label")}">
+              ${icon(faStar).html}
+            </button>`
+            : ""
+          }
+          <button class="edit" aria-label="${game.i18n.localize("OSE.Edit")}">
+            ${icon(faEdit).html}
+          </button>
+          <button class="delete" aria-label="${game.i18n.localize("OSE.Delete")}">
+            ${icon(faTrash).html}
+          </button>
+        </div>
+      </div>
+      <div class="collapsable">
+        <div part="content">
+          <slot></slot>
+        </div>
+      </div>
+      `;
+    return template;
   }
 
-  get #itemName() {
-    const name: HTMLSpanElement = document.createElement("span");
-    name.setAttribute("class", "item-name");
-    name.textContent = this.item?.name || "";
-    name.addEventListener("click", (e) => {
-      this.toggleAttribute("aria-expanded");
-    })
-    return name;
-  }
-
-  get #favoriteButton() {
-    if (!this.hasAttribute("can-favorite")) return null;
-
-    const button: HTMLButtonElement = document.createElement("button");
-    button.classList.add("favorite");
-    if (this.item?.system.favorited) button.classList.add("favorite--enabled");
-    button.textContent = "Fav.";
-
-    return button;
-  }
-
-  get #equipButton() {
-    if (!this.hasAttribute("can-equip")) return null;
-
-    const button: HTMLButtonElement = document.createElement("button");
-    button.classList.add("equip");
-    if (this.item?.system.equipped) button.classList.add("equip--enabled");
-    button.textContent = "Eqp.";
-
-    return button;
-  }
-
-  get #showChatButton() {
-    if (!this.hasAttribute("can-show-chat")) return null;
-
-    const button: HTMLButtonElement = document.createElement("button");
-    button.classList.add("show-chat");
-    button.textContent = "Show";
-
-    return button;
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  get #editButton() {
-    const button: HTMLButtonElement = document.createElement("button");
-    button.classList.add("edit");
-    button.textContent = "Edit";
-
-    return button;
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  get #deleteButton() {
-    const button: HTMLButtonElement = document.createElement("button");
-    button.classList.add("delete");
-    button.textContent = "Del.";
-
-    return button;
-  }
-
-  get #controls() {
-    const container: HTMLDivElement = document.createElement("div");
-    const controls = [
-      this.#equipButton,
-      this.#showChatButton,
-      this.#favoriteButton,
-      this.#editButton,
-      this.#deleteButton,
-    ].filter((n) => !!n);
-
-    container.append(...(controls as Node[]));
-    container.classList.add("controls");
-
-    return container;
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  get #content() {
-    const content: HTMLElement = document.createElement("div");
-    const collapsible: HTMLDivElement = document.createElement("div");
-    const slot: HTMLSlotElement = document.createElement("slot");
-
-    content.setAttribute("part", "content");
-    collapsible.classList.add("collapsable");
-
-    content.append(slot);
-    collapsible.append(content);
-
-    return collapsible;
-  }
-
-  get #row() {
-    const container: HTMLDivElement = document.createElement("div");
-    container.append(this.#icon, this.#itemName, this.#controls);
-    container.classList.add("row");
-    container.addEventListener("dragstart", this.#onDrag.bind(this));
-    return container;
-  }
-  
   async #render() {
-    this.#shadowRoot.append(this.#row, this.#content);
+    console.info();
+    this.#shadowRoot.append(document.importNode(this.#template.content, true));
   }
 }
 

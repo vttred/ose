@@ -26,7 +26,8 @@ input {
   background-color: transparent;
   border: none;
   box-sizing: border-box;
-  padding: 6px;
+  padding: var(--spacing-half);
+  height: 38px;
   line-height: 1em;
   flex: 1;
   color: var(--color-primary);
@@ -34,4 +35,19 @@ input {
 
 input:focus {
   outline: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :host {
+    border-color: transparent;
+  }
+  label {
+    background-color: transparent;
+    text-align: right;
+    margin-right: var(--spacing-half);
+  }
+  input {
+    background-color: var(--color-ui-38);
+    border-radius: var(--spacing-quarter);
+  }
 }

@@ -43,41 +43,30 @@ export default class CharacterAbilityField extends BaseElement {
       });
   }
 
-  get #label() {
-    const label: HTMLLabelElement = document.createElement("label");
-    label.setAttribute("for", this.id);
-
-    const slot: HTMLSlotElement = document.createElement("slot");
-    const slotWrapper: HTMLSpanElement = document.createElement("span");
-    slotWrapper.append(slot);
-
-    const iconSlot: HTMLSlotElement = document.createElement("slot");
-    iconSlot.setAttribute("name", "icon");
-
-    label.append(iconSlot, slotWrapper);
-
-    return label;
-  }
-
-  get #input() {
-    const scoreInput: HTMLInputElement = document.createElement("input");
-    scoreInput.setAttribute("type", "text");
-    scoreInput.setAttribute("name", this.getAttribute("name") || "");
-    scoreInput.setAttribute("id", this.getAttribute("id") || "");
-    scoreInput.setAttribute("autocomplete", "off");
-    scoreInput.setAttribute(
-      "value",
-      this.getAttribute("value")?.toString() || ""
-    );
-    scoreInput.toggleAttribute("readonly", this.hasAttribute("readonly"));
-    scoreInput.toggleAttribute("disabled", this.hasAttribute("disabled"));
-    scoreInput.setAttribute("class", "field score-field");
-
-    return scoreInput;
+  get #template() {
+    const template: HTMLTemplateElement = document.createElement("template");
+    template.innerHTML = `
+    <label for="${this.id}">
+      <slot name="icon"></slot>
+      <span>
+        <slot></slot>
+      </span>
+    </label>
+    <input 
+      type="text" 
+      name="${this.getAttribute('name') || ''}" 
+      id="${this.getAttribute('id') || ''}" 
+      autocomplete="off" 
+      value="${this.getAttribute('value')?.toString() || ''}" 
+      class="field score-field" 
+      ${this.hasAttribute('readonly') ? 'readonly' : ''} 
+      ${this.hasAttribute('disabled') ? 'disabled' : ''}
+    />`;
+    return template;
   }
 
   #render() {
-    this.#shadowRoot.append(this.#label as Node, this.#input as Node);
+    this.#shadowRoot.append(document.importNode(this.#template.content, true));
   }
 
   onInput(e: Event) {

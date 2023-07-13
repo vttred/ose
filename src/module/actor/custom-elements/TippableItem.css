@@ -2,7 +2,9 @@
   display: grid;
   grid-template-columns: 32px 1fr;
   align-items: center;
-  grid-gap: 8px;
+  grid-gap: var(--spacing-half);
+  padding: var(--spacing-quarter);
+  border-radius: var(--spacing-quarter);
 }
 :host(:focus) {
   outline: none;
@@ -12,9 +14,16 @@
 }
 .icon {
   display: block;
+  border-radius: var(--spacing-quarter);
   width: 100%;
   height: auto;
 }
 :host :last-child {
   text-align: left;
+}
+
+@media (prefers-color-scheme: dark) {
+  :host {
+    background-color: var(--color-ui-38);
+  }
 }

@@ -7,7 +7,7 @@ import styles from './MajorIconField.css' assert { type: "css" };
 
 export default class MajorIconField extends BaseElement {
   static get observedAttributes() {
-    return ["value", "modifier-value"];
+    return ["value", "name"];
   }
 
   static get styles() {
@@ -18,10 +18,11 @@ export default class MajorIconField extends BaseElement {
 
   value: string = "";
 
-  name: string = "";
+  targetName: string = "";
 
   modifierValue?: number;
 
+  // @ts-expect-error - The superclass handles internals
   #internals: ElementInternals;
 
   #shadowRoot: ShadowRoot;
@@ -36,111 +37,65 @@ export default class MajorIconField extends BaseElement {
     super.connectedCallback();
     this.#render();
     this.#shadowRoot.adoptedStyleSheets = [MajorIconField.styles];
-    this.#shadowRoot
-      .querySelector(".score-field")
-      ?.addEventListener("change", (e) => {
-        this.onInput(e);
-      });
-    this.#shadowRoot
-      .querySelector(".max-field")
-      ?.addEventListener("change", (e) => {
-        this.onInput(e);
-      });
+    this.#shadowRoot.querySelector(".score-field")?.addEventListener("change", this.onInput.bind(this));
+    this.#shadowRoot.querySelector(".max-field")?.addEventListener("change", this.onInput.bind(this));
   }
 
-  get #label() {
-    const label: HTMLLabelElement = document.createElement("label");
-    label.setAttribute("for", this.id);
-    label.setAttribute("slot", "heading");
-    const slot: HTMLSlotElement = document.createElement("slot");
-
-    label.append(slot);
-
-    return label;
-  }
-
-  get #valueInput() {
-    const scoreInput: HTMLInputElement = document.createElement("input");
-    scoreInput.setAttribute("type", "text");
-    scoreInput.setAttribute("name", this.getAttribute("value-name") || "");
-    scoreInput.setAttribute("id", this.getAttribute("id") || "");
-    scoreInput.setAttribute(
-      "value",
-      this.getAttribute("value")?.toString() || ""
-    );
-    scoreInput.toggleAttribute("readonly", this.hasAttribute("readonly"));
-    scoreInput.toggleAttribute("disabled", this.hasAttribute("disabled"));
-    if (this.hasAttribute("readonly") || this.hasAttribute("disabled"))
-      scoreInput.setAttribute("tabindex", "-1");
-    scoreInput.setAttribute("class", "field score-field");
-
-    return scoreInput;
-  }
-
-  get #maxInput() {
-    if (!this.getAttribute("max")) return null;
-
-    const scoreInput: HTMLInputElement = document.createElement("input");
-    scoreInput.setAttribute("type", "text");
-    scoreInput.setAttribute("name", this.getAttribute("max-name") || "");
-    scoreInput.setAttribute(
-      "value",
-      this.getAttribute("max")?.toString() || ""
-    );
-    scoreInput.toggleAttribute("readonly", this.hasAttribute("readonly"));
-    scoreInput.toggleAttribute("disabled", this.hasAttribute("disabled"));
-    if (this.hasAttribute("readonly") || this.hasAttribute("disabled"))
-      scoreInput.setAttribute("tabindex", "-1");
-    scoreInput.setAttribute("class", "field max-field");
-
-    return scoreInput;
-  }
-
-  get #fieldContainer() {
-    const fieldContainer = document.createElement("div");
-    fieldContainer.setAttribute("class", "value-pair");
-
-    const fields = [this.#valueInput as Node, this.#maxInput as Node].filter(
-      (n) => !!n
-    );
-
-    fieldContainer.append(...fields);
-
-    return fieldContainer;
-  }
-
-  get #backgroundFieldContainer() {
-    const backgroundSlot: HTMLSlotElement = document.createElement("slot");
-    backgroundSlot.setAttribute("name", "background");
-
-    const backgroundFieldContainer: HTMLDivElement =
-      document.createElement("div");
-    backgroundFieldContainer.setAttribute(
-      "class",
-      "field-background-container"
-    );
-    backgroundFieldContainer.setAttribute("slot", "content");
-
-    backgroundFieldContainer.append(this.#fieldContainer, backgroundSlot);
-    return backgroundFieldContainer;
+  get #template() {
+    const template: HTMLTemplateElement = document.createElement("template");
+    template.innerHTML = `
+    <labeled-section unbordered>
+      <label for="${this.id}" slot="heading">
+        <slot></slot>
+      </label>
+      <div class="field-background-container" slot="content">
+        <div class="value-pair">
+          <input 
+            type="text" 
+            name="${this.getAttribute('value-name') || ''}" 
+            id="${this.getAttribute('id') || ''}" 
+            value="${this.getAttribute('value')?.toString() || ''}" 
+            class="field score-field"
+            ${(this.hasAttribute('readonly') || this.hasAttribute('disabled')) ? 'tabindex="-1"' : ''}
+            ${this.hasAttribute('readonly') ? 'readonly' : ''}
+            ${this.hasAttribute('disabled') ? 'disabled' : ''}
+            onchange="this.onInput.bind(this)"
+          />
+          ${this.getAttribute('max') ? `
+            <input 
+              type="text"
+              name="${this.getAttribute('max-name') || ''}" 
+              value="${this.getAttribute('max')?.toString() || ''}" 
+              class="field max-field"
+              ${(this.hasAttribute('readonly') || this.hasAttribute('disabled')) ? 'tabindex="-1"' : ''}
+              ${this.hasAttribute('readonly') ? 'readonly' : ''}
+              ${this.hasAttribute('disabled') ? 'disabled' : ''}
+              onchange="this.onInput.bind(this)"
+            />
+          ` : ''}
+        </div>
+        <slot name="background"></slot>
+      </div>
+    </labeled-section>`;
+    return template;
   }
 
   #render() {
-    const section: HTMLElement = document.createElement("labeled-section");
-    section.toggleAttribute("unbordered", true);
-    section.append(this.#label, this.#backgroundFieldContainer);
-
-    this.#shadowRoot.append(section);
+    this.#shadowRoot.append(document.importNode(this.#template.content, true));
   }
 
   onInput(e: Event) {
-    const oldValue = parseInt(this.getAttribute("value") || "", 10);
-    let newValue = parseInt((e.target as HTMLInputElement).value || "", 10);
+    const name = (e.target as HTMLInputElement).name;
+    const value = (e.target as HTMLInputElement).value || "";
 
-    if (newValue < 0) newValue = 0;
-    if (Number.isNaN(newValue)) newValue = oldValue;
-
-    super.setValue(newValue.toString());
+    if (
+      name === this.getAttribute("value-name") &&
+      name === this.getAttribute("max-name")
+    )
+      return;
+    
+    this.targetName = name;
+    super.setValue(value.toString());
   }
 }
 

@@ -67,6 +67,7 @@ export default class TippableItem extends BaseElement {
   constructor() {
     super();
     this.#shadowRoot = this.attachShadow({ mode: "open" });
+    this.setAttribute("draggable", "true");
   }
 
   async connectedCallback() {
@@ -98,19 +99,16 @@ export default class TippableItem extends BaseElement {
     this.item.roll();
   }
 
-  get #icon() {
-    const icon: HTMLImageElement = document.createElement("img");
-    icon.setAttribute("class", "icon");
-    icon.setAttribute("src", this.item?.img || "");
-    icon.setAttribute("alt", this.item?.name || "");
-    return icon;
-  }
+  get #template() {
+    const template: HTMLTemplateElement = document.createElement("template");
 
-  get #itemName() {
-    const name: HTMLSpanElement = document.createElement("span");
-    name.setAttribute("class", "item-name");
-    name.textContent = this.item?.name || "";
-    return name;
+    template.innerHTML = `
+      <img class="icon" src="${this.item?.img || ""}" alt="${this.item?.name || ""}" />
+      <span class="item-name">${this.item?.name || ""}</span>
+      <slot></slot>
+    `;
+
+    return template;
   }
 
   get uuid() {
@@ -118,8 +116,7 @@ export default class TippableItem extends BaseElement {
   }
 
   async #render() {
-    this.#shadowRoot.append(this.#icon, this.#itemName, document.createElement("slot"));
-    console.info(this.closest(".window-content"));
+    this.#shadowRoot.append(document.importNode(this.#template.content, true))
     this.contextMenu = new ContextMenu(
       $(this),
       this.localName,

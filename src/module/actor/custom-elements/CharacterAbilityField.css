@@ -60,3 +60,16 @@ input {
 input:focus {
   outline: none;
 }
+
+@media(prefers-color-scheme: dark) {
+  :host {
+    border: none;
+  }
+  label {
+    background-color: transparent;
+  }
+  input {
+    background-color: var(--color-ui-38);
+    border-radius: var(--spacing-quarter);
+  }
+}

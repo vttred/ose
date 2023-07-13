@@ -1,7 +1,7 @@
 :host {
   display: block;
 }
-:host(:focus-within) {
+:host(:focus-within) ::part(content) {
   box-shadow: 0 0 10px var(--color-shadow-primary);
 }
 :host([modifier-value]) .value-pair {
@@ -28,4 +28,10 @@ input:focus {
 }
 labeled-section {
   --content-padding: 4px;
+}
+
+@media(prefers-color-scheme: dark) {
+  labeled-section::part(content) {
+    background-color: var(--color-ui-38);
+  }
 }

@@ -70,7 +70,7 @@ export default class ExpandableSection extends BaseElement {
   get #addButton() {
     if (!this.#canCreate || !this.#type) return null;
     const button: HTMLButtonElement = document.createElement("button");
-    const translatedTypeLabel = game.i18n.localize(`ITEM.Type${this.#type.charAt(0).toUpperCase()}${this.#type.substring(1)}`);
+    const translatedTypeLabel = game.i18n.localize(`TYPES.Item.${this.#type}`);
     const buttonLabel = game.i18n.format(
       "OSE.UI.addItem", 
       { type:  translatedTypeLabel }
@@ -86,7 +86,7 @@ export default class ExpandableSection extends BaseElement {
   get #expandButton() {
     const button: HTMLButtonElement = document.createElement("button");
     const translatedTypeLabel = this.#type
-      ? game.i18n.localize(`ITEM.Type${this.#type.charAt(0).toUpperCase()}${this.#type.substring(1)}`)
+      ? game.i18n.localize(`TYPES.Item.${this.#type}`)
       : "";
     const buttonLabel = game.i18n.format(
       "OSE.UI.expand", 

@@ -21,7 +21,7 @@ export default class BaseElement extends HTMLElement {
    *
    * @returns An instance of `CSSStyleSheet` to be attached to `this.#shadowRoot`
    */
-  static get styles() {
+  static get styles(): CSSStyleSheet | CSSStyleSheet[] {
     return new CSSStyleSheet();
   }
 

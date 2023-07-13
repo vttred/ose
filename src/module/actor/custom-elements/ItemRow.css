@@ -1,3 +1,5 @@
+@import "/fonts/fontawesome/css/all.min.css";
+
 :host {
   display: flex;
   flex-direction: column;
@@ -6,7 +8,7 @@
   display: grid;
   grid-template-columns: 32px 1fr 1fr;
   align-items: center;
-  grid-gap-column: var(--spacing-full);
+  column-gap: var(--spacing-half);
 }
 :host(:focus-within) {
   box-shadow: 0 0 10px var(--color-shadow-primary);
@@ -15,6 +17,7 @@
   display: block;
   width: 100%;
   height: auto;
+  border-radius: var(--spacing-quarter);
 }
 .controls {
   justify-self: self-end;
@@ -52,6 +55,24 @@
 :host([always-expanded]) .collapsable,
 :host([aria-expanded]) .collapsable {
   grid-template-rows: 1fr;
+}
+
+
+button {
+  background: none;
+  border: none;
+  transition: opacity 333ms ease-in-out;
+}
+button.equip:not(.equip--enabled),
+button.favorite:not(.favorite--enabled) {
+  opacity: .3;
+}
+button:hover {
+  cursor: pointer;
+  opacity: .6;
+}
+button svg {
+  color: var(--color-primary);
 }
 
 ::-webkit-scrollbar {

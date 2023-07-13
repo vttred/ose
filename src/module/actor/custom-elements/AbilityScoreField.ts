@@ -43,64 +43,39 @@ export default class AbilityScoreField extends BaseElement {
       });
   }
 
-  get #label() {
-    const label: HTMLLabelElement = document.createElement("label");
-    label.setAttribute("for", this.id);
-    label.setAttribute("slot", "heading");
-
-    const slot: HTMLSlotElement = document.createElement("slot");
-
-    label.append(slot);
-
-    return label;
-  }
-
-  get #scoreInput() {
-    const scoreInput: HTMLInputElement = document.createElement("input");
-    scoreInput.setAttribute("type", "text");
-    scoreInput.setAttribute("name", this.getAttribute("name") || "");
-    scoreInput.setAttribute("id", this.getAttribute("id") || "");
-    scoreInput.setAttribute(
-      "value",
-      this.getAttribute("value")?.toString() || ""
-    );
-    scoreInput.toggleAttribute("readonly", this.hasAttribute("readonly"));
-    scoreInput.toggleAttribute("disabled", this.hasAttribute("disabled"));
-    scoreInput.setAttribute("class", "field score-field");
-
-    return scoreInput;
-  }
-
-  get #modifierInput() {
-    if (!this.getAttribute("modifier-value")) return null;
-
-    const modifierInput: HTMLInputElement = document.createElement("input");
-    modifierInput.toggleAttribute("readonly", true);
-    modifierInput.setAttribute(
-      "value",
-      this.getAttribute("modifier-value")?.toString() || ""
-    );
-    modifierInput.setAttribute("class", "field modifier-field");
-    modifierInput.setAttribute("tabindex", "-1");
-
-    return modifierInput;
+  get #template() {
+    const template: HTMLTemplateElement = document.createElement("template");
+    template.innerHTML = `
+    <labeled-section>
+      <label for="${this.id}" slot="heading">
+        <slot></slot>
+      </label>
+      <div class="value-pair" slot="content">
+        <input 
+          type="text" 
+          name="${this.getAttribute('name') || ''}"
+          id="${this.getAttribute('id') || ''}"
+          value="${this.getAttribute('value')?.toString() || ''}" 
+          class="field score-field" 
+          ${this.hasAttribute('readonly') ? 'readonly' : ''} 
+          ${this.hasAttribute('disabled') ? 'disabled' : ''}
+        />
+        ${this.getAttribute('modifier-value') ? `
+          <input 
+            type="text" 
+            value="${this.getAttribute('modifier-value')?.toString() || ''}" 
+            class="field modifier-field"
+            readonly 
+            tabindex="-1"
+          />
+        ` : ''}
+      </div>
+    </labeled-section>`;
+    return template;
   }
 
   #render() {
-    const valuePairContainer: HTMLDivElement = document.createElement("div");
-    valuePairContainer.setAttribute("class", "value-pair");
-    valuePairContainer.setAttribute("slot", "content");
-
-    valuePairContainer.append(
-      ...[this.#scoreInput as Node, this.#modifierInput as Node].filter(
-        (n) => !!n
-      )
-    );
-
-    const section: HTMLElement = document.createElement("labeled-section");
-    section.append(this.#label, valuePairContainer);
-
-    this.#shadowRoot.append(section);
+    this.#shadowRoot.append(document.importNode(this.#template.content, true));
   }
 
   onInput(e: Event) {

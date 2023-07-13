@@ -141,7 +141,7 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
     return getItemsOfActorOfType(
       this.parent,
       "container",
-      ({ system: { containerId } }) => !containerId
+      ({ system: { containerId } }) => !containerId || !this.containers.find(c => c.id === containerId)
     );
   }
 
@@ -149,7 +149,8 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
     return getItemsOfActorOfType(
       this.parent,
       "item",
-      ({ system: { treasure, containerId } }) => treasure && !containerId
+      ({ system: { treasure, containerId } }) =>
+        treasure && (!containerId || !this.containers.find(c => c.id === containerId))
     );
   }
 
@@ -165,7 +166,8 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
     return getItemsOfActorOfType(
       this.parent,
       "item",
-      ({ system: { treasure, containerId } }) => !treasure && !containerId
+      ({ system: { treasure, containerId } }) =>
+        !treasure && (!containerId || !this.containers.find(c => c.id === containerId))
     );
   }
 
@@ -173,7 +175,7 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
     return getItemsOfActorOfType(
       this.parent,
       "weapon",
-      ({ system: { containerId } }) => !containerId
+      ({ system: { containerId } }) => !containerId || !this.containers.find(c => c.id === containerId)
     );
   }
 
@@ -181,7 +183,7 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
     return getItemsOfActorOfType(
       this.parent,
       "armor",
-      ({ system: { containerId } }) => !containerId
+      ({ system: { containerId } }) => !containerId || !this.containers.find(c => c.id === containerId)
     );
   }
 

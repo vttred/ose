@@ -11,6 +11,7 @@
     <character-info-field name="system.details.xp.next" value="{{actor.system.details.xp.next}}" data-dtype="Number">{{localize "OSE.details.experience.nextshort"}}</character-info-field>
   </section>
 </header>
+
 <main class="combat__stats">
   <section class="combat__stat-region combat__stat-region--ability-scores">
     <ability-score-field
@@ -62,67 +63,91 @@
       {{localize "OSE.scores.cha.long"}}
     </ability-score-field>
   </section>
+  
   <section class="combat__stat-region combat__stat-region--central">
     <div class="combat__vitals">
-      {{! HP/AC/THAC0}}
-      <major-icon-field value="{{actor.system.thac0.value}}" readonly>
-        {{localize "OSE.Thac0"}}
-        <img src="{{asset "/mace.svg"}}" slot="background" />
-      </major-icon-field>
-      <major-icon-field value="{{actor.system.hp.value}}" value-name="" max="{{actor.system.hp.max}}" max-name="">
-        {{localize "OSE.HealthShort"}}
-        <img src="{{asset "/heart.svg"}}" slot="background" />
-      </major-icon-field>
-      <major-icon-field value="{{actor.system.hp.value}}" readonly>
-        {{localize "OSE.ArmorClassShort"}}
-        <img src="{{asset "/shield.svg"}}" slot="background" />
-      </major-icon-field>
+      <section class="vital-section vital-section--defenses">
+        {{! HP/AC/THAC0}}
+        <major-icon-field value="{{actor.system.thac0.value}}" readonly>
+          {{localize "OSE.Thac0"}}
+          <img src="{{asset "/mace.svg"}}" slot="background" />
+        </major-icon-field>
+        <major-icon-field
+          value="{{actor.system.hp.value}}"
+          value-name="system.hp.value"
+          max="{{actor.system.hp.max}}"
+          max-name="system.hp.max">
+          {{localize "OSE.HealthShort"}}
+          <img src="{{asset "/heart.svg"}}" slot="background" />
+        </major-icon-field>
+        <major-icon-field value="{{actor.system.ac.value}}" value-name="system.ac.value" readonly>
+          {{localize "OSE.ArmorClassShort"}}
+          <img src="{{asset "/shield.svg"}}" slot="background" />
+        </major-icon-field>
+      </section>
 
-      {{! Combat mods }}
-      <character-ability-field value="{{actor.system.meleeMod}}" readonly>
-        <img src="{{asset '/Melee.svg'}}" slot="icon" />
-        {{localize "OSE.Melee"}}
-      </character-ability-field>
-      <character-ability-field value="{{actor.system.rangedMod}}" readonly>
-        <img src="{{asset '/Missile.svg'}}" slot="icon" />
-        {{localize "OSE.Missile"}}
-      </character-ability-field>
-      <character-ability-field value="{{actor.system.init}}" readonly>
-        <img src="{{asset '/Initiative.svg'}}" slot="icon" />
-        {{localize "OSE.Initiative"}}
-      </character-ability-field>
+      <section class="combat-modifiers">
+        <section class="vital-section vital-section--combat-mods">
+          {{! Combat mods }}
+          <h4>{{localize "OSE.combatmods.heading"}}</h4>
+          <character-ability-field value="{{actor.system.meleeMod}}" readonly>
+            <img src="{{asset '/Melee.svg'}}" slot="icon" />
+            {{localize "OSE.Melee"}}
+          </character-ability-field>
+          <character-ability-field value="{{actor.system.rangedMod}}" readonly>
+            <img src="{{asset '/Missile.svg'}}" slot="icon" />
+            {{localize "OSE.Missile"}}
+          </character-ability-field>
+          <character-ability-field value="{{actor.system.init}}" readonly>
+            <img src="{{asset '/Initiative.svg'}}" slot="icon" />
+            {{localize "OSE.Initiative"}}
+          </character-ability-field>
+        </section>
 
-      {{! Move speed }}
-      <character-ability-field value="{{actor.system.movement.encounter}}" readonly>
-        <img src="{{asset '/Encounter.svg'}}" slot="icon" />
-        {{localize "OSE.movement.encounter.oneWord"}}
-      </character-ability-field>
-      <character-ability-field value="{{actor.system.movement.base}}" readonly>
-        <img src="{{asset '/Exploration.svg'}}" slot="icon" />
-        {{localize "OSE.movement.exploration.oneWord"}}
-      </character-ability-field>
-      <character-ability-field value="{{actor.system.movement.overland}}" readonly>
-        <img src="{{asset '/Overland.svg'}}" slot="icon" />
-        {{localize "OSE.movement.overland.oneWord"}}
-      </character-ability-field>
+        <section class="vital-section vital-section--movement">
+          {{! Move speed }}
+          <h4>{{localize "OSE.movement.heading"}}</h4>
+          <character-ability-field value="{{actor.system.movement.encounter}}" readonly>
+            <img src="{{asset '/Encounter.svg'}}" slot="icon" />
+            {{localize "OSE.movement.encounter.oneWord"}}
+          </character-ability-field>
+          <character-ability-field value="{{actor.system.movement.base}}" readonly>
+            <img src="{{asset '/Exploration.svg'}}" slot="icon" />
+            {{localize "OSE.movement.exploration.oneWord"}}
+          </character-ability-field>
+          <character-ability-field value="{{actor.system.movement.overland}}" readonly>
+            <img src="{{asset '/Overland.svg'}}" slot="icon" />
+            {{localize "OSE.movement.overland.oneWord"}}
+          </character-ability-field>
+        </section>
+      </section>
     </div>
+    
     <div class="combat__favorites">
       <labeled-section>
         <h4 slot="heading">{{localize "OSE.Favorite.items"}}</h4>
+        {{#if favoriteItems.length}}
         <div slot="content" class="favorites favorites__items">
         {{#each favoriteItems}}
-          <div class="tooltip-container">
           <tippable-item uuid="{{uuid}}"></tippable-item>
-          </div>
         {{/each}}
         </div>
+        {{/if}}
       </labeled-section>
 
       <labeled-section>
         <h4 slot="heading">{{localize "OSE.Favorite.abilities"}}</h4>
+        {{#if favoriteAbilities.length}}
+        <div slot="content" class="favorites favorites__abilities">
+        {{#each favoriteAbilities}}
+          <tippable-item uuid="{{uuid}}"></tippable-item>
+        {{/each}}
+        </div>
+        {{/if}}
       </labeled-section>
     </div>
   </section>
+  
   <section class="combat__stat-region combat__stat-region--saves">
     <ability-score-field
       name="system.saves.death.value"

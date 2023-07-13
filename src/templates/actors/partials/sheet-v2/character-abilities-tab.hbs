@@ -1,0 +1,8 @@
+<expandable-section type="ability" can-create aria-expanded>
+  <h2 slot="heading">{{localize "OSE.category.abilities"}}</h2>
+{{#each actor.system.abilities}}
+  <item-row class="item" slot="content" uuid="{{this.uuid}}" can-favorite>
+    {{{this.system.enrichedDescription}}}
+  </item-row>
+{{/each}}
+</expandable-section>

@@ -87,6 +87,7 @@
   "OSE.Loyalty": "Loyalty Rating",
   "OSE.LoyaltyShort": "LR",
   "OSE.Favorites": "Favorites",
+  "OSE.Favorite.label": "Toggle Favorite",
   "OSE.Favorite.items": "Favored Items",
   "OSE.Favorite.abilities": "Favored Abilities",
 
@@ -126,6 +127,7 @@
   "OSE.HitDice": "Hit Dice",
   "OSE.HitDiceShort": "HD",
 
+  "OSE.movement.heading": "Movement",
   "OSE.movement.base": "Movement Rate",
   "OSE.movement.short": "MV",
   "OSE.movement.details": "Movement Details",
@@ -139,6 +141,7 @@
   "OSE.movement.exploration.long": "Exploration Movement Rate",
   "OSE.movement.exploration.oneWord": "Exploration",
 
+  "OSE.combatmods.heading": "Combat Modifiers",
   "OSE.ArmorClassNaked": "Naked Armor Class",
   "OSE.ArmorClass": "Armor Class",
   "OSE.ArmorClassShort": "AC",
@@ -349,13 +352,13 @@
   "OSE.Actors.character": "Character",
   "OSE.Actor.monster": "Monster",
 
-  "ACTOR.TypeCharacter": "Character",
-  "ACTOR.TypeMonster": "Monster",
+  "TYPES.Actor.character": "Character",
+  "TYPES.Actor.monster": "Monster",
 
-  "ITEM.TypeWeapon": "Weapon",
-  "ITEM.TypeArmor": "Armor",
-  "ITEM.TypeItem": "Item",
-  "ITEM.TypeContainer": "Container",
-  "ITEM.TypeSpell": "Spell",
-  "ITEM.TypeAbility": "Ability"
+  "TYPES.Item.weapon": "Weapon",
+  "TYPES.Item.armor": "Armor",
+  "TYPES.Item.item": "Item",
+  "TYPES.Item.container": "Container",
+  "TYPES.Item.spell": "Spell",
+  "TYPES.Item.ability": "Ability"
 }

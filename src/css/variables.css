@@ -34,12 +34,24 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-heading:    var(--color-ui-09);
+    /*
+      Some colors should be shifted toward blue
+      (when using the HSV color scale, hue 223)
+    */
+    --color-ui-00: #000000;
+    --color-ui-09: #24262b;
+    --color-ui-38: #3c4660;
+    --color-ui-57: #3f5793;
+    --color-ui-75: #c0c0c0;
+    --color-ui-85: #d8d8d8;
+    --color-ui-100: #ffffff;
+    
+    --color-heading:    var(--color-ui-100);
     --color-subheading: var(--color-ui-09);
     --color-primary:    var(--color-ui-100);
     --color-secondary:  var(--color-ui-75);
 
-    --background-color-sheet:       var(--color-ui-09)cc;
+    --background-color-sheet:       #24262b44;
     --background-color-heading:     var(--color-ui-100);
     --background-color-subheading:  var(--color-ui-75);
 

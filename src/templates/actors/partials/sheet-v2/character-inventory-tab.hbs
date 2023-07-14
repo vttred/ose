@@ -39,7 +39,7 @@
 {{/each}}
 </expandable-section>
 
-<expandable-section type="item" can-create aria-expanded>
+<expandable-section type="item" can-create aria-expanded data-treasure>
   <h2 slot="heading">{{localize "OSE.items.Treasure"}}</h2>
 {{#each actor.system.treasures}}
   <item-row slot="content" uuid="{{this.uuid}}">

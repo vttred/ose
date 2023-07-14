@@ -230,11 +230,23 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
 
   #onCreateItemOfType(e: Event) {
     e.stopPropagation();
-    const type = e.target.getAttribute("type");
+    const target = e.target as HTMLElement;
+    const type = target?.getAttribute("type");
     if (!type) return;
-    return this.actor.createEmbeddedDocuments("Item", [{
-      type, name: `New ${type.capitalize()}`,
-    }])
+
+    const itemToCreate = { type, name: `New ${type.capitalize()}` }    
+    const system : Record<string, unknown> = target
+      .getAttributeNames()
+      .filter(a => a.startsWith("data-"))
+      .reduce((prev, curr) => {
+        const attrName = curr.replace('data-', '').replace(/-([a-z])/g, g => g[1].toUpperCase());
+        return {
+          ...prev,
+          [attrName]: target.getAttribute(curr) || true
+        }
+      }, {});
+
+    return this.actor.createEmbeddedDocuments("Item", [{...itemToCreate, system }])
   }
 
   /**

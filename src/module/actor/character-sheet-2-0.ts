@@ -72,17 +72,20 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
 
   get enrichedBiography() {
     return TextEditor.enrichHTML(
+      // @ts-expect-error - Document.system isn't in the types package yet
       this.actor.system.details.biography,
       { async: true }
     );
   }
 
   get enrichedNotes() {
+    // @ts-expect-error - Document.system isn't in the types package yet
     return TextEditor.enrichHTML(this.actor.system.details.notes,
       { async: true }
     );
   }
 
+  // @ts-expect-error - this async function returns an object, TS wants it to return a promise
   async getData() {
     const favoriteList = await Promise.all(this.favoriteItems);
     const favoriteItems = favoriteList
@@ -110,13 +113,13 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
   // eslint-disable-next-line no-underscore-dangle
   _onSubmit(e: Event, options?: FormApplication.OnSubmitOptions ): Promise<Partial<Record<string, unknown>>> {
     let updateData: Record<string, unknown> = {...options?.updateData};
-    const target = (e.target as MajorIconField);
+    const target = (e.target as MajorIconField | null);
 
     // Some custom elements can hold multiple values.
     // When they see a change, they pass along the name
     // of the target system field, as well, so we can
     // force the updated data into the update flow.
-    if (target.targetName && updateData) {
+    if (target?.targetName && updateData) {
       updateData[target.targetName] = target.value;
     }
     
@@ -131,11 +134,16 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
    * @overrides
    */
   _createDragDropHandlers() {
-    return this.options.dragDrop.map(d => {
-      const setCallback = (key: string, defaultValue: unknown) => {
+    return this.options.dragDrop.map( (d: DragDropConfiguration) => {
+      const setCallback = (key: "dragstart"|"dragover"|"drop", defaultValue: unknown) => {
         const value: string | unknown = d?.callbacks?.[key];
         if (value) {
-          if (typeof value === 'string' && typeof this[value] === 'function')
+          if (
+            typeof value === 'string' && 
+            // @ts-expect-error - String cannot index to this class
+            typeof (this[value] as unknown) === 'function'
+          )
+            // @ts-expect-error - String cannot index to this class
             return this[value].bind(this);
           if (typeof value === 'function')
             return value.bind(this);
@@ -143,18 +151,21 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
         return defaultValue;
       }
 
-      d.permissions = {
-        dragstart: this._canDragStart.bind(this),
-        drop: this._canDragDrop.bind(this)
-      };
+      // @todo Do we even need to include this?
+      // d.permissions = {
+      //   dragstart: this._canDragStart.bind(this),
+      //   drop: this._canDragDrop.bind(this)
+      // };
 
-      d.callbacks = {
-        dragstart: setCallback('dragstart', this._onDragStart.bind(this)),
-        dragover: setCallback('dragover', this._onDragOver.bind(this)),
-        drop: setCallback('drop', this._onDrop.bind(this))
-      };
-
-      return new DragDrop(d);
+      return new DragDrop({
+        ...d,
+        callbacks: {
+          ...d.callbacks,
+          dragstart: setCallback('dragstart', this._onDragStart.bind(this)),
+          dragover: setCallback('dragover', this._onDragOver.bind(this)),
+          drop: setCallback('drop', this._onDrop.bind(this)),
+        }
+      });
     });
   }
 
@@ -170,8 +181,9 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
     e.stopPropagation();
     const uuid = (e.target as TippableItem).uuid;
     if (!uuid) return;
-    const item: OseItem | null = await fromUuid(uuid);
+    const item: OseItem | null = await fromUuid(uuid) as OseItem | null;
     if (!item) return;
+    // @ts-expect-error - item.toDragData() isn't on the types package, but does exist
     const dragData = item.toDragData();
     dragData.fromContainer = fromContainer;
     e?.dataTransfer?.setData("text/plain", JSON.stringify(dragData))
@@ -181,20 +193,20 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
     e.stopPropagation();
     const dragData = JSON.parse(e?.dataTransfer?.getData("text/plain") || '{type: null, uuid: null}'); 
     if (dragData.type !== "Item") return;
-    let itemToContain = await fromUuid(dragData.uuid);
-    const container = await fromUuid(e.target.closest("[uuid]").getAttribute("uuid"));
-
-    console.info(!itemToContain.actor, itemToContain.actor !== this.actor.id);
+    let itemToContain = await fromUuid(dragData.uuid) as OseItem | null;
+    const container = await fromUuid(
+      (e.target as HTMLElement | null)?.closest("[uuid]")?.getAttribute("uuid") || ''
+    ) as OseItem | null;
 
     if (
       !itemToContain ||
       !container ||
-      itemToContain.type === "container" ||
-      container.type !== "container"
+      itemToContain?.type === "container" ||
+      container?.type !== "container"
     ) return;
 
-    if (!itemToContain.actor || itemToContain.actor !== this.actor.id) {
-      [itemToContain] = await this.actor.createEmbeddedDocuments("Item", [itemToContain.toObject()]);
+    if (!itemToContain?.actor?.uuid || itemToContain.actor.uuid !== this.actor.uuid) {
+      itemToContain = (await this.actor.createEmbeddedDocuments("Item", [itemToContain.toObject()]))[0] as OseItem;
     }
 
     console.info(itemToContain);

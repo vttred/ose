@@ -36,6 +36,22 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
       dragDrop: [
         {
           dragSelector: '[data-tab="inventory"] expandable-section:not([type="container"]) item-row',
+          dropSelector: '[data-tab="inventory"] expandable-section:not([type="container"]) item-row',
+          callbacks: {
+            dragstart: 'onDragUncontainedItem',
+            drop: 'onDropSort'
+          }
+        },
+        {
+          dragSelector: '[data-tab="inventory"] expandable-section[type="container"] tippable-item',
+          dropSelector: '[data-tab="inventory"] expandable-section[type="container"] tippable-item',
+          callbacks: {
+            dragstart: 'onDragContainedItem',
+            drop: 'onDropSort'
+          }
+        },
+        {
+          dragSelector: '[data-tab="inventory"] expandable-section:not([type="container"]) item-row',
           dropSelector: '[data-tab="inventory"] expandable-section[type="container"] item-row',
           callbacks: {
             dragstart: 'onDragUncontainedItem',
@@ -189,10 +205,36 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
     e?.dataTransfer?.setData("text/plain", JSON.stringify(dragData))
   }
 
+  async onDropSort(e: DragEvent) {
+    const dragData = JSON.parse(e?.dataTransfer?.getData("text/plain") || '{type: null, uuid: null}'); 
+    if (dragData.type !== "Item") return;
+
+    let itemToMove = await fromUuid(dragData.uuid) as OseItem | null;
+    const itemToDisplace = await fromUuid(
+      (e.target as HTMLElement | null)?.closest("[uuid]")?.getAttribute("uuid") || ''
+    ) as OseItem | null;
+
+    // If either item doesn't exist, bail,
+    if (!itemToMove || !itemToDisplace) return;
+    
+    // If we're not dealing with contained items and the item types don't match, bail
+    if (
+      // @ts-expect-error - OseItem.system exists!
+      (!itemToMove.system.containerId || !itemToDisplace.system.containerId) &&
+      itemToMove.type !== itemToDisplace.type
+    ) return;
+
+    itemToMove?.update({
+      // @ts-expect-error - OseItem.sort exists!
+      sort: itemToDisplace.sort - 1
+    })
+  }
+
   async onDropIntoContainer(e: DragEvent) {
     e.stopPropagation();
     const dragData = JSON.parse(e?.dataTransfer?.getData("text/plain") || '{type: null, uuid: null}'); 
     if (dragData.type !== "Item") return;
+    
     let itemToContain = await fromUuid(dragData.uuid) as OseItem | null;
     const container = await fromUuid(
       (e.target as HTMLElement | null)?.closest("[uuid]")?.getAttribute("uuid") || ''
@@ -201,15 +243,21 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
     if (
       !itemToContain ||
       !container ||
-      itemToContain?.type === "container" ||
       container?.type !== "container"
     ) return;
+
+    // Sort containers among other containers
+    if (itemToContain?.type === "container") {
+      itemToContain.update({
+      // @ts-expect-error - OseItem.sort exists!
+        sort: container.sort - 1
+      });
+      return; 
+    }
 
     if (!itemToContain?.actor?.uuid || itemToContain.actor.uuid !== this.actor.uuid) {
       itemToContain = (await this.actor.createEmbeddedDocuments("Item", [itemToContain.toObject()]))[0] as OseItem;
     }
-
-    console.info(itemToContain);
 
     itemToContain.update({
       'system.containerId': container.id
@@ -218,14 +266,50 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
   
   async onDropOutsideContainer(e: DragEvent) {
     e.stopPropagation();
-    const dragData = JSON.parse(e?.dataTransfer?.getData("text/plain") || '{type: null, uuid: null}'); 
+    
+    const dragData = JSON.parse(
+      e?.dataTransfer?.getData("text/plain") ||
+      '{type: null, uuid: null}'
+    ); 
     if (dragData.type !== "Item") return;
-    const itemToFree = await fromUuid(dragData.uuid);
+
+    const droppedItem = await fromUuid(dragData.uuid) as OseItem;
+
+    console.info(
+      droppedItem,
+      (e.target as HTMLElement)?.closest("expandable-section")?.getAttribute("type")
+    );
+
     if (dragData.fromContainer)
-      itemToFree?.update({
+      droppedItem?.update({
         "system.containerId": ""
       });
-    else super._onDrop(e);
+    else if (droppedItem?.type === "container")
+      this.onMoveContainerToAnotherActor(droppedItem);
+    else
+      this._onDrop(e);
+  }
+
+  async onMoveContainerToAnotherActor(droppedItem: OseItem) {
+    const containerItemObj = droppedItem.toObject();
+    const [createdContainer] = await this.actor.createEmbeddedDocuments("Item", [containerItemObj]);
+    
+    // @ts-expect-error - OseItem.system exists!
+    await this.actor.createEmbeddedDocuments("Item", droppedItem.system.contents.map((i: OseItem) => {
+      const item = i.toObject();
+      // @ts-expect-error - OseItem.system exists!
+      item.system.containerId = createdContainer.id;
+      return item;
+    }));
+  }
+
+  /**
+   * @override
+   * @param e
+   * @param droppedItem 
+   */
+  async _onDrop(e: DragEvent) {
+    super._onDrop(e);
   }
 
   #onCreateItemOfType(e: Event) {

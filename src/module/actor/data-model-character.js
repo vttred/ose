@@ -142,7 +142,7 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
       this.parent,
       "container",
       ({ system: { containerId } }) => !containerId || !this.containers.find(c => c.id === containerId)
-    );
+    ).sort((itemA, itemB) => itemA.sort - itemB.sort);
   }
 
   get treasures() {
@@ -151,7 +151,7 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
       "item",
       ({ system: { treasure, containerId } }) =>
         treasure && (!containerId || !this.containers.find(c => c.id === containerId))
-    );
+    ).sort((itemA, itemB) => itemA.sort - itemB.sort);
   }
 
   get carriedTreasure() {
@@ -168,7 +168,7 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
       "item",
       ({ system: { treasure, containerId } }) =>
         !treasure && (!containerId || !this.containers.find(c => c.id === containerId))
-    );
+    ).sort((itemA, itemB) => itemA.sort - itemB.sort);
   }
 
   get weapons() {
@@ -176,7 +176,7 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
       this.parent,
       "weapon",
       ({ system: { containerId } }) => !containerId || !this.containers.find(c => c.id === containerId)
-    );
+    ).sort((itemA, itemB) => itemA.sort - itemB.sort);
   }
 
   get armor() {
@@ -184,7 +184,7 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
       this.parent,
       "armor",
       ({ system: { containerId } }) => !containerId || !this.containers.find(c => c.id === containerId)
-    );
+    ).sort((itemA, itemB) => itemA.sort - itemB.sort);
   }
 
   get abilities() {
@@ -200,7 +200,7 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
       this.parent,
       "spell",
       ({ system: { containerId } }) => !containerId
-    );
+    ).sort((itemA, itemB) => itemA.sort - itemB.sort);
   }
 
   get isSlow() {

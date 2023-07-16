@@ -1,49 +1,57 @@
-<expandable-section type="weapon" can-create aria-expanded>
-  <h2 slot="heading">{{localize "OSE.items.Weapons"}}</h2>
-{{#each actor.system.weapons}}
-  <item-row class="item" slot="content" uuid="{{this.uuid}}" can-equip can-favorite>
-    {{{this.system.enrichedDescription}}}
-  </item-row>
-{{/each}}
-</expandable-section>
+<div class="inventory-tables">
+  <expandable-section type="weapon" can-create aria-expanded>
+    <h2 slot="heading">{{localize "OSE.items.Weapons"}}</h2>
+  {{#each actor.system.weapons}}
+    <item-row class="item" slot="content" uuid="{{this.uuid}}" can-equip can-favorite>
+      {{{this.system.enrichedDescription}}}
+    </item-row>
+  {{/each}}
+  </expandable-section>
 
-<expandable-section type="armor" can-create aria-expanded>
-  <h2 slot="heading">{{localize "OSE.items.Armors"}}</h2>
-{{#each actor.system.armor}}
-  <item-row slot="content" uuid="{{this.uuid}}" can-equip>
-    {{{this.system.enrichedDescription}}}
-  </item-row>
-{{/each}}
-</expandable-section>
+  <expandable-section type="armor" can-create aria-expanded>
+    <h2 slot="heading">{{localize "OSE.items.Armors"}}</h2>
+  {{#each actor.system.armor}}
+    <item-row slot="content" uuid="{{this.uuid}}" can-equip>
+      {{{this.system.enrichedDescription}}}
+    </item-row>
+  {{/each}}
+  </expandable-section>
 
-<expandable-section type="container" can-create aria-expanded>
-  <h2 slot="heading">{{localize "OSE.items.Containers"}}</h2>
-{{#each actor.system.containers}}
-  <item-row slot="content" uuid="{{this.uuid}}" always-expanded>
-    {{{this.system.enrichedDescription}}}
-    <div class="container-content">
-    {{#each this.system.contents}}
-      <tippable-item uuid="{{this.uuid}}"></tippable-item>
-    {{/each}}
-    </div>
-  </item-row>
-{{/each}}
-</expandable-section>
+  <expandable-section type="container" can-create aria-expanded>
+    <h2 slot="heading">{{localize "OSE.items.Containers"}}</h2>
+  {{#each actor.system.containers}}
+    <item-row slot="content" uuid="{{this.uuid}}" always-expanded>
+      {{{this.system.enrichedDescription}}}
+      <div class="container-content">
+      {{#each this.system.contents}}
+        <tippable-item uuid="{{this.uuid}}"></tippable-item>
+      {{/each}}
+      </div>
+    </item-row>
+  {{/each}}
+  </expandable-section>
 
-<expandable-section type="item" can-create aria-expanded>
-  <h2 slot="heading">{{localize "OSE.items.Misc"}}</h2>
-{{#each actor.system.items}}
-  <item-row slot="content" uuid="{{this.uuid}}">
-    {{{this.system.enrichedDescription}}}
-  </item-row>
-{{/each}}
-</expandable-section>
+  <expandable-section type="item" can-create aria-expanded>
+    <h2 slot="heading">{{localize "OSE.items.Misc"}}</h2>
+  {{#each actor.system.items}}
+    <item-row slot="content" uuid="{{this.uuid}}">
+      {{{this.system.enrichedDescription}}}
+    </item-row>
+  {{/each}}
+  </expandable-section>
 
-<expandable-section type="item" can-create aria-expanded data-treasure>
-  <h2 slot="heading">{{localize "OSE.items.Treasure"}}</h2>
-{{#each actor.system.treasures}}
-  <item-row slot="content" uuid="{{this.uuid}}">
-    {{{this.system.enrichedDescription}}}
-  </item-row>
-{{/each}}
-</expandable-section>
+  <expandable-section type="item" can-create aria-expanded data-treasure>
+    <h2 slot="heading">{{localize "OSE.items.Treasure"}}</h2>
+  {{#each actor.system.treasures}}
+    <item-row slot="content" uuid="{{this.uuid}}">
+      {{{this.system.enrichedDescription}}}
+    </item-row>
+  {{/each}}
+  </expandable-section>
+</div>
+
+<character-info-meter
+  class="encumbrance"
+  value="{{actor.system.encumbrance.value}}"
+  max="{{actor.system.encumbrance.max}}">
+</character-info-meter>

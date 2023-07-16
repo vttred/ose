@@ -7,6 +7,10 @@
   font-size: var(--font-size-base);
 }
 
+.character-2.sheet.actor .sheet-body {
+  height: calc(100% - 51px);
+}
+
 .character-2 nav.sheet-tabs {
   margin: 0 0 var(--spacing-full);
   display: grid;
@@ -120,6 +124,21 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: var(--spacing-full);
+}
+
+.character-2 .tab[data-tab="inventory"].active {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) 20px;
+  gap: var(--spacing-three-quarters);
+  max-height: 100%;
+}
+
+.character-2 .inventory-tables {
+  overflow: auto;
+}
+
+.character-2 .encumbrance {
+  align-self: end;
 }
 
 .character-2 [data-tab="inventory"] expandable-section {

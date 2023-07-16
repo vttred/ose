@@ -33,6 +33,7 @@ import * as treasure from "./module/helpers-treasure";
 import "./module/actor/custom-elements/AbilityScoreField";
 import "./module/actor/custom-elements/CharacterAbilityField";
 import "./module/actor/custom-elements/CharacterInfoField";
+import "./module/actor/custom-elements/CharacterInfoMeter";
 import "./module/actor/custom-elements/ItemRow";
 import "./module/actor/custom-elements/ExpandableSection";
 import "./module/actor/custom-elements/LabeledSection";

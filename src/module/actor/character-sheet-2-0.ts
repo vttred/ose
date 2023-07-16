@@ -167,12 +167,6 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
         return defaultValue;
       }
 
-      // @todo Do we even need to include this?
-      // d.permissions = {
-      //   dragstart: this._canDragStart.bind(this),
-      //   drop: this._canDragDrop.bind(this)
-      // };
-
       return new DragDrop({
         ...d,
         callbacks: {
@@ -214,6 +208,12 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
       (e.target as HTMLElement | null)?.closest("[uuid]")?.getAttribute("uuid") || ''
     ) as OseItem | null;
 
+    const isSortingInContainer = (
+      itemToMove?.system.containerId &&
+      itemToDisplace?.system.containerId &&
+      itemToMove?.system.containerId === itemToDisplace?.system.containerId
+    );
+
     // If either item doesn't exist, bail,
     if (!itemToMove || !itemToDisplace) return;
     
@@ -224,10 +224,13 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
       itemToMove.type !== itemToDisplace.type
     ) return;
 
-    itemToMove?.update({
-      // @ts-expect-error - OseItem.sort exists!
-      sort: itemToDisplace.sort - 1
-    })
+    this.sortItems(
+      itemToMove,
+      itemToDisplace,
+      (e.target as HTMLElement)
+        ?.closest(isSortingInContainer ? "item-row" : "expandable-section[type]")
+        ?.querySelectorAll(`[uuid]:not([uuid="${itemToMove.uuid}"])`),
+    );
   }
 
   async onDropIntoContainer(e: DragEvent) {
@@ -248,10 +251,12 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
 
     // Sort containers among other containers
     if (itemToContain?.type === "container") {
-      itemToContain.update({
-      // @ts-expect-error - OseItem.sort exists!
-        sort: container.sort - 1
-      });
+      this.sortItems(
+        itemToContain,
+        container,
+        (e.target as HTMLElement)?.closest("expandable-section[type]")
+          ?.querySelectorAll(`item-row[uuid]:not([uuid="${itemToContain.uuid}"])`),
+      );
       return; 
     }
 
@@ -275,15 +280,8 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
 
     const droppedItem = await fromUuid(dragData.uuid) as OseItem;
 
-    console.info(
-      droppedItem,
-      (e.target as HTMLElement)?.closest("expandable-section")?.getAttribute("type")
-    );
-
     if (dragData.fromContainer)
-      droppedItem?.update({
-        "system.containerId": ""
-      });
+      droppedItem?.update({ "system.containerId": "" });
     else if (droppedItem?.type === "container")
       this.onMoveContainerToAnotherActor(droppedItem);
     else
@@ -301,6 +299,35 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
       item.system.containerId = createdContainer.id;
       return item;
     }));
+  }
+
+  /**
+   * Sort OseItems -- abilities, containers, items, or spells.
+   * @param item - The item we're sorting 
+   * @param target - The item we dragged an item onto
+   * @param nodesToDisplace - HTML elements representing the siblings of the item we're sorting
+   * @returns - 
+   */
+  protected async sortItems (
+    item: OseItem,
+    target: OseItem,
+    nodesToDisplace: NodeListOf<HTMLElement> | never[] = []
+  ) {
+    if (!item) return [];
+    
+    const siblings = await Promise.all(
+      Array.from(nodesToDisplace)?.map(
+        (n: HTMLElement) => fromUuid(n.getAttribute("uuid") || '')
+      )
+    );
+
+    return Promise.all(
+      SortingHelpers
+        .performIntegerSort(item, { target, siblings })
+        .map(
+          ({target, update}) => target?.update(update)
+        )
+    );
   }
 
   /**

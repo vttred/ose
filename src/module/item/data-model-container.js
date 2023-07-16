@@ -25,7 +25,7 @@ export default class OseDataModelContainer extends foundry.abstract.DataModel {
     const { id } = this.parent;
     return this.parent.parent.items.filter(
       ({ system: { containerId } }) => id === containerId
-    );
+    ).sort((itemA, itemB) => itemA.sort - itemB.sort);
   }
 
   get totalWeight() {

@@ -1,0 +1,13 @@
+{{#each actor.system.spells.spellList}}
+<expandable-section type="spell" can-create aria-expanded data-lvl="{{@key}}">
+  <h2 slot="heading">{{localize "OSE.spells.FormattedLevel" lvl=@key}}</h2>
+  {{#each this}}
+    <item-row class="item" slot="content" uuid="{{this.uuid}}">
+      {{{this.system.enrichedDescription}}}
+      {{#each this.system.autoTags}}
+        <tag-chip slot="title-content"><i class="fa {{icon}}"></i>{{localize label}}</tag-chip>
+      {{/each}}
+    </item-row>
+  {{/each}}
+</expandable-section>
+{{/each}}

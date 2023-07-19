@@ -30,8 +30,10 @@
       {{> (path "/templates/actors/partials/sheet-v2/character-inventory-tab.hbs") }}
     </div>
     {{! Magic Tab }}
-    {{#if system.spells.enabled}}
-    <div class="tab" data-group="primary" data-tab="spells"></div>
+    {{#if actor.system.spells.enabled}}
+    <div class="tab" data-group="primary" data-tab="spells">
+      {{> (path "/templates/actors/partials/sheet-v2/character-magic-tab.hbs") }}
+    </div>
     {{/if}}
     {{! Notes Tab }}
     <div class="tab" data-group="primary" data-tab="notes">

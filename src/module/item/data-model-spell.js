@@ -54,6 +54,6 @@ export default class OseDataModelItem extends foundry.abstract.DataModel {
       { label: this.duration },
       this.#rollTag,
       this.#saveTag,
-    ].filter((t) => !!t);
+    ].filter((t) => !!t?.label);
   }
 }

@@ -59,13 +59,12 @@ export default class ItemRow extends BaseElement {
     this.addEventListener("dragstart", this.#onDrag.bind(this))
   }
 
-  #onExpand() {
+  #onExpand(e: Event) {
     const slot = this.#shadowRoot.querySelector('slot:not([name])');
     const nodes = slot
       ?.assignedNodes()
       ?.filter(node => node.nodeType === Node.ELEMENT_NODE)
-
-    if(!!nodes?.length)
+    if(!!nodes?.length && e.target.localName === "item-row")
       this.toggleAttribute("aria-expanded");
   }
 

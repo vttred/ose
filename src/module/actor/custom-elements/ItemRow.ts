@@ -40,6 +40,7 @@ export default class ItemRow extends BaseElement {
     await this.#render();
     this.draggable = true;
     this.#shadowRoot.adoptedStyleSheets = [...ItemRow.styles];
+    this.addEventListener("click", this.#onExpand.bind(this));
     this.#shadowRoot
       .querySelector(".icon")
       ?.addEventListener("click", this.#onRoll.bind(this));
@@ -56,6 +57,16 @@ export default class ItemRow extends BaseElement {
       .querySelector(".delete")
       ?.addEventListener("click", this.#onDelete.bind(this));
     this.addEventListener("dragstart", this.#onDrag.bind(this))
+  }
+
+  #onExpand() {
+    const slot = this.#shadowRoot.querySelector('slot:not([name])');
+    const nodes = slot
+      ?.assignedNodes()
+      ?.filter(node => node.nodeType === Node.ELEMENT_NODE)
+
+    if(!!nodes?.length)
+      this.toggleAttribute("aria-expanded");
   }
 
   #onDrag(e: DragEvent) {
@@ -124,10 +135,16 @@ export default class ItemRow extends BaseElement {
    */
   get #template() {
     const template: HTMLTemplateElement = document.createElement("template");
+
     template.innerHTML = `
       <div class="row">
         <img class="icon" src="${this.item?.img || ''}" alt="${this.item?.name || ''}">
-        <span class="item-name">${this.item?.name || ''}</span>
+        <div class="name">
+          <span class="item-name">${this.item?.name || ''}</span>
+          <div part="title-content">
+            <slot name="title-content"></slot>
+          </div>
+        </div>
         <div class="controls">
           ${this.hasAttribute("can-equip") 
             ? `<button class="equip ${this.item?.system.equipped ? "equip--enabled" : ""}" aria-label="${game.i18n.localize("OSE.Equip")}">

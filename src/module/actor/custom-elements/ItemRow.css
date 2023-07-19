@@ -6,7 +6,7 @@
 }
 .row {
   display: grid;
-  grid-template-columns: 32px 1fr 1fr;
+  grid-template-columns: 32px auto auto;
   align-items: center;
   column-gap: var(--spacing-half);
 }
@@ -36,6 +36,11 @@
   padding-bottom: 0;
   padding-left: var(--content-padding, var(--spacing-half));
   padding-right: var(--content-padding, var(--spacing-half));
+}
+
+:host::part(title-content) {
+  display: flex;
+  gap: var(--spacing-quarter);
 }
 
 :host([always-expanded])::part(content),

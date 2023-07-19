@@ -4,6 +4,9 @@
   {{#each actor.system.weapons}}
     <item-row class="item" slot="content" uuid="{{this.uuid}}" can-equip can-favorite>
       {{{this.system.enrichedDescription}}}
+      {{#each this.system.autoTags}}
+        <tag-chip slot="title-content"><i class="fa {{icon}}"></i>{{localize label}}</tag-chip>
+      {{/each}}
     </item-row>
   {{/each}}
   </expandable-section>
@@ -13,6 +16,9 @@
   {{#each actor.system.armor}}
     <item-row slot="content" uuid="{{this.uuid}}" can-equip>
       {{{this.system.enrichedDescription}}}
+      {{#each this.system.autoTags}}
+        <tag-chip slot="title-content"><i class="fa {{icon}}"></i>{{localize label}}</tag-chip>
+      {{/each}}
     </item-row>
   {{/each}}
   </expandable-section>
@@ -22,6 +28,9 @@
   {{#each actor.system.containers}}
     <item-row slot="content" uuid="{{this.uuid}}" always-expanded>
       {{{this.system.enrichedDescription}}}
+      {{#each this.system.autoTags}}
+        <tag-chip slot="title-content"><i class="fa {{icon}}"></i>{{localize label}}</tag-chip>
+      {{/each}}
       <div class="container-content">
       {{#each this.system.contents}}
         <tippable-item uuid="{{this.uuid}}"></tippable-item>
@@ -36,6 +45,9 @@
   {{#each actor.system.items}}
     <item-row slot="content" uuid="{{this.uuid}}">
       {{{this.system.enrichedDescription}}}
+      {{#each this.system.autoTags}}
+        <tag-chip slot="title-content"><i class="fa {{icon}}"></i>{{localize label}}</tag-chip>
+      {{/each}}
     </item-row>
   {{/each}}
   </expandable-section>
@@ -45,6 +57,9 @@
   {{#each actor.system.treasures}}
     <item-row slot="content" uuid="{{this.uuid}}">
       {{{this.system.enrichedDescription}}}
+      {{#each this.system.autoTags}}
+        <tag-chip slot="title-content"><i class="fa {{icon}}"></i>{{localize label}}</tag-chip>
+      {{/each}}
     </item-row>
   {{/each}}
   </expandable-section>

@@ -3,6 +3,9 @@
 {{#each actor.system.abilities}}
   <item-row class="item" slot="content" uuid="{{this.uuid}}" can-favorite>
     {{{this.system.enrichedDescription}}}
+    {{#each this.system.autoTags}}
+      <tag-chip slot="title-content"><i class="fa {{icon}}"></i>{{localize label}}</tag-chip>
+    {{/each}}
   </item-row>
 {{/each}}
 </expandable-section>

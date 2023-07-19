@@ -88,7 +88,7 @@ export default class OseDataModelWeapon extends foundry.abstract.DataModel {
   get qualities() {
     return [
       ...this.autoTags
-        .filter((t) => !!t.image)
+        .filter((t) => !!t.image || !!t.icon)
         .map((t) => ({
           ...t,
           title: t.label,

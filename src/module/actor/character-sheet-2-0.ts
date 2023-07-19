@@ -74,6 +74,12 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
             drop: 'onDropIntoContainer'
           }
         },
+        {
+          dropSelector: '.window-content',
+          callbacks: {
+            drop: '_onDrop'
+          }
+        },
       ]
       // filter: [{inputSelector: 'input[name="inventory-search"]', contentSelector: "[data-tab='inventory'] inventory-row"}]
     });
@@ -196,7 +202,7 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
     // @ts-expect-error - item.toDragData() isn't on the types package, but does exist
     const dragData = item.toDragData();
     dragData.fromContainer = fromContainer;
-    e?.dataTransfer?.setData("text/plain", JSON.stringify(dragData))
+    e?.dataTransfer?.setData("text/plain", JSON.stringify(dragData));
   }
 
   async onDropSort(e: DragEvent) {

@@ -39,6 +39,7 @@ import "./module/actor/custom-elements/ExpandableSection";
 import "./module/actor/custom-elements/LabeledSection";
 import "./module/actor/custom-elements/MajorIconField";
 import "./module/actor/custom-elements/TippableItem";
+import "./module/actor/custom-elements/TagChip";
 // Testing
 import "./e2e";
 

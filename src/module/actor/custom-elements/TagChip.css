@@ -1,0 +1,13 @@
+:host {
+  border-radius: var(--spacing-quarter);
+  padding: calc(var(--spacing-quarter) / 2) var(--spacing-quarter);
+  background-color: var(--color-ui-38);
+  font-weight: 600;
+  font-size: .75em;
+  line-height: 1em;
+}
+
+::slotted(i[class*="fa-"]) {
+  margin-right: var(--spacing-quarter);
+}
+

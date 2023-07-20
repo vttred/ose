@@ -154,7 +154,7 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
     // of the target system field, as well, so we can
     // force the updated data into the update flow.
     if (target?.targetName && updateData) {
-      updateData[target.targetName] = target.value;
+      updateData[target.targetName] = parseInt(target.value, 10);
     }
     
     // eslint-disable-next-line no-underscore-dangle

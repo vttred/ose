@@ -39,6 +39,7 @@ export default class MajorIconField extends BaseElement {
     this.#shadowRoot.adoptedStyleSheets = [MajorIconField.styles];
     this.#shadowRoot.querySelector(".score-field")?.addEventListener("change", this.onInput.bind(this));
     this.#shadowRoot.querySelector(".max-field")?.addEventListener("change", this.onInput.bind(this));
+    this.setAttribute("data-dtype", "Number");
   }
 
   get #template() {

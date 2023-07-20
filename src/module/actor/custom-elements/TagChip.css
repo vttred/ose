@@ -5,6 +5,7 @@
   font-weight: 600;
   font-size: .75em;
   line-height: 1em;
+  color: var(--color-heading);
 }
 
 ::slotted(i[class*="fa-"]) {

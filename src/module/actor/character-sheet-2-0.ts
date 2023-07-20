@@ -44,40 +44,40 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
       ],
       dragDrop: [
         {
-          dragSelector: '[data-tab="inventory"] expandable-section:not([type="container"]) item-row',
-          dropSelector: '[data-tab="inventory"] expandable-section:not([type="container"]) item-row',
+          dragSelector: 'expandable-section:not([type="container"]) item-row',
+          dropSelector: 'expandable-section:not([type="container"]) item-row',
           callbacks: {
             dragstart: 'onDragUncontainedItem',
             drop: 'onDropSort'
           }
         },
         {
-          dragSelector: '[data-tab="inventory"] expandable-section[type="container"] tippable-item',
-          dropSelector: '[data-tab="inventory"] expandable-section[type="container"] tippable-item',
+          dragSelector: 'expandable-section[type="container"] tippable-item',
+          dropSelector: 'expandable-section[type="container"] tippable-item',
           callbacks: {
             dragstart: 'onDragContainedItem',
             drop: 'onDropSort'
           }
         },
         {
-          dragSelector: '[data-tab="inventory"] expandable-section:not([type="container"]) item-row',
-          dropSelector: '[data-tab="inventory"] expandable-section[type="container"] item-row',
+          dragSelector: 'expandable-section:not([type="container"]) item-row',
+          dropSelector: 'expandable-section[type="container"] item-row',
           callbacks: {
             dragstart: 'onDragUncontainedItem',
             drop: 'onDropIntoContainer'
           }
         }, 
         {
-          dragSelector: '[data-tab="inventory"] item-row tippable-item',
-          dropSelector: '[data-tab="inventory"] expandable-section:not([type="container"])',
+          dragSelector: 'item-row tippable-item',
+          dropSelector: 'expandable-section:not([type="container"])',
           callbacks: {
             dragstart: 'onDragContainedItem',
             drop: 'onDropOutsideContainer'
           }
         },
         {
-          dragSelector: '[data-tab="inventory"] item-row tippable-item',
-          dropSelector: '[data-tab="inventory"] expandable-section[type="container"]',
+          dragSelector: 'item-row tippable-item',
+          dropSelector: 'expandable-section[type="container"]',
           callbacks: {
             dragstart: 'onDragContainedItem',
             drop: 'onDropIntoContainer'

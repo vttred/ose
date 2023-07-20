@@ -19,7 +19,7 @@ const reducedSpells = (list: Spells, item: Item) => {
   const othersAtLvl = list[lvl] || [];
   return {
     ...list,
-    [lvl]: [...othersAtLvl, item].sort((a, b) => a.name.localeCompare(b.name)),
+    [lvl]: [...othersAtLvl, item].sort((spellA, spellB) => spellA?.sort - spellB?.sort ),
   };
 };
 

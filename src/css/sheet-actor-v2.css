@@ -113,7 +113,6 @@
   }
 }
 
-
 .character-2 .combat__favorites {
   display: grid;
   grid-template-columns: 1fr;
@@ -124,6 +123,23 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: var(--spacing-full);
+}
+
+.character-2 expandable-section item-row:not(:last-of-type) {
+  margin-bottom: var(--spacing-quarter);
+}
+
+.character-2 .ability-fields {
+  display: flex;
+  gap: var(--spacing-full);
+  margin: 0 auto var(--spacing-half);
+  flex: 1;
+  justify-content: space-around;
+}
+.character-2 .ability-fields--exploration-skills {
+  max-width: 520px;
+}
+.character-2 .ability-fields--spell-slots {
 }
 
 .character-2 .tab[data-tab="inventory"].active {
@@ -141,7 +157,7 @@
   align-self: end;
 }
 
-.character-2 [data-tab="inventory"] expandable-section {
+.character-2 expandable-section {
   margin-bottom: var(--spacing-quarter);
 }
 

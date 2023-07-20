@@ -40,6 +40,7 @@ import "./module/actor/custom-elements/LabeledSection";
 import "./module/actor/custom-elements/MajorIconField";
 import "./module/actor/custom-elements/TippableItem";
 import "./module/actor/custom-elements/TagChip";
+import "./module/actor/custom-elements/SpellSlotField";
 // Testing
 import "./e2e";
 

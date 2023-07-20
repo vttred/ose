@@ -131,7 +131,10 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
       favoriteItems,
       favoriteAbilities,
       enrichedBiography,
-      enrichedNotes
+      enrichedNotes,
+      usesAscendingAC: game.settings.get(game.system.id, "ascendingAC"),
+      usesInitiativeModifiers: game.settings.get(game.system.id, "initiative") !== "group",
+      encumbranceScheme: game.settings.get(game.system.id, "encumbranceOption"),
     };
   }
 

@@ -22,6 +22,13 @@
   text-align: left;
 }
 
+@media (prefers-color-scheme: light) {
+  :host {
+    background-color: var(--color-ui-85);
+    box-shadow: rgba(0, 0, 0, 0.267) 0px 1px 2px 1px
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   :host {
     background-color: var(--color-ui-38);

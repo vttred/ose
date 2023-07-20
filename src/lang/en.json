@@ -283,6 +283,7 @@
   "OSE.spells.Duration": "Duration",
   "OSE.spells.Level": "Level",
   "OSE.spells.FormattedLevel": "Level {lvl}",
+  "OSE.spells.FormattedLevelShort": "Lv. {lvl}",
   "OSE.spells.Save": "Save",
   "OSE.spells.ResetSlots": "Reset Spell slots",
   "OSE.spells.MemorizedSlotsHint": "Memorized slots",

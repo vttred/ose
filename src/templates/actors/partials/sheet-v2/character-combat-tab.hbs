@@ -67,11 +67,18 @@
   <section class="combat__stat-region combat__stat-region--central">
     <div class="combat__vitals">
       <section class="vital-section vital-section--defenses">
-        {{! HP/AC/THAC0}}
-        <major-icon-field value="{{actor.system.thac0.value}}" readonly>
+        {{! HP/AC/THAC0 }}
+        {{#if usesAscendingAC}}
+        <major-icon-field value="{{actor.system.thac0.bba}}" value-name="system.thac0.bba">
+          {{localize "OSE.ABShort"}}
+          <img src="{{asset "/mace.svg"}}" slot="background" />
+        </major-icon-field>
+        {{else}}
+        <major-icon-field value="{{actor.system.thac0.value}}" value-name="system.thac0.value">
           {{localize "OSE.Thac0"}}
           <img src="{{asset "/mace.svg"}}" slot="background" />
         </major-icon-field>
+        {{/if}}
         <major-icon-field
           value="{{actor.system.hp.value}}"
           value-name="system.hp.value"
@@ -80,10 +87,17 @@
           {{localize "OSE.HealthShort"}}
           <img src="{{asset "/heart.svg"}}" slot="background" />
         </major-icon-field>
-        <major-icon-field value="{{actor.system.ac.value}}" value-name="system.ac.value" readonly>
+        {{#if usesAscendingAC}}
+        <major-icon-field value="{{actor.system.aac.value}}" readonly>
           {{localize "OSE.ArmorClassShort"}}
           <img src="{{asset "/shield.svg"}}" slot="background" />
         </major-icon-field>
+        {{else}}
+        <major-icon-field value="{{actor.system.ac.value}}" readonly>
+          {{localize "OSE.ArmorClassShort"}}
+          <img src="{{asset "/shield.svg"}}" slot="background" />
+        </major-icon-field>
+        {{/if}}
       </section>
 
       <section class="combat-modifiers">

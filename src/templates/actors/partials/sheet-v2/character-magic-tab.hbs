@@ -1,3 +1,14 @@
+<div class="ability-fields ability-fields--spell-slots">
+  {{#each actor.system.spells.slots as |slots id|}}
+  <spell-slot-field
+    level="{{id}}"
+    remaining="{{slots.used}}"
+    name="system.spells.{{id}}.max"
+    value="{{slots.max}}"
+    readonly></spell-slot-field>
+  {{/each}}
+</div>
+
 {{#each actor.system.spells.spellList}}
 <expandable-section type="spell" can-create aria-expanded data-lvl="{{@key}}">
   <h2 slot="heading">{{localize "OSE.spells.FormattedLevel" lvl=@key}}</h2>

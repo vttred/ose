@@ -1,3 +1,25 @@
+<div class="ability-fields ability-fields--exploration-skills">
+  <character-ability-field name="system.exploration.ld" value="{{actor.system.exploration.ld}}">
+    <img src="{{asset '/Melee.svg'}}" slot="icon" />
+    {{localize "OSE.exploration.ld.short"}}
+  </character-ability-field>
+
+  <character-ability-field name="system.exploration.od" value="{{actor.system.exploration.od}}">
+    <img src="{{asset '/Melee.svg'}}" slot="icon" />
+    {{localize "OSE.exploration.od.short"}}
+  </character-ability-field>
+
+  <character-ability-field name="system.exploration.sd" value="{{actor.system.exploration.sd}}">
+    <img src="{{asset '/Melee.svg'}}" slot="icon" />
+    {{localize "OSE.exploration.sd.short"}}
+  </character-ability-field>
+
+  <character-ability-field name="system.exploration.ft" value="{{actor.system.exploration.ft}}">
+    <img src="{{asset '/Melee.svg'}}" slot="icon" />
+    {{localize "OSE.exploration.ft.short"}}
+  </character-ability-field>
+</div>
+
 <expandable-section type="ability" can-create aria-expanded>
   <h2 slot="heading">{{localize "OSE.category.abilities"}}</h2>
 {{#each actor.system.abilities}}

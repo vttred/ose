@@ -126,7 +126,7 @@ export default class ItemRow extends BaseElement {
   #onDelete(e: Event) {
     e.stopPropagation();
     if (!this.item) return;
-    this.item?.delete();
+    this.item?.deleteDialog();
   }
 
   /**

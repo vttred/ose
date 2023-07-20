@@ -14,6 +14,15 @@ import TippableItem from "./custom-elements/TippableItem";
  * The character sheet that will accompany v2.0 of the system.
  */
 export default class OseActorSheetCharacterV2 extends ActorSheet {
+  static get InputFields () {
+    return [
+      "ability-score-field", 
+      "character-info-field", 
+      "character-ability-field", 
+      "major-icon-field", 
+      "spell-slot-field"
+    ].join(",");
+  }
   /**
    * Extend and override the default options used by the base Actor Sheet
    *
@@ -379,7 +388,7 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
     super.activateListeners(html);
     if (!this.isEditable) return;
 
-    html.on("change", "ability-score-field, character-info-field, character-ability-field, major-icon-field", (e) =>
+    html.on("change", OseActorSheetCharacterV2.InputFields, (e) =>
       // eslint-disable-next-line no-underscore-dangle
       this._onChangeInput(e)
     );

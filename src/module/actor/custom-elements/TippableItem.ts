@@ -53,7 +53,7 @@ export default class TippableItem extends BaseElement {
       },
       callback: (node: JQuery<HTMLElement>) => {
         const { item } = node[0] as TippableItem;
-        item?.delete();
+        item?.deleteDialog();
       }
     }];
   }

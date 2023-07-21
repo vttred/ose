@@ -15,8 +15,40 @@ import OseEntityTweaks from "../dialog/entity-tweaks";
 
 /**
  * The character sheet that will accompany v2.0 of the system.
+ * 
+ * @todo - Combat Tab: Hit die rolls
+ * 
+ * @todo - Abilities Tab: track down why there's an empty tag on new abilities
+ * @todo - Abilities Tab: Multiple ability buckets (class skills, special skills, etc)
+ * @todo - Abilities Tab: Languages
+ * @todo - Abilities Tab: Exploration skill rolls
+ *
+ * @todo - Inventory Tab: Where should we display an item's weight?
+ * @todo - Inventory Tab: Handling for carried/not carried
+ * @todo - Inventory Tab: Zebra striping on item-rows
+ * @todo - Inventory Tab: Integrate with Forien's Unidentified Items
+ * @todo - Inventory Tab: Get context menu visible for contained items
+ * 
+ * @todo - Inventory Tab: Encumbrance bar, basic scheme
+ * @todo - Inventory Tab: Encumbrance bar, detailed scheme
+ * @todo - Inventory Tab: Encumbrance bar, complete scheme
+ * @todo - Inventory Tab: Remove Encumbrance bar for disabled scheme
+ * @todo - Inventory Tab: Encumbrance bar, allow module authors to override
+ * 
+ * @todo - Magic Tab: Memorize/forget spell
+ * @todo - Magic Tab: Show spell without casting
+ * @todo - Magic Tab: How do favorite spells work?
+ * @todo - Magic Tab: Spell Sources
+ * 
+ * @todo - General: Drag to create hotbar macros
+ * @todo - General: Active Effects UI
+ * @todo - General: How can we make Level/Class/XP/Next easier to manage for single/multiclass characters?
+ * @todo - General: HTML input fields handle changing focus with tab; how can we make custom elements do so too?
  */
 export default class OseActorSheetCharacterV2 extends ActorSheet {
+  /**
+   * 
+   */
   static get InputFields () {
     return [
       "ability-score-field", 
@@ -97,6 +129,9 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
     });
   }
 
+  /**
+   * 
+   */
   get favoriteItems() {
     const itemIds = (this.actor.getFlag(game.system.id, "favorite-items") ||
       []) as string[];
@@ -104,6 +139,9 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
       .map((id: string) => fromUuidSync(id) as Item)
   }
 
+  /**
+   * 
+   */
   get enrichedBiography() {
     return TextEditor.enrichHTML(
       // @ts-expect-error - Document.system isn't in the types package yet
@@ -112,6 +150,9 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
     );
   }
 
+  /**
+   * 
+   */
   get enrichedNotes() {
     // @ts-expect-error - Document.system isn't in the types package yet
     return TextEditor.enrichHTML(this.actor.system.details.notes,
@@ -119,6 +160,10 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
     );
   }
 
+  /**
+   * @override
+   * @returns 
+   */
   // @ts-expect-error - this async function returns an object, TS wants it to return a promise
   async getData() {
     const favoriteList = await Promise.all(this.favoriteItems);
@@ -141,12 +186,22 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
     };
   }
 
+  /**
+   * @override
+   * @param e 
+   */
   // eslint-disable-next-line no-underscore-dangle
   _onChangeInput(e: any) {
     // eslint-disable-next-line no-underscore-dangle
     super._onChangeInput(e);
   }
 
+  /**
+   * @override
+   * @param e 
+   * @param options 
+   * @returns 
+   */
   // eslint-disable-next-line no-underscore-dangle
   _onSubmit(e: Event, options?: FormApplication.OnSubmitOptions ): Promise<Partial<Record<string, unknown>>> {
     let updateData: Record<string, unknown> = {...options?.updateData};
@@ -168,7 +223,7 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
   /**
    * Create drag-and-drop workflow handlers for this Application
    * @returns {DragDrop[]}     An array of DragDrop handlers
-   * @overrides
+   * @override
    */
   _createDragDropHandlers() {
     return this.options.dragDrop.map( (d: DragDropConfiguration) => {
@@ -200,14 +255,28 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
     });
   }
 
+  /**
+   * 
+   * @param e 
+   */
   async onDragUncontainedItem(e: DragEvent) {
     await this.#setInventoryItemDragData(e);
   }
 
+  /**
+   * 
+   * @param e 
+   */
   async onDragContainedItem(e: DragEvent) {
     await this.#setInventoryItemDragData(e, true);
   }
 
+  /**
+   * 
+   * @param e 
+   * @param fromContainer 
+   * @returns 
+   */
   async #setInventoryItemDragData(e: DragEvent, fromContainer: boolean = false) {
     e.stopPropagation();
     const uuid = (e.target as TippableItem).uuid;
@@ -220,6 +289,11 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
     e?.dataTransfer?.setData("text/plain", JSON.stringify(dragData));
   }
 
+  /**
+   * 
+   * @param e 
+   * @returns 
+   */
   async onDropSort(e: DragEvent) {
     const dragData = JSON.parse(e?.dataTransfer?.getData("text/plain") || '{type: null, uuid: null}'); 
     if (dragData.type !== "Item") return;
@@ -254,6 +328,11 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
     );
   }
 
+  /**
+   * 
+   * @param e 
+   * @returns 
+   */
   async onDropIntoContainer(e: DragEvent) {
     e.stopPropagation();
     const dragData = JSON.parse(e?.dataTransfer?.getData("text/plain") || '{type: null, uuid: null}'); 
@@ -290,6 +369,11 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
     })
   }
   
+  /**
+   * 
+   * @param e 
+   * @returns 
+   */
   async onDropOutsideContainer(e: DragEvent) {
     e.stopPropagation();
     
@@ -309,6 +393,10 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
       this._onDrop(e);
   }
 
+  /**
+   * 
+   * @param droppedItem 
+   */
   async onMoveContainerToAnotherActor(droppedItem: OseItem) {
     const containerItemObj = droppedItem.toObject();
     const [createdContainer] = await this.actor.createEmbeddedDocuments("Item", [containerItemObj]);
@@ -360,6 +448,11 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
     super._onDrop(e);
   }
 
+  /**
+   * 
+   * @param e 
+   * @returns 
+   */
   #onCreateItemOfType(e: Event) {
     e.stopPropagation();
     const target = e.target as HTMLElement;
@@ -381,6 +474,40 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
     return this.actor.createEmbeddedDocuments("Item", [{...itemToCreate, system }])
   }
 
+  /**
+   * 
+   * @param event 
+   */
+  #rollAttributeCheck(event: Event) {
+    const score = (event.target as HTMLElement)?.getAttribute("name")?.split(".")[2];
+    score && (this.actor as OseActor).rollCheck(score, {event});
+  }
+
+  /**
+   * 
+   * @param event 
+   */
+  #rollSave(event: Event) {
+    const save = (event.target as HTMLElement).getAttribute("name")?.split(".")[2];
+    save && (this.actor as OseActor).rollSave(save, {event});
+  }
+
+  /**
+   * 
+   * @param event 
+   */
+  #rollAttack (event: Event) {
+    const { attackType } = (event.target as HTMLElement).dataset;
+
+    (this.actor as OseActor).targetAttack({ roll: {} }, attackType, {
+      type: attackType,
+      skipDialog: skipRollDialogCheck(event),
+    });
+  }
+
+  /**
+   * 
+   */
   #generateScores() {
     new OseCharacterCreator(this.actor, {
       top: this.position.top + 40,
@@ -388,6 +515,9 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
     }).render(true);
   }
 
+  /**
+   * 
+   */
   #showModifiers() {
     new OseCharacterModifiers(this.actor, {
       top: this.position.top + 40,
@@ -395,6 +525,9 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
     }).render(true);
   }
 
+  /**
+   * 
+   */
   #showGoldCost() {
     const items = {
       items: this.actor.items,
@@ -411,6 +544,9 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
     }).render(true);
   }
 
+  /**
+   * 
+   */
   #showTweaks() {
     new OseEntityTweaks(this.actor, {
       top: this.position.top + 40,
@@ -421,22 +557,38 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
   /**
    * Activate event listeners using the prepared sheet HTML
    *
-   * @param html - {HTML}   The prepared HTML object ready to be rendered into the DOM
+   * @param html - The prepared HTML object ready to be rendered into the DOM
    *
-   * @todo Click to roll against ability score
-   * @todo CLick to roll against save
    * @todo Click to roll HD
    */
   activateListeners(html: JQuery<HTMLElement>): void {
     super.activateListeners(html);
+
+    // Ability checks
+    Array.from(
+      html[0].querySelectorAll(".combat__stat-region--ability-scores ability-score-field")
+    ).map(n => n.addEventListener("roll", this.#rollAttributeCheck.bind(this)));
+
+    // Saves
+    Array.from(
+      html[0].querySelectorAll(".combat__stat-region--saves ability-score-field")
+    ).map(n => n.addEventListener("roll", this.#rollSave.bind(this)));
+
+    // Weapon-unspecified attacks
+    Array.from(
+      html[0].querySelectorAll("character-ability-field[data-attack-type]")
+    ).map(n => n.addEventListener("roll", this.#rollAttack.bind(this)));
+
     if (!this.isEditable) return;
 
+    // Hook our custom elements into the update process
     html.on("change", OseActorSheetCharacterV2.InputFields, (e) =>
       // eslint-disable-next-line no-underscore-dangle
       this._onChangeInput(e)
     );
 
-    html.on("create", "expandable-section", this.#onCreateItemOfType.bind(this))
+    // Allow expandable sections to create items of a specific type
+    html.on("create", "expandable-section", this.#onCreateItemOfType.bind(this));
     
     html.on("pointerdown", '[data-action="generate-scores"]', this.#generateScores.bind(this));
     html.on("pointerdown", '[data-action="modifiers"]', this.#showModifiers.bind(this));

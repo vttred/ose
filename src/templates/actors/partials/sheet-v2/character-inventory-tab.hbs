@@ -65,8 +65,11 @@
   </expandable-section>
 </div>
 
+{{! Encumbrance meter }}
+{{#unless (eq actor.system.encumbrance.variant "disabled")}}
 <character-info-meter
   class="encumbrance"
   value="{{actor.system.encumbrance.value}}"
   max="{{actor.system.encumbrance.max}}">
 </character-info-meter>
+{{/unless}}

@@ -72,4 +72,7 @@ input:focus {
     background-color: var(--color-ui-38);
     border-radius: var(--spacing-quarter);
   }
+  input:read-only {
+    background-color: var(--color-ui-09);
+  }
 }

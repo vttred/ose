@@ -34,4 +34,7 @@ labeled-section {
   labeled-section::part(content) {
     background-color: var(--color-ui-38);
   }
+  :host([readonly]) labeled-section::part(content) {
+    background-color: var(--color-ui-09);
+  }
 }

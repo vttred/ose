@@ -40,6 +40,12 @@ export default class ItemRow extends BaseElement {
     await this.#render();
     this.draggable = true;
     this.#shadowRoot.adoptedStyleSheets = [...ItemRow.styles];
+    
+    this.#bindSystemEvents();
+    this.#bindModuleIntegrationEvents()  
+  }
+
+  #bindSystemEvents() {
     this.addEventListener("click", this.#onExpand.bind(this));
     this.#shadowRoot
       .querySelector(".icon")
@@ -56,7 +62,17 @@ export default class ItemRow extends BaseElement {
     this.#shadowRoot
       .querySelector(".delete")
       ?.addEventListener("click", this.#onDelete.bind(this));
-    this.addEventListener("dragstart", this.#onDrag.bind(this))
+    this.addEventListener("dragstart", this.#onDrag.bind(this));
+  }
+
+  #bindModuleIntegrationEvents() {
+    // Forien's Unidentified Items
+    this.#shadowRoot
+      .querySelector(".identify")
+      ?.addEventListener("click", this.#onIdentify.bind(this));
+    this.#shadowRoot
+      .querySelector(".mystify")
+      ?.addEventListener("click", this.#onMystify.bind(this));
   }
 
   #onExpand(e: Event) {
@@ -129,11 +145,50 @@ export default class ItemRow extends BaseElement {
     this.item?.deleteDialog();
   }
 
+  #onMystify(e: Event) {
+    // @ts-expect-error - isMystified is a mutation of the OseItem type
+    //                    caused by Forien's Unidentified Items
+    if (this.item?.isMystified()) return;
+
+    if (e.ctrlKey || e.metaKey)
+      ForienIdentification.mystifyAdvancedDialog(this.getAttribute("uuid"))  
+    else
+      ForienIdentification.mystifyReplace(this.getAttribute("uuid"))
+  }
+
+  #onIdentify(e: Event) {
+    // @ts-expect-error - isMystified is a mutation of the OseItem type
+    //                    caused by Forien's Unidentified Items
+    if (!this.item?.isMystified()) return;
+    ForienIdentification.identify(this.item)
+  }
+
+  /**
+   * Can this item be mystified/identified?
+   */
+  get #canIdentify() {
+    if (!this.item) return false;
+    if (!game.user?.isGM) return false;
+    if (!game.modules.has("forien-unidentified-items")) return false;
+    return game.modules
+      .find(m => m.id === "forien-unidentified-items")
+      .active
+  }
+
   /**
    * @TODO Where does carry weight fit in here?
    */
   get #template() {
     const template: HTMLTemplateElement = document.createElement("template");
+
+    let identifyButton = '';
+
+    if (this.#canIdentify) {
+      if (this.item?.isMystified())
+        identifyButton = `<button class="identify" aria-label="${game.i18n.localize("OSE.Favorite.label")}">ID</button>`
+      else
+        identifyButton = `<button class="mystify" aria-label="${game.i18n.localize("OSE.Favorite.label")}">Un-ID</button>`
+    }
 
     template.innerHTML = `
       <div class="row">
@@ -145,6 +200,7 @@ export default class ItemRow extends BaseElement {
           </div>
         </div>
         <div class="controls">
+          ${identifyButton}
           ${this.hasAttribute("can-equip") 
             ? `<button class="equip ${this.item?.system.equipped ? "equip--enabled" : ""}" aria-label="${game.i18n.localize("OSE.Equip")}">
               ${icon(faShirt).html}

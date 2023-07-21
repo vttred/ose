@@ -26,13 +26,11 @@ import OseEntityTweaks from "../dialog/entity-tweaks";
  * @todo - Inventory Tab: Where should we display an item's weight?
  * @todo - Inventory Tab: Handling for carried/not carried
  * @todo - Inventory Tab: Zebra striping on item-rows
- * @todo - Inventory Tab: Integrate with Forien's Unidentified Items
  * @todo - Inventory Tab: Get context menu visible for contained items
  * 
  * @todo - Inventory Tab: Encumbrance bar, basic scheme
  * @todo - Inventory Tab: Encumbrance bar, detailed scheme
  * @todo - Inventory Tab: Encumbrance bar, complete scheme
- * @todo - Inventory Tab: Remove Encumbrance bar for disabled scheme
  * @todo - Inventory Tab: Encumbrance bar, allow module authors to override
  * 
  * @todo - Magic Tab: Memorize/forget spell

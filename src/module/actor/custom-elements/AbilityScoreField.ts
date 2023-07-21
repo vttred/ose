@@ -41,6 +41,16 @@ export default class AbilityScoreField extends BaseElement {
       ?.addEventListener("change", (e) => {
         this.onInput(e);
       });
+
+    if (!this.hasAttribute("readonly") && !this.hasAttribute("disabled"))
+      this.#shadowRoot
+        .querySelector("label")
+        ?.addEventListener("click", (e) => {
+          const evt = new Event("roll") as Event & {metaKey: boolean, ctrlKey: boolean};
+          evt.metaKey = e.metaKey;
+          evt.ctrlKey = e.ctrlKey;
+          this.dispatchEvent(evt);
+        })
   }
 
   get #template() {

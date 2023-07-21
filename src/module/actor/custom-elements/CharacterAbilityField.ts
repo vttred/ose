@@ -41,6 +41,14 @@ export default class CharacterAbilityField extends BaseElement {
       ?.addEventListener("change", (e) => {
         this.onInput(e);
       });
+    this.#shadowRoot
+      .querySelector("label")
+      ?.addEventListener("click", (e) => {
+        const evt = new Event("roll") as Event & {metaKey: boolean, ctrlKey: boolean};
+        evt.metaKey = e.metaKey;
+        evt.ctrlKey = e.ctrlKey;
+        this.dispatchEvent(evt);
+      })
   }
 
   get #template() {

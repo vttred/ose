@@ -36,10 +36,57 @@
   margin-bottom: var(--spacing-half);
 }
 
-.character-2 .character-info img {
+.character-2 .character-info__art {
+  position: relative;
+  overflow: hidden;
+}
+
+.character-2 .character-info__art img {
   height: 100%;
   object-fit: cover;
+  position: relative;
+  z-index: 0;
 }
+
+.character-2 .character-info__art__apps {
+  position: absolute;
+  bottom: var(--spacing-quarter);
+  left: var(--spacing-quarter);
+  right: var(--spacing-quarter);
+  z-index: 1;
+  display: flex;
+  gap: var(--spacing-half);
+  transform: translateY(calc(100% + var(--spacing-half)));
+  transition: transform 400ms cubic-bezier(0.39, 1.9, 0.41, 0.8);
+}
+
+.character-2 .character-info__art:hover .character-info__art__apps {
+  transform: translateY(0);
+}
+
+.character-2 .character-info__art__apps button{
+  display: inline-block;
+  border: none;
+  margin: 0;
+  padding: 0;
+  color: var(--color-primary);
+  background-color: var(--color-ui-09);
+  border-radius: var(--spacing-quarter);
+}
+
+.character-2 .character-info__art__apps button.attention {
+  animation: 0.8s ease-in 1s infinite alternate notify;
+}
+
+@keyframes notify {
+  from {
+    color: var(--color-primary);
+  }
+  to {
+    color: crimson;
+  }
+}
+
 
 .character-2 .character-info__details {
   display: grid;

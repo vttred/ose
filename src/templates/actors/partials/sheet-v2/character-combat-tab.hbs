@@ -1,5 +1,41 @@
 <header class="character-info">
-  <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+  <section class="character-info__art">
+    <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+    <div class="character-info__art__apps">
+      {{#unless this.actor.system.isNew}}
+      <button
+        type="button"
+        data-action="modifiers"
+        aria-label="{{localize 'OSE.Modifiers'}}"
+        title="{{localize 'OSE.Modifiers'}}">
+        <i class="fas fa-book"></i>
+      </button>
+      <button
+        type="button"
+        data-action="gp-cost"
+        aria-label="{{localize 'OSE.dialog.shoppingCart'}}"
+        title="{{localize 'OSE.dialog.shoppingCart'}}">
+        <i class="fas fa-coins"></i>
+      </button>
+      {{else}}
+      <button
+        type="button"
+        class="blinking"
+        data-action="generate-scores"
+        aria-label="{{localize 'OSE.dialog.generateScores'}}"
+        title="{{localize 'OSE.dialog.generateScores'}}">
+        <i class="fa fa-dice"></i>
+      </button>
+      {{/unless}}
+      <button
+        type="button"
+        data-action="tweaks"
+        aria-label="{{localize 'OSE.dialog.tweaks'}}"
+        title="{{localize 'OSE.dialog.tweaks'}}">
+        <i class="fas fa-code"></i>
+      </button>
+    </div>
+  </section>
   <section class="character-info__details">
     <character-info-field name="name" value="{{actor.name}}" data-dtype="String">{{localize "OSE.details.name"}}</character-info-field>
     <character-info-field name="system.details.class" value="{{actor.system.details.class}}" data-dtype="String">{{localize "OSE.details.class"}}</character-info-field>
@@ -104,11 +140,11 @@
         <section class="vital-section vital-section--combat-mods">
           {{! Combat mods }}
           <h4>{{localize "OSE.combatmods.heading"}}</h4>
-          <character-ability-field value="{{actor.system.meleeMod}}" readonly>
+          <character-ability-field data-attack-type="melee" value="{{actor.system.meleeMod}}" readonly>
             <img src="{{asset '/Melee.svg'}}" slot="icon" />
             {{localize "OSE.Melee"}}
           </character-ability-field>
-          <character-ability-field value="{{actor.system.rangedMod}}" readonly>
+          <character-ability-field data-attack-type="missile" value="{{actor.system.rangedMod}}" readonly>
             <img src="{{asset '/Missile.svg'}}" slot="icon" />
             {{localize "OSE.Missile"}}
           </character-ability-field>

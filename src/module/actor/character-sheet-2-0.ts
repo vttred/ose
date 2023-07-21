@@ -5,10 +5,13 @@ import { OSE } from "../config";
 import OseItem from "../item/entity";
 import MajorIconField from './custom-elements/MajorIconField';
 import TippableItem from "./custom-elements/TippableItem";
+import skipRollDialogCheck from "../helpers-behaviour";
+import OseActor from "./entity";
 
-// import OseCharacterCreator from "../dialog/character-creation";
-// import OseCharacterGpCost from "../dialog/character-gp-cost";
-// import OseCharacterModifiers from "../dialog/character-modifiers";
+import OseCharacterCreator from "../dialog/character-creation";
+import OseCharacterGpCost from "../dialog/character-gp-cost";
+import OseCharacterModifiers from "../dialog/character-modifiers";
+import OseEntityTweaks from "../dialog/entity-tweaks";
 
 /**
  * The character sheet that will accompany v2.0 of the system.
@@ -378,6 +381,43 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
     return this.actor.createEmbeddedDocuments("Item", [{...itemToCreate, system }])
   }
 
+  #generateScores() {
+    new OseCharacterCreator(this.actor, {
+      top: this.position.top + 40,
+      left: this.position.left + (this.position.width - 400) / 2,
+    }).render(true);
+  }
+
+  #showModifiers() {
+    new OseCharacterModifiers(this.actor, {
+      top: this.position.top + 40,
+      left: this.position.left + (this.position.width - 400) / 2,
+    }).render(true);
+  }
+
+  #showGoldCost() {
+    const items = {
+      items: this.actor.items,
+      owned: {
+        weapons: this.actor.system.weapons,
+        armors: this.actor.system.armor,
+        items: this.actor.system.items,
+        containers: this.actor.system.containers,
+      }
+    };
+    new OseCharacterGpCost(this.actor, items, {
+      top: this.position.top + 40,
+      left: this.position.left + (this.position.width - 400) / 2,
+    }).render(true);
+  }
+
+  #showTweaks() {
+    new OseEntityTweaks(this.actor, {
+      top: this.position.top + 40,
+      left: this.position.left + (this.position.width - 400) / 2,
+    }).render(true);
+  }
+
   /**
    * Activate event listeners using the prepared sheet HTML
    *
@@ -397,5 +437,10 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
     );
 
     html.on("create", "expandable-section", this.#onCreateItemOfType.bind(this))
+    
+    html.on("pointerdown", '[data-action="generate-scores"]', this.#generateScores.bind(this));
+    html.on("pointerdown", '[data-action="modifiers"]', this.#showModifiers.bind(this));
+    html.on("pointerdown", '[data-action="gp-cost"]', this.#showGoldCost.bind(this));
+    html.on("pointerdown", '[data-action="tweaks"]', this.#showTweaks.bind(this));
   }
 }

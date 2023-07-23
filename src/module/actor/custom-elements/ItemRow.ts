@@ -2,11 +2,12 @@
  * @file A custom element that represents an Ability Score and its modifier
  */
 import { config, dom, icon } from "@fortawesome/fontawesome-svg-core";
-import { faTrash, faEye, faStar, faEdit, faShirt, faEyeSlash, faScroll } from "@fortawesome/free-solid-svg-icons";
+import { faWeightHanging, faTrash, faEye, faStar, faEdit, faShirt, faEyeSlash, faScroll } from "@fortawesome/free-solid-svg-icons";
 import OseItem from "../../item/entity";
 import BaseElement from "./_BaseElement";
 // @ts-expect-error
 import styles from "./ItemRow.css" assert { type: "css" };
+import { abbreviateNumber } from "../../helpers-numbers";
 
 config.autoAddCss = false;
 
@@ -176,79 +177,121 @@ export default class ItemRow extends BaseElement {
       .active
   }
 
+  get #identifyButton() {
+    if (!this.#canIdentify)
+      return '';
+    if (!this.item?.isMystified())
+      return `<button class="mystify"
+        title="${game.i18n.localize("forien-unidentified-items.Mystify")}"
+        aria-label="${game.i18n.localize("forien-unidentified-items.Mystify")}">
+        ${icon(faEyeSlash).html}
+      </button>`;
+    return `<button class="identify"
+      title="${game.i18n.localize("forien-unidentified-items.Identify")}"
+      aria-label="${game.i18n.localize("forien-unidentified-items.Identify")}">
+      ${icon(faEye).html}
+    </button>`
+  }
+
+  get #controls() {
+    if (!this.item?.sheet?.isEditable) return '';
+
+    return `
+    ${this.#identifyButton}
+    ${this.hasAttribute("can-equip") 
+      ? `<button
+        class="equip ${this.item?.system.equipped ? "equip--enabled" : ""}"
+        title="${game.i18n.localize("OSE.Equip")}"
+        aria-label="${game.i18n.localize("OSE.Equip")}">
+        ${icon(faShirt).html}
+      </button>`
+      : ""
+    }
+    ${this.hasAttribute("can-show-chat") 
+      ? `<button
+        class="show-chat"
+        title="${game.i18n.localize("OSE.Show")}"
+        aria-label="${game.i18n.localize("OSE.Show")}">
+          ${icon(faScroll).html}
+        </button>`
+      : ""
+    }
+    ${this.hasAttribute("can-favorite") 
+      ? `<button
+        class="favorite ${this.item?.system.favorited ? "favorite--enabled" : ""}"
+        title="${game.i18n.localize("OSE.Favorite.label")}"
+        aria-label="${game.i18n.localize("OSE.Favorite.label")}">
+        ${icon(faStar).html}
+      </button>`
+      : ""
+    }
+    <button
+      class="edit"
+      title="${game.i18n.localize("OSE.Edit")}"
+      aria-label="${game.i18n.localize("OSE.Edit")}">
+      ${icon(faEdit).html}
+    </button>
+    <button
+      class="delete"
+      title="${game.i18n.localize("OSE.Delete")}"
+      aria-label="${game.i18n.localize("OSE.Delete")}">
+      ${icon(faTrash).html}
+    </button>`;
+  }
+
+  get #weightLabel() {
+    if (!this.hasAttribute("has-weight")) return '';
+
+    const name = this.item?.name || '';
+    const weight = this.item?.system.quantity.value
+      ? (this.item?.system.weight * this.item?.system.quantity.value) || 0
+      : this.item?.system.weight || 0;
+    const label = game.i18n.format( "OSE.items.WeightLong", { name, weight });
+    
+    return `
+    <span aria-label="${label} title="${label}>
+      ${icon(faWeightHanging).html}
+      ${weight || 0}
+    </span>`
+  }
+
+  get #quantityLabel() {
+    if (!this.hasAttribute("has-quantity")) return '';
+
+    let quantity = abbreviateNumber(this.item?.system.quantity.value);
+    let max = this.item?.system.quantity.max
+      ? `/${this.item?.system.quantity.max}`
+      : ""
+    return `<tag-chip class="quantity">
+      ${quantity}${max}
+    </tag-chip>`;
+  }
+
   /**
    * @TODO Where does carry weight fit in here?
    */
   get #template() {
     const template: HTMLTemplateElement = document.createElement("template");
-
-    let identifyButton = '';
-
-    if (this.#canIdentify) {
-      if (this.item?.isMystified())
-        identifyButton = `<button class="identify"
-          title="${game.i18n.localize("forien-unidentified-items.Identify")}"
-          aria-label="${game.i18n.localize("forien-unidentified-items.Identify")}">
-          ${icon(faEye).html}
-        </button>`
-      else
-        identifyButton = `<button class="mystify"
-          title="${game.i18n.localize("forien-unidentified-items.Mystify")}"
-          aria-label="${game.i18n.localize("forien-unidentified-items.Mystify")}">
-          ${icon(faEyeSlash).html}
-        </button>`
-    }
-
+    
     template.innerHTML = `
       <div class="row">
-        <img class="icon" src="${this.item?.img || ''}" alt="${this.item?.name || ''}">
+        <div class="icon">
+          <img src="${this.item?.img || ''}" alt="${this.item?.name || ''}">
+          ${this.#quantityLabel}
+        </div>
         <div class="name">
           <span class="item-name">${this.item?.name || ''}</span>
           <div part="title-content">
             <slot name="title-content"></slot>
           </div>
         </div>
+        <div class="supplemental-content">
+          <slot name="supplemental-content">
+            ${this.#weightLabel}
+          </slot>
+        </div>
         <div class="controls">
-          ${identifyButton}
-          ${this.hasAttribute("can-equip") 
-            ? `<button
-              class="equip ${this.item?.system.equipped ? "equip--enabled" : ""}"
-              title="${game.i18n.localize("OSE.Equip")}"
-              aria-label="${game.i18n.localize("OSE.Equip")}">
-              ${icon(faShirt).html}
-            </button>`
-            : ""
-          }
-          ${this.hasAttribute("can-show-chat") 
-            ? `<button
-              class="show-chat"
-              title="${game.i18n.localize("OSE.Show")}"
-              aria-label="${game.i18n.localize("OSE.Show")}">
-                ${icon(faScroll).html}
-              </button>`
-            : ""
-          }
-          ${this.hasAttribute("can-favorite") 
-            ? `<button
-              class="favorite ${this.item?.system.favorited ? "favorite--enabled" : ""}"
-              title="${game.i18n.localize("OSE.Favorite.label")}"
-              aria-label="${game.i18n.localize("OSE.Favorite.label")}">
-              ${icon(faStar).html}
-            </button>`
-            : ""
-          }
-          <button
-            class="edit"
-            title="${game.i18n.localize("OSE.Edit")}"
-            aria-label="${game.i18n.localize("OSE.Edit")}">
-            ${icon(faEdit).html}
-          </button>
-          <button
-            class="delete"
-            title="${game.i18n.localize("OSE.Delete")}"
-            aria-label="${game.i18n.localize("OSE.Delete")}">
-            ${icon(faTrash).html}
-          </button>
+          ${this.#controls}
         </div>
       </div>
       <div class="collapsable">

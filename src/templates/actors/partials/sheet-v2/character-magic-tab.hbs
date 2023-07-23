@@ -13,7 +13,7 @@
 <expandable-section type="spell" can-create aria-expanded data-lvl="{{@key}}">
   <h2 slot="heading">{{localize "OSE.spells.FormattedLevel" lvl=@key}}</h2>
   {{#each this}}
-    <item-row class="item" slot="content" uuid="{{this.uuid}}">
+    <item-row class="item" slot="content" uuid="{{this.uuid}}" can-mystify can-show-chat>
       {{{this.system.enrichedDescription}}}
       {{#each this.system.autoTags}}
         <tag-chip slot="title-content"><i class="fa {{icon}}"></i>{{localize label}}</tag-chip>

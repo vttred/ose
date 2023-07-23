@@ -16,31 +16,32 @@ import OseEntityTweaks from "../dialog/entity-tweaks";
 /**
  * The character sheet that will accompany v2.0 of the system.
  * 
- * @todo - Combat Tab: Hit die rolls
+ * ---
+ * # Phase 1:
  * 
+ * @todo - Combat Tab: Hit die rolls
  * @todo - Abilities Tab: track down why there's an empty tag on new abilities
- * @todo - Abilities Tab: Multiple ability buckets (class skills, special skills, etc)
  * @todo - Abilities Tab: Languages
  * @todo - Abilities Tab: Exploration skill rolls
- *
  * @todo - Inventory Tab: Where should we display an item's weight?
- * @todo - Inventory Tab: Handling for carried/not carried
  * @todo - Inventory Tab: Zebra striping on item-rows
  * @todo - Inventory Tab: Get context menu visible for contained items
- * 
  * @todo - Inventory Tab: Encumbrance bar, basic scheme
  * @todo - Inventory Tab: Encumbrance bar, detailed scheme
  * @todo - Inventory Tab: Encumbrance bar, complete scheme
- * @todo - Inventory Tab: Encumbrance bar, allow module authors to override
- * 
  * @todo - Magic Tab: Memorize/forget spell
- * @todo - Magic Tab: Show spell without casting
  * @todo - Magic Tab: How do favorite spells work?
- * @todo - Magic Tab: Spell Sources
- * 
  * @todo - General: Drag to create hotbar macros
- * @todo - General: Active Effects UI
  * @todo - General: How can we make Level/Class/XP/Next easier to manage for single/multiclass characters?
+ * 
+ * ---
+ * # Phase 2:
+ * 
+ * @todo - Abilities Tab: Multiple ability buckets (class skills, special skills, etc)
+ * @todo - Inventory Tab: Handling for carried/not carried
+ * @todo - Inventory Tab: Encumbrance bar, allow module authors to override
+ * @todo - Magic Tab: Spell Sources
+ * @todo - General: Active Effects UI
  * @todo - General: HTML input fields handle changing focus with tab; how can we make custom elements do so too?
  */
 export default class OseActorSheetCharacterV2 extends ActorSheet {

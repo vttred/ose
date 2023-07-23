@@ -2,7 +2,7 @@
   <expandable-section type="weapon" can-create aria-expanded>
     <h2 slot="heading">{{localize "OSE.items.Weapons"}}</h2>
   {{#each actor.system.weapons}}
-    <item-row class="item" slot="content" uuid="{{this.uuid}}" can-equip can-favorite>
+    <item-row class="item" slot="content" uuid="{{this.uuid}}" can-mystify can-equip can-favorite>
       {{{this.system.enrichedDescription}}}
       {{#each this.system.autoTags}}
         <tag-chip slot="title-content"><i class="fa {{icon}}"></i>{{localize label}}</tag-chip>
@@ -14,7 +14,7 @@
   <expandable-section type="armor" can-create aria-expanded>
     <h2 slot="heading">{{localize "OSE.items.Armors"}}</h2>
   {{#each actor.system.armor}}
-    <item-row slot="content" uuid="{{this.uuid}}" can-equip>
+    <item-row slot="content" uuid="{{this.uuid}}" can-mystify can-equip>
       {{{this.system.enrichedDescription}}}
       {{#each this.system.autoTags}}
         <tag-chip slot="title-content"><i class="fa {{icon}}"></i>{{localize label}}</tag-chip>
@@ -43,7 +43,7 @@
   <expandable-section type="item" can-create aria-expanded>
     <h2 slot="heading">{{localize "OSE.items.Misc"}}</h2>
   {{#each actor.system.items}}
-    <item-row slot="content" uuid="{{this.uuid}}">
+    <item-row slot="content" uuid="{{this.uuid}}" can-mystify>
       {{{this.system.enrichedDescription}}}
       {{#each this.system.autoTags}}
         <tag-chip slot="title-content"><i class="fa {{icon}}"></i>{{localize label}}</tag-chip>
@@ -55,7 +55,7 @@
   <expandable-section type="item" can-create aria-expanded data-treasure>
     <h2 slot="heading">{{localize "OSE.items.Treasure"}}</h2>
   {{#each actor.system.treasures}}
-    <item-row slot="content" uuid="{{this.uuid}}">
+    <item-row slot="content" uuid="{{this.uuid}}" can-mystify>
       {{{this.system.enrichedDescription}}}
       {{#each this.system.autoTags}}
         <tag-chip slot="title-content"><i class="fa {{icon}}"></i>{{localize label}}</tag-chip>

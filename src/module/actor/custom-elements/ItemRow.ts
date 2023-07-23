@@ -2,7 +2,7 @@
  * @file A custom element that represents an Ability Score and its modifier
  */
 import { config, dom, icon } from "@fortawesome/fontawesome-svg-core";
-import { faTrash, faEye, faStar, faEdit, faShirt } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faEye, faStar, faEdit, faShirt, faEyeSlash, faScroll } from "@fortawesome/free-solid-svg-icons";
 import OseItem from "../../item/entity";
 import BaseElement from "./_BaseElement";
 // @ts-expect-error
@@ -167,9 +167,10 @@ export default class ItemRow extends BaseElement {
    * Can this item be mystified/identified?
    */
   get #canIdentify() {
-    if (!this.item) return false;
     if (!game.user?.isGM) return false;
+    if (!this.hasAttribute("can-mystify")) return false;
     if (!game.modules.has("forien-unidentified-items")) return false;
+    if (!this.item) return false;
     return game.modules
       .find(m => m.id === "forien-unidentified-items")
       .active
@@ -185,9 +186,17 @@ export default class ItemRow extends BaseElement {
 
     if (this.#canIdentify) {
       if (this.item?.isMystified())
-        identifyButton = `<button class="identify" aria-label="${game.i18n.localize("OSE.Favorite.label")}">ID</button>`
+        identifyButton = `<button class="identify"
+          title="${game.i18n.localize("forien-unidentified-items.Identify")}"
+          aria-label="${game.i18n.localize("forien-unidentified-items.Identify")}">
+          ${icon(faEye).html}
+        </button>`
       else
-        identifyButton = `<button class="mystify" aria-label="${game.i18n.localize("OSE.Favorite.label")}">Un-ID</button>`
+        identifyButton = `<button class="mystify"
+          title="${game.i18n.localize("forien-unidentified-items.Mystify")}"
+          aria-label="${game.i18n.localize("forien-unidentified-items.Mystify")}">
+          ${icon(faEyeSlash).html}
+        </button>`
     }
 
     template.innerHTML = `
@@ -202,27 +211,42 @@ export default class ItemRow extends BaseElement {
         <div class="controls">
           ${identifyButton}
           ${this.hasAttribute("can-equip") 
-            ? `<button class="equip ${this.item?.system.equipped ? "equip--enabled" : ""}" aria-label="${game.i18n.localize("OSE.Equip")}">
+            ? `<button
+              class="equip ${this.item?.system.equipped ? "equip--enabled" : ""}"
+              title="${game.i18n.localize("OSE.Equip")}"
+              aria-label="${game.i18n.localize("OSE.Equip")}">
               ${icon(faShirt).html}
             </button>`
             : ""
           }
           ${this.hasAttribute("can-show-chat") 
-            ? `<button class="show-chat" aria-label="${game.i18n.localize("OSE.Show")}">
-                ${icon(faEye).html}
+            ? `<button
+              class="show-chat"
+              title="${game.i18n.localize("OSE.Show")}"
+              aria-label="${game.i18n.localize("OSE.Show")}">
+                ${icon(faScroll).html}
               </button>`
             : ""
           }
           ${this.hasAttribute("can-favorite") 
-            ? `<button class="favorite ${this.item?.system.favorited ? "favorite--enabled" : ""}" aria-label="${game.i18n.localize("OSE.Favorite.label")}">
+            ? `<button
+              class="favorite ${this.item?.system.favorited ? "favorite--enabled" : ""}"
+              title="${game.i18n.localize("OSE.Favorite.label")}"
+              aria-label="${game.i18n.localize("OSE.Favorite.label")}">
               ${icon(faStar).html}
             </button>`
             : ""
           }
-          <button class="edit" aria-label="${game.i18n.localize("OSE.Edit")}">
+          <button
+            class="edit"
+            title="${game.i18n.localize("OSE.Edit")}"
+            aria-label="${game.i18n.localize("OSE.Edit")}">
             ${icon(faEdit).html}
           </button>
-          <button class="delete" aria-label="${game.i18n.localize("OSE.Delete")}">
+          <button
+            class="delete"
+            title="${game.i18n.localize("OSE.Delete")}"
+            aria-label="${game.i18n.localize("OSE.Delete")}">
             ${icon(faTrash).html}
           </button>
         </div>

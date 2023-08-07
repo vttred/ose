@@ -36,19 +36,25 @@ export default class OseActor extends Actor {
 
   async update(data, options = {}) {
     const newData = { ...data };
+    const {
+      "system.ac.value": acValue,
+      "system.aac.value": aacValue,
+      "system.thac0.bba": bbaValue,
+      "system.thac0.value": thac0Value,
+    } = newData;
 
     // Compute AAC from AC
-    if (newData["system.ac.value"]) {
-      newData["system.aac.value"] = 19 - newData["system.ac.value"];
-    } else if (newData["system.aac.value"]) {
-      newData["system.ac.value"] = 19 - newData["system.aac.value"];
+    if (acValue) {
+      newData["system.aac.value"] = 19 - acValue;
+    } else if (aacValue) {
+      newData["system.ac.value"] = 19 - aacValue;
     }
 
     // Compute Thac0 from BBA
-    if (newData["system.thac0.value"]) {
-      newData["system.thac0.bba"] = 19 - newData["system.thac0.value"];
-    } else if (newData["system.thac0.bba"]) {
-      newData["system.thac0.value"] = 19 - newData["system.thac0.bba"];
+    if (thac0Value) {
+      newData["system.thac0.bba"] = 19 - thac0Value;
+    } else if (bbaValue) {
+      newData["system.thac0.value"] = 19 - bbaValue;
     }
 
     super.update(newData, options);

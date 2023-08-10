@@ -34,22 +34,30 @@ export default class OseActor extends Actor {
     return source;
   }
 
-  static async update(data, options = {}) {
+  async update(data, options = {}) {
+    const newData = { ...data };
+    const {
+      "system.ac.value": acValue,
+      "system.aac.value": aacValue,
+      "system.thac0.bba": bbaValue,
+      "system.thac0.value": thac0Value,
+    } = newData;
+
     // Compute AAC from AC
-    if (data?.ac?.value) {
-      data.aac = { value: 19 - data.ac.value };
-    } else if (data?.aac?.value) {
-      data.ac = { value: 19 - data.aac.value };
+    if (acValue) {
+      newData["system.aac.value"] = 19 - acValue;
+    } else if (aacValue) {
+      newData["system.ac.value"] = 19 - aacValue;
     }
 
     // Compute Thac0 from BBA
-    if (data?.thac0?.value) {
-      data.thac0.bba = 19 - data.thac0.value;
-    } else if (data?.thac0?.bba) {
-      data.thac0.value = 19 - data.thac0.bba;
+    if (thac0Value) {
+      newData["system.thac0.bba"] = 19 - thac0Value;
+    } else if (bbaValue) {
+      newData["system.thac0.value"] = 19 - bbaValue;
     }
 
-    super.update(data, options);
+    super.update(newData, options);
   }
 
   async createEmbeddedDocuments(embeddedName, data = [], context = {}) {

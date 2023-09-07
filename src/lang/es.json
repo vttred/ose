@@ -18,7 +18,7 @@
   "OSE.dialog.itemType": "Tipo de elemento",
   "OSE.dialog.itemName": "Nombre del elemento",
   "OSE.dialog.xp.deal": "Repartir PX",
-  "OSE.dialog.xp.amount": "Cantidad",
+  "OSE.dialog.amount": "Cantidad",
   "OSE.dialog.xp.label": "PX",
   "OSE.dialog.generator": "Generador de personajes",
   "OSE.dialog.generateSaves": "Generar salvaciones",

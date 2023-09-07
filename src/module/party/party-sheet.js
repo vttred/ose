@@ -3,6 +3,7 @@
  */
 import OSE from "../config";
 import OseParty from "./party";
+import OsePartyGP from "./party-gp";
 import OsePartyXP from "./party-xp";
 
 const Party = {
@@ -149,15 +150,20 @@ export default class OsePartySheet extends FormApplication {
 
   /* -------------------------------------------- */
 
-  async _dealXP(ev) {
+  async #dealXP() {
     new OsePartyXP(this.object, {}).render(true);
+  }
+
+  async #dealGP() {
+    new OsePartyGP(this.object, {}).render(true);
   }
 
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
 
-    html.find(".header #deal-xp").click(this._dealXP.bind(this));
+    html.find(".header #deal-xp").click(this.#dealXP.bind(this));
+    html.find(".header #deal-gp").click(this.#dealGP.bind(this));
 
     // Actor buttons
     const getActor = (event) => {

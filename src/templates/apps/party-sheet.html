@@ -3,12 +3,20 @@
     <div id="empty"></div>
     {{#if user.isGM}}
     <button
+      id="deal-gp"
+      class="item-control"
+      type="button"
+      title="{{localize 'OSE.dialog.gp.deal'}}"
+    >
+      {{localize 'OSE.dialog.gp.deal'}}
+    </button>
+    <button
       id="deal-xp"
       class="item-control"
       type="button"
       title="{{localize 'OSE.dialog.xp.deal'}}"
     >
-      {{localize 'OSE.dialog.xp.label'}}
+      {{localize 'OSE.dialog.xp.deal'}}
     </button>
     {{/if}}
   </div>

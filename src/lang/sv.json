@@ -18,7 +18,7 @@
   "OSE.dialog.itemType": "Type av föremål",
   "OSE.dialog.itemName": "Föremålsnamn",
   "OSE.dialog.xp.deal": "Dela ut erfarenhetspoäng",
-  "OSE.dialog.xp.amount": "Mängd",
+  "OSE.dialog.amount": "Mängd",
   "OSE.dialog.xp.label": "Erfarenhetspoäng",
   "OSE.dialog.generator": "Karaktärskapare",
   "OSE.dialog.generateSaves": "Generera motståndsslag",

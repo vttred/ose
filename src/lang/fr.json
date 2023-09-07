@@ -19,7 +19,7 @@
   "OSE.dialog.itemType": "Type de l'Objet",
   "OSE.dialog.itemName": "Nom de l'Objet",
   "OSE.dialog.xp.deal": "Distribuer PX",
-  "OSE.dialog.xp.amount": "Quantité",
+  "OSE.dialog.amount": "Quantité",
   "OSE.dialog.xp.label": "PX",
   "OSE.dialog.generator": "Générateur de personnage",
   "OSE.dialog.generateSaves": "Générer les Sauvegardes",

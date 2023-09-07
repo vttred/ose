@@ -18,7 +18,7 @@
   "OSE.dialog.itemType": "Tipo do Item",
   "OSE.dialog.itemName": "Nome do Item",
   "OSE.dialog.xp.deal": "Distribuir XP",
-  "OSE.dialog.xp.amount": "Quantidade",
+  "OSE.dialog.amount": "Quantidade",
   "OSE.dialog.xp.label": "XP",
   "OSE.dialog.generator": "Gerar personagem",
   "OSE.dialog.generateSaves": "Gerar Jogadas de Proteção",

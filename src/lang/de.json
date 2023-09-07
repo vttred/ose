@@ -18,7 +18,7 @@
   "OSE.dialog.itemType": "Artikeltyp",
   "OSE.dialog.itemName": "Artikelname",
   "OSE.dialog.xp.deal": "EP verteilen",
-  "OSE.dialog.xp.amount": "Menge",
+  "OSE.dialog.amount": "Menge",
   "OSE.dialog.xp.label": "EP",
   "OSE.dialog.generator": "Charaktergenerator",
   "OSE.dialog.generateSaves": "Retten generieren",

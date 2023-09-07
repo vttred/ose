@@ -20,7 +20,7 @@
     "OSE.dialog.itemType": "物品类型",
     "OSE.dialog.itemName": "物品名称",
     "OSE.dialog.xp.deal": "发放 XP",
-    "OSE.dialog.xp.amount": "数量",
+    "OSE.dialog.amount": "数量",
     "OSE.dialog.xp.label": "XP",
     "OSE.dialog.generator": "角色生成器",
     "OSE.dialog.generateSaves": "生成豁免",

@@ -18,7 +18,7 @@
   "OSE.dialog.itemType": "Tipo Oggetto",
   "OSE.dialog.itemName": "Nome Oggetto",
   "OSE.dialog.xp.deal": "Distribuisci XP",
-  "OSE.dialog.xp.amount": "Ammontare",
+  "OSE.dialog.amount": "Ammontare",
   "OSE.dialog.xp.label": "XP",
   "OSE.dialog.generator": "Generatore Personaggio",
   "OSE.dialog.generateSaves": "Genera Tiri Salvezza",

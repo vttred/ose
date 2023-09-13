@@ -62,7 +62,7 @@ export default ({ describe, it, expect, after, before }: QuenchMethods) => {
       expect(actor?.system.encumbrance.max).not.undefined;
       expect(actor?.system.encumbrance.atHalfEncumbered).not.undefined;
       expect(actor?.system.encumbrance.atQuarterEncumbered).not.undefined;
-      expect(actor?.system.encumbrance.atEighthEncumbered).not.undefined;
+      expect(actor?.system.encumbrance.atThreeEighthsEncumbered).not.undefined;
       expect(actor?.system.encumbrance.color).not.undefined;
     });
 

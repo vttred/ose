@@ -73,6 +73,12 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
       encumbrance: new SchemaField({
         value: new NumberField({ integer: false }),
         max: new NumberField({ integer: false }),
+        pct: new NumberField({ integer: false }),
+        steps: new ObjectField(),
+        atHalfEncumbered: new BooleanField(),
+        atQuarterEncumbered: new BooleanField(),
+        atThreeEighthsEncumbered: new BooleanField(),
+        color: new StringField(),
       }),
       movement: new ObjectField(),
       config: new ObjectField(),

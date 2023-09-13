@@ -373,7 +373,7 @@
 <section>
   {{#with @root.system.encumbrance}}
   <div class="encumbrance {{#if encumbered}}encumbered{{/if}}">
-    <span class="encumbrance-bar" style="width:{{pct}}%"></span>
+    <span class="encumbrance-bar {{color}}" style="width:{{pct}}%"></span>
     <span class="encumbrance-label">{{value}} / {{max}}</span>
     {{#each steps as |s|}}
     <i class="encumbrance-breakpoint arrow-up" style="left:{{s}}%"></i>

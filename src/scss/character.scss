@@ -186,6 +186,19 @@
       height: 10px;
       border: 1px solid #777;
       border-radius: 2px;
+
+      &.unencumbered {
+        background: rgba(0, 255, 0, 0.6);
+      }
+      &.light {
+        background: rgba(255, 255, 0, 0.6);
+      }
+      &.medium {
+        background: rgba(255, 128, 0, 0.6);
+      }
+      &.heavy {
+        background: rgba(255, 0, 0, 0.6);
+      }
     }
 
     .encumbrance-label {

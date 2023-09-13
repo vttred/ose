@@ -63,6 +63,7 @@ export default ({ describe, it, expect, after, before }: QuenchMethods) => {
       expect(actor?.system.encumbrance.atHalfEncumbered).not.undefined;
       expect(actor?.system.encumbrance.atQuarterEncumbered).not.undefined;
       expect(actor?.system.encumbrance.atEighthEncumbered).not.undefined;
+      expect(actor?.system.encumbrance.color).not.undefined;
     });
 
     it("has movement", async () => {

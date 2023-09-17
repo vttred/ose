@@ -2,16 +2,16 @@
   "name": "ose-dev",
   "id": "ose-dev",
   "title": "Old-School Essentials Development Build",
-  "description": "Play B/X OSR modules with Old-School Essentials on Foundry VTT",
+  "description": "Simple, robust rules compatible with decades of Basic/Expert material",
   "version": "AUTOMATICALLY REPLACED BY GITHUB WORKFLOW ACTION",
   "minimumCoreVersion": "10",
-  "compatibleCoreVersion": "10",
+  "compatibleCoreVersion": "11",
   "compatibility": {
     "minimum": "10",
-    "verified": "10",
-    "maximum": 10
+    "verified": "11",
+    "maximum": "11"
   },
-  "author": "Maintained by VTT Red with 16 contributors",
+  "author": "Maintained by VTT Red with 18 contributors",
   "authors": [
     {
       "name": "VTT RED",
@@ -19,7 +19,7 @@
       "url": "https://vtt.red"
     },
     {
-      "name": "and 16 other contributors",
+      "name": "and 18 other contributors",
       "url": "https://github.com/vttred/ose#contributors-"
     }
   ],
@@ -67,7 +67,7 @@
       "path": "dist/lang/ca.json"
     },
     {
-      "lang": "zh-CN",
+      "lang": "cn",
       "name": "简体中文 (中国)",
       "path": "dist/lang/zh-CN.json"
     },
@@ -75,6 +75,11 @@
       "lang": "sv",
       "name": "Svenska (Sverige)",
       "path": "dist/lang/sv.json"
+    },
+    {
+      "lang": "pl",
+      "name": "Polski (Polska)",
+      "path": "dist/lang/pl.json"
     }
   ],
   "gridDistance": 5,
@@ -85,5 +90,27 @@
   "bugs": "https://github.com/vttred/ose/issues",
   "flags": {
     "allowBugReporter": true
+  },
+  "relationships": {
+    "recommends": [
+      {
+        "id": "ose-advancedfantasytome",
+        "type": "module",
+        "compatibility": {
+          "minimum": "0.1.0",
+          "verified": "1.0.99",
+          "maximum": "1.99.99"
+        }
+      },
+      {
+        "id": "classicfantasycompendium",
+        "type": "module",
+        "compatibility": {
+          "minimum": "1.0.0",
+          "verified": "1.0.99",
+          "maximum": "1.99.99"
+        }
+      }
+    ]
   }
 }

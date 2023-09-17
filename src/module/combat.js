@@ -76,8 +76,8 @@ const OseCombat = {
     const combatants = combat?.combatants;
     for (let i = 0; i < combatants.size; i++) {
       const c = combatants.contents[i];
-      // check if actor initiative has already been set for this round
-      if (c?.initiative) {
+      // check if actor initiative has already been set for round 1
+      if (c?.initiative && combat.round === 0) {
         continue;
       }
       // This comes from foundry.js, had to remove the update turns thing

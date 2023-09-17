@@ -186,6 +186,7 @@
   "OSE.Setting.applyDamageOptionHint": "El(los) token(s) a los que se le aplicará el daño de una tirada de ataque",
   "OSE.Setting.damageSelected": "Seleccionado",
   "OSE.Setting.damageTarget": "Objetivo",
+  "OSE.Setting.damageOriginalTarget": "Objetivo original",
   "OSE.Setting.InvertedCtrlBehavior": "Invertir tecla Ctrl/Meta al tirar",
   "OSE.Setting.InvertedCtrlBehaviorHint": "Invierte el funcionamiento de mantener pulsado Ctrl/Meta al hacer clic al realizar una tirada.",
   "OSE.items.Equip": "Equipar",
@@ -285,10 +286,13 @@
   "OSE.warn.moreThanOneItemWithName": "El actor {actorName} que controlas tiene más de un elemento que se llama {itemName}. Se elegirá el primer elemento encontrado.",
   "OSE.warn.macrosOnlyForOwnedItems": "Solo se pueden utilizar los Elementos en propiedad del Actor para crear macros.",
   "OSE.warn.macrosNoTokenOwnedInScene": "No se controla ningún token en la escena",
+  "OSE.warn.macrosNotAnItem": "No se ha podido crear la macro, no es un elemento.",
   "OSE.error.macrosOnlyForOwnedItems": "Solo puedes crear botones de macro con los objetos que poseas",
   "OSE.error.noItemWithName": "Tu actor controlado {actorName} no tiene el objeto llamado {itemName}.",
   "OSE.error.notEnoughGP": "Este actor no posee suficiente MO para pagar su inventario.",
   "OSE.error.itemNoLongerExistsOnActor": "El elemento {itemId} solicitado ya no existe en el actor {actorName}.",
   "OSE.error.noTokenControlled": "Debes controlar uno o más tokens para poder utilizar esta opción.",
-  "OSE.error.noGP": "Necesitas un objeto MO para poder utilizar esta función."
+  "OSE.error.noGP": "Necesitas un objeto MO para poder utilizar esta función.",
+  "OSE.error.unexpectedSettings": "configuración de {configName} para OSE incorrecto: {configValue}",
+  "OSE.error.cantDealDamageTo": "No se puede infligir daño a {nameOrId}"
 }

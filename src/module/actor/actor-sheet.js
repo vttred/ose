@@ -112,7 +112,9 @@ export default class OseActorSheet extends ActorSheet {
     if (item.type === "container" && item.system.itemIds) {
       const containedItems = item.system.itemIds;
       const updateData = containedItems.reduce((acc, val) => {
-        acc.push({ _id: val, "system.containerId": "" });
+        // Only create update data for items that still exist on the actor
+        if(this.actor.items.get(val))
+          acc.push({ _id: val, "system.containerId": "" });
         return acc;
       }, []);
 
@@ -276,6 +278,30 @@ export default class OseActorSheet extends ActorSheet {
     );
   }
 
+  // eslint-disable-next-line no-underscore-dangle
+  async _onDropFolder(event, data) {
+    const folder = await fromUuid(data.uuid);
+    if (!folder || folder.type !== "Item") return;
+
+    let itemArray = folder.contents || [];
+
+    folder.getSubfolders(true).forEach((subfolder) => {
+      itemArray.push(...subfolder.contents);
+    });
+
+    // Compendium items
+    if (itemArray.length > 0 && itemArray[0]?.uuid?.includes("Compendium")) {
+      const items = [];
+      itemArray.forEach(async (item) => {
+        items.push(await fromUuid(item.uuid));
+      });
+      itemArray = items;
+    }
+
+    this._onDropItemCreate(itemArray);
+  }
+
+  // eslint-disable-next-line no-underscore-dangle
   async _onDropItem(event, data) {
     const targetId = event.target.closest(".item")?.dataset?.itemId;
     const targetItem = this.actor.items.get(targetId);
@@ -399,10 +425,11 @@ export default class OseActorSheet extends ActorSheet {
     });
   }
 
+  // eslint-disable-next-line no-underscore-dangle
   _createItem(event) {
     event.preventDefault();
     const header = event.currentTarget;
-    const { treasure, type } = header.dataset;
+    const { treasure, type, lvl } = header.dataset;
     const createItem = (type, name) => ({
       name: name || `New ${type.capitalize()}`,
       type,
@@ -418,6 +445,8 @@ export default class OseActorSheet extends ActorSheet {
     } else {
       const itemData = createItem(type);
       if (treasure) itemData.system = { treasure: true };
+      // when creating a new spell on the character sheet, we need to set the level
+      if (type === "spell") itemData.system = lvl ? { lvl } : {lvl: 1};
       return this.actor.createEmbeddedDocuments("Item", [itemData], {});
     }
   }
@@ -439,6 +468,7 @@ export default class OseActorSheet extends ActorSheet {
   }
 
   // Override to set resizable initial size
+  // eslint-disable-next-line no-underscore-dangle
   async _renderInner(...args) {
     const html = await super._renderInner(...args);
     this.form = html[0];
@@ -455,7 +485,9 @@ export default class OseActorSheet extends ActorSheet {
     return html;
   }
 
+  // eslint-disable-next-line no-underscore-dangle
   async _onResize(event) {
+    // eslint-disable-next-line no-underscore-dangle
     super._onResize(event);
 
     const html = $(this.form);
@@ -481,6 +513,7 @@ export default class OseActorSheet extends ActorSheet {
     });
   }
 
+  // eslint-disable-next-line no-underscore-dangle
   _onConfigureActor(event) {
     event.preventDefault();
     new OseEntityTweaks(this.actor, {
@@ -556,6 +589,7 @@ export default class OseActorSheet extends ActorSheet {
 
     // Item Management
     html.find(".item-create").click((event) => {
+      // eslint-disable-next-line no-underscore-dangle
       this._createItem(event);
     });
 

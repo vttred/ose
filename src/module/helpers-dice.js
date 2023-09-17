@@ -157,7 +157,13 @@ const OseDice = {
 
         break;
       }
-      // No default
+
+      default : {
+        result.isSuccess = false;
+        result.isFailure = false;
+
+        break;
+      }
     }
     return result;
   },
@@ -204,7 +210,7 @@ const OseDice = {
 
     const targetAc = data.roll.target ? targetActorData.ac.value : 20;
     const targetAac = data.roll.target ? targetActorData.aac.value : -20;
-    result.victim = data.roll.target ? data.roll.target.name : null;
+    result.victim = data.roll.target || null;
 
     if (game.settings.get(game.system.id, "ascendingAC")) {
       const attackBonus = 19 - data.roll.thac0;

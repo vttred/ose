@@ -3,9 +3,18 @@ import OseItem from "../item/entity";
 import skipRollDialogCheck from "../helpers-behaviour";
 import OseDice from "../helpers-dice";
 
+/**
+ * Used in the rollAttack function to remove zeroes from rollParts arrays
+ *
+ * @param {[]} arr - an array
+ * @returns {[]} - an array
+ */
+const removeFalsyElements = (arr) =>
+  arr.reduce((a, b) => (b ? [...a, b] : a), []);
+
 export default class OseActor extends Actor {
   prepareDerivedData() {
-    this.system.prepareDerivedData?.();
+    if (game.version.startsWith("10")) this.system.prepareDerivedData?.();
   }
 
   static migrateData(source) {
@@ -16,25 +25,39 @@ export default class OseActor extends Actor {
     if (source?.prototypeToken?.texture?.img === "") {
       source.prototypeToken.texture.img = "icons/svg/mystery-man.svg";
     }
+    // Fixing missing movement.value by moving it to details.movement
+    if (source?.system?.movement?.value && !source?.system?.details.movement){
+      source.system.details.movement = source.system.movement.value;
+      delete source.system.movement.value;
+    }
+
     return source;
   }
 
-  static async update(data, options = {}) {
+  async update(data, options = {}) {
+    const newData = { ...data };
+    const {
+      "system.ac.value": acValue,
+      "system.aac.value": aacValue,
+      "system.thac0.bba": bbaValue,
+      "system.thac0.value": thac0Value,
+    } = newData;
+
     // Compute AAC from AC
-    if (data?.ac?.value) {
-      data.aac = { value: 19 - data.ac.value };
-    } else if (data?.aac?.value) {
-      data.ac = { value: 19 - data.aac.value };
+    if (acValue) {
+      newData["system.aac.value"] = 19 - acValue;
+    } else if (aacValue) {
+      newData["system.ac.value"] = 19 - aacValue;
     }
 
     // Compute Thac0 from BBA
-    if (data?.thac0?.value) {
-      data.thac0.bba = 19 - data.thac0.value;
-    } else if (data?.thac0?.bba) {
-      data.thac0.value = 19 - data.thac0.bba;
+    if (thac0Value) {
+      newData["system.thac0.bba"] = 19 - thac0Value;
+    } else if (bbaValue) {
+      newData["system.thac0.value"] = 19 - bbaValue;
     }
 
-    super.update(data, options);
+    super.update(newData, options);
   }
 
   async createEmbeddedDocuments(embeddedName, data = [], context = {}) {
@@ -404,7 +427,7 @@ export default class OseActor extends Actor {
     }
 
     // Add Str to damage
-    if (attData.roll.type === "melee") {
+    if (attData.roll.type === "melee" && data.scores.str.mod) {
       dmgParts.push(data.scores.str.mod);
     }
 
@@ -434,52 +457,69 @@ export default class OseActor extends Actor {
     }
   }
 
+  /**
+   * Constructs the attack roll formula for an attack
+   *
+   * @param {object} attData - the attack data
+   * @param {OseItem} attData.item - the item being used in the attack
+   * @param {OseActor} attData.actor - this actor (at least it should be!)
+   * @param {object} attData.roll - the attack roll data
+   * @param {string} attData.roll.save - the save roll that may be used against the attack
+   * @param {OseActor} attData.roll.target - the target of the attack
+   * @param {object} options - the type of attack and whether to skip the dialog
+   * @param {string} options.type - the type of attack, i.e. melee or missile
+   * @param {boolean} options.skipDialog - whether to skip the dialog
+   * @returns {OseDice.Roll} - the attack roll with completed rollParts and other data
+   */
   rollAttack(attData, options = {}) {
     const data = this.system;
 
-    const rollParts = ["1d20"];
-    const dmgParts = [];
-    let label = game.i18n.format("OSE.roll.attacks", {
-      name: this.name,
-    });
-    if (attData.item) {
-      label = game.i18n.format("OSE.roll.attacksWith", {
-        name: attData.item.name,
-      });
-      dmgParts.push(attData.item.system.damage);
-    } else {
-      dmgParts.push("1d6");
-    }
+    const label = attData.item
+      ? game.i18n.format("OSE.roll.attacksWith", {
+          name: attData.item.name,
+        })
+      : game.i18n.format("OSE.roll.attacks", {
+          name: this.name,
+        });
 
+    const dmgParts = removeFalsyElements([
+      // Weapon damage roll value
+      attData.item?.system?.damage ?? "1d6",
+    ]);
+    if (!this.system.config?.ignoreBonusDamage && attData.item?.system?.bonus)
+      // Weapon Damage Bonus
+      dmgParts.push(attData.item?.system?.bonus);
+
+    const rollParts = ["1d20"];
     const ascending = game.settings.get(game.system.id, "ascendingAC");
-    if (ascending) {
-      rollParts.push(data.thac0.bba.toString());
-    }
-    if (options.type === "missile") {
-      rollParts.push(
-        data.scores.dex.mod.toString(),
-        data.thac0.mod.missile.toString()
-      );
-    } else if (options.type === "melee") {
-      rollParts.push(
-        data.scores.str.mod.toString(),
-        data.thac0.mod.melee.toString()
-      );
-    }
-    if (attData.item && attData.item.system.bonus) {
-      rollParts.push(attData.item.system.bonus);
-    }
-    const thac0 = data.thac0.value;
-    if (options.type === "melee") {
-      dmgParts.push(data.scores.str.mod);
-    }
+
+    if (ascending && data.thac0.bba) rollParts.push(data.thac0.bba);
+
+    // for each type of attack, add the Tweaks bonus
+    // and str/dex modifier only if it's non-zero
+    let attackMods = [];
+
+    if (options.type === "melee")
+      attackMods = [data.scores.str.mod, data.thac0.mod.melee];
+
+    dmgParts.push(...removeFalsyElements(attackMods));
+
+    // Add missile mod to attack roll only (missile attacks don't get bonus damage)
+    if (options.type === "missile")
+      attackMods = [data.scores.dex.mod, data.thac0.mod.missile];
+
+    // Add weapon bonus to attack roll only (already added to dmgParts)
+    if (attData.item) attackMods.push(attData.item?.system?.bonus);
+
+    rollParts.push(...removeFalsyElements(attackMods));
+
     const rollData = {
       actor: this,
       item: attData.item,
       itemId: attData.item?._id,
       roll: {
         type: options.type,
-        thac0,
+        thac0: data.thac0.value,
         dmg: dmgParts,
         save: attData.roll.save,
         target: attData.roll.target,

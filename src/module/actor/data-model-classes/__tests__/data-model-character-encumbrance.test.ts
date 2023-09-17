@@ -368,9 +368,9 @@ export default ({ describe, it, expect }: QuenchMethods) => {
         ]);
         expect(enc.value).to.equal(max);
 
-      })
-      describe('As fully encumbered flag', () => {
-        it('Encumbered over full load (1600.1)', () => {
+      });
+      describe("As fully encumbered flag", () => {
+        it("Encumbered over full load (1600.1)", () => {
           let enc = new EncumbranceComplete(
             1600,
             [createMockItem('item', 1600.1, 1, { treasure: true })]
@@ -382,32 +382,22 @@ export default ({ describe, it, expect }: QuenchMethods) => {
           );
           expect(enc.encumbered).to.be.true;
         })
-        describe('Not encumbered', () => {
-          it('from a partial load', () => {
-            const enc = new EncumbranceComplete(
-              1600,
-              [createMockItem('item', 400, 1, { treasure: true })]
-            );
-            expect(enc.encumbered).to.be.false;
-          })
-        })
-      });
-      describe("As fully encumbered flag", () => {
-        it("Encumbered at full load", () => {
-          let enc = new EncumbranceComplete(1600, [
-            createMockItem("item", 1600, 1, { treasure: true }),
-          ]);
-          expect(enc.encumbered).to.be.true;
-          enc = new EncumbranceComplete(1600, [
-            createMockItem("item", 1600, 1, { treasure: false }),
-          ]);
-          expect(enc.encumbered).to.be.true;
-        });
         describe("Not encumbered", () => {
           it("from a partial load", () => {
             const enc = new EncumbranceComplete(1600, [
               createMockItem("item", 400, 1, { treasure: true }),
             ]);
+            expect(enc.encumbered).to.be.false;
+          });
+          it("from a full load", () => {
+            let enc = new EncumbranceComplete(1600, [
+              createMockItem("item", 1600, 1, { treasure: true }),
+            ]);
+            expect(enc.encumbered).to.be.false;
+            enc = new EncumbranceComplete(1600, [
+              createMockItem("item", 1600, 1, { treasure: false }),
+            ]);
+            console.info(enc);
             expect(enc.encumbered).to.be.false;
           });
         });

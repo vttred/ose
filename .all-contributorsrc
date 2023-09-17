@@ -20,7 +20,8 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/3462951?v=4",
       "profile": "https://github.com/freohr",
       "contributions": [
-        "code"
+        "code",
+        "review"
       ]
     },
     {
@@ -101,7 +102,8 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/1731267?v=4",
       "profile": "http://timsnyder.codes",
       "contributions": [
-        "code"
+        "code",
+        "review"
       ]
     },
     {
@@ -128,7 +130,8 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/105067023?v=4",
       "profile": "https://github.com/bakbakbakbakbak",
       "contributions": [
-        "code"
+        "code",
+        "review"
       ]
     },
     {
@@ -148,6 +151,33 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "justinthejaguar",
+      "name": "justinthejaguar",
+      "avatar_url": "https://avatars.githubusercontent.com/u/38022481?v=4",
+      "profile": "https://github.com/justinthejaguar",
+      "contributions": [
+        "question"
+      ]
+    },
+    {
+      "login": "carl-ellis",
+      "name": "Carl Ellis",
+      "avatar_url": "https://avatars.githubusercontent.com/u/288811?v=4",
+      "profile": "http://www.carlellis.co.uk",
+      "contributions": [
+        "review"
+      ]
+    },
+    {
+      "login": "Stew-rt",
+      "name": "Stewart Webb",
+      "avatar_url": "https://avatars.githubusercontent.com/u/40280034?v=4",
+      "profile": "https://github.com/Stew-rt",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
@@ -156,5 +186,6 @@
   "repoType": "github",
   "repoHost": "https://github.com",
   "skipCi": true,
-  "commitConvention": "angular"
+  "commitConvention": "angular",
+  "commitType": "docs"
 }

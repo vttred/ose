@@ -1,6 +1,7 @@
 /**
  * @file Functions that make working with hotbar macros easier
  */
+import {rollTreasure} from "./helpers-treasure";
 /* -------------------------------------------- */
 /*  Hotbar Macros                               */
 /* -------------------------------------------- */
@@ -16,6 +17,18 @@
 export async function createOseMacro(data, slot) {
   if (data.type === "Macro") {
     return game.user.assignHotbarMacro(await fromUuid(data.uuid), slot);
+  }
+  if (data.type === "RollTable") {
+    const command = `game.ose.rollTableMacro("${data.uuid}");`;
+    const table = await fromUuid(data.uuid);
+    const macro = await Macro.create({
+      name: table.name,
+      type: "script",
+      img: table.img,
+      command,
+      flags: { "ose.tableMacro": true },
+    });
+    return game.user.assignHotbarMacro(macro, slot);
   }
   if (data.type !== "Item")
     return ui.notifications.warn(
@@ -86,4 +99,27 @@ export function rollItemMacro(itemName) {
 
   // Trigger the item roll
   return item.roll();
+}
+
+/**
+ * Roll on a RollTable by uuid if it exists.
+ *
+ * @param {string} tableUuId - UuId of the RollTable
+ */
+export function rollTableMacro(tableUuId) {
+  fromUuid(tableUuId).then((table) => {
+    if (table === null) {
+      return ui.notifications.error(
+        game.i18n.format("OSE.error.noRollTableWithUuId", {
+          uuid: tableUuId,
+        })
+      );
+    }
+    //
+
+    if (table.getFlag(game.system.id, "treasure")) {
+      return rollTreasure(table);
+    }
+    return table.draw({ displayChat: true });
+  });
 }

@@ -11,6 +11,7 @@ export default class OseCharacterCreator extends FormApplication {
     options.id = "character-creator";
     options.template = `${OSE.systemPath()}/templates/actors/dialogs/character-creation.html`;
     options.width = 235;
+    options.submitOnClose = false;
     return options;
   }
 
@@ -81,7 +82,7 @@ export default class OseCharacterCreator extends FormApplication {
         .removeAttr("disabled");
     }
 
-    this.object.data.stats = {
+    this.object.stats = {
       sum,
       avg: Math.round((10 * sum) / n) / 10,
       std: Math.round(100 * std) / 100,
@@ -98,9 +99,7 @@ export default class OseCharacterCreator extends FormApplication {
         : game.i18n.localize(`OSE.scores.${score}.long`);
     const rollParts = ["3d6"];
     const data = {
-      roll: {
-        type: "result",
-      },
+      roll: {},
     };
     if (options.skipMessage) {
       return new Roll(rollParts[0]).evaluate({ async: false });
@@ -121,27 +120,6 @@ export default class OseCharacterCreator extends FormApplication {
         count: this.counters[score],
       }),
     });
-  }
-
-  async close(options) {
-    // Gather scores
-    const speaker = ChatMessage.getSpeaker({ actor: this });
-    const templateData = {
-      config: CONFIG.OSE,
-      scores: this.scores,
-      title: game.i18n.localize("OSE.dialog.generator"),
-      stats: this.object.data.stats,
-      gold: this.gold,
-    };
-    const content = await renderTemplate(
-      `${OSE.systemPath()}/templates/chat/roll-creation.html`,
-      templateData
-    );
-    ChatMessage.create({
-      content,
-      speaker,
-    });
-    return super.close(options);
   }
 
   /** @override */
@@ -193,6 +171,26 @@ export default class OseCharacterCreator extends FormApplication {
       preventClose,
       preventRender,
     });
+
+    // Gather scores
+    const speaker = ChatMessage.getSpeaker({ actor: this.object.actor });
+    const templateData = {
+      config: CONFIG.OSE,
+      scores: this.scores,
+      title: game.i18n.localize("OSE.dialog.generator"),
+      stats: this.object.stats,
+      gold: this.gold,
+    };
+    const content = await renderTemplate(
+      `${OSE.systemPath()}/templates/chat/roll-creation.html`,
+      templateData
+    );
+
+    await ChatMessage.create({
+      content,
+      speaker,
+    });
+
     // Generate gold
     const itemData = {
       name: game.i18n.localize("OSE.items.gp.short"),

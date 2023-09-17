@@ -33,7 +33,7 @@ export default class OseEntityTweaks extends FormApplication {
    * @returns {object} - The template data
    */
   getData() {
-    const data = foundry.utils.deepClone(this.object.data);
+    const data = foundry.utils.deepClone(this.object);
     if (data.type === "character") {
       data.isCharacter = true;
     }

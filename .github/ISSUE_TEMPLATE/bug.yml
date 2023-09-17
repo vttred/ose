@@ -54,10 +54,10 @@ body:
       label: Foundry VTT Core Version
       description: Which version of Foundry VTT is installed? Skip this if you provided Additional Support Details.
       options:
+        - V11
         - V10
         - V9
-        - 0.8.6-0.8.10
-        - Earlier than 0.8.6
+        - Earlier than V9
   - type: input
     id: system-version
     attributes:

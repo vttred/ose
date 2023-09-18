@@ -91,25 +91,21 @@ export default class OseDataModelCharacterEncumbrance
   get atHalfEncumbered() {
     return (
       this.value >
-      this.max *
-        (OseDataModelCharacterEncumbrance.encumbranceSteps.half / 100) +
-        (this.#delta || 0)
+      this.max * (OseDataModelCharacterEncumbrance.encumbranceSteps.half / 100)
     );
   }
   get atThreeEighthsEncumbered() {
     return (
       this.value >
       this.max *
-        (OseDataModelCharacterEncumbrance.encumbranceSteps.threeEighths / 100) +
-        (this.#delta || 0)
+        (OseDataModelCharacterEncumbrance.encumbranceSteps.threeEighths / 100)
     );
   }
   get atQuarterEncumbered() {
     return (
       this.value >
       this.max *
-        (OseDataModelCharacterEncumbrance.encumbranceSteps.quarter / 100) +
-        (this.#delta || 0)
+        (OseDataModelCharacterEncumbrance.encumbranceSteps.quarter / 100)
     );
   }
 

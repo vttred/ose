@@ -62,6 +62,7 @@
   "OSE.details.title": "Title",
   "SAW.details.gender": "Gender",
   "SAW.details.age": "Age",
+  "SAW.details.deity": "Deity",
   "OSE.details.alignment": "Alignment",
   "OSE.details.level": "Level",
   "OSE.details.experience.base": "Experience",

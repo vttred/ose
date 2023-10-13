@@ -43,9 +43,9 @@ jobs:
         with:
           files: "system.json"
         env:
-          name: ose
-          id: ose
-          title: "Old-School Essentials"
+          name: saw
+          id: saw
+          title: "Swords and Wizardry"
           version: ${{github.event.release.tag_name}}
           url: https://github.com/${{github.repository}}
           manifest: https://github.com/${{github.repository}}/releases/latest/download/system.json

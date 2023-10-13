@@ -27,7 +27,7 @@ const livereloadConfig = {
 
 export default defineConfig([
   {
-    input: "src/ose.js",
+    input: "src/saw.js",
     output: {
       dir: "dist/",
       format: "es",
@@ -47,7 +47,7 @@ export default defineConfig([
   },
   {
     // add a special scss entry point to allow for in place CSS update via livereload
-    input: "src/ose.scss.js",
+    input: "src/saw.scss.js",
     output: {
       dir: "dist/",
       format: "es",
@@ -55,7 +55,7 @@ export default defineConfig([
     },
     plugins: [
       scss({
-        output: "dist/ose.css",
+        output: "dist/saw.css",
         outputStyle: "compressed",
         sourceMap: true,
         watch: "src/",

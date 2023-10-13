@@ -29,6 +29,17 @@
     />
   </h1>
   <ul class="summary flexrow">
+    <li>
+      <input
+        type="text"
+        name="system.details.gender"
+        value="{{system.details.gender}}"
+        data-dtype="String"
+      />
+      <label>{{localize 'SAW.details.gender'}}</label>
+    </li>
+  </ul>
+  <ul class="summary flexrow">
     {{#if system.retainer.enabled}}
     <li>
       <input

@@ -1,3 +1,4 @@
+<!-- TODO: Heavy rework to S&W -->
 <p align="center">
   <a href="https://foundryvtt.com/packages/ose/">
     <img alt="Unofficial OSE on Foundry VTT logo" src="https://raw.githubusercontent.com/vttred/ose/main/docs/images/old-school-essentials-logo.webp" width="500" />

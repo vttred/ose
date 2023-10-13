@@ -60,6 +60,7 @@
   "OSE.details.name": "Name",
   "OSE.details.class": "Class",
   "OSE.details.title": "Title",
+  "SAW.details.gender": "Gender",
   "OSE.details.alignment": "Alignment",
   "OSE.details.level": "Level",
   "OSE.details.experience.base": "Experience",

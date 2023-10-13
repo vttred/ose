@@ -88,6 +88,7 @@
   "OSE.Loyalty": "Loyalty Rating",
   "OSE.LoyaltyShort": "LR",
 
+  "SAW.PrimaryScores": "Main Attributes",
   "OSE.scores.str.long": "Strength",
   "OSE.scores.str.short": "STR",
   "OSE.scores.wis.long": "Wisdom",

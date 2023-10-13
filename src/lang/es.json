@@ -80,6 +80,7 @@
   "OSE.RetainerUpkeep": "Mantenimiento",
   "OSE.Loyalty": "Índice de lealtad",
   "OSE.LoyaltyShort": "IL",
+  "SAW.PrimaryScores": "Atributos Principales",
   "OSE.scores.str.long": "Fuerza",
   "OSE.scores.str.short": "FUE",
   "OSE.scores.wis.long": "Sabiduría",

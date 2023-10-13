@@ -80,6 +80,7 @@
   "OSE.RetainerUpkeep": "Unterhalt",
   "OSE.Loyalty": "Moralwert",
   "OSE.LoyaltyShort": "MW",
+  "SAW.PrimaryScores": "Hauptattribute",
   "OSE.scores.str.long": "Stärke",
   "OSE.scores.str.short": "ST",
   "OSE.scores.wis.long": "Weisheit",

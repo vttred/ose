@@ -80,6 +80,7 @@
   "OSE.RetainerUpkeep": "Underhållskostnader",
   "OSE.Loyalty": "Lojalitetsnivå",
   "OSE.LoyaltyShort": "LN",
+  "SAW.PrimaryScores": "Huvudattribut",
   "OSE.scores.str.long": "Styrka",
   "OSE.scores.str.short": "STY",
   "OSE.scores.wis.long": "Vishet",

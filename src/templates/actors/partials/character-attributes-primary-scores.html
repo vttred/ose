@@ -1,0 +1,131 @@
+<ul class="attributes flexrow">
+  <li class="attribute flexrow">
+    <h4
+      class="attribute-name box-title"
+      title="({{localize 'SAW.PrimaryScores'}})"
+    >
+      <span>{{ localize "SAW.PrimaryScores" }}</span>
+    </h4>
+  </li>
+</ul>
+<ul class="attributes primary-score flexrow">
+  <li class="attribute flexrow">
+    <h4 class="attribute-name" title="({{localize 'OSE.scores.str.short'}})">
+      <span>{{ localize "OSE.scores.str.short" }}</span>
+    </h4>
+    <div class="attribute-value">
+      {{#if system.primaryScores.str}}
+      <input
+        class="primary-score-checkbox"
+        name="str"
+        type="checkbox"
+        checked
+      />
+      {{else}}
+      <input class="primary-score-checkbox" name="str" type="checkbox" />
+      {{/if}}
+    </div>
+  </li>
+  <li class="attribute flexrow">
+    <h4
+      class="attribute-name box-title"
+      title="({{localize 'OSE.scores.dex.short'}})"
+    >
+      <span>{{ localize "OSE.scores.dex.short" }}</span>
+    </h4>
+    <div class="attribute-value">
+      {{#if system.primaryScores.dex}}
+      <input
+        class="primary-score-checkbox"
+        name="dex"
+        type="checkbox"
+        checked
+      />
+      {{else}}
+      <input class="primary-score-checkbox" name="dex" type="checkbox" />
+      {{/if}}
+    </div>
+  </li>
+  <li class="attribute flexrow">
+    <h4
+      class="attribute-name box-title"
+      title="({{localize 'OSE.scores.con.short'}})"
+    >
+      <span>{{ localize "OSE.scores.con.short" }}</span>
+    </h4>
+    <div class="attribute-value">
+      {{#if system.primaryScores.con}}
+      <input
+        class="primary-score-checkbox"
+        name="con"
+        type="checkbox"
+        checked
+      />
+      {{else}}
+      <input class="primary-score-checkbox" name="con" type="checkbox" />
+      {{/if}}
+    </div>
+  </li>
+</ul>
+<ul class="attributes primary-score flexrow">
+  <li class="attribute flexrow">
+    <h4
+      class="attribute-name box-title"
+      title="({{localize 'OSE.scores.int.short'}})"
+    >
+      <span>{{ localize "OSE.scores.int.short" }}</span>
+    </h4>
+    <div class="attribute-value">
+      {{#if system.primaryScores.int}}
+      <input
+        class="primary-score-checkbox"
+        name="int"
+        type="checkbox"
+        checked
+      />
+      {{else}}
+      <input class="primary-score-checkbox" name="int" type="checkbox" />
+      {{/if}}
+    </div>
+  </li>
+  <li class="attribute flexrow">
+    <h4
+      class="attribute-name box-title"
+      title="({{localize 'OSE.scores.wis.short'}})"
+    >
+      <span>{{ localize "OSE.scores.wis.short" }}</span>
+    </h4>
+    <div class="attribute-value">
+      {{#if system.primaryScores.wis}}
+      <input
+        class="primary-score-checkbox"
+        name="wis"
+        type="checkbox"
+        checked
+      />
+      {{else}}
+      <input class="primary-score-checkbox" name="wis" type="checkbox" />
+      {{/if}}
+    </div>
+  </li>
+  <li class="attribute flexrow">
+    <h4
+      class="attribute-name box-title"
+      title="({{localize 'OSE.scores.cha.short'}})"
+    >
+      <span>{{ localize "OSE.scores.cha.short" }}</span>
+    </h4>
+    <div class="attribute-value">
+      {{#if system.primaryScores.cha}}
+      <input
+        class="primary-score-checkbox"
+        name="cha"
+        type="checkbox"
+        checked
+      />
+      {{else}}
+      <input class="primary-score-checkbox" name="cha" type="checkbox" />
+      {{/if}}
+    </div>
+  </li>
+</ul>

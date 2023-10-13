@@ -186,6 +186,17 @@ export default class OseActorSheetCharacter extends OseActorSheet {
   activateListeners(html) {
     super.activateListeners(html);
 
+    html.find(".primary-score-checkbox").click((ev) => {
+      const actorObject = this.actor;
+      const element = ev.currentTarget;
+      actorObject.system.primaryScores[element.name] = element.checked;
+      this.actor.update({
+        system: {
+          primaryScores: actorObject.system.primaryScores,
+        },
+      });
+    });
+
     html.find(".ability-score .attribute-name a").click((ev) => {
       const actorObject = this.actor;
       const element = ev.currentTarget;

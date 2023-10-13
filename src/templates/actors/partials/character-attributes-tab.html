@@ -1,4 +1,6 @@
+{{> (path "/templates/actors/partials/character-attributes-primary-scores.html") }}
 <section class="attributes-tab flexrow">
+    
     {{!-- Scores --}}
     <div class="attribute-group">
         <ul class="attributes">
@@ -8,24 +10,6 @@
                 </h4>
                 <div class="attribute-value">
                     <input name="system.scores.str.value" type="text" value="{{system.scores.str.value}}" placeholder="0"
-                        data-dtype="Number" />
-                </div>
-            </li>
-            <li class="attribute ability-score" data-score="int">
-                <h4 class="attribute-name box-title" title="{{ localize 'OSE.scores.int.long' }}">
-                    <a>{{ localize "OSE.scores.int.short" }}</a>
-                </h4>
-                <div class="attribute-value">
-                    <input name="system.scores.int.value" type="text" value="{{system.scores.int.value}}" placeholder="0"
-                        data-dtype="Number" />
-                </div>
-            </li>
-            <li class="attribute ability-score" data-score="wis">
-                <h4 class="attribute-name box-title" title="{{ localize 'OSE.scores.wis.long' }}">
-                    <a>{{ localize "OSE.scores.wis.short" }}</a>
-                </h4>
-                <div class="attribute-value">
-                    <input name="system.scores.wis.value" type="text" value="{{system.scores.wis.value}}" placeholder="0"
                         data-dtype="Number" />
                 </div>
             </li>
@@ -44,6 +28,24 @@
                 </h4>
                 <div class="attribute-value">
                     <input name="system.scores.con.value" type="text" value="{{system.scores.con.value}}" placeholder="0"
+                        data-dtype="Number" />
+                </div>
+            </li>
+            <li class="attribute ability-score" data-score="int">
+                <h4 class="attribute-name box-title" title="{{ localize 'OSE.scores.int.long' }}">
+                    <a>{{ localize "OSE.scores.int.short" }}</a>
+                </h4>
+                <div class="attribute-value">
+                    <input name="system.scores.int.value" type="text" value="{{system.scores.int.value}}" placeholder="0"
+                        data-dtype="Number" />
+                </div>
+            </li>
+            <li class="attribute ability-score" data-score="wis">
+                <h4 class="attribute-name box-title" title="{{ localize 'OSE.scores.wis.long' }}">
+                    <a>{{ localize "OSE.scores.wis.short" }}</a>
+                </h4>
+                <div class="attribute-value">
+                    <input name="system.scores.wis.value" type="text" value="{{system.scores.wis.value}}" placeholder="0"
                         data-dtype="Number" />
                 </div>
             </li>

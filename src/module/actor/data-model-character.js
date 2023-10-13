@@ -3,6 +3,7 @@
  */
 import OseDataModelCharacterAC from "./data-model-classes/data-model-character-ac";
 import OseDataModelCharacterMove from "./data-model-classes/data-model-character-move";
+import SaWPrimaryScores from "./data-model-classes/data-model-character-primary-scores";
 import OseDataModelCharacterScores from "./data-model-classes/data-model-character-scores";
 import OseDataModelCharacterSpells from "./data-model-classes/data-model-character-spells";
 
@@ -14,6 +15,7 @@ const getItemsOfActorOfType = (actor, filterType, filterFn = null) =>
 export default class OseDataModelCharacter extends foundry.abstract.DataModel {
   prepareDerivedData() {
     this.scores = new OseDataModelCharacterScores(this.scores);
+    this.primaryScores = new SaWPrimaryScores(this.primaryScores);
 
     // eslint-disable-next-line new-cap
     this.encumbrance = new CONFIG.OSE.encumbrance(
@@ -67,6 +69,14 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
     return {
       spells: new ObjectField(),
       scores: new ObjectField(),
+      primaryScores: new SchemaField({
+        str: new BooleanField(),
+        dex: new BooleanField(),
+        con: new BooleanField(),
+        int: new BooleanField(),
+        wis: new BooleanField(),
+        cha: new BooleanField(),
+      }),
       details: new ObjectField(),
       ac: new ObjectField(),
       aac: new ObjectField(),

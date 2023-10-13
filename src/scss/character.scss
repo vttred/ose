@@ -169,6 +169,17 @@
         }
       }
     }
+    .primary-score {
+      .attribute {
+        margin: 4px;
+        .attribute-name {
+          text-align: center;
+          flex: 1 0 60px;
+          line-height: 25px;
+          font-size: 12px;
+        }
+      }
+    }
   }
 
   /* Encumbrance Bar */

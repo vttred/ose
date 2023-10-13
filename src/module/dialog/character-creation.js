@@ -52,6 +52,14 @@ export default class OseCharacterCreator extends FormApplication {
       std: 0,
     };
     this.scores = {};
+    this.primaryScores = {
+      str: false,
+      dex: false,
+      con: false,
+      int: false,
+      wis: false,
+      cha: false,
+    };
     this.gold = 0;
     return data;
   }

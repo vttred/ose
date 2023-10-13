@@ -178,6 +178,27 @@ export default class OseActorSheetCharacter extends OseActorSheet {
     document.querySelector(".game").append(dlg);
   }
 
+  updatedXpBonus() {
+    const primaryScoreXpBonusThreshold = 13;
+    let updatedXpBonus = 0;
+    Object.keys(this.actor.system.primaryScores).forEach((key) => {
+      if (
+        this.actor.system.primaryScores[key] === true &&
+        this.actor.system.scores[key].value >= primaryScoreXpBonusThreshold
+      )
+        updatedXpBonus += 5;
+    });
+    this.actor.update({
+      system: {
+        details: {
+          xp: {
+            bonus: updatedXpBonus,
+          },
+        },
+      },
+    });
+  }
+
   /**
    * Activate event listeners using the prepared sheet HTML
    *
@@ -190,11 +211,19 @@ export default class OseActorSheetCharacter extends OseActorSheet {
       const actorObject = this.actor;
       const element = ev.currentTarget;
       actorObject.system.primaryScores[element.name] = element.checked;
+      this.updatedXpBonus();
       this.actor.update({
         system: {
           primaryScores: actorObject.system.primaryScores,
         },
       });
+    });
+
+    html.find("input[name*='system.scores']").change(() => {
+      // give the input field some time to update the ability scores
+      setTimeout(() => {
+        this.updatedXpBonus();
+      }, 500);
     });
 
     html.find(".ability-score .attribute-name a").click((ev) => {

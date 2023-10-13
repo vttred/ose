@@ -1,8 +1,8 @@
 {
-  "name": "ose-dev",
-  "id": "ose-dev",
-  "title": "Old-School Essentials Development Build",
-  "description": "Simple, robust rules compatible with decades of Basic/Expert material",
+  "name": "swords-and-wizardry-dev",
+  "id": "swords-and-wizardry-dev",
+  "title": "Swords and Wizardry Development Build",
+  "description": "Simple, robust rules compatible with decades of old school DnD",
   "version": "AUTOMATICALLY REPLACED BY GITHUB WORKFLOW ACTION",
   "minimumCoreVersion": "10",
   "compatibleCoreVersion": "11",
@@ -11,24 +11,16 @@
     "verified": "11",
     "maximum": "11"
   },
-  "author": "Maintained by VTT Red with 18 contributors",
+  "author": "Maintained by René Kremer",
   "authors": [
     {
-      "name": "VTT RED",
-      "email": "ose-system@vtt.red",
-      "url": "https://vtt.red"
-    },
-    {
-      "name": "and 18 other contributors",
-      "url": "https://github.com/vttred/ose#contributors-"
+      "name": "René Kremer",
+      "email": "renejon90@googlemail.com",
+      "url": "https://pen-paper-dice.de"
     }
   ],
-  "esmodules": [
-    "dist/ose.js"
-  ],
-  "styles": [
-    "dist/ose.css"
-  ],
+  "esmodules": ["dist/saw.js"],
+  "styles": ["dist/saw.css"],
   "packs": [],
   "languages": [
     {
@@ -87,7 +79,7 @@
   "url": "AUTOMATICALLY REPLACED BY GITHUB WORKFLOW ACTION",
   "manifest": "AUTOMATICALLY REPLACED BY GITHUB WORKFLOW ACTION",
   "download": "AUTOMATICALLY REPLACED BY GITHUB WORKFLOW ACTION",
-  "bugs": "https://github.com/vttred/ose/issues",
+  "bugs": "https://github.com/hadesrofl/swords-and-wizardry-foundry/issues",
   "flags": {
     "allowBugReporter": true
   },

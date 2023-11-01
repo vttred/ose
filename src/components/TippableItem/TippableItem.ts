@@ -1,14 +1,16 @@
 /**
  * @file A custom element that represents item that can be clicked or summon a tooltip
  */
-import BaseElement from "./_BaseElement";
+import BaseElement from "../_BaseElement";
 // @ts-expect-error
 import styles from './TippableItem.css' assert { type: "css" };
-import OseItem from "../../item/entity";
+import OseItem from "../../module/item/entity";
+import { component } from "../decorators";
 
+@component('uft-tippable-item')
 export default class TippableItem extends BaseElement {
   static get styles() {
-    return styles;
+    return [styles];
   }
 
   static get contextMenu() {
@@ -62,28 +64,26 @@ export default class TippableItem extends BaseElement {
 
   contextMenu?: unknown;
 
-  #shadowRoot: ShadowRoot;
-
-  constructor() {
-    super();
-    this.#shadowRoot = this.attachShadow({ mode: "open" });
-    this.setAttribute("draggable", "true");
-  }
-
-  async connectedCallback() {
-    super.connectedCallback();
-
+  protected async prepareData(): Promise<void> {
     // @todo return "borked" state if we can't get the item?
     if (this.getAttribute("uuid"))
       this.item = (await fromUuid(this.getAttribute("uuid") as string)) as OseItem;
 
     this.setAttribute("title", this.item?.name || '');
     this.setAttribute("tabindex", "0");
+  }
 
-    await this.#render();
-    this.#shadowRoot.adoptedStyleSheets = [TippableItem.styles];
+  protected events(): void {
+    this.setAttribute("draggable", "true");
+    
     this.addEventListener("pointerdown", this.#onRoll.bind(this));
     this.addEventListener("keydown", this.#onRoll.bind(this));
+
+    this.contextMenu = new ContextMenu(
+      $(this),
+      this.localName,
+      TippableItem.contextMenu
+    )
   }
 
   #onRoll(e: KeyboardEvent | PointerEvent) {
@@ -94,43 +94,25 @@ export default class TippableItem extends BaseElement {
       return;
     // Bail if the user doesn't left click to activate
     // (so we can use right click for a context menu)
-    if (e instanceof PointerEvent && e.button !== 1) return;
+    if (e instanceof PointerEvent && e.button === 2) return;
 
     this.item.roll();
   }
 
-  get #template() {
-    const template: HTMLTemplateElement = document.createElement("template");
-
-    template.innerHTML = `
+  get template() {
+    return /*html*/ `
       <img class="icon" src="${this.item?.img || ""}" alt="${this.item?.name || ""}" />
       <span class="item-name">${this.item?.name || ""}</span>
       <slot></slot>
     `;
-
-    return template;
   }
 
   get uuid() {
     return this.getAttribute("uuid");
   }
 
-  async #render() {
-    this.#shadowRoot.append(document.importNode(this.#template.content, true))
-    this.contextMenu = new ContextMenu(
-      $(this),
-      this.localName,
-      TippableItem.contextMenu
-    )
-  }
-
   onInput(e: Event) {
-    // const oldValue = parseInt(this.getAttribute("value") || "", 10);
-    const newValue = (e.target as HTMLInputElement).value || "";
-
-    // if (newValue < 0) newValue = 0;
-    super.setValue(newValue);
+    this.value = (e.target as HTMLInputElement).value || "";
   }
 }
 
-customElements.define("tippable-item", TippableItem);

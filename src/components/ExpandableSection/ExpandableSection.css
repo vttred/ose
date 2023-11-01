@@ -72,27 +72,11 @@ button:focus-visible {
 button.expand {
   align-self: unset;
   height: 22px;
-}
-button.expand::after {
-  display: inline-block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  content: "▶";
-
-  transform: rotate(0);
-  transform-origin: 40% 50%;
+  transform: rotate(-90deg);
   transition: transform 333ms ease-in-out,
               color 333ms ease-in-out;
 }
 
-button.add::after {
-  display: inline-block;
-  content: "+";
-  font-weight: bold;
-  font-size: 24px;
-}
-
-:host([aria-expanded]) button.expand:after {
-  transform: rotate(90deg);
+:host([aria-expanded]) button.expand {
+  transform: rotate(0deg);
 }

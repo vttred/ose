@@ -3,6 +3,12 @@
 :host {
   display: flex;
   flex-direction: column;
+  cursor: grab;
+  transition: 333ms opacity ease-in-out;
+}
+:host(:active) {
+  cursor: grabbing;
+  opacity: .5;
 }
 .row {
   display: grid;

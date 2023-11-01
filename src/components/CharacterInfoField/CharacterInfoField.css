@@ -31,6 +31,12 @@ input {
   line-height: 1em;
   flex: 1;
   color: var(--color-primary);
+  background-color: var(--color-field-editable);
+}
+
+:host([readonly]) input,
+:host([disabled]) input {
+  background-color: var(--color-field-uneditable);
 }
 
 input:focus {
@@ -47,7 +53,6 @@ input:focus {
     margin-right: var(--spacing-half);
   }
   input {
-    background-color: var(--color-ui-38);
     border-radius: var(--spacing-quarter);
   }
 }

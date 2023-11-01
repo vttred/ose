@@ -1,16 +1,28 @@
+import path from 'path'
 import { defineConfig } from "rollup";
+
+// shared rollup plugins
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import typescript from "@rollup/plugin-typescript";
 import terser from "@rollup/plugin-terser";
 import scss from "rollup-plugin-scss";
-import css from "rollup-plugin-import-css";
-import { copy } from "@web/rollup-plugin-copy";
+import postcss from "rollup-plugin-postcss-modules";
 import livereload from "rollup-plugin-livereload";
+
+// system rollup plugins
+import { copy } from "@web/rollup-plugin-copy";
 import eslint from "@rollup/plugin-eslint";
 import InlineSvg from 'rollup-plugin-inline-svg';
 import alias from '@rollup/plugin-alias';
 
-const staticFileFolders = ["lang", "packs", "templates"];
+// component module rollup plugins
+import cssImports from "rollup-plugin-import-css";
+
+import pAutoprefixer from "autoprefixer";
+import pNesting from "postcss-nesting";
+import postcssImport from 'postcss-import';
+
+const staticFileFolders = ["lang", "packs"];
 
 /**
  * Rollup injects an environment variable if watch mode is used.
@@ -43,13 +55,39 @@ export default defineConfig([
       }),
       typescript(),
       !isWatchMode && eslint(),
-      InlineSvg(),
-      css(),
       !isWatchMode && terser(),
+      InlineSvg(),
       copy({
-        patterns: staticFileFolders.map((folderName) => `${folderName}/**/*`),
+        patterns: [
+          ...staticFileFolders.map((folderName) => `${folderName}/**/*`),
+          "templates/**/*.hbs"
+        ],
         rootDir: "./src/",
       }),
+      // CSS modules are used for sheets and other styling 
+      postcss({
+        extract: path.resolve('dist/modules.css'),
+        plugins: [postcssImport(), pAutoprefixer(), pNesting()]
+      }),
+      isWatchMode && livereload(livereloadConfig),
+    ],
+  },
+  {
+    input: "src/components/components.ts",
+    output: {
+      file: 'dist/components.js',
+      format: "es",
+      sourcemap: true,
+    },
+    plugins: [
+      nodeResolve(),
+      typescript(),
+      // @todo - This breaks our builds because eslint 
+      //         looks for an importAssertions plugin
+      //         that doesn't exist.
+      // !isWatchMode && eslint(),
+      cssImports(),
+      !isWatchMode && terser(),
       isWatchMode && livereload(livereloadConfig),
     ],
   },

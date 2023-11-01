@@ -29,18 +29,7 @@ import templates from "./module/preloadTemplates";
 import * as renderList from "./module/renderList";
 import registerSettings from "./module/settings";
 import * as treasure from "./module/helpers-treasure";
-// Custom Elements
-import "./module/actor/custom-elements/AbilityScoreField";
-import "./module/actor/custom-elements/CharacterAbilityField";
-import "./module/actor/custom-elements/CharacterInfoField";
-import "./module/actor/custom-elements/CharacterInfoMeter";
-import "./module/actor/custom-elements/ItemRow";
-import "./module/actor/custom-elements/ExpandableSection";
-import "./module/actor/custom-elements/LabeledSection";
-import "./module/actor/custom-elements/MajorIconField";
-import "./module/actor/custom-elements/TippableItem";
-import "./module/actor/custom-elements/TagChip";
-import "./module/actor/custom-elements/SpellSlotField";
+
 // Testing
 import "./e2e";
 

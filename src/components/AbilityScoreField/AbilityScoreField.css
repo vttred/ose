@@ -26,15 +26,20 @@ input:focus {
   border-left: 1px solid var(--background-color-heading);
   color: var(--color-secondary);
 }
-labeled-section {
+uft-labeled-section {
   --content-padding: 4px;
 }
 
-@media(prefers-color-scheme: dark) {
-  labeled-section::part(content) {
-    background-color: var(--color-ui-38);
-  }
-  :host([readonly]) labeled-section::part(content) {
-    background-color: var(--color-ui-09);
-  }
+uft-labeled-section::part(content) {
+  background-color: var(--color-field-editable);
+}
+
+:host([readonly]) uft-labeled-section::part(content),
+:host([disabled]) uft-labeled-section::part(content) {
+  background-color: var(--color-field-uneditable);
+  cursor: default;
+}
+
+:host([readonly], [default]) {
+  color: #f00;
 }

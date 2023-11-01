@@ -1,49 +1,26 @@
 /**
  * @file A custom element that represents an Ability Score and its modifier
  */
-import BaseElement from "./_BaseElement";
+import BaseElement from "../_BaseElement";
 // @ts-expect-error
 import styles from './AbilityScoreField.css' assert { type: "css" };
+import { component } from "../decorators";
 
+@component('uft-ability-score-field')
 export default class AbilityScoreField extends BaseElement {
-  static get observedAttributes() {
-    return ["value", "modifier-value"];
+  static get styles(): CSSStyleSheet[] {
+    return [styles];
   }
 
-  static get styles() {
-    return styles;
-  }
-  
-  static formAssociated = true;
-
-  value: string = "";
-
-  name: string = "";
-
-  modifierValue?: number;
-
-  #internals: ElementInternals;
-
-  #shadowRoot: ShadowRoot;
-
-  constructor() {
-    super();
-    this.#internals = this.attachInternals();
-    this.#shadowRoot = this.attachShadow({ mode: "open" });
-  }
-
-  connectedCallback() {
-    super.connectedCallback();
-    this.#render();
-    this.#shadowRoot.adoptedStyleSheets = [AbilityScoreField.styles];
-    this.#shadowRoot
+  protected events(): void {
+    this.shadowRoot
       .querySelector(".score-field")
       ?.addEventListener("change", (e) => {
         this.onInput(e);
       });
 
     if (!this.hasAttribute("readonly") && !this.hasAttribute("disabled"))
-      this.#shadowRoot
+      this.shadowRoot
         .querySelector("label")
         ?.addEventListener("click", (e) => {
           const evt = new Event("roll") as Event & {metaKey: boolean, ctrlKey: boolean};
@@ -53,10 +30,19 @@ export default class AbilityScoreField extends BaseElement {
         })
   }
 
-  get #template() {
-    const template: HTMLTemplateElement = document.createElement("template");
-    template.innerHTML = `
-    <labeled-section>
+  get template() {
+    const modifierInput = /*html*/ `
+      <input 
+        type="text" 
+        value="${this.getAttribute('modifier-value')?.toString() || ''}" 
+        class="field modifier-field"
+        readonly 
+        tabindex="-1"
+      />
+    `;
+
+    return /* html */ `
+    <uft-labeled-section>
       <label for="${this.id}" slot="heading">
         <slot></slot>
       </label>
@@ -70,22 +56,9 @@ export default class AbilityScoreField extends BaseElement {
           ${this.hasAttribute('readonly') ? 'readonly' : ''} 
           ${this.hasAttribute('disabled') ? 'disabled' : ''}
         />
-        ${this.getAttribute('modifier-value') ? `
-          <input 
-            type="text" 
-            value="${this.getAttribute('modifier-value')?.toString() || ''}" 
-            class="field modifier-field"
-            readonly 
-            tabindex="-1"
-          />
-        ` : ''}
+        ${this.getAttribute('modifier-value') ? modifierInput : ''}
       </div>
     </labeled-section>`;
-    return template;
-  }
-
-  #render() {
-    this.#shadowRoot.append(document.importNode(this.#template.content, true));
   }
 
   onInput(e: Event) {
@@ -95,8 +68,6 @@ export default class AbilityScoreField extends BaseElement {
     if (newValue < 0) newValue = 0;
     if (Number.isNaN(newValue)) newValue = oldValue;
 
-    super.setValue(newValue.toString());
+    super.value = newValue.toString();
   }
 }
-
-customElements.define("ability-score-field", AbilityScoreField);

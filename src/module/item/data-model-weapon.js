@@ -118,6 +118,6 @@ export default class OseDataModelWeapon extends foundry.abstract.DataModel {
 
   get favorited() {
     if (!this.parent?.parent) return false;
-    return this.parent.parent.getFlag(game.system.id, "favorite-items").includes(this.parent.uuid);
+    return this.parent.parent.getFlag(game.system.id, "favorite-items")?.includes(this.parent.uuid);
   }
 }

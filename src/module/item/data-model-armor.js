@@ -46,6 +46,10 @@ export default class OseDataModelArmor extends foundry.abstract.DataModel {
     };
   }
 
+  get acValue() {
+    return game.settings.get(game.system.id, "ascendingAC") ? this.aac.value : this.ac.value;
+  }
+
   get manualTags() {
     if (!this.tags) return null;
 

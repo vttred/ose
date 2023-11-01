@@ -1,33 +1,33 @@
 <div class="ability-fields ability-fields--exploration-skills">
-  <character-ability-field name="system.exploration.ld" value="{{actor.system.exploration.ld}}">
+  <uft-character-ability-field name="system.exploration.ld" value="{{actor.system.exploration.ld}}">
     <img src="{{asset '/Melee.svg'}}" slot="icon" />
     {{localize "OSE.exploration.ld.short"}}
-  </character-ability-field>
+  </uft-character-ability-field>
 
-  <character-ability-field name="system.exploration.od" value="{{actor.system.exploration.od}}">
+  <uft-character-ability-field name="system.exploration.od" value="{{actor.system.exploration.od}}">
     <img src="{{asset '/Melee.svg'}}" slot="icon" />
     {{localize "OSE.exploration.od.short"}}
-  </character-ability-field>
+  </uft-character-ability-field>
 
-  <character-ability-field name="system.exploration.sd" value="{{actor.system.exploration.sd}}">
+  <uft-character-ability-field name="system.exploration.sd" value="{{actor.system.exploration.sd}}">
     <img src="{{asset '/Melee.svg'}}" slot="icon" />
     {{localize "OSE.exploration.sd.short"}}
-  </character-ability-field>
+  </uft-character-ability-field>
 
-  <character-ability-field name="system.exploration.ft" value="{{actor.system.exploration.ft}}">
+  <uft-character-ability-field name="system.exploration.ft" value="{{actor.system.exploration.ft}}">
     <img src="{{asset '/Melee.svg'}}" slot="icon" />
     {{localize "OSE.exploration.ft.short"}}
-  </character-ability-field>
+  </uft-character-ability-field>
 </div>
 
-<expandable-section type="ability" can-create aria-expanded>
+<uft-expandable-section type="ability" can-create aria-expanded>
   <h2 slot="heading">{{localize "OSE.category.abilities"}}</h2>
 {{#each actor.system.abilities}}
-  <item-row class="item" slot="content" uuid="{{this.uuid}}" can-favorite>
+  <uft-item-row class="item" slot="content" uuid="{{this.uuid}}" can-favorite>
     {{{this.system.enrichedDescription}}}
     {{#each this.system.autoTags}}
-      <tag-chip slot="title-content"><i class="fa {{icon}}"></i>{{localize label}}</tag-chip>
+      <uft-tag-chip slot="title-content"><i class="fa {{icon}}"></i>{{localize label}}</uft-tag-chip>
     {{/each}}
-  </item-row>
+  </uft-item-row>
 {{/each}}
-</expandable-section>
+</uft-expandable-section>

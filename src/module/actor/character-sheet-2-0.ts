@@ -3,8 +3,8 @@
  */
 import { OSE } from "../config";
 import OseItem from "../item/entity";
-import MajorIconField from './custom-elements/MajorIconField';
-import TippableItem from "./custom-elements/TippableItem";
+import MajorIconField from '../../components/MajorIconField/MajorIconField';
+import TippableItem from "../../components/TippableItem/TippableItem";
 import skipRollDialogCheck from "../helpers-behaviour";
 import OseActor from "./entity";
 
@@ -12,6 +12,9 @@ import OseCharacterCreator from "../dialog/character-creation";
 import OseCharacterGpCost from "../dialog/character-gp-cost";
 import OseCharacterModifiers from "../dialog/character-modifiers";
 import OseEntityTweaks from "../dialog/entity-tweaks";
+
+// @ts-expect-error - TS linter doesn't understand importing a CSS file
+import styles from '../../css/sheet-actor-v2.module.css';
 
 /**
  * The character sheet that will accompany v2.0 of the system.
@@ -50,11 +53,11 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
    */
   static get InputFields () {
     return [
-      "ability-score-field", 
-      "character-info-field", 
-      "character-ability-field", 
-      "major-icon-field", 
-      "spell-slot-field"
+      "uft-ability-score-field", 
+      "uft-character-info-field", 
+      "uft-character-ability-field", 
+      "uft-major-icon-field", 
+      "uft-spell-slot-field"
     ].join(",");
   }
   /**
@@ -73,45 +76,45 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
         {
           navSelector: ".sheet-tabs",
           contentSelector: ".sheet-body",
-          initial: "attributes",
+          initial: "inventory",
         },
       ],
       dragDrop: [
         {
-          dragSelector: 'expandable-section:not([type="container"]) item-row',
-          dropSelector: 'expandable-section:not([type="container"]) item-row',
+          dragSelector: 'uft-expandable-section:not([type="container"]) uft-item-row',
+          dropSelector: 'uft-expandable-section:not([type="container"]) uft-item-row',
           callbacks: {
             dragstart: 'onDragUncontainedItem',
             drop: 'onDropSort'
           }
         },
         {
-          dragSelector: 'expandable-section[type="container"] tippable-item',
-          dropSelector: 'expandable-section[type="container"] tippable-item',
+          dragSelector: 'uft-expandable-section[type="container"] uft-tippable-item',
+          dropSelector: 'uft-expandable-section[type="container"] uft-tippable-item',
           callbacks: {
             dragstart: 'onDragContainedItem',
             drop: 'onDropSort'
           }
         },
         {
-          dragSelector: 'expandable-section:not([type="container"]) item-row',
-          dropSelector: 'expandable-section[type="container"] item-row',
+          dragSelector: 'uft-expandable-section:not([type="container"]) uft-item-row',
+          dropSelector: 'uft-expandable-section[type="container"] :is(uft-item-row, uft-item-row > *)',
           callbacks: {
             dragstart: 'onDragUncontainedItem',
             drop: 'onDropIntoContainer'
           }
         }, 
         {
-          dragSelector: 'item-row tippable-item',
-          dropSelector: 'expandable-section:not([type="container"])',
+          dragSelector: 'uft-item-row uft-tippable-item',
+          dropSelector: 'uft-expandable-section:not([type="container"])',
           callbacks: {
             dragstart: 'onDragContainedItem',
             drop: 'onDropOutsideContainer'
           }
         },
         {
-          dragSelector: 'item-row tippable-item',
-          dropSelector: 'expandable-section[type="container"]',
+          dragSelector: 'uft-item-row tippable-item',
+          dropSelector: 'uft-expandable-section[type="container"]',
           callbacks: {
             dragstart: 'onDragContainedItem',
             drop: 'onDropIntoContainer'
@@ -175,6 +178,7 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
 
     return {
       ...super.getData(),
+      styles,
       favoriteItems,
       favoriteAbilities,
       enrichedBiography,
@@ -254,6 +258,12 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
     });
   }
 
+  async _onDragStart(e: DragEvent) {
+    super._onDragStart(e);
+
+    console.info('dragging!')
+  }
+
   /**
    * 
    * @param e 
@@ -277,6 +287,7 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
    * @returns 
    */
   async #setInventoryItemDragData(e: DragEvent, fromContainer: boolean = false) {
+    console.info('dragging')
     e.stopPropagation();
     const uuid = (e.target as TippableItem).uuid;
     if (!uuid) return;
@@ -322,7 +333,7 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
       itemToMove,
       itemToDisplace,
       (e.target as HTMLElement)
-        ?.closest(isSortingInContainer ? "item-row" : "expandable-section[type]")
+        ?.closest(isSortingInContainer ? "uft-item-row" : "uft-expandable-section[type]")
         ?.querySelectorAll(`[uuid]:not([uuid="${itemToMove.uuid}"])`),
     );
   }
@@ -353,8 +364,8 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
       this.sortItems(
         itemToContain,
         container,
-        (e.target as HTMLElement)?.closest("expandable-section[type]")
-          ?.querySelectorAll(`item-row[uuid]:not([uuid="${itemToContain.uuid}"])`),
+        (e.target as HTMLElement)?.closest("uft-expandable-section[type]")
+          ?.querySelectorAll(`uft-item-row[uuid]:not([uuid="${itemToContain.uuid}"])`),
       );
       return; 
     }
@@ -565,17 +576,17 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
 
     // Ability checks
     Array.from(
-      html[0].querySelectorAll(".combat__stat-region--ability-scores ability-score-field")
+      html[0].querySelectorAll(".ability-scores uft-ability-score-field")
     ).map(n => n.addEventListener("roll", this.#rollAttributeCheck.bind(this)));
 
     // Saves
     Array.from(
-      html[0].querySelectorAll(".combat__stat-region--saves ability-score-field")
+      html[0].querySelectorAll(".saves uft-ability-score-field")
     ).map(n => n.addEventListener("roll", this.#rollSave.bind(this)));
 
     // Weapon-unspecified attacks
     Array.from(
-      html[0].querySelectorAll("character-ability-field[data-attack-type]")
+      html[0].querySelectorAll("uft-character-ability-field[data-attack-type]")
     ).map(n => n.addEventListener("roll", this.#rollAttack.bind(this)));
 
     if (!this.isEditable) return;
@@ -587,7 +598,7 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
     );
 
     // Allow expandable sections to create items of a specific type
-    html.on("create", "expandable-section", this.#onCreateItemOfType.bind(this));
+    html.on("create", "uft-expandable-section", this.#onCreateItemOfType.bind(this));
     
     html.on("pointerdown", '[data-action="generate-scores"]', this.#generateScores.bind(this));
     html.on("pointerdown", '[data-action="modifiers"]', this.#showModifiers.bind(this));

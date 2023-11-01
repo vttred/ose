@@ -1,12 +1,27 @@
-<labeled-section>
+<uft-labeled-section>
   <h2 slot="heading">{{localize "OSE.category.notes"}}</h2>
   <div slot="content">
     {{editor
       enrichedNotes
+      engine="prosemirror"
       target="system.details.notes"
       button=true
       editable=editable
       async=true
     }}
   </div>
-</labeled-section>
+</uft-labeled-section>
+
+<uft-labeled-section>
+  <h2 slot="heading">{{localize "OSE.category.biography"}}</h2>
+  <div slot="content">
+    {{editor
+      enrichedBiography
+      engine="prosemirror"
+      target="system.details.biography"
+      button=true
+      editable=editable
+      async=true
+    }}
+  </div>
+</uft-labeled-section>

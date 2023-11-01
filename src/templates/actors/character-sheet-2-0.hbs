@@ -1,42 +1,43 @@
-<form class="{{cssClass}}" autocomplete="off" data-uuid="{{this.actor.uuid}}">
+{{log styles}}
+<form class="{{cssClass}} {{styles.sheet}}" autocomplete="off" data-uuid="{{this.actor.uuid}}">
   {{! Sheet Tab Navigation }}
-  <nav class="sheet-tabs tabs" data-group="primary">
-    <a class="item" data-tab="attributes">
+  <nav class="sheet-tabs tabs  {{lookup styles 'sheet-tabs'}}" data-group="primary">
+    <a class="item {{lookup styles 'item'}}" data-tab="attributes">
       {{localize "OSE.category.combat"}}
     </a>
-    <a class="item" data-tab="abilities">
+    <a class="item {{lookup styles 'item'}}" data-tab="abilities">
       {{localize "OSE.category.abilities"}}
     </a>
-    <a class="item" data-tab="inventory">
+    <a class="item {{lookup styles 'item'}}" data-tab="inventory">
       {{localize "OSE.category.inventory"}}
     </a>
     {{#if actor.system.spells.enabled}}
-    <a class="item" data-tab="spells"> {{localize "OSE.category.magic"}} </a>
+    <a class="item {{lookup styles 'item'}}" data-tab="spells"> {{localize "OSE.category.magic"}} </a>
     {{/if}}
-    <a class="item" data-tab="notes"> {{localize "OSE.category.notes"}} </a>
+    <a class="item {{lookup styles 'item'}}" data-tab="notes"> {{localize "OSE.category.notes"}} </a>
   </nav>
   {{! Sheet Body }}
-  <section class="sheet-body">
+  <section class="sheet-body {{lookup styles 'sheet-body'}}">
     {{! Combat Tab }}
-    <div class="tab tab--combat" data-group="primary" data-tab="attributes">
+    <div class="tab {{lookup styles 'tab'}}" data-group="primary" data-tab="attributes">
       {{> (path "/templates/actors/partials/sheet-v2/character-combat-tab.hbs") }}
     </div>
     {{! Abilities Tab }}
-    <div class="tab" data-group="primary" data-tab="abilities">
+    <div class="tab {{lookup styles 'tab'}}" data-group="primary" data-tab="abilities">
       {{> (path "/templates/actors/partials/sheet-v2/character-abilities-tab.hbs") }}
     </div>
     {{! Inventory Tab }}
-    <div class="tab" data-group="primary" data-tab="inventory">
+    <div class="tab {{lookup styles 'tab'}}" data-group="primary" data-tab="inventory">
       {{> (path "/templates/actors/partials/sheet-v2/character-inventory-tab.hbs") }}
     </div>
     {{! Magic Tab }}
     {{#if actor.system.spells.enabled}}
-    <div class="tab" data-group="primary" data-tab="spells">
+    <div class="tab {{lookup styles 'tab'}}" data-group="primary" data-tab="spells">
       {{> (path "/templates/actors/partials/sheet-v2/character-magic-tab.hbs") }}
     </div>
     {{/if}}
     {{! Notes Tab }}
-    <div class="tab" data-group="primary" data-tab="notes">
+    <div class="tab {{lookup styles 'tab'}}" data-group="primary" data-tab="notes">
       {{> (path "/templates/actors/partials/sheet-v2/character-notes-tab.hbs") }}
     </div>
   </section>

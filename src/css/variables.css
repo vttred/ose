@@ -1,43 +1,89 @@
 :root {
-  /* Color naming scheme:
-  --color-[purpose/hue]-[saturation%]-[alpha%]
-  */
-  --color-ui-00: #000000;
-  --color-ui-09: #2c2525;
-  --color-ui-38: #606060;
-  --color-ui-57: #939393;
-  --color-ui-75: #c0c0c0;
-  --color-ui-85: #d8d8d8;
-  --color-ui-100: #ffffff;
+  /**
+   *    COLOR
+   */
+  --color-red-25:  #420D0F;
+  --color-red-50:  var(--color-level-error);
+  --color-red-75:  #DB585C;
+  --color-red-100: #FF999C;
 
-  --color-heading:    var(--color-ui-100); 
-  --color-subheading: var(--color-ui-09);
-  --color-primary:    var(--color-ui-00);
-  --color-secondary:  var(--color-ui-38);
+  --color-green-25:  #1F4A29;
+  --color-green-50:  #04B02C;
+  --color-green-75:  #04CF33;
+  --color-green-100: #52D972;
 
-  --background-color-heading:    var(--color-ui-09);
-  --background-color-subheading: var(--color-ui-57);
+  --color-blue-25:   #3c4660;
+  --color-blue-50:   #045FB0;
+  --color-blue-75:   #3084CF;
+  --color-blue-100:  var(--color-level-info);
 
-  --background-color-zebra-odd:  var(--color-ui-75);
-  --background-color-zebra-even: var(--color-ui-85);
+  --color-yellow-25:  #8C6803;
+  --color-yellow-50:  var(--color-level-warning);
+  --color-yellow-75:  #DEA404;
+  --color-yellow-100: #FFDC7D;
 
+  /**
+   *    TYPOGRAPHY
+   */
   --font-size-base:     var(--font-size-14);
   --font-size-alt:      var(--font-size-12);
   --font-size-heading:  var(--font-size-16);
 
-  /* Spacing */
+  /**
+   *    SPACING
+   */
   --spacing-full:                var(--font-size-16);
   --spacing-three-quarters: calc(var(--spacing-full) * 0.75);
   --spacing-half:           calc(var(--spacing-full) * 0.5);
   --spacing-quarter:        calc(var(--spacing-full) * 0.25);
 }
 
+@media (prefers-color-scheme: light) {
+  :root {
+    /**
+     *    COLOR
+     */
+    --color-ui-00:   #000000;
+    --color-ui-09:   #2c2525;
+    --color-ui-38:   #606060;
+    --color-ui-57:   #939393;
+    --color-ui-75:   #c0c0c0;
+    --color-ui-85:   #d8d8d8;
+    --color-ui-100:  #ffffff;
+
+    /**
+     *    Sheet color config
+     */
+    --color-heading:    var(--color-ui-100); 
+    --color-subheading: var(--color-ui-09);
+    --color-primary:    var(--color-ui-00);
+    --color-secondary:  var(--color-ui-38);
+
+    --background-color-heading:    var(--color-ui-09);
+    --background-color-subheading: var(--color-ui-57);
+
+    --background-color-zebra-odd:  var(--color-ui-75);
+    --background-color-zebra-even: var(--color-ui-85);
+
+    /**
+     *    COMPONENT: uft-character-info-meter
+     */
+     --color-meter-progress: var(--color-ui-57);
+     --color-meter-progress-stateless: var(--color-blue-75);
+     --color-meter-progress-optimal: var(--color-blue-50);
+     --color-meter-progress-warning: var(--color-green-75);
+     --color-meter-progress-danger: var(--color-yellow-25);
+     --color-meter-progress-critical: var(--color-red-50);
+     --color-meter-track: var(--color-ui-09);
+     --color-meter-value: var(--color-ui-85);
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
-    /*
-      Some colors should be shifted toward blue
-      (when using the HSV color scale, hue 223)
-    */
+    /**
+     *    COLOR
+     */
     --color-ui-00: #000000;
     --color-ui-09: #24262b;
     --color-ui-38: #3c4660;
@@ -45,7 +91,11 @@
     --color-ui-75: #c0c0c0;
     --color-ui-85: #d8d8d8;
     --color-ui-100: #ffffff;
-    
+
+    /**
+     *    Sheet color config
+     */
+
     --color-heading:    var(--color-ui-100);
     --color-subheading: var(--color-ui-09);
     --color-primary:    var(--color-ui-100);
@@ -57,5 +107,23 @@
 
     --background-color-zebra-odd:   transparent;
     --background-color-zebra-even:  var(--color-ui-38);
+
+    /**
+     *    COMPONENT TYPE: Input Fields
+     */
+    --color-field-editable: var(--color-ui-38);
+    --color-field-uneditable: var(--color-ui-09);
+
+    /**
+     *    COMPONENT: uft-character-info-meter
+     */
+     --color-meter-progress: var(--color-ui-38);
+     --color-meter-progress-stateless: var(--color-ui-100);
+     --color-meter-progress-optimal: var(--color-green-100);
+     --color-meter-progress-warning: var(--color-ui-38);
+     --color-meter-progress-danger: var(--color-yellow-25);
+     --color-meter-progress-critical: var(--color-red-50);
+     --color-meter-track: var(--color-ui-09);
+     --color-meter-value: var(--color-ui-85);
   }
 }

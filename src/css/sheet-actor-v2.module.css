@@ -281,6 +281,12 @@
   grid-gap: var(--spacing-full);
 }
 
+.spell-slots {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  flex: 0;
+}
+
   
 
 @keyframes notify {

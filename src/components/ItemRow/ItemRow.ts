@@ -2,7 +2,7 @@
  * @file A custom element that represents an Ability Score and its modifier
  */
 import { dom, icon } from "@fortawesome/fontawesome-svg-core";
-import { faWeightHanging, faTrash, faEye, faStar, faEdit, faShirt, faEyeSlash, faScroll } from "@fortawesome/free-solid-svg-icons";
+import { faWeightHanging, faTrash, faEye, faStar, faEdit, faShirt, faEyeSlash, faScroll, faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import OseItem from "../../module/item/entity";
 import BaseElement from "../_BaseElement";
 // @ts-expect-error
@@ -46,21 +46,35 @@ export default class ItemRow extends BaseElement {
 
     this.addEventListener("click", this.#onExpand.bind(this));
 
+    // Item thumbnail
     this.shadowRoot
       .querySelector(".icon")
       ?.addEventListener("click", this.#onRoll.bind(this));
+
+    // Right side controls
     this.shadowRoot
       .querySelector(".favorite")
       ?.addEventListener("click", this.#onFavorite.bind(this));
     this.shadowRoot
       .querySelector(".equip")
       ?.addEventListener("click", this.#onEquip.bind(this));
+      this.shadowRoot
+      .querySelector(".show-chat")
+      ?.addEventListener("click", this.#onShow.bind(this));
     this.shadowRoot
       .querySelector(".edit")
       ?.addEventListener("click", this.#onEdit.bind(this));
     this.shadowRoot
       .querySelector(".delete")
       ?.addEventListener("click", this.#onDelete.bind(this));
+
+    // Charges (spell slots)
+    this.shadowRoot
+      .querySelector(".charge-control--increment")
+      ?.addEventListener("click", this.#onAddCharge.bind(this));
+    this.shadowRoot
+      .querySelector(".charge-control--decrement")
+      ?.addEventListener("click", this.#onRemoveCharge.bind(this));
   }
 
   /**
@@ -76,6 +90,18 @@ export default class ItemRow extends BaseElement {
     this.shadowRoot
       .querySelector(".mystify")
       ?.addEventListener("pointerdown", this.#onMystify.bind(this));
+  }
+
+  #onAddCharge(e: Event) {
+    e.stopPropagation();
+    // The sheet can decide what happens when an increment is requested
+    this.dispatchEvent(new Event('charge-increment'));
+  }
+
+  #onRemoveCharge(e: Event) {
+    e.stopPropagation();
+    // The sheet can decide what happens when a decrement is requested
+    this.dispatchEvent(new Event('charge-decrement'));
   }
 
   #onExpand(e: Event) {
@@ -100,6 +126,11 @@ export default class ItemRow extends BaseElement {
     e.dataTransfer?.setData("text/plain", JSON.stringify(dragData));
   }
 
+  #onShow(e: Event) {
+    e.stopPropagation();
+    if (!this.item) return;
+    this.item.show();
+  }
 
   #onRoll(e: Event) {
     e.stopPropagation();
@@ -257,10 +288,26 @@ export default class ItemRow extends BaseElement {
     const label = game.i18n.format( "OSE.items.WeightLong", { name, weight });
     
     return /* html */ `
-    <span aria-label="${label} title="${label}>
+    <span aria-label="${label}" title="${label}">
       ${icon(faWeightHanging).html}
       ${weight || 0}
     </span>`
+  }
+
+  get #chargesLabel() {
+    if (!this.hasAttribute('charges')) return '';
+
+    // @ts-expect-error - We're checking for if we have charges above.
+    const charges = parseInt(this.getAttribute('charges'), 10);
+    const label = "Charges";
+
+    return /*html*/ `
+      <span aria-label="${label}" title="${label}" class="charges">
+        <button class="charge-control charge-control--decrement" title="Decrease">${icon(faMinus).html}</button>
+        ${charges}
+        <button class="charge-control charge-control--increment" title="Increase">${icon(faPlus).html}</button>
+      </span>
+    `;
   }
 
   get #quantityLabel() {
@@ -293,6 +340,7 @@ export default class ItemRow extends BaseElement {
         </div>
         <div class="supplemental-content">
           <slot name="supplemental-content">
+            ${this.#chargesLabel}
             ${this.#weightLabel}
           </slot>
         </div>

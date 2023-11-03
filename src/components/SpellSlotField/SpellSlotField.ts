@@ -4,7 +4,9 @@
 import BaseElement from "../_BaseElement";
 // @ts-expect-error
 import styles from './SpellSlotField.css' assert { type: "css" };
+import { component } from "../decorators";
 
+@component('uft-spell-slot-field')
 export default class SpellSlotField extends BaseElement {
   static get styles() {
     return [styles];
@@ -45,5 +47,3 @@ export default class SpellSlotField extends BaseElement {
     this.value = (e.target as HTMLInputElement).value || "";
   }
 }
-
-customElements.define("spell-slot-field", SpellSlotField);

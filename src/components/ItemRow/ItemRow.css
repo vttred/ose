@@ -12,7 +12,7 @@
 }
 .row {
   display: grid;
-  grid-template-columns: 40px minmax(0, 3fr) minmax(0, 100px) minmax(0, 1fr);
+  grid-template-columns: 40px 1fr minmax(0, 50px) max-content;
   align-items: center;
   gap: var(--spacing-full);
 }
@@ -90,6 +90,11 @@
   grid-template-rows: 1fr;
 }
 
+.charges {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-half);
+}
 
 button {
   background: none;

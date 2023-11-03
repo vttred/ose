@@ -15,6 +15,7 @@ import OseEntityTweaks from "../dialog/entity-tweaks";
 
 // @ts-expect-error - TS linter doesn't understand importing a CSS file
 import styles from '../../css/sheet-actor-v2.module.css';
+import ItemRow from "../../components/ItemRow/ItemRow";
 
 /**
  * The character sheet that will accompany v2.0 of the system.
@@ -76,7 +77,7 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
         {
           navSelector: ".sheet-tabs",
           contentSelector: ".sheet-body",
-          initial: "inventory",
+          initial: "spells",
         },
       ],
       dragDrop: [
@@ -564,6 +565,28 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
     }).render(true);
   }
 
+  async #incrementMemorizedCount(e: Event) {
+    const spell = (e.target as ItemRow)?.item;
+    if (!spell) return;
+    const maxAtLevel = this.actor.system.spells.slots[spell.system.lvl].max;
+    const newValue = spell.system.cast + 1;
+    
+    if (newValue <= maxAtLevel)
+      await spell.update({
+        'system.cast': newValue
+      });
+  }
+
+  #decrementMemorizedCount(e: Event) {
+    const spell = (e.target as ItemRow)?.item;
+    if (!spell) return;
+
+
+    spell.update({
+      'system.cast': spell.system.cast - 1
+    })
+  }
+
   /**
    * Activate event listeners using the prepared sheet HTML
    *
@@ -596,6 +619,15 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
       // eslint-disable-next-line no-underscore-dangle
       this._onChangeInput(e)
     );
+
+    // Memorized spells increment/decrement
+    Array.from(
+      html[0].querySelectorAll("[type='spell'] uft-item-row")
+    ).map(n => {
+      n.addEventListener("charge-increment", this.#incrementMemorizedCount.bind(this))
+      n.addEventListener("charge-decrement", this.#decrementMemorizedCount.bind(this))
+    });
+
 
     // Allow expandable sections to create items of a specific type
     html.on("create", "uft-expandable-section", this.#onCreateItemOfType.bind(this));

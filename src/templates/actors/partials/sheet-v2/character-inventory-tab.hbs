@@ -33,7 +33,7 @@
       {{#each this.system.autoTags}}
         <uft-tag-chip slot="title-content"><i class="fa {{icon}}"></i>{{localize label}}</uft-tag-chip>
       {{/each}}
-      <div class="container-content">
+      <div class="{{styles.containerContent}}">
       {{#each this.system.contents}}
         <uft-tippable-item uuid="{{this.uuid}}"></uft-tippable-item>
       {{/each}}

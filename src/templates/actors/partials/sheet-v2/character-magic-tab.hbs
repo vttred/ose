@@ -1,4 +1,4 @@
-<div class="ability-fields ability-fields--spell-slots">
+<div class="{{styles.abilityFields}} ability-fields--spell-slots {{styles.spellSlots}}">
   {{#each actor.system.spells.slots as |slots id|}}
   <uft-spell-slot-field
     level="{{id}}"
@@ -9,11 +9,13 @@
   {{/each}}
 </div>
 
+{{log actor.system.spells.spellList}}
+<div class="">
 {{#each actor.system.spells.spellList}}
 <uft-expandable-section type="spell" can-create aria-expanded data-lvl="{{@key}}">
   <h2 slot="heading">{{localize "OSE.spells.FormattedLevel" lvl=@key}}</h2>
   {{#each this}}
-    <uft-item-row class="item" slot="content" uuid="{{this.uuid}}" can-mystify can-show-chat>
+    <uft-item-row class="item" slot="content" uuid="{{this.uuid}}" charges="{{this.system.cast}}" can-show-chat>
       {{{this.system.enrichedDescription}}}
       {{#each this.system.autoTags}}
         <uft-tag-chip slot="title-content"><i class="fa {{icon}}"></i>{{localize label}}</uft-tag-chip>
@@ -22,3 +24,4 @@
   {{/each}}
 </uft-expandable-section>
 {{/each}}
+</div>

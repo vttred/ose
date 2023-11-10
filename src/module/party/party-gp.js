@@ -45,20 +45,6 @@ export default class OsePartyGP extends FormApplication {
     };
   }
 
-  // eslint-disable-next-line no-underscore-dangle, class-methods-use-this
-  _onDrop(event) {
-    event.preventDefault();
-    // WIP Drop Item Quantity
-    let data;
-    try {
-      data = JSON.parse(event.dataTransfer.getData("text/plain"));
-      if (data.type !== "Item") return;
-    } catch (error) {
-      return false;
-    }
-  }
-  /* -------------------------------------------- */
-
   // eslint-disable-next-line no-underscore-dangle
   _updateObject(event) {
     // eslint-disable-next-line no-underscore-dangle
@@ -70,15 +56,11 @@ export default class OsePartyGP extends FormApplication {
     const { currentParty } = OseParty;
 
     const html = $(this.form);
-    const totalXP = html.find('input[name="total"]').val();
-    const baseXpShare = parseFloat(totalXP) / currentParty.length;
+    const totalGP = html.find('input[name="total"]').val();
+    const baseGPShare = parseFloat(totalGP) / currentParty.length;
 
     currentParty.forEach((a) => {
-      const actorData = a?.system;
-      const xpShare = Math.floor(
-        (actorData.details.xp.share / 100) * baseXpShare
-      );
-      html.find(`li[data-actor-id='${a.id}'] input`).val(xpShare);
+      html.find(`li[data-actor-id='${a.id}'] input`).val(baseGPShare);
     });
   }
 
@@ -88,11 +70,36 @@ export default class OsePartyGP extends FormApplication {
     const rows = html.find(".actor");
     rows.each((_, row) => {
       const qRow = $(row);
-      const value = qRow.find("input").val();
+      // get value from input and cast to integer
+      const value = parseInt(qRow.find("input").val(), 10);
       const id = qRow.data("actorId");
       const actor = OseParty.currentParty.find((e) => e.id === id);
       if (value) {
-        actor.getExperience(Math.floor(parseInt(value, 10)));
+        // check if the actor already has the gold item
+        const item = actor.items.find((e) => e.name === "GP");
+        if (item) {
+          // update the quantity using update method
+          item.update({
+            "system.quantity.value": item.system.quantity.value + value,
+          });
+          return;
+        }
+
+        // create a new GP item
+        const itemData = {
+          name: game.i18n.localize("OSE.items.gp.short"),
+          type: "item",
+          img: `${OSE.assetsPath}/gold.png`,
+          system: {
+            treasure: true,
+            cost: 1,
+            weight: 1,
+            quantity: {
+              value,
+            },
+          },
+        };
+        actor.createEmbeddedDocuments("Item", [itemData]);
       }
     });
   }

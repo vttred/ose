@@ -1,60 +1,43 @@
 /**
- * @file Extend the basic ActorSheet with some very simple modifications
+ * @file The base ActorSheet class for other Actor types.
  */
-import { OSE } from "../config";
-import OseItem from "../item/entity";
-import MajorIconField from '../../components/MajorIconField/MajorIconField';
-import TippableItem from "../../components/TippableItem/TippableItem";
-import skipRollDialogCheck from "../helpers-behaviour";
-import OseActor from "./entity";
+import OseItem from "../../item/entity";
+import MajorIconField from '../../../components/MajorIconField/MajorIconField';
+import OseActor from "../entity";
 
-import OseCharacterCreator from "../dialog/character-creation";
-import OseCharacterGpCost from "../dialog/character-gp-cost";
-import OseCharacterModifiers from "../dialog/character-modifiers";
-import OseEntityTweaks from "../dialog/entity-tweaks";
+import OseEntityTweaks from "../../dialog/entity-tweaks";
 
-import '../../css/components.css';
-// @ts-expect-error - TS linter doesn't understand importing a CSS file
-import stylesCommon from '../../css/sheets/character/character-sheet.module.css';
-// @ts-expect-error - TS linter doesn't understand importing a CSS file
-import stylesAbilities from '../../css/sheets/character/tab-ability.module.css';
-// @ts-expect-error - TS linter doesn't understand importing a CSS file
-import stylesCombat from '../../css/sheets/character/tab-combat.module.css';
-// @ts-expect-error - TS linter doesn't understand importing a CSS file
-import stylesInventory from '../../css/sheets/character/tab-inventory.module.css';
-// @ts-expect-error - TS linter doesn't understand importing a CSS file
-import stylesMagic from '../../css/sheets/character/tab-magic.module.css';
-// @ts-expect-error - TS linter doesn't understand importing a CSS file
-import stylesNotes from '../../css/sheets/character/tab-notes.module.css';
-
-import ItemRow from "../../components/ItemRow/ItemRow";
+import '../../../css/components.css';
+import ItemRow from "../../../components/ItemRow/ItemRow";
+import OSE from "../../config";
 
 /**
- * The character sheet that will accompany v2.0 of the system.
+ * The base actor sheet class that will accompany v2.0 of the system.
  * 
  * ---
- * # Phase 1:
+ * # Phase 1
+ * 
+ * At this phase, we have feature parity between the v1 sheet and the v2 sheet.
  * 
  * @todo - Combat Tab: Hit die rolls
- * @todo - Abilities Tab: Languages
  * @todo - Inventory Tab: Zebra striping on item-rows
- * @todo - Magic Tab: How do favorite spells work?
  * @todo - General: Drag to create hotbar macros
- * @todo - General: How can we make Level/Class/XP/Next easier to manage for single/multiclass characters?
  * 
  * ---
- * # Phase 2:
+ * # Phase 2
+ * 
+ * At this phase, the character sheet is stable enough to be the default sheet.
+ * We can safely make bigger changes to underlying data (and propagate UI changes back to old sheets). 
  * 
  * @todo - Abilities Tab: Multiple ability buckets (class skills, special skills, etc)
- * @todo - Inventory Tab: Handling for carried/not carried
- * @todo - Inventory Tab: Encumbrance bar, allow module authors to override
- * @todo - Magic Tab: Spell Sources
+ * @todo - Magic Tab: Spell Sources (spellbook, magic item effects, etc)
  * @todo - General: Active Effects UI
+ * @todo - General: Allow module authors to override/add onto uft-item-row
  * @todo - General: HTML input fields handle changing focus with tab; how can we make custom elements do so too?
  */
-export default class OseActorSheetCharacterV2 extends ActorSheet {
+export default class OseActorSheet extends ActorSheet {
   /**
-   * 
+   * @ignore This isn't useful until we can use custom elements for data entry
    */
   static get InputFields () {
     return [
@@ -64,6 +47,7 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
       "uft-spell-slot-field"
     ].join(",");
   }
+
   /**
    * Extend and override the default options used by the base Actor Sheet
    *
@@ -71,16 +55,11 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
    */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["ose", "sheet", "actor", "character-2"],
-      template: `${OSE.systemPath()}/templates/actors/character-sheet-2-0.hbs`,
-      width: 668,
-      height: 692,
       resizable: true,
       tabs: [
         {
           navSelector: ".sheet-tabs",
           contentSelector: ".sheet-body",
-          initial: "inventory",
         },
       ],
       dragDrop: [
@@ -88,7 +67,6 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
           dragSelector: 'uft-expandable-section:not([type="container"]) uft-item-row',
           dropSelector: 'uft-expandable-section:not([type="container"]) uft-item-row',
           callbacks: {
-            dragstart: 'onDragUncontainedItem',
             drop: 'onDropSort'
           }
         },
@@ -96,7 +74,6 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
           dragSelector: 'uft-expandable-section[type="container"] uft-tippable-item',
           dropSelector: 'uft-expandable-section[type="container"] uft-tippable-item',
           callbacks: {
-            dragstart: 'onDragContainedItem',
             drop: 'onDropSort'
           }
         },
@@ -104,24 +81,28 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
           dragSelector: 'uft-expandable-section:not([type="container"]) uft-item-row',
           dropSelector: 'uft-expandable-section[type="container"] :is(uft-item-row, uft-item-row > *)',
           callbacks: {
-            dragstart: 'onDragUncontainedItem',
             drop: 'onDropIntoContainer'
           }
         }, 
         {
           dragSelector: 'uft-item-row uft-tippable-item',
-          dropSelector: 'uft-expandable-section:not([type="container"])',
+          dropSelector: 'uft-expandable-section[type="container"]',
           callbacks: {
-            dragstart: 'onDragContainedItem',
-            drop: 'onDropOutsideContainer'
+            drop: 'onDropIntoContainer'
           }
         },
         {
           dragSelector: 'uft-item-row uft-tippable-item',
-          dropSelector: 'uft-expandable-section[type="container"]',
+          dropSelector: 'uft-expandable-section:not([type="container"])',
           callbacks: {
-            dragstart: 'onDragContainedItem',
-            drop: 'onDropIntoContainer'
+            drop: 'onDropOutsideContainer'
+          }
+        },
+        {
+          dragSelector: 'uft-item-row',
+          dropSelector: 'uft-prepared-spells',
+          callbacks: {
+            drop: 'onPrepareSpellViaDrop'
           }
         },
         {
@@ -146,64 +127,24 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
   }
 
   /**
-   * 
+   * The enriched notes text, with document links and other enrichments applied
+   * @returns The enriched text, in a Promise
    */
-  get enrichedBiography() {
+  get enrichedNotes(): Promise<string> {
     return TextEditor.enrichHTML(
       // @ts-expect-error - Document.system isn't in the types package yet
-      this.actor.system.details.biography,
+      this.actor.system.details.notes,
       { async: true }
-    );
+    ) as Promise<string>;
   }
 
   /**
+   * @ignore This isn't useful until we can use custom elements for data entry
    * 
-   */
-  get enrichedNotes() {
-    // @ts-expect-error - Document.system isn't in the types package yet
-    return TextEditor.enrichHTML(this.actor.system.details.notes,
-      { async: true }
-    );
-  }
-
-  /**
+   * @param e The submit event
+   * @param options Submit options for the character sheet.
+   * 
    * @override
-   * @returns 
-   */
-  // @ts-expect-error - this async function returns an object, TS wants it to return a promise
-  async getData() {
-    const favoriteList = await Promise.all(this.favoriteItems);
-    const favoriteItems = favoriteList
-      .filter((i: Item) => !!i && i.type !== "spell" && i.type !== "ability");
-    const favoriteAbilities = favoriteList
-      .filter((i: Item) => !!i && i.type === "ability")
-    const enrichedBiography = await this.enrichedBiography;
-    const enrichedNotes = await this.enrichedNotes;
-
-    return {
-      ...super.getData(),
-      styles: {
-        common: stylesCommon,
-        ability: stylesAbilities,
-        combat: stylesCombat,
-        inventory: stylesInventory,
-        magic: stylesMagic,
-        notes: stylesNotes
-      },
-      favoriteItems,
-      favoriteAbilities,
-      enrichedBiography,
-      enrichedNotes,
-      usesAscendingAC: game.settings.get(game.system.id, "ascendingAC"),
-      usesInitiativeModifiers: game.settings.get(game.system.id, "initiative") !== "group",
-      encumbranceScheme: game.settings.get(game.system.id, "encumbranceOption"),
-    };
-  }
-
-  /**
-   * @override
-   * @param e 
-   * @param options 
    * @returns 
    */
   // eslint-disable-next-line no-underscore-dangle
@@ -226,8 +167,9 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
 
   /**
    * Create drag-and-drop workflow handlers for this Application
-   * @returns {DragDrop[]}     An array of DragDrop handlers
+   * 
    * @override
+   * @returns {DragDrop[]}     An array of DragDrop handlers
    */
   _createDragDropHandlers() {
     return this.options.dragDrop.map( (d: DragDropConfiguration) => {
@@ -259,42 +201,6 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
     });
   }
 
-  async _onDragStart(e: DragEvent) {
-    super._onDragStart(e);
-  }
-
-  // /**
-  //  * 
-  //  * @param e 
-  //  */
-  // async onDragUncontainedItem(e: DragEvent) {
-  //   await this.#setInventoryItemDragData(e);
-  // }
-
-  // /**
-  //  * 
-  //  * @param e 
-  //  */
-  // async onDragContainedItem(e: DragEvent) {
-  //   await this.#setInventoryItemDragData(e, true);
-  // }
-
-  // /**
-  //  * 
-  //  * @param e 
-  //  * @param fromContainer 
-  //  * @returns 
-  //  */
-  // async #setInventoryItemDragData(e: DragEvent, fromContainer: boolean = false) {
-  //   e.stopPropagation();
-  //   const item = (e.target as (TippableItem | ItemRow))?.item;
-  //   if (!item) return;
-  //   // @ts-expect-error - item.toDragData() isn't on the types package, but does exist
-  //   const dragData = item.toDragData();
-  //   dragData.fromContainer = fromContainer;
-  //   e?.dataTransfer?.setData("text/plain", JSON.stringify(dragData));
-  // }
-
   /**
    * 
    * @param e 
@@ -309,14 +215,10 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
       (e.target as HTMLElement | null)?.closest("[uuid]")?.getAttribute("uuid") || ''
     ) as OseItem | null;
 
-    const isSortingInContainer = (
-      itemToMove?.system.containerId &&
-      itemToDisplace?.system.containerId &&
-      itemToMove?.system.containerId === itemToDisplace?.system.containerId
-    );
-
     // If either item doesn't exist, bail,
     if (!itemToMove || !itemToDisplace) return;
+    if (itemToMove.parent?.uuid !== this.actor.uuid) return;
+    if (itemToDisplace.parent?.uuid !== this.actor.uuid) return;
     
     // If we're not dealing with contained items and the item types don't match, bail
     if (
@@ -324,6 +226,15 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
       (!itemToMove.system.containerId || !itemToDisplace.system.containerId) &&
       itemToMove.type !== itemToDisplace.type
     ) return;
+
+    const isSortingInContainer = (
+      // @ts-expect-error - Types package doesn't include system prop 
+      itemToMove?.system.containerId &&
+      // @ts-expect-error - Types package doesn't include system prop 
+      itemToDisplace?.system.containerId &&
+      // @ts-expect-error - Types package doesn't include system prop 
+      itemToMove?.system.containerId === itemToDisplace?.system.containerId
+    );
 
     this.sortItems(
       itemToMove,
@@ -343,7 +254,7 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
     e.stopPropagation();
     const dragData = JSON.parse(e?.dataTransfer?.getData("text/plain") || '{type: null, uuid: null}'); 
     if (dragData.type !== "Item") return;
-    
+
     let itemToContain = await fromUuid(dragData.uuid) as OseItem | null;
     const container = await fromUuid(
       (e.target as HTMLElement | null)?.closest("[uuid]")?.getAttribute("uuid") || ''
@@ -382,21 +293,104 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
    */
   async onDropOutsideContainer(e: DragEvent) {
     e.stopPropagation();
-    
+
     const dragData = JSON.parse(
       e?.dataTransfer?.getData("text/plain") ||
       '{type: null, uuid: null}'
-    ); 
-    if (dragData.type !== "Item") return;
+    );
+    
+    if (dragData.type !== "Item")
+      return this._onDrop(e);
 
     const droppedItem = await fromUuid(dragData.uuid) as OseItem;
 
+    if (droppedItem.type === 'spell' || droppedItem.type === 'ability')
+      return this._onDrop(e);
     if (dragData.fromContainer)
-      droppedItem?.update({ "system.containerId": "" });
-    else if (droppedItem?.type === "container")
-      this.onMoveContainerToAnotherActor(droppedItem);
-    else
-      this._onDrop(e);
+      return droppedItem?.update({ "system.containerId": "" });
+    if (droppedItem?.type === "container")
+      return this.onMoveContainerToAnotherActor(droppedItem);
+    
+    return this._onDrop(e);
+  }
+
+  
+  
+  /**
+   * 
+   * @param e 
+   */
+  async _onDrop(e: DragEvent) {
+    // @ts-expect-error - Types package considers TextEditor.getDragEventData protected 
+    const data = TextEditor.getDragEventData(e) as OseItem;
+    const dropped = await fromUuid(data?.uuid) as OseItem;
+    const droppedSource = dropped?.getFlag('core', 'sourceId');
+    const itemToIncrement = this.actor.items.find(i => i.getFlag('core', 'sourceId') === droppedSource );
+
+    if (
+      // The dropped item is from an actor that is this actor
+      dropped?.parent?.uuid === this.actor.uuid ||
+      // The incrementing item isn't an item (gear or treasure)
+      itemToIncrement?.type !== 'item' ||
+      // The dropped item doesn't have quantity to distribute
+      // @ts-expect-error - Types package doesn't include system prop 
+      !dropped?.system.quantity.value
+    )
+      super._onDrop(e);
+    else {
+      const templateData = {
+        item: dropped,
+        recipient: this.actor,
+        donor: dropped.parent
+      };
+      const shareDialogBody = await renderTemplate(
+        `${OSE.systemPath()}/templates/actors/dialogs/transfer-stacked-item.hbs`,
+        templateData
+      );
+      // Create Dialog window
+      new Dialog(
+        {
+          title: game.i18n.format("OSE.dialog.transferItem.title", {
+            itemName: dropped.name,
+            recipientName: this.actor.name
+          }),
+          content: shareDialogBody,
+          buttons: {
+            ok: {
+              label: game.i18n.localize("OSE.Ok"),
+              icon: '<i class="fas fa-check"></i>',
+              callback: (html) => {
+                // @ts-expect-error - html.find works, this is a jQuery object 
+                const quantity = parseInt(html.find('input[name="quantity"]').val() || 0, 10);
+                // @ts-expect-error - html.find works, this is a jQuery object 
+                const shouldSubtract = html.find('input[name="shouldSubtract"]').is(':checked');
+      
+                itemToIncrement?.update({
+                  // @ts-expect-error - Types package doesn't include system prop 
+                  'system.quantity.value': itemToIncrement.system.quantity.value + quantity
+                })
+                if (shouldSubtract)
+                  dropped?.update({
+                    // @ts-expect-error - Types package doesn't include system prop 
+                    'system.quantity.value': dropped.system.quantity.value - quantity
+                  })
+
+
+                
+              },
+            },
+            cancel: {
+              icon: '<i class="fas fa-times"></i>',
+              label: game.i18n.localize("OSE.Cancel"),
+            },
+          },
+          default: "ok",
+        },
+        {
+          width: 250,
+        }
+      ).render(true);
+    }
   }
 
   /**
@@ -405,8 +399,12 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
    */
   async onMoveContainerToAnotherActor(droppedItem: OseItem) {
     const containerItemObj = droppedItem.toObject();
+
+    if (droppedItem?.parent?.uuid === this.actor.uuid)
+      return;
+
     const [createdContainer] = await this.actor.createEmbeddedDocuments("Item", [containerItemObj]);
-    
+
     // @ts-expect-error - OseItem.system exists!
     await this.actor.createEmbeddedDocuments("Item", droppedItem.system.contents.map((i: OseItem) => {
       const item = i.toObject();
@@ -414,6 +412,38 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
       item.system.containerId = createdContainer.id;
       return item;
     }));
+  }
+
+  /**
+   * 
+   * @param e 
+   * @returns 
+   */
+  async onPrepareSpellViaDrop(e: DragEvent) {
+    const dragData = JSON.parse(
+      e?.dataTransfer?.getData("text/plain") ||
+      '{type: null, uuid: null}'
+    );
+    if (!dragData.type)
+      return;
+    const spell = await fromUuid(dragData.uuid) as OseItem;
+    if (spell?.type !== 'spell')
+      return;
+    if (spell.parent?.uuid !== this.actor.uuid)
+      return;
+    // @ts-expect-error - Types package doesn't include system prop 
+    const maxAtLevel = this.actor.system.spells.slots[spell.system.lvl].max;
+    // @ts-expect-error - Types package doesn't include system prop 
+    const updatedUsedAtLevel = this.actor.system.spells.slots[spell.system.lvl].used + 1;
+    // @ts-expect-error - Types package doesn't include system prop 
+    const newValue = spell.system.cast + 1;
+    
+    if (updatedUsedAtLevel > maxAtLevel)
+      return null;
+
+    return await spell.update({
+      'system.cast': newValue
+    });
   }
 
   /**
@@ -450,7 +480,7 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
    * @param e 
    * @returns 
    */
-  #onCreateItemOfType(e: Event) {
+  async #onCreateItemOfType(e: Event) {
     e.stopPropagation();
     const target = e.target as HTMLElement;
     const type = target?.getAttribute("type");
@@ -468,23 +498,7 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
         }
       }, {});
 
-    return this.actor.createEmbeddedDocuments("Item", [{...itemToCreate, system }])
-  }
-
-  /**
-   * 
-   * @param event 
-   */
-  #rollAttributeCheck(event: Event) {
-    event.preventDefault();
-    const score = (event?.target as HTMLElement)
-      ?.closest('uft-labeled-section')
-      ?.querySelector('input[name]')
-      ?.getAttribute("name")
-      ?.split(".")[2];
-    // We can use this when uft-ability-score-field is usable
-    // const score = (event.target as HTMLElement)?.getAttribute("name")?.split(".")[2];
-    score && (this.actor as OseActor).rollCheck(score, {event});
+    await this.actor.createEmbeddedDocuments("Item", [{...itemToCreate, system }])
   }
 
   /**
@@ -505,79 +519,22 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
 
   /**
    * 
-   * @param event 
-   */
-  #rollAttack (event: Event) {
-    const { attackType } = ((event.target as HTMLElement)?.closest('[data-attack-type]') as HTMLElement)?.dataset;
-
-    if (attackType)
-      (this.actor as OseActor).targetAttack({ roll: {} }, attackType, {
-        type: attackType,
-        skipDialog: skipRollDialogCheck(event),
-      });
-  }
-
-  #rollExploration (event: Event) {
-    const { explorationType } = ((event.target as HTMLElement)?.closest('[data-exploration-type]') as HTMLElement)?.dataset;
-    if (explorationType)
-      (this.actor as OseActor).rollExploration(explorationType, {
-        event,
-      });
-  }
-
-  /**
-   * 
-   */
-  #generateScores() {
-    new OseCharacterCreator(this.actor, {
-      top: this.position.top + 40,
-      left: this.position.left + (this.position.width - 400) / 2,
-    }).render(true);
-  }
-
-  /**
-   * 
-   */
-  #showModifiers() {
-    new OseCharacterModifiers(this.actor, {
-      top: this.position.top + 40,
-      left: this.position.left + (this.position.width - 400) / 2,
-    }).render(true);
-  }
-
-  /**
-   * 
-   */
-  #showGoldCost() {
-    const items = {
-      items: this.actor.items,
-      owned: {
-        weapons: this.actor.system.weapons,
-        armors: this.actor.system.armor,
-        items: this.actor.system.items,
-        containers: this.actor.system.containers,
-      }
-    };
-    new OseCharacterGpCost(this.actor, items, {
-      top: this.position.top + 40,
-      left: this.position.left + (this.position.width - 400) / 2,
-    }).render(true);
-  }
-
-  /**
-   * 
    */
   #showTweaks() {
-    new OseEntityTweaks(this.actor, {
-      top: this.position.top + 40,
-      left: this.position.left + (this.position.width - 400) / 2,
-    }).render(true);
+    new OseEntityTweaks(this.actor).render(true);
   }
 
+  /**
+   * 
+   * @param e 
+   * @returns 
+   */
   async #incrementMemorizedCount(e: Event) {
     const spell = (e.target as ItemRow)?.item;
     if (!spell) return;
+    // @ts-expect-error - Types package doesn't include system prop 
     const maxAtLevel = this.actor.system.spells.slots[spell.system.lvl].max;
+    // @ts-expect-error - Types package doesn't include system prop 
     const updatedUsedAtLevel = this.actor.system.spells.slots[spell.system.lvl].used + 1;
     const newValue = spell.system.cast + 1;
     
@@ -589,6 +546,11 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
     });
   }
 
+  /**
+   * 
+   * @param e 
+   * @returns 
+   */
   async #decrementMemorizedCount(e: Event) {
     const spell = (e.target as ItemRow)?.item;
     if (!spell) return;
@@ -598,11 +560,16 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
     })
   }
 
-  async #castSpell(e: PointerEvent) {
-    let {uuid} = ((e.target as HTMLElement)?.closest('[data-uuid') as HTMLElement)?.dataset;
-    if (!uuid) return;
-    let item = await fromUuid(uuid) as OseItem;
-    item?.roll();
+  /**
+   * 
+   * @param force 
+   * @param options
+   * @override 
+   */
+  async _render(force = false, options = {}) {
+    const scrollTop = this.element.find('.window-content').scrollTop();
+    await super._render(force, options);
+    scrollTop && this.element.find('.window-content').scrollTop(scrollTop);
   }
 
   /**
@@ -613,24 +580,23 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
    * @todo Click to roll HD
    */
   activateListeners(html: JQuery<HTMLElement>): void {
+    // Core listeners
     super.activateListeners(html);
-
-    // Ability checks
-    html.find('.ability-scores .ability-score-field label')
-      .on('pointerdown', this.#rollAttributeCheck.bind(this))
+    
+    /*
+     *  VIEW LISTENERS
+     */
 
     // Saves
     html.find('.saves .ability-score-field label')
       .on('pointerdown', this.#rollSave.bind(this))
 
-    // Attacks
-    html.find('.character-ability-field[data-attack-type] label')
-      .on('pointerdown', this.#rollAttack.bind(this));
+    // Subclass view listeners
+    this.viewListeners(html);
 
-    // Attacks
-    html.find('.character-ability-field[data-exploration-type] label')
-      .on('pointerdown', this.#rollExploration.bind(this));
-
+    /*
+     *  EDIT LISTENERS
+     */
     if (!this.isEditable) return;
 
     // Memorized spells increment/decrement
@@ -641,17 +607,15 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
       n.addEventListener("charge-decrement", this.#decrementMemorizedCount.bind(this))
     });
 
-    // Memorized spells cast
-    html.find('uft-expandable-section[type="spell"] .slot')
-      .on('pointerdown', this.#castSpell.bind(this));
-
-
     // Allow expandable sections to create items of a specific type
     html.on("create", "uft-expandable-section", this.#onCreateItemOfType.bind(this));
-    
-    html.on("pointerdown", '[data-action="generate-scores"]', this.#generateScores.bind(this));
-    html.on("pointerdown", '[data-action="modifiers"]', this.#showModifiers.bind(this));
-    html.on("pointerdown", '[data-action="gp-cost"]', this.#showGoldCost.bind(this));
+
     html.on("pointerdown", '[data-action="tweaks"]', this.#showTweaks.bind(this));
+
+    // Subclass edit listeners
+    this.editListeners(html);
   }
+
+  viewListeners(_html: JQuery<HTMLElement>): void {}
+  editListeners(_html: JQuery<HTMLElement>): void {}
 }

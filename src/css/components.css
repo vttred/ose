@@ -9,6 +9,7 @@
       }
     }
   }
+
   /**
    *      COMPONENT: Ability Score Field
    */
@@ -313,7 +314,7 @@
       }
       @media (prefers-color-scheme: dark) {
         background-color: transparent;
-        text-align: right;
+        text-align: left;
         margin-right: var(--spacing-half);
       }
     }
@@ -331,6 +332,7 @@
       color: var(--color-primary);
       background-color: var(--color-field-editable);
       text-overflow: ellipsis;
+      text-align: left;
 
       &:focus {
         outline: none;

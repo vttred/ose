@@ -1,20 +1,29 @@
 {{log styles}}
-<form class="{{cssClass}} {{styles.sheet}}" autocomplete="off" data-uuid="{{this.actor.uuid}}">
+<form class="{{cssClass}} {{styles.common.sheet}}" autocomplete="off" data-uuid="{{this.actor.uuid}}">
   {{! Sheet Tab Navigation }}
   <nav class="sheet-tabs tabs  {{lookup styles 'sheet-tabs'}}" data-group="primary">
     <a class="item {{lookup styles 'item'}}" data-tab="attributes">
-      {{localize "OSE.category.combat"}}
+      <i class="fa-solid fa-swords" data-tooltip="{{localize "OSE.category.combat"}}"></i>
+      <span>{{localize "OSE.category.combat"}}</span>
     </a>
     <a class="item {{lookup styles 'item'}}" data-tab="abilities">
-      {{localize "OSE.category.abilities"}}
+      <i class="fa-solid fa-bolt" data-tooltip="{{localize "OSE.category.abilities"}}"></i>
+      <span>{{localize "OSE.category.abilities"}}</span>
     </a>
     <a class="item {{lookup styles 'item'}}" data-tab="inventory">
-      {{localize "OSE.category.inventory"}}
+      <i class="fa-solid fa-sack" data-tooltip="{{localize "OSE.category.inventory"}}"></i>
+      <span>{{localize "OSE.category.inventory"}}</span>
     </a>
     {{#if actor.system.spells.enabled}}
-    <a class="item {{lookup styles 'item'}}" data-tab="spells"> {{localize "OSE.category.magic"}} </a>
+    <a class="item {{lookup styles 'item'}}" data-tab="spells">
+      <i class="fa-solid fa-sparkles" data-tooltip="{{localize "OSE.category.magic"}}"></i>
+      <span>{{localize "OSE.category.magic"}}</span>
+    </a>
     {{/if}}
-    <a class="item {{lookup styles 'item'}}" data-tab="notes"> {{localize "OSE.category.notes"}} </a>
+    <a class="item {{lookup styles 'item'}}" data-tab="notes">
+      <i class="fa-solid fa-notes" data-tooltip="{{localize "OSE.category.notes"}}"></i>
+      <span>{{localize "OSE.category.notes"}}</span>
+    </a>
   </nav>
   {{! Sheet Body }}
   <section class="sheet-body {{lookup styles 'sheet-body'}}">

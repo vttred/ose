@@ -13,8 +13,20 @@ import OseCharacterGpCost from "../dialog/character-gp-cost";
 import OseCharacterModifiers from "../dialog/character-modifiers";
 import OseEntityTweaks from "../dialog/entity-tweaks";
 
+import '../../css/components.css';
 // @ts-expect-error - TS linter doesn't understand importing a CSS file
-import styles from '../../css/sheet-actor-v2.module.css';
+import stylesCommon from '../../css/sheets/character/character-sheet.module.css';
+// @ts-expect-error - TS linter doesn't understand importing a CSS file
+import stylesAbilities from '../../css/sheets/character/tab-ability.module.css';
+// @ts-expect-error - TS linter doesn't understand importing a CSS file
+import stylesCombat from '../../css/sheets/character/tab-combat.module.css';
+// @ts-expect-error - TS linter doesn't understand importing a CSS file
+import stylesInventory from '../../css/sheets/character/tab-inventory.module.css';
+// @ts-expect-error - TS linter doesn't understand importing a CSS file
+import stylesMagic from '../../css/sheets/character/tab-magic.module.css';
+// @ts-expect-error - TS linter doesn't understand importing a CSS file
+import stylesNotes from '../../css/sheets/character/tab-notes.module.css';
+
 import ItemRow from "../../components/ItemRow/ItemRow";
 
 /**
@@ -24,16 +36,8 @@ import ItemRow from "../../components/ItemRow/ItemRow";
  * # Phase 1:
  * 
  * @todo - Combat Tab: Hit die rolls
- * @todo - Abilities Tab: track down why there's an empty tag on new abilities
  * @todo - Abilities Tab: Languages
- * @todo - Abilities Tab: Exploration skill rolls
- * @todo - Inventory Tab: Where should we display an item's weight?
  * @todo - Inventory Tab: Zebra striping on item-rows
- * @todo - Inventory Tab: Get context menu visible for contained items
- * @todo - Inventory Tab: Encumbrance bar, basic scheme
- * @todo - Inventory Tab: Encumbrance bar, detailed scheme
- * @todo - Inventory Tab: Encumbrance bar, complete scheme
- * @todo - Magic Tab: Memorize/forget spell
  * @todo - Magic Tab: How do favorite spells work?
  * @todo - General: Drag to create hotbar macros
  * @todo - General: How can we make Level/Class/XP/Next easier to manage for single/multiclass characters?
@@ -54,7 +58,6 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
    */
   static get InputFields () {
     return [
-      "uft-ability-score-field", 
       "uft-character-info-field", 
       "uft-character-ability-field", 
       "uft-major-icon-field", 
@@ -77,7 +80,7 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
         {
           navSelector: ".sheet-tabs",
           contentSelector: ".sheet-body",
-          initial: "spells",
+          initial: "inventory",
         },
       ],
       dragDrop: [
@@ -114,7 +117,7 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
           }
         },
         {
-          dragSelector: 'uft-item-row tippable-item',
+          dragSelector: 'uft-item-row uft-tippable-item',
           dropSelector: 'uft-expandable-section[type="container"]',
           callbacks: {
             dragstart: 'onDragContainedItem',
@@ -179,7 +182,14 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
 
     return {
       ...super.getData(),
-      styles,
+      styles: {
+        common: stylesCommon,
+        ability: stylesAbilities,
+        combat: stylesCombat,
+        inventory: stylesInventory,
+        magic: stylesMagic,
+        notes: stylesNotes
+      },
       favoriteItems,
       favoriteAbilities,
       enrichedBiography,
@@ -188,16 +198,6 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
       usesInitiativeModifiers: game.settings.get(game.system.id, "initiative") !== "group",
       encumbranceScheme: game.settings.get(game.system.id, "encumbranceOption"),
     };
-  }
-
-  /**
-   * @override
-   * @param e 
-   */
-  // eslint-disable-next-line no-underscore-dangle
-  _onChangeInput(e: any) {
-    // eslint-disable-next-line no-underscore-dangle
-    super._onChangeInput(e);
   }
 
   /**
@@ -261,44 +261,39 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
 
   async _onDragStart(e: DragEvent) {
     super._onDragStart(e);
-
-    console.info('dragging!')
   }
 
-  /**
-   * 
-   * @param e 
-   */
-  async onDragUncontainedItem(e: DragEvent) {
-    await this.#setInventoryItemDragData(e);
-  }
+  // /**
+  //  * 
+  //  * @param e 
+  //  */
+  // async onDragUncontainedItem(e: DragEvent) {
+  //   await this.#setInventoryItemDragData(e);
+  // }
 
-  /**
-   * 
-   * @param e 
-   */
-  async onDragContainedItem(e: DragEvent) {
-    await this.#setInventoryItemDragData(e, true);
-  }
+  // /**
+  //  * 
+  //  * @param e 
+  //  */
+  // async onDragContainedItem(e: DragEvent) {
+  //   await this.#setInventoryItemDragData(e, true);
+  // }
 
-  /**
-   * 
-   * @param e 
-   * @param fromContainer 
-   * @returns 
-   */
-  async #setInventoryItemDragData(e: DragEvent, fromContainer: boolean = false) {
-    console.info('dragging')
-    e.stopPropagation();
-    const uuid = (e.target as TippableItem).uuid;
-    if (!uuid) return;
-    const item: OseItem | null = await fromUuid(uuid) as OseItem | null;
-    if (!item) return;
-    // @ts-expect-error - item.toDragData() isn't on the types package, but does exist
-    const dragData = item.toDragData();
-    dragData.fromContainer = fromContainer;
-    e?.dataTransfer?.setData("text/plain", JSON.stringify(dragData));
-  }
+  // /**
+  //  * 
+  //  * @param e 
+  //  * @param fromContainer 
+  //  * @returns 
+  //  */
+  // async #setInventoryItemDragData(e: DragEvent, fromContainer: boolean = false) {
+  //   e.stopPropagation();
+  //   const item = (e.target as (TippableItem | ItemRow))?.item;
+  //   if (!item) return;
+  //   // @ts-expect-error - item.toDragData() isn't on the types package, but does exist
+  //   const dragData = item.toDragData();
+  //   dragData.fromContainer = fromContainer;
+  //   e?.dataTransfer?.setData("text/plain", JSON.stringify(dragData));
+  // }
 
   /**
    * 
@@ -451,15 +446,6 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
   }
 
   /**
-   * @override
-   * @param e
-   * @param droppedItem 
-   */
-  async _onDrop(e: DragEvent) {
-    super._onDrop(e);
-  }
-
-  /**
    * 
    * @param e 
    * @returns 
@@ -490,7 +476,14 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
    * @param event 
    */
   #rollAttributeCheck(event: Event) {
-    const score = (event.target as HTMLElement)?.getAttribute("name")?.split(".")[2];
+    event.preventDefault();
+    const score = (event?.target as HTMLElement)
+      ?.closest('uft-labeled-section')
+      ?.querySelector('input[name]')
+      ?.getAttribute("name")
+      ?.split(".")[2];
+    // We can use this when uft-ability-score-field is usable
+    // const score = (event.target as HTMLElement)?.getAttribute("name")?.split(".")[2];
     score && (this.actor as OseActor).rollCheck(score, {event});
   }
 
@@ -499,7 +492,14 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
    * @param event 
    */
   #rollSave(event: Event) {
-    const save = (event.target as HTMLElement).getAttribute("name")?.split(".")[2];
+    event.preventDefault();
+    const save = (event?.target as HTMLElement)
+      ?.closest('uft-labeled-section')
+      ?.querySelector('input[name]')
+      ?.getAttribute("name")
+      ?.split(".")[2];
+    // We can use this when uft-ability-score-field is usable
+    // const save = (event.target as HTMLElement).getAttribute("name")?.split(".")[2];
     save && (this.actor as OseActor).rollSave(save, {event});
   }
 
@@ -508,12 +508,21 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
    * @param event 
    */
   #rollAttack (event: Event) {
-    const { attackType } = (event.target as HTMLElement).dataset;
+    const { attackType } = ((event.target as HTMLElement)?.closest('[data-attack-type]') as HTMLElement)?.dataset;
 
-    (this.actor as OseActor).targetAttack({ roll: {} }, attackType, {
-      type: attackType,
-      skipDialog: skipRollDialogCheck(event),
-    });
+    if (attackType)
+      (this.actor as OseActor).targetAttack({ roll: {} }, attackType, {
+        type: attackType,
+        skipDialog: skipRollDialogCheck(event),
+      });
+  }
+
+  #rollExploration (event: Event) {
+    const { explorationType } = ((event.target as HTMLElement)?.closest('[data-exploration-type]') as HTMLElement)?.dataset;
+    if (explorationType)
+      (this.actor as OseActor).rollExploration(explorationType, {
+        event,
+      });
   }
 
   /**
@@ -569,22 +578,31 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
     const spell = (e.target as ItemRow)?.item;
     if (!spell) return;
     const maxAtLevel = this.actor.system.spells.slots[spell.system.lvl].max;
+    const updatedUsedAtLevel = this.actor.system.spells.slots[spell.system.lvl].used + 1;
     const newValue = spell.system.cast + 1;
     
-    if (newValue <= maxAtLevel)
-      await spell.update({
-        'system.cast': newValue
-      });
+    if (updatedUsedAtLevel > maxAtLevel)
+      return null;
+
+    return await spell.update({
+      'system.cast': newValue
+    });
   }
 
-  #decrementMemorizedCount(e: Event) {
+  async #decrementMemorizedCount(e: Event) {
     const spell = (e.target as ItemRow)?.item;
     if (!spell) return;
 
-
-    spell.update({
+    return await spell.update({
       'system.cast': spell.system.cast - 1
     })
+  }
+
+  async #castSpell(e: PointerEvent) {
+    let {uuid} = ((e.target as HTMLElement)?.closest('[data-uuid') as HTMLElement)?.dataset;
+    if (!uuid) return;
+    let item = await fromUuid(uuid) as OseItem;
+    item?.roll();
   }
 
   /**
@@ -598,27 +616,22 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
     super.activateListeners(html);
 
     // Ability checks
-    Array.from(
-      html[0].querySelectorAll(".ability-scores uft-ability-score-field")
-    ).map(n => n.addEventListener("roll", this.#rollAttributeCheck.bind(this)));
+    html.find('.ability-scores .ability-score-field label')
+      .on('pointerdown', this.#rollAttributeCheck.bind(this))
 
     // Saves
-    Array.from(
-      html[0].querySelectorAll(".saves uft-ability-score-field")
-    ).map(n => n.addEventListener("roll", this.#rollSave.bind(this)));
+    html.find('.saves .ability-score-field label')
+      .on('pointerdown', this.#rollSave.bind(this))
 
-    // Weapon-unspecified attacks
-    Array.from(
-      html[0].querySelectorAll("uft-character-ability-field[data-attack-type]")
-    ).map(n => n.addEventListener("roll", this.#rollAttack.bind(this)));
+    // Attacks
+    html.find('.character-ability-field[data-attack-type] label')
+      .on('pointerdown', this.#rollAttack.bind(this));
+
+    // Attacks
+    html.find('.character-ability-field[data-exploration-type] label')
+      .on('pointerdown', this.#rollExploration.bind(this));
 
     if (!this.isEditable) return;
-
-    // Hook our custom elements into the update process
-    html.on("change", OseActorSheetCharacterV2.InputFields, (e) =>
-      // eslint-disable-next-line no-underscore-dangle
-      this._onChangeInput(e)
-    );
 
     // Memorized spells increment/decrement
     Array.from(
@@ -627,6 +640,10 @@ export default class OseActorSheetCharacterV2 extends ActorSheet {
       n.addEventListener("charge-increment", this.#incrementMemorizedCount.bind(this))
       n.addEventListener("charge-decrement", this.#decrementMemorizedCount.bind(this))
     });
+
+    // Memorized spells cast
+    html.find('uft-expandable-section[type="spell"] .slot')
+      .on('pointerdown', this.#castSpell.bind(this));
 
 
     // Allow expandable sections to create items of a specific type

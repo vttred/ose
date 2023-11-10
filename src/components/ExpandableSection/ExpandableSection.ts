@@ -39,14 +39,22 @@ export default class ExpandableSection extends BaseElement {
   }
 
   protected events() {
-    this.shadowRoot.querySelector('.heading')
+    this.shadowRoot?.querySelector('.heading')
       ?.addEventListener("click", () => {
         this.#onToggle();
       });
-    this.shadowRoot.querySelector('.add')
+    this.shadowRoot?.querySelector('.add')
       ?.addEventListener("click", (e) => {
         this.#onAdd(e);
       });
+    const hasAlwaysExpandedNodes = !!this.querySelectorAll("[slot='always-expanded']").length;
+    if (!hasAlwaysExpandedNodes) {
+      this.shadowRoot?.querySelector('.always-expanded')
+        ?.classList.add('empty');
+      this.shadowRoot?.querySelector('.always-expanded')
+        ?.setAttribute('aria-hidden', "true");
+    }
+      
   }
 
   get template() {
@@ -84,6 +92,9 @@ export default class ExpandableSection extends BaseElement {
         <slot name="heading"></slot>
         ${addButton ? addButton : ''}
       </header>
+      <div class="always-expanded" part="always-expanded">
+        <slot name="always-expanded"></slot>
+      </div>
       <div class="collapsable">
         <main part="content">
           <slot name="content">

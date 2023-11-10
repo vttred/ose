@@ -13,10 +13,21 @@
   box-shadow: 0 0 10px var(--color-shadow-primary);
 }
 .icon {
-  display: block;
   border-radius: var(--spacing-quarter);
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  align-self: start;
+}
+.icon img {
+  display: block;
   width: 100%;
   height: auto;
+}
+.icon .quantity {
+  position: absolute;
+  bottom: calc(var(--spacing-quarter) / 2);
+  right: calc(var(--spacing-quarter) / 2);
 }
 :host :last-child {
   text-align: left;

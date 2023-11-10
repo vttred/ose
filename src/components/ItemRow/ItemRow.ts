@@ -34,6 +34,14 @@ export default class ItemRow extends BaseElement {
   }
 
   protected events(): void {
+    const hasAlwaysExpandedNodes = !!this.querySelectorAll("[slot='always-expanded']").length;
+    if (!hasAlwaysExpandedNodes) {
+      this.shadowRoot?.querySelector('.always-expanded')
+        ?.classList.add('empty');
+      this.shadowRoot?.querySelector('.always-expanded')
+        ?.setAttribute('aria-hidden', "true");
+    }
+    
     this.#bindSystemEvents();
     this.#bindModuleIntegrationEvents();
   }
@@ -43,37 +51,38 @@ export default class ItemRow extends BaseElement {
     this.setAttribute('draggable', 'true');
     
     this.addEventListener("dragstart", this.#onDrag.bind(this));
-
+    this.addEventListener("dragend", this.#onDragEnd.bind(this));
+    
     this.addEventListener("click", this.#onExpand.bind(this));
 
     // Item thumbnail
     this.shadowRoot
-      .querySelector(".icon")
+      ?.querySelector(".icon")
       ?.addEventListener("click", this.#onRoll.bind(this));
 
     // Right side controls
     this.shadowRoot
-      .querySelector(".favorite")
+      ?.querySelector(".favorite")
       ?.addEventListener("click", this.#onFavorite.bind(this));
     this.shadowRoot
-      .querySelector(".equip")
+      ?.querySelector(".equip")
       ?.addEventListener("click", this.#onEquip.bind(this));
       this.shadowRoot
-      .querySelector(".show-chat")
+      ?.querySelector(".show-chat")
       ?.addEventListener("click", this.#onShow.bind(this));
     this.shadowRoot
-      .querySelector(".edit")
+      ?.querySelector(".edit")
       ?.addEventListener("click", this.#onEdit.bind(this));
     this.shadowRoot
-      .querySelector(".delete")
+      ?.querySelector(".delete")
       ?.addEventListener("click", this.#onDelete.bind(this));
 
     // Charges (spell slots)
     this.shadowRoot
-      .querySelector(".charge-control--increment")
+      ?.querySelector(".charge-control--increment")
       ?.addEventListener("click", this.#onAddCharge.bind(this));
     this.shadowRoot
-      .querySelector(".charge-control--decrement")
+      ?.querySelector(".charge-control--decrement")
       ?.addEventListener("click", this.#onRemoveCharge.bind(this));
   }
 
@@ -83,12 +92,12 @@ export default class ItemRow extends BaseElement {
   #bindModuleIntegrationEvents() {
     // Forien's Unidentified Items
     this.shadowRoot
-      .querySelector(".identify")
+      ?.querySelector(".identify")
       ?.addEventListener("pointerdown", this.#onIdentify.bind(this));
     // @ts-expect-error - TS doesn't seem to realize that PointerEvents
     //                    are dispatched by `pointerdown` events
     this.shadowRoot
-      .querySelector(".mystify")
+      ?.querySelector(".mystify")
       ?.addEventListener("pointerdown", this.#onMystify.bind(this));
   }
 
@@ -105,7 +114,7 @@ export default class ItemRow extends BaseElement {
   }
 
   #onExpand(e: Event) {
-    const slot = this.shadowRoot.querySelector('slot:not([name])') as HTMLSlotElement;
+    const slot = this.shadowRoot?.querySelector('slot:not([name])') as HTMLSlotElement;
     const nodes = slot
       ?.assignedNodes()
       ?.filter((node: Node) => node.nodeType === Node.ELEMENT_NODE)
@@ -115,15 +124,21 @@ export default class ItemRow extends BaseElement {
   }
 
   #onDrag(e: DragEvent) {
+    e.stopPropagation();
     if (!this.item) {
-      e.stopPropagation();
       return;
     }
+    this.toggleAttribute('dragging', true);
     // @ts-expect-error - toDragData isn't picked up by TS types
     const dragData = this.item.toDragData();
-    if (!!this.shadowRoot.querySelector('.icon'))
+    dragData.fromContainer = !!this.item.system.containerId;
+    if (!!this.shadowRoot?.querySelector('.icon'))
       e.dataTransfer?.setDragImage(this.shadowRoot.querySelector('.icon') as Element, 0, 0);
     e.dataTransfer?.setData("text/plain", JSON.stringify(dragData));
+  }
+
+  #onDragEnd(e: DragEvent) {
+    this.toggleAttribute('dragging', false);
   }
 
   #onShow(e: Event) {
@@ -352,6 +367,9 @@ export default class ItemRow extends BaseElement {
         <div part="content">
           <slot></slot>
         </div>
+      </div>
+      <div class="always-expanded" part="always-expanded">
+        <slot name="always-expanded"></slot>
       </div>
       `;
   }

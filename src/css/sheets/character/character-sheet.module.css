@@ -1,0 +1,104 @@
+:global {
+  .ose.sheet.actor .window-content .sheet-body {
+    flex: 1;
+
+    .editor {
+      height: auto;
+      padding: unset;
+      flex: 1;
+    }
+  }
+  .window-app.character-2 .window-content {
+    /**
+     *    FOUNDRY OVERRIDES
+     */
+    padding: var(--spacing-half) 
+             var(--spacing-full)
+             calc(var(--spacing-full) * 1.5);
+    color: var(--color-primary);
+    font-size: var(--font-size-base);
+
+    .sheet-tabs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(32px, 1fr));
+      gap: var(--spacing-half);
+      justify-content: stretch;
+      margin: 0;
+      border: transparent;
+
+      .item {
+        background-color: transparent;
+        @media (prefers-color-scheme: dark) {
+          background-color: var(--color-ui-09);
+        }
+
+        &.active {
+          background-color: var(--background-color-heading);
+          color: var(--color-heading);
+          text-shadow: none;
+          @media (prefers-color-scheme: dark) {
+            background-color: var(--color-ui-38);
+            border: 1px solid var(--color-ui-09);
+            border-radius: var(--spacing-quarter);
+            color: var(--color-heading);
+            text-shadow: none;
+          }
+        }
+
+        i {
+          @container sheet (min-width: 350px) and (max-width: 540px) {
+            display: none;
+          }
+        }
+
+        span {
+          display: none;
+          @container sheet (min-width: 350px) {
+            display: inline-block;
+          }
+        }
+      }
+    }
+
+    .tab {
+      &.active {
+        container-name: tab;
+        container-type: inline-size;
+        display: flex;
+        gap: var(--spacing-full);
+        flex-direction: column;
+        flex-wrap: nowrap;
+      }
+    }
+
+    /**
+     *    DARK SCHEME OVERRIDES
+     */
+    @media (prefers-color-scheme: dark) {
+      backdrop-filter: blur(3px) contrast(1.25);
+      background: var(--background-color-sheet);
+    }
+
+    /**
+     *    COMPONENT OVERRIDES
+     */
+    uft-expandable-section {
+      flex: 0;
+    }
+  }  
+}
+
+.sheet {
+  container: sheet / inline-size;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-full);
+}
+
+.floating {
+  margin-top: auto;
+  position: sticky;
+  bottom: calc( var(--spacing-full) * -1);
+  z-index: 6;
+  box-shadow: rgba(0, 0, 0, 0.267) 0px 3px 4px 2px;
+}

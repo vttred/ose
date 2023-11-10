@@ -10,6 +10,8 @@ export default class OseCharacterGpCost extends FormApplication {
     this.object.preparedData = preparedData;
   }
 
+  static PhysicalItemTypes = new Set(["item", "container", "weapon", "armor"]);
+
   static get defaultOptions() {
     const options = super.defaultOptions;
     options.classes = ["ose", "dialog", "gp-cost"];
@@ -126,16 +128,13 @@ export default class OseCharacterGpCost extends FormApplication {
 
   // eslint-disable-next-line class-methods-use-this
   async #getTotalCost(data) {
-    let total = 0;
-    const physical = new Set(["item", "container", "weapon", "armor"]);
-    data.items.forEach((item) => {
-      const itemData = item.system;
-      if (physical.has(item.type) && !itemData.treasure)
-        total += itemData.quantity.max
-          ? itemData.cost
-          : itemData.cost * itemData.quantity.value;
-    });
-    return total;
+    return data.items.reduce((total, item) => {
+      if (!OseCharacterGpCost.PhysicalItemTypes.has(item.type) || item.system.treasure)
+        return total;
+      if (item.system.quantity.max)
+        return total + (item.system.cost * item.system.quantity.value);
+      return total + item.system.cost
+    }, 0);
   }
 
   /* -------------------------------------------- */

@@ -48,6 +48,8 @@ export default class CharacterAbilityField extends BaseElement {
     />`;
   }
 
+  
+
   onInput(e: Event) {
     this.value = (e.target as HTMLInputElement).value || "";
   }

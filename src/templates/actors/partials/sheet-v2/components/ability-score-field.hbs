@@ -1,0 +1,21 @@
+<uft-labeled-section class="ability-score-field" {{#if readonly}}readonly{{/if}}>
+  <label for="{{name}}" slot="heading">{{localize label}}</label>
+  <div {{#if modifierValue }}class="value-pair"{{/if}} slot="content">
+    <input
+      type="text"
+      data-dtype="Number"
+      value="{{value}}" 
+      name="{{name}}"
+      {{#if readonly}}readonly{{/if}}
+    />
+    {{#if modifierValue}}
+      <input 
+        type="text"
+        value="{{modifierValue}}" 
+        class="field modifier-field"
+        readonly 
+        tabindex="-1"
+      />
+    {{/if}}
+  </div>
+</uft-labeled-section>

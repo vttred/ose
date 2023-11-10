@@ -49,19 +49,21 @@
     }
 
     .tab {
-      &[data-tab="inventory"] {
-        &.active {
-          display: grid;
-          grid-template-rows: minmax(0, 1fr) 20px;
-          gap: var(--spacing-three-quarters);
-          max-height: 100%;
-        }
-      }
       &.active {
+        container-name: tab;
+        container-type: inline-size;
         display: flex;
+        gap: var(--spacing-full);
         flex-direction: column;
         flex-wrap: nowrap;
       }
+    }
+
+    .encumbrance {
+      position: sticky;
+      bottom: calc( var(--spacing-full) * -1);
+      z-index: 6;
+      box-shadow: rgba(0, 0, 0, 0.267) 0px 3px 4px 2px;
     }
 
     /**
@@ -81,26 +83,11 @@
         --color-heading: var(--color-ui-100);
       }
     }
-    uft-inventory-row {
-      &:nth-of-type(n) {
-        background-color: var(--background-color-zebra-odd);
-      }
-      
-      &:nth-of-type(2n) {
-        background-color: var(--background-color-zebra-even);
-      }
-      
-      &:not(:last-of-type) {
-        margin-bottom: var(--spacing-quarter);
-      }
-    }
+    
     uft-expandable-section {
-      margin-bottom: var(--spacing-quarter);
-      uft-item-row:not(:last-of-type) {
-        margin-bottom: var(--spacing-quarter);
-      }
+      flex: 0;
+      
     }
-
   }  
 }
 
@@ -117,9 +104,13 @@
  */
 .character-info {
   display: grid;
-  grid-template-columns: 144px 1fr;
+  grid-template-columns: 1fr;
   grid-gap: var(--spacing-quarter);
-  margin-bottom: var(--spacing-half);
+  align-items: start;
+
+  @container tab (min-width: 300px) {
+    grid-template-columns: 144px 1fr;
+  }
 }
 
 .character-info__art {
@@ -164,40 +155,132 @@
 }
   
 .character-info__details {
-    display: grid;
-    grid-template-columns: 2fr 2fr 3fr;
-    grid-column-gap: var(--spacing-half);
-    grid-row-gap: var(--spacing-three-quarters);
+  display: flex;
+  gap: var(--spacing-half);
+  flex-wrap: wrap;
+  align-items: flex-start;
 
-    [name="name"] {
-      grid-column-start: 1;
-      grid-column-end: 3;
+  container-type: inline-size;
+
+  :global(.character-info-field) {
+    flex: 100%;
+
+    /*
+      Smallest-size-exclsive styles
+    */
+    @container(max-width: 249px) {
+      --label-flex: 8ch;
+
+      &:has([name="system.details.xp.next"], [name="system.details.title"]) {
+        display: none;
+      }
+    }
+    /*
+      Tiniest size to do any columns
+      Set up minimums and flex basis here
+    */
+    @container(min-width: 250px) {
+      flex: calc(var(--flex-pct) - var(--spacing-half));
+
+      &:has([name="system.details.level"]) {
+        width: 6.5em;
+      }
+
+      &:has([name="system.details.class"]) {
+        min-width: 10em;
+        flex: 1;
+      }
+
+      &:has([name="system.details.xp.value"], [name="system.details.xp.next"]) {
+        min-width: 10em;
+      }
+
+      &:has([name="system.hp.hd"]) {
+        width: 7.5em;
+      }
+    }
+
+    /* Tiniest size to do any columns */
+    @container(min-width: 400px) {
+      &:has([name="system.details.class"]) {
+        --flex-pct: 10em;
+      }
+    }
+
+
+    &:has([name="name"]) {
+      --flex-pct: 60%;
+    }
+    
+    &:has([name="system.details.xp.value"], [name="system.details.xp.next"]) {
+      --flex-pct: 33%;
+    }
+    &:has([name="system.details.title"]) {
+      --flex-pct: 30%;
+    }
+    &:has([name="system.details.alignment"]) {
+      --flex-pct: 30%;
     }
   }
-
-  /* img {
-    border: 1px solid var(--color-ui-09);
-  } */
-
-/* Note: not a real class! */
-.combat-stats {
-  display: grid;
-  grid-align-items: start;
-  grid-template-columns: 100px 1fr 100px;
-  grid-gap: var(--spacing-full);
 }
 
-/* .combat-stats uft-ability-score-field:not(:last-of-type) {
-  margin-bottom: var(--spacing-half);
-} */
+.combat-stats {
+  display: grid;
+  align-items: start;
+  grid-gap: var(--spacing-full);
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "scores"
+    "saves"
+    "modifiers";
+
+  @container tab (min-width: 400px) {
+    grid-template-columns: 100px 1fr 100px;
+    grid-template-areas:
+      "scores modifiers saves";
+  }
+}
 
 .combat-stats__region {
+  container: stat-region / inline-size;
+  gap: var(--spacing-half);
+  flex-direction: column;
+
+  &:global(:is(.ability-scores)) {
+    grid-area: scores;
+  }
+  &:global(:is(.modifiers)) {
+    grid-area: modifiers;
+  }
+  &:global(:is(.saves)) {
+    grid-area: saves;
+  }
+
+  &:global(:not(:is(.saves, .ability-scores))) {
+    display: flex;
+  }
+
+  &:global(:is(.saves, .ability-scores)) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    @container tab (min-width: 400px) {
+      display: flex;
+    }
+  }
+}
+
+.combat-modifiers {
   display: grid;
-  grid-gap: var(--spacing-half);
+  grid-template-columns: 1fr 1fr;
+
+  @container stat-region (min-width: 300px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .combat-vitals {
-  container-type: inline-size;
+  container: vitals / inline-size;
 }
 
 .vital-section {
@@ -247,25 +330,23 @@
   grid-gap: var(--spacing-full);
 }
 
-.favorites {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: var(--spacing-full);
-}
+
 
 
 
 .ability-fields {
   display: flex;
   gap: var(--spacing-full);
-  margin: 0 auto var(--spacing-half);
   flex: 1;
   justify-content: space-around;
 }
-.ability-fields--exploration-skills {
-  max-width: 520px;
+.exploration-skills {
+  max-width: 600px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-full);
 }
-.ability-fields--spell-slots {}
 
 .inventory-tables {
   overflow: auto;
@@ -277,14 +358,29 @@
 
 .container-content {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-gap: var(--spacing-full);
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: var(--spacing-full);
+  row-gap: var(--spacing-half);
 }
 
 .spell-slots {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
+  gap: var(--spacing-half);
+  padding: var(--spacing-quarter);
   flex: 0;
+
+  backdrop-filter: blur(3px) contrast(1.25);
+  background: var(--background-color-sheet);
+  border: 1px solid var(--background-color-heading);
+}
+
+.floating {
+  margin-top: auto;
+  position: sticky;
+  bottom: calc( var(--spacing-full) * -1);
+  z-index: 6;
+  box-shadow: rgba(0, 0, 0, 0.267) 0px 3px 4px 2px;
 }
 
   
@@ -296,4 +392,92 @@
   to {
     color: crimson;
   }
+}
+
+/**
+REWRITE:
+
+# Global
+- Navigation
+  - Small: Icons+Tooltips
+  - Large: Words
+- Floating Footers
+
+
+# Combat Tab
+- .combat-heading
+  - .portrait
+    - Small: centered
+    - Large: Left column
+  - .character-details
+    - A whole mess of reflowing
+    - I wonder if there's another way to lay this stuff out more cleanly?
+- .combat
+  - .stats
+    - Small: 3x grid, position 1
+    - Large: Flex column, position 1
+  - .saves
+    - Small: 3x grid, position 2
+    - Large: Flex column, position 3
+  - .dashboard
+    - .defenses
+      - ALL: 3x grid (varies in how it renders?)
+    - .derived
+      - Small: Flex column
+      - Mid: 2x grid
+      - Large: 3x grid
+    - .favorite
+      - Small: Flex column
+      - Mid: 2x grid
+      - Large: 3x grid
+
+
+**/
+
+.combat-heading {
+  container: combat-heading / inline-size;
+}
+
+.portrait {
+
+}
+
+.character-details {
+
+}
+
+.combat {
+  container: combat-main / inline-size;
+}
+
+.scores {
+
+}
+
+.saves {
+
+}
+
+.dashboard {
+  container: combat-dashboard / inline-size;
+  
+}
+
+.defenses {
+
+}
+
+.derived {
+  container: derived-group / inline-size;
+
+}
+
+.derived-set {
+
+}
+
+.favorites {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: var(--spacing-full);
 }

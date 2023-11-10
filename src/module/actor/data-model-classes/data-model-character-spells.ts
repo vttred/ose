@@ -1,3 +1,5 @@
+import OseItem from "../../item/entity";
+
 /**
  * @file A class representing a creature's spellcasting abilities
  */
@@ -103,5 +105,34 @@ export default class OseDataModelCharacterSpells implements CharacterSpells {
 
   get slots(): Slots {
     return this.#slots;
+  }
+
+  get prepared() {
+    const expandSlots = (spells: OseItem[], maxSlots: number) => {
+      let result = Array(maxSlots).fill(null);
+      let currentIndex = 0;
+    
+      spells.forEach((item: OseItem) => {
+        for (let count = 0; count < item.system.cast; count++) {
+          // Check if current index is within the bounds of the result's length.
+          if (currentIndex < maxSlots) {
+            result[currentIndex] = item;
+            currentIndex++;
+          } else {
+            // If we've reached or exceeded the exact length, exit the loop early.
+            return result;
+          }
+        }
+      });
+      return result;
+    }
+
+    const filterOutUnprepped = (i: OseItem) =>
+      !!i.system.cast;
+    const keys = Object.keys(this.spellList);
+    return keys.reduce((arr, key) => {
+      const prepped = this.spellList[key].filter(filterOutUnprepped);
+      return [...arr, expandSlots(prepped, this.#slots[key].max)];
+    }, [])
   }
 }

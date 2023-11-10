@@ -14,7 +14,7 @@ export default class CharacterInfoField extends BaseElement {
 
   protected events() {
     this.shadowRoot
-      .querySelector(".score-field")
+      ?.querySelector(".score-field")
       ?.addEventListener("change", (e) => {
         this.onInput(e);
       });

@@ -6,6 +6,10 @@ import BaseElement from "../_BaseElement";
 import styles from './AbilityScoreField.css' assert { type: "css" };
 import { component } from "../decorators";
 
+/**
+ * @ignore until we find a way to get Foundry to shift focus
+ *         into a component after a sheet updates/rerenders.
+ */
 @component('uft-ability-score-field')
 export default class AbilityScoreField extends BaseElement {
   static get styles(): CSSStyleSheet[] {
@@ -14,14 +18,14 @@ export default class AbilityScoreField extends BaseElement {
 
   protected events(): void {
     this.shadowRoot
-      .querySelector(".score-field")
+      ?.querySelector(".score-field")
       ?.addEventListener("change", (e) => {
         this.onInput(e);
       });
 
     if (!this.hasAttribute("readonly") && !this.hasAttribute("disabled"))
       this.shadowRoot
-        .querySelector("label")
+        ?.querySelector("label")
         ?.addEventListener("click", (e) => {
           const evt = new Event("roll") as Event & {metaKey: boolean, ctrlKey: boolean};
           evt.metaKey = e.metaKey;
@@ -58,7 +62,7 @@ export default class AbilityScoreField extends BaseElement {
         />
         ${this.getAttribute('modifier-value') ? modifierInput : ''}
       </div>
-    </labeled-section>`;
+    </uft-labeled-section>`;
   }
 
   onInput(e: Event) {

@@ -91,6 +91,7 @@
   "OSE.Favorite.items": "Favored Items",
   "OSE.Favorite.abilities": "Favored Abilities",
 
+  "OSE.scores.long": "Ability Scores",
   "OSE.scores.str.long": "Strength",
   "OSE.scores.str.short": "STR",
   "OSE.scores.wis.long": "Wisdom",
@@ -104,6 +105,7 @@
   "OSE.scores.cha.long": "Charisma",
   "OSE.scores.cha.short": "CHA",
 
+  "OSE.saves.long": "Saving Throws",
   "OSE.saves.death.short": "D",
   "OSE.saves.death.long": "Death Poison",
   "OSE.saves.death.oneWord": "Death",

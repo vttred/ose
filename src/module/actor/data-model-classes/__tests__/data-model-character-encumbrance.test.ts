@@ -397,7 +397,6 @@ export default ({ describe, it, expect }: QuenchMethods) => {
             enc = new EncumbranceComplete(1600, [
               createMockItem("item", 1600, 1, { treasure: false }),
             ]);
-            console.info(enc);
             expect(enc.encumbered).to.be.false;
           });
         });

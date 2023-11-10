@@ -1,14 +1,18 @@
-@import "/fonts/fontawesome/css/all.min.css";
-
 :host {
   display: flex;
   flex-direction: column;
   cursor: grab;
   transition: 333ms opacity ease-in-out;
+  --item-row-opacity: 1;
+  opacity: var(--item-row-opacity);
 }
-:host(:active) {
+:host([exhausted]) {
+  --item-row-opacity: .75;
+  filter: saturate(.25);
+}
+:host([dragging]) {
   cursor: grabbing;
-  opacity: .5;
+  opacity: calc(var(--item-row-opacity) / 2);
 }
 .row {
   display: grid;
@@ -23,6 +27,8 @@
   border-radius: var(--spacing-quarter);
   overflow: hidden;
   position: relative;
+  cursor: pointer;
+  align-self: start;
 }
 .icon img {
   display: block;
@@ -48,6 +54,12 @@
 }
 .supplemental-content {
   
+}
+.always-expanded:not(.empty) {
+  padding-top: var(--spacing-half);
+  padding-bottom: var(--spacing-half);
+  padding-left: var(--content-padding, var(--spacing-half));
+  padding-right: var(--content-padding, var(--spacing-half));
 }
 
 :host::part(content) {

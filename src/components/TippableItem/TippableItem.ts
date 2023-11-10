@@ -6,6 +6,7 @@ import BaseElement from "../_BaseElement";
 import styles from './TippableItem.css' assert { type: "css" };
 import OseItem from "../../module/item/entity";
 import { component } from "../decorators";
+import { abbreviateNumber } from "../../module/helpers-numbers";
 
 @component('uft-tippable-item')
 export default class TippableItem extends BaseElement {
@@ -60,6 +61,8 @@ export default class TippableItem extends BaseElement {
     }];
   }
 
+  static shadowMode: ShadowRootMode = 'closed';
+
   item: OseItem | null = null;
 
   contextMenu?: unknown;
@@ -74,10 +77,10 @@ export default class TippableItem extends BaseElement {
   }
 
   protected events(): void {
-    this.setAttribute("draggable", "true");
-    
-    this.addEventListener("pointerdown", this.#onRoll.bind(this));
-    this.addEventListener("keydown", this.#onRoll.bind(this));
+    this.addEventListener("pointerup", this.#onOpen.bind(this));
+    this.shadowRoot?.querySelector('.icon')
+      ?.addEventListener("pointerup", this.#onRoll.bind(this));
+    this.addEventListener("dragstart", this.#onDrag.bind(this));
 
     this.contextMenu = new ContextMenu(
       $(this),
@@ -86,7 +89,21 @@ export default class TippableItem extends BaseElement {
     )
   }
 
-  #onRoll(e: KeyboardEvent | PointerEvent) {
+  #onDrag(e: DragEvent) {
+    if (!this.item) {
+      e.stopPropagation();
+      return;
+    }
+    // @ts-expect-error - toDragData isn't picked up by TS types
+    const dragData = this.item.toDragData();
+    dragData.fromContainer = !!this.item.system.containerId;
+    if (!!this.shadowRoot?.querySelector('.icon'))
+      e.dataTransfer?.setDragImage(this.shadowRoot.querySelector('.icon') as Element, 0, 0);
+    e.dataTransfer?.setData("text/plain", JSON.stringify(dragData));
+  }
+
+  #onRoll(e: PointerEvent): void {
+    if (!this.hasAttribute("can-roll")) return;
     // Bail if we don't have an item to roll
     if (!this.item) return;
     // Bail if the user uses a keyboard and doesn't use Enter or Space to activate
@@ -96,12 +113,38 @@ export default class TippableItem extends BaseElement {
     // (so we can use right click for a context menu)
     if (e instanceof PointerEvent && e.button === 2) return;
 
+    e.stopPropagation();
     this.item.roll();
+  }
+
+  #onOpen(e: PointerEvent): void {
+    // Bail if we don't have an item to roll
+    if (!this.item) return;
+    // Bail if the user doesn't left click to activate
+    // (so we can use right click for a context menu)
+    if (e instanceof PointerEvent && e.button === 2) return;
+
+    this.item.sheet?.render(true);
+  }
+
+  get #quantityLabel() {
+    if (!this.hasAttribute("has-quantity")) return '';
+
+    let quantity = abbreviateNumber(this.item?.system.quantity.value);
+    let max = this.item?.system.quantity.max
+      ? `/${this.item?.system.quantity.max}`
+      : ""
+    return /* html */ `<uft-tag-chip class="quantity">
+      ${quantity}${max}
+    </uft-tag-chip>`;
   }
 
   get template() {
     return /*html*/ `
-      <img class="icon" src="${this.item?.img || ""}" alt="${this.item?.name || ""}" />
+      <div class="icon">
+        <img class="nopopout" src="${this.item?.img || ''}" alt="${this.item?.name || ''}">
+        ${this.#quantityLabel}
+      </div>
       <span class="item-name">${this.item?.name || ""}</span>
       <slot></slot>
     `;

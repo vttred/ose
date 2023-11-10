@@ -61,42 +61,74 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
 
   // @todo define schema options; stuff like min/max values and so on.
   static defineSchema() {
-    const { StringField, NumberField, BooleanField, ObjectField } =
+    const { StringField, NumberField, BooleanField, ObjectField, SchemaField, HTMLField, ArrayField } =
       foundry.data.fields;
 
     return {
       spells: new ObjectField(),
-      scores: new ObjectField(),
-      details: new ObjectField(),
-      ac: new ObjectField(),
-      aac: new ObjectField(),
-      encumbrance: new ObjectField(),
+      scores: new SchemaField({
+        str: new SchemaField({ value: new NumberField({ min: 0, initial: null }) }),
+        int: new SchemaField({ value: new NumberField({ min: 0, initial: null }) }),
+        wis: new SchemaField({ value: new NumberField({ min: 0, initial: null }) }),
+        dex: new SchemaField({ value: new NumberField({ min: 0, initial: null }) }),
+        con: new SchemaField({ value: new NumberField({ min: 0, initial: null }) }),
+        cha: new SchemaField({ value: new NumberField({ min: 0, initial: null }) })
+      }),
+      details: new SchemaField({
+        alignment: new StringField(),
+        biography: new HTMLField(),
+        class: new StringField(),
+        level: new NumberField({ min: 1, initial: 1 }),
+        notes: new HTMLField(),
+        title: new StringField(),
+        xp: new SchemaField({
+          share: new NumberField({ min: 0, max: 100, initial: 100 }),
+          next: new NumberField({ min: 0, initial: 2000 }),
+          value: new NumberField({ min: 0, initial: 0 }),
+          bonus: new NumberField({ initial: 0 })
+        })
+      }),
+      ac: new SchemaField({
+        mod: new NumberField()
+      }),
+      aac: new SchemaField({
+        mod: new NumberField()
+      }),
+      encumbrance: new SchemaField({
+        max: new NumberField({
+          min: 0,
+          initial: CONFIG.OSE.encumbrance.baseEncumbranceCap
+        }),
+      }),
       movement: new ObjectField(),
       config: new ObjectField(),
       initiative: new ObjectField(),
-      hp: new ObjectField({
-        hd: new StringField(),
-        value: new NumberField({ integer: true }),
-        max: new NumberField({ integer: true }),
+      hp: new SchemaField({
+        hd: new StringField({ initial: '1d6'}),
+        value: new NumberField({ initial: 6 }),
+        max: new NumberField({ min: 1, initial: 6 }),
       }),
       thac0: new ObjectField(),
-      languages: new ObjectField(),
-      saves: new ObjectField({
-        breath: new ObjectField({ value: new NumberField({ integer: true }) }),
-        death: new ObjectField({ value: new NumberField({ integer: true }) }),
-        paralysis: new ObjectField({
-          value: new NumberField({ integer: true }),
-        }),
-        spell: new ObjectField({ value: new NumberField({ integer: true }) }),
-        wand: new ObjectField({ value: new NumberField({ integer: true }) }),
+      languages: new SchemaField({
+        value: new ArrayField(
+          new StringField(),
+          { initial: [] }
+        )
       }),
-      exploration: new ObjectField({
-        ft: new NumberField({ integer: true, positive: true }),
-        ld: new NumberField({ integer: true, positive: true }),
-        od: new NumberField({ integer: true, positive: true }),
-        sd: new NumberField({ integer: true, positive: true }),
+      saves: new SchemaField({
+        breath: new SchemaField({ value: new NumberField({ integer: true, initial: null }) }),
+        death: new SchemaField({ value: new NumberField({ integer: true, initial: null }) }),
+        paralysis: new SchemaField({ value: new NumberField({ integer: true, initial: null }) }),
+        spell: new SchemaField({ value: new NumberField({ integer: true, initial: null }) }),
+        wand: new SchemaField({ value: new NumberField({ integer: true, initial: null }) }),
       }),
-      retainer: new ObjectField({
+      exploration: new SchemaField({
+        ft: new NumberField({ integer: true, positive: true, initial: 1 }),
+        ld: new NumberField({ integer: true, positive: true, initial: 1 }),
+        od: new NumberField({ integer: true, positive: true, initial: 1 }),
+        sd: new NumberField({ integer: true, positive: true, initial: 1 }),
+      }),
+      retainer: new SchemaField({
         enabled: new BooleanField(),
         loyalty: new NumberField({ integer: true }),
         wage: new StringField(),

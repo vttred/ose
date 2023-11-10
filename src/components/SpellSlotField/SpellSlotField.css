@@ -54,9 +54,10 @@ input:read-only {
 @media (prefers-color-scheme: light) {
   :host {
     border: 1px solid var(--background-color-heading);
+    background: url("/ui/parchment.jpg");
   }
   label {
-    background-color: var(--background-color-heading);
+    background: var(--background-color-heading);
     color: var(--color-heading);
   }
 }

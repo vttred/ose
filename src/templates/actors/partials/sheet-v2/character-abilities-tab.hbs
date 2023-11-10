@@ -1,23 +1,37 @@
-<div class="ability-fields ability-fields--exploration-skills">
-  <uft-character-ability-field name="system.exploration.ld" value="{{actor.system.exploration.ld}}">
-    <img src="{{asset '/Melee.svg'}}" slot="icon" />
-    {{localize "OSE.exploration.ld.short"}}
-  </uft-character-ability-field>
+<div class="ability-fields ability-fields--exploration-skills {{styles.ability.exploration}}">
+  {{#with actor.system.exploration}}
+    {{> (path "/templates/actors/partials/sheet-v2/components/character-ability-field.hbs")
+      label="OSE.exploration.ld.short"
+      icon=(asset '/Melee.svg')
+      value=ld
+      name="system.exploration.ld"
+      explorationType="ld"
+    }}
 
-  <uft-character-ability-field name="system.exploration.od" value="{{actor.system.exploration.od}}">
-    <img src="{{asset '/Melee.svg'}}" slot="icon" />
-    {{localize "OSE.exploration.od.short"}}
-  </uft-character-ability-field>
+    {{> (path "/templates/actors/partials/sheet-v2/components/character-ability-field.hbs")
+      label="OSE.exploration.od.short"
+      icon=(asset '/Melee.svg')
+      value=od
+      name="system.exploration.od"
+      explorationType="od"
+    }}
 
-  <uft-character-ability-field name="system.exploration.sd" value="{{actor.system.exploration.sd}}">
-    <img src="{{asset '/Melee.svg'}}" slot="icon" />
-    {{localize "OSE.exploration.sd.short"}}
-  </uft-character-ability-field>
+    {{> (path "/templates/actors/partials/sheet-v2/components/character-ability-field.hbs")
+      label="OSE.exploration.sd.short"
+      icon=(asset '/Melee.svg')
+      value=sd
+      name="system.exploration.sd"
+      explorationType="sd"
+    }}
 
-  <uft-character-ability-field name="system.exploration.ft" value="{{actor.system.exploration.ft}}">
-    <img src="{{asset '/Melee.svg'}}" slot="icon" />
-    {{localize "OSE.exploration.ft.short"}}
-  </uft-character-ability-field>
+    {{> (path "/templates/actors/partials/sheet-v2/components/character-ability-field.hbs")
+      label="OSE.exploration.ft.short"
+      icon=(asset '/Melee.svg')
+      value=ft
+      name="system.exploration.ft"
+      explorationType="ft"
+    }}
+  {{/with}}
 </div>
 
 <uft-expandable-section type="ability" can-create aria-expanded>

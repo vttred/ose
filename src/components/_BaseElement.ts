@@ -12,7 +12,7 @@ export default class BaseComponent extends HTMLElement {
   }
 
   /**
-   * The HTML template to render for the component.
+   * The HTML template to render in the component's shadow DOM.
    * 
    * **Note**: If you're using VSCode, install the `es6-string-html` extension
    * to get syntax highlighting in these templates! Example:
@@ -23,10 +23,25 @@ export default class BaseComponent extends HTMLElement {
    *   <div>Your Template</div>
    * `
    * ```
-   * 
-   * @todo Is there a way to get templates from external files to help out with dev ergonomics here?
    */
   protected get template() {
+    return "";
+  }
+
+  /**
+   * The HTML template to render in the component's light DOM.
+   * 
+   * **Note**: If you're using VSCode, install the `es6-string-html` extension
+   * to get syntax highlighting in these templates! Example:
+   * 
+   * ```js
+   * return // html
+   * `
+   *   <div>Your Template</div>
+   * `
+   * ```
+   */
+  protected get lightTemplate() {
     return "";
   }
 
@@ -50,6 +65,13 @@ export default class BaseComponent extends HTMLElement {
   static formAssociated = true;
 
   /**
+   * Should this component use the light DOM instead of the shadow DOM?
+   *
+   * Necessary to get Foundry to tab between fields while making changes!
+   */
+  static isLight = false;
+
+  /**
    * Does this component expose its DOM to outside contexts?
    */
   static shadowMode: ShadowRootMode = "open";
@@ -63,24 +85,25 @@ export default class BaseComponent extends HTMLElement {
   // INFRASTRUCTURE STUFF BELOW -- PROBABLY DON'T CHANGE IT IN A COMPONENT
   // ---------------------------------------------------------------------
 
-  constructor() {
-    super();
-    this.shadowRoot = this.attachShadow({
-      mode: (this.constructor as typeof BaseComponent).shadowMode,
-      delegatesFocus: (this.constructor as typeof BaseComponent).delegatesFocus,
-    });
-    this.internals = this.attachInternals();
-  }
-
   /**
    * The root of this component's shadow DOM.
    */
-  shadowRoot: ShadowRoot;
+  shadowRoot: ShadowRoot | null = null;
 
   /**
    * The element's internals, containing useful tools for interacting with forms and validation
    */
   protected internals: ElementInternals;
+
+  constructor() {
+    super();
+    if (!(this.constructor as typeof BaseComponent).isLight)
+      this.shadowRoot = this.attachShadow({
+        mode: (this.constructor as typeof BaseComponent).shadowMode,
+        delegatesFocus: (this.constructor as typeof BaseComponent).delegatesFocus,
+      });
+    this.internals = this.attachInternals();
+  }
 
   /**
    * Fires when the component is mounted to the DOM, and whenever it sees changes.
@@ -89,8 +112,15 @@ export default class BaseComponent extends HTMLElement {
     await this.prepareData();
     if ((this.constructor as typeof BaseComponent).formAssociated)
       this.value = this.getAttribute("value")?.toString() || "";
-    this.shadowRoot.adoptedStyleSheets = (this.constructor as typeof BaseComponent).styles;
-    this.shadowRoot.innerHTML = this.template;
+    if (this.shadowRoot)
+      this.shadowRoot.adoptedStyleSheets = (this.constructor as typeof BaseComponent).styles;
+    if (this.shadowRoot)
+      this.shadowRoot.innerHTML = this.template;
+    if (this.lightTemplate) {
+      const template = document.createElement('template');
+      template.innerHTML = this.lightTemplate;
+      this.appendChild(template.content);
+    }
     this.events();
   }
 
@@ -114,9 +144,9 @@ export default class BaseComponent extends HTMLElement {
     if (!this.constructor.formAssociated)
       return;
 
-    this.setAttribute("value", newValue);
-    this.internals?.setFormValue(newValue);
-    this.dispatchEvent(new Event("change", { bubbles: true }));
+    // this.setAttribute("value", newValue);
+    // this.internals?.setFormValue(newValue);
+    // this.dispatchEvent(new Event("change", { bubbles: true }));
   }
 
   get name() {

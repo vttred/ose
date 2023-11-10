@@ -1,36 +1,32 @@
-<header class="{{styles.characterInfo}}">
-  <section class="{{styles.characterInfoArt}}">
-    <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" class="{{styles.characterInfoArt}}" />
-    <div class="{{styles.characterInfoApps}}">
+<header class="{{styles.combat.heading}}">
+  <section class="{{styles.combat.portrait}}">
+    <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+    <div class="{{styles.combat.appControls}}">
       {{#unless this.actor.system.isNew}}
-      <button
-        class="{{styles.characterInfoButton}}"
-        type="button"
-        data-action="modifiers"
-        aria-label="{{localize 'OSE.Modifiers'}}"
-        title="{{localize 'OSE.Modifiers'}}">
-        <i class="fas fa-book"></i>
-      </button>
-      <button
-        class="{{styles.characterInfoButton}}"
-        type="button"
-        data-action="gp-cost"
-        aria-label="{{localize 'OSE.dialog.shoppingCart'}}"
-        title="{{localize 'OSE.dialog.shoppingCart'}}">
-        <i class="fas fa-coins"></i>
-      </button>
+        <button
+          type="button"
+          data-action="modifiers"
+          aria-label="{{localize 'OSE.Modifiers'}}"
+          title="{{localize 'OSE.Modifiers'}}">
+          <i class="fas fa-book"></i>
+        </button>
+        <button
+          type="button"
+          data-action="gp-cost"
+          aria-label="{{localize 'OSE.dialog.shoppingCart'}}"
+          title="{{localize 'OSE.dialog.shoppingCart'}}">
+          <i class="fas fa-coins"></i>
+        </button>
       {{else}}
-      <button
-        class="{{styles.characterInfoButton}} {{styles.characterInfoButtonAttention}}"
-        type="button"
-        data-action="generate-scores"
-        aria-label="{{localize 'OSE.dialog.generateScores'}}"
-        title="{{localize 'OSE.dialog.generateScores'}}">
-        <i class="fa fa-dice"></i>
-      </button>
+        <button
+          type="button"
+          data-action="generate-scores"
+          aria-label="{{localize 'OSE.dialog.generateScores'}}"
+          title="{{localize 'OSE.dialog.generateScores'}}">
+          <i class="fa fa-dice"></i>
+        </button>
       {{/unless}}
       <button
-        class="{{styles.characterInfoButton}}"
         type="button"
         data-action="tweaks"
         aria-label="{{localize 'OSE.dialog.tweaks'}}"
@@ -39,210 +35,267 @@
       </button>
     </div>
   </section>
-  <section class="{{styles.characterInfoDetails}}">
-    <uft-character-info-field name="name" value="{{actor.name}}" data-dtype="String">{{localize "OSE.details.name"}}</uft-character-info-field>
-    <uft-character-info-field name="system.details.class" value="{{actor.system.details.class}}" data-dtype="String">{{localize "OSE.details.class"}}</uft-character-info-field>
-    <uft-character-info-field name="system.details.level" value="{{actor.system.details.level}}" data-dtype="Number">{{localize "OSE.details.level"}}</uft-character-info-field>
-    <uft-character-info-field name="system.details.title" value="{{actor.system.details.title}}" data-dtype="String">{{localize "OSE.details.title"}}</uft-character-info-field>
-    <uft-character-info-field name="system.details.xp.value" value="{{actor.system.details.xp.value}}" data-dtype="Number">{{localize "OSE.details.experience.baseshort"}}</uft-character-info-field>
-    <uft-character-info-field name="system.hp.hd" value="{{actor.system.hp.hd}}" data-dtype="String">{{localize "OSE.HitDiceShort"}}</uft-character-info-field>
-    <uft-character-info-field name="system.details.alignment" value="{{actor.system.details.alignment}}" data-dtype="String">{{localize "OSE.details.alignmentshort"}}</uft-character-info-field>
-    <uft-character-info-field name="system.details.xp.next" value="{{actor.system.details.xp.next}}" data-dtype="Number">{{localize "OSE.details.experience.nextshort"}}</uft-character-info-field>
+  <section class="{{styles.combat.characterDetails}}">
+    {{> (path "/templates/actors/partials/sheet-v2/components/character-info-field.hbs")
+      label="OSE.details.name"
+      name="name"
+      value=actor.name
+    }}
+
+    {{#with actor.system.details}}
+      {{> (path "/templates/actors/partials/sheet-v2/components/character-info-field.hbs")
+        label="OSE.details.class"
+        name="system.details.class"
+        value=class
+      }}
+
+      {{> (path "/templates/actors/partials/sheet-v2/components/character-info-field.hbs")
+        label="OSE.details.level"
+        name="system.details.level"
+        value=level
+        dtype="Number"
+      }}
+
+      {{> (path "/templates/actors/partials/sheet-v2/components/character-info-field.hbs")
+        label="OSE.details.experience.baseshort"
+        name="system.details.xp.value"
+        value=xp.value
+        dtype="Number"
+      }}
+
+      {{> (path "/templates/actors/partials/sheet-v2/components/character-info-field.hbs")
+        label="OSE.details.experience.nextshort"
+        name="system.details.xp.next"
+        value=xp.next
+        dtype="Number"
+      }}
+    {{/with}}
+
+      {{> (path "/templates/actors/partials/sheet-v2/components/character-info-field.hbs")
+        label="OSE.HitDiceShort"
+        name="system.hp.hd"
+        value=actor.system.hp.hd
+      }}
+
+    {{#with actor.system.details}}
+
+      {{> (path "/templates/actors/partials/sheet-v2/components/character-info-field.hbs")
+        label="OSE.details.title"
+        name="system.details.title"
+        value=title
+      }}
+
+      {{> (path "/templates/actors/partials/sheet-v2/components/character-info-field.hbs")
+        label="OSE.details.alignmentshort"
+        name="system.details.alignment"
+        value=alignment
+      }}
+    {{/with}}
   </section>
 </header>
 
-<main class="{{styles.combatStats}}">
-  <section class="{{styles.combatStatsRegion}} ability-scores">
-    <uft-ability-score-field
-      name="system.scores.str.value"
-      value="{{actor.system.scores.str.value}}"
-      modifier-value="{{actor.system.scores.str.mod}}"
-      data-dtype="Number"
-    >
-      {{localize "OSE.scores.str.long"}}
-    </uft-ability-score-field>
-    <uft-ability-score-field
-      name="system.scores.int.value"
-      value="{{actor.system.scores.int.value}}"
-      modifier-value="{{actor.system.scores.int.mod}}"
-      data-dtype="Number"
-    >
-      {{localize "OSE.scores.int.long"}}
-    </uft-ability-score-field>
-    <uft-ability-score-field
-      name="system.scores.wis.value"
-      value="{{actor.system.scores.wis.value}}"
-      modifier-value="{{actor.system.scores.wis.mod}}"
-      data-dtype="Number"
-    >
-      {{localize "OSE.scores.wis.long"}}
-    </uft-ability-score-field>
-    <uft-ability-score-field
-      name="system.scores.dex.value"
-      value="{{actor.system.scores.dex.value}}"
-      modifier-value="{{actor.system.scores.dex.mod}}"
-      data-dtype="Number"
-    >
-      {{localize "OSE.scores.dex.long"}}
-    </uft-ability-score-field>
-    <uft-ability-score-field
-      name="system.scores.con.value"
-      value="{{actor.system.scores.con.value}}"
-      modifier-value="{{actor.system.scores.con.mod}}"
-      data-dtype="Number"
-    >
-      {{localize "OSE.scores.con.long"}}
-    </uft-ability-score-field>
-    <uft-ability-score-field
-      name="system.scores.cha.value"
-      value="{{actor.system.scores.cha.value}}"
-      modifier-value="{{actor.system.scores.cha.mod}}"
-      data-dtype="Number"
-    >
-      {{localize "OSE.scores.cha.long"}}
-    </uft-ability-score-field>
+<main class="{{styles.combat.combat}}">
+  <section class="{{styles.combat.statRegion}} {{styles.combat.abilityScores}} ability-scores">
+    <h4>{{localize "OSE.scores.long"}}</h4>
+
+    {{#with actor.system.scores}}
+      {{> (path "/templates/actors/partials/sheet-v2/components/ability-score-field.hbs")
+        label="OSE.scores.str.long"
+        name="system.scores.str.value"
+        value=str.value
+        modifierValue=(concat '' str.mod)
+      }}
+      {{> (path "/templates/actors/partials/sheet-v2/components/ability-score-field.hbs")
+        label="OSE.scores.int.long"
+        name="system.scores.int.value"
+        value=int.value
+        modifierValue=(concat '' int.mod)
+      }}
+      {{> (path "/templates/actors/partials/sheet-v2/components/ability-score-field.hbs")
+        label="OSE.scores.wis.long"
+        name="system.scores.wis.value"
+        value=wis.value
+        modifierValue=(concat '' wis.mod)
+      }}
+      {{> (path "/templates/actors/partials/sheet-v2/components/ability-score-field.hbs")
+        label="OSE.scores.dex.long"
+        name="system.scores.dex.value"
+        value=dex.value
+        modifierValue=(concat '' dex.mod)
+      }}
+      {{> (path "/templates/actors/partials/sheet-v2/components/ability-score-field.hbs")
+        label="OSE.scores.con.long"
+        name="system.scores.con.value"
+        value=con.value
+        modifierValue=(concat '' con.mod)
+      }}
+      {{> (path "/templates/actors/partials/sheet-v2/components/ability-score-field.hbs")
+        label="OSE.scores.cha.long"
+        name="system.scores.cha.value"
+        value=cha.value
+        modifierValue=(concat '' cha.mod)
+      }}
+    {{/with}}
   </section>
   
-  <section class="combat__stat-region combat__stat-region--central">
-    <div class="combat__vitals">
-      <section class="{{styles.vitalSection}} vital-section--defenses">
-        {{! HP/AC/THAC0 }}
-        {{#if usesAscendingAC}}
-        <uft-major-icon-field value="{{actor.system.thac0.bba}}" value-name="system.thac0.bba">
-          {{localize "OSE.ABShort"}}
-          <img src="{{asset "/mace.svg"}}" slot="background" />
-        </uft-major-icon-field>
-        {{else}}
-        <uft-major-icon-field value="{{actor.system.thac0.value}}" value-name="system.thac0.value">
-          {{localize "OSE.Thac0"}}
-          <img src="{{asset "/mace.svg"}}" slot="background" />
-        </uft-major-icon-field>
-        {{/if}}
-        <uft-major-icon-field
-          value="{{actor.system.hp.value}}"
-          value-name="system.hp.value"
-          max="{{actor.system.hp.max}}"
-          max-name="system.hp.max">
-          {{localize "OSE.HealthShort"}}
-          <img src="{{asset "/heart.svg"}}" slot="background" />
-        </uft-major-icon-field>
-        {{#if usesAscendingAC}}
-        <uft-major-icon-field value="{{actor.system.aac.value}}" readonly>
-          {{localize "OSE.ArmorClassShort"}}
-          <img src="{{asset "/shield.svg"}}" slot="background" />
-        </uft-major-icon-field>
-        {{else}}
-        <uft-major-icon-field value="{{actor.system.ac.value}}" readonly>
-          {{localize "OSE.ArmorClassShort"}}
-          <img src="{{asset "/shield.svg"}}" slot="background" />
-        </uft-major-icon-field>
-        {{/if}}
+  <section class="{{styles.combat.statRegion}} {{styles.combat.dashboard}} dashboard">
+    <section class="{{styles.combat.defenses}}">
+      {{#if usesAscendingAC}}
+        {{> (path "/templates/actors/partials/sheet-v2/components/major-icon-field.hbs")
+          label="OSE.ABShort"
+          name="system.thac0.bba"
+          value=actor.system.thac0.bba
+          img=(asset "/mace.svg")
+        }}
+      {{else}}
+        {{> (path "/templates/actors/partials/sheet-v2/components/major-icon-field.hbs")
+          label="OSE.THAC0"
+          name="system.thac0.value"
+          value=actor.system.thac0.value
+          img=(asset "/mace.svg")
+        }}
+      {{/if}}
+
+      {{> (path "/templates/actors/partials/sheet-v2/components/major-icon-field.hbs")
+        label="OSE.HealthShort"
+        name="system.hp.value"
+        value=actor.system.hp.value
+        maxName="system.hp.max"
+        max=actor.system.hp.max
+        img=(asset "/heart.svg")
+      }}
+
+      {{#if usesAscendingAC}}
+        {{> (path "/templates/actors/partials/sheet-v2/components/major-icon-field.hbs")
+          label="OSE.ArmorClassShort"
+          name="system.aac.value"
+          value=actor.system.aac.value
+          img=(asset "/shield2.svg")
+          readonly="true"
+        }}
+      {{else}}
+        {{> (path "/templates/actors/partials/sheet-v2/components/major-icon-field.hbs")
+          label="OSE.ArmorClassShort"
+          name="system.ac.value"
+          value=actor.system.ac.value
+          img=(asset "/shield2.svg")
+          readonly="true"
+        }}
+      {{/if}}
+    </section>
+
+    <section class="{{styles.combat.derived}} combat-modifiers">
+      <section class="{{styles.combat.derivedSet}} {{styles.vitalSectionCombatMods}} combat-mods">
+        <h4>{{localize "OSE.combatmods.heading"}}</h4>
+
+        {{> (path "/templates/actors/partials/sheet-v2/components/character-ability-field.hbs")
+          label="OSE.Melee"
+          icon=(asset '/Melee.svg')
+          value=actor.system.meleeMod
+          attackType="melee"
+          readonly=true
+        }}
+
+        {{> (path "/templates/actors/partials/sheet-v2/components/character-ability-field.hbs")
+          label="OSE.Missile"
+          icon=(asset '/Missile.svg')
+          value=actor.system.rangedMod
+          attackType="missile"
+          readonly=true
+        }}
+
+        {{> (path "/templates/actors/partials/sheet-v2/components/character-ability-field.hbs")
+          label="OSE.Initiative"
+          icon=(asset '/Initiative.svg')
+          value=actor.system.init
+          readonly=true
+        }}
       </section>
 
-      <section class="{{styles.combatModifiers}} combat-modifiers">
-        <section class="{{styles.vitalSection}} {{styles.vitalSectionCombatMods}}">
-          {{! Combat mods }}
-          <h4>{{localize "OSE.combatmods.heading"}}</h4>
-          <uft-character-ability-field data-attack-type="melee" value="{{actor.system.meleeMod}}" readonly>
-            <img src="{{asset '/Melee.svg'}}" slot="icon" />
-            {{localize "OSE.Melee"}}
-          </uft-character-ability-field>
-          <uft-character-ability-field data-attack-type="missile" value="{{actor.system.rangedMod}}" readonly>
-            <img src="{{asset '/Missile.svg'}}" slot="icon" />
-            {{localize "OSE.Missile"}}
-          </uft-character-ability-field>
-          <uft-character-ability-field value="{{actor.system.init}}" readonly>
-            <img src="{{asset '/Initiative.svg'}}" slot="icon" />
-            {{localize "OSE.Initiative"}}
-          </uft-character-ability-field>
-        </section>
+      <section class="{{styles.combat.derivedSet}} {{styles.vitalSectionMovement}}">
+        <h4>{{localize "OSE.movement.heading"}}</h4>
 
-        <section class="{{styles.vitalSection}} {{styles.vitalSectionMovement}}">
-          {{! Move speed }}
-          <h4>{{localize "OSE.movement.heading"}}</h4>
-          <uft-character-ability-field value="{{actor.system.movement.encounter}}" readonly>
-            <img src="{{asset '/Encounter.svg'}}" slot="icon" />
-            {{localize "OSE.movement.encounter.oneWord"}}
-          </uft-character-ability-field>
-          <uft-character-ability-field value="{{actor.system.movement.base}}" readonly>
-            <img src="{{asset '/Exploration.svg'}}" slot="icon" />
-            {{localize "OSE.movement.exploration.oneWord"}}
-          </uft-character-ability-field>
-          <uft-character-ability-field value="{{actor.system.movement.overland}}" readonly>
-            <img src="{{asset '/Overland.svg'}}" slot="icon" />
-            {{localize "OSE.movement.overland.oneWord"}}
-          </uft-character-ability-field>
-        </section>
+        {{> (path "/templates/actors/partials/sheet-v2/components/character-ability-field.hbs")
+          label="OSE.movement.encounter.oneWord"
+          icon=(asset '/Encounter.svg')
+          value=actor.system.movement.encounter
+          readonly=true
+        }}
+
+        {{> (path "/templates/actors/partials/sheet-v2/components/character-ability-field.hbs")
+          label="OSE.movement.exploration.oneWord"
+          icon=(asset '/Exploration.svg')
+          value=actor.system.movement.base
+          readonly=true
+        }}
+
+        {{> (path "/templates/actors/partials/sheet-v2/components/character-ability-field.hbs")
+          label="OSE.movement.overland.oneWord"
+          icon=(asset '/Overland.svg')
+          value=actor.system.movement.overland
+          readonly=true
+        }}
       </section>
-    </div>
-    
-    <div class="{{styles.combatFavorites}}">
-      <uft-labeled-section>
-        <h4 slot="heading">{{localize "OSE.Favorite.items"}}</h4>
-        {{#if favoriteItems.length}}
-        <div slot="content" class="{{styles.favorites}} favorites__items">
-        {{#each favoriteItems}}
-          <uft-tippable-item uuid="{{uuid}}"></uft-tippable-item>
-        {{/each}}
-        </div>
-        {{/if}}
-      </uft-labeled-section>
+    </section>
+  
+    <uft-labeled-section>
+      <h4 slot="heading">{{localize "OSE.Favorite.items"}}</h4>
+      {{#if favoriteItems.length}}
+      <div slot="content" class="{{styles.combat.favorites}} favorites__items">
+      {{#each favoriteItems}}
+        <uft-tippable-item uuid="{{uuid}}" can-roll {{#if system.quantity}}has-quantity{{/if}}></uft-tippable-item>
+      {{/each}}
+      </div>
+      {{/if}}
+    </uft-labeled-section>
 
-      <uft-labeled-section>
-        <h4 slot="heading">{{localize "OSE.Favorite.abilities"}}</h4>
-        {{#if favoriteAbilities.length}}
-        <div slot="content" class="{{styles.favorites}} favorites__abilities">
-        {{#each favoriteAbilities}}
-          <uft-tippable-item uuid="{{uuid}}"></uft-tippable-item>
-        {{/each}}
-        </div>
-        {{/if}}
-      </uft-labeled-section>
-    </div>
+    <uft-labeled-section>
+      <h4 slot="heading">{{localize "OSE.Favorite.abilities"}}</h4>
+      {{#if favoriteAbilities.length}}
+      <div slot="content" class="{{styles.combat.favorites}} favorites__abilities">
+      {{#each favoriteAbilities}}
+        <uft-tippable-item uuid="{{uuid}}" can-roll></uft-tippable-item>
+      {{/each}}
+      </div>
+      {{/if}}
+    </uft-labeled-section>
   </section>
   
-  <section class="{{styles.combatStatsRegion}} saves">
-    <uft-ability-score-field
-      name="system.saves.death.value"
-      value="{{actor.system.saves.death.value}}"
-      data-dtype="Number"
-    >
-      {{localize "OSE.saves.death.oneWord"}}
-    </uft-ability-score-field>
-    <uft-ability-score-field
-      name="system.saves.wand.value"
-      value="{{actor.system.saves.wand.value}}"
-      data-dtype="Number"
-    >
-      {{localize "OSE.saves.wand.long"}}
-    </uft-ability-score-field>
-    <uft-ability-score-field
-      name="system.saves.paralysis.value"
-      value="{{actor.system.saves.paralysis.value}}"
-      data-dtype="Number"
-    >
-      {{localize "OSE.saves.paralysis.oneWord"}}
-    </uft-ability-score-field>
-    <uft-ability-score-field
-      name="system.saves.breath.value"
-      value="{{actor.system.saves.breath.value}}"
-      data-dtype="Number"
-    >
-      {{localize "OSE.saves.breath.oneWord"}}
-    </uft-ability-score-field>
-    <uft-ability-score-field
-      name="system.saves.spell.value"
-      value="{{actor.system.saves.spell.value}}"
-      data-dtype="Number"
-    >
-      {{localize "OSE.saves.spell.oneWord"}}
-    </uft-ability-score-field>
-    <uft-ability-score-field
-      value="{{actor.system.scores.wis.mod}}"
-      data-dtype="Number"
-      readonly
-    >
-      {{localize "OSE.saves.magic.short"}}
-    </uft-ability-score-field>
+  <section class="{{styles.combat.statRegion}} {{styles.combat.saves}} saves">
+    <h4>{{localize "OSE.saves.long"}}</h4>
+
+    {{#with actor.system.saves}}
+      {{> (path "/templates/actors/partials/sheet-v2/components/ability-score-field.hbs")
+        label="OSE.saves.death.oneWord"
+        name="system.saves.death.value"
+        value=death.value
+      }}
+      {{> (path "/templates/actors/partials/sheet-v2/components/ability-score-field.hbs")
+        label="OSE.saves.wand.long"
+        name="system.saves.wand.value"
+        value=wand.value
+      }}
+      {{> (path "/templates/actors/partials/sheet-v2/components/ability-score-field.hbs")
+        label="OSE.saves.paralysis.oneWord"
+        name="system.saves.paralysis.value"
+        value=paralysis.value
+      }}
+      {{> (path "/templates/actors/partials/sheet-v2/components/ability-score-field.hbs")
+        label="OSE.saves.breath.oneWord"
+        name="system.saves.breath.value"
+        value=breath.value
+      }}
+      {{> (path "/templates/actors/partials/sheet-v2/components/ability-score-field.hbs")
+        label="OSE.saves.spell.oneWord"
+        name="system.saves.spell.value"
+        value=spell.value
+      }}
+    {{/with}}
+    {{> (path "/templates/actors/partials/sheet-v2/components/ability-score-field.hbs")
+      label="OSE.saves.magic.short"
+      name="system.scores.wis.mod"
+      value=actor.system.scores.wis.mod
+      readonly=true
+    }}
   </section>
 </main>

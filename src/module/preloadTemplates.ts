@@ -26,6 +26,13 @@ const preloadHandlebarsTemplates = async () => {
     `${OSE.systemPath()}/templates/actors/partials/sheet-v2/character-magic-tab.hbs`,
     `${OSE.systemPath()}/templates/actors/partials/sheet-v2/character-inventory-tab.hbs`,
     `${OSE.systemPath()}/templates/actors/partials/sheet-v2/character-notes-tab.hbs`,
+    // Character sheet input components (v2)
+    `${OSE.systemPath()}/templates/actors/partials/sheet-v2/components/ability-score-field.hbs`,
+    `${OSE.systemPath()}/templates/actors/partials/sheet-v2/components/character-ability-field.hbs`,
+    `${OSE.systemPath()}/templates/actors/partials/sheet-v2/components/character-info-field.hbs`,
+    `${OSE.systemPath()}/templates/actors/partials/sheet-v2/components/major-icon-field.hbs`,
+    `${OSE.systemPath()}/templates/actors/partials/sheet-v2/components/spell-slot-field.hbs`,
+
     // Item Display
     `${OSE.systemPath()}/templates/actors/partials/item-auto-tags-partial.html`,
     // Party Sheet

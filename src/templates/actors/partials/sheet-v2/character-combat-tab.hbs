@@ -238,27 +238,28 @@
       </section>
     </section>
   
+    {{#if favoriteItems.length}}
     <uft-labeled-section>
       <h4 slot="heading">{{localize "OSE.Favorite.items"}}</h4>
-      {{#if favoriteItems.length}}
       <div slot="content" class="{{styles.combat.favorites}} favorites__items">
-      {{#each favoriteItems}}
-        <uft-tippable-item uuid="{{uuid}}" can-roll {{#if system.quantity}}has-quantity{{/if}}></uft-tippable-item>
-      {{/each}}
+        {{#each favoriteItems}}
+          <uft-tippable-item uuid="{{uuid}}" can-roll {{#if system.quantity}}has-quantity{{/if}}></uft-tippable-item>
+        {{/each}}
       </div>
-      {{/if}}
     </uft-labeled-section>
+    {{/if}}
 
+    {{#if favoriteAbilities.length}}
     <uft-labeled-section>
       <h4 slot="heading">{{localize "OSE.Favorite.abilities"}}</h4>
-      {{#if favoriteAbilities.length}}
       <div slot="content" class="{{styles.combat.favorites}} favorites__abilities">
       {{#each favoriteAbilities}}
         <uft-tippable-item uuid="{{uuid}}" can-roll></uft-tippable-item>
       {{/each}}
       </div>
-      {{/if}}
     </uft-labeled-section>
+    {{/if}}
+
     {{#if actor.system.spells.prepared.length}}
     <uft-labeled-section>
       <h4 slot="heading">{{localize "OSE.spells.MemorizedSlotsHint"}}</h4>

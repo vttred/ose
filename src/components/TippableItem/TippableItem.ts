@@ -79,7 +79,7 @@ export default class TippableItem extends BaseElement {
   protected events(): void {
     this.addEventListener("pointerup", this.#onOpen.bind(this));
     this.shadowRoot?.querySelector('.icon')
-      ?.addEventListener("pointerup", this.#onRoll.bind(this));
+      ?.addEventListener("pointerup", (e: Event) => this.#onRoll(e as PointerEvent));
     this.addEventListener("dragstart", this.#onDrag.bind(this));
 
     this.contextMenu = new ContextMenu(
@@ -90,12 +90,16 @@ export default class TippableItem extends BaseElement {
   }
 
   #onDrag(e: DragEvent) {
-    if (!this.item) {
-      e.stopPropagation();
+    e.stopPropagation();
+    if (!this.item)
       return;
-    }
+    
+    if (e?.dataTransfer?.getData("text/plain"))
+      return;
+
     // @ts-expect-error - toDragData isn't picked up by TS types
     const dragData = this.item.toDragData();
+    // @ts-expect-error - Types package doesn't include system prop
     dragData.fromContainer = !!this.item.system.containerId;
     if (!!this.shadowRoot?.querySelector('.icon'))
       e.dataTransfer?.setDragImage(this.shadowRoot.querySelector('.icon') as Element, 0, 0);
@@ -130,8 +134,11 @@ export default class TippableItem extends BaseElement {
   get #quantityLabel() {
     if (!this.hasAttribute("has-quantity")) return '';
 
+    // @ts-expect-error - Types package doesn't include system prop
     let quantity = abbreviateNumber(this.item?.system.quantity.value);
+    // @ts-expect-error - Types package doesn't include system prop
     let max = this.item?.system.quantity.max
+    // @ts-expect-error - Types package doesn't include system prop
       ? `/${this.item?.system.quantity.max}`
       : ""
     return /* html */ `<uft-tag-chip class="quantity">

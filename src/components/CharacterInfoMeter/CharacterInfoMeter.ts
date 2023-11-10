@@ -37,6 +37,5 @@ export default class CharacterInfoMeter extends BaseElement {
       <slot></slot>
       <span class="value">${this.#value}/${this.#max}</span>
     `;
-    // <span class="value">${this.getAttribute("value")}/${this.getAttribute("max")}</span>
   }
 }

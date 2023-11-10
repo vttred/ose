@@ -40,13 +40,9 @@ export default class ExpandableSection extends BaseElement {
 
   protected events() {
     this.shadowRoot?.querySelector('.heading')
-      ?.addEventListener("click", () => {
-        this.#onToggle();
-      });
+      ?.addEventListener("click", this.#onToggle.bind(this));
     this.shadowRoot?.querySelector('.add')
-      ?.addEventListener("click", (e) => {
-        this.#onAdd(e);
-      });
+      ?.addEventListener("click", this.#onAdd.bind(this));
     const hasAlwaysExpandedNodes = !!this.querySelectorAll("[slot='always-expanded']").length;
     if (!hasAlwaysExpandedNodes) {
       this.shadowRoot?.querySelector('.always-expanded')

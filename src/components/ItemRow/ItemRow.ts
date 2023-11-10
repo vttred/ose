@@ -125,9 +125,12 @@ export default class ItemRow extends BaseElement {
 
   #onDrag(e: DragEvent) {
     e.stopPropagation();
-    if (!this.item) {
+    if (!this.item)
       return;
-    }
+    
+    if (e?.dataTransfer?.getData("text/plain"))
+      return;
+
     this.toggleAttribute('dragging', true);
     // @ts-expect-error - toDragData isn't picked up by TS types
     const dragData = this.item.toDragData();

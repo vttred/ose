@@ -13,6 +13,11 @@ header {
   position: sticky;
   top: 0;
   z-index: 6;
+  box-shadow: rgba(0, 0, 0, 0.267) 0px 3px 4px 2px;
+  @media (prefers-color-scheme: dark) {
+    background: var(--background-color-sheet);
+    backdrop-filter: blur(3px) contrast(1.25);
+  }
 }
 
 .always-expanded:not(.empty) {
@@ -23,10 +28,15 @@ header {
   padding-bottom: var(--spacing-half);
   padding-left: var(--content-padding, var(--spacing-half));
   padding-right: var(--content-padding, var(--spacing-half));
+  box-shadow: rgba(0, 0, 0, 0.267) 0px 3px 4px 2px;
   
   @media (prefers-color-scheme: light) {
     background: url(../ui/parchment.jpg) repeat;
-    box-shadow: rgba(0, 0, 0, 0.267) 0px 3px 4px 2px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background: var(--background-color-sheet);
+    backdrop-filter: blur(3px) contrast(1.25);
   }
 }
 

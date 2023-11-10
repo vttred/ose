@@ -3,7 +3,7 @@
  *       We should handle most of our setup here.
  */
 import OseActorSheetCharacter from "./module/actor/character-sheet";
-import OseActorSheetCharacter2 from "./module/actor/character-sheet-2-0";
+import OseActorSheetCharacter2 from "./module/actor/v2/character-sheet";
 import OseDataModelCharacter from "./module/actor/data-model-character";
 import OseDataModelMonster from "./module/actor/data-model-monster";
 import OseActor from "./module/actor/entity";

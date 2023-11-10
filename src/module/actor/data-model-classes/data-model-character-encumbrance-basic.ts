@@ -5,8 +5,6 @@ import OseDataModelCharacterEncumbrance, {
   CharacterEncumbrance,
 } from "./data-model-character-encumbrance";
 
-// import { OSE } from '../../config';
-
 /**
  * A set of options for configuring the
  * Basic encumbrance scheme
@@ -69,12 +67,14 @@ export default class OseDataModelCharacterEncumbranceBasic
       OseDataModelCharacterEncumbranceBasic.significantTreasure;
 
     this.#weight = items.reduce(
+      // @ts-expect-error - Document.system isn't in the types package yet
       (acc: number, { type, system: { treasure, quantity, weight } }: Item) =>
         type !== "item" || !treasure ? acc : acc + quantity.value * weight,
       0
     );
 
     this.#heaviestArmor = items.reduce(
+      // @ts-expect-error - Document.system isn't in the types package yet
       (heaviest, { type, system: { type: armorType, equipped } }) => {
         if (type !== "armor" || !equipped) return heaviest;
         if (

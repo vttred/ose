@@ -2,6 +2,8 @@
  * @file A class to handle the nested AC/AAC props on OseDataModelCharacter.
  */
 
+import OseItem from "../../item/entity";
+
 interface CharacterAC {
   base: number;
   naked: number;
@@ -49,7 +51,9 @@ export default class OseDataModelCharacterAC implements CharacterAC {
 
   #getShieldBonus() {
     return (
+      // @ts-expect-error - Types package doesn't include system prop
       this.#armor.find(({ system: { type } }: Item) => type === "shield")
+        // @ts-expect-error - Types package doesn't include system prop
         ?.system[this.#acProp].value || 0
     );
   }
@@ -94,7 +98,9 @@ export default class OseDataModelCharacterAC implements CharacterAC {
    */
   get #armored() {
     const armor = this.#armor.find(
-      ({ system: { type } }: Item) => type !== "shield"
+    // @ts-expect-error - Types package doesn't include system prop
+      ({ system: { type } }: OseItem) => type !== "shield"
+    // @ts-expect-error - Types package doesn't include system prop
     )?.system[this.#acProp].value;
     // Null if any falsy value but 0
     if (!armor && armor !== 0) return null;

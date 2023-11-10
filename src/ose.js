@@ -3,6 +3,7 @@
  *       We should handle most of our setup here.
  */
 import OseActorSheetCharacter from "./module/actor/character-sheet";
+import OseActorSheetCharacterV2 from "./module/actor/v2/character-sheet";
 import OseDataModelCharacter from "./module/actor/data-model-character";
 import OseDataModelMonster from "./module/actor/data-model-monster";
 import OseActor from "./module/actor/entity";
@@ -90,9 +91,14 @@ Hooks.once("init", async () => {
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet(game.system.id, OseActorSheetCharacter, {
+  Actors.registerSheet(game.system.id, OseActorSheetCharacterV2, {
     types: ["character"],
     makeDefault: true,
+    label: "OSE.SheetClassCharacterV2",
+  });
+  Actors.registerSheet(game.system.id, OseActorSheetCharacter, {
+    types: ["character"],
+    makeDefault: false,
     label: "OSE.SheetClassCharacter",
   });
   Actors.registerSheet(game.system.id, OseActorSheetMonster, {

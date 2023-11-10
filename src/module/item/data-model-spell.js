@@ -54,6 +54,11 @@ export default class OseDataModelItem extends foundry.abstract.DataModel {
       { label: this.duration },
       this.#rollTag,
       this.#saveTag,
-    ].filter((t) => !!t);
+    ].filter((t) => !!t?.label);
+  }
+
+  get favorited() {
+    if (!this.parent?.parent) return false;
+    return this.parent.parent.getFlag(game.system.id, "favorite-items")?.includes(this.parent.uuid);
   }
 }

@@ -1,0 +1,7 @@
+<div class="spell-slot-field">
+  <label for="{{name}}">{{ordinalSuffix level}}</label>
+  {{!-- <label for="{{name}}">${this.#ordinalLabel}</label> --}}
+  <input readonly tabindex="-1" value="{{remaining}}" />
+  <span class="divider" aria-hidden="true">/</span>
+  <input type="text" name={{name}} id="{{name}}" value="{{max}}" data-dtype="Number" />
+</div>

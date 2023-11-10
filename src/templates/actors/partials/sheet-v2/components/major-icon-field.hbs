@@ -1,0 +1,38 @@
+<uft-labeled-section unbordered class="major-icon-field">
+  <label for="{{name}}" slot="heading">{{localize label}}</label>
+  <div class="field-background-container" slot="content">
+    <div class="value-pair">
+      <input
+        data-dtype="Number"
+        type="text" 
+        name="{{name}}" 
+        id="{{name}}" 
+        value="{{value}}"
+        {{#if readonly}}
+          readonly
+          tabindex="-1"
+        {{/if}}
+        {{#if disabled}}
+          disabled
+        {{/if}}
+      />
+      {{#if maxName}}
+        <input 
+          data-dtype="Number"
+          type="text"
+          name="{{maxName}}" 
+          value="{{max}}" 
+          class="max"
+          {{#if readonly}}
+            readonly
+            tabindex="-1"
+          {{/if}}
+          {{#if disabled}}
+            disabled
+          {{/if}}
+        />
+      {{/if}}
+    </div>
+    <img src="{{img}}" class="background" alt="" />
+  </div>
+</uft-labeled-section>

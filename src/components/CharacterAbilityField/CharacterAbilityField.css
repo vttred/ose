@@ -1,0 +1,78 @@
+:host {
+  border: 1px solid var(--background-color-heading);
+
+  display: flex;
+  align-items: stretch;
+  border-top-left-radius: 100px;
+  border-bottom-left-radius: 100px;
+  overflow: hidden;
+}
+:host(:focus-within) {
+  box-shadow: 0 0 10px var(--color-shadow-primary);
+}
+label {
+  font-family: "Signika Negative", "Signika", sans-serif;
+  font-size: 0.857142857143em; /* `12 / Base size */
+  font-weight: 700;
+  text-align: center;
+  color: var(--color-heading);
+  background: var(--background-color-heading);
+  transition: background 333ms ease-in-out,
+              border 333ms ease-in-out,
+              color 333ms ease-in-out;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+::slotted(img) {
+  max-width: var(--image-size, 1.42857142857em) !important;
+  max-height: var(--image-size, 1.42857142857em) !important;
+  height: auto;
+  flex-basis: var(--image-size, 1.42857142857em);
+  margin-left: 0.142857142857em;
+  border: none !important;
+}
+::slotted(svg) {
+  max-width: var(--image-size, 1.42857142857em) !important;
+  max-height: var(--image-size, 1.42857142857em) !important;
+  height: auto;
+  flex-basis: var(--image-size, 1.42857142857em);
+  margin-left: 0.142857142857em;
+  border: none !important;
+  fill: var(--background-color-heading);
+  stroke: transparent;
+}
+label span {
+  flex: 1;
+}
+input {
+  overflow: hidden;
+  background-color: transparent;
+  border: none;
+  box-sizing: border-box;
+  padding: 0.142857142857em;
+  line-height: 1em;
+  flex-basis: 2.5em;
+  text-align: center;
+  color: var(--color-primary);
+}
+
+input:focus {
+  outline: none;
+}
+
+@media(prefers-color-scheme: dark) {
+  :host {
+    border: none;
+  }
+  label {
+    background-color: transparent;
+  }
+  input {
+    background-color: var(--color-ui-38);
+    border-radius: var(--spacing-quarter);
+  }
+  input:read-only {
+    background-color: var(--color-ui-09);
+  }
+}

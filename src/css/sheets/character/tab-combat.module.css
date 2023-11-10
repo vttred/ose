@@ -1,0 +1,284 @@
+.heading {
+  container: combat-heading / inline-size;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: var(--spacing-quarter);
+  align-items: start;
+
+  @container tab (min-width: 400px) {
+    grid-template-columns: 144px 1fr;
+  }
+}
+
+.portrait {
+  width: 100%;
+  max-width: 144px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    .app-controls {
+      transform: translateY(0);
+    }
+  }
+
+  .app-controls {
+    position: absolute;
+    bottom: var(--spacing-quarter);
+    left: var(--spacing-quarter);
+    right: var(--spacing-quarter);
+    z-index: 1;
+    display: flex;
+    gap: var(--spacing-half);
+    transform: translateY(calc(100% + var(--spacing-half)));
+    transition: transform 400ms cubic-bezier(0.39, 1.9, 0.41, 0.8); 
+
+    button {
+      display: inline-block;
+      border: none;
+      margin: 0;
+      padding: 0;
+      color: var(--color-heading);
+      background-color: var(--color-ui-09);
+      border-radius: var(--spacing-quarter);
+
+      &[data-action="generate-scores"] {
+        animation: 0.8s ease-in 1s infinite alternate notify;
+      }
+    }
+  }
+
+  img {
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+    z-index: 0;
+    display: block;
+  }
+}
+
+.character-details {
+  display: flex;
+  gap: var(--spacing-half);
+  flex-wrap: wrap;
+  align-items: flex-start;
+
+  container-type: inline-size;
+
+  :global(.character-info-field) {
+    flex: 100%;
+
+    /*
+      Smallest-size-exclsive styles
+    */
+    @container(max-width: 249px) {
+      --label-flex: 8ch;
+
+      &:has([name="system.details.xp.next"], [name="system.details.title"]) {
+        display: none;
+      }
+    }
+    /*
+      Tiniest size to do any columns
+      Set up minimums and flex basis here
+    */
+    @container(min-width: 250px) {
+      flex: calc(var(--flex-pct) - var(--spacing-half));
+
+      &:has([name="system.details.level"]) {
+        width: 6.5em;
+      }
+
+      &:has([name="system.details.class"]) {
+        min-width: 10em;
+        flex: 1;
+      }
+
+      &:has([name="system.details.xp.value"], [name="system.details.xp.next"]) {
+        min-width: 10em;
+      }
+
+      &:has([name="system.hp.hd"]) {
+        width: 7.5em;
+      }
+    }
+
+    /* Tiniest size to do any columns */
+    @container(min-width: 400px) {
+      &:has([name="system.details.class"]) {
+        --flex-pct: 10em;
+      }
+    }
+
+    &:has([name="name"]) {
+      --flex-pct: 60%;
+    }
+    
+    &:has([name="system.details.xp.value"], [name="system.details.xp.next"]) {
+      --flex-pct: 33%;
+    }
+    &:has([name="system.details.title"]) {
+      --flex-pct: 30%;
+    }
+    &:has([name="system.details.alignment"]) {
+      --flex-pct: 30%;
+    }
+  }
+}
+
+.combat {
+  container: combat-main / inline-size;
+
+  display: grid;
+  align-items: start;
+  grid-gap: var(--spacing-full);
+  grid-template-columns: 1fr 1fr;
+
+  grid-template-areas:
+    "scores saves"
+    "modifiers modifiers";
+
+  @container tab (min-width: 250px) {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "scores"
+      "saves"
+      "modifiers";
+  }
+
+  @container tab (min-width: 400px) {
+    grid-template-columns: 100px 1fr 100px;
+    grid-template-areas:
+      "scores modifiers saves";
+  }
+}
+
+.stat-region {
+  container: stat-region / inline-size;
+  gap: var(--spacing-half);
+  flex-direction: column;
+
+  &:global(:is(.ability-scores)) {
+    grid-area: scores;
+  }
+  &:global(:is(.modifiers)) {
+    grid-area: modifiers;
+  }
+  &:global(:is(.saves)) {
+    grid-area: saves;
+  }
+
+  &:global(:not(:is(.saves, .ability-scores))) {
+    display: flex;
+
+    @container tab (max-width: 249px) {
+      grid-column-start: 1;
+      grid-column-end: 3;
+    }
+  }
+
+  &:global(:is(.saves, .ability-scores)) {
+    display: flex;
+
+    @container tab (min-width: 250px) {
+
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @container tab (min-width: 400px) {
+      display: flex;
+    }
+  }
+
+  h4 {
+    border: none;
+    margin: 0;
+    padding: 0;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    font-size: var(--font-size-heading);
+    text-align: center;
+  }
+}
+
+:is(.abilityScores, .saves) {
+  h4 {
+    @container tab (min-width: 400px) {
+      display: none;
+    }
+  }
+}
+
+.dashboard {
+  container: combat-dashboard / inline-size;
+  
+}
+
+.defenses {
+  display: grid;
+  gap: var(--spacing-full);
+  @container combat-dashboard (min-width: 300px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.derived {
+  container: derived-group / inline-size;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-half);
+
+  @container combat-dashboard (min-width: 280px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @container combat-dashboard (min-width: 380px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.derived-set {
+  display: grid;
+  grid-template-columns: 1fr;
+  column-gap: var(--spacing-full);
+  row-gap: var(--spacing-quarter);
+
+  h4 {
+    @container derived-group (max-width: 380px) {
+      grid-column-start: 1;
+      grid-column-end: 2;
+    }
+  }
+
+  @container (min-width: 350px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+.favorites {
+  display: grid;
+  gap: var(--spacing-half);
+  grid-template-columns: 1fr;
+
+  @container combat-dashboard (min-width: 300px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @container combat-dashboard (min-width: 400px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+/* ANIMATIONS */
+
+@keyframes notify {
+  from {
+    color: var(--color-primary);
+  }
+  to {
+    color: crimson;
+  }
+}

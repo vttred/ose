@@ -24,10 +24,12 @@
     }
   ],
   "esmodules": [
-    "dist/ose.js"
+    "dist/ose.js",
+    "dist/components.js"
   ],
   "styles": [
-    "dist/ose.css"
+    "dist/ose.css",
+    "dist/modules.css"
   ],
   "packs": [],
   "languages": [

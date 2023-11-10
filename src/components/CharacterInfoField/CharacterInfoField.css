@@ -1,0 +1,58 @@
+:host {
+  border: 1px solid var(--background-color-heading);
+
+  display: flex;
+  align-items: center;
+}
+:host(:focus-within) {
+  box-shadow: 0 0 10px var(--color-shadow-primary);
+}
+label {
+  font-family: "Signika Negative", "Signika", sans-serif;
+  font-size: var(--spacing-full); /* TODO: variables! ems! */
+  line-height: 38px !important;
+  font-weight: 700;
+  text-align: center;
+  color: var(--color-heading);
+  background: var(--background-color-heading);
+  transition: background 333ms ease-in-out,
+              border 333ms ease-in-out,
+              color 333ms ease-in-out;
+  flex-basis: 60px;
+}
+input {
+  width: 100%;
+  overflow: hidden;
+  background-color: transparent;
+  border: none;
+  box-sizing: border-box;
+  padding: var(--spacing-half);
+  height: 38px;
+  line-height: 1em;
+  flex: 1;
+  color: var(--color-primary);
+  background-color: var(--color-field-editable);
+}
+
+:host([readonly]) input,
+:host([disabled]) input {
+  background-color: var(--color-field-uneditable);
+}
+
+input:focus {
+  outline: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :host {
+    border-color: transparent;
+  }
+  label {
+    background-color: transparent;
+    text-align: right;
+    margin-right: var(--spacing-half);
+  }
+  input {
+    border-radius: var(--spacing-quarter);
+  }
+}

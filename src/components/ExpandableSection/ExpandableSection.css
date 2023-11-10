@@ -1,0 +1,115 @@
+header {
+  display: grid;
+  grid-template-columns: var(--spacing-full) 1fr var(--spacing-full);
+  grid-gap: 1em;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 var(--spacing-full);
+  text-align: left;
+  position: relative;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 6;
+  box-shadow: rgba(0, 0, 0, 0.267) 0px 3px 4px 2px;
+  @media (prefers-color-scheme: dark) {
+    background: var(--background-color-sheet);
+    backdrop-filter: blur(3px) contrast(1.25);
+  }
+}
+
+.always-expanded:not(.empty) {
+  position: sticky;
+  top: 24px;
+  z-index: 5;
+  padding-top: var(--spacing-half);
+  padding-bottom: var(--spacing-half);
+  padding-left: var(--content-padding, var(--spacing-half));
+  padding-right: var(--content-padding, var(--spacing-half));
+  box-shadow: rgba(0, 0, 0, 0.267) 0px 3px 4px 2px;
+  
+  @media (prefers-color-scheme: light) {
+    background: url(../ui/parchment.jpg) repeat;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background: var(--background-color-sheet);
+    backdrop-filter: blur(3px) contrast(1.25);
+  }
+}
+
+.collapsable {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  transition: grid-template-rows 333ms ease-in-out;
+}
+
+:host([aria-expanded]) .collapsable {
+  grid-template-rows: 1fr;
+}
+
+main {
+  align-self: end;
+  min-height: 0;
+  transition: visibility 333ms ease-in-out,
+              opacity 333ms ease-in-out,
+              padding-top 333ms ease-in-out,
+              padding-bottom 333ms ease-in-out;
+  visibility: hidden;
+  opacity: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: var(--content-padding, var(--spacing-half));
+  padding-right: var(--content-padding, var(--spacing-half));
+  gap: var(--spacing-half);
+}
+
+:host([aria-expanded]) main {
+  opacity: 1;
+  visibility: visible;
+  padding: var(--content-padding, var(--spacing-half));
+}
+
+button {
+  display: block;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background-color: transparent;
+  position: relative;
+  
+  width: var(--spacing-full);
+  height: 100%;
+
+  color: var(--color-heading);
+  font-size: 19px;
+  line-height: 1em;
+}
+
+button:hover,
+header:hover {
+  cursor: pointer;
+}
+
+button:focus {
+  outline: none;
+}
+
+button:focus-visible {
+  color: var(--color-border-highlight);
+}
+
+button.expand {
+  align-self: unset;
+  height: 22px;
+  transform: rotate(-90deg);
+  transition: transform 333ms ease-in-out,
+              color 333ms ease-in-out;
+}
+
+:host([aria-expanded]) button.expand {
+  transform: rotate(0deg);
+}

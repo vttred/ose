@@ -1,0 +1,22 @@
+<form class="ose dialog">
+  <div class="form-group">
+    <label>{{localize 'OSE.dialog.transferItem.quantity'}}</label>
+    <div class="form-fields">
+      <input
+        data-dType="Number"
+        type="number"
+        min="0"
+        value="{{item.system.quantity.value}}"
+        max="{{item.system.quantity.value}}"
+        name="quantity"
+      />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>{{localize 'OSE.dialog.transferItem.shouldSubtract' donorName=donor.name}}</label>
+    <div class="form-fields">
+      <input type="checkbox" checked name="shouldSubtract"/>
+    </div>
+</div>
+</div>

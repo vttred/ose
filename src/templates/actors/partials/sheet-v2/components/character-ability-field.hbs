@@ -1,0 +1,19 @@
+<div class="character-ability-field" {{#if explorationType}}data-exploration-type="{{explorationType}}"{{/if}}{{#if attackType}}data-attack-type="{{attackType}}"{{/if}} {{#if readonly}}readonly{{/if}} >
+  <label for="{{name}}">
+    {{#if icon}}
+      <img src="{{icon}}" alt="" />
+    {{/if}}
+    <span>{{localize label}}</span>
+  </label>
+  <input 
+    type="text"
+    data-dtype="Number"
+    name="{{name}}" 
+    id="{{name}}" 
+    autocomplete="off" 
+    value="{{value}}"
+    {{#if readonly}}tabindex="-1"{{/if}} 
+    {{#if readonly}}readonly{{/if}} 
+    {{#if disabled}}disabled{{/if}}
+  />
+</div>

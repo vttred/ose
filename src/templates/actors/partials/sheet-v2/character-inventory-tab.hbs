@@ -1,0 +1,90 @@
+
+
+<uft-expandable-section type="weapon" can-create aria-expanded>
+  <h2 slot="heading">{{localize "OSE.items.Weapons"}}</h2>
+{{#each actor.system.weapons}}
+  <uft-item-row class="item" slot="content" uuid="{{this.uuid}}" has-weight can-mystify can-equip can-favorite>
+    {{{this.system.enrichedDescription}}}
+    {{#each this.system.autoTags}}
+      <uft-tag-chip slot="title-content"><i class="fa {{icon}}"></i>{{localize label}}</uft-tag-chip>
+    {{/each}}
+  </uft-item-row>
+{{/each}}
+</uft-expandable-section>
+
+<uft-expandable-section type="armor" can-create aria-expanded>
+  <h2 slot="heading">{{localize "OSE.items.Armors"}}</h2>
+{{#each actor.system.armor}}
+  <uft-item-row slot="content" uuid="{{this.uuid}}" can-mystify can-equip has-weight>
+    {{{this.system.enrichedDescription}}}
+    <uft-tag-chip slot="title-content"><i class="fa fa-shield-plus"></i> {{this.system.acValue}}</uft-tag-chip>
+    {{#each this.system.autoTags}}
+      <uft-tag-chip slot="title-content"><i class="fa {{icon}}"></i>{{localize label}}</uft-tag-chip>
+    {{/each}}
+  </uft-item-row>
+{{/each}}
+</uft-expandable-section>
+
+{{!-- Containers --}}
+<uft-expandable-section type="container" can-create aria-expanded>
+  <h2 slot="heading">{{localize "OSE.items.Containers"}}</h2>
+{{#each actor.system.containers}}
+  <uft-item-row slot="content" uuid="{{this.uuid}}" has-weight>
+    {{{this.system.enrichedDescription}}}
+    {{#each this.system.autoTags}}
+      <uft-tag-chip slot="title-content"><i class="fa {{icon}}"></i>{{localize label}}</uft-tag-chip>
+    {{/each}}
+    {{#if this.system.contents}}
+      <div class="{{../styles.inventory.containerContent}}" slot="always-expanded">
+        {{#each this.system.contents}}
+          <uft-tippable-item uuid="{{this.uuid}}" {{#if system.quantity}}has-quantity{{/if}}></uft-tippable-item>
+        {{/each}}
+      </div>
+    {{/if}}
+  </uft-item-row>
+{{/each}}
+</uft-expandable-section>
+
+{{!-- Miscellaneous items -- gear, etc. --}}
+<uft-expandable-section type="item" can-create aria-expanded>
+  <h2 slot="heading">{{localize "OSE.items.Misc"}}</h2>
+{{#each actor.system.items}}
+  <uft-item-row slot="content" uuid="{{this.uuid}}" draggable="true" can-mystify {{#if (eq actor.system.encumbrance.variant "complete")}}has-weight{{/if}} has-quantity {{#unless system.quantity.value}}exhausted{{/unless}}>
+    {{{this.system.enrichedDescription}}}
+    {{#each this.system.autoTags}}
+      <uft-tag-chip slot="title-content"><i class="fa {{icon}}"></i>{{localize label}}</uft-tag-chip>
+    {{/each}}
+  </uft-item-row>
+{{/each}}
+</uft-expandable-section>
+
+{{!-- Treasure items --}}
+<uft-expandable-section type="item" can-create aria-expanded data-treasure>
+  <h2 slot="heading">{{localize "OSE.items.Treasure"}}</h2>
+{{#each actor.system.treasures}}
+  <uft-item-row slot="content" uuid="{{this.uuid}}" can-mystify has-weight has-quantity {{#unless system.quantity.value}}exhausted{{/unless}}>
+    {{{this.system.enrichedDescription}}}
+    {{#each this.system.autoTags}}
+      <uft-tag-chip slot="title-content"><i class="fa {{icon}}"></i>{{localize label}}</uft-tag-chip>
+    {{/each}}
+  </uft-item-row>
+{{/each}}
+</uft-expandable-section>
+
+{{! Encumbrance meter }}
+{{#with actor.system.encumbrance}}
+  {{#unless (eq variant "disabled")}} 
+    <uft-character-info-meter
+      class="{{../styles.common.floating}}"
+      state="{{#if encumbered 
+      }}critical{{else if atHalfEncumbered
+      }}danger{{else if atThreeEighthsEncumbered
+      }}warning{{else if atQuarterEncumbered
+      }}optimal{{else
+      }}{{/if}}"
+      value="{{value}}"
+      max="{{max}}">
+    </uft-character-info-meter>
+  {{/unless}}
+{{/with}}
+{{!-- {{/unless}} --}}

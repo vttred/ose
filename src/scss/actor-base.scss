@@ -9,7 +9,7 @@
   }
 }
 
-.ose.sheet.actor {
+.ose.sheet.actor:not(.character-2) {
   $detailsHeight: 44px;
   .blinking {
     font-weight: bold;

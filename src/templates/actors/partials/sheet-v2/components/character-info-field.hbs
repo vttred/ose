@@ -1,0 +1,13 @@
+<div class="character-info-field">
+  <label for="{{name}}">{{localize label}}</label>
+  <input 
+    type="text" 
+    name="{{name}}"
+    id="{{name}}" 
+    autocomplete="off" 
+    value="{{value}}" 
+    {{#if dtype}}data-dtype="{{dtype}}"{{/if}}
+    {{#if readonly}}readonly{{/if}} 
+    {{#if disabled}}disabled{{/if}} 
+  />
+</div>

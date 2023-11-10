@@ -259,6 +259,14 @@
       </div>
       {{/if}}
     </uft-labeled-section>
+    {{#if actor.system.spells.prepared.length}}
+    <uft-labeled-section>
+      <h4 slot="heading">{{localize "OSE.spells.MemorizedSlotsHint"}}</h4>
+      <uft-prepared-spells slot="content">
+        <i slot="icon" class="fa-solid fa-sparkles"></i>
+      </uft-prepared-spells>
+    </uft-labeled-section>
+    {{/if}}
   </section>
   
   <section class="{{styles.combat.statRegion}} {{styles.combat.saves}} saves">

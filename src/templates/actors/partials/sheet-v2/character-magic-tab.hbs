@@ -2,21 +2,9 @@
   {{#each spellList}}
   <uft-expandable-section type="spell" can-create aria-expanded data-lvl="{{@key}}">
     <h2 slot="heading">{{localize "OSE.spells.FormattedLevel" lvl=@key}}</h2>
-    {{log ../../styles}}
-    <div class="{{../../styles.magic.prepared}}" slot="always-expanded">
-      <i class="fa fa-sparkles {{../../styles.magic.preparedIcon}}"></i>
-      {{#each (lookup ../prepared @index)}}
-        {{#if this}}
-          <div class="{{../../../styles.magic.slot}} slot" data-uuid="{{uuid}}">
-            <img data-tooltip="{{name}}" src="{{img}}" alt="{{name}}" />
-          </div>
-        {{else}}
-          <div class="{{../../../styles.magic.slot}} {{../../../styles.magic.empty}}" data-uuid="{{uuid}}">
-
-          </div>
-        {{/if}}
-      {{/each}}
-    </div>
+    <uft-prepared-spells slot="always-expanded" level="{{@key}}">
+      <i slot="icon" class="fa-solid fa-sparkles"></i>
+    </uft-prepared-spells>
     {{#each this}}
       <uft-item-row class="item" slot="content" uuid="{{this.uuid}}" charges="{{this.system.cast}}" {{#unless this.system.cast}}exhausted {{/unless}}can-show-chat>
         {{{this.system.enrichedDescription}}}
@@ -30,13 +18,6 @@
 
   <div class="{{../styles.common.floating}} {{../styles.magic.slots}}">
     {{#each slots as |slots id|}}
-    {{!-- <uft-spell-slot-field
-      level="{{id}}"
-      remaining="{{slots.used}}"
-      name="system.spells.{{id}}.max"
-      value="{{slots.max}}"
-      readonly></uft-spell-slot-field> --}}
-
       {{> (path "/templates/actors/partials/sheet-v2/components/spell-slot-field.hbs")
         level=id
         remaining=slots.used

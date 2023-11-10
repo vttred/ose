@@ -19,6 +19,7 @@ import "./ExpandableSection/ExpandableSection";
 import "./LabeledSection/LabeledSection";
 import "./ItemRow/ItemRow";
 // import "./SpellSlotField/SpellSlotField";
+import "./PreparedSpellList/PreparedSpellList";
 import "./TippableItem/TippableItem";
 
 /**

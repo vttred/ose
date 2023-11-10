@@ -1,4 +1,14 @@
 :global .ose .window-content {
+  uft-prepared-spells {
+    &::part(level) {
+      &:before {
+        font-family: "Font Awesome 6 Pro";
+        font-weight: 900;
+        content: "\f890";
+        font-size: 1.75em;
+      }
+    }
+  }
   /**
    *      COMPONENT: Ability Score Field
    */

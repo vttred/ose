@@ -5,6 +5,7 @@ import OseDataModelCharacterEncumbranceBasic from "./actor/data-model-classes/da
 import OseDataModelCharacterEncumbranceComplete from "./actor/data-model-classes/data-model-character-encumbrance-complete";
 import OseDataModelCharacterEncumbranceDetailed from "./actor/data-model-classes/data-model-character-encumbrance-detailed";
 import OseDataModelCharacterEncumbranceDisabled from "./actor/data-model-classes/data-model-character-encumbrance-disabled";
+import OseDataModelCharacterEncumbranceItemBased from "./actor/data-model-classes/data-model-character-encumbrance-item-based";
 
 export type OseConfig = typeof OSE;
 
@@ -40,6 +41,7 @@ export const OSE = {
     detailed: OseDataModelCharacterEncumbranceDetailed,
     complete: OseDataModelCharacterEncumbranceComplete,
     disabled: OseDataModelCharacterEncumbranceDisabled,
+    itembased: OseDataModelCharacterEncumbranceItemBased,
   },
   scores: {
     str: "OSE.scores.str.long",

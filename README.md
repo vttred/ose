@@ -138,3 +138,5 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+
+Links to drivethrurpg.com are affiliate links, and are currently supporting efforts to maintain the open source project. If you buy something after clicking one of these links, drivethrurpg.com may give the maintainers of this software a few cents of your purchase.

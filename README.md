@@ -11,7 +11,7 @@
 </p>
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-19-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-20-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2Fose&colorB=4aa94a)](https://forge-vtt.com/bazaar#package=ose)
 [![Foundry Hub Endorsements](https://img.shields.io/endpoint?logoColor=white&url=https%3A%2F%2Fwww.foundryvtt-hub.com%2Fwp-json%2Fhubapi%2Fv1%2Fpackage%2Fose%2Fshield%2Fendorsements)](https://www.foundryvtt-hub.com/package/ose/)
@@ -128,6 +128,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/justinthejaguar"><img src="https://avatars.githubusercontent.com/u/38022481?v=4?s=100" width="100px;" alt="justinthejaguar"/><br /><sub><b>justinthejaguar</b></sub></a><br /><a href="#question-justinthejaguar" title="Answering Questions">💬</a></td>
       <td align="center" valign="top" width="14.28%"><a href="http://www.carlellis.co.uk"><img src="https://avatars.githubusercontent.com/u/288811?v=4?s=100" width="100px;" alt="Carl Ellis"/><br /><sub><b>Carl Ellis</b></sub></a><br /><a href="https://github.com/vttred/ose/pulls?q=is%3Apr+reviewed-by%3Acarl-ellis" title="Reviewed Pull Requests">👀</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Stew-rt"><img src="https://avatars.githubusercontent.com/u/40280034?v=4?s=100" width="100px;" alt="Stewart Webb"/><br /><sub><b>Stewart Webb</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=Stew-rt" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Ronner231"><img src="https://avatars.githubusercontent.com/u/136009984?v=4?s=100" width="100px;" alt="Ronner"/><br /><sub><b>Ronner</b></sub></a><br /><a href="#translation-Ronner231" title="Translation">🌍</a></td>
     </tr>
   </tbody>
 </table>

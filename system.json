@@ -80,6 +80,16 @@
       "lang": "pl",
       "name": "Polski (Polska)",
       "path": "dist/lang/pl.json"
+    },
+    {
+      "lang": "ko",
+      "name": "한국어 (한국)",
+      "path": "dist/lang/ko.json"
+    },
+    {
+      "lang": "ru",
+      "name": "Русский (Россия)",
+      "path": "dist/lang/ru.json"
     }
   ],
   "gridDistance": 5,

@@ -186,6 +186,7 @@
   "OSE.Setting.applyDamageOptionHint": "Em quais tokens aplicar dano em uma rolagem de ataque",
   "OSE.Setting.damageSelected": "Selecionado",
   "OSE.Setting.damageTarget": "Alvo",
+  "OSE.Setting.damageOriginalTarget": "Alvo Original",
   "OSE.Setting.InvertedCtrlBehavior": "Inverter Rolo Ctrl/Meta-tecla",
   "OSE.Setting.InvertedCtrlBehaviorHint": "Inverte o comportamento de manter pressionada a tecla Ctrl/Meta ao clicar em um rolo.",
   "OSE.items.Equip": "Equipar",
@@ -282,11 +283,18 @@
   "OSE.reaction.Friendly": "{name} é Amigável",
   "OSE.CombatFlag.SpellDeclared": "Feitiço Declarado",
   "OSE.CombatFlag.RetreatFromMeleeDeclared": "Retirada do Corpo a Corpo Declarada",
+  "OSE.Tweaks.DontApplyWeaponBonusToDamageRoll": "Não aplicar bônus de arma na rolagem de dano",
   "OSE.warn.moreThanOneItemWithName": "Seu Ator {actorName} tem mais de um Item com nome ${itemName}. O primeiro item correspondente será escolhido.",
+  "OSE.warn.macrosOnlyForOwnedItems": "Apenas itens pertencentes ao Autor podem ser usados para criar macros.",
+  "OSE.warn.macrosNoTokenOwnedInScene": "Nenhum token controlado na cena",
+  "OSE.warn.macrosNotAnItem": "Não é possível criar macro, não é um item.",
   "OSE.error.macrosOnlyForOwnedItems": "Você só pode criar botão de macro para Itens próprios",
+  "OSE.error.noRollTableWithUuId": "Tabela de Rolagem com uuid, {uuid} não existe ou não existe mais neste mundo.",
   "OSE.error.noItemWithName": "Seu Ator {actorName} não tem um item chamado {itemName}.",
   "OSE.error.notEnoughGP": "Este Ator não tem PO suficiente para pagar por este inventário.",
   "OSE.error.itemNoLongerExistsOnActor": "O Item solicitado {itemId} não existe mais no Ator {actorName}.",
   "OSE.error.noTokenControlled": "Você deve ter um ou mais Tokens controlados para poder usar esta opção.",
-  "OSE.error.noGP": "Você precisa do item PO para usar este recurso."
+  "OSE.error.noGP": "Você precisa do item PO para usar este recurso.",
+  "OSE.error.unexpectedSettings": "configuração OSE inesperada {configName}{configValue}",
+  "OSE.error.cantDealDamageTo": "Não é possível causar dano em {nameOrId}"
 }

@@ -1,0 +1,14 @@
+.exploration {
+  max-width: 600px;
+  margin: 0 auto;
+  display: grid;
+  gap: var(--spacing-full);
+
+  @container tab (min-width: 300px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @container tab (min-width: 540px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

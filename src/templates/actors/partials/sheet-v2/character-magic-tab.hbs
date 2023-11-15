@@ -1,0 +1,29 @@
+{{#with actor.system.spells}}
+  {{#each spellList}}
+  <uft-expandable-section type="spell" can-create aria-expanded data-lvl="{{@key}}">
+    <h2 slot="heading">{{localize "OSE.spells.FormattedLevel" lvl=@key}}</h2>
+    <uft-prepared-spells slot="always-expanded" level="{{@key}}">
+      <i slot="icon" class="fa-solid fa-sparkles"></i>
+    </uft-prepared-spells>
+    {{#each this}}
+      <uft-item-row class="item" slot="content" uuid="{{this.uuid}}" charges="{{this.system.cast}}" {{#unless this.system.cast}}exhausted {{/unless}}can-show-chat>
+        {{{this.system.enrichedDescription}}}
+        {{#each this.system.autoTags}}
+          <uft-tag-chip slot="title-content"><i class="fa {{icon}}"></i>{{localize label}}</uft-tag-chip>
+        {{/each}}
+      </uft-item-row>
+    {{/each}}
+  </uft-expandable-section>
+  {{/each}}
+
+  <div class="{{../styles.common.floating}} {{../styles.magic.slots}}">
+    {{#each slots as |slots id|}}
+      {{> (path "/templates/actors/partials/sheet-v2/components/spell-slot-field.hbs")
+        level=id
+        remaining=slots.used
+        name=(concat "system.spells." id ".max")
+        max=slots.max
+      }}
+    {{/each}}
+  </div>
+{{/with}}

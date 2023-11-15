@@ -1,0 +1,483 @@
+:global {
+  .ose.sheet.actor .window-content .sheet-body {
+    flex: 1;
+
+    .editor {
+      height: auto;
+      padding: unset;
+      flex: 1;
+    }
+  }
+  .window-app.character-2 .window-content {
+    /**
+     *    FOUNDRY OVERRIDES
+     */
+    padding: var(--spacing-half) 
+             var(--spacing-full)
+             calc(var(--spacing-full) * 1.5);
+    color: var(--color-primary);
+  
+    font-size: var(--font-size-base);
+
+    .sheet-tabs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(75px, 1fr));
+      gap: var(--spacing-half);
+      justify-content: stretch;
+      margin: 0;
+      border: transparent;
+
+      .item {
+        background-color: transparent;
+        @media (prefers-color-scheme: dark) {
+          background-color: var(--color-ui-09);
+        }
+
+        &.active {
+          background-color: var(--background-color-heading);
+          color: var(--color-heading);
+          text-shadow: none;
+          @media (prefers-color-scheme: dark) {
+            background-color: var(--color-ui-38);
+            border: 1px solid var(--color-ui-09);
+            border-radius: var(--spacing-quarter);
+            color: var(--color-heading);
+            text-shadow: none;
+          }
+        }
+      }
+    }
+
+    .tab {
+      &.active {
+        container-name: tab;
+        container-type: inline-size;
+        display: flex;
+        gap: var(--spacing-full);
+        flex-direction: column;
+        flex-wrap: nowrap;
+      }
+    }
+
+    .encumbrance {
+      position: sticky;
+      bottom: calc( var(--spacing-full) * -1);
+      z-index: 6;
+      box-shadow: rgba(0, 0, 0, 0.267) 0px 3px 4px 2px;
+    }
+
+    /**
+     *    DARK SCHEME OVERRIDES
+     */
+    @media (prefers-color-scheme: dark) {
+      backdrop-filter: blur(3px) contrast(1.25);
+      background: var(--background-color-sheet);
+    }
+
+    /**
+     *    COMPONENT OVERRIDES
+     */
+    uft-character-info-field {
+      @media (prefers-color-scheme: dark) {
+        --background-color-heading: var(--color-ui-38);
+        --color-heading: var(--color-ui-100);
+      }
+    }
+    
+    uft-expandable-section {
+      flex: 0;
+      
+    }
+  }  
+}
+
+.sheet {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-full);
+}
+
+/**
+ *    CHARACTER INFO:
+ *    The part of the Combat tab with the character's name, class,
+ *    portrait, etc.
+ */
+.character-info {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: var(--spacing-quarter);
+  align-items: start;
+
+  @container tab (min-width: 300px) {
+    grid-template-columns: 144px 1fr;
+  }
+}
+
+.character-info__art {
+  position: relative;
+  overflow: hidden;
+}
+
+.character-info__art:hover .character-info__apps {
+  transform: translateY(0);
+}
+
+.character-info__portrait {
+  height: 100%;
+  object-fit: cover;
+  position: relative;
+  z-index: 0;
+}
+
+.character-info__apps {
+  position: absolute;
+  bottom: var(--spacing-quarter);
+  left: var(--spacing-quarter);
+  right: var(--spacing-quarter);
+  z-index: 1;
+  display: flex;
+  gap: var(--spacing-half);
+  transform: translateY(calc(100% + var(--spacing-half)));
+  transition: transform 400ms cubic-bezier(0.39, 1.9, 0.41, 0.8); 
+}
+
+.character-info__button {
+  display: inline-block;
+  border: none;
+  margin: 0;
+  padding: 0;
+  color: var(--color-primary);
+  background-color: var(--color-ui-09);
+  border-radius: var(--spacing-quarter);
+}
+.character-info__button--attention {
+  animation: 0.8s ease-in 1s infinite alternate notify;
+}
+  
+.character-info__details {
+  display: flex;
+  gap: var(--spacing-half);
+  flex-wrap: wrap;
+  align-items: flex-start;
+
+  container-type: inline-size;
+
+  :global(.character-info-field) {
+    flex: 100%;
+
+    /*
+      Smallest-size-exclsive styles
+    */
+    @container(max-width: 249px) {
+      --label-flex: 8ch;
+
+      &:has([name="system.details.xp.next"], [name="system.details.title"]) {
+        display: none;
+      }
+    }
+    /*
+      Tiniest size to do any columns
+      Set up minimums and flex basis here
+    */
+    @container(min-width: 250px) {
+      flex: calc(var(--flex-pct) - var(--spacing-half));
+
+      &:has([name="system.details.level"]) {
+        width: 6.5em;
+      }
+
+      &:has([name="system.details.class"]) {
+        min-width: 10em;
+        flex: 1;
+      }
+
+      &:has([name="system.details.xp.value"], [name="system.details.xp.next"]) {
+        min-width: 10em;
+      }
+
+      &:has([name="system.hp.hd"]) {
+        width: 7.5em;
+      }
+    }
+
+    /* Tiniest size to do any columns */
+    @container(min-width: 400px) {
+      &:has([name="system.details.class"]) {
+        --flex-pct: 10em;
+      }
+    }
+
+
+    &:has([name="name"]) {
+      --flex-pct: 60%;
+    }
+    
+    &:has([name="system.details.xp.value"], [name="system.details.xp.next"]) {
+      --flex-pct: 33%;
+    }
+    &:has([name="system.details.title"]) {
+      --flex-pct: 30%;
+    }
+    &:has([name="system.details.alignment"]) {
+      --flex-pct: 30%;
+    }
+  }
+}
+
+.combat-stats {
+  display: grid;
+  align-items: start;
+  grid-gap: var(--spacing-full);
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "scores"
+    "saves"
+    "modifiers";
+
+  @container tab (min-width: 400px) {
+    grid-template-columns: 100px 1fr 100px;
+    grid-template-areas:
+      "scores modifiers saves";
+  }
+}
+
+.combat-stats__region {
+  container: stat-region / inline-size;
+  gap: var(--spacing-half);
+  flex-direction: column;
+
+  &:global(:is(.ability-scores)) {
+    grid-area: scores;
+  }
+  &:global(:is(.modifiers)) {
+    grid-area: modifiers;
+  }
+  &:global(:is(.saves)) {
+    grid-area: saves;
+  }
+
+  &:global(:not(:is(.saves, .ability-scores))) {
+    display: flex;
+  }
+
+  &:global(:is(.saves, .ability-scores)) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    @container tab (min-width: 400px) {
+      display: flex;
+    }
+  }
+}
+
+.combat-modifiers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  @container stat-region (min-width: 300px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.combat-vitals {
+  container: vitals / inline-size;
+}
+
+.vital-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: var(--spacing-full);
+  grid-row-gap: var(--spacing-quarter);
+  margin-bottom: var(--spacing-full);
+
+  h4 {
+    border: none;
+    margin: 0;
+    padding: 0;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    font-size: var(--font-size-heading);
+    text-align: center;  
+
+    @container (max-width: 380px) {
+      grid-column-start: 1;
+      grid-column-end: 2;
+    }
+  }
+}
+
+@container (max-width: 380px) {
+  .combat-modifiers {
+    display: grid;
+    grid-gap: var(--spacing-full);
+    grid-template-columns: 1fr 1fr;
+  }
+  .vital-section--combat-mods,
+  .vital-section--movement {
+    grid-template-columns: 1fr;
+  }
+}
+@container (max-width: 260px) {
+  .combat-modifiers {
+    grid-gap: 0;
+    grid-template-columns: 1fr;
+  }
+}
+
+.combat__favorites {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: var(--spacing-full);
+}
+
+
+
+
+
+.ability-fields {
+  display: flex;
+  gap: var(--spacing-full);
+  flex: 1;
+  justify-content: space-around;
+}
+.exploration-skills {
+  max-width: 600px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-full);
+}
+
+.inventory-tables {
+  overflow: auto;
+}
+
+.encumbrance {
+  align-self: end;
+}
+
+.container-content {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: var(--spacing-full);
+  row-gap: var(--spacing-half);
+}
+
+.spell-slots {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: var(--spacing-half);
+  padding: var(--spacing-quarter);
+  flex: 0;
+
+  backdrop-filter: blur(3px) contrast(1.25);
+  background: var(--background-color-sheet);
+  border: 1px solid var(--background-color-heading);
+}
+
+.floating {
+  margin-top: auto;
+  position: sticky;
+  bottom: calc( var(--spacing-full) * -1);
+  z-index: 6;
+  box-shadow: rgba(0, 0, 0, 0.267) 0px 3px 4px 2px;
+}
+
+  
+
+@keyframes notify {
+  from {
+    color: var(--color-primary);
+  }
+  to {
+    color: crimson;
+  }
+}
+
+/**
+REWRITE:
+
+# Global
+- Navigation
+  - Small: Icons+Tooltips
+  - Large: Words
+- Floating Footers
+
+
+# Combat Tab
+- .combat-heading
+  - .portrait
+    - Small: centered
+    - Large: Left column
+  - .character-details
+    - A whole mess of reflowing
+    - I wonder if there's another way to lay this stuff out more cleanly?
+- .combat
+  - .stats
+    - Small: 3x grid, position 1
+    - Large: Flex column, position 1
+  - .saves
+    - Small: 3x grid, position 2
+    - Large: Flex column, position 3
+  - .dashboard
+    - .defenses
+      - ALL: 3x grid (varies in how it renders?)
+    - .derived
+      - Small: Flex column
+      - Mid: 2x grid
+      - Large: 3x grid
+    - .favorite
+      - Small: Flex column
+      - Mid: 2x grid
+      - Large: 3x grid
+
+
+**/
+
+.combat-heading {
+  container: combat-heading / inline-size;
+}
+
+.portrait {
+
+}
+
+.character-details {
+
+}
+
+.combat {
+  container: combat-main / inline-size;
+}
+
+.scores {
+
+}
+
+.saves {
+
+}
+
+.dashboard {
+  container: combat-dashboard / inline-size;
+  
+}
+
+.defenses {
+
+}
+
+.derived {
+  container: derived-group / inline-size;
+
+}
+
+.derived-set {
+
+}
+
+.favorites {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: var(--spacing-full);
+}

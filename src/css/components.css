@@ -1,0 +1,362 @@
+:global .ose .window-content {
+  uft-prepared-spells {
+    &::part(level) {
+      &:before {
+        font-family: "Font Awesome 6 Pro";
+        font-weight: 900;
+        content: "\f890";
+        font-size: 1.75em;
+      }
+    }
+  }
+
+  /**
+   *      COMPONENT: Ability Score Field
+   */
+  .ability-score-field {
+    --content-padding: 4px;
+    flex: 0;
+    .value-pair {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    }
+    input {
+      width: 100%;
+      overflow: hidden;
+      background: none;
+      border: none;
+      box-sizing: border-box;
+      text-align: center;
+      padding: 6px 0;
+      line-height: 1em;
+      color: var(--color-primary);
+
+      &.modifier-field {
+        border-left: 1px solid var(--background-color-heading) !important;
+        color: var(--color-secondary);
+      }
+
+      &:focus {
+        background: none !important;
+        outline: none;
+      }
+
+      &:hover:not(:is([readonly], [disabled])) {
+        background: var(--color-field-editable) !important;
+      }
+    }
+    &::part(content) {
+      background-color: var(--color-field-editable);
+    }
+    &[readonly]::part(content) {
+      background-color: var(--color-field-uneditable);
+    }
+  }
+
+  /**
+   *      COMPONENT: Character Ability Field
+   */
+  .character-ability-field {
+    border: 1px solid var(--background-color-heading);
+
+    display: flex;
+    overflow: hidden;
+
+    @media (prefers-color-scheme: light) {
+      align-items: stretch;
+      border-top-left-radius: 100px;
+      border-bottom-left-radius: 100px;  
+    }
+
+    @media(prefers-color-scheme: dark) {
+      border: none;
+      align-items: center;
+      gap: var(--spacing-half);
+    }
+
+    label {
+      font-family: "Signika Negative", "Signika", sans-serif;
+      font-size: 0.857142857143em; /* `12 / Base size */
+      font-weight: 700;
+      text-align: center;
+      color: var(--color-heading);
+      background: var(--background-color-heading);
+      transition: background 333ms ease-in-out,
+                  border 333ms ease-in-out,
+                  color 333ms ease-in-out;
+      flex: 1;
+      display: flex;
+      align-items: center;
+
+      span {
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      @media(prefers-color-scheme: dark) {
+        background-color: transparent;
+      }
+    }
+
+    img {
+      max-width: var(--image-size, 1.42857142857em) !important;
+      max-height: var(--image-size, 1.42857142857em) !important;
+      height: auto;
+      flex-basis: var(--image-size, 1.42857142857em);
+      margin-left: 0.142857142857em;
+      border: none !important;
+    }
+
+    input {
+      overflow: hidden;
+      background: var(--color-field-editable);
+      border: none;
+      box-sizing: border-box;
+      padding: 0.142857142857em;
+      line-height: 1em;
+      flex-basis: 2.5em;
+      text-align: center;
+      color: var(--color-primary);
+      height: min-content;
+
+      &:focus {
+        outline: none;
+      }
+
+      &:is(:focus, :hover) {
+        background: var(--color-field-editable) !important;
+      }
+
+      &:read-only {
+        background: var(--color-field-uneditable);
+
+        cursor: default;
+        user-select: none;
+
+        &:is(:focus, :hover) {
+          background: var(--color-field-uneditable);
+        }
+      }
+
+      @media(prefers-color-scheme: dark) {
+        border-radius: var(--spacing-quarter);
+      }
+    }
+  }
+
+  /**
+   *      COMPONENT: Major Icon Field
+   */
+  .major-icon-field {
+    container: major-icon-field / inline-size;
+
+    &:focus-within {
+      box-shadow: 0 0 10px var(--color-shadow-primary);
+    }
+
+    .field-background-container {
+      position: relative;
+    }
+
+    .value-pair {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+    }
+
+    input {
+      overflow: hidden;
+      background: transparent;
+      border: none;
+      box-sizing: border-box;
+      padding: 0.142857142857em;
+      line-height: 1em;
+      flex-basis: 2.5em;
+      text-align: center;
+      color: var(--color-primary);
+      height: min-content;
+      font-weight: bold;
+      font-size: 1.5em;
+      line-height: 1em;
+      text-shadow: 1px solid var(--color-field-uneditable);
+      max-width: 140px;
+      margin: 0 auto;
+
+      &:focus {
+        outline: none;
+      }
+      &[readonly] {
+        cursor: default;
+      }
+      &.max {
+        border-top: 1px solid var(--background-color-heading);
+      }
+
+      @container major-icon-field (min-width: 110px) {
+        font-size: 1.75em;
+      }
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: none !important;
+      padding: 0 8px;
+      max-height: 100px;
+      visibility: hidden;
+
+      @container major-icon-field (min-width: 100px) {
+        visibility: visible;
+      }
+
+      @media(prefers-color-scheme: dark) {
+        filter: brightness(3);
+      }
+    }
+  }
+
+  /**
+   *      COMPONENT: Spell Slot Field
+   */
+  .spell-slot-field {
+    display: flex;
+    align-items: center;
+    border-top-left-radius: 100px;
+    border-bottom-left-radius: 100px;
+    overflow: hidden;
+
+    @media (prefers-color-scheme: light) {
+      border: 1px solid var(--background-color-heading);
+      background: url("/ui/parchment.jpg");
+    }
+
+    label {
+      flex: 0;
+      display: flex;
+      align-items: center;
+      height: 100%;
+      line-height: 1em;
+      padding: 0 var(--spacing-three-quarters);
+
+      @media (prefers-color-scheme: light) {
+        background: var(--background-color-heading);
+        color: var(--color-heading);
+      }
+      @media (prefers-color-scheme: dark) {
+        padding-right: var(--spacing-quarter);
+      }
+    }
+
+    input {
+      overflow: hidden;
+      background-color: transparent;
+      border: none;
+      box-sizing: border-box;
+      padding: 0.142857142857em;
+      line-height: 1em;
+      text-align: center;
+      color: var(--color-primary);
+      -moz-appearance: textfield;
+      flex-basis: 2em;
+      background-color: var(--color-field-editable);
+
+      &:focus {
+        outline: none;
+      }
+      
+      &:read-only {
+        background-color: transparent;
+        background-color: var(--color-field-uneditable);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        padding: var(--spacing-quarter);
+        border-radius: var(--spacing-quarter);
+      }
+    }
+
+    .divider {
+      margin: 0 calc(var(--spacing-quarter) / 2)
+    }
+  }
+
+  /**
+   *      COMPONENT: Character Info Field
+   */
+  .character-info-field {
+    border: 1px solid var(--background-color-heading);
+    display: flex;
+    align-items: center;
+
+    @media (prefers-color-scheme: dark) {
+      border-color: transparent;
+    }
+
+    label {
+      font-family: "Signika Negative", "Signika", sans-serif;
+      font-size: var(--spacing-full);
+      line-height: 38px !important;
+      font-weight: 700;
+      text-align: center;
+      color: var(--color-heading);
+      background: var(--background-color-heading);
+      transition: background 333ms ease-in-out,
+                  border 333ms ease-in-out,
+                  color 333ms ease-in-out;
+      flex-basis: var(--label-flex, fit-content);
+      
+      @media (prefers-color-scheme: light) {
+        padding: 0 var(--spacing-half);
+      }
+      @media (prefers-color-scheme: dark) {
+        background-color: transparent;
+        text-align: left;
+        margin-right: var(--spacing-half);
+      }
+    }
+
+    input {
+      width: 100%;
+      overflow: hidden;
+      background-color: transparent;
+      border: none;
+      box-sizing: border-box;
+      padding: var(--spacing-half);
+      height: 38px;
+      line-height: 1em;
+      flex: 1;
+      color: var(--color-primary);
+      background-color: var(--color-field-editable);
+      text-overflow: ellipsis;
+      text-align: left;
+
+      &:focus {
+        outline: none;
+      }
+
+      &:is(:focus, :hover) {
+        background: var(--color-field-editable) !important;
+      }
+
+      &:read-only {
+        background: var(--color-field-uneditable);
+
+        cursor: default;
+        user-select: none;
+
+        &:is(:focus, :hover) {
+          background: var(--color-field-uneditable);
+        }
+      }
+
+      @media (prefers-color-scheme: dark) {
+        border-radius: var(--spacing-quarter);
+      }
+    }
+  }
+
+}

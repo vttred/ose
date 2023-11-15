@@ -144,16 +144,17 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
     return getItemsOfActorOfType(
       this.parent,
       "container",
-      ({ system: { containerId } }) => !containerId
-    );
+      ({ system: { containerId } }) => !containerId || !this.containers.find(c => c.id === containerId)
+    ).sort((itemA, itemB) => itemA.sort - itemB.sort);
   }
 
   get treasures() {
     return getItemsOfActorOfType(
       this.parent,
       "item",
-      ({ system: { treasure, containerId } }) => treasure && !containerId
-    );
+      ({ system: { treasure, containerId } }) =>
+        treasure && (!containerId || !this.containers.find(c => c.id === containerId))
+    ).sort((itemA, itemB) => itemA.sort - itemB.sort);
   }
 
   get carriedTreasure() {
@@ -168,24 +169,25 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
     return getItemsOfActorOfType(
       this.parent,
       "item",
-      ({ system: { treasure, containerId } }) => !treasure && !containerId
-    );
+      ({ system: { treasure, containerId } }) =>
+        !treasure && (!containerId || !this.containers.find(c => c.id === containerId))
+    ).sort((itemA, itemB) => itemA.sort - itemB.sort);
   }
 
   get weapons() {
     return getItemsOfActorOfType(
       this.parent,
       "weapon",
-      ({ system: { containerId } }) => !containerId
-    );
+      ({ system: { containerId } }) => !containerId || !this.containers.find(c => c.id === containerId)
+    ).sort((itemA, itemB) => itemA.sort - itemB.sort);
   }
 
   get armor() {
     return getItemsOfActorOfType(
       this.parent,
       "armor",
-      ({ system: { containerId } }) => !containerId
-    );
+      ({ system: { containerId } }) => !containerId || !this.containers.find(c => c.id === containerId)
+    ).sort((itemA, itemB) => itemA.sort - itemB.sort);
   }
 
   get abilities() {
@@ -201,7 +203,7 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
       this.parent,
       "spell",
       ({ system: { containerId } }) => !containerId
-    );
+    ).sort((itemA, itemB) => itemA.sort - itemB.sort);
   }
 
   get isSlow() {

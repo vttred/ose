@@ -1,0 +1,14 @@
+.inventory-tables {
+  overflow: auto;
+}
+
+.encumbrance {
+  align-self: end;
+}
+
+.container-content {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: var(--spacing-full);
+  row-gap: var(--spacing-half);
+}

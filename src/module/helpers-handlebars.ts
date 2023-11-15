@@ -71,6 +71,21 @@ const registerHelpers = async () => {
     "asset",
     (relativePath) => `${OSE.assetsPath}${relativePath}`
   );
+
+  Handlebars.registerHelper("ordinalSuffix", (digit: number) => {
+    const number = typeof digit === 'number' ? digit : parseInt(digit || '0', 10);
+    if (!number) return "";
+    const plurals = new Intl.PluralRules("en-US", { type: "ordinal" });
+    const suffixes = new Map([
+      ["one", "st"],
+      ["two", "nd"],
+      ["few", "rd"],
+      ["other", "th"],
+    ]);
+    const rule = plurals.select(number);
+    const suffix = suffixes.get(rule);
+    return new Handlebars.SafeString(`<span>${number}</span><span class="ordinal-suffix">${suffix}</span>`);
+  })
 };
 
 export default registerHelpers;

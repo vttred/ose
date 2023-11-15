@@ -1,0 +1,51 @@
+:host {
+  display: block;
+  border: 1px solid var(--background-color-heading);
+  width: 100%;
+  height: var(--font-size-20);
+  position: relative;
+  background-color: var(--color-meter-track);
+  border-radius: var(--spacing-quarter);
+}
+
+.value, .meter-progress {
+  position: absolute;
+}
+
+.value {
+  right: var(--spacing-quarter);
+  line-height: .8em;
+  text-shadow: 1px 1px var(--color-ui-09);
+  font-weight: 700;
+  right: var(--spacing-half);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-meter-value);
+}
+
+.meter-progress {
+  top: 0;
+  bottom: 0;
+  left: var(--spacing-quarter);
+  max-width: calc(100% - var(--spacing-half));
+  background-color: var(--color-meter-progress);
+  border-radius: var(--spacing-quarter);
+}
+
+:host([state]) .meter-progress { background-color: var(--color-meter-progress-stateless); filter: brightness(1.5)}
+:host([state="optimal"]) .meter-progress { background-color: var(--color-meter-progress-optimal); }
+:host([state="warning"]) .meter-progress { background-color: var(--color-meter-progress-warning); }
+:host([state="danger"]) .meter-progress { background-color: var(--color-meter-progress-danger); }
+:host([state="critical"]) .meter-progress { background-color: var(--color-meter-progress-critical); }
+
+@media (prefers-color-scheme: dark) {
+  :host {
+    border: none;
+    padding: var(--spacing-quarter);
+  }
+
+  .meter-progress {
+    top: var(--spacing-quarter);
+    bottom: var(--spacing-quarter);
+  }
+}

@@ -1,0 +1,45 @@
+:host {
+  display: block;
+}
+:host(:focus-within) ::part(content) {
+  box-shadow: 0 0 10px var(--color-shadow-primary);
+}
+:host([modifier-value]) .value-pair {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+}
+input {
+  width: 100%;
+  overflow: hidden;
+  background-color: transparent;
+  border: none;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 6px 0;
+  line-height: 1em;
+  color: var(--color-primary);
+}
+input:focus {
+  outline: none;
+}
+.modifier-field {
+  border-left: 1px solid var(--background-color-heading);
+  color: var(--color-secondary);
+}
+uft-labeled-section {
+  --content-padding: 4px;
+}
+
+uft-labeled-section::part(content) {
+  background-color: var(--color-field-editable);
+}
+
+:host([readonly]) uft-labeled-section::part(content),
+:host([disabled]) uft-labeled-section::part(content) {
+  background-color: var(--color-field-uneditable);
+  cursor: default;
+}
+
+:host([readonly], [default]) {
+  color: #f00;
+}

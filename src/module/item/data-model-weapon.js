@@ -88,7 +88,7 @@ export default class OseDataModelWeapon extends foundry.abstract.DataModel {
   get qualities() {
     return [
       ...this.autoTags
-        .filter((t) => !!t.image)
+        .filter((t) => !!t.image || !t.icon)
         .map((t) => ({
           ...t,
           title: t.label,
@@ -114,5 +114,10 @@ export default class OseDataModelWeapon extends foundry.abstract.DataModel {
     ]
       .flat()
       .filter((t) => !!t);
+  }
+
+  get favorited() {
+    if (!this.parent?.parent) return false;
+    return this.parent.parent.getFlag(game.system.id, "favorite-items")?.includes(this.parent.uuid);
   }
 }

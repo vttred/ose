@@ -1,0 +1,47 @@
+<div class="ability-fields ability-fields--exploration-skills {{styles.ability.exploration}}">
+  {{#with actor.system.exploration}}
+    {{> (path "/templates/actors/partials/sheet-v2/components/character-ability-field.hbs")
+      label="OSE.exploration.ld.short"
+      icon=(asset '/Melee.svg')
+      value=ld
+      name="system.exploration.ld"
+      explorationType="ld"
+    }}
+
+    {{> (path "/templates/actors/partials/sheet-v2/components/character-ability-field.hbs")
+      label="OSE.exploration.od.short"
+      icon=(asset '/Melee.svg')
+      value=od
+      name="system.exploration.od"
+      explorationType="od"
+    }}
+
+    {{> (path "/templates/actors/partials/sheet-v2/components/character-ability-field.hbs")
+      label="OSE.exploration.sd.short"
+      icon=(asset '/Melee.svg')
+      value=sd
+      name="system.exploration.sd"
+      explorationType="sd"
+    }}
+
+    {{> (path "/templates/actors/partials/sheet-v2/components/character-ability-field.hbs")
+      label="OSE.exploration.ft.short"
+      icon=(asset '/Melee.svg')
+      value=ft
+      name="system.exploration.ft"
+      explorationType="ft"
+    }}
+  {{/with}}
+</div>
+
+<uft-expandable-section type="ability" can-create aria-expanded>
+  <h2 slot="heading">{{localize "OSE.category.abilities"}}</h2>
+{{#each actor.system.abilities}}
+  <uft-item-row class="item" slot="content" uuid="{{this.uuid}}" can-favorite>
+    {{{this.system.enrichedDescription}}}
+    {{#each this.system.autoTags}}
+      <uft-tag-chip slot="title-content"><i class="fa {{icon}}"></i>{{localize label}}</uft-tag-chip>
+    {{/each}}
+  </uft-item-row>
+{{/each}}
+</uft-expandable-section>

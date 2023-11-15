@@ -8,7 +8,7 @@ const preloadHandlebarsTemplates = async () => {
     // Character Sheets
     `${OSE.systemPath()}/templates/actors/character-sheet.html`,
     `${OSE.systemPath()}/templates/actors/monster-sheet.html`,
-    // Character Sheets Partials
+    // Character sheet partials (v1)
     `${OSE.systemPath()}/templates/actors/partials/character-header.html`,
     `${OSE.systemPath()}/templates/actors/partials/character-attributes-tab.html`,
     `${OSE.systemPath()}/templates/actors/partials/character-abilities-tab.html`,
@@ -23,6 +23,19 @@ const preloadHandlebarsTemplates = async () => {
     // Party Sheet
     `${OSE.systemPath()}/templates/apps/party-sheet.html`,
     // `${OSE.systemPath()}/templates/apps/party-xp.html`,
+    
+    // Character sheet partials (v2)
+    `${OSE.systemPath()}/templates/actors/partials/sheet-v2/character-combat-tab.hbs`,
+    `${OSE.systemPath()}/templates/actors/partials/sheet-v2/character-abilities-tab.hbs`,
+    `${OSE.systemPath()}/templates/actors/partials/sheet-v2/character-magic-tab.hbs`,
+    `${OSE.systemPath()}/templates/actors/partials/sheet-v2/character-inventory-tab.hbs`,
+    `${OSE.systemPath()}/templates/actors/partials/sheet-v2/character-notes-tab.hbs`,
+    // Character sheet input components (v2)
+    `${OSE.systemPath()}/templates/actors/partials/sheet-v2/components/ability-score-field.hbs`,
+    `${OSE.systemPath()}/templates/actors/partials/sheet-v2/components/character-ability-field.hbs`,
+    `${OSE.systemPath()}/templates/actors/partials/sheet-v2/components/character-info-field.hbs`,
+    `${OSE.systemPath()}/templates/actors/partials/sheet-v2/components/major-icon-field.hbs`,
+    `${OSE.systemPath()}/templates/actors/partials/sheet-v2/components/spell-slot-field.hbs`,
   ];
   return loadTemplates(templatePaths);
 };

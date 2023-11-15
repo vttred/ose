@@ -2,14 +2,70 @@
 
 We do our best to recognize several ways one can contribute to this project.
 
-- Become a translation contributor from English to your native language
-- Become a design contributor by researching, prototyping, and drawing new interfaces and user experiences
-- Become a documentation or SRD contributor, using primarily English skills or finding mistakes in our SRD compendia
-- **Become a code contributor, using basic or intermediate knowledge of JavaScript to improve how the game system functions**
+- [Become a translation contributor](/#Become%20a%20translation%20contributor), from English to your native language.
+- [Become a user research contributor](/#Become%20a%20user%20research%20contributor), interviewing users of UFT-based game systems, and collecting it into insights and user stories.
+- [Become a design contributor](/#Become%20a%20design%20contributor) by researching, prototyping, and drawing new interfaces and user experiences.
+- [Become a documentation contributor](/#Become%20a%20documentation%20contributor), using primarily English skills and user knowledge of UFT to expand or find errors in our documentation.
+- [Join the welcome brigade](/#Join%20the%20welcome%20brigade), greeting and telling new people to the project how to get started or field their troubleshooting issues.
+- **[Become a code contributor](/#Become%20a%20code%20contributor), using basic or intermediate knowledge of JavaScript to improve how the game system functions.**
 
-This guide is focused on the very last type, becoming a code contributor.
+This guide will go over each.
 
-## Developer Environment Installation
+## Project values
+
+- Always answer contributors' questions and troubleshoot any obstacles to contributing.
+- Treating your contributions with respect because we respect the time you've devoted to them, and expecting the same respect for our reviewers' time. Always communicating with this respect in mind.
+- Generally, we seek "lazy consensus" and to some extent apply "meritocracy" as a principle for democratic decision-making. We have often looked for opinions from the contributor community, and if no one voices their dissenting opinion for a particular course of action, it will be taken as approval. Those who have volunteered the most time into the project will often get more consideration, which is a practical approach to consensus-building without disrupting forward momentum on the project. We ask for those who want to overwrite others' work with something "better" to make proposals before devoting their time on the change. This shows that you respect the consensus-building process.
+
+We don't always have the time and resources to help everyone personally, so we will often ask you to check existing documentation. If your problem is not addressed there, it's an opportunity to [open a new issue][new issue] to improve the documentation.
+
+## Become a translation contributor
+
+UFT uses a [Crowdin project][crowdin project] to collect translation contributions. A free Crowdin account is required. You will be able to sign up for the "Unofficial OSE" project on your own and immediately start contributing (obsolete name, but the project is still in use).
+
+### Adding new translation strings
+
+Crowdin provides [detailed instructions][crowdin docs for translators] for new translators on their website.
+
+### Requesting a language that is not listed
+
+By default, only the top 30 languages by number of speakers are listed in Crowdin. If you want to contribute translations for a new language, first make sure that Foundry VTT already has a ["core" translation module][core translation] for that language, otherwise you won't be able to use OSE translations in that language. Then contact the Crowdin project administrator, who will notify you when the new language is added to the project.
+
+## Become a user researcher
+
+## Become a design contributor
+
+We recognize two types of design contributors: user experience designers and graphical interface designers. Both are absolutely necessary for making UFT the best experience it can be for gamemasters and players.
+
+### Contributing user experience designs
+
+A user experience designer will scrap together
+
+### Contributing graphical interface designs
+
+UFT has accounts on both Penpot and 
+
+## Become a documentation contributor
+
+We are transitioning to a double-pronged documentation approach: 
+
+1. User help, provided to gamemasters and players who need an extra push into getting started or finding their way around a UFT game system.
+1. Contributor help, provided to contributors of the game system (especially new contributors) who often need guidance to remember how to contribute to the project as a whole.
+
+In each of these cases, there are multiple needs being served:
+
+* Gamemaster or player who wants to be guided inside of Foundry itself (with the help of the Tours system)
+* Gamemaster or player who wants to read or reference a document to find out if/how to do something (such as a user docs webpage)
+* Code author who needs to remember what a specific function or code file does (in-line comments, docs webpage)
+* Other type of contributor who needs guidance on contribution steps or third-party webapps they need to use (markdown files inside the project, contributor docs webpage)
+
+## Join the welcome brigade
+
+## Become a code contributor
+
+This guide should help you get the UFT development environment completely 
+
+### Developer Environment Installation
 
 Prerequisites: Node.js (v16 is recommended), a familiarity with command Foundry VTT with a valid license
 
@@ -120,3 +176,8 @@ This is achieved with a `foundryconfig.json` files in each local version of the 
 If you want to have two local versions of your repository, there will be an additional build step. Run `git config --local include.path ../.gitconfig` in each of your repositories' root directories. Then make sure they have different symlinkNames in the `foundryconfig.json` files for each repo. Run `npm run link` in each repository.
 
 Note: you will have to provide your own .gitconfig for Windows
+
+[new issue]: https://github.com/vttred/ose/issues/new
+[core translation]: https://foundryvtt.com/packages/tag/translation
+[crowdin project]: https://crowdin.com/project/ose
+[crowdin docs for translators]: https://support.crowdin.com/enterprise/getting-started-for-translators/

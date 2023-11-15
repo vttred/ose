@@ -12,7 +12,8 @@ export interface CharacterEncumbrance {
   atHalfEncumbered: boolean | null;
   atThreeEighthsEncumbered: boolean | null;
   atQuarterEncumbered: boolean | null;
-};
+  color: string | null;
+}
 
 /**
  * A class to handle character encumbrance.
@@ -25,7 +26,7 @@ export default class OseDataModelCharacterEncumbrance
   static encumbranceSteps = {
     quarter: 25,
     threeEighths: 37.5,
-    half: 50
+    half: 50,
   };
 
   #encumbranceVariant;
@@ -88,13 +89,34 @@ export default class OseDataModelCharacterEncumbrance
   }
 
   get atHalfEncumbered() {
-    return this.value > this.max * (OseDataModelCharacterEncumbrance.encumbranceSteps.half / 100) + (this.#delta || 0)
+    return (
+      this.value >
+      this.max * (OseDataModelCharacterEncumbrance.encumbranceSteps.half / 100)
+    );
   }
   get atThreeEighthsEncumbered() {
-    return this.value > this.max * (OseDataModelCharacterEncumbrance.encumbranceSteps.threeEighths / 100) + (this.#delta || 0)
+    return (
+      this.value >
+      this.max *
+        (OseDataModelCharacterEncumbrance.encumbranceSteps.threeEighths / 100)
+    );
   }
   get atQuarterEncumbered() {
-    return this.value > this.max * (OseDataModelCharacterEncumbrance.encumbranceSteps.quarter / 100) + (this.#delta || 0)
+    return (
+      this.value >
+      this.max *
+        (OseDataModelCharacterEncumbrance.encumbranceSteps.quarter / 100)
+    );
   }
-  
+
+  get color(): string {
+    if (this.atHalfEncumbered) {
+      return "heavy";
+    } else if (this.atThreeEighthsEncumbered) {
+      return "medium";
+    } else if (this.atQuarterEncumbered) {
+      return "light";
+    }
+    return "unencumbered";
+  }
 }

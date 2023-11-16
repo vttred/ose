@@ -3,12 +3,19 @@
  */
 export default class OseDataModelContainer extends foundry.abstract.DataModel {
   static defineSchema() {
-    const { SchemaField, StringField, NumberField, ArrayField, ObjectField } =
-      foundry.data.fields;
+    const {
+      SchemaField,
+      StringField,
+      NumberField,
+      ArrayField,
+      ObjectField,
+      BooleanField,
+    } = foundry.data.fields;
     return {
       itemIds: new ArrayField(new StringField()),
       description: new StringField(),
       tags: new ArrayField(new ObjectField()),
+      equipped: new BooleanField(),
       cost: new NumberField({ min: 0, initial: 0 }),
       containerId: new StringField(),
       quantity: new SchemaField({

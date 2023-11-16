@@ -106,25 +106,31 @@ export default class OseDataModelCharacterEncumbranceBasic
   get overSignificantTreasureThreshold() {
     return this.value >= this.#treasureEncumbrance;
   }
-	
-	get atHalfEncumbered()	 	{
-		return (
-			this.#heaviestArmor === OseDataModelCharacterEncumbranceBasic.armorWeight.heavy &&
-			this.value >=	this.#treasureEncumbrance
-		);
-	}
-	get atThreeEighthsEncumbered() { 
-		const isHeavy = this.#heaviestArmor === OseDataModelCharacterEncumbranceBasic.armorWeight.heavy;
-		const isLightWithTreasure = (
-			this.#heaviestArmor === OseDataModelCharacterEncumbranceBasic.armorWeight.light &&
-			this.value >=	this.#treasureEncumbrance
-		);	
-		return isHeavy || isLightWithTreasure;
-	}
-	get atQuarterEncumbered()	{
-		return (
-			this.#heaviestArmor === OseDataModelCharacterEncumbranceBasic.armorWeight.light ||
-			this.overSignificantTreasureThreshold
-		);
-	}
+
+  get atHalfEncumbered() {
+    return (
+      this.#heaviestArmor ===
+        OseDataModelCharacterEncumbranceBasic.armorWeight.heavy &&
+      this.value >= this.#treasureEncumbrance
+    );
+  }
+
+  get atThreeEighthsEncumbered() {
+    const isHeavy =
+      this.#heaviestArmor ===
+      OseDataModelCharacterEncumbranceBasic.armorWeight.heavy;
+    const isLightWithTreasure =
+      this.#heaviestArmor ===
+        OseDataModelCharacterEncumbranceBasic.armorWeight.light &&
+      this.value >= this.#treasureEncumbrance;
+    return isHeavy || isLightWithTreasure;
+  }
+
+  get atQuarterEncumbered() {
+    return (
+      this.#heaviestArmor ===
+        OseDataModelCharacterEncumbranceBasic.armorWeight.light ||
+      this.overSignificantTreasureThreshold
+    );
+  }
 }

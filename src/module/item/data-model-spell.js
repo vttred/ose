@@ -1,7 +1,7 @@
 /**
- * @file The data model for Items of type Ability
+ * @file The data model for Items of type Spell
  */
-export default class OseDataModelItem extends foundry.abstract.DataModel {
+export default class OseDataModelSpell extends foundry.abstract.DataModel {
   static defineSchema() {
     const { StringField, NumberField, ArrayField, ObjectField } =
       foundry.data.fields;

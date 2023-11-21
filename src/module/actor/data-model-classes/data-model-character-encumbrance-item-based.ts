@@ -15,6 +15,24 @@ export default class OseDataModelCharacterEncumbranceItemBased
   extends OseDataModelCharacterEncumbrance
   implements CharacterEncumbrance
 {
+  static packedEncumbranceSteps = {
+    fiveEighths: 62.5,
+    threeQuarters: 75,
+    sevenEighths: 87.5,
+  };
+
+  static equippedEncumbranceSteps = {
+    oneThird: 33.33,
+    fiveNinths: 55.55,
+    sevenNinths: 77.77,
+  };
+
+  #equippedMax;
+
+  #packedMax;
+
+  #max;
+
   static templateEncumbranceBar = "";
 
   static templateInventoryRow = "";
@@ -31,28 +49,82 @@ export default class OseDataModelCharacterEncumbranceItemBased
 
   #weight;
 
-  constructor(
-    max = OseDataModelCharacterEncumbrance.baseEncumbranceCap,
-    items: Item[] = []
-  ) {
+  #equippedWeight;
+
+  #packedWeight;
+
+  constructor(max = 16, items: Item[] = []) {
     super(OseDataModelCharacterEncumbranceItemBased.type, max);
-    this.#weight = items.reduce(
-      (acc, { type, system: { quantity, itemslots } }: Item) => {
-        if (type === "item") return acc + quantity.value * itemslots;
-        if (["weapon", "armor", "container"].includes(type))
-          return acc + itemslots;
-        return acc;
-      },
-      0
+
+    this.#packedMax = 16;
+    this.#equippedMax = 9;
+    this.#packedWeight = Math.ceil(
+      items.reduce(
+        (acc, { type, system: { quantity, itemslots, equipped } }: Item) => {
+          if (type === "item" && !equipped)
+            return acc + quantity.value * itemslots;
+          if (["weapon", "armor", "container"].includes(type) && !equipped)
+            return acc + itemslots;
+          return acc;
+        },
+        0
+      )
     );
+    this.#equippedWeight = Math.ceil(
+      items.reduce(
+        (acc, { type, system: { quantity, itemslots, equipped } }: Item) => {
+          if (type === "item" && equipped)
+            return acc + quantity.value * itemslots;
+          if (["weapon", "armor", "container"].includes(type) && equipped)
+            return acc + itemslots;
+          return acc;
+        },
+        0
+      )
+    );
+    this.#weight = this.usingEquippedEncumbrance
+      ? this.#equippedWeight
+      : this.#packedWeight;
+
+    this.#max = this.usingEquippedEncumbrance
+      ? this.#equippedMax
+      : this.#packedMax;
   }
 
   // eslint-disable-next-line class-methods-use-this
   get steps() {
-    return Object.values(OseDataModelCharacterEncumbrance.encumbranceSteps);
+    return this.usingEquippedEncumbrance
+      ? Object.values(
+          OseDataModelCharacterEncumbranceItemBased.equippedEncumbranceSteps
+        )
+      : Object.values(
+          OseDataModelCharacterEncumbranceItemBased.packedEncumbranceSteps
+        );
+  }
+
+  get usingEquippedEncumbrance() {
+    const equippedValues = Object.values(
+      OseDataModelCharacterEncumbranceItemBased.equippedEncumbranceSteps
+    );
+    const packedValues = Object.values(
+      OseDataModelCharacterEncumbranceItemBased.packedEncumbranceSteps
+    );
+    let equippedIndex = equippedValues.findIndex(
+      (step) => step > (this.#equippedWeight / this.#equippedMax) * 100
+    );
+    equippedIndex = equippedIndex === -1 ? 4 : equippedIndex;
+    let packedIndex = packedValues.findIndex(
+      (step) => step > (this.#packedWeight / this.#packedMax) * 100
+    );
+    packedIndex = packedIndex === -1 ? 4 : packedIndex;
+    return !!(equippedIndex >= packedIndex);
   }
 
   get value(): number {
     return this.#weight;
+  }
+
+  get max(): number {
+    return this.#max;
   }
 }

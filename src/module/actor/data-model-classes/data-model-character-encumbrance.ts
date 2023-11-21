@@ -26,6 +26,12 @@ export default class OseDataModelCharacterEncumbrance
     quarter: 25,
     threeEighths: 37.5,
     half: 50,
+    fiveEighths: 62.5,
+    threeQuarters: 75,
+    sevenEighths: 87.5,
+    oneThird: 33.34,
+    fiveNinths: 55.56,
+    sevenNinths: 77.78,
   };
 
   #encumbranceVariant;
@@ -111,6 +117,67 @@ export default class OseDataModelCharacterEncumbrance
       this.max *
         (OseDataModelCharacterEncumbrance.encumbranceSteps.quarter / 100) +
         (this.#delta || 0)
+    );
+  }
+
+  // Item-based encumbrance variant props - packed
+  get atFiveEighthsEncumbered() {
+    return (
+      this.value >
+      this.max *
+        (OseDataModelCharacterEncumbrance.encumbranceSteps.fiveEighths / 100)
+    );
+  }
+
+  get atThreeQuartersEncumbered() {
+    return (
+      this.value >
+      this.max *
+        (OseDataModelCharacterEncumbrance.encumbranceSteps.threeQuarters / 100)
+    );
+  }
+
+  get atSevenEighthsEncumbered() {
+    return (
+      this.value >
+      this.max *
+        (OseDataModelCharacterEncumbrance.encumbranceSteps.sevenEighths / 100)
+    );
+  }
+
+  // Item-based encumbrance variant props - equipped
+  // eslint-disable-next-line class-methods-use-this
+  get usingEquippedEncumbrance() {
+    return false;
+  }
+
+  get atOneThirdEncumbered() {
+    return (
+      this.value >
+      Math.round(
+        this.max *
+          (OseDataModelCharacterEncumbrance.encumbranceSteps.oneThird / 100)
+      )
+    );
+  }
+
+  get atFiveNinthsEncumbered() {
+    return (
+      this.value >
+      Math.round(
+        this.max *
+          (OseDataModelCharacterEncumbrance.encumbranceSteps.fiveNinths / 100)
+      )
+    );
+  }
+
+  get atSevenNinthsEncumbered() {
+    return (
+      this.value >
+      Math.round(
+        this.max *
+          (OseDataModelCharacterEncumbrance.encumbranceSteps.sevenNinths / 100)
+      )
     );
   }
 }

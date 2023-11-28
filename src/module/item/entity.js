@@ -33,8 +33,10 @@ export default class OseItem extends Item {
     }
     if (source?.system?.itemslots === undefined) {
       if (
-        source?.system?.tags.some((tag) => tag.value === "Two-handed") &&
-        source.type === "weapon"
+        (source?.system?.tags ?? []).some(
+          (tag) => tag.value === "Two-handed"
+        ) &&
+        source?.type === "weapon"
       )
         source.system.itemslots = 2;
       if (source?.system?.type === "heavy" && source.type === "armor")

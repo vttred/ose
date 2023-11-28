@@ -71,6 +71,8 @@ const registerHelpers = async () => {
     "asset",
     (relativePath) => `${OSE.assetsPath}${relativePath}`
   );
+
+  Handlebars.registerHelper("ceil", (val) => Math.ceil(val));
 };
 
 export default registerHelpers;

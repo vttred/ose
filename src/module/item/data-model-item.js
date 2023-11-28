@@ -15,6 +15,7 @@ export default class OseDataModelItem extends foundry.abstract.DataModel {
       treasure: new BooleanField(),
       description: new StringField(),
       tags: new ArrayField(new ObjectField()),
+      equipped: new BooleanField(),
       cost: new NumberField({ min: 0, initial: 0 }),
       containerId: new StringField(),
       quantity: new SchemaField({
@@ -22,6 +23,7 @@ export default class OseDataModelItem extends foundry.abstract.DataModel {
         max: new NumberField({ min: 0, initial: 0 }),
       }),
       weight: new NumberField({ min: 0, initial: 0 }),
+      itemslots: new NumberField({ min: 0, initial: 0 }),
     };
   }
 

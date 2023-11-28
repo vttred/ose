@@ -40,7 +40,8 @@
         </div>
         <div class="field-short">
           {{#if (eq @root.config.encumbrance
-          "basic")}}_{{else}}{{item.system.weight}}{{/if}}
+          "basic")}}_{{else if (eq @root.config.encumbrance
+            "itembased")}}{{item.system.itemslots}}{{else}}{{item.system.weight}}{{/if}}
         </div>
         <div class="item-controls">
           {{#if @root.owner }} {{#if (eq @root.type "character")}}
@@ -48,7 +49,7 @@
             class="item-control item-toggle {{#unless item.system.equipped}}item-unequipped{{/unless}}"
             title='{{localize "OSE.items.Equip"}}'
           >
-            <i class="fas fa-tshirt"></i>
+            <i class="fas fa-hand"></i>
           </a>
           {{/if}}
           <a class="item-control item-edit" title='{{localize "OSE.Edit"}}'
@@ -100,7 +101,8 @@
         </div>
         <div class="field-short">
           {{#if (eq @root.config.encumbrance
-          "basic")}}_{{else}}{{item.system.weight}}{{/if}}
+          "basic")}}_{{else if (eq @root.config.encumbrance
+          "itembased")}}{{item.system.itemslots}}{{else}}{{item.system.weight}}{{/if}}
         </div>
         <div class="item-controls">
           {{#if @root.owner }} {{#if (eq @root.type "character")}}
@@ -155,15 +157,28 @@
         <div class="field-short container-total-weight">
           {{#if (eq @root.config.encumbrance "basic")}}_{{else if (eq
           @root.config.encumbrance
-          "detailed")}}_{{else}}{{bag.system.totalWeight}}{{/if}}
+          "detailed")}}_{{else if (eq
+            @root.config.encumbrance
+            "itembased")}}_{{else}}{{bag.system.totalWeight}}{{/if}}
         </div>
         <div class="field-short container-item-weight">
           {{#if (eq @root.config.encumbrance "basic")}}_{{else if (eq
           @root.config.encumbrance
-          "detailed")}}_{{else}}{{bag.system.weight}}{{/if}}
+          "detailed")}}_{{else if (and (eq @root.config.encumbrance
+            "itembased") (eq bag.system.contents.length 0))}}{{bag.system.itemslots}}{{else if (and (eq @root.config.encumbrance
+              "itembased") (gt bag.system.contents.length 0))}}_{{else}}{{bag.system.weight}}{{/if}}
         </div>
         <div class="item-controls">
-          {{#if @root.owner}}
+          {{#if @root.owner}} {{#if (eq @root.type "character") }} {{#unless
+          bag.system.contents.length }}
+          <a
+            class="item-control item-toggle {{#unless
+             bag.system.equipped}}item-unequipped{{/unless}}"
+            title='{{localize "OSE.items.Equip"}}'
+          >
+            <i class="fas fa-hand"></i>
+          </a>
+          {{/unless }} {{/if }}
           <a class="item-control item-edit" title='{{localize "OSE.Edit"}}'
             ><i class="fas fa-edit"></i
           ></a>
@@ -200,7 +215,8 @@
             <div class="field-short">
               {{#if (eq @root.config.encumbrance "basic")}}_{{else if (eq
               @root.config.encumbrance
-              "detailed")}}_{{else}}{{item.system.weight}}{{/if}}
+              "detailed")}}_{{else if (eq @root.config.encumbrance
+                "itembased")}}{{item.system.itemslots}}{{else}}{{item.system.weight}}{{/if}}
             </div>
             <div class="item-controls">
               {{#if @root.owner}}
@@ -273,10 +289,20 @@
         <div class="field-short">
           {{#if (eq @root.config.encumbrance "basic")}}_{{else if (eq
           @root.config.encumbrance
-          "detailed")}}_{{else}}{{item.system.weight}}{{/if}}
+          "detailed")}}_{{else if (eq @root.config.encumbrance
+            "itembased")}}{{item.system.itemslots}}{{else}}{{item.system.weight}}{{/if}}
         </div>
         <div class="item-controls">
           {{#if @root.owner}}
+            {{#if (eq @root.type "character") }}
+              <a
+                class="item-control item-toggle {{#unless
+                item.system.equipped}}item-unequipped{{/unless}}"
+                title='{{localize "OSE.items.Equip"}}'
+              >
+                <i class="fas fa-hand"></i>
+              </a>
+            {{/if }}
           <a class="item-control item-edit" title='{{localize "OSE.Edit"}}'
             ><i class="fas fa-edit"></i
           ></a>
@@ -348,10 +374,20 @@
           {{/if}}
         </div>
         <div class="field-short">
-          {{mult item.system.quantity.value item.system.weight}}
+          {{#if (eq @root.config.encumbrance
+          "itembased")}}{{ceil (mult item.system.quantity.value item.system.itemslots)}}{{else}}{{item.system.weight}}{{/if}}{{mult item.system.quantity.value item.system.weight}}
         </div>
         <div class="item-controls">
           {{#if @root.owner}}
+            {{#if (eq @root.type "character") }}
+              <a
+                class="item-control item-toggle {{#unless
+                item.system.equipped}}item-unequipped{{/unless}}"
+                title='{{localize "OSE.items.Equip"}}'
+              >
+                <i class="fas fa-hand"></i>
+              </a>
+            {{/if }}
           <a class="item-control item-edit" title='{{localize "OSE.Edit"}}'
             ><i class="fas fa-edit"></i
           ></a>

@@ -21,7 +21,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label title="{{localize 'OSE.items.Weight'}}"
+            <label title="{{#unless (eq @root.system.encumbrance.variant 'itembased')}}{{localize 'OSE.items.WeightLong'}}{{else}}{{localize 'OSE.items.ItemBasedEncumbranceLong'}}{{/unless}}"
               ><i class="fas fa-weight-hanging"></i
             ></label>
             <div class="form-fields">

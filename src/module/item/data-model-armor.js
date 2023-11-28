@@ -43,6 +43,7 @@ export default class OseDataModelArmor extends foundry.abstract.DataModel {
         max: new NumberField({ min: 0, initial: 0 }),
       }),
       weight: new NumberField({ min: 0, initial: 0 }),
+      itemslots: new NumberField({ min: 0, initial: 1 }),
     };
   }
 

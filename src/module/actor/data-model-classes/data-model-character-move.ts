@@ -26,20 +26,38 @@ export default class OseDataModelCharacterMove implements CharacterMove {
   #overEncumbranceLimit;
 
   #halfEncumbered;
+
   #threeEighthsEncumbered;
+
   #quarterEncumbered;
-  
+
+  #fiveEighthsEncumbered;
+
+  #threeQuartersEncumbered;
+
+  #sevenEighthsEncumbered;
+
+  #usingEquippedEncumbrance;
+
+  #oneThirdEncumbered;
+
+  #fiveNinthsEncumbered;
+
+  #sevenNinthsEncumbered;
+
   /**
    * The constructor
    *
    * @param {OseDataModelCharacterEncumbrance} encumbrance - An object representing the character's encumbrance values
    * @param {boolean} shouldCalculateMovement - Should the class autocalculate movement?
    * @param {number} base - The base move rate for the actor
+   * @param {boolean} usingEquippedEncumbrance - Is the character using equipped encumbrance
    */
   constructor(
     encumbrance: OseDataModelCharacterEncumbrance = new OseDataModelCharacterEncumbrance(),
     shouldCalculateMovement = true,
-    base = OseDataModelCharacterMove.baseMoveRate
+    base = OseDataModelCharacterMove.baseMoveRate,
+    usingEquippedEncumbrance = encumbrance.usingEquippedEncumbrance
   ) {
     // Props necessary for any encumbrance variant
     this.#moveBase = base;
@@ -48,17 +66,38 @@ export default class OseDataModelCharacterMove implements CharacterMove {
     this.#overEncumbranceLimit = encumbrance.encumbered;
 
     // Non-basic encumbrance variant props
-    this.#halfEncumbered    = encumbrance.atHalfEncumbered;
+    this.#halfEncumbered = encumbrance.atHalfEncumbered;
     this.#threeEighthsEncumbered = encumbrance.atThreeEighthsEncumbered;
-    this.#quarterEncumbered  = encumbrance.atQuarterEncumbered;
+    this.#quarterEncumbered = encumbrance.atQuarterEncumbered;
+
+    // Item-based encumbrance variant props - packed steps
+    this.#fiveEighthsEncumbered = encumbrance.atFiveEighthsEncumbered;
+    this.#threeQuartersEncumbered = encumbrance.atThreeQuartersEncumbered;
+    this.#sevenEighthsEncumbered = encumbrance.atSevenEighthsEncumbered;
+    // Item-based encumbrance variant props - equipped steps
+    this.#usingEquippedEncumbrance = usingEquippedEncumbrance;
+    this.#oneThirdEncumbered = encumbrance.atOneThirdEncumbered;
+    this.#fiveNinthsEncumbered = encumbrance.atFiveNinthsEncumbered;
+    this.#sevenNinthsEncumbered = encumbrance.atSevenNinthsEncumbered;
   }
 
   #derivedSpeed() {
-    if (this.#overEncumbranceLimit)    return 0;
-    else if (this.#halfEncumbered)     return this.#moveBase * .25;
-    else if (this.#threeEighthsEncumbered)  return this.#moveBase * .50;
-    else if (this.#quarterEncumbered)   return this.#moveBase * .75;
-    else                               return this.#moveBase;
+    if (this.#overEncumbranceLimit) return 0;
+    if (this.#usingEquippedEncumbrance) {
+      if (this.#sevenNinthsEncumbered) return this.#moveBase * 0.25;
+      if (this.#fiveNinthsEncumbered) return this.#moveBase * 0.5;
+      return this.#oneThirdEncumbered ? this.#moveBase * 0.75 : this.#moveBase;
+    }
+    if (this.#encumbranceVariant === "itembased") {
+      if (this.#sevenEighthsEncumbered) return this.#moveBase * 0.25;
+      if (this.#threeQuartersEncumbered) return this.#moveBase * 0.5;
+      return this.#fiveEighthsEncumbered
+        ? this.#moveBase * 0.75
+        : this.#moveBase;
+    }
+    if (this.#halfEncumbered) return this.#moveBase * 0.25;
+    if (this.#threeEighthsEncumbered) return this.#moveBase * 0.5;
+    return this.#quarterEncumbered ? this.#moveBase * 0.75 : this.#moveBase;
   }
 
   get base() {

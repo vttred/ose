@@ -45,7 +45,10 @@ export default class OseItemSheet extends ItemSheet {
   async getData() {
     const { data } = super.getData();
     data.editable = this.document.sheet.isEditable;
-    data.config = CONFIG.OSE;
+    data.config = {
+      ...CONFIG.OSE,
+      encumbrance: game.settings.get(game.system.id, "encumbranceOption"),
+    };
     data.enriched = {
       description: await TextEditor.enrichHTML(
         this.item.system?.description || "",

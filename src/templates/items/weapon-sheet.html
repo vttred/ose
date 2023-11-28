@@ -20,8 +20,9 @@
               />
             </div>
           </div>
+          {{#unless (eq @root.config.encumbrance 'itembased')}}
           <div class="form-group">
-            <label title="{{#unless (eq @root.system.encumbrance.variant 'itembased')}}{{localize 'OSE.items.WeightLong'}}{{else}}{{localize 'OSE.items.ItemBasedEncumbranceLong'}}{{/unless}}"
+            <label title="{{localize 'OSE.items.WeightLong'}}"
               ><i class="fas fa-weight-hanging"></i
             ></label>
             <div class="form-fields">
@@ -33,6 +34,21 @@
               />
             </div>
           </div>
+          {{else}}
+          <div class="form-group">
+            <label title="{{localize 'OSE.items.ItemBasedEncumbranceLong'}}"
+              ><i class="fas fa-weight-hanging"></i
+            ></label>
+            <div class="form-fields">
+              <input
+                type="text"
+                name="system.itemslots"
+                value="{{system.itemslots}}"
+                data-dtype="Number"
+              />
+            </div>
+          </div>
+          {{/unless}}
         </div>
       </div>
       <ol class="tag-list">

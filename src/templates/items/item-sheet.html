@@ -68,8 +68,9 @@
             />
           </div>
         </div>
+        {{#unless (eq @root.config.encumbrance 'itembased')}}
         <div class="form-group">
-          <label>{{#unless (eq @root.system.encumbrance.variant 'itembased')}}{{localize 'OSE.items.Weight'}}{{else}}{{localize 'OSE.items.ItemBasedEncumbrance'}}{{/unless}}</label>
+          <label>{{localize 'OSE.items.Weight'}}</label>
           <div class="form-fields">
             <input
               type="text"
@@ -79,6 +80,19 @@
             />
           </div>
         </div>
+        {{else}}
+        <div class="form-group">
+          <label>{{localize 'OSE.items.ItemBasedEncumbrance'}}</label>
+          <div class="form-fields">
+            <input
+              type="text"
+              name="system.itemslots"
+              value="{{system.itemslots}}"
+              data-dtype="Number"
+            />
+          </div>
+        </div>
+        {{/unless}}
       </div>
       <div class="description weapon-editor">
         {{editor enriched.description

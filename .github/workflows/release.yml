@@ -12,10 +12,10 @@ jobs:
       - name: Checkout repository to add to workspace
         uses: actions/checkout@v2
 
-      - name: Setup Node.js version 16
+      - name: Setup Node.js version 18
         uses: actions/setup-node@v2
         with:
-          node-version: "16"
+          node-version: "18"
 
       # # Caching to improve build speed
       - name: Enable caching for Node.js modules
@@ -27,12 +27,12 @@ jobs:
             ${{ runner.OS }}-node-
             ${{ runner.OS }}-
 
-      # Get dev dependencies for the package, including Gulp and Rollup
+      # Get dev dependencies for the package, including Rollup
       - name: Install dev dependencies
         run: npm ci #--cache .npm --prefer-offline --ignore-scripts
 
-      # Create a build using Gulp build script
-      - name: Run Gulp build script
+      # Create a build using Rollup build script
+      - name: Run Rollup build script
         run: npm run build
 
       # Insert "manifest", "download", and "version" for this release into the system.json manifest file
@@ -69,3 +69,23 @@ jobs:
           artifacts: "./system.json, ./system.zip"
           tag: ${{ github.event.release.tag_name }}
           body: ${{ github.event.release.body }}
+      # Post to Package Release API
+      - name: Post to Package Release API
+        run: |
+          curl --request POST \
+          --url https://api.foundryvtt.com/_api/packages/release_version \
+          --header 'Authorization: ${{ secrets.FVTT_PACKAGE_RELEASE_TOKEN }}' \
+          --header 'Content-Type: application/json' \
+          --data '{
+            "id": "ose",
+            "release": {
+              "version": "${{ github.event.release.tag_name }}",
+              "manifest": "https://github.com/${{github.repository}}/releases/download/${{github.event.release.tag_name}}/system.json",
+              "notes": "https://github.com/https://github.com/${{github.repository}}/releases/tag/${{github.event.release.tag_name}}",
+              "compatibility": {
+                "minimum": "11",
+                "verified": "11",
+                "maximum": "11"
+              }
+            }
+          }'

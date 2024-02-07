@@ -375,7 +375,7 @@
         </div>
         <div class="field-short">
           {{#if (eq @root.config.encumbrance
-          "itembased")}}{{ceil (mult item.system.quantity.value item.system.itemslots)}}{{else}}{{item.system.weight}}{{/if}}{{mult item.system.quantity.value item.system.weight}}
+          "itembased")}}{{ceil (mult item.system.quantity.value item.system.itemslots)}}{{else}}{{mult item.system.quantity.value item.system.weight}}{{/if}}
         </div>
         <div class="item-controls">
           {{#if @root.owner}}

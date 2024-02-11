@@ -2,6 +2,11 @@
  * @file The data model for Items of type Ability
  */
 export default class OseDataModelItem extends foundry.abstract.DataModel {
+  prepareDerivedData() {
+    this.netWeight = this.weight * this.quantity.value;
+    this.netCost = this.cost * this.quantity.value;
+    this.netItemslots = Math.ceil(this.itemslots * this.quantity.value);
+  }
   static defineSchema() {
     const {
       SchemaField,
@@ -19,11 +24,14 @@ export default class OseDataModelItem extends foundry.abstract.DataModel {
       cost: new NumberField({ min: 0, initial: 0 }),
       containerId: new StringField(),
       quantity: new SchemaField({
-        value: new NumberField({ min: 0, initial: 0 }),
+        value: new NumberField({ min: 0, initial: 1 }),
         max: new NumberField({ min: 0, initial: 0 }),
       }),
       weight: new NumberField({ min: 0, initial: 0 }),
       itemslots: new NumberField({ min: 0, initial: 0 }),
+      netWeight: new NumberField({ min: 0, initial: 0 }),
+      netCost: new NumberField({ min: 0, initial: 0 }),
+      netItemslots: new NumberField({ min: 0, initial: 0 }),
     };
   }
 

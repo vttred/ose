@@ -21,14 +21,30 @@ export default class OseDataModelCharacterEncumbrance
   implements CharacterEncumbrance
 {
   static baseEncumbranceCap = 1600;
-
+  /**
+   * Steps at which encumbrance ought to impact Character move speed.
+   * 
+   * Built-in encumbrance schemes use: 
+   * 
+   * - `disabled`: None
+   * - `basic`: None; this one uses the `significantTreasure` setting.
+   * - `detailed`: `quarter`, `threeEighths`, and `half`
+   * - `complete`: `quarter`, `threeEighths`, and `half`
+   * - `itembased`: 
+   *   - Equipped slots use `oneThird`, `fiveNinths`, and `sevenNinths`
+   *   - Packed slots use `fiveEighths`, `threeQuarters`, and `sevenEighths`
+   */
   static encumbranceSteps = {
+    // Detailed/Complete encumbrance steps
     quarter: 25,
     threeEighths: 37.5,
     half: 50,
+    // Item-based encumbrance steps
+    //--packed
     fiveEighths: 62.5,
     threeQuarters: 75,
     sevenEighths: 87.5,
+    //--equipped
     oneThird: 33.34,
     fiveNinths: 55.56,
     sevenNinths: 77.78,

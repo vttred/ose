@@ -7,7 +7,7 @@ const OseTags = {
   * Returns the formula used for dice roll calculations
   * @param actor - The actor object which owns the item with roll data
   * @param data.roll - The string used to generate a formula
-  * @returns rollFormula - The constructed roll formula
+  * @returns tagFormula - The constructed roll formula
   */
   rollTagFormula({
     actor = {},
@@ -25,6 +25,11 @@ const OseTags = {
     return tagFormula;
   },
 
+  /**
+  * Returns the roll type and target value of rolls
+  * @param rollType - Type of roll target used
+  * @returns tagTarget - The constructed type and target value
+  */
   rollTagTarget({
     rollType = "" as keyof typeof CONFIG.OSE.roll_type,
     rollTarget = null,

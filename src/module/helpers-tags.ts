@@ -21,8 +21,21 @@ const OseTags = {
       data,
     };
 
-    const rollFormula = new Roll(data.roll, formulaData).formula;
-    return rollFormula;
+    const tagFormula = new Roll(data.roll, formulaData).formula;
+    return tagFormula;
+  },
+
+  rollTagTarget({
+    rollType = "" as keyof typeof CONFIG.OSE.roll_type,
+    rollTarget = null,
+  } = {}) {
+
+    const tagTarget =
+      rollTarget === null
+        ? ""
+        : ` ${CONFIG.OSE.roll_type[rollType]}${rollTarget}`;
+
+    return tagTarget;
   },
 };
 

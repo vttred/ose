@@ -159,7 +159,6 @@ export default class OseItem extends Item {
         type,
         target: itemData.rollTarget,
         blindroll: itemData.blindroll,
-        save: itemData.save,
       },
     };
 

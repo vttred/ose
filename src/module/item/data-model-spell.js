@@ -24,17 +24,11 @@ export default class OseDataModelSpell extends foundry.abstract.DataModel {
   get #rollTag() {
     if (!this.roll) return null;
 
-    const rollTarget =
-      this.rollTarget === undefined
-        ? ""
-        : ` ${CONFIG.OSE.roll_type[this.rollType]}${this.rollTarget}`;
-
     return {
       label: `${game.i18n.localize("OSE.items.Roll")} ${OseTags.rollTagFormula({
         actor: this.parent.actor,
         data: this._source,
-      })
-        }${rollTarget}`,
+      })}`
     };
   }
 

@@ -10,7 +10,6 @@
   "OSE.Roll": "Roll",
   "OSE.Success": "Success",
   "OSE.Failure": "Failure",
-
   "OSE.dialog.tweaks": "Tweaks",
   "OSE.dialog.partysheet": "Party Overview",
   "OSE.dialog.partysheetplaceholder": "Add Characters to the Party by dragging and dropping them into this window.",
@@ -29,14 +28,12 @@
   "OSE.dialog.purchaseFor": "Purchase for {totalCost}GP",
   "OSE.dialog.deleteContainer": "Delete container?",
   "OSE.dialog.confirmDeleteContainer": "Are you sure you want to delete the container?",
-
   "OSE.Formula": "Formula",
   "OSE.SitMod": "Situational Modifier",
   "OSE.Modifier": "Modifier",
   "OSE.Modifiers": "Modifiers",
   "OSE.RollMode": "Roll Mode",
   "OSE.RollExample": "e.g. +1d4",
-
   "OSE.roll.formula": "{label} roll",
   "OSE.roll.appearing": "Appearing roll ({type})",
   "OSE.roll.morale": "Morale check",
@@ -53,10 +50,8 @@
   "OSE.roll.initiative": "Group {group} rolls for Initiative!",
   "OSE.roll.individualInit": "{name} rolls for Initiative!",
   "OSE.roll.individualInitGroup": "Initiative Rolls",
-
   "OSE.table.treasure.roll": "Roll Treasure",
   "OSE.table.treasure.noItems": "No items",
-
   "OSE.details.name": "Name",
   "OSE.details.class": "Class",
   "OSE.details.title": "Title",
@@ -74,16 +69,13 @@
   "OSE.details.morale": "Morale",
   "OSE.details.reaction": "Reaction",
   "OSE.details.appearing": "NA",
-
   "OSE.Attack": "Attack",
   "OSE.Encumbrance": "Encumbrance",
-
   "OSE.Retainer": "Retainer",
   "OSE.RetainerWage": "Wage",
   "OSE.RetainerUpkeep": "Upkeep",
   "OSE.Loyalty": "Loyalty Rating",
   "OSE.LoyaltyShort": "LR",
-
   "OSE.scores.str.long": "Strength",
   "OSE.scores.str.short": "STR",
   "OSE.scores.wis.long": "Wisdom",
@@ -96,7 +88,6 @@
   "OSE.scores.con.short": "CON",
   "OSE.scores.cha.long": "Charisma",
   "OSE.scores.cha.short": "CHA",
-
   "OSE.saves.death.short": "D",
   "OSE.saves.death.long": "Death Poison",
   "OSE.saves.wand.short": "W",
@@ -109,13 +100,11 @@
   "OSE.saves.spell.long": "Spells Rods Staves",
   "OSE.saves.magic.long": "Bonus vs Magic",
   "OSE.saves.magic.short": "vs Magic",
-
   "OSE.Health": "Hit Points",
   "OSE.HealthMax": "Maximum Hit Points",
   "OSE.HealthShort": "HP",
   "OSE.HitDice": "Hit Dice",
   "OSE.HitDiceShort": "HD",
-
   "OSE.movement.base": "Movement Rate",
   "OSE.movement.short": "MV",
   "OSE.movement.details": "Movement Details",
@@ -125,7 +114,6 @@
   "OSE.movement.overland.short": "Ov",
   "OSE.movement.exploration.short": "Ex",
   "OSE.movement.exploration.long": "Exploration Movement Rate",
-
   "OSE.ArmorClassNaked": "Naked Armor Class",
   "OSE.ArmorClass": "Armor Class",
   "OSE.ArmorClassShort": "AC",
@@ -147,7 +135,6 @@
   "OSE.AttacksShort": "ATT",
   "OSE.Damage": "Damage",
   "OSE.Spellcaster": "Spellcaster",
-
   "OSE.Language": "Language",
   "OSE.SpokenLanguages": "Spoken Languages",
   "OSE.Literacy": "Literacy",
@@ -159,10 +146,8 @@
   "OSE.NativePlus1": "Native + 1",
   "OSE.NativePlus2": "Native + 2",
   "OSE.NativePlus3": "Native + 3",
-
   "OSE.NPCReaction": "NPC Reaction",
   "OSE.RetainersMax": "#Retainers",
-
   "OSE.category.saves": "Saves",
   "OSE.category.attributes": "Attributes",
   "OSE.category.inventory": "Inventory",
@@ -172,7 +157,6 @@
   "OSE.category.languages": "Languages",
   "OSE.category.description": "Description",
   "OSE.category.equipment": "Equipment",
-
   "OSE.Setting.Initiative": "Initiative",
   "OSE.Setting.InitiativeHint": "Grouped or individual initiative.",
   "OSE.Setting.InitiativeIndividual": "Individual initiative",
@@ -206,7 +190,6 @@
   "OSE.Setting.damageOriginalTarget": "Original Target",
   "OSE.Setting.InvertedCtrlBehavior": "Invert Roll Ctrl/Meta-key",
   "OSE.Setting.InvertedCtrlBehaviorHint": "Reverses behavior for holding Ctrl/Meta when clicking on a roll.",
-
   "OSE.items.Equip": "Equip",
   "OSE.items.Unequip": "Unequip",
   "OSE.items.Misc": "Misc",
@@ -241,7 +224,6 @@
   "OSE.items.uses": "Uses",
   "OSE.items.gp.short": "GP",
   "OSE.items.gp.long": "Gold Pieces",
-
   "OSE.items.Range": "Range",
   "OSE.items.Melee": "Melee",
   "OSE.items.Missile": "Missile",
@@ -252,13 +234,11 @@
   "OSE.items.Splash": "Splash weapon",
   "OSE.items.Reload": "Reload",
   "OSE.items.Charge": "Charge",
-
   "OSE.armor.type": "Armor Type",
   "OSE.armor.unarmored": "Unarmored",
   "OSE.armor.light": "Light",
   "OSE.armor.heavy": "Heavy",
   "OSE.armor.shield": "Shield",
-
   "OSE.spells.spend": "{speaker} is casting {name}!",
   "OSE.spells.Memorized": "Memorized",
   "OSE.spells.Cast": "Cast",
@@ -271,9 +251,7 @@
   "OSE.spells.ResetSlots": "Reset Spell slots",
   "OSE.spells.MemorizedSlotsHint": "Memorized slots",
   "OSE.spells.MaximumSlotsHint": "Available slots",
-
   "OSE.abilities.Requirements": "Requirements",
-
   "OSE.exploration.ld.long": "Listen at Door",
   "OSE.exploration.ld.short": "Listen Door",
   "OSE.exploration.ld.abrev": "LD",
@@ -286,7 +264,6 @@
   "OSE.exploration.ft.long": "Find Room Trap",
   "OSE.exploration.ft.short": "Find Trap",
   "OSE.exploration.ft.abrev": "FT",
-
   "OSE.messages.GetExperience": "{name} gained {value} experience points!",
   "OSE.messages.AttackSuccess": "<b>Hits AC {result}!</b> ({bonus})",
   "OSE.messages.AttackAscendingSuccess": "<b>Hits AC {result}!</b>",
@@ -295,7 +272,6 @@
   "OSE.messages.InflictsDamage": "Inflicts damage!",
   "OSE.messages.applyDamage": "Apply Damage",
   "OSE.messages.applyHealing": "Apply Healing",
-
   "OSE.colors.green": "Green",
   "OSE.colors.red": "Red",
   "OSE.colors.yellow": "Yellow",
@@ -303,24 +279,19 @@
   "OSE.colors.blue": "Blue",
   "OSE.colors.orange": "Orange",
   "OSE.colors.white": "White",
-
   "OSE.reaction.check": "Reaction Check",
   "OSE.reaction.Hostile": "{name} is Hostile",
   "OSE.reaction.Unfriendly": "{name} is Unfriendly",
   "OSE.reaction.Neutral": "{name} is Neutral",
   "OSE.reaction.Indifferent": "{name} is Indifferent",
   "OSE.reaction.Friendly": "{name} is Friendly",
-
   "OSE.CombatFlag.SpellDeclared": "Spell Declared",
   "OSE.CombatFlag.RetreatFromMeleeDeclared": "Retreat From Melee Declared",
-
   "OSE.Tweaks.DontApplyWeaponBonusToDamageRoll": "Don't apply weapon bonus to damage roll",
-
   "OSE.warn.moreThanOneItemWithName": "Your controlled Actor {actorName} has more than one Item with name {itemName}. The first matched Item will be chosen.",
   "OSE.warn.macrosOnlyForOwnedItems": "Only Items owned by Actor may be used to create macros.",
   "OSE.warn.macrosNoTokenOwnedInScene": "No controlled token in scene",
   "OSE.warn.macrosNotAnItem": "Unable to create macro, not an item.",
-
   "OSE.error.macrosOnlyForOwnedItems": "You can only create macro buttons for owned Items",
   "OSE.error.noRollTableWithUuId": "RollTable with uuid, {uuid} did not or no longer exists in this world.",
   "OSE.error.noItemWithName": "Your controlled Actor {actorName} does not have an item named {itemName}.",
@@ -329,5 +300,14 @@
   "OSE.error.noTokenControlled": "You must have one or more controlled Tokens in order to use this option.",
   "OSE.error.noGP": "You need a GP item to use this feature.",
   "OSE.error.unexpectedSettings": "unexpected OSE setting {configName}: {configValue}",
-  "OSE.error.cantDealDamageTo": "Can't deal damage to {nameOrId}"
+  "OSE.error.cantDealDamageTo": "Can't deal damage to {nameOrId}",
+  "TYPES.Actor.character": "Character",
+  "TYPES.Actor.monster": "Monster",
+  "TYPES.Item.weapon": "Weapon",
+  "TYPES.Item.armor": "Armor",
+  "TYPES.Item.item": "Item",
+  "TYPES.Item.container": "Container",
+  "TYPES.Item.characterClass": "Class",
+  "TYPES.Item.spell": "Spell",
+  "TYPES.Item.ability": "Ability"
 }

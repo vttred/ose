@@ -23,15 +23,21 @@ export default class OseDataModelAbility extends foundry.abstract.DataModel {
   get #rollTag() {
     if (!this.roll) return null;
 
+    const rollLabel = game.i18n.localize("OSE.items.Roll");
+
+    const rollFormula = OseTags.rollTagFormula({
+      actor: this.parent.actor,
+      data: this._source,
+    });
+
+    const rollTarget = OseTags.rollTagTarget({
+      rollType: this.rollType,
+      rollTarget: this.rollTarget,
+
+    });
+
     return {
-      label: `${game.i18n.localize("OSE.items.Roll")} ${OseTags.rollTagFormula({
-        actor: this.parent.actor,
-        data: this._source,
-      })}${OseTags.rollTagTarget({
-        rollType: this.rollType,
-        rollTarget: this.rollTarget,
-      })
-        }`,
+      label: `${rollLabel} ${rollFormula}${rollTarget}`
     };
   }
 

@@ -155,7 +155,7 @@ Hooks.on("renderSidebarTab", async (object, html) => {
     );
 
     // License text
-    const template = `${OSE.systemPath()}/templates/chat/license.html`;
+    const template = `${OSE.systemPath()}/templates/chat/license.hbs`;
     const rendered = await renderTemplate(template);
     gamesystem.find(".system").append(rendered);
 

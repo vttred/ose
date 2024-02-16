@@ -25,15 +25,15 @@
             </button>
             {{/if}}
 
+            {{#if data.roll}}
+            <button data-action="formula">{{ localize "OSE.Roll"}} {{rollFormula}} {{#if data.blindroll}}({{localize
+                'OSE.items.BlindRoll'}}){{/if}}</button>
+            {{/if}}
+
             {{#if data.save}}
             <button data-action="save" data-save="{{data.save}}">
                 {{lookup config.saves_long data.save}} - {{localize "OSE.spells.Save"}}
             </button>
-            {{/if}}
-
-            {{#if data.roll}}
-            <button data-action="formula">{{ localize "OSE.Roll"}} {{data.roll}} {{#if data.blindroll}}({{localize
-                'OSE.items.BlindRoll'}}){{/if}}</button>
             {{/if}}
         </div>
 

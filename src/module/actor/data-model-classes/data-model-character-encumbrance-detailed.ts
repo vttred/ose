@@ -67,7 +67,7 @@ export default class OseDataModelCharacterEncumbranceDetailed
 
   // eslint-disable-next-line class-methods-use-this
   get steps() {
-    return Object.values(OseDataModelCharacterEncumbranceDetailed.encumbranceSteps);
+    return Object.values(OseDataModelCharacterEncumbrance.encumbranceSteps);
   }
 
   get value(): number {

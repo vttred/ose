@@ -200,9 +200,8 @@ export default class OseItem extends Item {
 
   _getRollTag(data) {
     if (data.roll) {
-      const roll = `${data.roll}${
-        data.rollTarget ? CONFIG.OSE.roll_type[data.rollType] : ""
-      }${data.rollTarget ? data.rollTarget : ""}`;
+      const roll = `${data.roll}${data.rollTarget ? CONFIG.OSE.roll_type[data.rollType] : ""
+        }${data.rollTarget ? data.rollTarget : ""}`;
       return {
         label: `${game.i18n.localize("OSE.items.Roll")} ${roll}`,
       };
@@ -390,6 +389,7 @@ export default class OseItem extends Item {
       hasSave: this.hasSave,
       config: CONFIG.OSE,
     };
+    templateData.rollFormula = new Roll(templateData.data.roll, templateData).formula;
     templateData.data.properties = this.system.autoTags;
 
     // Render the chat card template

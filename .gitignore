@@ -3,3 +3,4 @@ foundryconfig.json
 dist
 .DS_Store
 .env
+mprocs.yaml

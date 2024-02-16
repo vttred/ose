@@ -9,9 +9,9 @@ export interface CharacterEncumbrance {
   steps: number[];
   value: number;
   max: number;
-  atHalfEncumbered: boolean | null;
-  atThreeEighthsEncumbered: boolean | null;
-  atQuarterEncumbered: boolean | null;
+  atFirstBreakpoint: boolean | null;
+  atSecondBreakpoint: boolean | null;
+  atThirdBreakpoint: boolean | null;
 }
 
 /**
@@ -21,33 +21,11 @@ export default class OseDataModelCharacterEncumbrance
   implements CharacterEncumbrance
 {
   static baseEncumbranceCap = 1600;
-  /**
-   * Steps at which encumbrance ought to impact Character move speed.
-   * 
-   * Built-in encumbrance schemes use: 
-   * 
-   * - `disabled`: None
-   * - `basic`: None; this one uses the `significantTreasure` setting.
-   * - `detailed`: `quarter`, `threeEighths`, and `half`
-   * - `complete`: `quarter`, `threeEighths`, and `half`
-   * - `itembased`: 
-   *   - Equipped slots use `oneThird`, `fiveNinths`, and `sevenNinths`
-   *   - Packed slots use `fiveEighths`, `threeQuarters`, and `sevenEighths`
-   */
+  // Default encumbrance steps used by the 'complete' and 'detailed' encumbrance variants
   static encumbranceSteps = {
-    // Detailed/Complete encumbrance steps
     quarter: 25,
     threeEighths: 37.5,
-    half: 50,
-    // Item-based encumbrance steps
-    //--packed
-    fiveEighths: 62.5,
-    threeQuarters: 75,
-    sevenEighths: 87.5,
-    //--equipped
-    oneThird: 33.34,
-    fiveNinths: 55.56,
-    sevenNinths: 77.78,
+    half: 50
   };
 
   #encumbranceVariant;
@@ -109,7 +87,7 @@ export default class OseDataModelCharacterEncumbrance
     return this.max - OseDataModelCharacterEncumbrance.baseEncumbranceCap;
   }
 
-  get atHalfEncumbered() {
+  get atThirdBreakpoint() {
     return (
       this.value >
       this.max *
@@ -118,7 +96,7 @@ export default class OseDataModelCharacterEncumbrance
     );
   }
 
-  get atThreeEighthsEncumbered() {
+  get atSecondBreakpoint() {
     return (
       this.value >
       this.max *
@@ -127,73 +105,12 @@ export default class OseDataModelCharacterEncumbrance
     );
   }
 
-  get atQuarterEncumbered() {
+  get atFirstBreakpoint() {
     return (
       this.value >
       this.max *
         (OseDataModelCharacterEncumbrance.encumbranceSteps.quarter / 100) +
         (this.#delta || 0)
-    );
-  }
-
-  // Item-based encumbrance variant props - packed
-  get atFiveEighthsEncumbered() {
-    return (
-      this.value >
-      this.max *
-        (OseDataModelCharacterEncumbrance.encumbranceSteps.fiveEighths / 100)
-    );
-  }
-
-  get atThreeQuartersEncumbered() {
-    return (
-      this.value >
-      this.max *
-        (OseDataModelCharacterEncumbrance.encumbranceSteps.threeQuarters / 100)
-    );
-  }
-
-  get atSevenEighthsEncumbered() {
-    return (
-      this.value >
-      this.max *
-        (OseDataModelCharacterEncumbrance.encumbranceSteps.sevenEighths / 100)
-    );
-  }
-
-  // Item-based encumbrance variant props - equipped
-  // eslint-disable-next-line class-methods-use-this
-  get usingEquippedEncumbrance() {
-    return false;
-  }
-
-  get atOneThirdEncumbered() {
-    return (
-      this.value >
-      Math.round(
-        this.max *
-          (OseDataModelCharacterEncumbrance.encumbranceSteps.oneThird / 100)
-      )
-    );
-  }
-
-  get atFiveNinthsEncumbered() {
-    return (
-      this.value >
-      Math.round(
-        this.max *
-          (OseDataModelCharacterEncumbrance.encumbranceSteps.fiveNinths / 100)
-      )
-    );
-  }
-
-  get atSevenNinthsEncumbered() {
-    return (
-      this.value >
-      Math.round(
-        this.max *
-          (OseDataModelCharacterEncumbrance.encumbranceSteps.sevenNinths / 100)
-      )
     );
   }
 }

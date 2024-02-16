@@ -19,12 +19,6 @@ export default class OseDataModelCharacterEncumbranceDetailed
 
   static templateInventoryRow = "";
 
-   static encumbranceStepsDetailed = {
-    quarter: 25,
-    threeEighths: 37.5,
-    half: 50
-  };
-
   /**
    * The machine-readable label for this encumbrance scheme
    */
@@ -73,7 +67,7 @@ export default class OseDataModelCharacterEncumbranceDetailed
 
   // eslint-disable-next-line class-methods-use-this
   get steps() {
-    return Object.values(OseDataModelCharacterEncumbranceDetailed.encumbranceStepsDetailed);
+    return Object.values(OseDataModelCharacterEncumbranceDetailed.encumbranceSteps);
   }
 
   get value(): number {

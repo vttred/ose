@@ -26,15 +26,15 @@ export default class OseDataModelItem extends foundry.abstract.DataModel {
       itemslots: new NumberField({ min: 0, initial: 0 }),
     };
   }
-  get cummulativeWeight(){
+  get cumulativeWeight(){
     return this.weight * this.quantity.value;
   }
 
-  get cummulativeCost(){
+  get cumulativeCost(){
     return this.cost * this.quantity.value;
   }
 
-  get cummulativeItemslots(){
+  get cumulativeItemslots(){
     return Math.ceil(this.itemslots * this.quantity.value);
   }
 

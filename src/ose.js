@@ -75,11 +75,11 @@ Hooks.once("init", async () => {
   CONFIG.Actor.documentClass = OseActor;
   CONFIG.Item.documentClass = OseItem;
 
-  CONFIG.Actor.systemDataModels = {
+  CONFIG.Actor.dataModels = {
     character: OseDataModelCharacter,
     monster: OseDataModelMonster,
   };
-  CONFIG.Item.systemDataModels = {
+  CONFIG.Item.dataModels = {
     weapon: OseDataModelWeapon,
     armor: OseDataModelArmor,
     item: OseDataModelItem,
@@ -155,7 +155,7 @@ Hooks.on("renderSidebarTab", async (object, html) => {
     );
 
     // License text
-    const template = `${OSE.systemPath()}/templates/chat/license.html`;
+    const template = `${OSE.systemPath()}/templates/chat/license.hbs`;
     const rendered = await renderTemplate(template);
     gamesystem.find(".system").append(rendered);
 

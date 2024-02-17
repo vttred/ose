@@ -67,7 +67,7 @@ This guide should help you get the UFT development environment completely
 
 ### Developer Environment Installation
 
-Prerequisites: Node.js (v16 is recommended), a familiarity with command Foundry VTT with a valid license
+Prerequisites: Node.js (v16 is recommended), a familiarity with command line, Foundry VTT with a valid license
 
 [Node installers (beginner-friendly)](https://nodejs.org/en/download/)
 [Node on package managers (recommended, I use nvm)](https://nodejs.org/en/download/package-manager/#windows)
@@ -92,6 +92,14 @@ Prerequisites: Node.js (v16 is recommended), a familiarity with command Foundry 
 
 1. In your command line, run `npm run link`. A new system should now appear in your systems directory (or directories) but it doesn't yet run any code.
 1. In your command line, run `npm run build` (build once) or `npm run build:watch` (build continuously, whenever a change is saved). You now have a working copy of OSE's developer build. You should be able to install releases of `ose` alongside this build.
+
+### Our Tools in Brief
+- We use [Rollup](https://rollupjs.org/introduction/) to bundle our Typescript and Javascript
+- We use [SCSS](https://sass-lang.com/documentation/syntax/) for the bulk of our stylesheets
+- We use [Pug](https://pugjs.org/api/getting-started.html) as a pre-processor for our Handlebars templates.
+- We ensure code quality through tools like:
+  - [ESLint](https://eslint.org/docs/latest/use/core-concepts) and [Prettier](https://prettier.io/docs/en/why-prettier) for enforcing coding style.
+  - [Quench](https://github.com/Ethaks/FVTT-Quench) for running automated tests.
 
 ### Addendum: Git for Beginners
 

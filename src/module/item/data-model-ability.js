@@ -33,7 +33,6 @@ export default class OseDataModelAbility extends foundry.abstract.DataModel {
     const rollTarget = OseTags.rollTagTarget({
       rollType: this.rollType,
       rollTarget: this.rollTarget,
-
     });
 
     return {

@@ -1,6 +1,8 @@
 /**
  * @file The data model for Items of type Ability
  */
+import OseTags from "../helpers-tags";
+
 export default class OseDataModelAbility extends foundry.abstract.DataModel {
   static defineSchema() {
     const { StringField, NumberField, BooleanField, ArrayField, ObjectField } =
@@ -21,15 +23,20 @@ export default class OseDataModelAbility extends foundry.abstract.DataModel {
   get #rollTag() {
     if (!this.roll) return null;
 
-    const rollTarget =
-      this.rollTarget === undefined
-        ? ""
-        : ` ${CONFIG.OSE.roll_type[this.rollType]}${this.rollTarget}`;
+    const rollLabel = game.i18n.localize("OSE.items.Roll");
+
+    const rollFormula = OseTags.rollTagFormula({
+      actor: this.parent.actor,
+      data: this._source,
+    });
+
+    const rollTarget = OseTags.rollTagTarget({
+      rollType: this.rollType,
+      rollTarget: this.rollTarget,
+    });
 
     return {
-      label: `${game.i18n.localize("OSE.items.Roll")} ${
-        this.roll
-      }${rollTarget}`,
+      label: `${rollLabel} ${rollFormula}${rollTarget}`
     };
   }
 

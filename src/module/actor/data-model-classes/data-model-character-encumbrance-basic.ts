@@ -107,7 +107,7 @@ export default class OseDataModelCharacterEncumbranceBasic
     return this.value >= this.#treasureEncumbrance;
   }
 
-  get atHalfEncumbered() {
+  get atThirdBreakpoint() {
     return (
       this.#heaviestArmor ===
         OseDataModelCharacterEncumbranceBasic.armorWeight.heavy &&
@@ -115,7 +115,7 @@ export default class OseDataModelCharacterEncumbranceBasic
     );
   }
 
-  get atThreeEighthsEncumbered() {
+  get atSecondBreakpoint() {
     const isHeavy =
       this.#heaviestArmor ===
       OseDataModelCharacterEncumbranceBasic.armorWeight.heavy;
@@ -126,7 +126,7 @@ export default class OseDataModelCharacterEncumbranceBasic
     return isHeavy || isLightWithTreasure;
   }
 
-  get atQuarterEncumbered() {
+  get atFirstBreakpoint() {
     return (
       this.#heaviestArmor ===
         OseDataModelCharacterEncumbranceBasic.armorWeight.light ||

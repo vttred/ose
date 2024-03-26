@@ -24,6 +24,7 @@ const OseDice = {
       title,
       flavor,
       data,
+      config: CONFIG.OSE,
     };
 
     // Optionally include a situational bonus

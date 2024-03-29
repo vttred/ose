@@ -138,32 +138,39 @@ export default class OseItem extends Item {
   }
 
   async rollFormula(options = {}) {
-    const data = this.system;
+    const itemData = this.system;
 
-    if (!data.roll) {
+    if (!itemData.roll) {
       throw new Error("This Item does not have a formula to roll!");
     }
 
     const label = `${this.name}`;
-    const rollParts = [data.roll];
+    const rollParts = [itemData.roll];
 
-    const type = data.rollType;
+    const type = itemData.rollType;
 
-    const newData = {
+    const rollData = {
       actor: this.actor,
       item: this._source,
+      description: null,
+      save: itemData.save,
+      properties: this.system.autoTags,
       roll: {
         type,
-        target: data.rollTarget,
-        blindroll: data.blindroll,
+        target: itemData.rollTarget,
+        blindroll: itemData.blindroll,
       },
+    };
+
+    if (this.type === "spell") {
+      rollData.description = itemData.description
     };
 
     // Roll and return
     return OseDice.Roll({
       event: options.event,
       parts: rollParts,
-      data: newData,
+      data: rollData,
       skipDialog: true,
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: game.i18n.format("OSE.roll.formula", { label }),
@@ -183,7 +190,12 @@ export default class OseItem extends Item {
         cast: itemData.cast - 1,
       },
     });
-    await this.show({ skipDialog: true });
+
+    if (itemData.roll) {
+      await this.rollFormula()
+    } else {
+      await this.show({ skipDialog: true })
+    };
   }
 
   _getRollTag(data) {
@@ -377,7 +389,7 @@ export default class OseItem extends Item {
       hasSave: this.hasSave,
       config: CONFIG.OSE,
     };
-    templateData.rollFormula = new Roll(templateData.data.roll, templateData).formula
+    templateData.rollFormula = new Roll(templateData.data.roll, templateData).formula;
     templateData.data.properties = this.system.autoTags;
 
     // Render the chat card template

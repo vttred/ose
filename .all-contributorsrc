@@ -187,6 +187,24 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "ZzNoah",
+      "name": "ZzNoah",
+      "avatar_url": "https://avatars.githubusercontent.com/u/34055623?v=4",
+      "profile": "https://github.com/ZzNoah",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "Henrik-Bonsmann",
+      "name": "Henrik Bonsmann",
+      "avatar_url": "https://avatars.githubusercontent.com/u/112704394?v=4",
+      "profile": "https://github.com/Henrik-Bonsmann",
+      "contributions": [
+        "review"
+      ]
     }
   ],
   "contributorsPerLine": 7,

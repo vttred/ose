@@ -167,7 +167,7 @@ Hooks.on("renderSidebarTab", async (object, html) => {
       `<button type="button" data-action="userguide"><img src='${OSE.assetsPath}/dragon.png' width='16' height='16' style='${styling}'/>Old School Guide</button>`
     ).insertAfter(docs);
     html.find('button[data-action="userguide"]').click(() => {
-      new FrameViewer("https://vttred.github.io/ose", {
+      new FrameViewer("https://ose.vtt.red/", {
         resizable: true,
       }).render(true);
     });

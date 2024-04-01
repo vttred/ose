@@ -33,6 +33,14 @@ export default class OseDataModelCharacterEncumbranceItemBased
 
   #max;
 
+  #atFiveEighths;
+  #atThreeQuarters;
+  #atSevenEights;
+
+  #atOneThird;
+  #atFiveNinths;
+  #atSevenNinths;
+
   static templateEncumbranceBar = "";
 
   static templateInventoryRow = "";
@@ -89,6 +97,15 @@ export default class OseDataModelCharacterEncumbranceItemBased
     this.#max = this.usingEquippedEncumbrance
       ? this.#equippedMax
       : this.#packedMax;
+
+    this.#atFiveEighths = this.#weight > this.#max * (OseDataModelCharacterEncumbranceItemBased.packedEncumbranceSteps.fiveEighths / 100);
+    this.#atThreeQuarters = this.#weight > this.#max * (OseDataModelCharacterEncumbranceItemBased.packedEncumbranceSteps.threeQuarters / 100);
+    this.#atSevenEights = this.#weight > this.#max * (OseDataModelCharacterEncumbranceItemBased.packedEncumbranceSteps.sevenEighths / 100);
+  
+    this.#atOneThird = this.#weight > this.#max * (OseDataModelCharacterEncumbranceItemBased.equippedEncumbranceSteps.oneThird / 100);
+    this.#atFiveNinths = this.#weight > this.#max * (OseDataModelCharacterEncumbranceItemBased.equippedEncumbranceSteps.fiveNinths / 100);
+    this.#atSevenNinths = this.#weight > this.#max * (OseDataModelCharacterEncumbranceItemBased.equippedEncumbranceSteps.sevenNinths / 100);
+      
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -126,5 +143,23 @@ export default class OseDataModelCharacterEncumbranceItemBased
 
   get max(): number {
     return this.#max;
+  }
+
+  get atFirstBreakpoint(): boolean {
+    return this.usingEquippedEncumbrance
+      ? this.#atOneThird
+      : this.#atFiveEighths;
+  }
+
+  get atSecondBreakpoint(): boolean {
+    return this.usingEquippedEncumbrance
+      ? this.#atFiveNinths
+      : this.#atThreeQuarters;
+  }
+
+  get atThirdBreakpoint(): boolean {
+    return this.usingEquippedEncumbrance
+      ? this.#atSevenNinths
+      : this.#atSevenEights;
   }
 }

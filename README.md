@@ -132,7 +132,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/ZzNoah"><img src="https://avatars.githubusercontent.com/u/34055623?v=4?s=100" width="100px;" alt="ZzNoah"/><br /><sub><b>ZzNoah</b></sub></a><br /><a href="#translation-ZzNoah" title="Translation">🌍</a></td>
     </tr>
     <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Henrik-Bonsmann"><img src="https://avatars.githubusercontent.com/u/112704394?v=4?s=100" width="100px;" alt="Henrik Bonsmann"/><br /><sub><b>Henrik Bonsmann</b></sub></a><br /><a href="https://github.com/vttred/ose/pulls?q=is%3Apr+reviewed-by%3AHenrik-Bonsmann" title="Reviewed Pull Requests">👀</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Henrik-Bonsmann"><img src="https://avatars.githubusercontent.com/u/112704394?v=4?s=100" width="100px;" alt="Henrik Bonsmann"/><br /><sub><b>Henrik Bonsmann</b></sub></a><br /><a href="https://github.com/vttred/ose/pulls?q=is%3Apr+reviewed-by%3AHenrik-Bonsmann" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/vttred/ose/commits?author=Henrik-Bonsmann" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/apewall"><img src="https://avatars.githubusercontent.com/u/1915182?v=4?s=100" width="100px;" alt="Apewall"/><br /><sub><b>Apewall</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=apewall" title="Code">💻</a></td>
     </tr>
   </tbody>

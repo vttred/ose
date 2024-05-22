@@ -158,7 +158,7 @@ const OseDice = {
         break;
       }
 
-      default : {
+      default: {
         result.isSuccess = false;
         result.isFailure = false;
 
@@ -214,7 +214,7 @@ const OseDice = {
 
     if (game.settings.get(game.system.id, "ascendingAC")) {
       const attackBonus = 19 - data.roll.thac0;
-      if (this.attackIsSuccess(roll, targetAac, attackBonus)) {
+      if (this.attackIsSuccess(roll, targetAac, attackBonus) || result.victim == null) {
         result.details = game.i18n.format(
           "OSE.messages.AttackAscendingSuccess",
           {
@@ -231,9 +231,9 @@ const OseDice = {
         );
         result.isFailure = true;
       }
-    } else if (this.attackIsSuccess(roll, result.target, targetAc)) {
-      // Answer is bounded betweewn AC -3 and 9 (unarmored) and is shown in chat card
-      const value = Math.clamped(result.target - roll.total, -3, 9);
+    } else if (this.attackIsSuccess(roll, result.target, targetAc) || result.victim == null) {
+      // Show result in chat card
+      const value = result.target - roll.total;
       result.details = game.i18n.format("OSE.messages.AttackSuccess", {
         result: value,
         bonus: result.target,
@@ -420,16 +420,15 @@ const OseDice = {
           rolled = true;
           rollData.form = html[0].querySelector("form");
           rollData.parts.push(`${rollData.data.roll.magic}`);
-          rollData.title += ` ${game.i18n.localize("OSE.saves.magic.short")} (${
-            rollData.data.roll.magic
-          })`;
+          rollData.title += ` ${game.i18n.localize("OSE.saves.magic.short")} (${rollData.data.roll.magic
+            })`;
           roll = OseDice.sendRoll(rollData);
         },
       },
       cancel: {
         icon: '<i class="fas fa-times"></i>',
         label: game.i18n.localize("OSE.Cancel"),
-        callback: (html) => {},
+        callback: (html) => { },
       },
     };
 
@@ -500,7 +499,7 @@ const OseDice = {
       cancel: {
         icon: '<i class="fas fa-times"></i>',
         label: game.i18n.localize("OSE.Cancel"),
-        callback: (html) => {},
+        callback: (html) => { },
       },
     };
 

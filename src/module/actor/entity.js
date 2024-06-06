@@ -42,7 +42,6 @@ export default class OseActor extends Actor {
       "system.thac0.bba": bbaValue,
       "system.thac0.value": thac0Value,
     } = newData;
-
     // Compute AAC from AC
     if (acValue) {
       newData["system.aac.value"] = 19 - acValue;
@@ -317,8 +316,9 @@ export default class OseActor extends Actor {
 
     const label = game.i18n.localize(`OSE.roll.hd`);
     const rollParts = [actorData.hp.hd];
+    
     if (actorType === "character") {
-      rollParts.push(actorData.scores.con.mod * actorData.details.level);
+      rollParts.push(actorData.scores.con.bonus * actorData.details.level);
     }
 
     const data = {
@@ -550,7 +550,7 @@ export default class OseActor extends Actor {
 
     // Update the Actor
     return this.update({
-      "system.hp.value": Math.clamped(value - amount, 0, max),
+      "system.hp.value": Math.clamp(value - amount, 0, max),
     });
   }
 }

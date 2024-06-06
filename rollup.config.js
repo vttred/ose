@@ -36,7 +36,7 @@ export default defineConfig([
     plugins: [
       nodeResolve(),
       typescript(),
-      eslint(),
+      //eslint(),
       !isWatchMode && terser(),
       copy({
         patterns: staticFileFolders.map((folderName) => `${folderName}/**/*`),

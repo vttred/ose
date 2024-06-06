@@ -89,7 +89,7 @@ export default class OseCharacterCreator extends FormApplication {
     };
   }
 
-  rollScore(score, options = {}) {
+  async rollScore(score, options = {}) {
     // Increase counter
     this.counters[score] += 1;
 
@@ -102,7 +102,8 @@ export default class OseCharacterCreator extends FormApplication {
       roll: {},
     };
     if (options.skipMessage) {
-      return new Roll(rollParts[0]).evaluate({ async: false });
+      const skipMessagRoll = new Roll(rollParts[0]);
+      await skipMessagRoll.evaluate();
     }
     // Roll and return
     return OseDice.Roll({

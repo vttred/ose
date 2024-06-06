@@ -5,11 +5,11 @@
   "description": "Simple, robust rules compatible with decades of Basic/Expert material",
   "version": "AUTOMATICALLY REPLACED BY GITHUB WORKFLOW ACTION",
   "minimumCoreVersion": "10",
-  "compatibleCoreVersion": "11",
+  "compatibleCoreVersion": "12",
   "compatibility": {
     "minimum": "10",
     "verified": "11",
-    "maximum": "11"
+    "maximum": "12"
   },
   "author": "Maintained by VTT Red with 18 contributors",
   "authors": [

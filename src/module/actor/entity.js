@@ -14,7 +14,8 @@ const removeFalsyElements = (arr) =>
 
 export default class OseActor extends Actor {
   prepareDerivedData() {
-    if (game.version.startsWith("10")) this.system.prepareDerivedData?.();
+    //if (game.version.startsWith("10")) this.system.prepareDerivedData?.();
+    this.system.prepareDerivedData?.();
   }
 
   static migrateData(source) {
@@ -318,7 +319,7 @@ export default class OseActor extends Actor {
     const rollParts = [actorData.hp.hd];
     
     if (actorType === "character") {
-      rollParts.push(actorData.scores.con.bonus * actorData.details.level);
+      rollParts.push(actorData.scores.con.mod * actorData.details.level);
     }
 
     const data = {

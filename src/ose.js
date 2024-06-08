@@ -32,6 +32,10 @@ import * as treasure from "./module/helpers-treasure";
 
 import "./e2e";
 
+if(typeof Math.clamp !== "function") {
+  Math.clamp = Math.clamped;
+}
+
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
 /* -------------------------------------------- */
@@ -75,11 +79,11 @@ Hooks.once("init", async () => {
   CONFIG.Actor.documentClass = OseActor;
   CONFIG.Item.documentClass = OseItem;
 
-  CONFIG.Actor.systemDataModels = {
+  CONFIG.Actor.dataModels = {
     character: OseDataModelCharacter,
     monster: OseDataModelMonster,
   };
-  CONFIG.Item.systemDataModels = {
+  CONFIG.Item.dataModels = {
     weapon: OseDataModelWeapon,
     armor: OseDataModelArmor,
     item: OseDataModelItem,

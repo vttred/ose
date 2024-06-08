@@ -16,8 +16,7 @@
 	"env": {
 		"browser": true
 	},
-	"ignorePatterns": ["*"],
-	//"ignorePatterns": ["**/lang/**/*.json", "**/*.d.ts"],
+	"ignorePatterns": ["**/lang/**/*.json", "**/*.d.ts"],
 	"rules": {
 		"prettier/prettier": ["error"],
 		"jsdoc/check-access": 1, // Recommended

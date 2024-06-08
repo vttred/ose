@@ -1,5 +1,7 @@
 node_modules
 foundryconfig.json
+foundryconfig_*.json
+ose-dev.lock
 dist
 .DS_Store
 .env

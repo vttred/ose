@@ -25,7 +25,8 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
           "significantTreasure"
         ),
         scores: this.scores,
-      }
+      },
+      this.scores.str.mod
     );
 
     this.movement = new OseDataModelCharacterMove(

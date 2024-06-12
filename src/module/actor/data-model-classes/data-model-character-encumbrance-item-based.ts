@@ -61,8 +61,17 @@ export default class OseDataModelCharacterEncumbranceItemBased
 
   #packedWeight;
 
-  constructor(max = 16, items: Item[] = []) {
+  #weightMod;
+
+  // eslint-disable-next-line sonarjs/cognitive-complexity, @typescript-eslint/no-unused-vars
+  constructor(max = 16, items: Item[] = [], _ = "", strMod = 0) {
     super(OseDataModelCharacterEncumbranceItemBased.type, max);
+
+    if (game.settings.get(game.system.id, "encumbranceItemStrengthMod")) {
+      this.#weightMod = strMod > 0 ? strMod : 0;
+    } else {
+      this.#weightMod = 0;
+    }
 
     this.#packedMax = 16;
     this.#equippedMax = 9;
@@ -98,14 +107,43 @@ export default class OseDataModelCharacterEncumbranceItemBased
       ? this.#equippedMax
       : this.#packedMax;
 
-    this.#atFiveEighths = this.#weight > this.#max * (OseDataModelCharacterEncumbranceItemBased.packedEncumbranceSteps.fiveEighths / 100);
-    this.#atThreeQuarters = this.#weight > this.#max * (OseDataModelCharacterEncumbranceItemBased.packedEncumbranceSteps.threeQuarters / 100);
-    this.#atSevenEights = this.#weight > this.#max * (OseDataModelCharacterEncumbranceItemBased.packedEncumbranceSteps.sevenEighths / 100);
-  
-    this.#atOneThird = this.#weight > this.#max * (OseDataModelCharacterEncumbranceItemBased.equippedEncumbranceSteps.oneThird / 100);
-    this.#atFiveNinths = this.#weight > this.#max * (OseDataModelCharacterEncumbranceItemBased.equippedEncumbranceSteps.fiveNinths / 100);
-    this.#atSevenNinths = this.#weight > this.#max * (OseDataModelCharacterEncumbranceItemBased.equippedEncumbranceSteps.sevenNinths / 100);
-      
+    this.#atFiveEighths =
+      this.#weight - this.#weightMod >
+      this.#max *
+        (OseDataModelCharacterEncumbranceItemBased.packedEncumbranceSteps
+          .fiveEighths /
+          100);
+    this.#atThreeQuarters =
+      this.#weight - this.#weightMod >
+      this.#max *
+        (OseDataModelCharacterEncumbranceItemBased.packedEncumbranceSteps
+          .threeQuarters /
+          100);
+    this.#atSevenEights =
+      this.#weight - this.#weightMod >
+      this.#max *
+        (OseDataModelCharacterEncumbranceItemBased.packedEncumbranceSteps
+          .sevenEighths /
+          100);
+
+    this.#atOneThird =
+      this.#weight >
+      this.#max *
+        (OseDataModelCharacterEncumbranceItemBased.equippedEncumbranceSteps
+          .oneThird /
+          100);
+    this.#atFiveNinths =
+      this.#weight >
+      this.#max *
+        (OseDataModelCharacterEncumbranceItemBased.equippedEncumbranceSteps
+          .fiveNinths /
+          100);
+    this.#atSevenNinths =
+      this.#weight >
+      this.#max *
+        (OseDataModelCharacterEncumbranceItemBased.equippedEncumbranceSteps
+          .sevenNinths /
+          100);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -130,8 +168,13 @@ export default class OseDataModelCharacterEncumbranceItemBased
       (step) => step > (this.#equippedWeight / this.#equippedMax) * 100
     );
     equippedIndex = equippedIndex === -1 ? 4 : equippedIndex;
+
     let packedIndex = packedValues.findIndex(
-      (step) => step > (this.#packedWeight / this.#packedMax) * 100
+      (step) =>
+        step >
+        ((this.#packedWeight - this.#weightMod) /
+          (this.#packedMax + this.#weightMod)) *
+          100
     );
     packedIndex = packedIndex === -1 ? 4 : packedIndex;
     return !!(equippedIndex >= packedIndex);
@@ -161,5 +204,9 @@ export default class OseDataModelCharacterEncumbranceItemBased
     return this.usingEquippedEncumbrance
       ? this.#atSevenNinths
       : this.#atSevenEights;
+  }
+
+  get encumbered() {
+    return this.value > this.max + this.#weightMod;
   }
 }

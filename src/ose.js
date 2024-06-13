@@ -31,10 +31,10 @@ import registerSettings from "./module/settings";
 import * as treasure from "./module/helpers-treasure";
 
 import "./e2e";
+import polyfill from "./module/polyfill";
 
-if(typeof Math.clamp !== "function") {
-  Math.clamp = Math.clamped;
-}
+
+polyfill();
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */

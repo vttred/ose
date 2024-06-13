@@ -32,7 +32,7 @@ import * as treasure from "./module/helpers-treasure";
 
 import "./e2e";
 
-if(typeof Math.clamp !== "function") {
+if (typeof Math.clamp !== "function") {
   Math.clamp = Math.clamped;
 }
 
@@ -79,11 +79,11 @@ Hooks.once("init", async () => {
   CONFIG.Actor.documentClass = OseActor;
   CONFIG.Item.documentClass = OseItem;
 
-  CONFIG.Actor.dataModels = {
+  CONFIG.Actor.systemDataModels = {
     character: OseDataModelCharacter,
     monster: OseDataModelMonster,
   };
-  CONFIG.Item.dataModels = {
+  CONFIG.Item.systemDataModels = {
     weapon: OseDataModelWeapon,
     armor: OseDataModelArmor,
     item: OseDataModelItem,

@@ -158,7 +158,7 @@ const OseDice = {
         break;
       }
 
-      default : {
+      default: {
         result.isSuccess = false;
         result.isFailure = false;
 
@@ -213,7 +213,7 @@ const OseDice = {
     result.victim = data.roll.target || null;
 
     if (game.settings.get(game.system.id, "ascendingAC")) {
-      const attackBonus = 19 - data.roll.thac0;
+      const attackBonus = 0;
       if (this.attackIsSuccess(roll, targetAac, attackBonus)) {
         result.details = game.i18n.format(
           "OSE.messages.AttackAscendingSuccess",
@@ -420,16 +420,15 @@ const OseDice = {
           rolled = true;
           rollData.form = html[0].querySelector("form");
           rollData.parts.push(`${rollData.data.roll.magic}`);
-          rollData.title += ` ${game.i18n.localize("OSE.saves.magic.short")} (${
-            rollData.data.roll.magic
-          })`;
+          rollData.title += ` ${game.i18n.localize("OSE.saves.magic.short")} (${rollData.data.roll.magic
+            })`;
           roll = OseDice.sendRoll(rollData);
         },
       },
       cancel: {
         icon: '<i class="fas fa-times"></i>',
         label: game.i18n.localize("OSE.Cancel"),
-        callback: (html) => {},
+        callback: (html) => { },
       },
     };
 
@@ -500,7 +499,7 @@ const OseDice = {
       cancel: {
         icon: '<i class="fas fa-times"></i>',
         label: game.i18n.localize("OSE.Cancel"),
-        callback: (html) => {},
+        callback: (html) => { },
       },
     };
 

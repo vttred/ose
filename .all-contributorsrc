@@ -203,7 +203,17 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/112704394?v=4",
       "profile": "https://github.com/Henrik-Bonsmann",
       "contributions": [
-        "review"
+        "review",
+        "code"
+      ]
+    },
+    {
+      "login": "apewall",
+      "name": "Apewall",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1915182?v=4",
+      "profile": "https://github.com/apewall",
+      "contributions": [
+        "code"
       ]
     }
   ],

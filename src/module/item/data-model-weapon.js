@@ -1,7 +1,7 @@
 /**
  * @file The data model for Items of type Weapon
  */
-export default class OseDataModelWeapon extends foundry.abstract.DataModel {
+export default class OseDataModelWeapon extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     const {
       SchemaField,

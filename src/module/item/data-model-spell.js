@@ -3,7 +3,7 @@
  */
 import OseTags from "../helpers-tags";
 
-export default class OseDataModelSpell extends foundry.abstract.DataModel {
+export default class OseDataModelSpell extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     const { StringField, NumberField, ArrayField, ObjectField } =
       foundry.data.fields;

@@ -206,6 +206,8 @@
   "OSE.Setting.damageOriginalTarget": "Original Target",
   "OSE.Setting.InvertedCtrlBehavior": "Invert Roll Ctrl/Meta-key",
   "OSE.Setting.InvertedCtrlBehaviorHint": "Reverses behavior for holding Ctrl/Meta when clicking on a roll.",
+  "OSE.Setting.EncumbranceItemStrengthMod": "Enable Strength Modifier for Item-based Encumbrance",
+  "OSE.Setting.EncumbranceItemStrengthModHint": "Strength modifier is applied to the item-based encumbrance calculation.",
 
   "OSE.items.Equip": "Equip",
   "OSE.items.Unequip": "Unequip",

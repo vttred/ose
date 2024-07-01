@@ -67,6 +67,15 @@ const registerSettings = () => {
     }, {}) as SettingConfig<EncumbranceOption>["choices"],
   });
 
+  game.settings.register(game.system.id, "encumbranceItemStrengthMod", {
+    name: game.i18n.localize("OSE.Setting.EncumbranceItemStrengthMod"),
+    hint: game.i18n.localize("OSE.Setting.EncumbranceItemStrengthModHint"),
+    default: false,
+    scope: "world",
+    type: Boolean,
+    config: true,
+  });
+
   game.settings.register(game.system.id, "significantTreasure", {
     name: game.i18n.localize("OSE.Setting.SignificantTreasure"),
     hint: game.i18n.localize("OSE.Setting.SignificantTreasureHint"),

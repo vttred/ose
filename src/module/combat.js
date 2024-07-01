@@ -29,7 +29,8 @@ const OseCombat = {
     // Roll init
     for (const group in groups) {
       // Object.keys(groups).forEach((group) => {
-      const roll = new Roll("1d6").evaluate({ async: false });
+      const roll = new Roll("1d6");
+      await roll.evaluate();
       await roll.toMessage({
         flavor: game.i18n.format("OSE.roll.initiative", {
           group: CONFIG.OSE.colors[group],

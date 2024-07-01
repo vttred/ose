@@ -69,7 +69,7 @@ export default class OseActorSheetMonster extends OseActorSheet {
     );
     data.isNew = this.actor.isNew();
 
-    if (isNewerVersion(game.version, "10.264")) {
+    if (foundry.utils.isNewerVersion(game.version, "10.264")) {
       data.enrichedBiography = await TextEditor.enrichHTML(
         this.object.system.details.biography,
         { async: true }

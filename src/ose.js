@@ -31,6 +31,10 @@ import registerSettings from "./module/settings";
 import * as treasure from "./module/helpers-treasure";
 
 import "./e2e";
+import polyfill from "./module/polyfill";
+
+
+polyfill();
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */

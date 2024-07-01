@@ -1,7 +1,7 @@
 /**
  * @file The data model for Items of type Container
  */
-export default class OseDataModelContainer extends foundry.abstract.DataModel {
+export default class OseDataModelContainer extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     const {
       SchemaField,

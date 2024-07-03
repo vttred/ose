@@ -80,6 +80,7 @@ export default class OseActorSheetCharacter extends OseActorSheet {
    */
   async getData() {
     const data = super.getData();
+    
     // Prepare owned items
     this._prepareItems(data);
 
@@ -241,6 +242,7 @@ export default class OseActorSheetCharacter extends OseActorSheet {
           equipped: !item.system.equipped,
         },
       });
+
     });
 
     html.find("a[data-action='generate-scores']").click((ev) => {

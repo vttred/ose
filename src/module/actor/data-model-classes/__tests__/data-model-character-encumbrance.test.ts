@@ -15,7 +15,7 @@ export const options = {
 };
 
 const toPct = (value: number, max: number) =>
-  Math.clamped((100 * value) / max, 0, 100);
+  Math.clamp((100 * value) / max, 0, 100);
 const createMockItem = (
   type: string,
   weight: number,

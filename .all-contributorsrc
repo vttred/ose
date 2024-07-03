@@ -196,6 +196,34 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "Henrik-Bonsmann",
+      "name": "Henrik Bonsmann",
+      "avatar_url": "https://avatars.githubusercontent.com/u/112704394?v=4",
+      "profile": "https://github.com/Henrik-Bonsmann",
+      "contributions": [
+        "review",
+        "code"
+      ]
+    },
+    {
+      "login": "apewall",
+      "name": "Apewall",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1915182?v=4",
+      "profile": "https://github.com/apewall",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "arcos",
+      "name": "Andrea Costantini",
+      "avatar_url": "https://avatars.githubusercontent.com/u/143747?v=4",
+      "profile": "https://github.com/arcos",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

@@ -1,7 +1,9 @@
 /**
  * @file The data model for Items of type Spell
  */
-export default class OseDataModelSpell extends foundry.abstract.DataModel {
+import OseTags from "../helpers-tags";
+
+export default class OseDataModelSpell extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     const { StringField, NumberField, ArrayField, ObjectField } =
       foundry.data.fields;
@@ -22,15 +24,15 @@ export default class OseDataModelSpell extends foundry.abstract.DataModel {
   get #rollTag() {
     if (!this.roll) return null;
 
-    const rollTarget =
-      this.rollTarget === undefined
-        ? ""
-        : ` ${CONFIG.OSE.roll_type[this.rollType]}${this.rollTarget}`;
+    const rollLabel = game.i18n.localize("OSE.items.Roll");
+
+    const rollFormula = OseTags.rollTagFormula({
+      actor: this.parent.actor,
+      data: this._source,
+    });
 
     return {
-      label: `${game.i18n.localize("OSE.items.Roll")} ${
-        this.roll
-      }${rollTarget}`,
+      label: `${rollLabel} ${rollFormula}`
     };
   }
 

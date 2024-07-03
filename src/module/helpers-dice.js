@@ -24,6 +24,7 @@ const OseDice = {
       title,
       flavor,
       data,
+      config: CONFIG.OSE,
     };
 
     // Optionally include a situational bonus
@@ -31,8 +32,8 @@ const OseDice = {
       parts.push(form.bonus.value);
     }
 
-    // ;
-    const roll = new Roll(parts.join("+"), data).evaluate({ async: false });
+    const roll = new Roll(parts.join("+"), data);
+    await roll.evaluate({allowStrings: true});
 
     // Convert the roll to a chat message and return the roll
     let rollMode = game.settings.get("core", "rollMode");
@@ -234,6 +235,7 @@ const OseDice = {
     } else if (this.attackIsSuccess(roll, result.target, targetAc) || result.victim == null) {
       // Show result in chat card
       const value = result.target - roll.total;
+
       result.details = game.i18n.format("OSE.messages.AttackSuccess", {
         result: value,
         bonus: result.target,
@@ -301,10 +303,10 @@ const OseDice = {
     // Optionally include a situational bonus
     if (form !== null && form.bonus.value) parts.push(form.bonus.value);
 
-    const roll = new Roll(parts.join("+"), data).evaluate({ async: false });
-    const dmgRoll = new Roll(data.roll.dmg.join("+"), data).evaluate({
-      async: false,
-    });
+    const roll = new Roll(parts.join("+"), data);
+    await roll.evaluate();
+    const dmgRoll = new Roll(data.roll.dmg.join("+"), data);
+    await dmgRoll.evaluate();
 
     // Convert the roll to a chat message and return the roll
     let rollMode = game.settings.get("core", "rollMode");

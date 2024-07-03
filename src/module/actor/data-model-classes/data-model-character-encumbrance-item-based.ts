@@ -33,6 +33,14 @@ export default class OseDataModelCharacterEncumbranceItemBased
 
   #max;
 
+  #atFiveEighths;
+  #atThreeQuarters;
+  #atSevenEights;
+
+  #atOneThird;
+  #atFiveNinths;
+  #atSevenNinths;
+
   static templateEncumbranceBar = "";
 
   static templateInventoryRow = "";
@@ -53,6 +61,7 @@ export default class OseDataModelCharacterEncumbranceItemBased
 
   #packedWeight;
 
+  // eslint-disable-next-line sonarjs/cognitive-complexity, @typescript-eslint/no-unused-vars
   constructor(max = 16, items: Item[] = []) {
     super(OseDataModelCharacterEncumbranceItemBased.type, max);
 
@@ -82,13 +91,13 @@ export default class OseDataModelCharacterEncumbranceItemBased
         0
       )
     );
-    this.#weight = this.usingEquippedEncumbrance
-      ? this.#equippedWeight
-      : this.#packedWeight;
+    this.#atFiveEighths = this.#weight > this.#max * (OseDataModelCharacterEncumbranceItemBased.packedEncumbranceSteps.fiveEighths / 100);
+    this.#atThreeQuarters = this.#weight > this.#max * (OseDataModelCharacterEncumbranceItemBased.packedEncumbranceSteps.threeQuarters / 100);
+    this.#atSevenEights = this.#weight > this.#max * (OseDataModelCharacterEncumbranceItemBased.packedEncumbranceSteps.sevenEighths / 100);
 
-    this.#max = this.usingEquippedEncumbrance
-      ? this.#equippedMax
-      : this.#packedMax;
+    this.#atOneThird = this.#weight > this.#max * (OseDataModelCharacterEncumbranceItemBased.equippedEncumbranceSteps.oneThird / 100);
+    this.#atFiveNinths = this.#weight > this.#max * (OseDataModelCharacterEncumbranceItemBased.equippedEncumbranceSteps.fiveNinths / 100);
+    this.#atSevenNinths = this.#weight > this.#max * (OseDataModelCharacterEncumbranceItemBased.equippedEncumbranceSteps.sevenNinths / 100);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -113,9 +122,9 @@ export default class OseDataModelCharacterEncumbranceItemBased
       (step) => step > (this.#equippedWeight / this.#equippedMax) * 100
     );
     equippedIndex = equippedIndex === -1 ? 4 : equippedIndex;
+
     let packedIndex = packedValues.findIndex(
-      (step) => step > (this.#packedWeight / this.#packedMax) * 100
-    );
+      (step) => step > (this.#packedWeight / this.#packedMax) * 100);
     packedIndex = packedIndex === -1 ? 4 : packedIndex;
     return !!(equippedIndex >= packedIndex);
   }
@@ -126,5 +135,23 @@ export default class OseDataModelCharacterEncumbranceItemBased
 
   get max(): number {
     return this.#max;
+  }
+
+  get atFirstBreakpoint(): boolean {
+    return this.usingEquippedEncumbrance
+      ? this.#atOneThird
+      : this.#atFiveEighths;
+  }
+
+  get atSecondBreakpoint(): boolean {
+    return this.usingEquippedEncumbrance
+      ? this.#atFiveNinths
+      : this.#atThreeQuarters;
+  }
+
+  get atThirdBreakpoint(): boolean {
+    return this.usingEquippedEncumbrance
+      ? this.#atSevenNinths
+      : this.#atSevenEights;
   }
 }

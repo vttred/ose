@@ -11,7 +11,7 @@
 </p>
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-21-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-24-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2Fose&colorB=4aa94a)](https://forge-vtt.com/bazaar#package=ose)
 [![Foundry Hub Endorsements](https://img.shields.io/endpoint?logoColor=white&url=https%3A%2F%2Fwww.foundryvtt-hub.com%2Fwp-json%2Fhubapi%2Fv1%2Fpackage%2Fose%2Fshield%2Fendorsements)](https://www.foundryvtt-hub.com/package/ose/)
@@ -130,6 +130,11 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Stew-rt"><img src="https://avatars.githubusercontent.com/u/40280034?v=4?s=100" width="100px;" alt="Stewart Webb"/><br /><sub><b>Stewart Webb</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=Stew-rt" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Ronner231"><img src="https://avatars.githubusercontent.com/u/136009984?v=4?s=100" width="100px;" alt="Ronner"/><br /><sub><b>Ronner</b></sub></a><br /><a href="#translation-Ronner231" title="Translation">🌍</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/ZzNoah"><img src="https://avatars.githubusercontent.com/u/34055623?v=4?s=100" width="100px;" alt="ZzNoah"/><br /><sub><b>ZzNoah</b></sub></a><br /><a href="#translation-ZzNoah" title="Translation">🌍</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Henrik-Bonsmann"><img src="https://avatars.githubusercontent.com/u/112704394?v=4?s=100" width="100px;" alt="Henrik Bonsmann"/><br /><sub><b>Henrik Bonsmann</b></sub></a><br /><a href="https://github.com/vttred/ose/pulls?q=is%3Apr+reviewed-by%3AHenrik-Bonsmann" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/vttred/ose/commits?author=Henrik-Bonsmann" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/apewall"><img src="https://avatars.githubusercontent.com/u/1915182?v=4?s=100" width="100px;" alt="Apewall"/><br /><sub><b>Apewall</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=apewall" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/arcos"><img src="https://avatars.githubusercontent.com/u/143747?v=4?s=100" width="100px;" alt="Andrea Costantini"/><br /><sub><b>Andrea Costantini</b></sub></a><br /><a href="https://github.com/vttred/ose/commits?author=arcos" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>

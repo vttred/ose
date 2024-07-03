@@ -11,7 +11,7 @@ const getItemsOfActorOfType = (actor, filterType, filterFn = null) =>
     .filter(({ type }) => type === filterType)
     .filter(filterFn || (() => true));
 
-export default class OseDataModelMonster extends foundry.abstract.DataModel {
+export default class OseDataModelMonster extends foundry.abstract.TypeDataModel {
   prepareDerivedData() {
     this.encumbrance = new OseDataModelCharacterEncumbranceDisabled();
     this.spells = new OseDataModelCharacterSpells(this.spells, this.#spellList);

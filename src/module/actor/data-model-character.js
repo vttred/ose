@@ -11,7 +11,7 @@ const getItemsOfActorOfType = (actor, filterType, filterFn = null) =>
     .filter(({ type }) => type === filterType)
     .filter(filterFn || (() => true));
 
-export default class OseDataModelCharacter extends foundry.abstract.DataModel {
+export default class OseDataModelCharacter extends foundry.abstract.TypeDataModel {
   prepareDerivedData() {
     this.scores = new OseDataModelCharacterScores(this.scores);
 
@@ -70,10 +70,7 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
       details: new ObjectField(),
       ac: new ObjectField(),
       aac: new ObjectField(),
-      encumbrance: new SchemaField({
-        value: new NumberField({ integer: false }),
-        max: new NumberField({ integer: false }),
-      }),
+      encumbrance: new ObjectField(),
       movement: new ObjectField(),
       config: new ObjectField(),
       initiative: new ObjectField(),

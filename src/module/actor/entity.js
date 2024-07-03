@@ -26,7 +26,7 @@ export default class OseActor extends Actor {
       source.prototypeToken.texture.img = "icons/svg/mystery-man.svg";
     }
     // Fixing missing movement.value by moving it to details.movement
-    if (source?.system?.movement?.value && !source?.system?.details.movement){
+    if (source?.system?.movement?.value && !source?.system?.details.movement) {
       source.system.details.movement = source.system.movement.value;
       delete source.system.movement.value;
     }
@@ -43,16 +43,16 @@ export default class OseActor extends Actor {
       "system.thac0.value": thac0Value,
     } = newData;
     // Compute AAC from AC
-    if (acValue) {
+    if (acValue !== undefined) {
       newData["system.aac.value"] = 19 - acValue;
-    } else if (aacValue) {
+    } else if (aacValue !== undefined) {
       newData["system.ac.value"] = 19 - aacValue;
     }
 
     // Compute Thac0 from BBA
-    if (thac0Value) {
+    if (thac0Value !== undefined) {
       newData["system.thac0.bba"] = 19 - thac0Value;
-    } else if (bbaValue) {
+    } else if (bbaValue !== undefined) {
       newData["system.thac0.value"] = 19 - bbaValue;
     }
 
@@ -476,11 +476,11 @@ export default class OseActor extends Actor {
 
     const label = attData.item
       ? game.i18n.format("OSE.roll.attacksWith", {
-          name: attData.item.name,
-        })
+        name: attData.item.name,
+      })
       : game.i18n.format("OSE.roll.attacks", {
-          name: this.name,
-        });
+        name: this.name,
+      });
 
     const dmgParts = removeFalsyElements([
       // Weapon damage roll value

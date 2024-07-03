@@ -235,7 +235,6 @@ const OseDice = {
     } else if (this.attackIsSuccess(roll, result.target, targetAc) || result.victim == null) {
       // Show result in chat card
       const value = result.target - roll.total;
-
       result.details = game.i18n.format("OSE.messages.AttackSuccess", {
         result: value,
         bonus: result.target,

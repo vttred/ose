@@ -22,6 +22,30 @@ export default class OseDataModelMonster extends foundry.abstract.TypeDataModel 
       );
   }
 
+  /**
+   * @inheritdoc
+   */
+  static migrateData(source) {
+    this.#migrateMonsterLanguages(source);
+
+    return super.migrateData(source);
+  }
+
+  /**
+   * Use an empty array for system.languages.value
+   * in order to suppress Polyglot errors.
+   * 
+   * @param {OseDataModelMonster} source - Source data to migrate
+   */
+  static #migrateMonsterLanguages(source) {
+    const languages = source.languages ?? {};
+
+    // If languages.value isn't an iterable, use an empty array
+    if (typeof languages?.value?.[Symbol.iterator] !== "function") {
+      languages.value = [];
+    }
+  }
+
   // @todo define schema options; stuff like min/max values and so on.
   static defineSchema() {
     const { StringField, NumberField, BooleanField, ObjectField, SchemaField } =

@@ -1,0 +1,13 @@
+<ol>
+{{#each combatants}}
+<li class="combat-set-groups__combatant" data-combatant-id="{{this.id}}">
+  <span class="combat-set-groups__combatant__header">
+    <img src="{{this.img}}" alt="{{this.name}}"/>
+    <span class="combat-set-groups__combatant__name">{{this.name}}</span>
+  </span>
+  <div class="combat-set-groups__combatant__group-options">
+    {{radioBoxes this.id ../groups checked=this.groupRaw localize=true}}
+  </div>
+</li>
+{{/each}}
+</ol>

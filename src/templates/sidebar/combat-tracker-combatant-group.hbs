@@ -1,0 +1,78 @@
+<li class="directory-item folder flexcol">
+  <header class="folder-header flexrow" style="background: linear-gradient(90deg, var(--ose-group-color-{{this.group}}, {{this.group}}), transparent)">
+    <h3 class="noborder"><i class="fas fa-dice-d6"></i>{{localize this.label}}</h3>
+
+    
+    <span class="create-button" style="font-weight: 600; font-size: 1.25em;">
+      {{#if (eq this.group "slow")}}
+        <i class="fa fa-weight-hanging"></i>
+      {{else}}
+        {{this.initiative}}
+      {{/if}}
+    </span>
+  </header>
+
+  <ol class="subdirectory">
+
+{{#each this.turns}}
+        <li class="combatant actor directory-item flexrow {{this.css}}" data-combatant-id="{{this.id}}">
+            <img class="token-image" data-src="{{this.img}}" alt="{{this.name}}"/>
+            <div class="token-name flexcol">
+                <h4>{{this.name}}</h4>
+                <div class="combatant-controls flexrow">
+                    {{#if this.isOwnedByUser}}
+                    <a
+                        class='combatant-control move-combat{{#if this.isRetreating}} active{{/if}}'
+                        data-tooltip="{{localize 'OSE.CombatFlag.RetreatFromMeleeDeclared'}}"
+                        role="button"
+                        data-control="retreat"
+                    >
+                        <i class='fas fa-walking'></i>
+                    </a>
+                    <a
+                        class='combatant-control prepare-spell{{#if this.isCasting}} active{{/if}}'
+                        data-tooltip="{{localize 'OSE.CombatFlag.SpellDeclared'}}"
+                        role="button"
+                        data-control="casting"
+                    >
+                        <i class='fas fa-magic'></i>
+                    </a>
+                    {{/if}}
+                    {{#if @root.user.isGM}}
+                    <a class="combatant-control {{#if this.hidden}}active{{/if}}" aria-label="{{localize 'COMBAT.ToggleVis'}}" role="button" data-tooltip="COMBAT.ToggleVis" data-control="toggleHidden">
+                        <i class="fas fa-eye-slash"></i>
+                    </a>
+                    <a class="combatant-control {{#if this.defeated}}active{{/if}}" aria-label="{{localize 'COMBAT.ToggleDead'}}" role="button" data-tooltip="COMBAT.ToggleDead" data-control="toggleDefeated">
+                        <i class="fas fa-skull"></i>
+                    </a>
+                    {{/if}}
+                    {{#if this.canPing}}
+                    <a class="combatant-control" aria-label="{{localize 'COMBAT.PingCombatant'}}" role="button" data-tooltip="COMBAT.PingCombatant" data-control="pingCombatant">
+                        <i class="fa-solid fa-bullseye-arrow"></i>
+                    </a>
+                    {{/if}}
+                    {{#unless @root.user.isGM}}
+                    <a class="combatant-control" aria-label="{{localize 'COMBAT.PanToCombatant'}}" role="button" data-tooltip="COMBAT.PanToCombatant" data-control="panToCombatant">
+                        <i class="fa-solid fa-arrows-to-eye"></i>
+                    </a>
+                    {{/unless}}
+                    <div class="token-effects">
+                        {{#each this.effects}}
+                        <img class="token-effect" src="{{this}}"/>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="token-initiative">
+                {{#if this.defeated}}
+                    <i class="fa fa-dizzy"></i>
+                {{else if this.hasResource}}
+                    <span class="resource">{{this.resource}}</span>
+                {{/if}}
+            </div>
+        </li>
+      {{/each}}
+  </ol>
+</li>

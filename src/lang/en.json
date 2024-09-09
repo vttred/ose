@@ -8,6 +8,7 @@
   "OSE.Reset": "Reset",
   "OSE.Cancel": "Cancel",
   "OSE.Roll": "Roll",
+  "OSE.Reroll": "Reroll",
   "OSE.Success": "Success",
   "OSE.Failure": "Failure",
 
@@ -304,6 +305,7 @@
   "OSE.colors.orange": "Orange",
   "OSE.colors.white": "White",
 
+  "OSE.colors.black": "Black",
   "OSE.reaction.check": "Reaction Check",
   "OSE.reaction.Hostile": "{name} is Hostile",
   "OSE.reaction.Unfriendly": "{name} is Unfriendly",
@@ -311,6 +313,8 @@
   "OSE.reaction.Indifferent": "{name} is Indifferent",
   "OSE.reaction.Friendly": "{name} is Friendly",
 
+  "OSE.combat.SetCombatantAsActive": "Set Active",
+  "OSE.combat.SetCombatantGroups": "Set Combatant Groups",
   "OSE.CombatFlag.SpellDeclared": "Spell Declared",
   "OSE.CombatFlag.RetreatFromMeleeDeclared": "Retreat From Melee Declared",
 

@@ -3,10 +3,6 @@ import { OSEGroupCombat } from "./combat-group";
 import OSECombatGroupSelector from "./combat-set-groups";
 import { OSECombatant } from "./combatant";
 
-/**
- * @todo Active states for casting and retreating
- * @todo Displaying groups
- */
 export class OSECombatTab extends CombatTracker {
   // ===========================================================================
   // APPLICATION SETUP

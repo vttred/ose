@@ -5,6 +5,7 @@ export class OSECombatant extends Combatant {
   // ===========================================================================
   // BOOLEAN FLAGS
   // ===========================================================================
+
   get isCasting() {
     return this.getFlag(game.system.id, "prepareSpell");
   }
@@ -26,6 +27,7 @@ export class OSECombatant extends Combatant {
   // ===========================================================================
   // INITIATIVE MANAGEMENT
   // ===========================================================================
+
   getInitiativeRoll(formula: string) {
     let term = formula || CONFIG.Combat.initiative.formula;
     if (this.isSlow) term = `${OSECombatant.INITIATIVE_VALUE_SLOWED}`;

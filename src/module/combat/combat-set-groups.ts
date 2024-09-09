@@ -8,7 +8,11 @@ const {
 
 export default class OSECombatGroupSelector extends HandlebarsApplicationMixin(ApplicationV2) {
   _highlighted;
+
   
+  // ===========================================================================
+  // APPLICATION SETUP
+  // ===========================================================================
   static DEFAULT_OPTIONS = {
       id: "combat-set-groups-{id}",
       classes: ["combat-set-groups", "scrollable"],
@@ -41,22 +45,41 @@ export default class OSECombatGroupSelector extends HandlebarsApplicationMixin(A
     }
   }
 
+
+  // ===========================================================================
+  // RENDER SETUP
+  // ===========================================================================
+
   async _prepareContext(_options) {
     return {
       groups: colorGroups,
       combatants: game.combat.combatants,
-      // buttons: [{
-      //   type: "submit",
-      //   icon: "fa-solid fa-save",
-      //   label: game.i18n.localize(this.document.id ? "AMBIENT_SOUND.ACTIONS.UPDATE" : "AMBIENT_SOUND.ACTIONS.CREATE")
-      // }]
     }
   }
+
+  _onRender(context, options) {
+    super._onRender(context, options);
+    for ( const li of this.element.querySelectorAll("[data-combatant-id]") ) {
+      li.addEventListener("mouseover", this.#onCombatantHoverIn.bind(this));
+      li.addEventListener("mouseout", this.#onCombatantHoverOut.bind(this));
+    }
+    this.element.addEventListener("change", this._updateObject);
+  }
+
+
+  // ===========================================================================
+  // UPDATING
+  // ===========================================================================
 
   protected async _updateObject(event: Event): Promise<void> {
     const combatant = game.combat.combatants.get(event.target.name);   
     await combatant.setFlag(game.system.id, "group", event.target.value)
   }
+
+
+  // ===========================================================================
+  // UI EVENTS
+  // ===========================================================================
 
   #onCombatantHoverIn(event) {
     event.preventDefault();
@@ -74,14 +97,5 @@ export default class OSECombatGroupSelector extends HandlebarsApplicationMixin(A
     event.preventDefault();
     if ( this._highlighted ) this._highlighted._onHoverOut(event);
     this._highlighted = null;
-  }
-
-  _onRender(context, options) {
-    super._onRender(context, options);
-    for ( const li of this.element.querySelectorAll("[data-combatant-id]") ) {
-      li.addEventListener("mouseover", this.#onCombatantHoverIn.bind(this));
-      li.addEventListener("mouseout", this.#onCombatantHoverOut.bind(this));
-    }
-    this.element.addEventListener("change", this._updateObject);
   }
 }

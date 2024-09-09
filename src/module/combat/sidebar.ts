@@ -8,6 +8,10 @@ import { OSECombatant } from "./combatant";
  * @todo Displaying groups
  */
 export class OSECombatTab extends CombatTracker {
+  // ===========================================================================
+  // APPLICATION SETUP
+  // ===========================================================================
+
   /** @inheritdoc */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
@@ -16,6 +20,11 @@ export class OSECombatTab extends CombatTracker {
   }
 
   static GROUP_CONFIG_APP = new OSECombatGroupSelector();
+
+
+  // ===========================================================================
+  // RENDERING
+  // ===========================================================================
 
   async getData(options) {
     const context = await super.getData(options);
@@ -55,10 +64,10 @@ export class OSECombatTab extends CombatTracker {
     })
   }
 
-  async #toggleFlag(combatant: OSECombatant, flag: string) {
-    const isActive = !!combatant.getFlag(game.system.id, flag);
-    await combatant.setFlag(game.system.id, flag, !isActive);
-  }
+
+  // ===========================================================================
+  // UI EVENTS
+  // ===========================================================================
 
   activateListeners(html: JQuery<HTMLElement>) {
     super.activateListeners(html);
@@ -72,6 +81,11 @@ export class OSECombatTab extends CombatTracker {
     html.find('.combat-button[data-control="set-groups"]').click((ev) => {
       OSECombatTab.GROUP_CONFIG_APP.render(true, { focus: true });
     });
+  }
+
+  async #toggleFlag(combatant: OSECombatant, flag: string) {
+    const isActive = !!combatant.getFlag(game.system.id, flag);
+    await combatant.setFlag(game.system.id, flag, !isActive);
   }
 
   /**
@@ -100,6 +114,10 @@ export class OSECombatTab extends CombatTracker {
     }
   }
   
+  // ===========================================================================
+  // ADDITIONS TO THE COMBATANT CONTEXT MENU
+  // ===========================================================================
+
   _getEntryContextOptions() {
     const options = super._getEntryContextOptions();
     return [

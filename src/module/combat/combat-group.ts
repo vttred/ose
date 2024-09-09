@@ -14,14 +14,21 @@ export const actionGroups = {
  * @todo Display the initiative results roll as a chat card
  */
 export class OSEGroupCombat extends OSECombat {
+  // ===========================================================================
+  // STATIC MEMBERS
+  // ===========================================================================
   static FORMULA = "1d6";
-  
+
   static get GROUPS () {
     return {
       ...colorGroups,
       ...actionGroups,
     };
   }
+
+  // ===========================================================================
+  // INITIATIVE MANAGEMENT
+  // ===========================================================================
 
   async #rollAbsolutelyEveryone() {
     await this.rollInitiative();
@@ -101,6 +108,15 @@ export class OSEGroupCombat extends OSECombat {
       </div>
     `;
   }
+
+  // ===========================================================================
+  // GROUP GETTERS
+  //
+  // Get groups as:
+  // - a list of strings
+  // - a list of strings with combatants attached
+  // - a map of groups to their initiative results
+  // ===========================================================================
 
   get availableGroups(): string[] {
     return [...new Set(

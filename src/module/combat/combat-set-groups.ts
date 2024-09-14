@@ -9,7 +9,7 @@ const {
 export default class OSECombatGroupSelector extends HandlebarsApplicationMixin(ApplicationV2) {
   _highlighted;
 
-
+  
   // ===========================================================================
   // APPLICATION SETUP
   // ===========================================================================
@@ -48,7 +48,9 @@ export default class OSECombatGroupSelector extends HandlebarsApplicationMixin(A
 
   // ===========================================================================
   // RENDER SETUP
-@@ -54,48 +51,46 @@ export default class OSECombatGroupSelector extends HandlebarsApplicationMixin(A
+  // ===========================================================================
+
+  async _prepareContext(_options) {
     return {
       groups: colorGroups,
       combatants: game.combat.combatants,

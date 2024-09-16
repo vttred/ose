@@ -209,13 +209,13 @@ const OseDice = {
     result.target = data.roll.thac0;
     const targetActorData = data.roll.target?.actor?.system || null;
 
-    const targetAc = data.roll.target ? targetActorData.ac.value : 20;
-    const targetAac = data.roll.target ? targetActorData.aac.value : -20;
+    const targetAc = data.roll.target ? targetActorData.ac.value : 9;
+    const targetAac = data.roll.target ? targetActorData.aac.value : 10;
     result.victim = data.roll.target || null;
 
     if (game.settings.get(game.system.id, "ascendingAC")) {
-      const attackBonus = 0;
-      if (this.attackIsSuccess(roll, targetAac, attackBonus)) {
+      const attackBonus = 19 - data.roll.thac0;
+      if (this.attackIsSuccess(roll, targetAac, attackBonus) || result.victim == null) {
         result.details = game.i18n.format(
           "OSE.messages.AttackAscendingSuccess",
           {
@@ -232,9 +232,9 @@ const OseDice = {
         );
         result.isFailure = true;
       }
-    } else if (this.attackIsSuccess(roll, result.target, targetAc)) {
-      // Answer is bounded betweewn AC -3 and 9 (unarmored) and is shown in chat card
-      const value = Math.clamp(result.target - roll.total, -3, 9);
+    } else if (this.attackIsSuccess(roll, result.target, targetAc) || result.victim == null) {
+      // Show result in chat card
+      const value = result.target - roll.total;
       result.details = game.i18n.format("OSE.messages.AttackSuccess", {
         result: value,
         bonus: result.target,

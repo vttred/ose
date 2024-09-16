@@ -51,6 +51,11 @@ jobs:
           manifest: https://github.com/${{github.repository}}/releases/latest/download/system.json
           download: https://github.com/${{github.repository}}/releases/download/${{github.event.release.tag_name}}/system.zip
 
+      # Replace "ose-dev" with "ose" in all files inside the dist folder
+      - name: Replace 'ose-dev' with 'ose' in dist folder
+        run: |
+          find dist/ -type f -exec sed -i 's/ose-dev/ose/g' {} +
+
       # Create a zip file with all files required by the module to add to the release
       - name: Create zip file
         # Remember to update the below line when there's a change in repository files/directories

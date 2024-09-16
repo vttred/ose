@@ -145,12 +145,12 @@ export default class OseDataModelCharacterScores implements CharacterScores {
    * @param {string} scores.cha - The character's charisma
    */
   constructor({ str, int, wis, dex, con, cha }: Scores) {
-    this.#str = str;
-    this.#int = int;
-    this.#wis = wis;
-    this.#dex = dex;
-    this.#con = con;
-    this.#cha = cha;
+    this.#str = str ?? 0;
+    this.#int = int ?? 0;
+    this.#wis = wis ?? 0;
+    this.#dex = dex ?? 0;
+    this.#con = con ?? 0;
+    this.#cha = cha ?? 0;
   }
 
   get str() {

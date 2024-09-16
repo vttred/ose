@@ -52,6 +52,9 @@
         "initiative": {
           "value": 0,
           "mod": 0
+        },
+        "languages": {
+          "value": []
         }
       },
       "spellcaster": {
@@ -131,9 +134,6 @@
       },
       "encumbrance": {
         "max": 1600
-      },
-      "languages": {
-        "value": []
       }
     },
     "monster": {

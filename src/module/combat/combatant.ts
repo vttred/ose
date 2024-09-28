@@ -32,8 +32,8 @@ export class OSECombatant extends Combatant {
     let term = formula || CONFIG.Combat.initiative.formula;
     if (this.isSlow) term = `${OSECombatant.INITIATIVE_VALUE_SLOWED}`;
     if (this.isDefeated) term = `${OSECombatant.INITIATIVE_VALUE_DEFEATED}`;
-
-    return new Roll(term);
+    const rollData = this.actor?.getRollData() || {};
+    return new Roll(term, rollData);
   }
 
   async getData(options = {}) {

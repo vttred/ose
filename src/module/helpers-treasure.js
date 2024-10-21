@@ -73,7 +73,7 @@ async function drawTreasure(table, data) {
         const text = r.getChatText(r);
         data.treasure[r.id] = {
           img: r.img,
-          text: TextEditor.enrichHTML(text, { async: false }),
+          text: await TextEditor.enrichHTML(text, { async: true }),
         };
         if (
           r.type === CONST.TABLE_RESULT_TYPES.DOCUMENT &&

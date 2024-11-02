@@ -204,7 +204,7 @@ export default class OseDataModelCharacter extends foundry.abstract.TypeDataMode
   get isSlow() {
     return this.weapons.length === 0
       ? false
-      : this.weapons.every(
+      : this.weapons.some(
           (item) =>
             !(
               item.type !== "weapon" ||

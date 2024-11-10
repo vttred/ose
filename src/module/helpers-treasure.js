@@ -137,7 +137,7 @@ export async function rollTreasure(table, options = {}) {
       if (rollMode === "blindroll") chatData.blind = true;
     
       ChatMessage.create(chatData);
-      }, 0);
+    }, 0);
 }
 
 export const functionsForTesting = {

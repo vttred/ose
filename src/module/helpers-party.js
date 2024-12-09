@@ -7,7 +7,7 @@ export const addControl = (object, html) => {
   const control = `<button class='ose-party-sheet' type="button" title='${game.i18n.localize(
     "OSE.dialog.partysheet"
   )}'><i class='fas fa-users'></i></button>`;
-  html.find(".fas.fa-search").replaceWith($(control));
+  html.find(".toggle-search-mode").before($(control));
   html.find(".ose-party-sheet").click((ev) => {
     ev.preventDefault();
     Hooks.call("OSE.Party.showSheet");

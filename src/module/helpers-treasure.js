@@ -119,25 +119,24 @@ export async function rollTreasure(table, options = {}) {
     });
   }
   
-  setTimeout(async () => {
-    const html = await renderTemplate(
-        `${OSE.systemPath()}/templates/chat/roll-treasure.html`,
-        templateData
-      );
+  await new Promise(resolve => requestAnimationFrame(resolve));
+  const html = await renderTemplate(
+    `${OSE.systemPath()}/templates/chat/roll-treasure.html`,
+    templateData
+    );
 
-      const chatData = {
-        content: html,
-        // sound: "systems/ose/assets/coins.mp3"
-      };
-    
-      const rollMode = game.settings.get("core", "rollMode");
-      if (["gmroll", "blindroll"].includes(rollMode))
-        chatData.whisper = ChatMessage.getWhisperRecipients("GM");
-      if (rollMode === "selfroll") chatData.whisper = [game.user._id];
-      if (rollMode === "blindroll") chatData.blind = true;
-    
-      ChatMessage.create(chatData);
-    }, 0);
+  const chatData = {
+    content: html,
+    // sound: "systems/ose/assets/coins.mp3"
+    };
+
+  const rollMode = game.settings.get("core", "rollMode");
+  if (["gmroll", "blindroll"].includes(rollMode))
+    chatData.whisper = ChatMessage.getWhisperRecipients("GM");
+  if (rollMode === "selfroll") chatData.whisper = [game.user._id];
+  if (rollMode === "blindroll") chatData.blind = true;
+
+  ChatMessage.create(chatData);
 }
 
 export const functionsForTesting = {

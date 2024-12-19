@@ -123,12 +123,12 @@ export async function rollTreasure(table, options = {}) {
   const html = await renderTemplate(
     `${OSE.systemPath()}/templates/chat/roll-treasure.html`,
     templateData
-    );
+  );
 
   const chatData = {
     content: html,
     // sound: "systems/ose/assets/coins.mp3"
-    };
+  };
 
   const rollMode = game.settings.get("core", "rollMode");
   if (["gmroll", "blindroll"].includes(rollMode))

@@ -61,19 +61,19 @@ export const augmentTable = (table, html) => {
  * @param data
  */
 async function drawTreasure(table, data) {
-  const percent = (chance) => {
+  const percent = async (chance) => {
     const roll = new Roll("1d100");
-    roll.evaluate({ async: false });
+    await roll.evaluate();
     return roll.total <= chance;
   };
   data.treasure = {};
   if (table.getFlag(game.system.id, "treasure")) {
     table.results.forEach(async (r) => {
-      if (percent(r.weight)) {
+      if (await percent(r.weight)) {
         const text = r.getChatText(r);
         data.treasure[r.id] = {
           img: r.img,
-          text: TextEditor.enrichHTML(text, { async: false }),
+          text: await TextEditor.enrichHTML(text, { async: true }),
         };
         if (
           r.type === CONST.TABLE_RESULT_TYPES.DOCUMENT &&
@@ -118,7 +118,8 @@ export async function rollTreasure(table, options = {}) {
       }
     });
   }
-
+  
+  await new Promise(resolve => requestAnimationFrame(resolve));
   const html = await renderTemplate(
     `${OSE.systemPath()}/templates/chat/roll-treasure.html`,
     templateData

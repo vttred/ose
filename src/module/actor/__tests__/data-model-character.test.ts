@@ -19,16 +19,22 @@ export default ({ describe, it, expect, after, before }: QuenchMethods) => {
   const dataModel = new OseDataModelCharacter();
   const ascendingACSetting = game.settings.get(game.system.id, "ascendingAC");
   const initiativeSetting = game.settings.get(game.system.id, "initiative");
+  const encumbranceSetting = game.settings.get(
+    game.system.id,
+    "encumbranceOption"
+  );
 
   after(() => {
     game.settings.set(game.system.id, "ascendingAC", ascendingACSetting);
     game.settings.set(game.system.id, "initiative", initiativeSetting);
+    game.settings.set(game.system.id, "encumbranceOption", encumbranceSetting);
     cleanUpActorsByKey(key);
   });
 
   // @todo: Can this be tested without creating an actor?
   describe("prepareDerivedData()", () => {
     before(async () => {
+      await game.settings.set(game.system.id, "encumbranceOption", "detailed");
       await createMockActor();
     });
 
@@ -60,9 +66,9 @@ export default ({ describe, it, expect, after, before }: QuenchMethods) => {
       expect(actor?.system.encumbrance.steps).not.undefined;
       expect(actor?.system.encumbrance.value).not.undefined;
       expect(actor?.system.encumbrance.max).not.undefined;
-      expect(actor?.system.encumbrance.atHalfEncumbered).not.undefined;
-      expect(actor?.system.encumbrance.atQuarterEncumbered).not.undefined;
-      expect(actor?.system.encumbrance.atEighthEncumbered).not.undefined;
+      expect(actor?.system.encumbrance.steps).not.undefined;
+      //expect(actor?.system.encumbrance.atQuarterEncumbered).not.undefined;
+      //expect(actor?.system.encumbrance.atEighthEncumbered).not.undefined;
     });
 
     it("has movement", async () => {

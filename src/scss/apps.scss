@@ -9,17 +9,20 @@
   .attribute-list {
     .form-fields {
       flex: 0 0 50px;
+
       input {
         text-align: center;
         font-weight: bold;
       }
     }
   }
+
   .roll-stats {
     flex: 0 0 65px;
     padding: 5px;
     margin-left: 4px;
     border-left: 1px solid $colorTan;
+
     .form-group {
       .form-fields {
         span {
@@ -36,22 +39,27 @@
   .item-list {
     margin: 0;
     padding: 0;
+
     .item-entry {
       list-style: none;
       line-height: 30px;
+
       .item-header {
         padding: 0px;
         margin-bottom: 8px;
         height: 30px;
+
         .item-image {
           flex-basis: 30px;
           flex-grow: 0;
           background-size: contain;
           background-repeat: no-repeat;
         }
+
         .item-name {
           text-indent: 8px;
         }
+
         .field-short {
           font-size: 12px;
           flex-basis: 45px;
@@ -68,13 +76,16 @@
     max-height: 250px;
     padding: 0 4px 0;
     overflow-y: auto;
+
     input {
       flex: 0 60px;
     }
+
     label {
       white-space: nowrap;
       overflow: hidden;
     }
+
     .share-tag {
       flex: 0 35px;
       text-align: center;
@@ -87,6 +98,7 @@
       padding: 1px 4px;
     }
   }
+
   .form-group {
     button {
       line-height: 18px;
@@ -98,13 +110,16 @@
 .ose.dialog.party-sheet {
   min-width: 250px;
   min-height: 250px;
+
   .window-content {
     padding: 0;
   }
+
   #party-sheet {
     display: flex;
     flex-direction: column;
   }
+
   .header {
     color: whitesmoke;
     background: $darkBackground;
@@ -112,9 +127,11 @@
     line-height: 20px;
     text-align: left;
     padding: 2px 10px;
+
     .item-control {
       padding: 0 2px;
     }
+
     button {
       max-width: 25%;
       line-height: 15px;
@@ -123,6 +140,7 @@
       border: 1px solid #b5b3a4;
     }
   }
+
   .body {
     width: 100%;
     flex-grow: 1;
@@ -147,41 +165,51 @@
     overflow: auto;
     list-style: none;
     padding: 0;
+
     .actor {
       border-bottom: 1px solid $colorTan;
       border-top: 1px solid $colorTan;
+
       .fas {
         padding: 0 2px;
         font-size: 10px;
       }
+
       margin-bottom: 2px;
       font-size: 12px;
       text-align: center;
+
       .fields .field-row {
         white-space: nowrap;
+
         &:nth-child(odd) {
           background-color: rgba(0, 0, 0, 0.1);
         }
       }
+
       .field-img {
         flex: 0 0 50px;
         position: relative;
+
         &:hover {
           .img-btns button {
             display: block;
           }
         }
+
         img {
           border: none;
           width: 45px;
           height: 45px;
         }
+
         .img-btns {
           position: absolute;
           bottom: 6px;
           left: 3px;
           width: 45px;
           height: 12px;
+
           button {
             display: none;
             cursor: pointer;
@@ -199,6 +227,7 @@
       }
     }
   }
+
   .field-name {
     overflow: hidden;
     font-weight: 600;
@@ -213,6 +242,7 @@
     text-align: center;
     line-height: 20px;
   }
+
   input {
     width: calc(100% - 45px);
   }
@@ -223,6 +253,7 @@
     label {
       font-weight: bold;
     }
+
     ol {
       list-style: outside;
     }
@@ -244,20 +275,24 @@
       padding: 5px 8px;
       cursor: pointer;
       filter: grayscale(1) opacity(0.5);
+
       &.active,
       &:hover {
         filter: none;
       }
     }
   }
+
   @keyframes activated {
     from {
       background: none;
     }
+
     to {
       background: rgba(0, 0, 0, 0.12);
     }
   }
+
   .results {
     .table-result.active {
       animation: 0.7s infinite alternate activated;
@@ -273,6 +308,7 @@
 
 .ose.chat-block {
   margin: 0;
+
   .chat-header {
     height: 46px;
     margin: 4px 0;
@@ -282,10 +318,12 @@
     color: white;
     padding: 2px;
     box-shadow: 0 0 2px #fff inset;
+
     .chat-title {
       margin: 4px 0;
       height: 30px;
       overflow: hidden;
+
       h2 {
         border: none;
         line-height: 34px;
@@ -295,32 +333,40 @@
         word-break: break-all;
       }
     }
+
     .chat-img {
       flex: 0 0 42px;
       background-size: cover;
     }
   }
+
   .chat-target {
     text-align: right;
     font-style: italic;
     padding: 2px;
   }
+
   .chat-details {
     padding: 4px;
     font-size: 13px;
   }
+
   .roll-result {
     font-size: 13px;
     text-align: center;
+
     &.roll-success {
       color: #18520b;
     }
+
     &.roll-fail {
       color: #aa0200;
     }
   }
+
   .damage-roll {
     position: relative;
+
     .dice-damage {
       display: none;
       position: absolute;
@@ -331,6 +377,7 @@
       box-shadow: 0 0 2px #fff inset;
       bottom: 1px;
       right: 10px;
+
       button {
         padding: 2px 5px;
         width: 22px;
@@ -339,6 +386,7 @@
         cursor: pointer;
       }
     }
+
     &:hover {
       .dice-damage {
         display: block;
@@ -367,6 +415,7 @@
       margin: 0;
       line-height: 36px;
       color: $colorOlive;
+
       &:hover {
         color: #111;
       }
@@ -377,16 +426,20 @@
     .item-category-title {
       line-height: 30px;
     }
+
     .item-list {
       list-style: none;
       margin: 0;
       padding: 0;
+
       .item-entry {
         line-height: 30px;
+
         .item-header {
           padding: 0;
           margin: 0 0 8px 0;
           height: 30px;
+
           .item-image {
             padding: 0;
             flex-basis: 30px;
@@ -394,14 +447,17 @@
             background-size: contain;
             background-repeat: no-repeat;
           }
+
           .item-name {
             text-indent: 8px;
           }
         }
+
         .item-summary {
           margin: 0 0 0 8px;
           padding: 0;
           line-height: normal;
+
           .tag {
             list-style: none;
           }
@@ -412,41 +468,49 @@
 
   .card-content {
     margin: 5px 0;
+
     .treasure-list {
       padding: 0;
       list-style: none;
+
       .treasure {
         img {
           flex: 0 0 36px;
           border: none;
         }
+
         div {
           text-indent: 10px;
           font-size: 14px;
           font-weight: bold;
         }
+
         line-height: 36px;
       }
+
       .sub {
         padding-left: 25px;
         line-height: 28px;
+
         img {
           flex: 0 0 28px;
           border: none;
         }
+
         div {
           text-indent: 10px;
           font-size: 14px;
         }
       }
     }
+
     h3 {
       font-size: 12px;
       margin: 0;
       font-weight: bold;
     }
 
-    > * {
+    >* {
       -webkit-user-select: text;
       -moz-user-select: text;
       -ms-user-select: text;
@@ -495,14 +559,17 @@
     background: #c7d0c0;
     border: 1px solid #006c00;
   }
+
   &.failure {
     color: inherit;
     background: #ffdddd;
     border: 1px solid #6e0000;
   }
+
   &.critical {
     color: green;
   }
+
   &.fumble {
     color: red;
   }
@@ -510,6 +577,7 @@
 
 .app .compendium .directory-item {
   position: relative;
+
   .tag-list {
     max-width: 260px;
     overflow: hidden;
@@ -520,6 +588,7 @@
     margin: 0;
     list-style: none;
     display: flex;
+
     .tag {
       pointer-events: none;
       white-space: nowrap;
@@ -538,6 +607,7 @@
 .sidebar-tab.directory .directory-list {
   .directory-item {
     position: relative;
+
     .tag-list {
       max-width: 200px;
       overflow: hidden;
@@ -548,6 +618,7 @@
       margin: 0;
       list-style: none;
       display: flex;
+
       .tag {
         pointer-events: none;
         white-space: nowrap;
@@ -558,6 +629,131 @@
         padding: 1px 3px;
         color: whitesmoke;
         border-radius: 3px;
+      }
+    }
+  }
+}
+
+.combat-set-groups {
+  container-name: combat-set-groups;
+  container-type: inline-size;
+
+  --grid: 1fr;
+
+  @container combat-set-groups (min-width: 80ch) {
+    ol {
+      --grid: repeat(2, 1fr);
+    }
+  }
+
+  @container combat-set-groups (min-width: 160ch) {
+    ol {
+      --grid: repeat(3, 1fr);
+    }
+  }
+
+  @container combat-set-groups (min-width: 240ch) {
+    ol {
+      --grid: repeat(4, 1fr);
+    }
+  }
+
+  .window-content {
+    overflow-y: scroll;
+    max-height: 700px;
+  }
+
+  ol {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: var(--grid);
+    gap: 0.75em 2em;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__combatant {
+    display: grid;
+    grid-template-columns: 1fr fit-content;
+    align-items: center;
+    gap: 0.25em;
+    font-size: var(--font-size-16);
+
+    &__header {
+      display: flex;
+      gap: 0.5em;
+      align-items: center;
+    }
+
+    &__name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    img {
+      max-width: 32px;
+      height: auto;
+    }
+
+    &__group-options {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.5em 1em;
+
+      label.checkbox {
+        align-items: baseline;
+        opacity: 0.5;
+        display: block;
+        padding: 0.25em;
+        border-radius: 4px;
+        text-align: center;
+        background-color: var(--combat-set-option-bg);
+        color: var(--combat-set-option-font-color, white);
+        font-weight: bold;
+        cursor: pointer;
+        line-height: 1.5em;
+
+
+        input {
+          display: none;
+        }
+
+        &:has(input:checked) {
+          opacity: 1;
+        }
+
+
+        &:has(input[value="green"]) {
+          --combat-set-option-bg: green;
+        }
+
+        &:has(input[value="red"]) {
+          --combat-set-option-bg: red;
+        }
+
+        &:has(input[value="yellow"]) {
+          --combat-set-option-bg: yellow;
+          --combat-set-option-font-color: black;
+        }
+
+        &:has(input[value="purple"]) {
+          --combat-set-option-bg: purple;
+        }
+
+        &:has(input[value="blue"]) {
+          --combat-set-option-bg: blue;
+        }
+
+        &:has(input[value="orange"]) {
+          --combat-set-option-bg: orange;
+          --combat-set-option-font-color: black;
+        }
+
+        &:has(input[value="white"]) {
+          --combat-set-option-bg: var(--ose-group-color-white);
+          --combat-set-option-font-color: black;
+        }
       }
     }
   }

@@ -59,7 +59,7 @@ export default class OseDataModelCharacterEncumbrance
   }
 
   get pct() {
-    return Math.clamped((100 * this.value) / this.max, 0, 100);
+    return Math.clamp((100 * this.value) / this.max, 0, 100);
   }
 
   get encumbered() {

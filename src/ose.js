@@ -18,7 +18,6 @@ import OseItem from "./module/item/entity";
 import OseItemSheet from "./module/item/item-sheet";
 
 import * as chat from "./module/helpers-chat";
-import OseCombat from "./module/combat";
 import OSE from "./module/config";
 import registerFVTTModuleAPIs from "./module/fvttModuleAPIs";
 import handlebarsHelpers from "./module/helpers-handlebars";
@@ -31,28 +30,57 @@ import registerSettings from "./module/settings";
 import * as treasure from "./module/helpers-treasure";
 
 import "./e2e";
+import polyfill from "./module/polyfill";
+
+// Combat
+import { OSEGroupCombat } from "./module/combat/combat-group";
+import { OSEGroupCombatant } from "./module/combat/combatant-group";
+import { OSECombat } from "./module/combat/combat";
+import { OSECombatant } from "./module/combat/combatant";
+import { OSECombatTab } from "./module/combat/sidebar";
+
+
+
+polyfill();
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
 /* -------------------------------------------- */
 
 Hooks.once("init", async () => {
-  /**
-   * Set an initiative formula for the system
-   *
-   * @type {string}
-   */
-  CONFIG.Combat.initiative = {
-    formula: "1d6 + @init",
-    decimals: 2,
-  };
+  // Give modules a chance to add encumbrance schemes
+  // They can do so by adding their encumbrance schemes
+  // to CONFIG.OSE.encumbranceOptions
+  Hooks.call("ose-setup-encumbrance");
 
   CONFIG.OSE = OSE;
 
+  // if (game.system.id === 'ose-dev') {
+    CONFIG.debug = {
+      ...CONFIG.debug,
+      combat: true,
+    }
+  // }
+
+  // Register custom system settings
+  registerSettings();
+
+  const isGroupInitiative = game.settings.get(game.system.id, "initiative") === "group";
+  if (isGroupInitiative) { 
+    CONFIG.Combat.documentClass = OSEGroupCombat;
+    CONFIG.Combatant.documentClass = OSEGroupCombatant;
+    CONFIG.Combat.initiative = { decimals: 2, formula: OSEGroupCombat.FORMULA }
+  } else {
+    CONFIG.Combat.documentClass = OSECombat;
+    CONFIG.Combatant.documentClass = OSECombatant;
+    CONFIG.Combat.initiative = { decimals: 2, formula: OSECombat.FORMULA }
+  }
+
+  CONFIG.ui.combat = OSECombatTab;
+  
   game.ose = {
     rollItemMacro: macros.rollItemMacro,
     rollTableMacro: macros.rollTableMacro,
-    oseCombat: OseCombat,
   };
 
   // Init Party Sheet handler
@@ -60,14 +88,6 @@ Hooks.once("init", async () => {
 
   // Custom Handlebars helpers
   handlebarsHelpers();
-
-  // Give modules a chance to add encumbrance schemes
-  // They can do so by adding their encumbrance schemes
-  // to CONFIG.OSE.encumbranceOptions
-  Hooks.call("ose-setup-encumbrance");
-
-  // Register custom system settings
-  registerSettings();
 
   // Register APIs of Foundry VTT Modules we explicitly support that provide custom hooks
   registerFVTTModuleAPIs();
@@ -173,21 +193,6 @@ Hooks.on("renderSidebarTab", async (object, html) => {
     });
   }
 });
-
-Hooks.on("preCreateCombatant", (combat, data, options, id) => {
-  const init = game.settings.get(game.system.id, "initiative");
-  if (init === "group") {
-    OseCombat.addCombatant(combat, data, options, id);
-  }
-});
-
-Hooks.on("updateCombatant", OseCombat.debounce(OseCombat.updateCombatant), 100);
-Hooks.on("renderCombatTracker", OseCombat.debounce(OseCombat.format, 100));
-Hooks.on("preUpdateCombat", OseCombat.preUpdateCombat);
-Hooks.on(
-  "getCombatTrackerEntryContext",
-  OseCombat.debounce(OseCombat.addContextEntry, 100)
-);
 
 Hooks.on("renderChatLog", (app, html) => OseItem.chatListeners(html));
 Hooks.on("getChatLogEntryContext", chat.addChatMessageContextOptions);

@@ -51,8 +51,8 @@ const registerHelpers = async () => {
 
   Handlebars.registerHelper("counter", (status, value, max) =>
     status
-      ? Math.clamped((100 * value) / max, 0, 100)
-      : Math.clamped(100 - (100 * value) / max, 0, 100)
+      ? Math.clamp((100 * value) / max, 0, 100)
+      : Math.clamp(100 - (100 * value) / max, 0, 100)
   );
 
   Handlebars.registerHelper("times", (n, block) => {
@@ -73,6 +73,11 @@ const registerHelpers = async () => {
   );
 
   Handlebars.registerHelper("ceil", (val) => Math.ceil(val));
+
+  Handlebars.registerHelper(
+    'partial', 
+    (path) => `${OSE.systemPath()}/templates/${path}`
+  )
 };
 
 export default registerHelpers;

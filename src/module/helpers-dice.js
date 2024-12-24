@@ -32,8 +32,8 @@ const OseDice = {
       parts.push(form.bonus.value);
     }
 
-    // ;
-    const roll = new Roll(parts.join("+"), data).evaluate({ async: false });
+    const roll = new Roll(parts.join("+"), data);
+    await roll.evaluate({allowStrings: true});
 
     // Convert the roll to a chat message and return the roll
     let rollMode = game.settings.get("core", "rollMode");
@@ -159,7 +159,7 @@ const OseDice = {
         break;
       }
 
-      default : {
+      default: {
         result.isSuccess = false;
         result.isFailure = false;
 
@@ -209,13 +209,13 @@ const OseDice = {
     result.target = data.roll.thac0;
     const targetActorData = data.roll.target?.actor?.system || null;
 
-    const targetAc = data.roll.target ? targetActorData.ac.value : 20;
-    const targetAac = data.roll.target ? targetActorData.aac.value : -20;
+    const targetAc = data.roll.target ? targetActorData.ac.value : 9;
+    const targetAac = data.roll.target ? targetActorData.aac.value : 10;
     result.victim = data.roll.target || null;
 
     if (game.settings.get(game.system.id, "ascendingAC")) {
       const attackBonus = 19 - data.roll.thac0;
-      if (this.attackIsSuccess(roll, targetAac, attackBonus)) {
+      if (this.attackIsSuccess(roll, targetAac, attackBonus) || result.victim == null) {
         result.details = game.i18n.format(
           "OSE.messages.AttackAscendingSuccess",
           {
@@ -232,9 +232,9 @@ const OseDice = {
         );
         result.isFailure = true;
       }
-    } else if (this.attackIsSuccess(roll, result.target, targetAc)) {
-      // Answer is bounded betweewn AC -3 and 9 (unarmored) and is shown in chat card
-      const value = Math.clamped(result.target - roll.total, -3, 9);
+    } else if (this.attackIsSuccess(roll, result.target, targetAc) || result.victim == null) {
+      // Show result in chat card
+      const value = result.target - roll.total;
       result.details = game.i18n.format("OSE.messages.AttackSuccess", {
         result: value,
         bonus: result.target,
@@ -302,10 +302,10 @@ const OseDice = {
     // Optionally include a situational bonus
     if (form !== null && form.bonus.value) parts.push(form.bonus.value);
 
-    const roll = new Roll(parts.join("+"), data).evaluate({ async: false });
-    const dmgRoll = new Roll(data.roll.dmg.join("+"), data).evaluate({
-      async: false,
-    });
+    const roll = new Roll(parts.join("+"), data);
+    await roll.evaluate();
+    const dmgRoll = new Roll(data.roll.dmg.join("+"), data);
+    await dmgRoll.evaluate();
 
     // Convert the roll to a chat message and return the roll
     let rollMode = game.settings.get("core", "rollMode");
@@ -421,16 +421,15 @@ const OseDice = {
           rolled = true;
           rollData.form = html[0].querySelector("form");
           rollData.parts.push(`${rollData.data.roll.magic}`);
-          rollData.title += ` ${game.i18n.localize("OSE.saves.magic.short")} (${
-            rollData.data.roll.magic
-          })`;
+          rollData.title += ` ${game.i18n.localize("OSE.saves.magic.short")} (${rollData.data.roll.magic
+            })`;
           roll = OseDice.sendRoll(rollData);
         },
       },
       cancel: {
         icon: '<i class="fas fa-times"></i>',
         label: game.i18n.localize("OSE.Cancel"),
-        callback: (html) => {},
+        callback: (html) => { },
       },
     };
 
@@ -501,7 +500,7 @@ const OseDice = {
       cancel: {
         icon: '<i class="fas fa-times"></i>',
         label: game.i18n.localize("OSE.Cancel"),
-        callback: (html) => {},
+        callback: (html) => { },
       },
     };
 

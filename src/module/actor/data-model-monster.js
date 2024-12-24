@@ -11,7 +11,7 @@ const getItemsOfActorOfType = (actor, filterType, filterFn = null) =>
     .filter(({ type }) => type === filterType)
     .filter(filterFn || (() => true));
 
-export default class OseDataModelMonster extends foundry.abstract.DataModel {
+export default class OseDataModelMonster extends foundry.abstract.TypeDataModel {
   prepareDerivedData() {
     this.encumbrance = new OseDataModelCharacterEncumbranceDisabled();
     this.spells = new OseDataModelCharacterSpells(this.spells, this.#spellList);
@@ -20,6 +20,30 @@ export default class OseDataModelMonster extends foundry.abstract.DataModel {
       this.config.movementAuto = false,
       this.movement.base
       );
+  }
+
+  /**
+   * @inheritdoc
+   */
+  static migrateData(source) {
+    this.#migrateMonsterLanguages(source);
+
+    return super.migrateData(source);
+  }
+
+  /**
+   * Use an empty array for system.languages.value
+   * in order to suppress Polyglot errors.
+   * 
+   * @param {OseDataModelMonster} source - Source data to migrate
+   */
+  static #migrateMonsterLanguages(source) {
+    const languages = source.languages ?? {};
+
+    // If languages.value isn't an iterable, use an empty array
+    if (typeof languages?.value?.[Symbol.iterator] !== "function") {
+      languages.value = [];
+    }
   }
 
   // @todo define schema options; stuff like min/max values and so on.

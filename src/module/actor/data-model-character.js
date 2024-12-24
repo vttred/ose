@@ -11,7 +11,7 @@ const getItemsOfActorOfType = (actor, filterType, filterFn = null) =>
     .filter(({ type }) => type === filterType)
     .filter(filterFn || (() => true));
 
-export default class OseDataModelCharacter extends foundry.abstract.DataModel {
+export default class OseDataModelCharacter extends foundry.abstract.TypeDataModel {
   prepareDerivedData() {
     this.scores = new OseDataModelCharacterScores(this.scores);
 
@@ -204,7 +204,7 @@ export default class OseDataModelCharacter extends foundry.abstract.DataModel {
   get isSlow() {
     return this.weapons.length === 0
       ? false
-      : this.weapons.every(
+      : this.weapons.some(
           (item) =>
             !(
               item.type !== "weapon" ||

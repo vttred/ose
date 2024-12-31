@@ -44,7 +44,6 @@ export default class OseDataModelCharacterEncumbrance
   constructor(
     variant = "disabled",
     max = OseDataModelCharacterEncumbrance.baseEncumbranceCap,
-    items = [] // eslint-disable-line @typescript-eslint/no-unused-vars
   ) {
     this.#encumbranceVariant = variant;
     this.#max = max;

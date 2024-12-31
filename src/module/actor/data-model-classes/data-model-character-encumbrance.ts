@@ -40,13 +40,10 @@ export default class OseDataModelCharacterEncumbrance
    * @param {string} variant - The name of this encumbrance variant.
    * @param {number} max - The max weight this character can carry
    * @param {Item[]} items - The items this character is carrying. Note: we're not using this in the base class.
-   * @param {number} strMod - The strength modifier for this character.
    */
   constructor(
     variant = "disabled",
     max = OseDataModelCharacterEncumbrance.baseEncumbranceCap,
-    items = [], // eslint-disable-line @typescript-eslint/no-unused-vars
-    strMod = 0
   ) {
     this.#encumbranceVariant = variant;
     this.#max = max;

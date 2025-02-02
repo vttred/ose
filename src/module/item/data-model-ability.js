@@ -3,7 +3,8 @@
  */
 import OseTags from "../helpers-tags";
 
-export default class OseDataModelAbility extends foundry.abstract.TypeDataModel {
+export default class OseDataModelAbility extends foundry.abstract
+  .TypeDataModel {
   static defineSchema() {
     const { StringField, NumberField, BooleanField, ArrayField, ObjectField } =
       foundry.data.fields;

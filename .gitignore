@@ -5,3 +5,5 @@ ose-dev.lock
 dist
 .DS_Store
 .env
+.foundrycache
+foundry.zip

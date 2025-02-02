@@ -101,6 +101,26 @@ export default class OseActor extends Actor {
     return this.system.isNew;
   }
 
+  /**
+   * assign more sane defaults to Actor
+   */
+  async _preCreate(data, options, user) {
+    await super._preCreate(data, options, user);
+    // If this Actor came from a Compendium, do not apply defaults.
+    const sourceId = this.getFlag("core", "sourceId");
+    if (sourceId?.startsWith("Compendium.")) return;
+
+    // Configure prototype token settings
+    const prototypeToken = {};
+    if (this.type === "character")
+      Object.assign(prototypeToken, {
+        // sight: { enabled: true }, // Vision -> Basic Configuration -> Vision Enable
+        actorLink: true, // Identity -> Link Actor Data
+        // disposition: 1, // Identity -> Token Disposition = "Friendly"
+      });
+    this.updateSource({ prototypeToken });
+  }
+
   generateSave(hd) {
     hd = hd.includes("+") ? parseInt(hd) + 1 : parseInt(hd);
 

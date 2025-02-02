@@ -152,6 +152,52 @@ export default ({
     });
   });
 
+  describe("_preCreate(data, options, user)", () => {
+    it("New character's prototypeToken actorLink defaults to true", async () => {
+      const actor = (await createMockActor("character")) as OseActor;
+      expect(actor.prototypeToken.actorLink).equal(true);
+    });
+    it("New monster's prototypeToken actorLink defaults to false", async () => {
+      const actor = (await createMockActor("monster")) as OseActor;
+      expect(actor.prototypeToken.actorLink).equal(false);
+    });
+    it("Character from compendium does not have defaults applied on import", async () => {
+      // Create Dummy Compendium
+      const compendiumData = {
+        name: `test-actors-ose-actor-entity`,
+        label: "Test Actors - ose-actor-entity",
+        system: "ose",
+        package: "ose",
+        type: "Actor",
+        path: "systems/ose/packs/test-actors-ose-actor-entity",
+        private: false,
+      };
+      const dummyCompendium = await CompendiumCollection.createCompendium(compendiumData);
+
+      // Create Dummy Actor (which has the temporary context to reduce mess)
+      const actorData = { name: `Test Actor ose.actor.entity`, type: "character" };
+      const actorContext = { temporary: true };
+      const dummyActor = await OseActor.create(actorData, actorContext);
+
+      // Import Dummy Actor into Dummy Compendium
+      const dummyActorInCompendium = await dummyCompendium.importDocument(dummyActor);
+
+      // Force Actor's prototypeToken.actorLink to false. As we created it, it would have received system defaults.
+      const prototypeToken = {};
+      Object.assign(prototypeToken, { actorLink: false });
+      await dummyActorInCompendium.updateSource({ prototypeToken });
+
+      // Import Dummy Compendium's Dummy Actor into world
+      const importedDummyActor = await game.actors.importFromCompendium(dummyCompendium, dummyActorInCompendium.id)
+
+      // Perform test
+      expect(importedDummyActor.prototypeToken.actorLink).equal(false);
+
+      // Clean up created dummy compendium, as quench doesn't want to.
+      dummyCompendium.deleteCompendium();
+    });
+  });
+
   describe("isNew()", () => {
     it("character", async () => {
       const actor = (await createMockActor("character")) as OseActor;

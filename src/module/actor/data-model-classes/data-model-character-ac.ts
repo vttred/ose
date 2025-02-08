@@ -48,10 +48,8 @@ export default class OseDataModelCharacterAC implements CharacterAC {
   }
 
   #getShieldBonus() {
-    return (
-      this.#armor.find(({ system: { type } }: Item) => type === "shield")
-        ?.system[this.#acProp].value || 0
-    );
+    return this.#armor.find(({ system: { type } }: Item) => type === "shield")
+      ?.system[this.#acProp].value;
   }
 
   /**

@@ -1,6 +1,7 @@
 /**
  * @file The data model for Actors of type Character.
  */
+import OseActiveEffectNumberField from "../document-field-active-effect-affected-number";
 import OseDataModelCharacterAC from "./data-model-classes/data-model-character-ac";
 import OseDataModelCharacterMove from "./data-model-classes/data-model-character-move";
 import OseDataModelCharacterScores from "./data-model-classes/data-model-character-scores";
@@ -11,7 +12,8 @@ const getItemsOfActorOfType = (actor, filterType, filterFn = null) =>
     .filter(({ type }) => type === filterType)
     .filter(filterFn || (() => true));
 
-export default class OseDataModelCharacter extends foundry.abstract.TypeDataModel {
+export default class OseDataModelCharacter extends foundry.abstract
+  .TypeDataModel {
   prepareDerivedData() {
     this.scores = new OseDataModelCharacterScores(this.scores);
 
@@ -83,13 +85,11 @@ export default class OseDataModelCharacter extends foundry.abstract.TypeDataMode
       thac0: new ObjectField(),
       languages: new ObjectField(),
       saves: new SchemaField({
-        breath: new SchemaField({ value: new NumberField({ integer: true }) }),
-        death: new SchemaField({ value: new NumberField({ integer: true }) }),
-        paralysis: new SchemaField({
-          value: new NumberField({ integer: true }),
-        }),
-        spell: new SchemaField({ value: new NumberField({ integer: true }) }),
-        wand: new SchemaField({ value: new NumberField({ integer: true }) }),
+        breath: new OseActiveEffectNumberField(),
+        death: new OseActiveEffectNumberField(),
+        paralysis: new OseActiveEffectNumberField(),
+        spell: new OseActiveEffectNumberField(),
+        wand: new OseActiveEffectNumberField(),
       }),
       exploration: new SchemaField({
         ft: new NumberField({ integer: true, positive: true }),

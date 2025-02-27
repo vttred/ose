@@ -9,13 +9,13 @@ export default class OseActiveEffectNumberField extends SchemaField {
     super(
       {
         value: new NumberField({ integer: true, positive: true }),
-        dynamic: new NumberField({ integer: true }),
+        bonus: new NumberField({ integer: true }),
       },
       options
     );
   }
 
   get total() {
-    return this.value + this.dynamic;
+    return this.value + this.bonus;
   }
 }

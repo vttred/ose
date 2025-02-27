@@ -173,6 +173,8 @@
   "OSE.category.languages": "Languages",
   "OSE.category.description": "Description",
   "OSE.category.equipment": "Equipment",
+  "OSE.category.itemData": "Item Data",
+  "OSE.category.activeEffects": "Active Effects",
 
   "OSE.Setting.Initiative": "Initiative",
   "OSE.Setting.InitiativeHint": "Grouped or individual initiative.",

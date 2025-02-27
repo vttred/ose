@@ -12,7 +12,6 @@
  */
 type IncomingScore = {
   value: number;
-  dynamic: number;
   bonus: number;
 };
 
@@ -132,20 +131,20 @@ export default class OseDataModelCharacterScores implements CharacterScores {
   }
 
   static #getTotal(score: IncomingScore): number {
-    return score.value + score.dynamic + score.bonus;
+    return score.value + score.bonus;
   }
 
-  #str: IncomingScore = { value: 0, bonus: 0, dynamic: 0 };
+  #str: IncomingScore = { value: 0, bonus: 0 };
 
-  #int: IncomingScore = { value: 0, bonus: 0, dynamic: 0 };
+  #int: IncomingScore = { value: 0, bonus: 0 };
 
-  #wis: IncomingScore = { value: 0, bonus: 0, dynamic: 0 };
+  #wis: IncomingScore = { value: 0, bonus: 0 };
 
-  #dex: IncomingScore = { value: 0, bonus: 0, dynamic: 0 };
+  #dex: IncomingScore = { value: 0, bonus: 0 };
 
-  #con: IncomingScore = { value: 0, bonus: 0, dynamic: 0 };
+  #con: IncomingScore = { value: 0, bonus: 0 };
 
-  #cha: IncomingScore = { value: 0, bonus: 0, dynamic: 0 };
+  #cha: IncomingScore = { value: 0, bonus: 0 };
 
   /**
    * The constructor
@@ -171,7 +170,6 @@ export default class OseDataModelCharacterScores implements CharacterScores {
     return {
       value: this.#str.value,
       bonus: this.#str.bonus,
-      dynamic: this.#str.dynamic,
       total: OseDataModelCharacterScores.#getTotal(this.#str),
       mod: this.#strMod,
       od: this.#strOpenDoorsMod,
@@ -203,7 +201,6 @@ export default class OseDataModelCharacterScores implements CharacterScores {
     return {
       value: this.#int.value,
       bonus: this.#int.bonus,
-      dynamic: this.#int.dynamic,
       total: OseDataModelCharacterScores.#getTotal(this.#int),
       mod: this.#intMod,
       literacy: this.#intLiteracyMod,
@@ -243,7 +240,6 @@ export default class OseDataModelCharacterScores implements CharacterScores {
     return {
       value: this.#wis.value,
       bonus: this.#wis.bonus,
-      dynamic: this.#wis.dynamic,
       total: OseDataModelCharacterScores.#getTotal(this.#wis),
       mod: this.#wisMod,
     };
@@ -267,7 +263,6 @@ export default class OseDataModelCharacterScores implements CharacterScores {
     return {
       value: this.#dex.value,
       bonus: this.#dex.bonus,
-      dynamic: this.#dex.dynamic,
       total: OseDataModelCharacterScores.#getTotal(this.#dex),
       mod: this.#dexMod,
       init: this.#dexInitMod,
@@ -299,7 +294,6 @@ export default class OseDataModelCharacterScores implements CharacterScores {
     return {
       value: this.#con.value,
       bonus: this.#con.bonus,
-      dynamic: this.#con.dynamic,
       total: OseDataModelCharacterScores.#getTotal(this.#con),
       mod: this.#conMod,
     };
@@ -323,7 +317,6 @@ export default class OseDataModelCharacterScores implements CharacterScores {
     return {
       value: this.#cha.value,
       bonus: this.#cha.bonus,
-      dynamic: this.#cha.dynamic,
       total: OseDataModelCharacterScores.#getTotal(this.#cha),
       mod: this.#chaMod,
       loyalty: this.#chaLoyaltyMod,

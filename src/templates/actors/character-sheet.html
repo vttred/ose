@@ -19,6 +19,9 @@
       {{localize "OSE.category.inventory"}}
     </a>
     <a class="item" data-tab="notes"> {{localize "OSE.category.notes"}} </a>
+    <a class="item" data-tab="active-effects">
+      {{localize "OSE.category.activeEffects"}}
+    </a>
   </nav>
   {{! Sheet Body }}
   <section class="sheet-body">
@@ -39,6 +42,9 @@
     </div>
     <div class="tab" data-group="primary" data-tab="notes">
       {{> (path "/templates/actors/partials/character-notes-tab.html") }}
+    </div>
+    <div class="tab" data-group="primary" data-tab="active-effects">
+      {{> (path "/templates/actors/partials/active-effects-tab.html") }}
     </div>
   </section>
 </form>

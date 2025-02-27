@@ -75,9 +75,30 @@ const registerHelpers = async () => {
   Handlebars.registerHelper("ceil", (val) => Math.ceil(val));
 
   Handlebars.registerHelper(
-    'partial', 
+    "partial",
     (path) => `${OSE.systemPath()}/templates/${path}`
-  )
+  );
+
+  Handlebars.registerHelper("dynamicvalue", (context, property) => {
+    if (context) {
+      return foundry.utils.getProperty(context, `${property}.value`);
+    }
+    return null;
+  });
+
+  Handlebars.registerHelper("dynamictotal", (context, property) => {
+    if (context) {
+      return foundry.utils.getProperty(context, `${property}.total`);
+    }
+    return null;
+  });
+
+  Handlebars.registerHelper("dynamicdetails", (context, property) => {
+    if (context) {
+      return foundry.utils.getProperty(context, `${property}.mod`);
+    }
+    return null;
+  });
 };
 
 export default registerHelpers;

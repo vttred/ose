@@ -1,0 +1,177 @@
+@import "./variables.scss";
+
+@keyframes notify {
+  from {
+    color: black;
+  }
+  to {
+    color: crimson;
+  }
+}
+
+.ose.sheet {
+  .sheet-tabs {
+    padding: 0; /* tab padding fix */
+    position: absolute;
+    transform: rotate(90deg);
+    top: 365px;
+    right: -169px;
+    width: 320px;
+    border-top: none;
+    height: 18px;
+    z-index: -1;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    .item {
+      max-height: 35px; /* tab padding fix */
+      padding: 1px 10px 0;
+      margin-left: -5px;
+      text-indent: 4px;
+      line-height: 16px;
+      background: url("/ui/parchment.jpg");
+      border-top-right-radius: 4px;
+      border-top-left-radius: 80px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+      box-shadow: 0 0 6px 1px $colorDark;
+      font-size: 12px;
+      filter: brightness(0.9);
+      &.active {
+        filter: none;
+        z-index: 1;
+        font-weight: bold;
+        text-shadow: none;
+        margin-bottom: -1px;
+      }
+    }
+  }
+  .active-effects {
+    .effect-category-title {
+      text-align: center;
+      padding: 4px 0;
+      border: 1px solid $colorDark;
+      box-shadow: 0 0 5px $colorDark;
+      line-height: 16px;
+      font-weight: 300;
+      font-size: 13px;
+      background: $darkBackground;
+      color: white;
+      cursor: pointer;
+      input {
+        color: white;
+        margin: auto;
+      }
+      .category-name {
+        text-indent: 8px;
+        text-align: left;
+        overflow: hidden;
+        margin: 0;
+        height: 16px;
+        flex-basis: 90px;
+      }
+    }
+    .effect-controls {
+      font-size: 12px;
+      flex-basis: 50px;
+      flex-grow: 0;
+      text-align: right;
+      margin-right: 4px;
+      a:hover {
+        color: $colorCrimson;
+        text-shadow: 0 0 5px $colorFaint, 1px 0 5px $colorFaint,
+          0 1px 5px $colorFaint, 1px 1px 5px $colorFaint;
+      }
+    }
+    .effect-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      .effect-summary {
+        display: none;
+      }
+
+      .effect-description {
+        font-size: 13px;
+        padding: 0 4px;
+        line-height: 20px;
+        border-bottom: 1px solid $colorTan;
+        div > p {
+          padding: 0.5em 0;
+          margin: 0;
+        }
+      }
+      .effect-header {
+        @extend %header-field !optional;
+        padding: 0px;
+        margin-bottom: 0px;
+        height: 30px;
+
+        .effect-image {
+          flex-basis: 30px;
+          flex-grow: 0;
+          background-size: contain;
+          background-repeat: no-repeat;
+        }
+
+        .effect-name {
+          text-indent: 8px;
+          text-align: left;
+          overflow: hidden;
+          margin: 0;
+          line-height: 30px;
+          flex-basis: 90px;
+          cursor: pointer;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+      .effect-entry {
+        box-shadow: inset 1px 0 0 0 $colorTan;
+        line-height: 30px;
+        &:nth-child(even) {
+          .effect-header {
+            background: rgba(0, 0, 0, 0.1);
+          }
+        }
+      }
+    }
+
+    .field-flex {
+      flex: 1;
+      text-align: left;
+      font-size: 12px;
+      text-indent: 8px;
+    }
+    .field-longer {
+      text-indent: 8px;
+      text-align: left;
+      flex-basis: 90px;
+      font-size: 12px;
+    }
+    .field-long {
+      flex-basis: 65px;
+      flex-grow: 0;
+      text-align: center;
+      font-size: 12px;
+      &.memorize input {
+        border-bottom: none;
+        margin: 3px 0;
+      }
+    }
+    .field-short {
+      font-size: 12px;
+      flex-basis: 45px;
+      flex-grow: 0;
+      text-align: center;
+      &.quantity {
+        display: flex;
+        input {
+          margin: 3px 0;
+          border-bottom: none;
+        }
+      }
+    }
+  }
+}

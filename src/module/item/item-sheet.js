@@ -45,6 +45,7 @@ export default class OseItemSheet extends ItemSheet {
   async getData() {
     const { data } = super.getData();
     data.editable = this.document.sheet.isEditable;
+    data.owner = this.item.isOwner;
     data.config = {
       ...CONFIG.OSE,
       encumbrance: game.settings.get(game.system.id, "encumbranceOption"),
@@ -85,6 +86,29 @@ export default class OseItemSheet extends ItemSheet {
       this.object.update({ "system.missile": !this.object.system.missile });
     });
 
+    html.find("a.effect-create").click(() => {
+      this._onCreateEffect();
+    });
+
+    html.find("a.effect-edit").click((ev) => {
+      const li = ev.currentTarget.closest(".effect-entry");
+      const effect = this.item.effects.get(li.dataset.effectId);
+      effect.sheet.render(true);
+    });
+
+    html.find("a.effect-delete").click((ev) => {
+      const li = ev.currentTarget.closest(".effect-entry");
+      this.item.effects.get(li.dataset.effectId).delete();
+    });
+
     super.activateListeners(html);
+  }
+
+  /**
+   * Handle adding new Active Effects to an Item
+   */
+  _onCreateEffect() {
+    const activeEffect = getDocumentClass("ActiveEffect");
+    activeEffect.createDialog({}, { parent: this.item });
   }
 }

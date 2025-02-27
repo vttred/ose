@@ -1,0 +1,33 @@
+<section class="active-effects resizable" data-base-size="310">
+  <div id="active-effects" class="effect-category-title flexrow">
+    <div class="category-name">{{localize "OSE.category.activeEffects"}}</div>
+    <div class="effect-controls">
+      <a class="effect-control effect-create" title="{{localize 'OSE.Add'}}"
+        ><i class="fa fa-plus"></i
+      ></a>
+    </div>
+  </div>
+  <ol class="effect-list">
+    {{#each effects as |effect|}}
+    <li class="effect effect-entry" data-effect-id="{{effect._id}}">
+      <div class="effect-header flexrow">
+        <div
+          class="effect-image"
+          style="background-image: url({{effect.img}})"
+        ></div>
+        <h4 class="effect-name" title="{{effect.name}}">{{effect.name~}}</h4>
+        <div class="effect-controls">
+          {{#if @root.owner }}
+          <a class="effect-control effect-edit" title='{{localize "Edit"}}'>
+            <i class="fas fa-edit"></i>
+          </a>
+          <a class="effect-control effect-delete" title='{{localize "Delete"}}'>
+            <i class="fas fa-trash"></i>
+          </a>
+          {{/if}}
+        </div>
+      </div>
+    </li>
+    {{/each}}
+  </ol>
+</section>

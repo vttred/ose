@@ -7,8 +7,7 @@
                     <a>{{ localize "OSE.scores.str.short" }}</a>
                 </h4>
                 <div class="attribute-value">
-                    <input name="system.scores.str.value" type="text" value="{{system.scores.str.value}}" placeholder="0"
-                        data-dtype="Number" />
+                    {{> (path "/templates/actors/partials/lockable-input.html") field="system.scores.str" context=@root isLocked=isLocked }}
                 </div>
             </li>
             <li class="attribute ability-score" data-score="int">
@@ -16,8 +15,7 @@
                     <a>{{ localize "OSE.scores.int.short" }}</a>
                 </h4>
                 <div class="attribute-value">
-                    <input name="system.scores.int.value" type="text" value="{{system.scores.int.value}}" placeholder="0"
-                        data-dtype="Number" />
+                    {{> (path "/templates/actors/partials/lockable-input.html") field="system.scores.int" context=@root isLocked=isLocked }}
                 </div>
             </li>
             <li class="attribute ability-score" data-score="wis">
@@ -25,8 +23,7 @@
                     <a>{{ localize "OSE.scores.wis.short" }}</a>
                 </h4>
                 <div class="attribute-value">
-                    <input name="system.scores.wis.value" type="text" value="{{system.scores.wis.value}}" placeholder="0"
-                        data-dtype="Number" />
+                    {{> (path "/templates/actors/partials/lockable-input.html") field="system.scores.wis" context=@root isLocked=isLocked }}
                 </div>
             </li>
             <li class="attribute ability-score" data-score="dex">
@@ -34,8 +31,7 @@
                     <a>{{ localize "OSE.scores.dex.short" }}</a>
                 </h4>
                 <div class="attribute-value">
-                    <input name="system.scores.dex.value" type="text" value="{{system.scores.dex.value}}" placeholder="0"
-                        data-dtype="Number" />
+                    {{> (path "/templates/actors/partials/lockable-input.html") field="system.scores.dex" context=@root isLocked=isLocked }}
                 </div>
             </li>
             <li class="attribute ability-score" data-score="con">
@@ -43,8 +39,7 @@
                     <a>{{ localize "OSE.scores.con.short" }}</a>
                 </h4>
                 <div class="attribute-value">
-                    <input name="system.scores.con.value" type="text" value="{{system.scores.con.value}}" placeholder="0"
-                        data-dtype="Number" />
+                    {{> (path "/templates/actors/partials/lockable-input.html") field="system.scores.con" context=@root isLocked=isLocked }}
                 </div>
             </li>
             <li class="attribute ability-score" data-score="cha">
@@ -52,8 +47,7 @@
                     <a>{{ localize "OSE.scores.cha.short" }}</a>
                 </h4>
                 <div class="attribute-value">
-                    <input name="system.scores.cha.value" type="text" value="{{system.scores.cha.value}}" placeholder="0"
-                        data-dtype="Number" />
+                    {{> (path "/templates/actors/partials/lockable-input.html") field="system.scores.cha" context=@root isLocked=isLocked }}
                 </div>
             </li>
             {{#if system.retainer.enabled}}

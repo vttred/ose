@@ -5,6 +5,8 @@ import OSE from "./config";
 
 const preloadHandlebarsTemplates = async () => {
   const templatePaths = [
+    // Components
+    `${OSE.systemPath()}/templates/actors/partials/lockable-input.html`,
     // Character Sheets
     `${OSE.systemPath()}/templates/actors/character-sheet.html`,
     `${OSE.systemPath()}/templates/actors/monster-sheet.html`,
@@ -18,8 +20,11 @@ const preloadHandlebarsTemplates = async () => {
     `${OSE.systemPath()}/templates/actors/partials/character-notes-tab.html`,
     `${OSE.systemPath()}/templates/actors/partials/monster-header.html`,
     `${OSE.systemPath()}/templates/actors/partials/monster-attributes-tab.html`,
+    `${OSE.systemPath()}/templates/actors/partials/active-effects-tab.html`,
     // Item Display
     `${OSE.systemPath()}/templates/actors/partials/item-auto-tags-partial.html`,
+    // Item Sheet
+    `${OSE.systemPath()}/templates/items/partials/active-effects-tab.html`,
     // Party Sheet
     `${OSE.systemPath()}/templates/apps/party-sheet.html`,
     // `${OSE.systemPath()}/templates/apps/party-xp.html`,

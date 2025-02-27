@@ -1,0 +1,13 @@
+{{#if isLocked}}
+<h4 data-tooltip="{{dynamicdetails context field}}">
+  {{dynamictotal context field}}
+</h4>
+{{else}}
+<input
+  name="{{field}}.value"
+  type="text"
+  value="{{dynamicvalue context field}}"
+  placeholder="0"
+  data-dtype="Number"
+/>
+{{/if}}

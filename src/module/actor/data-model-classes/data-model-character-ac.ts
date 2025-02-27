@@ -8,6 +8,7 @@ interface CharacterAC {
   shield: number;
   value: number;
   mod: number;
+  bonus: number;
 }
 
 export default class OseDataModelCharacterAC implements CharacterAC {
@@ -29,6 +30,8 @@ export default class OseDataModelCharacterAC implements CharacterAC {
 
   #isAscending;
 
+  #bonus;
+
   /**
    * AC Constructor
    *
@@ -45,6 +48,7 @@ export default class OseDataModelCharacterAC implements CharacterAC {
     this.#acProp = this.#isAscending
       ? OseDataModelCharacterAC.propAscending
       : OseDataModelCharacterAC.propDescending;
+    this.#bonus = 0;
   }
 
   #getShieldBonus() {
@@ -109,8 +113,8 @@ export default class OseDataModelCharacterAC implements CharacterAC {
   get value() {
     const base = this.#armored === null ? this.naked : this.#armored;
     return this.#isAscending
-      ? base + this.shield + this.mod
-      : base - this.shield - this.mod;
+      ? base + this.shield + this.mod + this.#bonus
+      : base - this.shield - this.mod - this.#bonus;
   }
 
   // @TODO This will need to be editable once we get to creatures
@@ -128,5 +132,13 @@ export default class OseDataModelCharacterAC implements CharacterAC {
 
   set mod(change) {
     this.#mod = change;
+  }
+
+  get bonus() {
+    return this.#bonus;
+  }
+
+  set bonus(change) {
+    this.#bonus = change;
   }
 }

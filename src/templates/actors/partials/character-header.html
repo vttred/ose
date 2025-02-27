@@ -1,7 +1,15 @@
 <div class="profile">
   <img class="profile-img" src="{{img}}" data-edit="img" title="{{name}}" />
   <div class="modifiers-btn">
-    {{#unless isNew}}
+    {{#unless isLocked}}
+    <a data-action="lock-unlock" title="{{localize 'OSE.Unlock'}}"
+      ><i class="fas fa-lock-open"></i
+    ></a>
+    {{else}}
+    <a data-action="lock-unlock" title="{{localize 'OSE.Lock'}}"
+      ><i class="fas fa-lock"></i
+    ></a>
+    {{/unless}} {{#unless isNew}}
     <a data-action="modifiers" title="{{localize 'OSE.Modifiers'}}"
       ><i class="fas fa-book"></i
     ></a>

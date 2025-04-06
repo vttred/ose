@@ -29,7 +29,7 @@ const preloadHandlebarsTemplates = async () => {
     `${OSE.systemPath()}/templates/sidebar/combat-tracker-combatant-group.hbs`,
     `${OSE.systemPath()}/templates/apps/combat-set-groups.hbs`,
   ];
-  return loadTemplates(templatePaths);
+  return foundry.applications.handlebars.loadTemplates(templatePaths);
 };
 
 export default preloadHandlebarsTemplates;

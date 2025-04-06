@@ -107,23 +107,41 @@ Hooks.once("init", async () => {
   };
 
   // Register sheet application classes
-  Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet(game.system.id, OseActorSheetCharacter, {
-    types: ["character"],
-    makeDefault: true,
-    label: "OSE.SheetClassCharacter",
-  });
-  Actors.registerSheet(game.system.id, OseActorSheetMonster, {
-    types: ["monster"],
-    makeDefault: true,
-    label: "OSE.SheetClassMonster",
-  });
+  foundry.documents.collections.Actors.unregisterSheet(
+    "core",
+    foundry.appv1.sheets.ActorSheet
+  );
+  foundry.documents.collections.Actors.registerSheet(
+    game.system.id,
+    OseActorSheetCharacter,
+    {
+      types: ["character"],
+      makeDefault: true,
+      label: "OSE.SheetClassCharacter",
+    }
+  );
+  foundry.documents.collections.Actors.registerSheet(
+    game.system.id,
+    OseActorSheetMonster,
+    {
+      types: ["monster"],
+      makeDefault: true,
+      label: "OSE.SheetClassMonster",
+    }
+  );
 
-  Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet(game.system.id, OseItemSheet, {
-    makeDefault: true,
-    label: "OSE.SheetClassItem",
-  });
+  foundry.documents.collections.Items.unregisterSheet(
+    "core",
+    foundry.appv1.sheets.ItemSheet
+  );
+  foundry.documents.collections.Items.registerSheet(
+    game.system.id,
+    OseItemSheet,
+    {
+      makeDefault: true,
+      label: "OSE.SheetClassItem",
+    }
+  );
 
   await templates();
 });
@@ -194,7 +212,7 @@ Hooks.on("renderSidebarTab", async (object, html) => {
 
 Hooks.on("renderChatLog", (app, html) => OseItem.chatListeners(html));
 Hooks.on("getChatLogEntryContext", chat.addChatMessageContextOptions);
-Hooks.on("renderChatMessage", chat.addChatMessageButtons);
+Hooks.on("renderChatMessageHTML", chat.addChatMessageButtons);
 Hooks.on("renderRollTableConfig", treasure.augmentTable);
 Hooks.on("updateActor", party.update);
 

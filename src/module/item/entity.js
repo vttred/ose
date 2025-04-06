@@ -59,8 +59,15 @@ export default class OseItem extends Item {
   }
 
   static chatListeners(html) {
-    html.onclick(".card-buttons button", this._onChatCardAction.bind(this));
-    html.onclick(".item-name", this._onChatCardToggleContent.bind(this));
+    html.querySelectorAll(".card-buttons button").forEach((button) => {
+      button.addEventListener("click", this._onChatCardAction.bind(this));
+    });
+    html.querySelectorAll(".item-name").forEach((header) => {
+      header.addEventListener(
+        "click",
+        this._onChatCardToggleContent.bind(this)
+      );
+    });
   }
 
   async getChatData(htmlOptions) {

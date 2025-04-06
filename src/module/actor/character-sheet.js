@@ -46,7 +46,7 @@ export default class OseActorSheetCharacter extends OseActorSheet {
       treasures: this.actor.system.treasures,
       containers: this.actor.system.containers,
     };
-    data.treasure = this.actor.system.carriedTreasure,
+    data.treasure = this.actor.system.carriedTreasure;
     data.containers = this.actor.system.containers;
     data.abilities = this.actor.system.abilities;
     data.spells = this.actor.system.spells.spellList;
@@ -80,7 +80,7 @@ export default class OseActorSheetCharacter extends OseActorSheet {
    */
   async getData() {
     const data = super.getData();
-    
+
     // Prepare owned items
     this._prepareItems(data);
 
@@ -242,7 +242,6 @@ export default class OseActorSheetCharacter extends OseActorSheet {
           equipped: !item.system.equipped,
         },
       });
-
     });
 
     html.find("a[data-action='generate-scores']").click((ev) => {

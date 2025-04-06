@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# if ---upgrade is passed as an argument, remove old .foundryvtt directory
+if [ "$1" == "--upgrade" ]; then
+    echo "Removing old .foundryvtt directory"
+    rm -rf /home/node/.foundryvtt
+fi
+
 if [ ! -d "/home/node/.foundryvtt" ]; then
     # Check if there is a .foundrycache folder in the workspace and it has at least one file
     if [ -d "/workspaces/ose/.foundrycache" ] && [ "$(ls -A /workspaces/ose/.foundrycache)" ]; then
@@ -26,4 +32,8 @@ if [ ! -d "/home/node/.foundryvtt" ]; then
     mkdir -p /home/node/.foundrydata/Data/systems
 fi
 
-ln -s /workspaces/ose /home/node/.foundrydata/Data/systems/ose-dev
+if [ ! -d "/home/node/.foundrydata/Data/systems/ose-dev" ]; then
+    echo "Creating symlink to /workspaces/ose in /home/node/.foundrydata/Data/systems"
+    # Create a symlink to the workspace in the .foundrydata directory
+    ln -s /workspaces/ose /home/node/.foundrydata/Data/systems/ose-dev
+fi

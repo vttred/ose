@@ -19,7 +19,7 @@
             "type": "node",
             "request": "launch",
             "name": "Launch FoundryVTT",
-            "program": "/home/node/.foundryvtt/resources/app/main.js",
+            "program": "/home/node/.foundryvtt/main.js",
             "args": [
                 "--dataPath=/home/node/.foundrydata"
             ],

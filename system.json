@@ -8,8 +8,8 @@
   "compatibleCoreVersion": "12",
   "compatibility": {
     "minimum": "12",
-    "verified": "12",
-    "maximum": "12"
+    "verified": "13",
+    "maximum": "13"
   },
   "author": "Maintained by VTT Red with 18 contributors",
   "authors": [

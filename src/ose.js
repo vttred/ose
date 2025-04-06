@@ -17,29 +17,26 @@ import OseDataModelWeapon from "./module/item/data-model-weapon";
 import OseItem from "./module/item/entity";
 import OseItemSheet from "./module/item/item-sheet";
 
-import * as chat from "./module/helpers-chat";
+import { OSECombat } from "./module/combat/combat";
+// Combat
+import { OSEGroupCombat } from "./module/combat/combat-group";
+import { OSECombatant } from "./module/combat/combatant";
+import { OSEGroupCombatant } from "./module/combat/combatant-group";
+import { OSECombatTab } from "./module/combat/sidebar";
 import OSE from "./module/config";
 import registerFVTTModuleAPIs from "./module/fvttModuleAPIs";
+import * as chat from "./module/helpers-chat";
 import handlebarsHelpers from "./module/helpers-handlebars";
 import * as macros from "./module/helpers-macros";
 import * as party from "./module/helpers-party";
+import * as treasure from "./module/helpers-treasure";
 import OsePartySheet from "./module/party/party-sheet";
+import polyfill from "./module/polyfill";
 import templates from "./module/preloadTemplates";
 import * as renderList from "./module/renderList";
 import registerSettings from "./module/settings";
-import * as treasure from "./module/helpers-treasure";
 
 import "./e2e";
-import polyfill from "./module/polyfill";
-
-// Combat
-import { OSEGroupCombat } from "./module/combat/combat-group";
-import { OSEGroupCombatant } from "./module/combat/combatant-group";
-import { OSECombat } from "./module/combat/combat";
-import { OSECombatant } from "./module/combat/combatant";
-import { OSECombatTab } from "./module/combat/sidebar";
-
-
 
 polyfill();
 
@@ -56,28 +53,29 @@ Hooks.once("init", async () => {
   CONFIG.OSE = OSE;
 
   // if (game.system.id === 'ose-dev') {
-    CONFIG.debug = {
-      ...CONFIG.debug,
-      combat: true,
-    }
+  CONFIG.debug = {
+    ...CONFIG.debug,
+    combat: true,
+  };
   // }
 
   // Register custom system settings
   registerSettings();
 
-  const isGroupInitiative = game.settings.get(game.system.id, "initiative") === "group";
-  if (isGroupInitiative) { 
+  const isGroupInitiative =
+    game.settings.get(game.system.id, "initiative") === "group";
+  if (isGroupInitiative) {
     CONFIG.Combat.documentClass = OSEGroupCombat;
     CONFIG.Combatant.documentClass = OSEGroupCombatant;
-    CONFIG.Combat.initiative = { decimals: 2, formula: OSEGroupCombat.FORMULA }
+    CONFIG.Combat.initiative = { decimals: 2, formula: OSEGroupCombat.FORMULA };
   } else {
     CONFIG.Combat.documentClass = OSECombat;
     CONFIG.Combatant.documentClass = OSECombatant;
-    CONFIG.Combat.initiative = { decimals: 2, formula: OSECombat.FORMULA }
+    CONFIG.Combat.initiative = { decimals: 2, formula: OSECombat.FORMULA };
   }
 
   CONFIG.ui.combat = OSECombatTab;
-  
+
   game.ose = {
     rollItemMacro: macros.rollItemMacro,
     rollTableMacro: macros.rollTableMacro,
@@ -95,11 +93,11 @@ Hooks.once("init", async () => {
   CONFIG.Actor.documentClass = OseActor;
   CONFIG.Item.documentClass = OseItem;
 
-  CONFIG.Actor.systemDataModels = {
+  CONFIG.Actor.dataModels = {
     character: OseDataModelCharacter,
     monster: OseDataModelMonster,
   };
-  CONFIG.Item.systemDataModels = {
+  CONFIG.Item.dataModels = {
     weapon: OseDataModelWeapon,
     armor: OseDataModelArmor,
     item: OseDataModelItem,
